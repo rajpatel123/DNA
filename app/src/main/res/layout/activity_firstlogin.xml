@@ -15,8 +15,8 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25sp"
         android:layout_marginTop="30sp"
-        >
 
+        >
         <LinearLayout
             android:gravity="center"
             android:orientation="vertical"
@@ -81,6 +81,7 @@
 
 
             <TextView
+                android:id="@+id/FirstLoginText"
                 android:paddingBottom="5dp"
                 android:paddingRight="5dp"
 

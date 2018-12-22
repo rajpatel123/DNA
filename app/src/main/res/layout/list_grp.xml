@@ -6,8 +6,6 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="20dp"
     android:layout_marginBottom="10dp"
-
-
   android:background="@drawable/buttonlogin"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content">

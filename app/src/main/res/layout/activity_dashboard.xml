@@ -31,6 +31,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearNeet_Pg"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -72,6 +73,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linearNeet_Ss"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -117,6 +119,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearToday_Update"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -161,6 +164,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearLive_online"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -205,6 +209,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearShopping"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -248,6 +253,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearText_Series"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -292,6 +298,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearMbbs_prof"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -337,7 +344,7 @@
 
 
                 <LinearLayout
-
+                    android:id="@+id/linearNeet_Ug"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -383,6 +390,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearFeedback"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -418,6 +426,7 @@
 
                 <LinearLayout
 
+                    android:id="@+id/linearContact"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
