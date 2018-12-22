@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MedicalApp</string>
+
+    <string name="loginText">Lorem ipsum dolor sit amet, consectetur</string>
+
+    <string name="loginbottomText"></string>
+
+    <string name="paymenttext">
+
+        <br>
+            After paying\n</br>
+        <br>
+            your will be able to\n</br>
+
+        <br>
+            see this video \n</br>
+
+
+
+
+    </string>
+</resources>

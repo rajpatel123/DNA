@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.TheorybookActivity">
+
+    <RelativeLayout
+        android:id="@+id/relative_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkwhite"
+        >
+        <TextView
+            android:paddingBottom="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shoppings/Theory Books"
+            android:textSize="20dp"
+            android:textColor="@color/orange"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <RelativeLayout
+
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnOrderPreserved="false"
+                android:alignmentMode="alignMargins"
+                android:rowCount="3"
+                android:columnCount="2">
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professor Name"
+                        android:textColor="@color/Black"
+                        />
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Read Online"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/orange"
+                        android:background="@drawable/whitebutton"
+                        />
+
+                    <Button
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/orangebutton"
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+            </GridLayout>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:orientation="vertical"
+    tools:context=".Activities.DashboardActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <RelativeLayout
+
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnOrderPreserved="false"
+                android:alignmentMode="alignMargins"
+                android:rowCount="3"
+                android:columnCount="2">
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="NEET- PG"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MD/ MS/ DNB"
+                        android:textColor="@color/Black"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="NEET- SS"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DM/ M.CH"
+                        android:textColor="@color/Black"
+                        />
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Today Update"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Exam/ Question"
+                        android:textColor="@color/Black"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Live Online"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tutorial"
+                        android:textColor="@color/Black"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Shopping"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Books/ SRP Class"
+                        android:textColor="@color/Black"
+                        />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Text Series"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Login"
+                        android:textColor="@color/Black"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="MBBS PROF."
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="University Exam"
+                        android:textColor="@color/Black"
+                        />
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="NEEt- UG"
+                        android:textColor="@color/orange"
+                        />
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AIPMT Exam"
+                        android:textColor="@color/Black"
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Feedback"
+                        android:textColor="@color/orange"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+
+                    android:layout_margin="10dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:background="@drawable/cardview_border"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+
+                    android:layout_width="100dp"
+                    android:layout_height="120dp">
+
+
+                    <TextView
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Contact us"
+                        android:textColor="@color/orange"
+                        />
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+            </GridLayout>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+
+</LinearLayout>
