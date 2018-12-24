@@ -44,6 +44,7 @@
 
 
             <Button
+                android:id="@+id/mcqBooks"
                 android:textStyle="bold"
                 android:paddingTop="5dp"
                 android:paddingLeft="5dp"
@@ -58,6 +59,7 @@
                 android:background="@drawable/buttonlogin"/>
 
             <Button
+                android:id="@+id/theory_books"
                 android:layout_marginTop="25dp"
                 android:paddingTop="5dp"
                 android:paddingLeft="5dp"
@@ -74,6 +76,7 @@
 
 
             <Button
+                android:id="@+id/f2fClasses"
                 android:textStyle="bold"
                 android:layout_marginTop="25sp"
                 android:paddingTop="5dp"

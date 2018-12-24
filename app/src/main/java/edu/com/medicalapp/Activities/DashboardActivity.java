@@ -5,30 +5,58 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import edu.com.medicalapp.R;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
 
+          @BindView(R.id.linearNeet_Ug)
+          LinearLayout linearNeet_ug;
+
+           @BindView(R.id.linearNeet_Pg)
+           LinearLayout linearNeet_pg;
 
 
-    private LinearLayout linearNeet_pg, linearNeet_ss, linear_update, linearLive_Online, linearShopping,linearTextSeries,linearMbbsprof,linearNeet_ug
-            ,linearFeedback,linearContact;
+           @BindView(R.id.linearNeet_Ss)
+          LinearLayout linearNeet_ss;
+
+          @BindView(R.id.linearToday_Update)
+           LinearLayout linear_update;
+
+          @BindView(R.id.linearShopping)
+         LinearLayout linearshopping;
+
+
+
+         @BindView(R.id.linearText_Series)
+         LinearLayout linearTextSeries;
+
+         @BindView(R.id.linearLive_online)
+         LinearLayout linearLive_Online;
+
+         @BindView(R.id.linearMbbs_prof)
+         LinearLayout linearMbbsprof;
+
+
+
+         @BindView(R.id.linearFeedback)
+         LinearLayout linearFeedback;
+
+
+        @BindView(R.id.linearContact)
+         LinearLayout linearContact;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        ButterKnife.bind(this);
 
-        linearNeet_pg=findViewById(R.id.linearNeet_Pg);
-        linearNeet_ss=findViewById(R.id.linearNeet_Ss);
-        linearNeet_ug=findViewById(R.id.linearNeet_Ug);
-        linear_update=findViewById(R.id.linearToday_Update);
-        linearLive_Online=findViewById(R.id.linearLive_online);
-        linearShopping=findViewById(R.id.linearShopping);
-        linearContact=findViewById(R.id.linearContact);
-        linearFeedback=findViewById(R.id.linearFeedback);
-        linearTextSeries=findViewById(R.id.linearText_Series);
-        linearMbbsprof=findViewById(R.id.linearMbbs_prof);
+
 
         linearTextSeries.setOnClickListener(this);
         linearNeet_pg.setOnClickListener(this);
@@ -37,7 +65,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         linear_update.setOnClickListener(this);
         linearFeedback.setOnClickListener(this);
         linearContact.setOnClickListener(this);
-        linearShopping.setOnClickListener(this);
+        linearshopping.setOnClickListener(this);
         linearMbbsprof.setOnClickListener(this);
         linearLive_Online.setOnClickListener(this);
     }
@@ -68,13 +96,26 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
 
 
-
             case R.id.linearLive_online:
-              //  startActivity(new Intent(DashboardActivity.this,mbbsprofActivity.class));
+                Toast.makeText(this,getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linearContact:
+                Toast.makeText(this,getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linearFeedback:
+                Toast.makeText(this,getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linearText_Series:
+                Toast.makeText(this,getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 break;
 
 
-
+            case R.id.linearToday_Update:
+                Toast.makeText(this,getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                break;
 
         }
 

@@ -2,6 +2,7 @@ package edu.com.medicalapp.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
@@ -31,7 +32,32 @@ public class neetSSActivity extends AppCompatActivity {
         initData();
         listAdapter=new ExpandableListAdapter(this,listDataheader,listHashMap);
         listView.setAdapter(listAdapter);
+        if (getSupportActionBar() != null) {
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+
+
+
+
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id=item.getItemId();
+        if(id==R.id.home)
+        {
+            finish();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     private void initData() {
 

@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.com.medicalapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/dnalogo"
@@ -12,7 +12,8 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.SplashActivity"
+        <activity
+            android:name=".Activities.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,21 +21,53 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.FirstloginActivity" />
-        <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.RegistrationActivity" />
-        <activity android:name=".Activities.ShoppingActivity" />
-        <activity android:name=".Activities.TheorybookActivity" />
-        <activity android:name=".Activities.DashboardActivity" />
-        <activity android:name=".Activities.mbbsprofActivity" />
-        <activity android:name=".Activities.neetUgActivity" />
-        <activity android:name=".Activities.neetPgActivity" />
-        <activity android:name=".Activities.neetSSActivity" />
-        <activity android:name=".Activities.PaymentActivity" />
-        <activity android:name=".Activities.PhoneloginActivity" />
-        <activity android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.TodayupdateActivity" />
-        <activity android:name=".Activities.StartActivity"></activity>
+        <activity android:name=".Activities.FirstloginActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.FirstloginActivity"/>
+
+        <activity android:name=".Activities.RegistrationActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.FirstloginActivity"/>
+
+        <activity android:name=".Activities.ShoppingActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.DashboardActivity"/>
+        <activity android:name=".Activities.TheorybookActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.ShoppingActivity"/>
+        <activity android:name=".Activities.DashboardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.mbbsprofActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.DashboardActivity"/>
+        <activity android:name=".Activities.neetUgActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.DashboardActivity"/>
+        <activity android:name=".Activities.neetPgActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.DashboardActivity"/>
+        <activity android:name=".Activities.neetSSActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.DashboardActivity"/>
+        <activity android:name=".Activities.PaymentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.PhoneloginActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.FirstloginActivity"/>
+        <activity android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.TodayupdateActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.DashboardActivity"/>
+        <activity android:name=".Activities.StartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.VedioClassesActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>
