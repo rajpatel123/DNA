@@ -1,85 +1,90 @@
 package edu.com.medicalapp.Activities;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.BindView;
 import edu.com.medicalapp.Adapters.ExpandableListAdapter;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.fragment.HomeFragment;
+import edu.com.medicalapp.fragment.OnlineFragment;
+import edu.com.medicalapp.fragment.QbankFragment;
+import edu.com.medicalapp.fragment.TextFragment;
+import edu.com.medicalapp.fragment.videoFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.bottom_navigationBar)
+    BottomNavigationView bottomNavigationView;
 
-    private ExpandableListAdapter listAdapter;
-    private ExpandableListView listView;
-    private List<String> listDataheader;
-    private HashMap<String,List<String>> listHashMap;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_neet_ug);
-
-
-        listView=findViewById(R.id.list_view);
-        initData();
-        listAdapter=new ExpandableListAdapter(this,listDataheader,listHashMap);
-        listView.setAdapter(listAdapter);
-
-    }
-
-    private void initData() {
-
-        listDataheader=new ArrayList<>();
-        listHashMap=new HashMap<>();
-
-
-        listDataheader.add("Rishab");
-        listDataheader.add("Ramam");
-        listDataheader.add("Rah");
-        listDataheader.add("Ris");
+        setContentView(R.layout.activity_main);
+        //setSupportActionBar(toolbar);
 
 
 
-        List<String> emd=new ArrayList<>();
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigationBar);
 
-        emd.add("This is expandable list");
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-
-
-        List<String> android=new ArrayList<>();
-        android.add("Expandable ListView");
-        android.add("Google Map");
-        android.add("Angrej");
-        android.add("Expandable ");
-
-
-
-        List<String> listing=new ArrayList<>();
-        listing.add("Expandable ListView listing");
-        listing.add("Google Map listing");
-        listing.add("Angrej listing");
-        listing.add("Expandable listing");
-
-
-
-        List<String> listing1=new ArrayList<>();
-        listing1.add("Expandable ListView listing1");
-        listing1.add("Google Map listing1");
-        listing1.add("Angrej listing1");
-        listing1.add("Expandable listing1");
-
-
-
-        listHashMap.put(listDataheader.get(0),emd);
-        listHashMap.put(listDataheader.get(1),android);
-        listHashMap.put(listDataheader.get(2),listing);
-        listHashMap.put(listDataheader.get(3),listing1);
-
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,new HomeFragment()).commit();
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            Fragment selectedFragment=null;
+            switch (menuItem.getItemId())
+            {
+                case R.id.nav_home:
+                    selectedFragment=new HomeFragment();
+                     break;
+
+
+                case R.id.nav_video:
+                    selectedFragment=new videoFragment();
+                    break;
+
+
+                case R.id.nav_qbank:
+                    selectedFragment=new QbankFragment();
+                    break;
+
+                case R.id.nav_text:
+                    selectedFragment=new TextFragment();
+                    break;
+
+                case R.id.nav_online:
+                    selectedFragment=new OnlineFragment();
+                    break;
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,
+                    selectedFragment).commit();
+
+
+            return true;
+
+
+
+        }
+    };
+
+
 }

@@ -42,6 +42,7 @@
                 />
 
             <EditText
+                android:id="@+id/edit_email"
                 android:drawableLeft="@drawable/email"
                 android:drawablePadding="8dp"
                 android:inputType="textEmailAddress"
@@ -59,6 +60,8 @@
                 android:hint="Email ID"/>
 
             <EditText
+
+                android:id="@+id/edit_Passwword"
                 android:drawableLeft="@drawable/password"
                 android:drawablePadding="8dp"
                 android:inputType="textPassword"
@@ -137,22 +140,17 @@
                 android:layout_height="wrap_content"
                 android:text="Log In"/>
 
-            <Button
-                android:id="@+id/loginFacebook"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
 
-                android:paddingLeft="5dp"
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:textAllCaps="false"
-                android:background="@drawable/buttonlogin"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign in with Facebook"
-                android:layout_marginBottom="30dp"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp" />
 
 
 

@@ -32,26 +32,9 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".Activities.FirstloginActivity"/>
 
-        <activity android:name=".Activities.ShoppingActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.DashboardActivity"/>
         <activity android:name=".Activities.TheorybookActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.ShoppingActivity"/>
-        <activity android:name=".Activities.DashboardActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.mbbsprofActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.DashboardActivity"/>
-        <activity android:name=".Activities.neetUgActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.DashboardActivity"/>
-        <activity android:name=".Activities.neetPgActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.DashboardActivity"/>
-        <activity android:name=".Activities.neetSSActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.DashboardActivity"/>
+            />
         <activity android:name=".Activities.PaymentActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.PhoneloginActivity"
@@ -59,15 +42,14 @@
             android:parentActivityName=".Activities.FirstloginActivity"/>
         <activity android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.TodayupdateActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.DashboardActivity"/>
-        <activity android:name=".Activities.StartActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.VedioClassesActivity"
             android:screenOrientation="portrait">
 
         </activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+
     </application>
 
 </manifest>

@@ -9,6 +9,11 @@
     <color name="orange">#f37636</color>
     <color name="skyblue">#FF393FF2</color>
     <color name="darkwhite">#e9e9f1</color>
+    <color name="home">#f6ece9</color>
+    <color name="homebackground">#fafafa</color>
+    <color name="vediobackground">#fef1eb</color>
+    <color name="vedioborder">#eeeae8</color>
+    <color name="vediobordertextcolor">#d0c5c1</color>
 
 
     <color name="white">#FFFFFF</color>

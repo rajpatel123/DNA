@@ -5,6 +5,8 @@
 
     <string name="loginbottomText"></string>
 
+    <string name="facebook_app_id">1815657995211587</string>
+
     <string name="paymenttext">
 
         <br>
@@ -21,4 +23,10 @@
     </string>
     <string name="registerd_success">your Email registerd Successfully</string>
     <string name="coming_soon">Coming Soon</string>
+    <string name="login_cancel">Login Cancelled!!!</string>
+    <string name="empty_field">Field can\'t be empty!!!</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="fill_detail">Fill the complete details!!!!</string>
+    <string name="full_number">Enter 10 digit Number!!!</string>
+    <string name="too_short">Password is too short!!!</string>
 </resources>

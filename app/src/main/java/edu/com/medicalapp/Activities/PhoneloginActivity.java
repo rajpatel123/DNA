@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,7 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phonelogin);
         ButterKnife.bind(this);
+        edit_phone.setOnClickListener(this);
         btnContinue.setOnClickListener(this);
         tryOtherLogin.setOnClickListener(this);
 
@@ -61,14 +63,53 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId())
         {
             case R.id.btn_continue:
-                startActivity(new Intent(PhoneloginActivity.this,DashboardActivity.class));
+                validation();
+
                 break;
 
 
             case R.id.try_login:
                 startActivity(new Intent(PhoneloginActivity.this,LoginActivity.class));
                 break;
+
+
+            case R.id.edittext_phone:
+                startActivity(new Intent(PhoneloginActivity.this,MainActivity.class));
+
+                break;
         }
+
+    }
+
+    private void validation() {
+
+          boolean check=true;
+         String Phone=edit_phone.getText().toString().trim();
+
+         if(Phone.isEmpty())
+         {
+             edit_phone.setError(getString(R.string.empty_field));
+             check=false;
+         }
+
+         if(Phone.length()!=10)
+         {
+
+             edit_phone.setError(getString(R.string.full_number));
+             check=false;
+         }
+
+         if(check==true)
+         {
+             Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
+         }
+         else
+         {
+             Toast.makeText(this, "Fill Right Detail", Toast.LENGTH_SHORT).show();
+         }
+
+
+
 
     }
 }
