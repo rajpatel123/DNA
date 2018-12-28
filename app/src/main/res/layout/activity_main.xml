@@ -7,15 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".Activities.MainActivity">
 
-
-    <FrameLayout
-        android:id="@+id/fraigment_container"
-        android:layout_above="@id/bottom_navigationBar"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <include
+
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
-    </FrameLayout>
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            app:itemTextColor="@color/orange"
+            app:itemIconTint="@color/orange"
+            app:itemTextAppearance="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/header_nav"
+            app:menu="@menu/header_navigation" />
+
+
+
+
+    </android.support.v4.widget.DrawerLayout>
+
 
     <android.support.design.widget.BottomNavigationView
 
@@ -31,26 +53,6 @@
         android:scrollbars="horizontal"
         >
     </android.support.design.widget.BottomNavigationView>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
-
-    <android.support.design.widget.NavigationView
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/header_nav"
-        app:menu="@menu/header_navigation">
-
-
-
-    </android.support.design.widget.NavigationView>
 
 
 

@@ -12,6 +12,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay"></style>
+
+    <style name="AppTheme.PopupOverlay"></style>
 
 
 </resources>

@@ -18,7 +18,7 @@ android {
         }
         debug {
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"https://uat.camtrack.com/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://18.223.97.148/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

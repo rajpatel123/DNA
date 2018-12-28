@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="192dp"
+    android:layout_height="100dp"
     android:background="?attr/colorPrimaryDark"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
-    android:gravity="bottom">
+ >
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_view"
+
+        />
+    <TextView
+
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_name"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
 
     <TextView
-        android:layout_width="match_parent"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My header title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:id="@+id/textview_email"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
+
+
+
+
 
 </LinearLayout>

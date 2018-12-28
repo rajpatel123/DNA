@@ -2,26 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+
+        android:iconTint="@color/orange"
         android:id="@+id/nav_home"
         android:icon="@drawable/homelogo"
 
         android:title="Home"/>
     <item
+        android:iconTint="@color/orange"
         android:id="@+id/nav_video"
 
         android:icon="@drawable/cameralogo"
 
         android:title="Video"/>
     <item
+        android:iconTint="@color/orange"
+
         android:id="@+id/nav_qbank"
         android:icon="@drawable/qm"
         android:title="QBank"/>
 
     <item
+
+        android:iconTint="@color/orange"
         android:id="@+id/nav_text"
         android:icon="@drawable/text"
         android:title="Text"/>
     <item
+        android:iconTint="@color/orange"
         android:id="@+id/nav_online"
         android:icon="@drawable/live"
         android:title="Online"/>

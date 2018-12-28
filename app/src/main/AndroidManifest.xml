@@ -41,7 +41,9 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".Activities.FirstloginActivity"/>
         <activity android:name=".Activities.MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+           />
         <activity android:name=".Activities.VedioClassesActivity"
             android:screenOrientation="portrait">
 

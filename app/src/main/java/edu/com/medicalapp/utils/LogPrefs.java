@@ -3,6 +3,8 @@ package edu.com.medicalapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.facebook.AccessToken;
+
 public class LogPrefs {
     private static final String KENT_SECURITY_PREFS = "HFCSecurity";
     private static SharedPreferences sharedPreferences;
@@ -19,9 +21,9 @@ public class LogPrefs {
         return sharedPreferences.getString(str, "");
     }
 
-    public static void putString(Context context, String str, String str2) {
+    public static void putString(Context context, String str, AccessToken str2) {
         getInstance(context);
-        sharedPreferences.edit().putString(str, str2).apply();
+        sharedPreferences.edit().putString(str, String.valueOf(str2)).apply();
     }
 
     public static int getInt(Context context, String str, int i) {
