@@ -11,9 +11,20 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Models.Course;
+import edu.com.medicalapp.Models.LoginResponse;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.Constants;
+import edu.com.medicalapp.utils.LogPrefs;
+import edu.com.medicalapp.utils.Utils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -56,72 +67,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ButterKnife.bind(this, view);
 
 
-        //linearTextSeries.setOnClickListener(this);
-        linearNeet_pg.setOnClickListener(this);
-        linearNeet_ug.setOnClickListener(this);
-        linearNeet_ss.setOnClickListener(this);
-       // linear_update.setOnClickListener(this);
-        //linearFeedback.setOnClickListener(this);
-        //linearContact.setOnClickListener(this);
-        linearshopping.setOnClickListener(this);
-        linearMbbsprof.setOnClickListener(this);
-        //linearLive_Online.setOnClickListener(this);
-
-
         return view;
 
     }
 
+
     @Override
-    public void onClick(View view) {
-
-        Fragment selectFragment=null;
-
-        switch (view.getId())
-        {
-            case R.id.linearNeet_Ug:
-                selectFragment=new NeetUgFragment();
-                break;
-            case R.id.linearNeet_Pg:
-                selectFragment=new NeetPgFragment();
-                break;
-
-
-
-            case R.id.linearNeet_Ss:
-
-                selectFragment=new NeetSsFragment();
-                break;
-
-            case R.id.linearShopping:
-                selectFragment=new ShoppingFragment();
-                break;
-
-            case R.id.linearMbbs_prof:
-                selectFragment=new MbbsFragment();
-                break;
-
-
-            case R.id.linearLive_online:
-                Toast.makeText(getContext(),getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-                break;
-
-
-            case R.id.linearText_Series:
-                Toast.makeText(getContext(),getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-                break;
-
-
-            case R.id.linearToday_Update:
-                Toast.makeText(getContext(),getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
-                break;
-
-
-
-        }
-        getFragmentManager().beginTransaction().replace(R.id.fraigment_container,selectFragment).addToBackStack(null).commit();
-
-
+    public void onResume() {
+        super.onResume();
+        getCourse();
     }
+
+    private void getCourse() {
+        if (Utils.isInternetConnected(getContext())) {
+            Utils.showProgressDialog(getActivity());
+            RestClient.getCourses(LogPrefs.getString(getActivity(), Constants.ACCESS_TOKEN_EMAIL), new Callback<List<Course>>() {
+                @Override
+                public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
+
+
+                }
+
+                @Override
+                public void onFailure(Call<List<Course>> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
 }

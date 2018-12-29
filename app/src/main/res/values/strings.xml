@@ -23,7 +23,9 @@
 
 
 
+
     </string>
+    <string name="no_internet">No internet connection!</string>
     <string name="registerd_success">your Email registerd Successfully</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="login_cancel">Login Cancelled!!!</string>
@@ -32,4 +34,5 @@
     <string name="fill_detail">Fill the complete details!!!!</string>
     <string name="full_number">Enter 10 digit Number!!!</string>
     <string name="too_short">Password is too short!!!</string>
+    <string name="invalid_data">User Enter Invalid Data!!!</string>
 </resources>

@@ -21,7 +21,7 @@ public class LogPrefs {
         return sharedPreferences.getString(str, "");
     }
 
-    public static void putString(Context context, String str, AccessToken str2) {
+    public static void putString(Context context, String str, String str2) {
         getInstance(context);
         sharedPreferences.edit().putString(str, String.valueOf(str2)).apply();
     }

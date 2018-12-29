@@ -67,7 +67,6 @@ public class FirstloginActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_firstlogin);
-        buttonfacebook = findViewById(R.id.customlogin);
 
         ButterKnife.bind(this);
 

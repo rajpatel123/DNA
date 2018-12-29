@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +22,16 @@ import com.facebook.login.widget.LoginButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Models.LoginRequest;
+import edu.com.medicalapp.Models.LoginResponse;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.Constants;
+import edu.com.medicalapp.utils.LogPrefs;
+import edu.com.medicalapp.utils.Utils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -98,22 +109,48 @@ public class LoginActivity extends AppCompatActivity {
             editPassword.setError(getString(R.string.empty_field));
             check=false;
         }
-        if(Password.length()<6)
+
+        if(check==false)
         {
-            editPassword.setError(getString(R.string.too_short));
-            check=false;
 
+            Toast.makeText(this,getString(R.string.invalid_data), Toast.LENGTH_SHORT).show();
         }
-
-        if(check==true)
-        {
-            Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
-        }
-
         else
         {
-            Toast.makeText(this,getString(R.string.fill_detail), Toast.LENGTH_SHORT).show();
+            LoginRequest loginRequest=new LoginRequest();
+            loginRequest.setUserName(Email);
+            loginRequest.setPassword(Password);
+            if(Utils.isInternetConnected(this))
+            {
+                  Utils.showProgressDialog(this);
+                RestClient.loginUser(loginRequest, new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response)
+                    {
+                        Utils.dismissProgressDialog();
+                        if(response.code()==200 && response.body()!=null)
+                        {
+                            LoginResponse loginResponse=response.body();
+                            LogPrefs.putString(LoginActivity.this, Constants.ACCESS_TOKEN_EMAIL,loginResponse.getToken());
+
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+
+                    }
+                });
+            }
+            else
+            {
+                Toast.makeText(this,getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            }
         }
+
+
 
     }
 
