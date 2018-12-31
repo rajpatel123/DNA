@@ -35,4 +35,5 @@
     <string name="full_number">Enter 10 digit Number!!!</string>
     <string name="too_short">Password is too short!!!</string>
     <string name="invalid_data">User Enter Invalid Data!!!</string>
+    <string name="no_project">No internet connection</string>
 </resources>

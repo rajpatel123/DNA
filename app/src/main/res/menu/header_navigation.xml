@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <group android:checkableBehavior="all">
     <item
 
         android:iconTint="@color/orange"
-        android:id="@+id/nav_home"
+        android:id="@+id/navigation_home"
         android:icon="@drawable/homelogo"
 
         android:title="Home"/>
     <item
         android:iconTint="@color/orange"
-        android:id="@+id/nav_video"
+        android:id="@+id/navigation_video"
 
         android:icon="@drawable/cameralogo"
 
@@ -18,20 +20,45 @@
     <item
         android:iconTint="@color/orange"
 
-        android:id="@+id/nav_qbank"
+        android:id="@+id/navigation_qbank"
         android:icon="@drawable/qm"
         android:title="QBank"/>
 
     <item
 
         android:iconTint="@color/orange"
-        android:id="@+id/nav_text"
+        android:id="@+id/navigation_text"
         android:icon="@drawable/text"
         android:title="Text"/>
     <item
         android:iconTint="@color/orange"
-        android:id="@+id/nav_online"
+        android:id="@+id/navigation_online"
         android:icon="@drawable/live"
         android:title="Online"/>
+    </group>
+
+    <item android:title="Communicate"
+        android:checkable="false"
+        android:enabled="false"
+        android:checked="false">
+        <menu>
+        <item
+            android:iconTint="@color/orange"
+
+            android:icon="@drawable/setting"
+
+            android:id="@+id/navigation_setting"
+            android:title="Setting" />
+        <item
+            android:icon="@drawable/aboutus"
+            android:id="@+id/navigation_about"
+            android:title="About" />
+
+        </menu>
+
+    </item>
+
+
+
 
 </menu>

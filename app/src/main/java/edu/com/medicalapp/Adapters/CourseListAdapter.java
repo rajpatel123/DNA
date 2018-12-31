@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -40,8 +42,16 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     @Override
     public void onBindViewHolder(final CourseListAdapter.ViewHolder holder, final int position) {
         final Course Course = CourseLists.get(position);
-        holder.title.setText(""+Course.getPname());
-        holder.desc.setText(""+Course.getCname());
+        holder.title.setText(""+Course.getCourseName());
+        holder.desc.setText(""+Course.getCourseDescription());
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(applicationContext,"Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
     }
 
@@ -66,9 +76,9 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.image)
-        ImageView image;
 
+        @BindView(R.id.linearNeet_Ss)
+        LinearLayout linearLayout;
 
         @BindView(R.id.title)
         TextView title;

@@ -17,6 +17,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.login.Login;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -61,18 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         callbackManager=CallbackManager.Factory.create();
 
-
-
        loginFb();
-
-
-        if (getSupportActionBar() != null) {
-
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
-            LoginRequest loginRequest=new LoginRequest();
+            final LoginRequest loginRequest=new LoginRequest();
             loginRequest.setUserName(Email);
             loginRequest.setPassword(Password);
             if(Utils.isInternetConnected(this))
@@ -127,18 +117,33 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response)
                     {
+
+
                         Utils.dismissProgressDialog();
                         if(response.code()==200 && response.body()!=null)
                         {
                             LoginResponse loginResponse=response.body();
                             LogPrefs.putString(LoginActivity.this, Constants.ACCESS_TOKEN_EMAIL,loginResponse.getToken());
+                           // LogPrefs.putString(LoginActivity.this,Constants.NAME,loginResponse.getName());
+                          //  LogPrefs.putString(LoginActivity.this,Constants.EMAILID,loginResponse.getEmail());
+                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                            intent.putExtra(Constants.NAME,loginResponse.getName()!=null?loginResponse.getName():"");
+                            intent.putExtra(Constants.EMAILID,loginResponse.getEmail()!=null?loginResponse.getEmail():"");
+                            startActivity(intent);
+                            finish();
 
-                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            }
+                            else
+                            {
+                            Toast.makeText(LoginActivity.this, "Invalid Credential", Toast.LENGTH_SHORT).show();
+
                             }
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+
 
 
                     }
