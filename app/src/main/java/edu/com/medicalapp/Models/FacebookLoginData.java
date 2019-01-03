@@ -8,6 +8,12 @@ public class FacebookLoginData {
 @SerializedName("id")
 @Expose
 private String id;
+
+
+    @SerializedName("email")
+    @Expose
+    private String email;
+
 @SerializedName("name")
 @Expose
 private String name;
@@ -37,6 +43,14 @@ return picture;
 
 public void setPicture(Picture picture) {
 this.picture = picture;
+
 }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 }

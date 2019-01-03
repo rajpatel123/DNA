@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.LinkAddress;
 import android.net.wifi.rtt.WifiRttManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,7 +59,7 @@ public class FirstloginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
 
-    private Button buttonfacebook;
+    private Button customFacebook;
 
 
     @Override
@@ -67,6 +68,8 @@ public class FirstloginActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_firstlogin);
+
+        customFacebook=findViewById(R.id.custom_login);
 
         ButterKnife.bind(this);
 
@@ -95,12 +98,12 @@ public class FirstloginActivity extends AppCompatActivity {
 
     private void loginwithFb() {
 
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+ /*       loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
 
-                /*Profile profile = Profile.getCurrentProfile();
+                *//*Profile profile = Profile.getCurrentProfile();
                 String name = profile.getName();
                 String link = profile.getLinkUri().toString();
 
@@ -111,7 +114,7 @@ public class FirstloginActivity extends AppCompatActivity {
 
 
                 Toast.makeText(FirstloginActivity.this, name + " " + link, Toast.LENGTH_SHORT).show();
-*/
+*//*
                 String Userid = loginResult.getAccessToken().getUserId();
 
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -126,9 +129,11 @@ public class FirstloginActivity extends AppCompatActivity {
                                 String id=facebookLoginData.getId();
 
 
+
                                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                                     intent.putExtra("NAME",name);
                                     intent.putExtra("ID",id);
+
                                     startActivity(intent);
 
 
@@ -165,10 +170,87 @@ public class FirstloginActivity extends AppCompatActivity {
 
 
             }
+        });*/
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+
+
+                        if (object!=null) {
+                            FacebookLoginData facebookLoginData = new Gson().fromJson(object.toString(), FacebookLoginData.class);
+                            if (facebookLoginData!=null){
+                                String name=facebookLoginData.getName();
+                                String id=facebookLoginData.getId();
+                                String email=facebookLoginData.getEmail();
+
+
+
+                                Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
+                                intent.putExtra("NAME",name);
+                                intent.putExtra("ID",id);
+                                intent.putExtra("EMAIL",email);
+
+                                startActivity(intent);
+
+
+                            }
+                        }
+
+
+                    }
+
+                });
+
+                Bundle bundle = new Bundle();
+
+                bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
+                graphRequest.setParameters(bundle);
+                graphRequest.executeAsync();
+
+/*
+
+                Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
+                startActivity(intent);
+*/
+
+
+
+            }
+
+            @Override
+            public void onCancel() {
+
+                Toast.makeText(FirstloginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+                Toast.makeText(FirstloginActivity.this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        customFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginManager.getInstance().logInWithReadPermissions(FirstloginActivity.this,Arrays.asList("public_profile","email"));
+            }
         });
 
 
+
+
     }
+
+
 
 
     @Override

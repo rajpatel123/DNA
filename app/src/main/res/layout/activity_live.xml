@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-   >
+    tools:context=".Activities.LiveActivity">
 
 
     <RelativeLayout
@@ -22,7 +22,7 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NEET-PG"
+            android:text="Live Online"
             android:textSize="20dp"
             android:textColor="@color/orange"
             />

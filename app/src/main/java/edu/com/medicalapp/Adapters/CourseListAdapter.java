@@ -18,6 +18,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Activities.LiveActivity;
+import edu.com.medicalapp.Activities.NeetPgActivity;
+import edu.com.medicalapp.Activities.NeetSsActivity;
+import edu.com.medicalapp.Activities.ShoppingActivty;
+import edu.com.medicalapp.Activities.TextSeriesActivity;
+import edu.com.medicalapp.Activities.TodayUpdateActivity;
 import edu.com.medicalapp.Models.Course;
 import edu.com.medicalapp.R;
 
@@ -44,12 +50,93 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         final Course Course = CourseLists.get(position);
         holder.title.setText(""+Course.getCourseName());
         holder.desc.setText(""+Course.getCourseDescription());
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(applicationContext,"Coming Soon", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(position==0)
+        {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(applicationContext,"You Click Neet-Pg", Toast.LENGTH_SHORT).show();
+                   applicationContext.startActivity(new Intent(applicationContext, NeetPgActivity.class));
+
+
+                }
+            });
+
+
+        }
+        else if(position==1)
+        {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(applicationContext,"You Click Neet-Ss", Toast.LENGTH_SHORT).show();
+                    applicationContext.startActivity(new Intent(applicationContext, NeetSsActivity.class));
+
+
+
+                }
+            });
+
+        }
+        else if(position==2)
+        {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(applicationContext,"You Click Today Update", Toast.LENGTH_SHORT).show();
+                    applicationContext.startActivity(new Intent(applicationContext, TodayUpdateActivity.class));
+                }
+            });
+
+
+
+        }
+
+        else if(position==3)
+        {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(applicationContext,"Live Online", Toast.LENGTH_SHORT).show();
+                    applicationContext.startActivity(new Intent(applicationContext, LiveActivity.class));
+                }
+            });
+
+
+        }
+        else if(position==5)
+        {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(applicationContext,"You Click Text Series", Toast.LENGTH_SHORT).show();
+                    applicationContext.startActivity(new Intent(applicationContext, TextSeriesActivity.class));
+
+
+                }
+            });
+
+
+        }
+        else
+        {
+
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(applicationContext,"You Click Shoppling", Toast.LENGTH_SHORT).show();
+                    applicationContext.startActivity(new Intent(applicationContext, ShoppingActivty.class));
+                }
+            });
+
+
+        }
 
 
 

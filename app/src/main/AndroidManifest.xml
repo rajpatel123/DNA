@@ -21,37 +21,44 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.FirstloginActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".Activities.LoginActivity"
+        <activity
+            android:name=".Activities.FirstloginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.RegistrationActivity"
+            android:parentActivityName=".Activities.FirstloginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.TheorybookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.PhoneloginActivity"
+            android:parentActivityName=".Activities.FirstloginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
-        />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.VedioClassesActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".Activities.RegistrationActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.FirstloginActivity"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-        <activity android:name=".Activities.TheorybookActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".Activities.PaymentActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.PhoneloginActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.FirstloginActivity"/>
-        <activity android:name=".Activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-           />
-        <activity android:name=".Activities.VedioClassesActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
-
+        <activity android:name=".Activities.NeetPgActivity" />
+        <activity android:name=".Activities.NeetSsActivity" />
+        <activity android:name=".Activities.ShoppingActivty" />
+        <activity android:name=".Activities.TodayUpdateActivity" />
+        <activity android:name=".Activities.LiveActivity" />
+        <activity android:name=".Activities.TextSeriesActivity"></activity>
     </application>
 
 </manifest>

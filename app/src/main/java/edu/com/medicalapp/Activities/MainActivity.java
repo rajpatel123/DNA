@@ -78,16 +78,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
          String username=bundle.getString("NAME");
          String Id=bundle.getString("ID");
+         String Email=bundle.getString("EMAIL");
          textName.setText(username);
-         textId.setText(Id);
+         textId.setText(Email);
 
-         String name=getIntent().getStringExtra(Constants.NAME);
+        /* String name=getIntent().getStringExtra(Constants.NAME);
          String email=getIntent().getStringExtra(Constants.EMAILID);
 
 
          textName.setText(name);
          textId.setText(email);
-
+*/
 
 
 
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 case R.id.nav_home:
                     selectedFragment=new HomeFragment();
+
                      break;
 
 
