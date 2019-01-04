@@ -21,7 +21,21 @@ private String name;
 @Expose
 private Picture picture;
 
-public String getId() {
+
+    @SerializedName("url")
+    @Expose
+    private String url;
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getId() {
 return id;
 }
 

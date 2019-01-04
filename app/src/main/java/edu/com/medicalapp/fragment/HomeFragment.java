@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                     if (response.code() == 200) {
-Utils.dismissProgressDialog();
+                         Utils.dismissProgressDialog();
                         List<Course> courseList = response.body();
                         if (courseList != null && courseList.size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");

@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +83,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          String Email=bundle.getString("EMAIL");
          textName.setText(username);
          textId.setText(Email);
-
+        /* Picasso.with(this)
+                .load("http://nuuneoi.com/uploads/source/playstore/cover.jpg")
+                .fit()
+                .centerCrop()
+                .into(imageView);
+*/
         /* String name=getIntent().getStringExtra(Constants.NAME);
          String email=getIntent().getStringExtra(Constants.EMAILID);
 

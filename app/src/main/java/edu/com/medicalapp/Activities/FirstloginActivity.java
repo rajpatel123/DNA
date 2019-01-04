@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.LinkAddress;
+import android.net.Uri;
 import android.net.wifi.rtt.WifiRttManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -190,10 +191,13 @@ public class FirstloginActivity extends AppCompatActivity {
 
 
 
+
+
                                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                                 intent.putExtra("NAME",name);
                                 intent.putExtra("ID",id);
                                 intent.putExtra("EMAIL",email);
+
 
                                 startActivity(intent);
 

@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         callbackManager=CallbackManager.Factory.create();
 
-       loginFb();
+        loginFb();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
