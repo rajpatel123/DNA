@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+
+        android:drawable="@drawable/user"
+        android:state_empty="true"/>
+    <item
+        android:drawable="@drawable/text"
+        android:state_expanded="true"/>
+
+</selector>
+</animation-list>

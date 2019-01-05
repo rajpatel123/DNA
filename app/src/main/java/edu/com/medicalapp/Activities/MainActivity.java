@@ -3,8 +3,10 @@ package edu.com.medicalapp.Activities;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,12 +49,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      @BindView(R.id.textview_email)
      TextView textViewID;*/
 
-    @BindView(R.id.image_view)
-    ImageView imageView;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+    private ImageView imageView;
     private TextView textName,textId;
 
 
@@ -67,8 +68,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          setSupportActionBar(toolbar);
          NavigationView navigationView=(NavigationView) findViewById(R.id.nav_view);
          View header = navigationView.inflateHeaderView(R.layout.header_nav);
+
+         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+         // Create an adapter that knows which fragment should be shown on each page
+        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(this, getSupportFragmentManager());
+
+
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.homelogo);
+        tabLayout.getTabAt(1).setIcon(R.drawable.cameralogo);
+        tabLayout.getTabAt(2).setIcon(R.drawable.qm);
+        tabLayout.getTabAt(3).setIcon(R.drawable.text);
+        tabLayout.getTabAt(4).setIcon(R.drawable.live);
+
+
+
          textName = (TextView) header.findViewById(R.id.textview_name);
          textId=(TextView) header.findViewById(R.id.textview_email);
+         imageView=header.findViewById(R.id.image_view);
+
          drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
          mToggle=new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.open,R.string.close);
          drawerLayout.addDrawerListener(mToggle);
@@ -79,16 +104,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          Bundle bundle=getIntent().getExtras();
 
          String username=bundle.getString("NAME");
-         String Id=bundle.getString("ID");
+         String picture=bundle.getString("URL");
          String Email=bundle.getString("EMAIL");
          textName.setText(username);
          textId.setText(Email);
-        /* Picasso.with(this)
-                .load("http://nuuneoi.com/uploads/source/playstore/cover.jpg")
-                .fit()
+        Picasso.with(this)
+                .load(picture)
+                .resize(200, 200)
                 .centerCrop()
                 .into(imageView);
-*/
+
+
+
         /* String name=getIntent().getStringExtra(Constants.NAME);
          String email=getIntent().getStringExtra(Constants.EMAILID);
 
@@ -102,13 +129,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        // NavigationView navigationView1=(NavigationView) findViewById(R.id.nav_view);
 
        // Toast.makeText(this,username, Toast.LENGTH_SHORT).show();;\
-        navigationView.setNavigationItemSelectedListener(this);
+          navigationView.setNavigationItemSelectedListener(this);
 
-        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigationBar);
+      /*  BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigationBar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,new HomeFragment()).commit();
+     */
+     //
+        // getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,new HomeFragment()).commit();
 
     }
 
@@ -132,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onCreateOptionsMenu(menu);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
+  /*  private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment=null;
@@ -171,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         }
-    };
+    };*/
 
 
     @Override
@@ -212,16 +241,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
 
-
               DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
               drawer.closeDrawer(GravityCompat.START);
 
               getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,
                     selectedFragment).commit();
-
-
-
-
 
 
 
@@ -237,4 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+
+
+
 }

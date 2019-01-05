@@ -24,10 +24,7 @@
             android:textSize="20dp"
             android:textColor="@color/orange"
             />
-
     </RelativeLayout>
-
-
     <RelativeLayout
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -35,22 +32,14 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <ExpandableListView
+            android:background="#ffffff"
+            android:groupIndicator="@drawable/settings_selector"
+            android:transcriptMode="alwaysScroll"
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-
-
-
-
         </ExpandableListView>
-
-
-
-
-
     </RelativeLayout>
-
 </LinearLayout>

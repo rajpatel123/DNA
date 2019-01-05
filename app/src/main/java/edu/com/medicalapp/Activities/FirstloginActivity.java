@@ -181,6 +181,22 @@ public class FirstloginActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
 
+                     JSONObject data=response.getJSONObject();
+
+                        try {
+                            String name=data.getString("name");
+                            String email=data.getString("email");
+                            String pictureurl=data.getJSONObject("picture").getJSONObject("data").getString("url");
+
+                            Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
+                            intent.putExtra("NAME",name);
+                            intent.putExtra("URL",pictureurl);
+                            intent.putExtra("EMAIL",email);
+
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         if (object!=null) {
                             FacebookLoginData facebookLoginData = new Gson().fromJson(object.toString(), FacebookLoginData.class);
@@ -189,8 +205,7 @@ public class FirstloginActivity extends AppCompatActivity {
                                 String id=facebookLoginData.getId();
                                 String email=facebookLoginData.getEmail();
 
-
-
+/*
 
 
                                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
@@ -200,6 +215,7 @@ public class FirstloginActivity extends AppCompatActivity {
 
 
                                 startActivity(intent);
+*/
 
 
                             }
