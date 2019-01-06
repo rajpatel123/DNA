@@ -59,7 +59,9 @@
         <activity android:name=".Activities.TodayUpdateActivity" />
         <activity android:name=".Activities.LiveActivity" />
         <activity android:name=".Activities.TextSeriesActivity" />
-        <activity android:name=".Activities.DNAFacultyActivity"></activity>
+        <activity android:name=".Activities.DNAFacultyActivity" />
+        <activity android:name=".Activities.DNASuscribeActivity" />
+        <activity android:name=".Activities.DNAKnowmoreActivity"></activity>
     </application>
 
 </manifest>
