@@ -8,74 +8,18 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <RelativeLayout
+    <include
+        layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbarlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"></android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/appbarlayout"
-            android:background="@android:color/white" />
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:tabBackground="@color/orange"
-            app:tabIconTint="@color/white"
-            app:tabIndicatorColor="@color/orange"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/darkwhite"
-            app:tabTextColor="@color/white" />
-
-        <android.support.design.widget.NavigationView
-
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            android:layout_below="@+id/appbarlayout"
-            android:layout_above="@+id/sliding_tabs"
-            app:headerLayout="@layout/header_nav"
-            app:itemIconTint="@color/orange"
-            app:itemTextAppearance="@color/white"
-            app:itemTextColor="@color/orange"
-            app:menu="@menu/header_navigation" />
-    </RelativeLayout>
-
-
-
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigationBar"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:scrollbars="horizontal"
-        android:visibility="gone"
-        app:itemIconSize="25dp"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/bottom_navigation"></android.support.design.widget.BottomNavigationView>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+
 </android.support.v4.widget.DrawerLayout>
-
-

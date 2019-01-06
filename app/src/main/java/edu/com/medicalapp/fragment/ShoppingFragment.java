@@ -65,7 +65,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener{
 
         }
 
-        getFragmentManager().beginTransaction().replace(R.id.fraigment_container,selectedFragment).addToBackStack(null).commit();
+       // getFragmentManager().beginTransaction().replace(R.id.fraigment_container,selectedFragment).addToBackStack(null).commit();
 
 
     }

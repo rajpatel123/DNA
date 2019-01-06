@@ -61,6 +61,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         callbackManager=CallbackManager.Factory.create();
+        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+
+        startActivity(intent);
+        finish();
 
         loginFb();
         btnLogin.setOnClickListener(new View.OnClickListener() {
