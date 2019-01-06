@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         qbTitle = alertTab.findViewById(R.id.tab);
         qbTitle.setText("Q Bank");
         imgQBIcon = alertTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.qm, imgVideoViewIcon, R.color.white);
+        ImageUtils.setTintedDrawable(this, R.drawable.qm, imgQBIcon, R.color.white);
 
         tab = tabLayout.getTabAt(2);
         if (tab != null) {
