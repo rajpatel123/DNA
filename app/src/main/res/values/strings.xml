@@ -37,8 +37,8 @@
     <string name="invalid_data">User Enter Invalid Data!!!</string>
     <string name="no_project">No internet connection</string>
     <string name="home">Home</string>
-    <string name="video" >Video</string>
-    <string name="QBank" >Q Bank</string>
-    <string name="Test" >Test</string>
+    <string name="video">Video</string>
+    <string name="QBank">Q Bank</string>
+    <string name="Test">Test</string>
     <string name="Online">Online</string>
 </resources>

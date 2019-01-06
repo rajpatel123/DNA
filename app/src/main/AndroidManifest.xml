@@ -58,7 +58,8 @@
         <activity android:name=".Activities.ShoppingActivty" />
         <activity android:name=".Activities.TodayUpdateActivity" />
         <activity android:name=".Activities.LiveActivity" />
-        <activity android:name=".Activities.TextSeriesActivity"></activity>
+        <activity android:name=".Activities.TextSeriesActivity" />
+        <activity android:name=".Activities.DNAFacultyActivity"></activity>
     </application>
 
 </manifest>
