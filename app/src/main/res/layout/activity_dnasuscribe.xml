@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:scrollbars="none"
-    android:background="@color/vediobordertextcolor"
+    android:background="@color/vedioborder"
     android:layout_height="wrap_content"
     tools:context=".Activities.DNASuscribeActivity">
 
@@ -64,7 +64,7 @@
             android:id="@+id/linearmiddle"
             android:layout_marginTop="5dp"
             android:layout_below="@id/linearhead"
-            android:background="@color/vediobordertextcolor"
+            android:background="@color/vedioborder"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -399,7 +399,7 @@
            android:id="@+id/layoutmiddle1"
             android:layout_marginTop="5dp"
             android:layout_below="@id/linearhead"
-            android:background="@color/vediobordertextcolor"
+            android:background="@color/vedioborder"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -408,7 +408,8 @@
 
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
 
                 <TextView
                     android:layout_weight="2"
@@ -416,7 +417,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:textSize="20dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/darkwhite"
                     android:text="Individual Plans"/>
@@ -425,7 +427,7 @@
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:gravity="center_vertical"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/gradStop"
                     android:text="Coupon applied"/>

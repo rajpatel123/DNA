@@ -12,14 +12,17 @@
         android:id="@+id/relative_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/darkwhite"
-        >
+        android:background="@color/vedioborder"
+        android:minHeight="?attr/actionBarSize">
+
+    >
         <TextView
             android:paddingBottom="8dp"
             android:paddingLeft="15dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
             android:textStyle="bold"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Text Series"

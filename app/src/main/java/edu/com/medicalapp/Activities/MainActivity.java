@@ -1,5 +1,7 @@
 package edu.com.medicalapp.Activities;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +72,9 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        pager= findViewById(R.id.vp_pages);
-        tabBar= findViewById(R.id.tabBar);
-        tabLayout= findViewById(R.id.tabs);
+        pager = findViewById(R.id.vp_pages);
+        tabBar = findViewById(R.id.tabBar);
+        tabLayout = findViewById(R.id.tabs);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-         setUpFragments();
+        setUpFragments();
 
 
     }
@@ -190,17 +193,41 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.no_more) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            Intent intent = new Intent(this, DNAKnowmoreActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.subscribe) {
+            Intent intent = new Intent(this, DNASuscribeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.notice_board) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.dna_faculy) {
+            Intent intent = new Intent(this, DNAFacultyActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.faq) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.rate) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_share) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT,
+                    "Hey check out my app at: https://play.google.com/store/apps/details?id=com.google.android.apps.plus");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+        } else if (id == R.id.about) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.contact_us) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.report) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -208,6 +235,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         int currentPosition = 0;
 
@@ -231,7 +259,6 @@ public class MainActivity extends AppCompatActivity
         public void onPageScrollStateChanged(int arg0) {
         }
     };
-
 
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
