@@ -6,13 +6,12 @@ import android.view.MenuItem;
 
 import edu.com.medicalapp.R;
 
-public class DNAFacultyActivity extends AppCompatActivity {
+public class DNASuscribeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dnafaculty);
-
+        setContentView(R.layout.activity_dnasuscribe);
 
         if (getSupportActionBar() != null) {
 
