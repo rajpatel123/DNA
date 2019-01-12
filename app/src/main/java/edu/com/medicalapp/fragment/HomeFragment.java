@@ -20,6 +20,7 @@ import edu.com.medicalapp.Adapters.CourseListAdapter;
 import edu.com.medicalapp.Models.Course;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.interfaces.FragmentLifecycle;
 import edu.com.medicalapp.utils.Constants;
 import edu.com.medicalapp.utils.LogPrefs;
 import edu.com.medicalapp.utils.Utils;
@@ -29,13 +30,16 @@ import retrofit2.Response;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements FragmentLifecycle{
 
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
     @BindView(R.id.noInternet)
     TextView noInternet;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -62,7 +68,7 @@ public class HomeFragment extends Fragment {
                         if (courseList != null && courseList.size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
-                            CourseListAdapter courseListAdapter = new CourseListAdapter(getApplicationContext());
+                            CourseListAdapter courseListAdapter = new CourseListAdapter(getActivity());
                             courseListAdapter.setData(courseList);
                             recyclerView.setAdapter(courseListAdapter);
                             Log.d("Api Response :", "Got Success from Api");
@@ -86,12 +92,25 @@ public class HomeFragment extends Fragment {
 
                     }
 
+
                 }
+
                 @Override
                 public void onFailure(Call<List<Course>> call, Throwable t) {
                     Utils.dismissProgressDialog();
+
                 }
             });
         }
+    }
+
+    @Override
+    public void onPauseFragment() {
+
+    }
+
+    @Override
+    public void onResumeFragment() {
+
     }
 }

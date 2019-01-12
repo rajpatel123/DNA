@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/no_more"
+            android:title="Know More" />
+        <item
+            android:id="@+id/subscribe"
+            android:title="Subscribe" />
+        <item
+            android:id="@+id/notice_board"
+            android:title="Notice Board" />
+        <item
+            android:id="@+id/dna_faculy"
+            android:title="DNA Faculty" />
+
+        <item
+            android:id="@+id/faq"
+            android:title="FAQ" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+
+            <item
+                android:id="@+id/rate"
+                android:title="Rate Us" />
+            <item
+                android:id="@+id/nav_share"
+                android:title="Share the App" />
+            <item
+                android:id="@+id/about"
+                android:title="About Us" />
+
+            <item
+                android:id="@+id/contact_us"
+                android:title="Contact Us" />
+
+            <item
+                android:id="@+id/report"
+                android:title="Report Cpoyright Issue" />
+        </menu>
+    </item>
+
+</menu>

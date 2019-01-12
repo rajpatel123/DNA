@@ -1,218 +1,292 @@
 package edu.com.medicalapp.Activities;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import edu.com.medicalapp.Adapters.ExpandableListAdapter;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.fragment.HomeFragment;
 import edu.com.medicalapp.fragment.OnlineFragment;
 import edu.com.medicalapp.fragment.QbankFragment;
 import edu.com.medicalapp.fragment.TextFragment;
 import edu.com.medicalapp.fragment.videoFragment;
-import edu.com.medicalapp.utils.Constants;
+import edu.com.medicalapp.interfaces.FragmentLifecycle;
+import edu.com.medicalapp.utils.ImageUtils;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+    public LinearLayout tabBar;
+    public TabLayout tabLayout;
 
-    @BindView(R.id.bottom_navigationBar)
-    BottomNavigationView bottomNavigationView;
-    /*
-     @BindView(R.id.textview_name)
-     TextView textViewName;
-     @BindView(R.id.textview_email)
-     TextView textViewID;*/
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle mToggle;
-    private ImageView imageView;
-    private TextView textName,textId;
-
+    public ViewPager pager;
+    private HomeFragment dashboardHomeFragment;
+    private videoFragment dashboardvideoFragment;
+    private QbankFragment dashboardQbankFragment;
+    private TextFragment dashboardTextFragment;
+    private OnlineFragment dashboardOnlineFragment;
+    private ViewPagerAdapter adapter;
+    private TextView myDeviceTitle;
+    private ImageView imgDeviceIcon;
+    private TextView videoText;
+    private ImageView imgVideoViewIcon;
+    private TextView qbTitle;
+    private ImageView imgQBIcon;
+    private TextView testTitle;
+    private ImageView testIcon;
+    private ImageView imgOnlineIcon;
+    private TextView onlineTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-         setSupportActionBar(toolbar);
-         NavigationView navigationView=(NavigationView) findViewById(R.id.nav_view);
-         View header = navigationView.inflateHeaderView(R.layout.header_nav);
-         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-         // Create an adapter that knows which fragment should be shown on each page
-        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(this, getSupportFragmentManager());
-        // Set the adapter onto the view pager
-        viewPager.setAdapter(adapter);
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.homelogo);
-        tabLayout.getTabAt(1).setIcon(R.drawable.cameralogo);
-        tabLayout.getTabAt(2).setIcon(R.drawable.qm);
-        tabLayout.getTabAt(3).setIcon(R.drawable.text);
-        tabLayout.getTabAt(4).setIcon(R.drawable.live);
-         textName = (TextView) header.findViewById(R.id.textview_name);
-         textId=(TextView) header.findViewById(R.id.textview_email);
-         imageView=header.findViewById(R.id.image_view);
-         drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-         mToggle=new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.open,R.string.close);
-         drawerLayout.addDrawerListener(mToggle);
-         mToggle.syncState();
-         Bundle bundle=getIntent().getExtras();
-         String username=bundle.getString("NAME");
-         String picture=bundle.getString("URL");
-         String Email=bundle.getString("EMAIL");
-         textName.setText(username);
-         textId.setText(Email);
-        Picasso.with(this)
-                .load(picture)
-                .resize(200, 200)
-                .centerCrop()
-                .into(imageView);
-        /* String name=getIntent().getStringExtra(Constants.NAME);
-         String email=getIntent().getStringExtra(Constants.EMAILID);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-         textName.setText(name);
-         textId.setText(email);
-*/
+        pager = findViewById(R.id.vp_pages);
+        tabBar = findViewById(R.id.tabBar);
+        tabLayout = findViewById(R.id.tabs);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-       // NavigationView navigationView1=(NavigationView) findViewById(R.id.nav_view);
+        setUpFragments();
 
-       // Toast.makeText(this,username, Toast.LENGTH_SHORT).show();;\
-          navigationView.setNavigationItemSelectedListener(this);
-
-      /*  BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigationBar);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
-     */
-     //
-        // getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,new HomeFragment()).commit();
 
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    private void setUpFragments() {
+        setupViewPager(pager);
+        tabLayout.setupWithViewPager(pager);
+        setupTabIcons();
+    }
 
-        if(mToggle.onOptionsItemSelected(item))
-        {
-            return true;
+    private void setupViewPager(ViewPager viewPager) {
+        dashboardHomeFragment = new HomeFragment();
+        dashboardvideoFragment = new videoFragment();
+        dashboardQbankFragment = new QbankFragment();
+        dashboardTextFragment = new TextFragment();
+        dashboardOnlineFragment = new OnlineFragment();
+
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(dashboardHomeFragment, "Home");
+        adapter.addFragment(dashboardvideoFragment, "Video");
+        adapter.addFragment(dashboardQbankFragment, "Q Bank");
+        adapter.addFragment(dashboardTextFragment, "Test");
+        adapter.addFragment(dashboardOnlineFragment, "Online");
+
+        pager.setAdapter(adapter);
+        pager.addOnPageChangeListener(pageChangeListener);
+        int limit = (adapter.getCount() > 1 ? adapter.getCount() - 1 : 1);
+        pager.setOffscreenPageLimit(limit);
+    }
+
+    private void setupTabIcons() {
+        @SuppressLint("InflateParams") View deviceTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        myDeviceTitle = deviceTab.findViewById(R.id.tab);
+        myDeviceTitle.setText("Home");
+        imgDeviceIcon = deviceTab.findViewById(R.id.imgTab);
+        ImageUtils.setTintedDrawable(this, R.drawable.homelogo, imgDeviceIcon, R.color.white);
+
+        TabLayout.Tab tab = tabLayout.getTabAt(0);
+        if (tab != null) {
+            tab.setCustomView(deviceTab);
         }
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
 
-  /*  private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            Fragment selectedFragment=null;
-            switch (menuItem.getItemId())
-            {
-                case R.id.nav_home:
-                    selectedFragment=new HomeFragment();
+        @SuppressLint("InflateParams") View mapTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        videoText = mapTab.findViewById(R.id.tab);
+        videoText.setText("Video");
+        imgVideoViewIcon = mapTab.findViewById(R.id.imgTab);
+        ImageUtils.setTintedDrawable(this, R.drawable.cameralogo, imgVideoViewIcon, R.color.white);
 
-                     break;
+        tab = tabLayout.getTabAt(1);
 
-
-                case R.id.nav_video:
-                    selectedFragment=new videoFragment();
-                    break;
-
-
-                case R.id.nav_qbank:
-                    selectedFragment=new QbankFragment();
-                    break;
-
-                case R.id.nav_text:
-                    selectedFragment=new TextFragment();
-                    break;
-
-                case R.id.nav_online:
-                    selectedFragment=new OnlineFragment();
-                    break;
-            }
-
-           getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,
-                   selectedFragment).commit();
-
-
-            return true;
-
-
-
+        if (tab != null) {
+            tab.setCustomView(mapTab);
         }
-    };*/
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment selectedFragment = null;
-        switch (menuItem.getItemId()) {
-            case R.id.navigation_home:
-               selectedFragment=new HomeFragment();
-                break;
-            case R.id.navigation_video:
-               selectedFragment=new videoFragment();
-               break;
-            case R.id.navigation_text:
-                selectedFragment=new TextFragment();
-                break;
-            case R.id.navigation_qbank:
-                selectedFragment=new QbankFragment();
-                break;
-            case R.id.navigation_online:
-             selectedFragment=new OnlineFragment();
-                break;
-           case R.id.navigation_about:
-               selectedFragment=new OnlineFragment();
-                break;
-            case R.id.navigation_setting:
-                selectedFragment=new OnlineFragment();
-                break;
-            }
-              DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-              drawer.closeDrawer(GravityCompat.START);
-              getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,
-                    selectedFragment).commit();
-        return true;
+
+        @SuppressLint("InflateParams") View alertTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        qbTitle = alertTab.findViewById(R.id.tab);
+        qbTitle.setText("Q Bank");
+        imgQBIcon = alertTab.findViewById(R.id.imgTab);
+        ImageUtils.setTintedDrawable(this, R.drawable.qm, imgQBIcon, R.color.white);
+
+        tab = tabLayout.getTabAt(2);
+        if (tab != null) {
+            tab.setCustomView(alertTab);
+        }
+
+        @SuppressLint("InflateParams") View recordingTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        testTitle = recordingTab.findViewById(R.id.tab);
+        testTitle.setText("Test");
+        testIcon = recordingTab.findViewById(R.id.imgTab);
+        ImageUtils.setTintedDrawable(this, R.drawable.text, testIcon, R.color.white);
+        tab = tabLayout.getTabAt(3);
+        if (tab != null) {
+            tab.setCustomView(recordingTab);
+        }
+
+        @SuppressLint("InflateParams") View accountTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        onlineTitle = accountTab.findViewById(R.id.tab);
+        onlineTitle.setText("Online");
+        imgOnlineIcon = accountTab.findViewById(R.id.imgTab);
+        ImageUtils.setTintedDrawable(this, R.drawable.live, imgOnlineIcon, R.color.white);
+
+        tab = tabLayout.getTabAt(4);
+        if (tab != null) {
+            tab.setCustomView(accountTab);
+        }
+
+
     }
+
+
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.no_more) {
+            // Handle the camera action
+            Intent intent = new Intent(this, DNAKnowmoreActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.subscribe) {
+            Intent intent = new Intent(this, DNASuscribeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.notice_board) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.dna_faculy) {
+            Intent intent = new Intent(this, DNAFacultyActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.faq) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.rate) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.nav_share) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT,
+                    "Hey check out my app at: https://play.google.com/store/apps/details?id=com.google.android.apps.plus");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+        } else if (id == R.id.about) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.contact_us) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.report) {
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+        int currentPosition = 0;
+
+        @Override
+        public void onPageSelected(int newPosition) {
+            FragmentLifecycle fragmentToHide = (FragmentLifecycle) adapter.getItem(currentPosition);
+            fragmentToHide.onPauseFragment();
+
+            FragmentLifecycle fragmentToShow = (FragmentLifecycle) adapter.getItem(newPosition);
+            fragmentToShow.onResumeFragment();
+            //invalidateOptionsMenu();
+
+            currentPosition = newPosition;
+
+        }
+
+        @Override
+        public void onPageScrolled(int newPosition, float arg1, int arg2) {
+        }
+
+        public void onPageScrollStateChanged(int arg0) {
+        }
+    };
 
 
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }

@@ -9,13 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.interfaces.FragmentLifecycle;
 
-public class TextFragment extends Fragment {
+public class TextFragment extends Fragment implements FragmentLifecycle{
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.textfragment,container,false);
+
+    }
+
+    @Override
+    public void onPauseFragment() {
+
+    }
+
+    @Override
+    public void onResumeFragment() {
 
     }
 }

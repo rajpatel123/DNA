@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.interfaces.FragmentLifecycle;
 
-public class OnlineFragment extends Fragment {
+public class OnlineFragment extends Fragment implements FragmentLifecycle{
 
 
     @Nullable
@@ -19,6 +20,16 @@ public class OnlineFragment extends Fragment {
 
         return inflater.inflate(R.layout.onlinefragment,container,false);
 
+
+    }
+
+    @Override
+    public void onPauseFragment() {
+
+    }
+
+    @Override
+    public void onResumeFragment() {
 
     }
 }
