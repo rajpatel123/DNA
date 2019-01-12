@@ -24,62 +24,32 @@ public class LiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
-
-
             listView=findViewById(R.id.list_view);
             initData();
             listAdapter=new ExpandableListAdapter(this,listDataheader,listHashMap);
             listView.setAdapter(listAdapter);
-
-
-
-
-
-
         }
-
     private void initData() {
-
-
         listDataheader=new ArrayList<>();
         listHashMap=new HashMap<>();
-
-
         listDataheader.add("Physics");
         listDataheader.add("Chemistry");
         listDataheader.add("Biology");
-
-
-
         List<String> dm=new ArrayList<>();
         dm.add("Basic");
         dm.add("Medium");
         dm.add("High");
-
-
-
-
         List<String> mch=new ArrayList<>();
         mch.add("Basic");
         mch.add("Medium");
         mch.add("High");
-
-
-
         List<String> mch1=new ArrayList<>();
         mch1.add("Basic");
         mch1.add("Medium");
         mch1.add("High");
-
-
-
-
         listHashMap.put(listDataheader.get(0),dm);
         listHashMap.put(listDataheader.get(1),mch);
         listHashMap.put(listDataheader.get(2),mch1);
-
-
-
     }
 }
 

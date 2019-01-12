@@ -51,34 +51,23 @@ public class FirstloginActivity extends AppCompatActivity {
 
     @BindView(R.id.login_button)
     LoginButton loginButton;
-
     @BindView(R.id.btn_email)
     Button btnEmail;
-
     @BindView(R.id.FirstLoginText)
     TextView loginText;
-
     CallbackManager callbackManager;
-
     private Button customFacebook;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_firstlogin);
-
         customFacebook=findViewById(R.id.custom_login);
-
         ButterKnife.bind(this);
-
         callbackManager = CallbackManager.Factory.create();
-
-
         loginwithFb();
-
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,44 +134,29 @@ public class FirstloginActivity extends AppCompatActivity {
                     }
 
                 });
-
                 Bundle bundle = new Bundle();
-
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
-
-
                 // Toast.makeText(FirstloginActivity.this, name+" "+email+" "+gender, Toast.LENGTH_SHORT).show();
                 // startActivity(new Intent(FirstloginActivity.this, MainActivity.class));
-
-
             }
-
             @Override
             public void onCancel() {
                 Toast.makeText(FirstloginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onError(FacebookException error) {
-
                 Toast.makeText(FirstloginActivity.this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
-
-
             }
         });*/
-
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-
                      JSONObject data=response.getJSONObject();
-
                         try {
                             String name=data.getString("name");
                             String email=data.getString("email");
@@ -206,73 +180,45 @@ public class FirstloginActivity extends AppCompatActivity {
                                 String email=facebookLoginData.getEmail();
 
 /*
-
-
                                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                                 intent.putExtra("NAME",name);
                                 intent.putExtra("ID",id);
                                 intent.putExtra("EMAIL",email);
-
-
-                                startActivity(intent);
+                              startActivity(intent);
 */
-
 
                             }
                         }
-
-
                     }
 
                 });
-
                 Bundle bundle = new Bundle();
-
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
-
 /*
 
                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                 startActivity(intent);
 */
-
-
-
             }
-
             @Override
             public void onCancel() {
-
                 Toast.makeText(FirstloginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
-
-
             }
-
             @Override
             public void onError(FacebookException error) {
-
                 Toast.makeText(FirstloginActivity.this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
-
         customFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logInWithReadPermissions(FirstloginActivity.this,Arrays.asList("public_profile","email"));
             }
         });
-
-
-
-
     }
-
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);

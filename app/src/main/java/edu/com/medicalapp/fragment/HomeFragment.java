@@ -34,11 +34,8 @@ public class HomeFragment extends Fragment {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
     @BindView(R.id.noInternet)
     TextView noInternet;
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,8 +44,6 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -91,16 +86,12 @@ public class HomeFragment extends Fragment {
 
                     }
 
-
                 }
-
                 @Override
                 public void onFailure(Call<List<Course>> call, Throwable t) {
                     Utils.dismissProgressDialog();
-
                 }
             });
         }
     }
-
 }

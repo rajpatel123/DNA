@@ -41,18 +41,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.bottom_navigationBar)
     BottomNavigationView bottomNavigationView;
-/*
+    /*
      @BindView(R.id.textview_name)
      TextView textViewName;
-
-
      @BindView(R.id.textview_email)
      TextView textViewID;*/
-
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
-
     private ImageView imageView;
     private TextView textName,textId;
 
@@ -61,48 +56,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
          Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
          NavigationView navigationView=(NavigationView) findViewById(R.id.nav_view);
          View header = navigationView.inflateHeaderView(R.layout.header_nav);
-
          ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-
          // Create an adapter that knows which fragment should be shown on each page
         SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(this, getSupportFragmentManager());
-
-
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
-
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-
         tabLayout.getTabAt(0).setIcon(R.drawable.homelogo);
         tabLayout.getTabAt(1).setIcon(R.drawable.cameralogo);
         tabLayout.getTabAt(2).setIcon(R.drawable.qm);
         tabLayout.getTabAt(3).setIcon(R.drawable.text);
         tabLayout.getTabAt(4).setIcon(R.drawable.live);
-
-
-
          textName = (TextView) header.findViewById(R.id.textview_name);
          textId=(TextView) header.findViewById(R.id.textview_email);
          imageView=header.findViewById(R.id.image_view);
-
          drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
          mToggle=new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.open,R.string.close);
          drawerLayout.addDrawerListener(mToggle);
          mToggle.syncState();
-
-
-
          Bundle bundle=getIntent().getExtras();
-
          String username=bundle.getString("NAME");
          String picture=bundle.getString("URL");
          String Email=bundle.getString("EMAIL");
@@ -113,9 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .resize(200, 200)
                 .centerCrop()
                 .into(imageView);
-
-
-
         /* String name=getIntent().getStringExtra(Constants.NAME);
          String email=getIntent().getStringExtra(Constants.EMAILID);
 
@@ -151,13 +126,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -201,57 +171,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
     };*/
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-
         Fragment selectedFragment = null;
         switch (menuItem.getItemId()) {
             case R.id.navigation_home:
                selectedFragment=new HomeFragment();
                 break;
-
-
             case R.id.navigation_video:
                selectedFragment=new videoFragment();
                break;
-
-
             case R.id.navigation_text:
                 selectedFragment=new TextFragment();
                 break;
-
-
             case R.id.navigation_qbank:
                 selectedFragment=new QbankFragment();
                 break;
-
             case R.id.navigation_online:
              selectedFragment=new OnlineFragment();
                 break;
-
            case R.id.navigation_about:
                selectedFragment=new OnlineFragment();
                 break;
-
             case R.id.navigation_setting:
                 selectedFragment=new OnlineFragment();
                 break;
-        }
-
+            }
               DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
               drawer.closeDrawer(GravityCompat.START);
-
               getSupportFragmentManager().beginTransaction().replace(R.id.fraigment_container,
                     selectedFragment).commit();
-
-
-
         return true;
     }
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

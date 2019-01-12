@@ -38,22 +38,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.edit_email)
     EditText editEmail;
-
     @BindView(R.id.edit_Passwword)
     EditText editPassword;
-
     @BindView(R.id.loginButton)
     Button btnLogin;
-
     @BindView(R.id.login_button)
     LoginButton loginBtn;
-
-
     CallbackManager callbackManager;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         callbackManager=CallbackManager.Factory.create();
-
         loginFb();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 Validation();
             }
         });
-
-
-
     }
-
-
     //Login Validation
     private void Validation() {
 
@@ -91,18 +76,14 @@ public class LoginActivity extends AppCompatActivity {
         {
             editEmail.setError(getString(R.string.invalid_email));
             check=false;
-
         }
-
         if(Password.isEmpty())
         {
             editPassword.setError(getString(R.string.empty_field));
             check=false;
         }
-
         if(check==false)
         {
-
             Toast.makeText(this,getString(R.string.invalid_data), Toast.LENGTH_SHORT).show();
         }
         else
@@ -117,8 +98,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response)
                     {
-
-
                         Utils.dismissProgressDialog();
                         if(response.code()==200 && response.body()!=null)
                         {
@@ -131,21 +110,14 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra(Constants.EMAILID,loginResponse.getEmail()!=null?loginResponse.getEmail():"");
                             startActivity(intent);
                             finish();
-
                             }
                             else
                             {
                             Toast.makeText(LoginActivity.this, "Invalid Credential", Toast.LENGTH_SHORT).show();
-
                             }
                     }
-
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-
-
-
-
                     }
                 });
             }
@@ -154,51 +126,27 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this,getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
         }
-
-
-
     }
-
-
-
-
     private void loginFb() {
-
-
        loginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
            @Override
            public void onSuccess(LoginResult loginResult) {
-
                Toast.makeText(LoginActivity.this, "login reesult " + loginResult.getAccessToken(), Toast.LENGTH_SHORT).show();
-
                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-
            }
-
            @Override
            public void onCancel() {
-
                Toast.makeText(LoginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
-
            }
-
            @Override
            public void onError(FacebookException error) {
                Toast.makeText(LoginActivity.this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
 
            }
        });
-
-
-
-
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id=item.getItemId();
         if(id==R.id.home)
         {
@@ -207,15 +155,9 @@ public class LoginActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
-
-
 }
