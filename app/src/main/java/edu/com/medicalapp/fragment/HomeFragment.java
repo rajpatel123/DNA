@@ -30,14 +30,16 @@ import retrofit2.Response;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class HomeFragment extends Fragment implements FragmentLifecycle{
+public class HomeFragment extends Fragment implements FragmentLifecycle {
 
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+/*
 
     @BindView(R.id.noInternet)
     TextView noInternet;
+*/
 
 
     @Nullable
@@ -53,10 +55,10 @@ public class HomeFragment extends Fragment implements FragmentLifecycle{
     @Override
     public void onResume() {
         super.onResume();
-        getCourse();
+        // getCourse();
     }
 
-    private void getCourse() {
+   /* private void getCourse() {
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
             RestClient.getCourses(LogPrefs.getString(getActivity(), Constants.ACCESS_TOKEN_EMAIL), new Callback<List<Course>>() {
@@ -103,6 +105,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle{
             });
         }
     }
+      }*/
 
     @Override
     public void onPauseFragment() {
@@ -111,6 +114,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle{
 
     @Override
     public void onResumeFragment() {
+
 
     }
 }

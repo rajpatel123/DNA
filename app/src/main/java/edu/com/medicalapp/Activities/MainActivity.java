@@ -172,11 +172,7 @@ public class MainActivity extends AppCompatActivity
         if (tab != null) {
             tab.setCustomView(accountTab);
         }
-
-
     }
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

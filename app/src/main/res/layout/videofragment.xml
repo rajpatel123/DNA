@@ -10,9 +10,14 @@
 
     <RelativeLayout
         android:id="@+id/relative_head"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/darkwhite"
+        android:background="@color/normalwhite"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         >
         <TextView
             android:paddingBottom="8dp"
@@ -38,7 +43,8 @@
 
         <RelativeLayout
 
-
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -67,11 +73,12 @@
 
 
                    <ImageView
-                       android:layout_marginTop="8dp"
+                       android:layout_marginTop="15dp"
                        android:layout_gravity="center"
-                       android:layout_width="100dp"
-                       android:layout_height="80dp"
-                       android:background="@drawable/biology"
+                       android:layout_width="wrap_content"
+                       android:layout_height="64dp"
+
+                       android:src="@drawable/biology"
                        />
                     <TextView
                         android:paddingTop="5dp"
@@ -122,11 +129,11 @@
 
 
                     <ImageView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="15dp"
                         android:layout_gravity="center"
-                        android:layout_width="100dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/chemistry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/chemistry"
                         />
                     <TextView
                         android:paddingTop="5dp"
@@ -136,7 +143,7 @@
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chemistry"
+                        android:text="CHEMISTRY"
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:textColor="@color/orange"
@@ -176,11 +183,11 @@
 
 
                     <ImageView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="15dp"
                         android:layout_gravity="center"
-                        android:layout_width="100dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/physiology"
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
+                        android:background="@drawable/phycology"
                         />
                     <TextView
                         android:paddingTop="5dp"
@@ -207,14 +214,7 @@
                         android:textSize="15dp"
                         android:textColor="@color/vediobordertextcolor"
                         />
-
-
-
                 </LinearLayout>
-
-
-
-
                 <LinearLayout
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
@@ -229,11 +229,11 @@
 
 
                     <ImageView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="15dp"
                         android:layout_gravity="center"
-                        android:layout_width="100dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/microbilogy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
+                        android:background="@drawable/microbiology"
                         />
                     <TextView
                         android:paddingTop="5dp"
@@ -283,10 +283,10 @@
 
 
                     <ImageView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="15dp"
                         android:layout_gravity="center"
-                        android:layout_width="100dp"
-                        android:layout_height="80dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
                         android:background="@drawable/pharmacology"
                         />
                     <TextView
@@ -337,11 +337,11 @@
 
 
                     <ImageView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="15dp"
                         android:layout_gravity="center"
-                        android:layout_width="100dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/bilochemistry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
+                        android:background="@drawable/biochemistry"
                         />
                     <TextView
                         android:paddingTop="5dp"
@@ -373,18 +373,7 @@
 
                 </LinearLayout>
 
-
-
-
-
-
-
-
-
             </GridLayout>
-
-
-
         </RelativeLayout>
 
     </ScrollView>

@@ -8,13 +8,14 @@
     android:orientation="vertical"
  >
 
-    <ImageView
-          android:layout_marginLeft="7dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image_view"
-        android:src="@drawable/facultycircleimage"
-        />
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/dr1"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
     <TextView
         android:layout_marginLeft="7dp"
         android:textColor="@color/white"

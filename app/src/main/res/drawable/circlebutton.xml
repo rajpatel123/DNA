@@ -9,9 +9,8 @@
     <solid android:color="#060661">
 
     </solid>
-
     <size android:width="40dp"
-        android:height="60dp"></size>
+    android:height="60dp"></size>
 
 
 
