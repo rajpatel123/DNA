@@ -80,6 +80,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
             case R.id.text_login:
                 startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+                finish();
                 break;
         }
 
