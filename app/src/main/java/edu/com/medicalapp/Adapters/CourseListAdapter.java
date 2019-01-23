@@ -35,6 +35,7 @@ import edu.com.medicalapp.R;
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
     private Context applicationContext;
     private CategoryDetailData categoryDetailData;
+    OnUserClickCallback onUserClickCallback;
 
     public CourseListAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -62,80 +63,15 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
             subcats = stringBuilder.substring(0, stringBuilder.length() - 1);
             holder.desc.setText("" + subcats);
 
-        }
-
-        if (position == 0) {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(applicationContext, "You Click Neet-Pg", Toast.LENGTH_SHORT).show();
-                    applicationContext.startActivity(new Intent(applicationContext, NeetPgActivity.class));
-
+                public void onClick(View v) {
+                    if (onUserClickCallback != null) {
+                        // onUserClickCallback.onUserClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+                    }
 
                 }
             });
-
-
-        } else if (position == 1) {
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(applicationContext, "You Click Neet-Ss", Toast.LENGTH_SHORT).show();
-                    applicationContext.startActivity(new Intent(applicationContext, NeetSsActivity.class));
-
-
-                }
-            });
-
-        } else if (position == 2) {
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(applicationContext, "You Click Today Update", Toast.LENGTH_SHORT).show();
-                    applicationContext.startActivity(new Intent(applicationContext, TodayUpdateActivity.class));
-                }
-            });
-
-
-        } else if (position == 3) {
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(applicationContext, "Live Online", Toast.LENGTH_SHORT).show();
-                    applicationContext.startActivity(new Intent(applicationContext, LiveActivity.class));
-                }
-            });
-
-
-        } else if (position == 5) {
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(applicationContext, "You Click Text Series", Toast.LENGTH_SHORT).show();
-                    applicationContext.startActivity(new Intent(applicationContext, TextSeriesActivity.class));
-
-
-                }
-            });
-
-
-        } else {
-
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(applicationContext, "You Click Shoppling", Toast.LENGTH_SHORT).show();
-                    applicationContext.startActivity(new Intent(applicationContext, ShoppingActivty.class));
-                }
-            });
-
-
         }
 
 
@@ -152,6 +88,10 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
     public void setData(CategoryDetailData CourseLists) {
         this.categoryDetailData = CourseLists;
+    }
+
+    public interface OnUserClickCallback {
+        public void onUserClick(int id);
     }
 
 

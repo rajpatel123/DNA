@@ -24,7 +24,7 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 -->
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/linear1"
         android:layout_marginTop="5sp"
         android:orientation="horizontal"
@@ -392,5 +392,5 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout>-->
 </RelativeLayout>

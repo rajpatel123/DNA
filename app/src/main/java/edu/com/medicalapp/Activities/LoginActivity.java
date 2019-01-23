@@ -1,35 +1,31 @@
 package edu.com.medicalapp.Activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.login.Login;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.com.medicalapp.Models.LoginRequest;
-import edu.com.medicalapp.Models.LoginResponse;
+import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
-import edu.com.medicalapp.utils.Constants;
-import edu.com.medicalapp.utils.LogPrefs;
 import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
 
+    String email_str, pass_str;
+
 
 
 
@@ -70,51 +68,95 @@ public class LoginActivity extends AppCompatActivity {
                 Validation();
             }
         });
-
-
-
     }
-
-
     //Login Validation
     private void Validation() {
-
-        boolean check=true;
-        String Email=editEmail.getText().toString().trim();
-        String Password=editPassword.getText().toString().trim();
-
-        if(Email.isEmpty())
+        email_str = editEmail.getText().toString();
+        pass_str = editPassword.getText().toString();
+        if (TextUtils.isEmpty(email_str.trim()) || email_str.length() ==0) {
+            Utils.displayToast(getApplicationContext(), "Please enter valid email");
+            return;
+        }
+        if (TextUtils.isEmpty(pass_str.trim()) || pass_str.length() == 0) {
+            Utils.displayToast(getApplicationContext(), "Please enter valid password");
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email_str).matches())
         {
+            Utils.displayToast(getApplicationContext(), "Please enter valid email");
+            return;
+        }
+        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), email_str);
+        RequestBody pwd = RequestBody.create(MediaType.parse("text/plain"), pass_str);
+        Utils.showProgressDialog(this);
+        RestClient.loginUser(email,pwd, new Callback<loginResponse>() {
+            @Override
+            public void onResponse(Call<loginResponse> call, Response<loginResponse> response) {
+                Utils.dismissProgressDialog();
+                if (response != null && response.body() != null) {
+                    loginResponse loginResponse = response.body();
+                    if (Integer.parseInt(loginResponse.getStatus()) == 1) {
+                        Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        finish();
+                    }else{
+                        Utils.displayToast(LoginActivity.this, "Invalid login detail");
+                    }
+
+                } else {
+                    Utils.displayToast(LoginActivity.this, "Invalid login detail");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<loginResponse> call, Throwable t) {
+                Utils.dismissProgressDialog();
+                Utils.displayToast(LoginActivity.this, "Invalid login detail");
+
+            }
+        });
+
+
+
+
+      /*  Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);*/
+/*
+        boolean check = true;
+        String Email = editEmail.getText().toString().trim();
+        String Password = editPassword.getText().toString().trim();
+
+        if (Email.isEmpty()) {
             editEmail.setError(getString(R.string.empty_field));
-            check=false;
+            check = false;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(Email).matches())
-        {
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
             editEmail.setError(getString(R.string.invalid_email));
-            check=false;
+            check = false;
 
         }
 
-        if(Password.isEmpty())
-        {
+        if (Password.isEmpty()) {
             editPassword.setError(getString(R.string.empty_field));
-            check=false;
+            check = false;
         }
 
-        if(check==false)
-        {
+        if (check == false) {
 
-            Toast.makeText(this,getString(R.string.invalid_data), Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+            Toast.makeText(this, getString(R.string.invalid_data), Toast.LENGTH_SHORT).show();
+        } else {
 
-            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-//            intent.putExtra(Constants.NAME,loginResponse.getName()!=null?loginResponse.getName():"");
-//            intent.putExtra(Constants.EMAILID,loginResponse.getEmail()!=null?loginResponse.getEmail():"");
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            finish();
-            final LoginRequest loginRequest=new LoginRequest();
+        }*/
+        //Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+//          intent.putExtra(Constants.NAME,loginResponse.getName()!=null?loginResponse.getName():"");
+//          intent.putExtra(Constants.EMAILID,loginResponse.getEmail()!=null?loginResponse.getEmail():"");
+        //startActivity(intent);
+        //  finish();
+          /*  final LoginRequest loginRequest=new LoginRequest();
             loginRequest.setUserName(Email);
             loginRequest.setPassword(Password);
             if(Utils.isInternetConnected(this))
@@ -151,8 +193,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
 
 
-
-
                     }
                 });
             }
@@ -164,10 +204,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }*/
+
+
     }
-
-
-
 
     private void loginFb() {
 

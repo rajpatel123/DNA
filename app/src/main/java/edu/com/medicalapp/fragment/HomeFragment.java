@@ -56,10 +56,10 @@ public class HomeFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onResume() {
         super.onResume();
-        // getCourse();
+         getCourse();
     }
 
-   /* private void getCourse() {
+   private void getCourse() {
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
             RestClient.getCourses( new Callback<CategoryDetailData>() {
@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle {
                             courseListAdapter.setData(categoryDetailData);
                             recyclerView.setAdapter(courseListAdapter);
                             Log.d("Api Response :", "Got Success from Api");
-                            noInternet.setVisibility(View.GONE);
+                           // noInternet.setVisibility(View.GONE);
                             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2) {
                                 @Override
                                 public boolean canScrollVertically() {
@@ -87,8 +87,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle {
                             recyclerView.setVisibility(View.VISIBLE);
                         } else {
                             Log.d("Api Response :", "Got Success from Api");
-                            noInternet.setVisibility(View.VISIBLE);
-                            noInternet.setText(getString(R.string.no_project));
+                           // noInternet.setVisibility(View.VISIBLE);
+                           // noInternet.setText(getString(R.string.no_project));
                             recyclerView.setVisibility(View.GONE);
                         }
                     } else {
@@ -106,7 +106,6 @@ public class HomeFragment extends Fragment implements FragmentLifecycle {
             });
         }
     }
-      }*/
 
     @Override
     public void onPauseFragment() {

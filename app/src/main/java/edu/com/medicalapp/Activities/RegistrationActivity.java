@@ -80,55 +80,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         String Password=editPassword.getText().toString().trim();
 
 
-        if(Name.isEmpty())
-        {
-            editName.setError(getString(R.string.empty_field));
-            check=false;
-        }
-
-        if(Username.isEmpty())
-        {
-            editUsername.setError(getString(R.string.empty_field));
-            check=false;
-        }
-
-        if(Email.isEmpty())
-        {
-            editEmailId.setError(getString(R.string.empty_field));
-            check=false;
-        }
-
-        if(Password.isEmpty())
-        {
-            editPassword.setError(getString(R.string.empty_field));
-            check=false;
-        }
-        if(Password.length()<6)
-        {
-            editPassword.setError(getString(R.string.too_short));
-            check=false;
-        }
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(Email).matches())
-        {
-            editEmailId.setError(getString(R.string.invalid_email));
-            check=false;
-        }
-
-        if(check==true)
-        {
-            Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent());
-        }
-        else
-        {
-            Toast.makeText(this,getString(R.string.fill_detail), Toast.LENGTH_SHORT).show();
-        }
-
-
-
-
-
     }
 
     @Override

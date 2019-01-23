@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.SplashActivity"
+            android:theme="@style/AppTheme1"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".Activities.RegistrationActivity"
             android:parentActivityName=".Activities.FirstloginActivity"
@@ -34,9 +36,11 @@
         <activity
             android:name=".Activities.TheorybookActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.PaymentActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.PhoneloginActivity"
             android:parentActivityName=".Activities.FirstloginActivity"
@@ -44,6 +48,8 @@
         <activity
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme1"
+
             />
         <activity
             android:name=".Activities.VedioClassesActivity"

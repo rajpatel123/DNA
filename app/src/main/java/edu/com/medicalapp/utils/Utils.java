@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 public class Utils {
 
@@ -68,6 +69,11 @@ public class Utils {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static void displayToast(Context applicationContext, String s) {
+        Toast.makeText(applicationContext,s,Toast.LENGTH_LONG).show();
+
     }
 
 
