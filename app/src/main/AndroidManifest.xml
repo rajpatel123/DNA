@@ -11,7 +11,7 @@
         android:label="DNA"
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeNew">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.SplashActivity"
             >

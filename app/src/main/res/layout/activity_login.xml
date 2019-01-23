@@ -1,27 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".Activities.LoginActivity">
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25sp"
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        >
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/transparent"
-            app:contentInsetStartWithNavigation="0dp"
-            app:navigationIcon="@drawable/ic_left_arrow"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="Alert Details"
-             />
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.AppBarLayout>
+
+
+
+            <TextView
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:textStyle="bold"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Details Here"
+
+                />
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:drawableLeft="@drawable/email"
+                android:drawablePadding="8dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+
+                android:text="user1@gmail.com"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+
+                android:background="@drawable/edittextstyle"
+                android:textColor="@color/Black"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Email ID"/>
+
+            <EditText
+
+                android:id="@+id/edit_Passwword"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="8dp"
+                android:inputType="textPassword"
+                android:layout_marginTop="25dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/edittextstyle"
+                android:paddingLeft="5dp"
+                android:text="user1"
+                android:paddingTop="5dp"
+                android:textColor="@color/Black"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Password"/>
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <CheckBox
+                    android:layout_weight="1"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="5dp"
+
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remember me"/>
+
+
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="5dp"
+
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/Black"
+                    android:text="Forget Your Password"
+
+                    />
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <Button
+                android:id="@+id/loginButton"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:background="@drawable/button"
+                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log In"/>
+
+
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp" />
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>
