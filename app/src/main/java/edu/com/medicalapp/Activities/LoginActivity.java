@@ -40,9 +40,11 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.loginButton)
     Button btnLogin;
+/*
 
     @BindView(R.id.login_button)
     LoginButton loginBtn;
+*/
 
 
     CallbackManager callbackManager;
@@ -61,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager=CallbackManager.Factory.create();
 
 
-        loginFb();
+       // loginFb();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void loginFb() {
+   /* private void loginFb() {
 
 
        loginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -241,7 +243,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
+*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
