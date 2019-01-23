@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.Adapters.CourseListAdapter;
 import edu.com.medicalapp.Models.Course;
+import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
@@ -59,17 +60,17 @@ public class HomeFragment extends Fragment implements FragmentLifecycle{
     private void getCourse() {
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.getCourses(LogPrefs.getString(getActivity(), Constants.ACCESS_TOKEN_EMAIL), new Callback<List<Course>>() {
+            RestClient.getCourses( new Callback<CategoryDetailData>() {
                 @Override
-                public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
+                public void onResponse(Call <CategoryDetailData> call, Response<CategoryDetailData> response) {
                     if (response.code() == 200) {
                          Utils.dismissProgressDialog();
-                        List<Course> courseList = response.body();
-                        if (courseList != null && courseList.size() > 0) {
+                     CategoryDetailData categoryDetailData = response.body();
+                        if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
                             CourseListAdapter courseListAdapter = new CourseListAdapter(getActivity());
-                            courseListAdapter.setData(courseList);
+                            courseListAdapter.setData(categoryDetailData);
                             recyclerView.setAdapter(courseListAdapter);
                             Log.d("Api Response :", "Got Success from Api");
                             noInternet.setVisibility(View.GONE);
@@ -96,7 +97,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle{
                 }
 
                 @Override
-                public void onFailure(Call<List<Course>> call, Throwable t) {
+                public void onFailure(Call<CategoryDetailData> call, Throwable t) {
                     Utils.dismissProgressDialog();
 
                 }
