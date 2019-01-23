@@ -50,20 +50,17 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         final Course Course = CourseLists.get(position);
         holder.title.setText(""+Course.getCourseName());
         holder.desc.setText(""+Course.getCourseDescription());
-        if(position==0)
-        {
+        if(position==0) {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(applicationContext,"You Click Neet-Pg", Toast.LENGTH_SHORT).show();
-                   applicationContext.startActivity(new Intent(applicationContext, NeetPgActivity.class));
+                    Toast.makeText(applicationContext, "You Click Neet-Pg", Toast.LENGTH_SHORT).show();
+                    applicationContext.startActivity(new Intent(applicationContext, NeetPgActivity.class));
 
 
                 }
             });
-
-
         }
         else if(position==1)
         {
@@ -73,12 +70,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
                     Toast.makeText(applicationContext,"You Click Neet-Ss", Toast.LENGTH_SHORT).show();
                     applicationContext.startActivity(new Intent(applicationContext, NeetSsActivity.class));
-
-
-
                 }
             });
-
         }
         else if(position==2)
         {
@@ -90,11 +83,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                     applicationContext.startActivity(new Intent(applicationContext, TodayUpdateActivity.class));
                 }
             });
-
-
-
         }
-
         else if(position==3)
         {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
