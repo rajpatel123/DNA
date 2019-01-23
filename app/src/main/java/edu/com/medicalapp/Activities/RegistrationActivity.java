@@ -42,13 +42,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         ButterKnife.bind(this);
         btnSignUp.setOnClickListener(this);
         textLogin.setOnClickListener(this);
-
-
-        if (getSupportActionBar() != null) {
-
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
 

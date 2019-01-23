@@ -1,30 +1,16 @@
 package edu.com.medicalapp.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.com.medicalapp.Activities.LiveActivity;
-import edu.com.medicalapp.Activities.NeetPgActivity;
-import edu.com.medicalapp.Activities.NeetSsActivity;
-import edu.com.medicalapp.Activities.ShoppingActivty;
-import edu.com.medicalapp.Activities.TextSeriesActivity;
-import edu.com.medicalapp.Activities.TodayUpdateActivity;
-import edu.com.medicalapp.Models.Course;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.R;
 
@@ -35,7 +21,7 @@ import edu.com.medicalapp.R;
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
     private Context applicationContext;
     private CategoryDetailData categoryDetailData;
-    OnUserClickCallback onUserClickCallback;
+    OnCategoryClick onUserClickCallback;
 
     public CourseListAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -67,7 +53,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        // onUserClickCallback.onUserClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId())>3))
+                        onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
                     }
 
                 }
@@ -90,8 +77,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         this.categoryDetailData = CourseLists;
     }
 
-    public interface OnUserClickCallback {
-        public void onUserClick(int id);
+    public void setListener(OnCategoryClick onUserClickCallback) {
+        this.onUserClickCallback = onUserClickCallback;
     }
 
 
@@ -116,6 +103,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+
+    public interface OnCategoryClick {
+        public void onCateClick(String id);
     }
 
 }

@@ -3,10 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.RegistrationActivity">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_left_arrow"
+            android:tint="@color/colorPrimary" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="invisible"
+            android:padding="10dp"
+            android:src="@drawable/dnalogo" />
+
+    </RelativeLayout>
 
 
 
@@ -15,7 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25sp"
-        android:layout_marginTop="30sp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10sp"
         >
 
         <LinearLayout
@@ -28,10 +60,8 @@
                 android:id="@+id/edit_name"
                 android:inputType="text"
                 android:layout_marginTop="15dp"
-                android:paddingBottom="5dp"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
-                android:paddingTop="5dp"
 
                 android:drawableLeft="@drawable/user"
                 android:drawablePadding="8dp"
@@ -126,7 +156,7 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:textColor="@color/Black"
-                android:textSize="20dp"
+                android:textSize="16sp"
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,7 +171,7 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:gravity="center"
-                android:textSize="20dp"
+                android:textSize="16sp"
                 android:textColor="@color/Black"
                 android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"

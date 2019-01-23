@@ -36,7 +36,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
+        if (listHashMap.get(listDataheader.get(i))!=null)
         return listHashMap.get(listDataheader.get(i)).size();
+        else
+            return 0;
     }
 
     @Override
@@ -47,7 +50,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int i, int i1) {
-        return listHashMap.get(listDataheader.get(i)).get(i1);   // i==grp item i1== child item
+       if (listHashMap.get(listDataheader.get(i)).size()>i1) {
+           return listHashMap.get(listDataheader.get(i)).get(i1);
+       }else{
+          return "";
+       }
     }
 
     @Override
