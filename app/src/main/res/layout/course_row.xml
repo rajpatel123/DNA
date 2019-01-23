@@ -43,7 +43,6 @@
             android:text="DM/M.CH"
             android:textStyle="bold"
             android:textColor="@color/darkwhite"
-            android:textSize="13dp"
             />
 
 

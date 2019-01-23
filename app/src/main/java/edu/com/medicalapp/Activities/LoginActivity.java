@@ -108,6 +108,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
+
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+//            intent.putExtra(Constants.NAME,loginResponse.getName()!=null?loginResponse.getName():"");
+//            intent.putExtra(Constants.EMAILID,loginResponse.getEmail()!=null?loginResponse.getEmail():"");
+            startActivity(intent);
+            finish();
             final LoginRequest loginRequest=new LoginRequest();
             loginRequest.setUserName(Email);
             loginRequest.setPassword(Password);

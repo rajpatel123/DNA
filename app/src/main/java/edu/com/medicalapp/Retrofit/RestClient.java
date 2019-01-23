@@ -5,6 +5,7 @@ import java.util.List;
 import edu.com.medicalapp.Models.Course;
 import edu.com.medicalapp.Models.LoginRequest;
 import edu.com.medicalapp.Models.LoginResponse;
+import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import retrofit2.Callback;
 
 public class RestClient {
@@ -18,8 +19,8 @@ public class RestClient {
 
 
 
-    public static void getCourses(String token, Callback<List<Course>> callback) {
-        RetrofitClient.getClient().getCourse(token).enqueue(callback);
+    public static void getCourses( Callback<CategoryDetailData> callback) {
+        RetrofitClient.getClient().getCourse().enqueue(callback);
     }
 
 }

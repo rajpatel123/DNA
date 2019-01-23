@@ -6,6 +6,10 @@
     <color name="colorPrimary">#f37636</color>
     <color name="colorPrimaryDark">#f37636</color>
     <color name="colorAccent">#f37636</color>
+    <color name="black_secondary">#757575</color>
+    <color name="black_primary">#212121</color>
+    <color name="app_bg">#EAEDF2</color>
+
     <color name="orange">#f37636</color>
     <color name="saffron">#f37636</color>
 
@@ -29,7 +33,9 @@
     <color name="dashboardtop">#8daf9e</color>
     <color name="Blue">#060661</color>
     <color name="Black">#03000a</color>
+    <color name="color_hint">#919191</color>
 
+    <color name="black_disabled">#9E9E9E</color>
 
 
 </resources>

@@ -25,6 +25,7 @@ import edu.com.medicalapp.Activities.ShoppingActivty;
 import edu.com.medicalapp.Activities.TextSeriesActivity;
 import edu.com.medicalapp.Activities.TodayUpdateActivity;
 import edu.com.medicalapp.Models.Course;
+import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.R;
 
 /**
@@ -33,7 +34,7 @@ import edu.com.medicalapp.R;
 
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
     private Context applicationContext;
-    private List<Course> CourseLists;
+    private CategoryDetailData categoryDetailData;
 
     public CourseListAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -47,10 +48,23 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
     @Override
     public void onBindViewHolder(final CourseListAdapter.ViewHolder holder, final int position) {
-        final Course Course = CourseLists.get(position);
-        holder.title.setText(""+Course.getCourseName());
-        holder.desc.setText(""+Course.getCourseDescription());
-        if(position==0) {
+
+
+        holder.title.setText("" + categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+        if (categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
+                && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat() != null
+                && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size() > 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String subcats = "";
+            for (int i = 0; i < categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size(); i++) {
+                stringBuilder.append(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().get(i).getSubCatName() + "/");
+            }
+            subcats = stringBuilder.substring(0, stringBuilder.length() - 1);
+            holder.desc.setText("" + subcats);
+
+        }
+
+        if (position == 0) {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -61,49 +75,48 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
                 }
             });
-        }
-        else if(position==1)
-        {
+
+
+        } else if (position == 1) {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(applicationContext,"You Click Neet-Ss", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, "You Click Neet-Ss", Toast.LENGTH_SHORT).show();
                     applicationContext.startActivity(new Intent(applicationContext, NeetSsActivity.class));
+
+
                 }
             });
-        }
-        else if(position==2)
-        {
+
+        } else if (position == 2) {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(applicationContext,"You Click Today Update", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, "You Click Today Update", Toast.LENGTH_SHORT).show();
                     applicationContext.startActivity(new Intent(applicationContext, TodayUpdateActivity.class));
                 }
             });
-        }
-        else if(position==3)
-        {
+
+
+        } else if (position == 3) {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(applicationContext,"Live Online", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, "Live Online", Toast.LENGTH_SHORT).show();
                     applicationContext.startActivity(new Intent(applicationContext, LiveActivity.class));
                 }
             });
 
 
-        }
-        else if(position==5)
-        {
+        } else if (position == 5) {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(applicationContext,"You Click Text Series", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, "You Click Text Series", Toast.LENGTH_SHORT).show();
                     applicationContext.startActivity(new Intent(applicationContext, TextSeriesActivity.class));
 
 
@@ -111,15 +124,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
             });
 
 
-        }
-        else
-        {
+        } else {
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(applicationContext,"You Click Shoppling", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, "You Click Shoppling", Toast.LENGTH_SHORT).show();
                     applicationContext.startActivity(new Intent(applicationContext, ShoppingActivty.class));
                 }
             });
@@ -128,21 +139,19 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         }
 
 
-
     }
 
     @Override
     public int getItemCount() {
-        if (CourseLists != null) {
-            return CourseLists.size();
+        if (categoryDetailData != null && categoryDetailData.getDetails() != null) {
+            return categoryDetailData.getDetails().size();
         } else {
             return 0;
         }
     }
 
-    public void setData(List<Course> CourseLists)
-    {
-        this.CourseLists = CourseLists;
+    public void setData(CategoryDetailData CourseLists) {
+        this.categoryDetailData = CourseLists;
     }
 
 

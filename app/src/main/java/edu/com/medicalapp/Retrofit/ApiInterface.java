@@ -5,6 +5,7 @@ import java.util.List;
 import edu.com.medicalapp.Models.Course;
 import edu.com.medicalapp.Models.LoginRequest;
 import edu.com.medicalapp.Models.LoginResponse;
+import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,8 +20,8 @@ public interface ApiInterface {
 
 
 
-    @GET("api/course")
-    Call<List<Course>> getCourse(@Header("token") String token);
+    @GET("api/api.php?req=category")
+    Call<CategoryDetailData> getCourse();
 
 
 

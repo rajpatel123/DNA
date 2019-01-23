@@ -13,12 +13,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.233.63.97:9090/cms/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://akwebtech.com/demo/education/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.233.63.97:9090/cms/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://akwebtech.com/demo/education/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
