@@ -22,16 +22,13 @@ public interface ApiInterface {
     @POST("api/api.php?req=login")
     Call<loginResponse> loginUser(@Part("email_id") RequestBody email, @Part("password") RequestBody password);
 
-   
+
     @Multipart
     @POST("api/api.php?req=registration")
     Call<CommonResponse> registerUser(@Part("name") RequestBody name,
                                       @Part("username") RequestBody username,
                                       @Part("email_id") RequestBody email,
                                       @Part("password") RequestBody password);
-
-
-
 
 
     @GET("api/api.php?req=category")

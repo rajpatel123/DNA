@@ -3,6 +3,7 @@ package edu.com.medicalapp.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -207,7 +208,10 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.rate) {
-            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+            Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://play.google.com/store/apps/details?id=my packagename "));
+            startActivity(i);
 
         } else if (id == R.id.nav_share) {
             Intent sendIntent = new Intent();
@@ -220,7 +224,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.contact_us) {
-            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+           startActivity(new Intent(MainActivity.this,ContactUsActivity.class));
 
         } else if (id == R.id.report) {
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();

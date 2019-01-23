@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ContactUsActivity">
+
+    <LinearLayout
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginTop="15sp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="@string/contact_top_text"/>
+
+        <TextView
+            android:layout_marginTop="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Email"/>
+        <Button
+            android:paddingLeft="5dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:drawableLeft="@drawable/email_contact_us"
+            android:layout_marginRight="5dp"
+           android:elevation="10dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="8sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@color/gradStop"
+            android:text="  support@dna.com"/>
+
+
+
+
+        <TextView
+            android:layout_marginTop="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Call us(9 am -9 pm)"/>
+        <Button
+            android:paddingLeft="5dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:drawableLeft="@drawable/phone_contact_us"
+            android:layout_marginRight="5dp"
+            android:elevation="10dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="8sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@color/gradStop"
+            android:text="  08048138456"/>
+
+
+        <TextView
+            android:layout_marginTop="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Get a call to know more about the PRO Plans"/>
+        <Button
+            android:paddingLeft="5dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:drawableLeft="@drawable/back_call_contact_us"
+            android:layout_marginRight="5dp"
+            android:elevation="10dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="8sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@color/gradStop"
+            android:text="  Get a callback"/>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -139,34 +139,34 @@
 
 
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
+            <Button
                 android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
                 android:paddingTop="5dp"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:background="@drawable/button"
+                android:id="@+id/custom_login"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:visibility="gone"
-                android:layout_marginBottom="10dp" />
+                android:text="Continue with Facebook"/>
 
-
-
-
-
-
-
-
-
-
-
+            <!--
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/login_button"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="30dp"
+                            android:visibility="gone"
+                            android:layout_marginBottom="10dp" />
+                        -->
         </LinearLayout>
-
-
-
-
-
-
 
     </RelativeLayout>
 

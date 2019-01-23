@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.SplashActivity"
-            android:theme="@style/AppTheme1"
-            >
+            android:theme="@style/AppTheme1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,8 +26,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.RegistrationActivity"
             android:parentActivityName=".Activities.FirstloginActivity"
@@ -36,11 +34,9 @@
         <activity
             android:name=".Activities.TheorybookActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Activities.PaymentActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Activities.PhoneloginActivity"
             android:parentActivityName=".Activities.FirstloginActivity"
@@ -48,13 +44,10 @@
         <activity
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme1"
-
-            />
+            android:theme="@style/AppTheme1" />
         <activity
             android:name=".Activities.VedioClassesActivity"
             android:screenOrientation="portrait" />
-
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -66,9 +59,13 @@
         <activity android:name=".Activities.TodayUpdateActivity" />
         <activity android:name=".Activities.LiveActivity" />
         <activity android:name=".Activities.TextSeriesActivity" />
-        <activity android:name=".Activities.DNAFacultyActivity" />
+        <activity android:name=".Activities.DNAFacultyActivity"
+            android:label="Faculty" android:parentActivityName=".Activities.MainActivity"/>
         <activity android:name=".Activities.DNASuscribeActivity" />
-        <activity android:name=".Activities.DNAKnowmoreActivity"></activity>
+        <activity android:name=".Activities.DNAKnowmoreActivity" />
+        <activity android:name=".Activities.ContactUsActivity"
+            android:parentActivityName=".Activities.MainActivity"
+            android:label="Contact Us"></activity>
     </application>
 
 </manifest>
