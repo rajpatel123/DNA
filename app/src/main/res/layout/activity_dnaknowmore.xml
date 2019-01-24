@@ -910,7 +910,6 @@
 
                         </LinearLayout>
 
-
                         <LinearLayout
                             android:gravity="center"
                             android:orientation="horizontal"
@@ -925,8 +924,6 @@
                                 android:text="Please check all terms and Conditions"/>
 
                         </LinearLayout>
-
-
                         <LinearLayout
                             android:gravity="center"
                             android:orientation="horizontal"
