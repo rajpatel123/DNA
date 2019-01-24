@@ -45,7 +45,6 @@
                 android:paddingBottom="5dp"
                 android:paddingRight="5dp"
 
-                android:text="rishu@gmail.com"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
 
@@ -66,7 +65,6 @@
                 android:paddingRight="5dp"
                 android:background="@drawable/edittextstyle"
                 android:paddingLeft="5dp"
-                android:text="12345678"
                 android:paddingTop="5dp"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"

@@ -131,7 +131,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"),edit_password);
         RequestBody username=RequestBody.create(MediaType.parse("text/plain"),edit_username);
-
+        Utils.showProgressDialog(this);
         //showProgressDialog(this);
 
         RestClient.registerUser(name,username,email, password, new Callback<CommonResponse>() {
