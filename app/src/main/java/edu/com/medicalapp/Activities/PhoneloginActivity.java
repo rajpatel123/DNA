@@ -3,6 +3,9 @@ package edu.com.medicalapp.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.utils.Utils;
 
 public class PhoneloginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,28 +38,22 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
         btnContinue.setOnClickListener(this);
         tryOtherLogin.setOnClickListener(this);
 
-        if (getSupportActionBar() != null) {
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        SpannableString spannableString = new SpannableString(getString(R.string.try_other_login));
+        spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tryOtherLogin.setText(spannableString);
+
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
 
     }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id=item.getItemId();
-        if(id==R.id.home)
-        {
-            finish();
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
     @Override
     public void onClick(View view) {
@@ -63,20 +61,15 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId())
         {
             case R.id.btn_continue:
-                validation();
-
+                Utils.displayToast(this,"Coming soon, please try other login method");
                 break;
-
 
             case R.id.try_login:
                 startActivity(new Intent(PhoneloginActivity.this,LoginActivity.class));
+                finish();
                 break;
 
 
-            case R.id.edittext_phone:
-                startActivity(new Intent(PhoneloginActivity.this,MainActivity.class));
-
-                break;
         }
 
     }

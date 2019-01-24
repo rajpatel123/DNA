@@ -8,7 +8,7 @@
 
     <string name="loginbottomText"></string>
 
-    <string name="facebook_app_id">1815657995211587</string>
+    <string name="facebook_app_id">2180675295533531</string>
 
     <string name="paymenttext">
 
@@ -54,4 +54,7 @@
     <string name="invalid_password">Please enter invalid Password!!</string>
     <string name="invalid_too_short">Password length atleast 6 digit!!</string>
     <string name="contact_top_text">Please use any of the following modes to get in touch with us..</string>
+    <string name="try_other_login">Try other login methods</string>
+    <string name="terms">By Signing up, you accept the \nTerms Conditions and Privacy Policy</string>
+    <string name="already_member">Already member? Log In</string>
 </resources>

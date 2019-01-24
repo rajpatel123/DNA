@@ -4,8 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@color/white"
+
     tools:context=".Activities.LoginActivity">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_left_arrow"
+            android:tint="@color/colorPrimary" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="10dp"
+            android:src="@drawable/dnalogo"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
 
     <RelativeLayout
@@ -13,6 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25sp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/toolbar"
 
         >
         <LinearLayout
@@ -26,7 +61,7 @@
                 android:textStyle="bold"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
-                android:textColor="@color/Black"
+                android:textColor="@color/black_titles"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:textSize="16dp"
@@ -38,16 +73,10 @@
 
             <EditText
                 android:id="@+id/edit_email"
-                android:drawableLeft="@drawable/email"
-                android:drawablePadding="8dp"
                 android:inputType="textEmailAddress"
                 android:layout_marginTop="15dp"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
                 android:background="@drawable/edittextstyle"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"
@@ -57,14 +86,12 @@
             <EditText
 
                 android:id="@+id/edit_Passwword"
-                android:drawableLeft="@drawable/password"
-                android:drawablePadding="8dp"
                 android:inputType="textPassword"
                 android:layout_marginTop="25dp"
                 android:paddingBottom="5dp"
-                android:paddingRight="5dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
                 android:background="@drawable/edittextstyle"
-                android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"
@@ -108,12 +135,6 @@
                     />
 
 
-
-
-
-
-
-
             </LinearLayout>
 
 
@@ -123,17 +144,16 @@
                 android:id="@+id/loginButton"
                 android:paddingBottom="5dp"
                 android:paddingRight="5dp"
-
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
-                android:background="@drawable/button"
+                android:background="@drawable/buttonlogin"
                 android:textAllCaps="false"
-                android:textSize="16sp"
+                android:textSize="20dp"
                 android:textColor="@color/white"
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Log In"/>
+                android:text="Log in"/>
 
 
 
@@ -150,7 +170,7 @@
                 android:id="@+id/custom_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continue with Facebook"/>
+                android:text="Sign in with facebook"/>
 
             <!--
                         <com.facebook.login.widget.LoginButton

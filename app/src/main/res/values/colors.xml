@@ -15,7 +15,7 @@
 
 
 
-    <color name="blue">#475599</color>
+    <color name="blue">#4080ff</color>
     <color name="skyblue">#FF393FF2</color>
     <color name="darkwhite">#ababae</color>
     <color name="home">#f6ece9</color>
@@ -36,6 +36,7 @@
     <color name="color_hint">#919191</color>
 
     <color name="black_disabled">#9E9E9E</color>
+    <color name="black_titles">#2b2b2b</color>
 
 
 </resources>
