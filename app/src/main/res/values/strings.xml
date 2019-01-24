@@ -19,12 +19,12 @@
 
         <br>
             see this video \n</br>
-
-
-
-
-
     </string>
+        <string name="faculty">Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)</string>
+
+    <string name="knowmore">DNA MCQs and video lessons are structured in such a way that you understand the important concepts in each topic before you learn facts. Focus on high-yield topics and repeat MCQs.</string>
+
+
     <string name="no_internet">No internet connection!</string>
     <string name="registerd_success">your Email registerd Successfully</string>
     <string name="coming_soon">Coming Soon</string>

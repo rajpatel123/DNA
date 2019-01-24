@@ -60,12 +60,22 @@
         <activity android:name=".Activities.LiveActivity" />
         <activity android:name=".Activities.TextSeriesActivity" />
         <activity android:name=".Activities.DNAFacultyActivity"
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait"
             android:label="Faculty" android:parentActivityName=".Activities.MainActivity"/>
-        <activity android:name=".Activities.DNASuscribeActivity" />
-        <activity android:name=".Activities.DNAKnowmoreActivity" />
-        <activity android:name=".Activities.ContactUsActivity"
+        <activity android:name=".Activities.DNASuscribeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"
+            />
+        <activity android:name=".Activities.DNAKnowmoreActivity"
             android:parentActivityName=".Activities.MainActivity"
-            android:label="Contact Us"></activity>
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ContactUsActivity"
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".Activities.MainActivity"
+            android:label="Contact Us"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

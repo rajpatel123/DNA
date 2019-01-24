@@ -189,20 +189,879 @@
 
 
             <android.support.v7.widget.CardView
+                app:cardElevation="10sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
 
                 <LinearLayout
+                     android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15sp"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            android:background="@color/gradStop"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:text="QBank"/>
+
+                        <Button
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:background="@color/button_color"
+                            android:text="Edition 3.0"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="10sp"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/Black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="640+ hours of recorded video lectures from some of india's best medical faculty.Our teachers focus on concept based learning."
+                        />
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                       android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Highly selected 26,500+ MCQs(QBank + Text Series)"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Only repeat $ high yield MCQs"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Update after every major exam"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Solve MCQs , don't just read them"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+
+
+
+
+
 
 
                 </LinearLayout>
 
 
             </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="10sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15sp"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            android:background="@color/gradStop"
+                            />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="Test Series"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="10sp"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/Black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="640+ hours of recorded video lectures from some of india's best medical faculty.Our teachers focus on concept based learning."
+                        />
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Highly selected 26,500+ MCQs(QBank + Text Series)"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Only repeat $ high yield MCQs"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Update after every major exam"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Solve MCQs , don't just read them"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+
+
+
+
+
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="10sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15sp"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            android:background="@color/gradStop"
+                            />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="Video lessons"/>
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_marginLeft="10sp"
+                        android:paddingTop="10sp"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/Black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="640+ hours of recorded video lectures from some of india's best medical faculty.Our teachers focus on concept based learning."
+
+                        />
+                    <LinearLayout
+
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Highly selected 26,500+ MCQs(QBank + Text Series)"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Only repeat $ high yield MCQs"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Update after every major exam"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Solve MCQs , don't just read them"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="15sp"
+                app:cardElevation="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginRight="15sp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/black_secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="What makes Marrow special?"/>
+
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+
+
+                    <TextView
+                        android:layout_marginTop="10sp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black_secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Concept-based learning"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/knowmore"/>
+
+                    <TextView
+                        android:layout_marginTop="10sp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black_secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Solve MCQs as opposed to Reading them"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/knowmore"/>
+
+                    <TextView
+                        android:layout_marginTop="10sp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black_secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Error Free, Evidence Based"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/knowmore"/>
+
+
+                    <TextView
+                        android:layout_marginTop="10sp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black_secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Makes You exam ready"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/knowmore"/>
+
+
+                    <TextView
+                        android:layout_marginTop="10sp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black_secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Be part of the largest Pan-India NEET PG text Series"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/knowmore"/>
+
+                   <Button
+                       android:layout_marginTop="15sp"
+                       android:background="@color/button_color"
+                       android:textColor="@color/white"
+                       android:elevation="10sp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Subscibe and get PRO access"/>
+
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15sp"
+                        android:textColor="@color/button_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Learn how to prepare using DNA"/>
+
+                </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+            <LinearLayout
+
+                android:background="@color/darkwhite"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Register for Edition 3.0 early bird Patron's offer(for first 1000 Registration)"/>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Deep Discounts(up to 5000 off)*"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginBottom="15sp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Full refund if you qualify for a PG seat in NEET PG 2019"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+
+                        android:orientation="vertical"
+                        android:background="@color/button_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Name:"/>
+
+                            <EditText
+                                android:inputType="text"
+                                android:layout_marginLeft="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Name"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Email:"/>
+                            <EditText
+
+                                android:inputType="textEmailAddress"
+                                android:layout_marginLeft="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Email Id"/>
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Phone:"/>
+                            <EditText
+
+                                android:inputType="textEmailAddress"
+                                android:layout_marginLeft="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Phone"/>
+
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <CheckBox
+                                android:gravity="center"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Please check all terms and Conditions"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <Button
+                                android:gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Register"
+                                android:textColor="@color/white"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="15sp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Have more queries?"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:background="@color/darkwhite"/>
+
+
+                <LinearLayout
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:paddingLeft="5sp"
+                        android:paddingRight="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5sp"
+                        android:src="@drawable/tick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                    <TextView
+                        android:textColor="@color/button_color"
+                        android:paddingLeft="5sp"
+                        android:paddingRight="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Read our FAQs"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:background="@color/darkwhite"/>
+
+                <LinearLayout
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:paddingLeft="5sp"
+                        android:paddingRight="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5sp"
+                        android:src="@drawable/phone_knowmore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                    <TextView
+                        android:textColor="@color/button_color"
+                        android:paddingLeft="5sp"
+                        android:paddingRight="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Get a call to know more about the PRO plans"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:background="@color/darkwhite"/>
+
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:paddingLeft="5sp"
+                        android:paddingRight="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5sp"
+                        android:src="@drawable/email_knowmore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                    <TextView
+                        android:textColor="@color/button_color"
+                        android:paddingLeft="5sp"
+                        android:paddingRight="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="support@dna.com"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:background="@color/darkwhite"/>
+            </LinearLayout>
+
 
 
         </LinearLayout>

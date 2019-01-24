@@ -133,7 +133,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         RequestBody username=RequestBody.create(MediaType.parse("text/plain"),edit_username);
 
         //showProgressDialog(this);
-
+        Utils.showProgressDialog(this);
         RestClient.registerUser(name,username,email, password, new Callback<CommonResponse>() {
            /* private Call<CommonResponse> call;
             private Response<CommonResponse> response;
