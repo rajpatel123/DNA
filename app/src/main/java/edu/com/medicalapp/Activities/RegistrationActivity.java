@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +51,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @BindView(R.id.text_login)
     TextView textLogin;
+    @BindView(R.id.termsTV)
+    TextView termsTV;
 
     String edit_name,edit_username,edit_email,edit_password;
 
@@ -65,6 +70,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
+        SpannableString spannableString = new SpannableString(getString(R.string.terms));
+        spannableString.setSpan(new UnderlineSpan(), 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        termsTV.setText(spannableString);
+        SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
+        spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textLogin.setText(spannableString1);
 
 
     }
@@ -131,7 +142,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"),edit_password);
         RequestBody username=RequestBody.create(MediaType.parse("text/plain"),edit_username);
-
+        Utils.showProgressDialog(this);
         //showProgressDialog(this);
         Utils.showProgressDialog(this);
         RestClient.registerUser(name,username,email, password, new Callback<CommonResponse>() {

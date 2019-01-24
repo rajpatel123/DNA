@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.net.wifi.rtt.WifiRttManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +58,9 @@ public class FirstloginActivity extends AppCompatActivity {
     Button btnEmail;
     @BindView(R.id.FirstLoginText)
     TextView loginText;
+
+    @BindView(R.id.terms)
+    TextView termsTV;
     CallbackManager callbackManager;
     private Button customFacebook;
 
@@ -72,6 +78,7 @@ public class FirstloginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(FirstloginActivity.this, RegistrationActivity.class));
+                finish();
 
             }
         });
@@ -80,8 +87,17 @@ public class FirstloginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(FirstloginActivity.this, PhoneloginActivity.class));
+                finish();
             }
         });
+
+        SpannableString spannableString = new SpannableString(getString(R.string.terms));
+        spannableString.setSpan(new UnderlineSpan(), 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        termsTV.setText(spannableString);
+
+        SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
+        spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        loginText.setText(spannableString1);
 
 
     }
@@ -168,6 +184,7 @@ public class FirstloginActivity extends AppCompatActivity {
                             intent.putExtra("EMAIL",email);
 
                             startActivity(intent);
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

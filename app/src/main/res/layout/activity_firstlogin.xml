@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relative_login1"
     android:gravity="center"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.FirstloginActivity">
@@ -26,46 +26,26 @@
 
 
             <ImageView
-
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:id="@+id/image_login"
                 android:src="@drawable/dnalogo"
                 />
 
             <TextView
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
 
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:textColor="@color/Black"
-                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:textSize="25dp"
+                android:textColor="@color/black_titles"
+                android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/loginText"
                 />
-
-
-            <Button
-                android:id="@+id/btn_email"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:textAllCaps="false"
-
-                android:background="@drawable/buttonlogin"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sign up with Email"/>
-
-
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
@@ -80,11 +60,11 @@
 
 
             <Button
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:textSize="20dp"
@@ -92,46 +72,47 @@
                 android:id="@+id/custom_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continue with Facebook"/>
+                android:text="Sign in with facebook" />
 
+            <Button
+                android:id="@+id/btn_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/buttonlogin"
+                android:text="Sign up with Email"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/FirstLoginText"
                 android:paddingBottom="5dp"
                 android:paddingRight="5dp"
-
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
-                android:textColor="@color/Black"
+                android:textColor="@color/black_titles"
                 android:textSize="18dp"
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already member? Log In"/>
+                android:text="@string/already_member"/>
 
 
             <TextView
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
+                android:id="@+id/terms"
                 android:gravity="center"
-                android:textSize="20dp"
-                android:textColor="@color/Black"
+                android:text="@string/terms"
+                android:textColor="@color/black_titles"
                 android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="By Signing up, you accept the Terms Conditions and Privacy Policy"
+                android:textSize="16sp"
                 android:layout_marginBottom="20dp"/>
-
-
-
-
-
-
-
-
 
 
         </LinearLayout>

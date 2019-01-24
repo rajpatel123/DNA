@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Activities.PhoneloginActivity">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_left_arrow"
+            android:tint="@color/colorPrimary" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="10dp"
+            android:src="@drawable/dnalogo"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -24,39 +56,56 @@
 
             <TextView
                 android:gravity="center"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:textSize="20dp"
-                android:textColor="@color/Black"
 
+                android:textColor="@color/black_titles"
+                android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:text="Please enter your phone number to login"/>
 
-
-
-            <EditText
-
-
-                android:id="@+id/edittext_phone"
-                android:inputType="phone"
-                android:layout_marginTop="30sp"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-
-                android:background="@drawable/edittextstyle"
-                android:textColor="@color/Black"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Phone"/>
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edittextstyle">
+
+                <TextView
+                    android:id="@+id/country_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="+91"
+                    android:textColor="@color/Black" />
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="2px"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_toRightOf="@+id/country_code"
+                    android:background="@color/app_bg" />
+
+                <EditText
+                    android:id="@+id/edittext_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30sp"
+                    android:layout_toRightOf="@+id/separator"
+                    android:background="@android:color/transparent"
+                    android:hint="X X X X  X X X  X X X"
+                    android:inputType="phone"
+                    android:textColor="@color/Black" />
 
 
+            </RelativeLayout>
             <Button
                 android:id="@+id/btn_continue"
                 android:paddingBottom="5dp"
@@ -67,29 +116,21 @@
                 android:textAllCaps="false"
                 android:background="@drawable/buttonlogin"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="16sp"
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Continue"
                 android:layout_marginBottom="30dp"/>
 
-
-
-
-
             <TextView
                 android:id="@+id/try_login"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:textColor="@color/Black"
-                android:textSize="20dp"
+                android:textColor="@color/black_titles"
+                android:textSize="14dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Try other login methods"/>
+                android:text="@string/try_other_login"/>
 
 
 
