@@ -82,6 +82,11 @@
             android:theme="@style/AppTheme2" />
         <activity android:name=".Activities.DNASettingActivity" />
         <activity android:name=".Activities.Noticeboard"></activity>
+        <activity android:name=".Activities.DNAProfileActivity"
+            android:label="Profile"
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".Activities.MainActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
