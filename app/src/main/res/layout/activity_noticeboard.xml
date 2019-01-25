@@ -25,7 +25,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:background="@color/color_noticeboard"
+            android:background="@color/colorPrimary"
             android:orientation="vertical">
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="40dp"
                 android:text="DNA"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/white"
                 android:textSize="40sp" />
 
             <Button
@@ -44,7 +44,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="40sp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/orange1"
                 android:gravity="center"
                 android:text="Edition 3.0"
                 android:textColor="@color/white"

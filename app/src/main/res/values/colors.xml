@@ -10,6 +10,7 @@
     <color name="black_primary">#212121</color>
     <color name="app_bg">#EAEDF2</color>
 
+    <color name="orange1">#ed854f</color>
     <color name="orange">#f37636</color>
     <color name="saffron">#f37636</color>
     <color name="scrollview_noriceboard">#ebcaef</color>
