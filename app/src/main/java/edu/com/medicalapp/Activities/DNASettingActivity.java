@@ -2,6 +2,7 @@ package edu.com.medicalapp.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import edu.com.medicalapp.R;
 
 public class DNASettingActivity extends AppCompatActivity {
 
