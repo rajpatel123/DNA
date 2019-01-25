@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+
+def uatKeystorePropertiesFile = rootProject.file("release_signing.properties")
+def uatKeystoreProperties = new Properties()
+uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -10,8 +14,24 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
+    signingConfigs {
+        dna {
+            keyAlias uatKeystoreProperties['KEY_ALIAS']
+            keyPassword uatKeystoreProperties['KEY_PASSWORD']
+            storeFile file(uatKeystoreProperties['STORE_FILE'])
+            storePassword uatKeystoreProperties['STORE_PASSWORD']
+            v2SigningEnabled false
+        }
+
+
+    }
     buildTypes {
         release {
+            def uatSigningKey = signingConfigs.dna
+
+            signingConfig uatSigningKey
             minifyEnabled false
             buildConfigField "String", "API_SERVER_IP", "\"http://akwebtech.com/demo/education/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
