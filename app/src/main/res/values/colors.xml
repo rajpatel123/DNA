@@ -12,7 +12,7 @@
 
     <color name="orange">#f37636</color>
     <color name="saffron">#f37636</color>
-
+    <color name="scrollview_noriceboard">#ebcaef</color>
 
 
     <color name="blue">#4080ff</color>
@@ -25,8 +25,10 @@
     <color name="vediobordertextcolor">#d0c5c1</color>
     <color name="normalwhite">#ede9e7</color>
     <color name="button_color">#2ba2af</color>
-
-
+    <color name="color_noticeboard">#62c8df</color>
+    <color name="button_color_noticeboard">#1f8a9e</color>
+    <color name="text_color_noticeboard">#292929</color>
+    <color name="text_color_noticeboard_normal">#282828</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="gradStart">#19AA8B</color>

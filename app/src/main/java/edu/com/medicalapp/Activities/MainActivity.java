@@ -223,8 +223,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, DNASuscribeActivity.class);
             startActivity(intent);
         } else if (id == R.id.notice_board) {
-            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
+            Intent intent = new Intent(this, Noticeboard.class);
+            startActivity(intent);
         } else if (id == R.id.dna_faculy) {
             Intent intent = new Intent(this, DNAFacultyActivity.class);
             startActivity(intent);

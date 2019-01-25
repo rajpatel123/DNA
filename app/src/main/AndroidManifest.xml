@@ -80,7 +80,8 @@
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
-        <activity android:name=".Activities.DNASettingActivity"></activity>
+        <activity android:name=".Activities.DNASettingActivity" />
+        <activity android:name=".Activities.Noticeboard"></activity>
     </application>
 
 </manifest>
