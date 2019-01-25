@@ -173,7 +173,7 @@ public class FirstloginActivity extends AppCompatActivity {
             }
         });*/
 
-       /*
+
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -204,13 +204,13 @@ public class FirstloginActivity extends AppCompatActivity {
                                 String id=facebookLoginData.getId();
                                 String email=facebookLoginData.getEmail();
 
-*//*
+
                                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                                 intent.putExtra("NAME",name);
                                 intent.putExtra("ID",id);
                                 intent.putExtra("EMAIL",email);
                               startActivity(intent);
-*//*
+
 
                             }
                         }
@@ -221,11 +221,10 @@ public class FirstloginActivity extends AppCompatActivity {
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
-*//*
 
                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                 startActivity(intent);
-*//*
+
             }
             @Override
             public void onCancel() {
@@ -249,8 +248,6 @@ public class FirstloginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-*/
+
 
     }
-}
-
