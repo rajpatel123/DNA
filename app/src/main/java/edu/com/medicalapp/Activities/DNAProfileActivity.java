@@ -93,12 +93,26 @@ public class DNAProfileActivity extends AppCompatActivity {
             String name=intent.getStringExtra("PROFILE_NAME");
             String email=intent.getStringExtra("PROFILE_EMAIL");
             String image=intent.getStringExtra("PROFILE_IMAGE");
-           tvName.setText(name);
-            tvEmail.setText(email);
-            /*Picasso.with(this)
-                    .load(image)
-                    .error(R.drawable.dnalogo)
-                    .into(circleImageView);*/
+
+            if(name!=null)
+            {
+                tvName.setText(name);
+                tvEmail.setText(email);
+                Picasso.with(this)
+                        .load(image)
+                        .error(R.drawable.dnalogo)
+                        .into(circleImageView);
+            }
+            else
+            {
+                tvName.setText("DNA");
+                tvEmail.setText("dna@gmail.com");
+                Picasso.with(this)
+                        .load(R.drawable.dnalogo)
+                        .error(R.drawable.dnalogo)
+                        .into(circleImageView);
+            }
+
         }
     }
 
