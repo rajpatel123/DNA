@@ -310,23 +310,7 @@ public class LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        if (object!=null) {
-                            FacebookLoginData facebookLoginData = new Gson().fromJson(object.toString(), FacebookLoginData.class);
-                            if (facebookLoginData!=null){
-                                String name=facebookLoginData.getName();
-                                String id=facebookLoginData.getId();
-                                String email=facebookLoginData.getEmail();
 
-
-                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                                intent.putExtra("NAME",name);
-                                intent.putExtra("ID",id);
-                                intent.putExtra("EMAIL",email);
-                                startActivity(intent);
-
-
-                            }
-                        }
                     }
 
                 });
@@ -334,9 +318,6 @@ public class LoginActivity extends AppCompatActivity {
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
-
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
 
             }
             @Override
