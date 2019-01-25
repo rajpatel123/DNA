@@ -89,8 +89,7 @@ public class DNAProfileActivity extends AppCompatActivity {
 
     private void setprofiledata() {
         Intent intent=getIntent();
-        if(intent.hasExtra("PROFILE_NAME"))
-        {
+
             String name=DnaPrefs.getString(getApplicationContext(),"NAME");
             String image=DnaPrefs.getString(getApplicationContext(),"URL");
             String email=DnaPrefs.getString(getApplicationContext(),"EMAIL");
@@ -114,7 +113,7 @@ public class DNAProfileActivity extends AppCompatActivity {
                         .into(circleImageView);
             }
 
-        }
+
     }
 
 
