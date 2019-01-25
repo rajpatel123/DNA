@@ -11,29 +11,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.Activities.NeetPgActivity;
 import edu.com.medicalapp.Adapters.CourseListAdapter;
-import edu.com.medicalapp.Models.Course;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
-import edu.com.medicalapp.utils.Constants;
-import edu.com.medicalapp.utils.LogPrefs;
 import edu.com.medicalapp.utils.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HomeFragment extends Fragment implements FragmentLifecycle, CourseListAdapter.OnCategoryClick {
 

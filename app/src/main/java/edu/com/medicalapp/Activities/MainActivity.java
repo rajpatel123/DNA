@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgOnlineIcon;
     private TextView onlineTitle;
     private NavigationView navigationView;
-    private TextView tvName, tvEmail;
+    private TextView tvName, tvEmail,tvSetting;
     private CircleImageView circleImageView;
+    String name,image,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +79,7 @@ public class MainActivity extends AppCompatActivity
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
         circleImageView = headerView.findViewById(R.id.profile_image);
-
-
+        tvSetting=headerView.findViewById(R.id.setting);
         pager = findViewById(R.id.vp_pages);
         tabBar = findViewById(R.id.tabBar);
         tabLayout = findViewById(R.id.tabs);
@@ -92,20 +92,28 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        tvSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                    Intent intent1=new Intent(MainActivity.this,DNAProfileActivity.class);
+                    intent1.putExtra("PROFILE_NAME",name);
+                    intent1.putExtra("PROFILE_EMAIL",email);
+                    intent1.putExtra("PROFILE_IMAGE",image);
+                    startActivity(intent1);
+                }
+        });
         setUpFragments();
-
         updateNavViewHeader();
-
-
     }
+
 
     private void updateNavViewHeader() {
         Intent intent = getIntent();
         if (intent.hasExtra("NAME")) {
-            String name = intent.getStringExtra("NAME");
-            String image = intent.getStringExtra("URL");
-            String email = intent.getStringExtra("EMAIL");
+             name = intent.getStringExtra("NAME");
+             image = intent.getStringExtra("URL");
+             email = intent.getStringExtra("EMAIL");
             Picasso.with(this).load(image)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
