@@ -54,14 +54,18 @@ public class FirstloginActivity extends AppCompatActivity {
 
     @BindView(R.id.login_button)
     LoginButton loginButton;
+
     @BindView(R.id.btn_email)
     Button btnEmail;
+
     @BindView(R.id.FirstLoginText)
     TextView loginText;
 
     @BindView(R.id.terms)
     TextView termsTV;
+
     CallbackManager callbackManager;
+
     private Button customFacebook;
 
 
@@ -70,7 +74,7 @@ public class FirstloginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_firstlogin);
-        customFacebook=findViewById(R.id.custom_login);
+        customFacebook = findViewById(R.id.custom_login);
         ButterKnife.bind(this);
         callbackManager = CallbackManager.Factory.create();
         loginwithFb();
@@ -91,13 +95,15 @@ public class FirstloginActivity extends AppCompatActivity {
             }
         });
 
+
         SpannableString spannableString = new SpannableString(getString(R.string.terms));
         spannableString.setSpan(new UnderlineSpan(), 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTV.setText(spannableString);
 
-        SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
+        SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         loginText.setText(spannableString1);
+
 
 
     }
@@ -166,6 +172,8 @@ public class FirstloginActivity extends AppCompatActivity {
                 Toast.makeText(FirstloginActivity.this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });*/
+
+
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -196,13 +204,13 @@ public class FirstloginActivity extends AppCompatActivity {
                                 String id=facebookLoginData.getId();
                                 String email=facebookLoginData.getEmail();
 
-/*
+
                                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                                 intent.putExtra("NAME",name);
                                 intent.putExtra("ID",id);
                                 intent.putExtra("EMAIL",email);
                               startActivity(intent);
-*/
+
 
                             }
                         }
@@ -213,11 +221,10 @@ public class FirstloginActivity extends AppCompatActivity {
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
-/*
 
                 Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
                 startActivity(intent);
-*/
+
             }
             @Override
             public void onCancel() {
@@ -243,4 +250,4 @@ public class FirstloginActivity extends AppCompatActivity {
     }
 
 
-}
+    }

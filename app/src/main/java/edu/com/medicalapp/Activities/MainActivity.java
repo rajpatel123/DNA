@@ -102,13 +102,10 @@ public class MainActivity extends AppCompatActivity
 
     private void updateNavViewHeader() {
         Intent intent = getIntent();
-
         if (intent.hasExtra("NAME")) {
             String name = intent.getStringExtra("NAME");
             String image = intent.getStringExtra("URL");
             String email = intent.getStringExtra("EMAIL");
-
-
             Picasso.with(this).load(image)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
