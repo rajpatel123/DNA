@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:text="DNA"
                 android:textSize="50dp"
-                android:textColor="@color/color_noticeboard" />
+                android:textColor="@color/colorPrimary" />
 
             <Button
                 android:layout_width="90dp"
@@ -913,7 +913,7 @@
 
                    <Button
                        android:layout_marginTop="15sp"
-                       android:background="@color/color_noticeboard"
+                       android:background="@color/colorPrimary"
                        android:textColor="@color/white"
                        android:elevation="10sp"
                        android:layout_width="match_parent"
@@ -925,7 +925,7 @@
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:layout_marginTop="15sp"
-                        android:textColor="@color/color_noticeboard"
+                        android:textColor="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Learn how to prepare using DNA"/>
@@ -1011,7 +1011,7 @@
                     <LinearLayout
 
                         android:orientation="vertical"
-                        android:background="@color/button_color_noticeboard"
+                        android:background="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -1098,7 +1098,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginLeft="20dp"
-                                android:textColor="@color/color_noticeboard"
+                                android:textColor="@color/colorPrimary"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="I authorize DNA to contact me overriding
@@ -1117,7 +1117,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="40dp"
                                 android:text="Register"
-                                android:background="@color/color_noticeboard"
+                                android:background="@color/colorPrimary"
                                 android:textColor="@color/white"
                                 />
                         </LinearLayout>
@@ -1168,7 +1168,7 @@
                         android:layout_height="wrap_content"
                         />
                     <TextView
-                        android:textColor="@color/button_color"
+                        android:textColor="@color/colorPrimary"
                         android:paddingLeft="5sp"
                         android:paddingRight="5sp"
                         android:paddingTop="5sp"
@@ -1201,7 +1201,7 @@
                         android:layout_height="wrap_content"
                         />
                     <TextView
-                        android:textColor="@color/button_color"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="5sp"
                         android:paddingRight="5sp"
@@ -1231,7 +1231,7 @@
                         android:layout_height="wrap_content"
                         />
                     <TextView
-                        android:textColor="@color/button_color"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="5sp"
                         android:paddingRight="5sp"
