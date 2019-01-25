@@ -95,7 +95,7 @@ public class FirstloginActivity extends AppCompatActivity {
             }
         });
 
-        
+
         SpannableString spannableString = new SpannableString(getString(R.string.terms));
         spannableString.setSpan(new UnderlineSpan(), 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTV.setText(spannableString);
@@ -103,6 +103,7 @@ public class FirstloginActivity extends AppCompatActivity {
         SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         loginText.setText(spannableString1);
+
 
 
     }
