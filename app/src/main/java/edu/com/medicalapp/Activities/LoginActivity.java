@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ import edu.com.medicalapp.Models.FacebookLoginData;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.Constants;
+import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -51,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.loginButton)
     Button btnLogin;
+
+    @BindView(R.id.login_checkbox)
+    CheckBox loginCheck;
 /*
 
     @BindView(R.id.login_button)
@@ -61,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
 
     String email_str, pass_str;
+    boolean check=false;
 
 
 
@@ -86,8 +93,19 @@ public class LoginActivity extends AppCompatActivity {
     }
     //Login Validation
     private void Validation() {
+
+
         email_str = editEmail.getText().toString();
         pass_str = editPassword.getText().toString();
+        if(loginCheck.isChecked())
+        {
+            check=true;
+            DnaPrefs.putBoolean(this, Constants.LoginCheck,check);
+        }
+        else {
+            check=false;
+            DnaPrefs.putBoolean(this,Constants.LoginCheck,check);
+        }
         if (TextUtils.isEmpty(email_str.trim()) || email_str.length() ==0) {
             Utils.displayToast(getApplicationContext(), "Please enter valid email");
             return;
@@ -186,9 +204,9 @@ public class LoginActivity extends AppCompatActivity {
                         if(response.code()==200 && response.body()!=null)
                         {
                             LoginResponse loginResponse=response.body();
-                            LogPrefs.putString(LoginActivity.this, Constants.ACCESS_TOKEN_EMAIL,loginResponse.getToken());
-                           // LogPrefs.putString(LoginActivity.this,Constants.NAME,loginResponse.getName());
-                          //  LogPrefs.putString(LoginActivity.this,Constants.EMAILID,loginResponse.getEmail());
+                            DnaPrefs.putString(LoginActivity.this, Constants.ACCESS_TOKEN_EMAIL,loginResponse.getToken());
+                           // DnaPrefs.putString(LoginActivity.this,Constants.NAME,loginResponse.getName());
+                          //  DnaPrefs.putString(LoginActivity.this,Constants.EMAILID,loginResponse.getEmail());
                             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                             intent.putExtra(Constants.NAME,loginResponse.getName()!=null?loginResponse.getName():"");
                             intent.putExtra(Constants.EMAILID,loginResponse.getEmail()!=null?loginResponse.getEmail():"");

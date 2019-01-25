@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import com.facebook.AccessToken;
 
-public class LogPrefs {
+public class DnaPrefs {
     private static final String KENT_SECURITY_PREFS = "HFCSecurity";
     private static SharedPreferences sharedPreferences;
 

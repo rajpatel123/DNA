@@ -15,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
 
 import edu.com.medicalapp.BuildConfig;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.utils.Constants;
+import edu.com.medicalapp.utils.DnaPrefs;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -35,10 +37,21 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashActivity.this,FirstloginActivity.class);
-                startActivity(i);
-                // close this activity
-                finish();
+                if(DnaPrefs.getBoolean(SplashActivity.this, Constants.LoginCheck))
+                {
+                    Intent i = new Intent(SplashActivity.this,MainActivity.class);
+                    startActivity(i);
+                    // close this activity
+                    finish();
+
+                }
+                else
+                {
+                    Intent i = new Intent(SplashActivity.this,FirstloginActivity.class);
+                    startActivity(i);
+                    // close this activity
+                    finish();
+                }
             }
         }, SPLASH_TIME_OUT);
     }
