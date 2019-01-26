@@ -101,18 +101,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/already_member"/>
-
-
             <TextView
-                android:id="@+id/terms"
-                android:gravity="center"
-                android:text="@string/terms"
-                android:textColor="@color/black_titles"
-                android:layout_marginTop="15dp"
+                android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="By Signing up, you accept the"
+                android:textColor="@color/black_titles"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="@string/terms"
+                    android:textColor="@color/black_titles"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/privacy"
+                    android:textColor="@color/black_titles"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

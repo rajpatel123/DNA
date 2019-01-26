@@ -45,6 +45,8 @@ public class FirstloginActivity extends AppCompatActivity {
 
     @BindView(R.id.FirstLoginText)
     TextView loginText;
+    @BindView(R.id.privacy)
+    TextView privacytxt;
 
     @BindView(R.id.terms)
     TextView termsTV;
@@ -82,14 +84,17 @@ public class FirstloginActivity extends AppCompatActivity {
 
 
         SpannableString spannableString = new SpannableString(getString(R.string.terms));
-        spannableString.setSpan(new UnderlineSpan(), 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTV.setText(spannableString);
 
-        SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
+        SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         loginText.setText(spannableString1);
 
 
+        SpannableString privacytxtstr= new SpannableString(getString(R.string.privacy));
+        privacytxtstr.setSpan(new UnderlineSpan(), 4, privacytxtstr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        privacytxt.setText(privacytxtstr);
 
     }
 
