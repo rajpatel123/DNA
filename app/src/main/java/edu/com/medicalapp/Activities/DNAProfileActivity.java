@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,16 +89,16 @@ public class DNAProfileActivity extends AppCompatActivity {
 
     private void setprofiledata() {
         Intent intent=getIntent();
-        if(intent.hasExtra("PROFILE_NAME"))
-        {
-            String name=intent.getStringExtra("PROFILE_NAME");
-            String email=intent.getStringExtra("PROFILE_EMAIL");
-            String image=intent.getStringExtra("PROFILE_IMAGE");
 
-            if(name!=null)
+            String name=DnaPrefs.getString(getApplicationContext(),"NAME");
+            String image=DnaPrefs.getString(getApplicationContext(),"URL");
+            String email=DnaPrefs.getString(getApplicationContext(),"EMAIL");
+
+            tvName.setText(name);
+            tvEmail.setText(email);
+            if(!TextUtils.isEmpty(image))
             {
-                tvName.setText(name);
-                tvEmail.setText(email);
+
                 Picasso.with(this)
                         .load(image)
                         .error(R.drawable.dnalogo)
@@ -105,15 +106,14 @@ public class DNAProfileActivity extends AppCompatActivity {
             }
             else
             {
-                tvName.setText("DNA");
-                tvEmail.setText("dna@gmail.com");
+
                 Picasso.with(this)
                         .load(R.drawable.dnalogo)
                         .error(R.drawable.dnalogo)
                         .into(circleImageView);
             }
 
-        }
+
     }
 
 

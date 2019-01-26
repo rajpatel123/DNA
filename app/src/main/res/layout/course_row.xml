@@ -41,7 +41,6 @@
             android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:text="DM/M.CH"
-            android:textStyle="bold"
             android:textColor="@color/darkwhite"
             />
 

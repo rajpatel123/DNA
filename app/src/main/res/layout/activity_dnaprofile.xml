@@ -16,7 +16,7 @@
        android:layout_marginBottom="20dp"
        android:id="@+id/linear_top"
        android:gravity="center"
-       android:background="@color/profile_background"
+       android:background="@color/colorPrimary"
        android:orientation="vertical"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
@@ -47,7 +47,6 @@
            android:id="@+id/profile_email"
            android:layout_marginBottom="10dp"
            android:textSize="16sp"
-           android:padding="10sp"
            android:gravity="center"
            android:textColor="@color/white"
            android:layout_width="match_parent"

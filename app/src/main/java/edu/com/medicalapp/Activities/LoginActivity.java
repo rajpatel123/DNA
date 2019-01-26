@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
             Utils.displayToast(getApplicationContext(), "Please enter valid email");
             return;
         }
-        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), email_str);
+         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), email_str);
         RequestBody pwd = RequestBody.create(MediaType.parse("text/plain"), pass_str);
         Utils.showProgressDialog(this);
         RestClient.loginUser(email,pwd, new Callback<loginResponse>() {
@@ -130,6 +130,11 @@ public class LoginActivity extends AppCompatActivity {
                     loginResponse loginResponse = response.body();
                     if (Integer.parseInt(loginResponse.getStatus()) == 1) {
                         Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        DnaPrefs.putString(getApplicationContext(),"NAME","DNA User");
+                        DnaPrefs.putString(getApplicationContext(),"URL","");
+                        DnaPrefs.putString(getApplicationContext(),"EMAIL",email_str);
+
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         finish();
                     }else{
@@ -316,11 +321,12 @@ public class LoginActivity extends AppCompatActivity {
                             String name=data.getString("name");
                             String email=data.getString("email");
                             String pictureurl=data.getJSONObject("picture").getJSONObject("data").getString("url");
-
+                            DnaPrefs.putBoolean(LoginActivity.this, Constants.LoginCheck,true);
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                            intent.putExtra("NAME",name);
-                            intent.putExtra("URL",pictureurl);
-                            intent.putExtra("EMAIL",email);
+                            DnaPrefs.putString(getApplicationContext(),"NAME",name);
+                            DnaPrefs.putString(getApplicationContext(),"URL",pictureurl);
+                            DnaPrefs.putString(getApplicationContext(),"EMAIL",email);
+
 
                             startActivity(intent);
                             finish();
@@ -328,23 +334,7 @@ public class LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        if (object!=null) {
-                            FacebookLoginData facebookLoginData = new Gson().fromJson(object.toString(), FacebookLoginData.class);
-                            if (facebookLoginData!=null){
-                                String name=facebookLoginData.getName();
-                                String id=facebookLoginData.getId();
-                                String email=facebookLoginData.getEmail();
 
-
-                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                                intent.putExtra("NAME",name);
-                                intent.putExtra("ID",id);
-                                intent.putExtra("EMAIL",email);
-                                startActivity(intent);
-
-
-                            }
-                        }
                     }
 
                 });
@@ -352,9 +342,6 @@ public class LoginActivity extends AppCompatActivity {
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
-
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
 
             }
             @Override

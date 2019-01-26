@@ -1,9 +1,8 @@
 package edu.com.medicalapp.Activities;
 
 import android.content.Intent;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -11,27 +10,26 @@ import android.text.style.UnderlineSpan;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Adapters.CustomAdapter;
 import edu.com.medicalapp.Models.registration.CommonResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 
     @BindView(R.id.edit_name)
@@ -51,11 +49,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @BindView(R.id.text_login)
     TextView textLogin;
-    @BindView(R.id.termsTV)
+    @BindView(R.id.terms)
     TextView termsTV;
+    @BindView(R.id.privacy)
+    TextView privacy;
 
     String edit_name,edit_username,edit_email,edit_password;
-
+    String[] countryNames = {"Andhra Pradesh","Arunachal Pradesh","Gujarat","Karnataka","Maharashtra","Utter Pradesh", "Bihar"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +71,26 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         });
 
         SpannableString spannableString = new SpannableString(getString(R.string.terms));
-        spannableString.setSpan(new UnderlineSpan(), 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTV.setText(spannableString);
+
         SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textLogin.setText(spannableString1);
 
+
+        SpannableString privacytxt = new SpannableString(getString(R.string.privacy));
+        privacytxt.setSpan(new UnderlineSpan(), 4, privacytxt.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        privacy.setText(privacytxt);
+
+
+        //state spinner
+        //Getting the instance of Spinner and applying OnItemSelectedListener on it
+        Spinner spin = (Spinner) findViewById(R.id.selectState);
+        spin.setOnItemSelectedListener(this);
+
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countryNames);
+        spin.setAdapter(customAdapter);
 
     }
 
@@ -188,4 +202,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

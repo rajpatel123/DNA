@@ -40,7 +40,10 @@
     </RelativeLayout>
 
 
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbar">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,13 +65,13 @@
                 android:layout_marginTop="15dp"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
-
                 android:drawableLeft="@drawable/user"
                 android:drawablePadding="8dp"
                 android:background="@drawable/edittextstyle"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:minHeight="44dp"
                 android:hint="Name"/>
 
             <EditText
@@ -85,8 +88,8 @@
                 android:paddingTop="5dp"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Username"/>
+                android:layout_height="wrap_content"
+                android:minHeight="44dp"  android:hint="Username"/>
 
             <EditText
                 android:id="@+id/edit_emailId"
@@ -103,12 +106,10 @@
                 android:background="@drawable/edittextstyle"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Email ID"/>
+                android:layout_height="wrap_content"
+                android:minHeight="44dp"  android:hint="Email ID"/>
 
             <EditText
-
-
                 android:id="@+id/edit_Passwword"
                 android:drawableLeft="@drawable/password"
                 android:drawablePadding="8dp"
@@ -121,7 +122,22 @@
                 android:paddingTop="5dp"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:minHeight="44dp"  android:hint="Password"/>
+
+            <Spinner
+                android:id="@+id/selectState"
+                android:drawableRight="@drawable/password"
+                android:drawablePadding="8dp"
+                android:inputType="textPassword"
+                android:layout_marginTop="25dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/edittextstyle"
+                android:paddingLeft="5dp"
+                android:textColor="@color/Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:hint="Password"/>
 
 
@@ -164,39 +180,50 @@
 
 
             <TextView
-                android:id="@+id/termsTV"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/Black"
-                android:layout_marginTop="15dp"
+                android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/terms"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="By Signing up, you accept the"
+                android:textColor="@color/black_titles"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="@string/terms"
+                    android:textColor="@color/black_titles"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/privacy"
+                    android:textColor="@color/black_titles"
+                    android:textSize="16sp" />
 
 
-
-
-
-
-
-
-
+            </LinearLayout>
 
         </LinearLayout>
 
-
-
-
-
-
-
     </RelativeLayout>
+
+</ScrollView>
 
 
 </RelativeLayout>

@@ -31,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.Models.FacebookLoginData;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.utils.Constants;
+import edu.com.medicalapp.utils.DnaPrefs;
 
 public class FirstloginActivity extends AppCompatActivity {
 
@@ -43,6 +45,8 @@ public class FirstloginActivity extends AppCompatActivity {
 
     @BindView(R.id.FirstLoginText)
     TextView loginText;
+    @BindView(R.id.privacy)
+    TextView privacytxt;
 
     @BindView(R.id.terms)
     TextView termsTV;
@@ -80,14 +84,17 @@ public class FirstloginActivity extends AppCompatActivity {
 
 
         SpannableString spannableString = new SpannableString(getString(R.string.terms));
-        spannableString.setSpan(new UnderlineSpan(), 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTV.setText(spannableString);
 
-        SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
+        SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         loginText.setText(spannableString1);
 
 
+        SpannableString privacytxtstr= new SpannableString(getString(R.string.privacy));
+        privacytxtstr.setSpan(new UnderlineSpan(), 4, privacytxtstr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        privacytxt.setText(privacytxtstr);
 
     }
 
@@ -168,11 +175,13 @@ public class FirstloginActivity extends AppCompatActivity {
                             String name=data.getString("name");
                             String email=data.getString("email");
                             String pictureurl=data.getJSONObject("picture").getJSONObject("data").getString("url");
+                            DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck,true);
 
                             Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
-                            intent.putExtra("NAME",name);
-                            intent.putExtra("URL",pictureurl);
-                            intent.putExtra("EMAIL",email);
+                            DnaPrefs.putString(getApplicationContext(),"NAME",name);
+                            DnaPrefs.putString(getApplicationContext(),"URL",pictureurl);
+                            DnaPrefs.putString(getApplicationContext(),"EMAIL",email);
+
 
                             startActivity(intent);
                             finish();
@@ -180,23 +189,7 @@ public class FirstloginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        if (object!=null) {
-                            FacebookLoginData facebookLoginData = new Gson().fromJson(object.toString(), FacebookLoginData.class);
-                            if (facebookLoginData!=null){
-                                String name=facebookLoginData.getName();
-                                String id=facebookLoginData.getId();
-                                String email=facebookLoginData.getEmail();
 
-
-                                Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
-                                intent.putExtra("NAME",name);
-                                intent.putExtra("ID",id);
-                                intent.putExtra("EMAIL",email);
-                              startActivity(intent);
-
-
-                            }
-                        }
                     }
 
                 });
@@ -205,8 +198,7 @@ public class FirstloginActivity extends AppCompatActivity {
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
 
-                Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
-                startActivity(intent);
+
 
             }
             @Override

@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,7 @@ import edu.com.medicalapp.fragment.QbankFragment;
 import edu.com.medicalapp.fragment.TextFragment;
 import edu.com.medicalapp.fragment.videoFragment;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
+import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.ImageUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -97,9 +99,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
 
                     Intent intent1=new Intent(MainActivity.this,DNAProfileActivity.class);
-                    intent1.putExtra("PROFILE_NAME",name);
-                    intent1.putExtra("PROFILE_EMAIL",email);
-                    intent1.putExtra("PROFILE_IMAGE",image);
                     startActivity(intent1);
                 }
         });
@@ -110,17 +109,24 @@ public class MainActivity extends AppCompatActivity
 
     private void updateNavViewHeader() {
         Intent intent = getIntent();
-        if (intent.hasExtra("NAME")) {
-             name = intent.getStringExtra("NAME");
-             image = intent.getStringExtra("URL");
-             email = intent.getStringExtra("EMAIL");
-            Picasso.with(this).load(image)
-                    .error(R.drawable.dnalogo)
-                    .into(circleImageView);
+
+             name= DnaPrefs.getString(getApplicationContext(),"NAME");
+             image=DnaPrefs.getString(getApplicationContext(),"URL");
+             email=DnaPrefs.getString(getApplicationContext(),"EMAIL");
+
             tvName.setText(name);
             tvEmail.setText(email);
+           if (!TextUtils.isEmpty(image)){
+               Picasso.with(this).load(image)
+                       .error(R.drawable.dnalogo)
+                       .into(circleImageView);
+           }else{
+               Picasso.with(this)
+                       .load(R.drawable.dnalogo)
+                       .error(R.drawable.dnalogo)
+                       .into(circleImageView);
 
-        }
+           }
 
     }
 
@@ -231,8 +237,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, DNASuscribeActivity.class);
             startActivity(intent);
         } else if (id == R.id.notice_board) {
-            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
+            Intent intent = new Intent(this, Noticeboard.class);
+            startActivity(intent);
         } else if (id == R.id.dna_faculy) {
             Intent intent = new Intent(this, DNAFacultyActivity.class);
             startActivity(intent);

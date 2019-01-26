@@ -3,6 +3,7 @@ package edu.com.medicalapp.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,14 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 stringBuilder.append(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().get(i).getSubCatName() + "/");
             }
             subcats = stringBuilder.substring(0, stringBuilder.length() - 1);
-            holder.desc.setText("" + subcats);
+           if (!TextUtils.isEmpty(subcats)){
+               holder.desc.setText("" + subcats);
+               holder.desc.setVisibility(View.VISIBLE);
+
+           }else{
+               holder.desc.setText("");
+               holder.desc.setVisibility(View.GONE);
+           }
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -59,6 +67,10 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
                 }
             });
+        }else{
+            holder.desc.setText("");
+            holder.desc.setVisibility(View.GONE);
+
         }
 
 
