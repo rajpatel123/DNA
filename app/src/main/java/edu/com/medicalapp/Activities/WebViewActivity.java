@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.R;
 
 import static android.view.View.GONE;
 
@@ -39,7 +40,7 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_usdetaila);
+        setContentView(R.layout.activity_about_usdetails);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
