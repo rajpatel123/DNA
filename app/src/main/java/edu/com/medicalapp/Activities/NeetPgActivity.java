@@ -70,7 +70,6 @@ public class NeetPgActivity extends AppCompatActivity {
                          }
                      }
                     listHashMap.put(listDataheader.get(j),neetPg);
-
                }
 
             }
