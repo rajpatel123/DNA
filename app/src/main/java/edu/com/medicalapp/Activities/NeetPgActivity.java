@@ -60,18 +60,17 @@ public class NeetPgActivity extends AppCompatActivity {
             if (id.equalsIgnoreCase(categoryDetailData.getDetails().get(i).getCatId())){
                 int headerindex =i;
                 catTitle.setText(categoryDetailData.getDetails().get(i).getCatName());
-                neetPg = new ArrayList<String>();
                 for (int j=0;j<categoryDetailData.getDetails().get(i).getSubCat().size();j++ ){
+                    neetPg = new ArrayList<String>();
                    listDataheader.add(categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubCatName());
                      List<SubSubChild> childs = categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubSubChild();
                      if (childs!=null && childs.size()>0){
                          for (int k=0;k<childs.size();k++){
                              neetPg.add(childs.get(k).getSubChildName());
                          }
+                         listHashMap.put(listDataheader.get(j),neetPg);
                      }
-                    listHashMap.put(listDataheader.get(j),neetPg);
                }
-
             }
 
         }

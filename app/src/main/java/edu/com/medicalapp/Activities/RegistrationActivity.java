@@ -73,6 +73,17 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         SpannableString spannableString = new SpannableString(getString(R.string.terms));
         spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTV.setText(spannableString);
+        termsTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(RegistrationActivity.this,WebViewActivity.class);
+                intent.putExtra("title","Terms & Conditions");
+                startActivity(intent);
+
+            }
+        });
+
+
 
         SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -82,6 +93,15 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         SpannableString privacytxt = new SpannableString(getString(R.string.privacy));
         privacytxt.setSpan(new UnderlineSpan(), 4, privacytxt.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         privacy.setText(privacytxt);
+        privacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(RegistrationActivity.this,WebViewActivity.class);
+                intent.putExtra("title","Privacy Policy");
+                startActivity(intent);
+            }
+        });
+
 
 
         //state spinner

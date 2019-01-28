@@ -13,11 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 
-import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.utils.Utils;
 
 import static android.view.View.GONE;
 
@@ -44,11 +44,13 @@ public class WebViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         title = getIntent().getStringExtra("title");
+            getSupportActionBar().setTitle(title);
         try {
             initComponent();
         } catch (Exception e) {
@@ -69,9 +71,9 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView.setWebViewClient(new myWebClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
 
-        toolbar.setTitle(title);
 
-        if (!Methods.isInternetConnected(this)) {
+        getSupportActionBar().setTitle(title);
+        if (!Utils.isInternetConnected(this)) {
             rlWebView.setVisibility(GONE);
             rlNetworkUI.setVisibility(View.VISIBLE);
 //            rlNetworkUI.setOnClickListener(new View.OnClickListener() {
@@ -91,18 +93,17 @@ public class WebViewActivity extends AppCompatActivity {
         rlNetworkUI.setVisibility(View.GONE);
 
         switch (title) {
-            case "About Us":
-                progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl(BuildConfig.API_SERVER_IP + ApiUrls.ABOUT_US);
-                break;
             case "Terms & Conditions":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl(BuildConfig.API_SERVER_IP + ApiUrls.TERMS_AND_CONDITION);
+                mWebView.loadUrl("https://www.website.com/terms-and-conditions/");
                 break;
+
             case "Privacy Policy":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl(BuildConfig.API_SERVER_IP + ApiUrls.PRIVCY_POLICY);
+                mWebView.loadUrl("https://termsfeed.com/blog/privacy-policy-url-facebook-app/");
                 break;
+
+
         }
     }
 

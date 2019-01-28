@@ -86,6 +86,15 @@ public class FirstloginActivity extends AppCompatActivity {
         SpannableString spannableString = new SpannableString(getString(R.string.terms));
         spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTV.setText(spannableString);
+        termsTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(FirstloginActivity.this,WebViewActivity.class);
+                intent.putExtra("title","Terms & Conditions");
+                startActivity(intent);
+
+            }
+        });
 
         SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -95,6 +104,14 @@ public class FirstloginActivity extends AppCompatActivity {
         SpannableString privacytxtstr= new SpannableString(getString(R.string.privacy));
         privacytxtstr.setSpan(new UnderlineSpan(), 4, privacytxtstr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         privacytxt.setText(privacytxtstr);
+        privacytxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(FirstloginActivity.this,WebViewActivity.class);
+                intent.putExtra("title","Privacy Policy");
+                startActivity(intent);
+            }
+        });
 
     }
 
