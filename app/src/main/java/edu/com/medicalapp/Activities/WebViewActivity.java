@@ -17,9 +17,7 @@ import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.com.medicalapp.BuildConfig;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.utils.Utils;
 
 import static android.view.View.GONE;
 
@@ -42,7 +40,7 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_usdetaila);
+        setContentView(R.layout.activity_about_usdetails);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -73,8 +71,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         toolbar.setTitle(title);
 
-        if (!Utils.isInternetConnected(this)) {
-
+        if (!Methods.isInternetConnected(this)) {
             rlWebView.setVisibility(GONE);
             rlNetworkUI.setVisibility(View.VISIBLE);
 //            rlNetworkUI.setOnClickListener(new View.OnClickListener() {
@@ -94,14 +91,17 @@ public class WebViewActivity extends AppCompatActivity {
         rlNetworkUI.setVisibility(View.GONE);
 
         switch (title) {
-
+            case "About Us":
+                progressBar.setVisibility(View.VISIBLE);
+                mWebView.loadUrl(BuildConfig.API_SERVER_IP + ApiUrls.ABOUT_US);
+                break;
             case "Terms & Conditions":
                 progressBar.setVisibility(View.VISIBLE);
-               mWebView.loadUrl("https://www.website.com/terms-and-conditions/");
+                mWebView.loadUrl(BuildConfig.API_SERVER_IP + ApiUrls.TERMS_AND_CONDITION);
                 break;
             case "Privacy Policy":
                 progressBar.setVisibility(View.VISIBLE);
-                //mWebView.loadUrl(BuildConfig.API_SERVER_IP + ApiUrls.PRIVCY_POLICY);
+                mWebView.loadUrl(BuildConfig.API_SERVER_IP + ApiUrls.PRIVCY_POLICY);
                 break;
         }
     }
