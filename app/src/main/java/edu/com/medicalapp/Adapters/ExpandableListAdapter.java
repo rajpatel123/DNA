@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.constraint.solver.widgets.ConstraintWidget;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.com.medicalapp.Activities.VedioActivity;
 import edu.com.medicalapp.R;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -88,7 +90,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+    public View getChildView(final int i, int i1, boolean b, View view, ViewGroup viewGroup) {
 
         final String childeText= (String) getChild(i,i1);
         if(view==null)
@@ -99,6 +101,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView childeHeader=view.findViewById(R.id.listitem);
         childeHeader.setText(childeText);
+        childeHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,VedioActivity.class);
+                intent.putExtra("SubCategoryName",childeText);
+                context.startActivity(intent);
+
+            }
+        });
         return view;
 
 

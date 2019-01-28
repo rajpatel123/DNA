@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_left_arrow"
+            android:tint="@color/colorPrimary" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="10dp"
+            android:src="@drawable/dnalogo"
+            android:visibility="visible" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/toolbar"
+        android:id="@+id/relative_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/subcategory_name"
+                android:textStyle="bold"
+                android:padding="15dp"
+                android:background="@color/vediobackgroundColor"
+                android:textColor="@color/orange1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Anatomy"/>
+        </LinearLayout>
+        <!--<android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+    </RelativeLayout>
+
+     <LinearLayout
+         android:id="@+id/tablayout"
+         android:orientation="vertical"
+            android:layout_below="@id/relative_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable"
+                app:tabIndicatorColor="@color/orange"
+                app:tabMaxWidth="0dp"
+                app:tabGravity="fill"/>
+            <!-- </android.support.design.widget.AppBarLayout>-->
+            <View
+                android:id="@+id/tabBarShadow"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/shape_gradient_top_shadow" />
+     </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

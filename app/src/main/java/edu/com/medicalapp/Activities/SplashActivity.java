@@ -37,7 +37,9 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                if(DnaPrefs.getBoolean(SplashActivity.this, Constants.LoginCheck))
+
+
+               if(DnaPrefs.getBoolean(SplashActivity.this, Constants.LoginCheck))
                 {
                     Intent i = new Intent(SplashActivity.this,MainActivity.class);
                     startActivity(i);

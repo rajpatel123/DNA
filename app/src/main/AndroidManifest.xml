@@ -54,7 +54,6 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".Activities.NeetPgActivity" />
-        <activity android:name=".Activities.NeetSsActivity" />
         <activity android:name=".Activities.ShoppingActivty" />
         <activity android:name=".Activities.TodayUpdateActivity" />
         <activity android:name=".Activities.LiveActivity" />
@@ -81,19 +80,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity android:name=".Activities.DNASettingActivity" />
-        <activity android:name=".Activities.Noticeboard"
+        <activity
+            android:name=".Activities.Noticeboard"
             android:label="Notice Board"
-            android:theme="@style/AppTheme2"
             android:parentActivityName=".Activities.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Activities.DNAProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"></activity>
+        <activity
+            android:name=".Activities.DNAProfileActivity"
             android:label="Profile"
-            android:theme="@style/AppTheme2"
             android:parentActivityName=".Activities.MainActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activities.WebViewActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".Activities.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.VedioActivity"></activity>
     </application>
 
 </manifest>

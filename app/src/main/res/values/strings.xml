@@ -3,6 +3,8 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+    <string name="font_fontFamily_medium2">sans-serif-medium</string>>
 
     <string name="loginText">Lorem ipsum dolor sit amet, consectetur</string>
 

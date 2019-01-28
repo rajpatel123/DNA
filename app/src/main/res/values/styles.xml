@@ -16,6 +16,11 @@
        <!---->
     <!--</style>-->
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#d89d1d</item>
+        <item name="colorControlActivated">#d89d1d</item>
+    </style>
+
     <style name="AppTheme2" parent="Base.Theme.AppCompat.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>
