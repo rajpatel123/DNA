@@ -9,4 +9,12 @@
       android:layout_height="match_parent">
 
   </android.support.v7.widget.RecyclerView>
+
+  <TextView
+      android:id="@+id/noVid"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:textColor="@color/colorPrimary"
+      android:text="No Free Video found"/>
 </RelativeLayout>

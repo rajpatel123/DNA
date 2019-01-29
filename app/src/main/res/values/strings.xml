@@ -90,4 +90,16 @@
     <string name="edit_user_profile">Edit</string>
     <string name="alert_text">Are you sure to logout?</string>
     <string name="select_state">Select State</string>
+    <string name="error_unrecognized_stereo_mode">Error</string>
+    <string name="storage_permission_denied">Permission denied</string>
+    <string name="unexpected_intent_action">Error 1</string>
+    <string name="error_drm_unknown">Unknown</string>
+    <string name="error_drm_not_supported">Not supported format</string>
+    <string name="error_drm_unsupported_scheme">Not supported format</string>
+    <string name="ima_not_loaded">not loaded</string>
+    <string name="error_unsupported_video">Unsupported</string>
+    <string name="error_unsupported_audio">Unsuppoted</string>
+    <string name="error_generic">Error in playing video</string>
+    <string name="error_querying_decoders">Error_in decoders</string>
+    <string name="error_no_secure_decoder">Error in source</string>
 </resources>

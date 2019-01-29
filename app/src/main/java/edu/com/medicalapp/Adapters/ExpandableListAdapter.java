@@ -93,11 +93,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int i, int i1, boolean b, View view, ViewGroup viewGroup) {
 
         final String childeText= (String) getChild(i,i1);
+        final String sub_cat_id= getChild(i,i1);
         if(view==null)
         {
             LayoutInflater layoutInflater= (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view=layoutInflater.inflate(R.layout.list_item,null);
         }
+
 
         TextView childeHeader=view.findViewById(R.id.listitem);
         childeHeader.setText(childeText);
@@ -105,6 +107,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,VedioActivity.class);
+                intent.putExtra("SubCategoryName",childeText);
                 intent.putExtra("SubCategoryName",childeText);
                 context.startActivity(intent);
 

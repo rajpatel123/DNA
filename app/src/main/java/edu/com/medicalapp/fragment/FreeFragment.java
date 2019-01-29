@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import edu.com.medicalapp.Activities.VideoPlayerActivity;
 import edu.com.medicalapp.Adapters.CourseListAdapter;
 import edu.com.medicalapp.Models.VideoList;
@@ -29,8 +31,9 @@ public class FreeFragment extends Fragment implements VideoListAdapter.OnCategor
 
     private VideoList videoList;
 
-    @BindView(R.id.recyclerView)
      RecyclerView recyclerView;
+
+    TextView noVid;
 
     public FreeFragment()
     {
@@ -47,31 +50,43 @@ public class FreeFragment extends Fragment implements VideoListAdapter.OnCategor
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_free,container,false);
+         recyclerView = view.findViewById(R.id.recyclerView);
+         noVid = view.findViewById(R.id.noVid);
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         getVideos();
+
     }
 
     private void getVideos() {
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.getVideos("5","Video",new Callback<VideoList>() {
+            RestClient.getVideos(,"Video",new Callback<VideoList>() {
                 @Override
                 public void onResponse(Call<VideoList> call, Response<VideoList> response) {
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
                         videoList = response.body();
-                        if (videoList != null && videoList.getFree().size() > 0) {
+                        if (videoList != null && videoList.getFree()!=null && videoList.getFree().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
                             VideoListAdapter videoListAdapter = new VideoListAdapter(getActivity());
                             videoListAdapter.setData(videoList.getFree());
                             videoListAdapter.setListener(FreeFragment.this);
                             recyclerView.setAdapter(videoListAdapter);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            noVid.setVisibility(View.GONE);
+
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.GONE);
                             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2) {
@@ -88,6 +103,8 @@ public class FreeFragment extends Fragment implements VideoListAdapter.OnCategor
                             // noInternet.setVisibility(View.VISIBLE);
                             // noInternet.setText(getString(R.string.no_project));
                             recyclerView.setVisibility(View.GONE);
+                            noVid.setVisibility(View.VISIBLE);
+
                         }
                     }
 
