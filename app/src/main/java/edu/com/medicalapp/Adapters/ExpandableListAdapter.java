@@ -3,19 +3,16 @@ package edu.com.medicalapp.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.constraint.solver.widgets.ConstraintWidget;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 import java.util.List;
 
-import edu.com.medicalapp.Activities.VedioActivity;
+import edu.com.medicalapp.Activities.VideoActivity;
 import edu.com.medicalapp.R;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -104,7 +101,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         childeHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,VedioActivity.class);
+                Intent intent=new Intent(context,VideoActivity.class);
                 intent.putExtra("SubCategoryName",childeText);
                 context.startActivity(intent);
 

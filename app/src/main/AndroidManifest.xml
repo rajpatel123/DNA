@@ -55,9 +55,7 @@
 
         <activity android:name=".Activities.NeetPgActivity" />
         <activity android:name=".Activities.ShoppingActivty" />
-        <activity android:name=".Activities.TodayUpdateActivity" />
         <activity android:name=".Activities.LiveActivity" />
-        <activity android:name=".Activities.TextSeriesActivity" />
         <activity
             android:name=".Activities.DNAFacultyActivity"
             android:label="Faculty"
@@ -95,7 +93,7 @@
         <activity
             android:name=".Activities.WebViewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.VedioActivity" />
+        <activity android:name=".Activities.VideoActivity" />
         <activity android:name=".Activities.VideoPlayerActivity"></activity>
     </application>
 
