@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +54,11 @@ public class VedioActivity extends AppCompatActivity {
         {
             String subcategoryname=intent.getStringExtra("SubCategoryName");
             subcategory.setText(subcategoryname);
-
         }
+
     }
+
+
     private void setupTabIcons() {
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
         tabOne.setText("Free");
@@ -106,6 +107,7 @@ public class VedioActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
+
             return mFragmentList.size();
         }
 
