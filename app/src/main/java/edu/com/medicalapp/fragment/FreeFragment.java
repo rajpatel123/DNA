@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import edu.com.medicalapp.Activities.VideoPlayerActivity;
-import edu.com.medicalapp.Adapters.CourseListAdapter;
+import edu.com.medicalapp.Adapters.VideoListFreeAdapter;
 import edu.com.medicalapp.Models.VideoList;
-import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
@@ -24,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FreeFragment extends Fragment implements VideoListAdapter.OnCategoryClick {
+public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCategoryClick {
 
 
     private VideoList videoList;
@@ -68,10 +67,10 @@ public class FreeFragment extends Fragment implements VideoListAdapter.OnCategor
                         if (videoList != null && videoList.getFree().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
-                            VideoListAdapter videoListAdapter = new VideoListAdapter(getActivity());
-                            videoListAdapter.setData(videoList.getFree());
-                            videoListAdapter.setListener(FreeFragment.this);
-                            recyclerView.setAdapter(videoListAdapter);
+                            VideoListFreeAdapter videoListFreeAdapter = new VideoListFreeAdapter(getActivity());
+                            videoListFreeAdapter.setData(videoList.getFree());
+                            videoListFreeAdapter.setListener(FreeFragment.this);
+                            recyclerView.setAdapter(videoListFreeAdapter);
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.GONE);
                             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2) {

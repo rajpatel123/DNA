@@ -58,7 +58,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements VideoRende
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+g        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
 
