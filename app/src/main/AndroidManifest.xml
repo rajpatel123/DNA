@@ -85,7 +85,7 @@
             android:label="Notice Board"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"></activity>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNAProfileActivity"
             android:label="Profile"
@@ -95,7 +95,8 @@
         <activity
             android:name=".Activities.WebViewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.VedioActivity"></activity>
+        <activity android:name=".Activities.VedioActivity" />
+        <activity android:name=".Activities.VideoPlayerActivity"></activity>
     </application>
 
 </manifest>

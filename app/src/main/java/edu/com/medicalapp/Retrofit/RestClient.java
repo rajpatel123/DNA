@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Retrofit;
 
+import edu.com.medicalapp.Models.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
@@ -35,6 +36,9 @@ public class RestClient {
 
     public static void getCourses( Callback<CategoryDetailData> callback) {
         RetrofitClient.getClient().getCourse().enqueue(callback);
+    }
+    public static void getVideos(String sub_child_cat, String fileType, Callback<VideoList> callback) {
+        RetrofitClient.getClient().getVideos(sub_child_cat,fileType).enqueue(callback);
     }
 
 }

@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Retrofit;
 
+import edu.com.medicalapp.Models.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
@@ -10,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -34,6 +36,6 @@ public interface ApiInterface {
     @GET("api/api.php?req=category")
     Call<CategoryDetailData> getCourse();
 
-
-
+    @GET("api/api.php?req=category")
+    Call <VideoList>getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
 }
