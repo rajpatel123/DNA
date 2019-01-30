@@ -1,12 +1,11 @@
 package edu.com.medicalapp.Retrofit;
 
-import edu.com.medicalapp.Models.VideoList;
+import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;

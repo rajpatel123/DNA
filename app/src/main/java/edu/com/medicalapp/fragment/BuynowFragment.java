@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import edu.com.medicalapp.Activities.VideoPlayerActivity;
-import edu.com.medicalapp.Adapters.VideoListFreeAdapter;
 import edu.com.medicalapp.Adapters.VideoListPriceAdapter;
-import edu.com.medicalapp.Models.VideoList;
+import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
@@ -66,7 +65,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
                         videoList = response.body();
-                        if (videoList != null && videoList.getFree().size() > 0) {
+                        if (videoList != null && videoList.getPrice().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
                             VideoListPriceAdapter videoListFreeAdapter=new VideoListPriceAdapter(getActivity());

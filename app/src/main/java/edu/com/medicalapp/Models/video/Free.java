@@ -1,4 +1,4 @@
-package edu.com.medicalapp.Models;
+package edu.com.medicalapp.Models.video;
 
 
 

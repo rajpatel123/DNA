@@ -1,4 +1,4 @@
-package edu.com.medicalapp.Models;
+package edu.com.medicalapp.Models.video;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

@@ -83,13 +83,13 @@
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable"
                 app:tabIndicatorColor="@color/orange"
-                app:tabMaxWidth="0dp"
+                app:tabMaxWidth="6dp"
                 app:tabGravity="fill"/>
             <!-- </android.support.design.widget.AppBarLayout>-->
             <View
                 android:id="@+id/tabBarShadow"
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
+                android:layout_height="6dp"
                 android:background="@drawable/shape_gradient_top_shadow" />
      </LinearLayout>
 

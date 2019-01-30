@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import edu.com.medicalapp.Activities.VideoPlayerActivity;
 import edu.com.medicalapp.Adapters.VideoListFreeAdapter;
-import edu.com.medicalapp.Models.VideoList;
+import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
@@ -80,6 +80,7 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
                                 }
 
                             };
+
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setVisibility(View.VISIBLE);
                         } else {
