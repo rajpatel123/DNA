@@ -118,7 +118,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
             Log.d("Api Response :", "Got Success from Api");
 
             VideoListPriceAdapter videoListAdapter = new VideoListPriceAdapter(getActivity());
-            videoListAdapter.setData(activity.videoList.getPrice());
+            videoListAdapter.setData(videoList.getPrice());
             videoListAdapter.setListener(BuynowFragment.this);
             recyclerView.setAdapter(videoListAdapter);
             recyclerView.setVisibility(View.VISIBLE);
