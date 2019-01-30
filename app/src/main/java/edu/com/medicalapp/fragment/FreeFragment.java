@@ -115,7 +115,7 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
             Log.d("Api Response :", "Got Success from Api");
 
             VideoListFreeAdapter videoListAdapter = new VideoListFreeAdapter(getActivity());
-            videoListAdapter.setData(activity.videoList.getFree());
+            videoListAdapter.setData(videoList.getFree());
             videoListAdapter.setListener(FreeFragment.this);
             recyclerView.setAdapter(videoListAdapter);
             recyclerView.setVisibility(View.VISIBLE);
