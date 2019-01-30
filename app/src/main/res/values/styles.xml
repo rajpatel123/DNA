@@ -21,6 +21,13 @@
         <item name="colorControlActivated">#d89d1d</item>
     </style>
 
+    <style name="AppTheme.ProgressBar" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/Black</item>
+    </style>
+
+    <style name="AppTheme.ProgressBarWhite" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/white</item>
+    </style>
     <style name="AppTheme2" parent="Base.Theme.AppCompat.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>

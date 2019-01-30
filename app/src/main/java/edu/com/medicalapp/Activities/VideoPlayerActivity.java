@@ -34,7 +34,7 @@ public class VideoPlayerActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-g        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
         video = (VideoView) findViewById(R.id.video);

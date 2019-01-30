@@ -84,7 +84,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="-NEET & AIIMS prepration videos"
+            android:text="-NEET AIIMS prepration videos"
             android:paddingLeft="15dp"
             android:layout_marginTop="10dp"
             />

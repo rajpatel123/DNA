@@ -3,16 +3,21 @@ package edu.com.medicalapp.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.constraint.solver.widgets.ConstraintWidget;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.List;
 
 import edu.com.medicalapp.Activities.VideoActivity;
+import edu.com.medicalapp.Activities.VideoPlayerActivity;
+import edu.com.medicalapp.Models.maincat.SubSubChild;
 import edu.com.medicalapp.R;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -20,9 +25,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> listDataheader;
-    private HashMap<String,List<String>> listHashMap;
+    private HashMap<String,List<SubSubChild>> listHashMap;
 
-    public ExpandableListAdapter(Context context, List<String> listDataheader, HashMap<String, List<String>> listHashMap) {
+    public ExpandableListAdapter(Context context, List<String> listDataheader, HashMap<String, List<SubSubChild>> listHashMap) {
         this.context = context;
         this.listDataheader = listDataheader;
         this.listHashMap = listHashMap;
@@ -89,8 +94,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int i, int i1, boolean b, View view, ViewGroup viewGroup) {
 
-        final String childeText= (String) getChild(i,i1);
-        final String sub_cat_id= getChild(i,i1);
+        final SubSubChild subSubChild= (SubSubChild) getChild(i,i1);
         if(view==null)
         {
             LayoutInflater layoutInflater= (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -99,13 +103,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 
         TextView childeHeader=view.findViewById(R.id.listitem);
-        childeHeader.setText(childeText);
+        childeHeader.setText(subSubChild.getSubChildName());
         childeHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,VideoActivity.class);
-                intent.putExtra("SubCategoryName",childeText);
-                intent.putExtra("SubCategoryName",childeText);
+                intent.putExtra("SubCategoryName",subSubChild.getSubChildName());
+                intent.putExtra("subCatId",subSubChild.getId());
                 context.startActivity(intent);
 
             }
