@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Activities.VideoPlayerActivity">
+
+
+    <LinearLayout
+        android:id="@+id/md_parentview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="-20dp"
+        android:background="@color/app_bg"
+        android:orientation="vertical"
+        >
+
+        <FrameLayout
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/Black"
+            android:gravity="center"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="5">
+
+            <ImageView
+                android:id="@+id/play_btn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/image"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                app:srcCompat="@drawable/ic_play" />
+
+
+
+            <edu.com.medicalapp.utils.EasyExoVideoPlayer
+                android:id="@+id/upper_exoplayer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible"
+                 />
+
+
+            <ProgressBar
+                android:id="@+id/upper_progress"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+
+
+        </FrameLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="2">
+
+</LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

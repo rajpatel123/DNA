@@ -35,6 +35,6 @@ public interface ApiInterface {
     @GET("api/api.php?req=category")
     Call<CategoryDetailData> getCourse();
 
-    @GET("api/api.php?req=category")
-    Call <VideoList>getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
+    @GET("api/api.php?req=allfile")
+    Call<VideoList> getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
 }

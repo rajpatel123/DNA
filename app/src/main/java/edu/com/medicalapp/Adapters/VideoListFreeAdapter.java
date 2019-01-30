@@ -39,6 +39,8 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         @Override
         public void onBindViewHolder(final VideoListFreeAdapter.ViewHolder holder, final int position) {
             holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
+            holder.index.setText(""+(holder.getAdapterPosition()+1));
+
             holder.row_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,7 +78,8 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-
+            @BindView(R.id.index)
+            TextView index;
             @BindView(R.id.row_view)
             LinearLayout row_view;
             @BindView(R.id.vid_title)

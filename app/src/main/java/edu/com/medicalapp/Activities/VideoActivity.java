@@ -1,26 +1,37 @@
 package edu.com.medicalapp.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.com.medicalapp.Adapters.VideoListFreeAdapter;
+import edu.com.medicalapp.Models.VideoList;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.BuynowFragment;
 import edu.com.medicalapp.fragment.CompleteFragment;
 import edu.com.medicalapp.fragment.FreeFragment;
 import edu.com.medicalapp.fragment.PausedFragment;
 import edu.com.medicalapp.fragment.UnattemptedFragment;
+import edu.com.medicalapp.utils.Utils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -29,12 +40,15 @@ public class VideoActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView subcategory;
+    public String subCatId;
+    public VideoList videoList;
+    DisplayDataInterface displayDataInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_vedio);
         subcategory=findViewById(R.id.subcategory_name);
-
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +56,15 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -56,8 +79,13 @@ public class VideoActivity extends AppCompatActivity {
             subcategory.setText(subcategoryname);
         }
 
-    }
+        if (intent.hasExtra("subCatId")) {
+            subCatId = intent.getStringExtra("subCatId");
+        }
 
+
+
+    }
 
     private void setupTabIcons() {
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
@@ -92,6 +120,10 @@ public class VideoActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    public void setListener(DisplayDataInterface displayDataInterface) {
+        this.displayDataInterface = displayDataInterface;
+    }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -121,4 +153,12 @@ public class VideoActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
+
+
+    public interface DisplayDataInterface{
+        public void showVideos();
+    }
+
 }

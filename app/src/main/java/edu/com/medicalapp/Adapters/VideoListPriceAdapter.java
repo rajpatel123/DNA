@@ -42,6 +42,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     public void onBindViewHolder(@NonNull final VideoListPriceAdapter.ViewHolder holder, int i) {
 
         holder.title.setText(priceList.get(holder.getAdapterPosition()).getTitle());
+        holder.index.setText(""+(holder.getAdapterPosition()+1));
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +83,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         @BindView(R.id.vid_title)
         TextView title;
+        @BindView(R.id.index)
+        TextView index;
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

@@ -1,6 +1,8 @@
 package edu.com.medicalapp.Activities;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -92,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     //Login Validation
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     private void Validation() {
 
 

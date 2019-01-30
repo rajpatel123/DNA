@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize">
 
         <ImageView
@@ -22,7 +22,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_left_arrow"
-            android:tint="@color/colorPrimary" />
+            android:tint="@color/white" />
 
         <ImageView
             android:layout_width="70dp"

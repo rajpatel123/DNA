@@ -1,21 +1,25 @@
 package edu.com.medicalapp.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import butterknife.BindView;
+import edu.com.medicalapp.Activities.VideoActivity;
 import edu.com.medicalapp.Activities.VideoPlayerActivity;
+import edu.com.medicalapp.Adapters.VideoListFreeAdapter;
 import edu.com.medicalapp.Adapters.VideoListPriceAdapter;
-import edu.com.medicalapp.Models.video.VideoList;
+import edu.com.medicalapp.Models.VideoList;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
@@ -23,19 +27,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick {
+public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick,VideoActivity.DisplayDataInterface {
 
 
-    private VideoList videoList;
 
-    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
+    TextView noVid;
+    VideoActivity activity;
+    private VideoList videoList;
 
     public BuynowFragment() {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (VideoActivity) getActivity();
+        activity.setListener(this);
+
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,51 +58,49 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_buynow, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        noVid = view.findViewById(R.id.noVid);
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getVideos();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showVideos();
+    }
+
+    @Override
+    public void onCateClick(String url) {
+        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
+
     }
 
     private void getVideos() {
-        if (Utils.isInternetConnected(getContext())) {
-            Utils.showProgressDialog(getActivity());
-            RestClient.getVideos("5", "Video", new Callback<VideoList>() {
+        if (Utils.isInternetConnected(activity)) {
+            Utils.showProgressDialog(activity);
+            RestClient.getVideos(activity.subCatId,"Video",new Callback<VideoList>() {
                 @Override
                 public void onResponse(Call<VideoList> call, Response<VideoList> response) {
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
                         videoList = response.body();
-                        if (videoList != null && videoList.getPrice().size() > 0) {
-                            Log.d("Api Response :", "Got Success from Api");
-
-                            VideoListPriceAdapter videoListFreeAdapter=new VideoListPriceAdapter(getActivity());
-                            videoListFreeAdapter.setData(videoList.getPrice());
-                            videoListFreeAdapter.setListener(BuynowFragment.this);
-                            recyclerView.setAdapter(videoListFreeAdapter);
-                            Log.d("Api Response :", "Got Success from Api");
-                            // noInternet.setVisibility(View.GONE);
-                            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2) {
-                                @Override
-                                public boolean canScrollVertically() {
-                                    return true;
-                                }
-
-                            };
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setVisibility(View.VISIBLE);
-                        } else {
-                            Log.d("Api Response :", "Got Success from Api");
-                            // noInternet.setVisibility(View.VISIBLE);
-                            // noInternet.setText(getString(R.string.no_project));
-                            recyclerView.setVisibility(View.GONE);
-                        }
+                        showVideos();
                     }
-
-
                 }
 
                 @Override
@@ -104,11 +113,36 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     }
 
 
-    @Override
-    public void onCateClick(String url) {
-        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-        intent.putExtra("url",url);
-        startActivity(intent);
+    public void showVideos() {
+        if (videoList != null && videoList.getFree() != null && videoList.getFree().size() > 0) {
+            Log.d("Api Response :", "Got Success from Api");
+
+            VideoListPriceAdapter videoListAdapter = new VideoListPriceAdapter(getActivity());
+            videoListAdapter.setData(activity.videoList.getPrice());
+            videoListAdapter.setListener(BuynowFragment.this);
+            recyclerView.setAdapter(videoListAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+            noVid.setVisibility(View.GONE);
+
+            Log.d("Api Response :", "Got Success from Api");
+            // noInternet.setVisibility(View.GONE);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return true;
+                }
+
+            };
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("Api Response :", "Got Success from Api");
+            // noInternet.setVisibility(View.VISIBLE);
+            // noInternet.setText(getString(R.string.no_project));
+            recyclerView.setVisibility(View.GONE);
+            noVid.setVisibility(View.VISIBLE);
+
+        }
 
     }
 }

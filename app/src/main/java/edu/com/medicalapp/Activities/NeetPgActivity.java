@@ -24,8 +24,8 @@ public class NeetPgActivity extends AppCompatActivity {
     private ExpandableListView listView;
     private List<String> listDataheader;
     TextView catTitle;
-    private HashMap<String,List<String>> listHashMap;
-    private ArrayList<String> neetPg;
+    private HashMap<String,List<SubSubChild>> listHashMap;
+    private ArrayList<SubSubChild> neetPg;
 
 
     @Override
@@ -61,12 +61,13 @@ public class NeetPgActivity extends AppCompatActivity {
                 int headerindex =i;
                 catTitle.setText(categoryDetailData.getDetails().get(i).getCatName());
                 for (int j=0;j<categoryDetailData.getDetails().get(i).getSubCat().size();j++ ){
-                    neetPg = new ArrayList<String>();
+                    neetPg = new ArrayList<SubSubChild>();
                    listDataheader.add(categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubCatName());
                      List<SubSubChild> childs = categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubSubChild();
-                     if (childs!=null && childs.size()>0){
+
+                    if (childs!=null && childs.size()>0){
                          for (int k=0;k<childs.size();k++){
-                             neetPg.add(childs.get(k).getSubChildName());
+                             neetPg.add(childs.get(k));
                          }
                          listHashMap.put(listDataheader.get(j),neetPg);
                      }
