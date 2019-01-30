@@ -1,78 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-<LinearLayout
-
-  android:layout_margin="5dp"
-    android:orientation="vertical"
-    android:id="@+id/linear_top"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:textSize="14sp"
-        android:textColor="@color/Imagebackground"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="GENERAL ANATOMY"/>
-</LinearLayout>
+        android:layout_height="match_parent">
 
-
-
-    <LinearLayout
-        android:layout_below="@id/linear_top"
-
-        android:orientation="horizontal"
-        android:layout_margin="10sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:padding="20dp"
-            android:src="@drawable/vedioimage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <LinearLayout
-            android:padding="20dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="#313133"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Introduction to Anotomy"/>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="1"
-                    android:theme="@style/RatingBar"
-                    />
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4.5"/>
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="25 MCQ"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

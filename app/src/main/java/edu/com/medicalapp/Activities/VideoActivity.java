@@ -22,7 +22,7 @@ import edu.com.medicalapp.fragment.FreeFragment;
 import edu.com.medicalapp.fragment.PausedFragment;
 import edu.com.medicalapp.fragment.UnattemptedFragment;
 
-public class VedioActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;

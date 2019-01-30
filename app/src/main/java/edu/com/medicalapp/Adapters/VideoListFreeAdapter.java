@@ -1,14 +1,12 @@
-package edu.com.medicalapp.fragment;
+package edu.com.medicalapp.Adapters;
 
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,30 +15,29 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.Models.Free;
-import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.R;
 
-public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
+public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdapter.ViewHolder> {
     /**
      * Created by rbpatel on 9/29/2017.
      */
 
         private Context applicationContext;
         private List<Free> freeList;
-        VideoListAdapter.OnCategoryClick onUserClickCallback;
+        VideoListFreeAdapter.OnCategoryClick onUserClickCallback;
 
-        public VideoListAdapter(Context applicationContext) {
+        public VideoListFreeAdapter(Context applicationContext) {
             this.applicationContext = applicationContext;
         }
 
         @Override
-        public VideoListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
+        public VideoListFreeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.video_items, viewGroup, false);
-            return new VideoListAdapter.ViewHolder(view);
+            return new VideoListFreeAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final VideoListAdapter.ViewHolder holder, final int position) {
+        public void onBindViewHolder(final VideoListFreeAdapter.ViewHolder holder, final int position) {
             holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
             holder.row_view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -68,7 +65,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
             this.freeList = CourseLists;
         }
 
-        public void setListener(VideoListAdapter.OnCategoryClick onUserClickCallback) {
+        public void setListener(VideoListFreeAdapter.OnCategoryClick onUserClickCallback) {
             this.onUserClickCallback = onUserClickCallback;
         }
 
@@ -82,13 +79,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
             @BindView(R.id.row_view)
             LinearLayout row_view;
-
             @BindView(R.id.vid_title)
             TextView title;
-
-
-
-
             public ViewHolder(View view) {
                 super(view);
                 ButterKnife.bind(this, view);

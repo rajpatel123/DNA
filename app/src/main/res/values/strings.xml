@@ -102,4 +102,5 @@
     <string name="error_generic">Error in playing video</string>
     <string name="error_querying_decoders">Error_in decoders</string>
     <string name="error_no_secure_decoder">Error in source</string>
+    <string name="vedio_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'ss standard dummy..</string>
 </resources>

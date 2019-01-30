@@ -71,8 +71,154 @@
             android:textAllCaps="true"
             android:paddingLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="DR ANUJ SAXENA"/>
+            android:textColor="@color/Black"
+            android:text="DR RAJEEV RANJAN"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Spermatogenesis | Human Reproduction | Dr Rajeev Ranjan"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="-NEET & AIIMS prepration videos"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/text"
+            android:textColor="@color/Black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vedio_text"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp"
+            />
+
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+
+             <LinearLayout
+                 android:layout_marginTop="5dp"
+                 android:layout_marginLeft="20sp"
+                 android:orientation="horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+                 <ImageView
+                     android:src="@drawable/video_player"
+                     android:layout_width="20sp"
+                     android:layout_height="20sp" />
+                 <TextView
+                     android:paddingLeft="8sp"
+                     android:gravity="center"
+                     android:textColor="@color/orange1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="00:00:00"/>
+                 <TextView
+                     android:gravity="center"
+                     android:paddingLeft="8sp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Introduction"/>
+
+
+             </LinearLayout>
+
+           <LinearLayout
+               android:layout_marginTop="5dp"
+               android:layout_marginLeft="20sp"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+
+               <ImageView
+                   android:src="@drawable/video_player"
+                   android:layout_width="20sp"
+                   android:layout_height="20sp" />
+               <TextView
+                   android:paddingLeft="8sp"
+                   android:textColor="@color/orange1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="00:20:12"/>
+               <TextView
+                   android:paddingLeft="8sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Cellular Physiology"/>
+
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_marginTop="5dp"
+               android:layout_marginLeft="20sp"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+
+               <ImageView
+                   android:src="@drawable/video_player"
+                   android:layout_width="20sp"
+                   android:layout_height="20sp" />
+               <TextView
+                   android:paddingLeft="8sp"
+                   android:textColor="@color/orange1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="00:20:12"/>
+               <TextView
+                   android:paddingLeft="8sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Lorem Ipsum is simply"/>
+
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_marginTop="5dp"
+               android:layout_marginLeft="20sp"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+
+               <ImageView
+                   android:src="@drawable/video_player"
+                   android:layout_width="20sp"
+                   android:layout_height="20sp" />
+               <TextView
+                   android:paddingLeft="8sp"
+                   android:textColor="@color/orange1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="00:20:12"/>
+               <TextView
+                   android:paddingLeft="8sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Cellular Physiology"/>
+
+
+           </LinearLayout>
+
+
+
+
+
+       </LinearLayout>
 
 
     </LinearLayout>
