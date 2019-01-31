@@ -19,8 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.com.medicalapp.Adapters.VideoListFreeAdapter;
-import edu.com.medicalapp.Models.VideoList;
+import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.BuynowFragment;
@@ -28,10 +27,6 @@ import edu.com.medicalapp.fragment.CompleteFragment;
 import edu.com.medicalapp.fragment.FreeFragment;
 import edu.com.medicalapp.fragment.PausedFragment;
 import edu.com.medicalapp.fragment.UnattemptedFragment;
-import edu.com.medicalapp.utils.Utils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class VideoActivity extends AppCompatActivity {
 

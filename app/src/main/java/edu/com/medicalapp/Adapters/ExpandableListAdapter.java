@@ -1,22 +1,16 @@
 package edu.com.medicalapp.Adapters;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.constraint.solver.widgets.ConstraintWidget;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 import java.util.List;
-
 import edu.com.medicalapp.Activities.VideoActivity;
-import edu.com.medicalapp.Activities.VideoPlayerActivity;
 import edu.com.medicalapp.Models.maincat.SubSubChild;
 import edu.com.medicalapp.R;
 
@@ -86,8 +80,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             view=layoutInflater.inflate(R.layout.list_grp,null);
         }
         TextView lblistheader=view.findViewById(R.id.listheader);
+        ImageView lblistImage=view.findViewById(R.id.image_arrow);
         lblistheader.setTypeface(null, Typeface.BOLD);
         lblistheader.setText(headerTitle);
+
         return view;
     }
 
@@ -115,10 +111,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
         return view;
-
-
-
-
 
     }
 

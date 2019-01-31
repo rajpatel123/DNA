@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         myDeviceTitle = deviceTab.findViewById(R.id.tab);
         myDeviceTitle.setText("Home");
         imgDeviceIcon = deviceTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.homelogo, imgDeviceIcon, R.color.white);
+        ImageUtils.setTintedDrawable(this, R.drawable.nav_home, imgDeviceIcon, R.color.white);
 
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         if (tab != null) {
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
         videoText = mapTab.findViewById(R.id.tab);
         videoText.setText("Video");
         imgVideoViewIcon = mapTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.cameralogo, imgVideoViewIcon, R.color.white);
+        ImageUtils.setTintedDrawable(this, R.drawable.nav_video, imgVideoViewIcon, R.color.white);
 
         tab = tabLayout.getTabAt(1);
 
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity
         qbTitle = alertTab.findViewById(R.id.tab);
         qbTitle.setText("Q Bank");
         imgQBIcon = alertTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.qm, imgQBIcon, R.color.white);
+        ImageUtils.setTintedDrawable(this, R.drawable.nav_qbank, imgQBIcon, R.color.white);
 
         tab = tabLayout.getTabAt(2);
         if (tab != null) {
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
         testTitle = recordingTab.findViewById(R.id.tab);
         testTitle.setText("Test");
         testIcon = recordingTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.text, testIcon, R.color.white);
+        ImageUtils.setTintedDrawable(this, R.drawable.nav_text, testIcon, R.color.white);
         tab = tabLayout.getTabAt(3);
         if (tab != null) {
             tab.setCustomView(recordingTab);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity
         onlineTitle = accountTab.findViewById(R.id.tab);
         onlineTitle.setText("Online");
         imgOnlineIcon = accountTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.live, imgOnlineIcon, R.color.white);
+        ImageUtils.setTintedDrawable(this, R.drawable.nav_live, imgOnlineIcon, R.color.white);
 
         tab = tabLayout.getTabAt(4);
         if (tab != null) {

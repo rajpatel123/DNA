@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/tab"
-    android:textSize="12sp"
+    android:textSize="12dp"
     android:textStyle="bold"
     android:textColor="@color/orange1"
     android:fontFamily="@string/font_fontFamily_medium"/>
