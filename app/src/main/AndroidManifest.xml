@@ -94,7 +94,9 @@
             android:name=".Activities.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.VideoActivity" />
-        <activity android:name=".Activities.VideoPlayerActivity"></activity>
+        <activity android:name=".Activities.VideoPlayerActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_left_arrow"
-            android:tint="@color/white" />
+            android:tint="@color/colorPrimary" />
 
         <ImageView
             android:layout_width="70dp"
@@ -70,28 +70,30 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
     </RelativeLayout>
 
-     <LinearLayout
-         android:id="@+id/tablayout"
-         android:orientation="vertical"
-            android:layout_below="@id/relative_head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/tablayout"
+        android:orientation="vertical"
+        android:layout_below="@id/relative_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable"
-                app:tabIndicatorColor="@color/orange"
-                app:tabMaxWidth="6dp"
-                app:tabGravity="fill"/>
-            <!-- </android.support.design.widget.AppBarLayout>-->
-            <View
-                android:id="@+id/tabBarShadow"
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:background="@drawable/shape_gradient_top_shadow" />
-     </LinearLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/orange"
+            app:tabIndicatorHeight="3dp"
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill"/>
+        <!-- </android.support.design.widget.AppBarLayout>-->
+        <View
+            android:id="@+id/tabBarShadow"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:visibility="visible"
+            android:background="@drawable/shape_gradient_top_shadow" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_below="@id/tablayout"

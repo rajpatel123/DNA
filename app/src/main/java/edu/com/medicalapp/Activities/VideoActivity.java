@@ -8,10 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -19,19 +16,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.com.medicalapp.Adapters.VideoListFreeAdapter;
-import edu.com.medicalapp.Models.VideoList;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.BuynowFragment;
 import edu.com.medicalapp.fragment.CompleteFragment;
 import edu.com.medicalapp.fragment.FreeFragment;
 import edu.com.medicalapp.fragment.PausedFragment;
 import edu.com.medicalapp.fragment.UnattemptedFragment;
-import edu.com.medicalapp.utils.Utils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -41,7 +31,6 @@ public class VideoActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView subcategory;
     public String subCatId;
-    public VideoList videoList;
     DisplayDataInterface displayDataInterface;
 
     @Override
@@ -55,9 +44,6 @@ public class VideoActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
 
     }
 
