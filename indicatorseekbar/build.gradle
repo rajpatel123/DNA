@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    defaultConfig {
+        compileSdkVersion 27
+        buildToolsVersion '28.0.3'
+//        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
+//        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+//        versionName project.VERSION_NAME
+//        versionCode Integer.parseInt(project.VERSION_CODE)
+        flavorDimensions "default"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            multiDexEnabled true
+            minifyEnabled false
+        }
+
+        release {
+            debuggable false
+            multiDexEnabled true
+            minifyEnabled false
+        }
+    }
+
+
+}
+
+dependencies {
+    compileOnly 'com.android.support:appcompat-v7:27.1.1'
+}

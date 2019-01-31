@@ -63,8 +63,12 @@
             android:layout_height="match_parent"
             android:childDivider="@color/white"
             android:divider="@null"
+            android:fastScrollEnabled="true"
+            android:scrollbarSize="4dip"
+            android:smoothScrollbar="true"
+            android:scrollbars="horizontal"
+            android:groupIndicator="@null"
             android:background="#ffffff"
-            android:groupIndicator="@drawable/explanded_listview_arrow"
             android:transcriptMode="alwaysScroll"
             android:dividerHeight="5dp">
 

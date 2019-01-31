@@ -60,7 +60,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     RelativeLayout toolbar;
-
+    boolean isPlaying;
     public static final int MEDIA_CALLBACK_DURATION = 500;
 
     @BindView(R.id.md_parentview)
@@ -134,6 +134,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
             upper_progress.setVisibility(View.GONE);
+            videoPlayerControlsPortraitMode.setVisibility(View.VISIBLE);
             enablePlayPause(true, true);
         }
 
@@ -354,7 +355,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.back, R.id.play_btn, R.id.md_speed, R.id.md_replay, R.id.md_play, R.id.full_mode})
+    @OnClick({R.id.upper_exoplayer,R.id.back, R.id.play_btn, R.id.md_speed, R.id.md_replay, R.id.md_play, R.id.full_mode})
     public void onControlClick(View view) {
         switch (view.getId()) {
             case R.id.full_mode:
