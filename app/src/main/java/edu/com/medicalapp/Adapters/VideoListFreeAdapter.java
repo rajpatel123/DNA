@@ -14,7 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.com.medicalapp.Models.Free;
+import edu.com.medicalapp.Models.video.Free;
 import edu.com.medicalapp.R;
 
 public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdapter.ViewHolder> {

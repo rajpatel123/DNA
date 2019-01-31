@@ -13,8 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.com.medicalapp.Models.Free;
-import edu.com.medicalapp.Models.Price;
+import edu.com.medicalapp.Models.video.Price;
 import edu.com.medicalapp.R;
 
 public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAdapter.ViewHolder> {

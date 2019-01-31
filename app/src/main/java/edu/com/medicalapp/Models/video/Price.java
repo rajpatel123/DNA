@@ -1,4 +1,4 @@
-package edu.com.medicalapp.Models;
+package edu.com.medicalapp.Models.video;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

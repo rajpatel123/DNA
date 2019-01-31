@@ -62,17 +62,21 @@
         android:background="@color/vediobackgroundColor"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+
+        <LinearLayout
+            android:layout_margin="10dp"
             android:background="@drawable/vedio_image_background"
-            >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+              android:layout_margin="2dp"
+                android:background="@drawable/vedio_image_background"
                 android:src="@drawable/vedioimage" />
-        </RelativeLayout>
+
+        </LinearLayout>
 
 
         <LinearLayout
