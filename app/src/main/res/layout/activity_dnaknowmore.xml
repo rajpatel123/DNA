@@ -89,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/black_titles"
                         android:text="MD, Internal Medicine"
                         android:textSize="8sp" />
 
@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/black_titles"
                         android:text="MD, Internal Medicine"
                         android:textSize="8sp"
 
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/black_titles"
                         android:text="MD, Internal Medicine"
                         android:textSize="8sp" />
 
@@ -194,7 +194,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:padding="10dp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/black_titles"
                     android:text="An evidence based online platform for NEET PG Medicine with QBank,Text Series and highyield videos."
                     android:textSize="14sp" />
 
@@ -219,6 +219,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -232,7 +233,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10sp"
-                            android:layout_marginTop="5dp"
                             android:text="QBank"
                             android:textColor="@color/colorAccent"
                             android:textSize="20sp"
@@ -242,7 +242,6 @@
                             android:layout_width="90dp"
                             android:layout_height="35dp"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
                             android:background="@drawable/rounded_shape"
                             android:padding="8dp"
                             android:text="Edition "
@@ -615,7 +614,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
                             android:textColor="@color/colorAccent"
-                            android:text="Video lessons"/>
+                            android:text="Video Lessons"/>
 
 
                     </LinearLayout>
