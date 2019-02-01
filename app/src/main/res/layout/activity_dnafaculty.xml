@@ -8,6 +8,7 @@
     tools:context=".Activities.DNAFacultyActivity">
 
     <LinearLayout
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,6 +16,7 @@
             android:layout_marginTop="15sp"
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -43,20 +45,20 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:textColor="@color/darkwhite"
+                            android:textColor="@color/colorAccent"
                             android:text="Dr. Deepu Singh"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:textColor="@color/gradStop"
+                            android:textColor="@color/colorAccent"
                             android:text="Co-founder CEO, Daily Rounds  DNA"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/vediobordertextcolor"
+                            android:textColor="@color/colorAccent"
                             android:text="MD, Internal Medicine"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -65,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/skyblue">
+                    android:background="@color/colorAccent">
 
                 </View>
 
@@ -88,7 +90,7 @@
                        android:layout_height="wrap_content"
                        android:paddingLeft="10sp"
                        android:textSize="16sp"
-                       android:textColor="@color/Black"
+                       android:textColor="@color/colorAccent"
                        android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
 
                        />
@@ -133,20 +135,20 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:textColor="@color/darkwhite"
+                            android:textColor="@color/colorAccent"
                             android:text="Dr. Deepu Singh"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:textColor="@color/gradStop"
+                            android:textColor="@color/colorAccent"
                             android:text="Co-founder CEO, Daily Rounds  DNA"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/vediobordertextcolor"
+                            android:textColor="@color/colorAccent"
                             android:text="MD, Internal Medicine"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -155,7 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/skyblue">
+                    android:background="@color/colorAccent">
 
                 </View>
 
@@ -178,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10sp"
                         android:textSize="16sp"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
 
                         />
@@ -223,20 +225,20 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:textColor="@color/darkwhite"
+                            android:textColor="@color/colorAccent"
                             android:text="Dr. Deepu Singh"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:textColor="@color/gradStop"
+                            android:textColor="@color/colorAccent"
                             android:text="Co-founder CEO, Daily Rounds  DNA"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/vediobordertextcolor"
+                            android:textColor="@color/colorAccent"
                             android:text="MD, Internal Medicine"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -245,7 +247,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/skyblue">
+                    android:background="@color/colorAccent">
 
                 </View>
 
@@ -270,7 +272,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10sp"
                         android:textSize="16sp"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
 
                         />
@@ -316,20 +318,20 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:textColor="@color/darkwhite"
+                            android:textColor="@color/colorAccent"
                             android:text="Dr. Deepu Singh"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:textColor="@color/gradStop"
+                            android:textColor="@color/colorAccent"
                             android:text="Co-founder CEO, Daily Rounds  DNA"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/vediobordertextcolor"
+                            android:textColor="@color/colorAccent"
                             android:text="MD, Internal Medicine"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -338,7 +340,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/skyblue">
+                    android:background="@color/colorAccent">
 
                 </View>
 
@@ -363,7 +365,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10sp"
                         android:textSize="16sp"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
 
                         />
@@ -408,20 +410,20 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:textColor="@color/darkwhite"
+                            android:textColor="@color/colorAccent"
                             android:text="Dr. Deepu Singh"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:textColor="@color/gradStop"
+                            android:textColor="@color/colorAccent"
                             android:text="Co-founder CEO, Daily Rounds  DNA"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/vediobordertextcolor"
+                            android:textColor="@color/colorAccent"
                             android:text="MD, Internal Medicine"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -430,7 +432,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/skyblue">
+                    android:background="@color/colorAccent">
 
                 </View>
 
@@ -453,7 +455,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10sp"
                         android:textSize="16sp"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
 
                         />
@@ -461,9 +463,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_marginTop="15sp"
@@ -497,20 +496,20 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:textColor="@color/darkwhite"
+                            android:textColor="@color/colorAccent"
                             android:text="Dr. Deepu Singh"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:textColor="@color/gradStop"
+                            android:textColor="@color/colorAccent"
                             android:text="Co-founder CEO, Daily Rounds  DNA"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/vediobordertextcolor"
+                            android:textColor="@color/colorAccent"
                             android:text="MD, Internal Medicine"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -519,7 +518,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/skyblue">
+                    android:background="@color/colorAccent">
 
                 </View>
 
@@ -542,37 +541,14 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10sp"
                         android:textSize="16sp"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
 
                         />
 
                 </LinearLayout>
-
             </LinearLayout>
-
-
-
         </android.support.v7.widget.CardView>
-
-
-
-
-
-
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </ScrollView>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ebeaef"
+    android:scrollbars="none"
     tools:context=".Activities.DNAKnowmoreActivity">
 
 
@@ -45,6 +46,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="15sp"
                 android:gravity="center"
+                android:textColor="@color/colorAccent"
                 android:text="Built by legendary teachers and Dailyrounds"
                 android:textSize="14sp" />
 
@@ -78,6 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:textColor="@color/colorAccent"
                         android:gravity="center"
                         android:text="Dr.Deepu Singh"
                         />
@@ -86,6 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="@color/colorAccent"
                         android:text="MD, Internal Medicine"
                         android:textSize="8sp" />
 
@@ -115,6 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
+                        android:textColor="@color/colorAccent"
                         android:text="Dr.Kamal Singh"
 
 
@@ -124,6 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="@color/colorAccent"
                         android:text="MD, Internal Medicine"
                         android:textSize="8sp"
 
@@ -155,6 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
+                        android:textColor="@color/colorAccent"
                         android:text="Dr.Narayan Singh"
 
 
@@ -164,6 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="@color/colorAccent"
                         android:text="MD, Internal Medicine"
                         android:textSize="8sp" />
 
@@ -183,9 +191,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:padding="10dp"
-                    android:text="An evidence based online platform for NEET PG Medicine with QBank,Text Series and high
-                     yield videos."
+                    android:textColor="@color/colorAccent"
+                    android:text="An evidence based online platform for NEET PG Medicine with QBank,Text Series and highyield videos."
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -224,6 +234,7 @@
                             android:layout_marginLeft="10sp"
                             android:layout_marginTop="5dp"
                             android:text="QBank"
+                            android:textColor="@color/colorAccent"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -249,7 +260,7 @@
                         android:layout_marginRight="10dp"
                         android:paddingTop="10sp"
                         android:text="640+ hours of recorded video lectures from some of india's best medical faculty.Our teachers focus on concept based learning."
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:textSize="14sp" />
 
                     <LinearLayout
@@ -421,6 +432,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
+                            android:textColor="@color/colorAccent"
                             android:layout_marginTop="5dp"
                             android:text="Test Series"/>
 
@@ -433,7 +445,7 @@
                         android:paddingTop="10sp"
                         android:layout_gravity="center"
                         android:textSize="14sp"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="640+ hours of recorded video lectures from some of india's best medical faculty.Our teachers focus on concept based learning."
@@ -602,6 +614,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
+                            android:textColor="@color/colorAccent"
                             android:text="Video lessons"/>
 
 
@@ -613,7 +626,7 @@
                         android:paddingTop="10sp"
                         android:layout_gravity="center"
                         android:textSize="14sp"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="640+ hours of recorded video lectures from some of india's best medical faculty.Our teachers focus on concept based learning."
@@ -762,7 +775,7 @@
                     <TextView
                         android:textStyle="bold"
                         android:textSize="20sp"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -783,9 +796,10 @@
                         android:layout_marginRight="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:text="Concept-based learning"/>
 
                     <TextView
@@ -802,7 +816,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="SOLVE  MCQs as opposed to Reading them"/>
@@ -821,7 +835,7 @@
                         android:layout_marginRight="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Error Free, Evidence Based"/>
@@ -841,7 +855,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Makes You exam ready"/>
@@ -861,7 +875,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Be part of the largest Pan-India NEET PG text Series"/>
@@ -880,7 +894,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Be part of the largest Pan-India NEET PG text Series"/>
@@ -898,7 +912,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black_secondary"
+                        android:textColor="@color/colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Be part of the largest Pan-India NEET PG text Series"/>
@@ -1143,6 +1157,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
+                    android:textColor="@color/colorAccent"
                     android:layout_height="wrap_content"
                     android:text="Have more queries?"/>
                 <View

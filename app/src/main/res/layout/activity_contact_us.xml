@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16dp"
+            android:textColor="@color/colorAccent"
             android:text="@string/contact_top_text"/>
 
         <TextView
@@ -25,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="@color/colorAccent"
             android:text="Email"/>
         <Button
             android:paddingLeft="5dp"
@@ -39,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:background="@color/gradStop"
+            android:background="@color/colorAccent"
             android:text="  support@dna.com"/>
 
 
@@ -50,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="@color/colorAccent"
             android:text="Call us(9 am -9 pm)"/>
         <Button
             android:paddingLeft="5dp"
@@ -64,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:background="@color/gradStop"
+            android:background="@color/colorAccent"
             android:text="  08048138456"/>
 
 
@@ -73,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="@color/colorAccent"
             android:text="Get a call to know more about the PRO Plans"/>
         <Button
             android:paddingLeft="5dp"
@@ -87,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:background="@color/gradStop"
+            android:background="@color/colorAccent"
             android:text="  Get a callback"/>
 
 
