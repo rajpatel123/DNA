@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:gravity="center"
-                android:textColor="@color/gradStop"
+                android:textColor="@color/colorAccent"
                 android:text="DNA"/>
 
 
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:gravity="center"
-                android:textColor="@color/Black"
+                android:textColor="@color/colorAccent"
 
                 android:text="DNA Pro users enjoy access to all the content"/>
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:gravity="center"
-                android:textColor="@color/darkwhite"
+                android:textColor="@color/colorAccent"
 
                 android:text="You can now go for an individual plan to unlock a specific component."/>
         </LinearLayout>
@@ -84,7 +84,7 @@
                     android:layout_gravity="start"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:textColor="@color/darkwhite"
+                    android:textColor="@color/colorAccent"
                     android:text="Pro Plans"/>
 
                 <TextView
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
 
                   android:layout_marginRight="5dp"
-                    android:textColor="@color/gradStop"
+                    android:textColor="@color/colorAccent"
                     android:text="Coupon applied"/>
             </LinearLayout>
 
@@ -115,7 +115,7 @@
                     <TextView
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/gradStop"
+                        android:textColor="@color/colorAccent"
                         android:text="Plan A"
                         android:textSize="17dp"
                         android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="1px"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@color/colorAccent" />
 
                     <LinearLayout
                         android:layout_marginTop="14dp"
@@ -142,13 +142,13 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:background="@color/gradStop"
+                                android:background="@color/colorAccent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/text"/>
 
                             <TextView
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:padding="5dp"
                                 android:textSize="15sp"
                                 android:text="Text Series"
@@ -168,7 +168,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Rs. 3,500 "
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:textStyle="bold"
                                 android:textSize="17dp"
                                 />
@@ -181,7 +181,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="17dp"
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:text="BUY NOW"
 
                                 />
@@ -209,7 +209,7 @@
                     <TextView
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/gradStop"
+                        android:textColor="@color/colorAccent"
                         android:text="Plan A"
                         android:textSize="17dp"
                         android:layout_width="wrap_content"
@@ -218,7 +218,7 @@
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="1px"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@color/colorAccent" />
 
                     <LinearLayout
                         android:layout_marginTop="14dp"
@@ -236,13 +236,13 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:background="@color/gradStop"
+                                android:background="@color/colorAccent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/text"/>
 
                             <TextView
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:padding="5dp"
                                 android:textSize="15sp"
                                 android:text="Text Series"
@@ -262,7 +262,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Rs. 3,500 "
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:textStyle="bold"
                                 android:textSize="17dp"
                                 />
@@ -270,12 +270,12 @@
                             <View
                                 android:layout_width="wrap_content"
                                 android:layout_height="1px"
-                                android:background="@android:color/darker_gray" />
+                                android:background="@color/colorAccent" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="17dp"
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:text="BUY NOW"
 
                                 />
@@ -303,7 +303,7 @@
                     <TextView
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/gradStop"
+                        android:textColor="@color/colorAccent"
                         android:text="Plan A"
                         android:textSize="17dp"
                         android:layout_width="wrap_content"
@@ -316,7 +316,6 @@
 
                     <LinearLayout
                         android:layout_marginTop="14dp"
-
                         android:layout_marginLeft="8dp"
                         android:layout_marginBottom="15dp"
                         android:orientation="horizontal"
@@ -330,13 +329,13 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:background="@color/gradStop"
+                                android:background="@color/colorAccent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/text"/>
 
                             <TextView
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:padding="5dp"
                                 android:textSize="15sp"
                                 android:text="Text Series"
@@ -356,7 +355,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Rs. 3,500 "
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:textStyle="bold"
                                 android:textSize="17dp"
                                 />
@@ -369,7 +368,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="17dp"
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:text="BUY NOW"
 
                                 />
@@ -420,7 +419,7 @@
                     android:gravity="center_vertical"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/darkwhite"
+                    android:textColor="@color/colorAccent"
                     android:text="Individual Plans"/>
 
                 <TextView
@@ -429,7 +428,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_marginRight="5dp"
-                    android:textColor="@color/gradStop"
+                    android:textColor="@color/colorAccent"
                     android:text="Coupon applied"/>
             </LinearLayout>
 
@@ -451,7 +450,7 @@
                     <TextView
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/gradStop"
+                        android:textColor="@color/colorAccent"
                         android:text="Plan A"
                         android:textSize="17dp"
                         android:layout_width="wrap_content"
@@ -479,13 +478,13 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:background="@color/gradStop"
+                                android:background="@color/colorAccent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/text"/>
 
                             <TextView
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:padding="5dp"
                                 android:textSize="15sp"
                                 android:text="Vedio"
@@ -504,7 +503,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Rs. 3,500 "
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:textStyle="bold"
                                 android:textSize="17dp"
                                 />
@@ -517,7 +516,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="17dp"
-                                android:textColor="@color/gradStop"
+                                android:textColor="@color/colorAccent"
                                 android:text="BUY NOW"
 
                                 />
@@ -545,7 +544,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/white"
-                    android:textColor="@color/gradStop"
+                    android:textColor="@color/colorAccent"
                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Learn more"
@@ -555,7 +554,7 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
@@ -570,7 +569,7 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textColor="@color/gradStop"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
@@ -584,7 +583,7 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textColor="@color/gradStop"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
@@ -600,7 +599,7 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textColor="@color/gradStop"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
@@ -614,7 +613,7 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textColor="@color/gradStop"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"

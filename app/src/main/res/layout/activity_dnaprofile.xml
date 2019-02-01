@@ -81,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/profile_arrow"
+                android:textColor="@color/colorAccent"
                 android:text="Subscription"/>
             <View
                 android:layout_width="match_parent"
@@ -95,6 +96,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
                 android:drawableRight="@drawable/profile_arrow"
                 android:text="Stats"/>
             <View
@@ -110,6 +112,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
                 android:drawableRight="@drawable/profile_arrow"
                 android:text="Course:NEET PG"/>
             <View
@@ -125,6 +128,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
                 android:drawableRight="@drawable/profile_arrow"
                 android:text="Reset"/>
             <View
@@ -141,6 +145,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
                 android:drawableRight="@drawable/profile_arrow"
                 android:text="Change Password"/>
             <View
@@ -156,6 +161,7 @@
                 android:padding="12sp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
+                android:textColor="@color/colorAccent"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/profile_arrow"
                 android:text="Change Phone Number"/>
@@ -169,6 +175,7 @@
                 android:textSize="16sp"
                 android:layout_margin="10sp"
                 android:padding="12sp"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,6 +196,7 @@
                     android:layout_margin="10sp"
                     android:padding="12sp"
                     android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MCQ: Dark theme"/>
@@ -220,9 +228,9 @@
             android:paddingTop="20dp"
             android:textSize="16sp"
             android:layout_gravity="center"
-            android:textColor="@color/gradStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
             android:gravity="center"
             android:text="Log Out"/>
 
