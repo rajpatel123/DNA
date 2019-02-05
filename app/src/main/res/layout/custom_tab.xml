@@ -12,16 +12,15 @@
         android:id="@+id/imgTab"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:contentDescription="@string/image"
-        />
+        android:contentDescription="@string/image" />
 
     <TextView
         android:id="@+id/tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
-        tools:ignore="SmallSp"
-        android:textStyle="bold"
         android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        tools:ignore="SmallSp"
         tools:text="Devices" />
 </LinearLayout>

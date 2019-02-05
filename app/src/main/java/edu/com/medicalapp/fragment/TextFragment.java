@@ -1,23 +1,78 @@
 package edu.com.medicalapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.com.medicalapp.Activities.VideoActivity;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
 
-public class TextFragment extends Fragment implements FragmentLifecycle{
+public class TextFragment extends Fragment implements FragmentLifecycle {
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TextView subcategory;
+    public String subCatId;
+    VideoActivity.DisplayDataInterface displayDataInterface;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.textfragment,container,false);
 
+        View view = inflater.inflate(R.layout.textfragment, container, false);
+        subcategory = view.findViewById(R.id.subcategory_name);
+        return view;
+
+    }
+
+
+    private void setupTabIcons() {
+        TextView tabOne = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
+        tabOne.setText("All Test");
+        tabLayout.getTabAt(0).setCustomView(tabOne);
+
+        TextView tabTwo = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
+        tabTwo.setText("Grand Test");
+        tabLayout.getTabAt(1).setCustomView(tabTwo);
+
+        TextView tabThree = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
+        tabThree.setText("Mini Test");
+        tabLayout.getTabAt(2).setCustomView(tabThree);
+
+        TextView tabFour = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
+        tabFour.setText("Subject - Wise Test");
+        tabLayout.getTabAt(3).setCustomView(tabFour);
+
+
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        adapter.addFrag(new AllTextFragment(), "All Test");
+        adapter.addFrag(new GrandTestFragment(), "Grand Test");
+        adapter.addFrag(new MiniTestFragment(), "Mini Test");
+        adapter.addFrag(new SubjectWiseTestFragment(), "Subject - Wise Test");
+        viewPager.setAdapter(adapter);
+    }
+
+    public void setListener(VideoActivity.DisplayDataInterface displayDataInterface) {
+        this.displayDataInterface = displayDataInterface;
     }
 
     @Override
@@ -27,6 +82,51 @@ public class TextFragment extends Fragment implements FragmentLifecycle{
 
     @Override
     public void onResumeFragment() {
+        viewPager = getView().findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = getView().findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
 
     }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+
+
+    }
+
+
+    public interface DisplayDataInterface {
+        public void showVideos();
+    }
+
+
 }

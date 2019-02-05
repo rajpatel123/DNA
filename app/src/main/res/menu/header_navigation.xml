@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <group android:checkableBehavior="all">
     <item
 
         android:iconTint="@color/orange"
         android:id="@+id/navigation_home"
         android:icon="@drawable/homelogo"
-
         android:title="Home"/>
     <item
         android:iconTint="@color/orange"
         android:id="@+id/navigation_video"
-
         android:icon="@drawable/cameralogo"
-
         android:title="Video"/>
     <item
         android:iconTint="@color/orange"
-
         android:id="@+id/navigation_qbank"
         android:icon="@drawable/qm"
         android:title="QBank"/>
 
     <item
-
         android:iconTint="@color/orange"
         android:id="@+id/navigation_text"
         android:icon="@drawable/text"
@@ -36,7 +29,6 @@
         android:icon="@drawable/live"
         android:title="Online"/>
     </group>
-
     <item android:title="Communicate"
         android:checkable="false"
         android:enabled="false"
@@ -44,21 +36,13 @@
         <menu>
         <item
             android:iconTint="@color/orange"
-
             android:icon="@drawable/setting"
-
             android:id="@+id/navigation_setting"
             android:title="Setting" />
         <item
             android:icon="@drawable/aboutus"
             android:id="@+id/navigation_about"
             android:title="About" />
-
         </menu>
-
     </item>
-
-
-
-
 </menu>

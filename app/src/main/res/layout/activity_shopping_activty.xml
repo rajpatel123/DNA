@@ -13,100 +13,90 @@
         android:layout_height="wrap_content"
         android:background="@color/vedioborder"
         android:minHeight="?attr/actionBarSize">
-    >
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:paddingBottom="8dp"
             android:paddingLeft="15dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:layout_centerVertical="true"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Shoppings"
+            android:textColor="@color/orange"
             android:textSize="20dp"
-            android:textColor="@color/orange"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
 
-
     <RelativeLayout
-        android:layout_marginTop="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="false"
         android:layout_below="@id/relative_head"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="30sp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
             <Button
                 android:id="@+id/mcqBooks"
-                android:textStyle="bold"
-                android:paddingTop="5dp"
-                android:paddingLeft="5dp"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:textColor="@color/white"
-                android:text="MCQ Books(Division)"
-                android:textAllCaps="false"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttonlogin"/>
+                android:background="@drawable/buttonlogin"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="MCQ Books(Division)"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/theory_books"
-                android:layout_marginTop="25dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="5dp"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:textColor="@color/white"
-                android:text="Theory Books"
-                android:textAllCaps="false"
-                android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttonlogin"/>
+                android:layout_marginTop="25dp"
+                android:background="@drawable/buttonlogin"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="Theory Books"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
             <Button
                 android:id="@+id/f2fClasses"
-                android:textStyle="bold"
-                android:layout_marginTop="25sp"
-                android:paddingTop="5dp"
-                android:paddingLeft="5dp"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:textColor="@color/white"
-                android:text="Individual Face to Face Classes"
-                android:textAllCaps="false"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttonlogin"/>
-
-
-
-
+                android:layout_marginTop="25sp"
+                android:background="@drawable/buttonlogin"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="Individual Face to Face Classes"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
 
 
-
-
-
     </RelativeLayout>
-
 
 
 </RelativeLayout>

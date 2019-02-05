@@ -33,6 +33,7 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.com.medicalapp.Models.FacebookLoginData;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.R;
@@ -149,6 +150,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
             }
+
 
 
 

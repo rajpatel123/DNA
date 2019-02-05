@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Retrofit;
 
+import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
@@ -19,7 +20,7 @@ public interface ApiInterface {
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 */
 
-   @Multipart
+    @Multipart
     @POST("api/api.php?req=login")
     Call<loginResponse> loginUser(@Part("email_id") RequestBody email, @Part("password") RequestBody password);
 
@@ -37,4 +38,9 @@ public interface ApiInterface {
 
     @GET("api/api.php?req=allfile")
     Call<VideoList> getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
+
+    @GET("api/api.php?req=test")
+    Call<TestQuestionData> getTest(@Query("sub_test") String sub_test);
+
+
 }

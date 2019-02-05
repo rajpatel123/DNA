@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Retrofit;
 
+import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
@@ -18,23 +19,26 @@ public class RestClient {
 */
 
 
-    public static void loginUser(RequestBody email, RequestBody password , Callback<loginResponse> callback) {
-        RetrofitClient.getClient().loginUser(email,password).enqueue(callback);
+    public static void loginUser(RequestBody email, RequestBody password, Callback<loginResponse> callback) {
+        RetrofitClient.getClient().loginUser(email, password).enqueue(callback);
     }
 
-    public static void registerUser(RequestBody name,RequestBody username,RequestBody email_id, RequestBody password, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(name,username, email_id, password).enqueue(callback);
+    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody password, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(name, username, email_id, password).enqueue(callback);
     }
 
 
-
-    public static void getCourses( Callback<CategoryDetailData> callback) {
+    public static void getCourses(Callback<CategoryDetailData> callback) {
         RetrofitClient.getClient().getCourse().enqueue(callback);
     }
 
 
     public static void getVideos(String sub_child_cat, String fileType, Callback<VideoList> callback) {
-        RetrofitClient.getClient().getVideos(sub_child_cat,fileType).enqueue(callback);
+        RetrofitClient.getClient().getVideos(sub_child_cat, fileType).enqueue(callback);
+    }
+
+    public static void getTest(String sub_test, Callback<TestQuestionData> callback) {
+        RetrofitClient.getClient().getTest(sub_test).enqueue(callback);
     }
 
 }

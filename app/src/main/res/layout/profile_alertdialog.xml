@@ -1,61 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
     <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_margin="30sp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="30sp"
+            android:gravity="center"
+            android:text="@string/alert_text"
             android:textColor="@color/colorAccent"
 
-            android:text="@string/alert_text"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="20sp"
-            android:textSize="20sp"
+            android:background="@color/colorAccent"
+            android:paddingBottom="5sp"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:paddingTop="5sp"
-            android:paddingBottom="5sp"
+            android:text="Cancel"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:background="@color/colorAccent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/text_logout"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:textColor="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Logout"
-            />
-
-
-
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
 
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

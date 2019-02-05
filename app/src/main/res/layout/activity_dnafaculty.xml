@@ -8,180 +8,97 @@
     tools:context=".Activities.DNAFacultyActivity">
 
     <LinearLayout
-        android:layout_marginBottom="10dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
         <android.support.v7.widget.CardView
-            android:layout_marginTop="15sp"
-            android:layout_marginLeft="15sp"
-            android:layout_marginRight="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:paddingTop="15sp"
-                android:paddingLeft="10sp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingBottom="15sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:src="@drawable/dr1"/>
-                    <LinearLayout
-                        android:paddingLeft="10sp"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Dr. Deepu Singh"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Co-founder CEO, Daily Rounds  DNA"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="MD, Internal Medicine"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/colorAccent">
-
-                </View>
-
-                <LinearLayout
-                    android:layout_marginTop="15sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-<!--
-                    <ImageView
-                        android:layout_width="50sp"
-                        android:layout_height="50sp"
-                        android:src="@color/colorAccent"/>-->
-
-                   <TextView
-                       android:paddingBottom="15sp"
-                       android:paddingTop="10sp"
-                       android:layout_gravity="bottom"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:paddingLeft="10sp"
-                       android:textSize="16sp"
-                       android:textColor="@color/colorAccent"
-                       android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
-
-                       />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_marginTop="15sp"
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="15sp">
+
             <LinearLayout
-                android:paddingTop="15sp"
-                android:paddingLeft="10sp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10sp"
+                android:paddingTop="15sp">
+
                 <LinearLayout
-                    android:paddingBottom="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="15sp">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:src="@drawable/dr1"/>
+                        android:src="@drawable/dr1" />
+
                     <LinearLayout
-                        android:paddingLeft="10sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Dr. Deepu Singh"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Co-founder CEO, Daily Rounds  DNA"/>
+                        android:paddingLeft="10sp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
+                            android:text="Dr. Deepu Singh"
                             android:textColor="@color/colorAccent"
-                            android:text="MD, Internal Medicine"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Co-founder CEO, Daily Rounds  DNA"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MD, Internal Medicine"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/colorAccent">
+                    android:background="@color/colorAccent"
+                    android:outlineSpotShadowColor="@color/gradStop">
 
                 </View>
 
                 <LinearLayout
-                    android:layout_marginTop="15sp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15sp"
+                    android:orientation="horizontal">
+                    <!--
+                                        <ImageView
+                                            android:layout_width="50sp"
+                                            android:layout_height="50sp"
+                                            android:src="@color/colorAccent"/>-->
 
-              <!--      <ImageView
-                        android:layout_width="50sp"
-                        android:layout_height="50sp"
-                        android:src="@color/colorAccent"/>
--->
                     <TextView
-                        android:paddingBottom="15sp"
-                        android:paddingTop="10sp"
-                        android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="15sp"
                         android:paddingLeft="10sp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
+                        android:paddingTop="10sp"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
 
                         />
 
@@ -190,90 +107,93 @@
             </LinearLayout>
 
 
-
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:layout_marginTop="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="15sp">
+
             <LinearLayout
-                android:paddingTop="15sp"
-                android:paddingLeft="10sp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10sp"
+                android:paddingTop="15sp">
+
                 <LinearLayout
-                    android:paddingBottom="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="15sp">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:src="@drawable/dr1"/>
+                        android:src="@drawable/dr1" />
+
                     <LinearLayout
-                        android:paddingLeft="10sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Dr. Deepu Singh"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Co-founder CEO, Daily Rounds  DNA"/>
+                        android:paddingLeft="10sp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
+                            android:text="Dr. Deepu Singh"
                             android:textColor="@color/colorAccent"
-                            android:text="MD, Internal Medicine"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Co-founder CEO, Daily Rounds  DNA"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MD, Internal Medicine"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/colorAccent">
+                    android:background="@color/colorAccent"
+                    android:outlineSpotShadowColor="@color/gradStop">
 
                 </View>
 
                 <LinearLayout
-                    android:layout_marginTop="15sp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-<!--
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15sp"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="50sp"
-                        android:layout_height="50sp"
-                        android:src="@color/colorAccent"/>
--->
-
+                    <!--      <ImageView
+                              android:layout_width="50sp"
+                              android:layout_height="50sp"
+                              android:src="@color/colorAccent"/>
+      -->
                     <TextView
-                        android:paddingBottom="15sp"
-                        android:paddingTop="10sp"
-                        android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="15sp"
                         android:paddingLeft="10sp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
+                        android:paddingTop="10sp"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
 
                         />
 
@@ -282,91 +202,95 @@
             </LinearLayout>
 
 
-
         </android.support.v7.widget.CardView>
 
-
         <android.support.v7.widget.CardView
-            android:layout_marginTop="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="15sp">
+
             <LinearLayout
-                android:paddingTop="15sp"
-                android:paddingLeft="10sp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10sp"
+                android:paddingTop="15sp">
+
                 <LinearLayout
-                    android:paddingBottom="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="15sp">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:src="@drawable/dr1"/>
+                        android:src="@drawable/dr1" />
+
                     <LinearLayout
-                        android:paddingLeft="10sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Dr. Deepu Singh"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Co-founder CEO, Daily Rounds  DNA"/>
+                        android:paddingLeft="10sp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
+                            android:text="Dr. Deepu Singh"
                             android:textColor="@color/colorAccent"
-                            android:text="MD, Internal Medicine"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Co-founder CEO, Daily Rounds  DNA"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MD, Internal Medicine"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/colorAccent">
+                    android:background="@color/colorAccent"
+                    android:outlineSpotShadowColor="@color/gradStop">
 
                 </View>
 
                 <LinearLayout
-                    android:layout_marginTop="15sp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-<!--
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15sp"
+                    android:orientation="horizontal">
+                    <!--
 
-                    <ImageView
-                        android:layout_width="50sp"
-                        android:layout_height="50sp"
-                        android:src="@color/colorAccent"/>
--->
+                                        <ImageView
+                                            android:layout_width="50sp"
+                                            android:layout_height="50sp"
+                                            android:src="@color/colorAccent"/>
+                    -->
 
                     <TextView
-                        android:paddingBottom="15sp"
-                        android:paddingTop="10sp"
-                        android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="15sp"
                         android:paddingLeft="10sp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
+                        android:paddingTop="10sp"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
 
                         />
 
@@ -375,72 +299,175 @@
             </LinearLayout>
 
 
-
         </android.support.v7.widget.CardView>
 
+
         <android.support.v7.widget.CardView
-            android:layout_marginTop="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="15sp">
+
             <LinearLayout
-                android:paddingTop="15sp"
-                android:paddingLeft="10sp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10sp"
+                android:paddingTop="15sp">
+
                 <LinearLayout
-                    android:paddingBottom="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="15sp">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:src="@drawable/dr1"/>
+                        android:src="@drawable/dr1" />
+
                     <LinearLayout
-                        android:paddingLeft="10sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Dr. Deepu Singh"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Co-founder CEO, Daily Rounds  DNA"/>
+                        android:paddingLeft="10sp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
+                            android:text="Dr. Deepu Singh"
                             android:textColor="@color/colorAccent"
-                            android:text="MD, Internal Medicine"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Co-founder CEO, Daily Rounds  DNA"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MD, Internal Medicine"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/colorAccent">
+                    android:background="@color/colorAccent"
+                    android:outlineSpotShadowColor="@color/gradStop">
 
                 </View>
 
                 <LinearLayout
-                    android:layout_marginTop="15sp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15sp"
+                    android:orientation="horizontal">
+                    <!--
+
+                                        <ImageView
+                                            android:layout_width="50sp"
+                                            android:layout_height="50sp"
+                                            android:src="@color/colorAccent"/>
+                    -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="15sp"
+                        android:paddingLeft="10sp"
+                        android:paddingTop="10sp"
+                        android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginTop="15sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10sp"
+                android:paddingTop="15sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15sp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/dr1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="10sp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Dr. Deepu Singh"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Co-founder CEO, Daily Rounds  DNA"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MD, Internal Medicine"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorAccent"
+                    android:outlineSpotShadowColor="@color/gradStop">
+
+                </View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15sp"
+                    android:orientation="horizontal">
 
                     <!--<ImageView
                         android:layout_width="50sp"
@@ -448,15 +475,15 @@
                         android:src="@color/colorAccent"/>
 -->
                     <TextView
-                        android:paddingBottom="15sp"
-                        android:paddingTop="10sp"
-                        android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="15sp"
                         android:paddingLeft="10sp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
+                        android:paddingTop="10sp"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
 
                         />
 
@@ -464,69 +491,76 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
-            android:layout_marginTop="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="15sp">
+
             <LinearLayout
-                android:paddingTop="15sp"
-                android:paddingLeft="10sp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10sp"
+                android:paddingTop="15sp">
+
                 <LinearLayout
-                    android:paddingBottom="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="15sp">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:src="@drawable/dr1"/>
+                        android:src="@drawable/dr1" />
+
                     <LinearLayout
-                        android:paddingLeft="10sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Dr. Deepu Singh"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="@color/colorAccent"
-                            android:text="Co-founder CEO, Daily Rounds  DNA"/>
+                        android:paddingLeft="10sp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
+                            android:text="Dr. Deepu Singh"
                             android:textColor="@color/colorAccent"
-                            android:text="MD, Internal Medicine"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Co-founder CEO, Daily Rounds  DNA"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MD, Internal Medicine"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:outlineSpotShadowColor="@color/gradStop"
-                    android:background="@color/colorAccent">
+                    android:background="@color/colorAccent"
+                    android:outlineSpotShadowColor="@color/gradStop">
 
                 </View>
 
                 <LinearLayout
-                    android:layout_marginTop="15sp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15sp"
+                    android:orientation="horizontal">
 
                     <!--<ImageView
                         android:layout_width="50sp"
@@ -534,15 +568,15 @@
                         android:src="@color/colorAccent"/>
 -->
                     <TextView
-                        android:paddingBottom="15sp"
-                        android:paddingTop="10sp"
-                        android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="15sp"
                         android:paddingLeft="10sp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
+                        android:paddingTop="10sp"
                         android:text="Today is hard,tomorrow is worse, but the day after tomorrow will be Sunshine(Jack Ma)"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
 
                         />
 

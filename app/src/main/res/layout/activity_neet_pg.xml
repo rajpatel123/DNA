@@ -51,26 +51,27 @@
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         android:textStyle="bold" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:padding="16dp">
 
         <ExpandableListView
             android:id="@+id/list_view"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:background="#ffffff"
             android:childDivider="@color/white"
             android:divider="@null"
+            android:dividerHeight="5dp"
             android:fastScrollEnabled="true"
-            android:scrollbarSize="4dip"
-            android:smoothScrollbar="true"
-            android:scrollbars="horizontal"
             android:groupIndicator="@null"
-            android:background="#ffffff"
-            android:transcriptMode="alwaysScroll"
-            android:dividerHeight="5dp">
+            android:scrollbarSize="4dip"
+            android:scrollbars="horizontal"
+            android:smoothScrollbar="true"
+            android:transcriptMode="alwaysScroll">
 
 
         </ExpandableListView>

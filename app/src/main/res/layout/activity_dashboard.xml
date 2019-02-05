@@ -4,481 +4,434 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:orientation="vertical"
+    android:orientation="vertical"
     tools:context=".Activities.DashboardActivity">
 
 
     <ScrollView
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
 
         <RelativeLayout
 
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp">
 
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnOrderPreserved="false"
                 android:alignmentMode="alignMargins"
-                android:rowCount="3"
-                android:columnCount="2">
+                android:columnCount="2"
+                android:columnOrderPreserved="false"
+                android:rowCount="3">
 
 
                 <LinearLayout
                     android:id="@+id/linearNeet_Pg"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="NEET- PG"
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="MD/ MS/ DNB"
-                        android:textColor="@color/Black"
-                        />
+                        android:textColor="@color/Black" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linearNeet_Ss"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="NEET- SS"
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="DM/ M.CH"
-                        android:textColor="@color/Black"
-                        />
-
+                        android:textColor="@color/Black" />
 
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:id="@+id/linearToday_Update"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Today Update"
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Exam/ Question"
-                        android:textColor="@color/Black"
-                        />
+                        android:textColor="@color/Black" />
 
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:id="@+id/linearLive_online"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Live Online"
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Tutorial"
-                        android:textColor="@color/Black"
-                        />
+                        android:textColor="@color/Black" />
 
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:id="@+id/linearShopping"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Shopping"
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Books/ SRP Class"
-                        android:textColor="@color/Black"
-                        />
+                        android:textColor="@color/Black" />
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:id="@+id/linearText_Series"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Text Series"
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Login"
-                        android:textColor="@color/Black"
-                        />
+                        android:textColor="@color/Black" />
 
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:id="@+id/linearMbbs_prof"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="MBBS PROF."
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="University Exam"
-                        android:textColor="@color/Black"
-                        />
-
+                        android:textColor="@color/Black" />
 
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:id="@+id/linearNeet_Ug"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="NEEt- UG"
                         android:textColor="@color/orange"
-                        />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="AIPMT Exam"
-                        android:textColor="@color/Black"
-                        />
+                        android:textColor="@color/Black" />
 
 
                 </LinearLayout>
-
-
 
 
                 <LinearLayout
                     android:id="@+id/linearFeedback"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Feedback"
                         android:textColor="@color/orange"
-                        />
-
-
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
 
                     android:id="@+id/linearContact"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
                     android:layout_margin="10dp"
                     android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
                     android:background="@drawable/cardview_border"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
+                    android:gravity="center"
 
-                    android:layout_width="100dp"
-                    android:layout_height="120dp">
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
                         android:text="Contact us"
                         android:textColor="@color/orange"
-                        />
-
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
 
 
-
-
-
-
-
-
-
-
             </GridLayout>
-
 
 
         </RelativeLayout>
 
     </ScrollView>
-
-
-
-
-
 
 
 </LinearLayout>

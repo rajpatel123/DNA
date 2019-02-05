@@ -26,8 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick,VideoActivity.DisplayDataInterface {
-
+public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoActivity.DisplayDataInterface {
 
 
     RecyclerView recyclerView;
@@ -92,7 +91,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     private void getVideos() {
         if (Utils.isInternetConnected(activity)) {
             Utils.showProgressDialog(activity);
-            RestClient.getVideos(activity.subCatId,"Video",new Callback<VideoList>() {
+            RestClient.getVideos(activity.subCatId, "Video", new Callback<VideoList>() {
                 @Override
                 public void onResponse(Call<VideoList> call, Response<VideoList> response) {
                     if (response.code() == 200) {

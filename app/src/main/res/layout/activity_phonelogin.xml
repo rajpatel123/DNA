@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Activities.PhoneloginActivity">
+
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -39,29 +40,29 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30sp"
+        android:layout_marginTop="100dp"
 
         >
 
 
         <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:gravity="center"
-
-                android:textColor="@color/black_titles"
-                android:textSize="16sp"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
-                android:text="Please enter your phone number to login"/>
+                android:gravity="center"
+                android:text="Please enter your phone number to login"
+                android:textColor="@color/black_titles"
+                android:textSize="16sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -82,11 +83,11 @@
                     android:id="@+id/separator"
                     android:layout_width="2px"
                     android:layout_height="48dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/country_code"
                     android:background="@color/app_bg" />
 
@@ -106,42 +107,35 @@
 
 
             </RelativeLayout>
+
             <Button
                 android:id="@+id/btn_continue"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:textAllCaps="false"
-                android:background="@drawable/buttonlogin"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/buttonlogin"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
                 android:text="Continue"
-                android:layout_marginBottom="30dp"/>
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/try_login"
-                android:textColor="@color/black_titles"
-                android:textSize="14dp"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/try_other_login"/>
-
-
-
-
-
-
-
+                android:layout_marginTop="10dp"
+                android:text="@string/try_other_login"
+                android:textColor="@color/black_titles"
+                android:textSize="14dp" />
 
 
         </LinearLayout>
-
 
 
     </RelativeLayout>

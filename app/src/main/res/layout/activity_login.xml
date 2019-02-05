@@ -7,6 +7,7 @@
     android:background="@color/white"
 
     tools:context=".Activities.LoginActivity">
+
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -44,93 +45,93 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25sp"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/toolbar"
 
         >
+
         <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
             <TextView
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:textStyle="bold"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:textColor="@color/black_titles"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
                 android:text="Enter Details Here"
+                android:textColor="@color/black_titles"
+                android:textSize="16dp"
+                android:textStyle="bold"
 
                 />
 
             <EditText
                 android:id="@+id/edit_email"
-                android:inputType="textEmailAddress"
-                android:layout_marginTop="15dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="8dp"
-                android:background="@drawable/edittextstyle"
-                android:textColor="@color/Black"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Email ID"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittextstyle"
+                android:hint="Email ID"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="@color/Black" />
 
             <EditText
 
                 android:id="@+id/edit_Passwword"
-                android:inputType="textPassword"
-                android:layout_marginTop="25dp"
-                android:paddingBottom="5dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="8dp"
-                android:background="@drawable/edittextstyle"
-                android:paddingTop="5dp"
-                android:textColor="@color/Black"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Password"/>
+                android:layout_marginTop="25dp"
+                android:background="@drawable/edittextstyle"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingBottom="5dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/Black" />
 
             <LinearLayout
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
 
                 <CheckBox
                     android:id="@+id/login_checkbox"
-                    android:layout_weight="1"
-                    android:paddingBottom="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dp"
-                    android:textColor="@color/Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remember me"/>
-
+                    android:layout_weight="1"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:text="Remember me"
+                    android:textColor="@color/Black" />
 
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:paddingBottom="5dp"
-                    android:paddingRight="5dp"
-
                     android:paddingLeft="5dp"
+
+                    android:paddingRight="5dp"
                     android:paddingTop="5dp"
-                    android:textColor="@color/Black"
                     android:text="Forget Your Password"
+                    android:textColor="@color/Black"
 
                     />
 
@@ -138,39 +139,36 @@
             </LinearLayout>
 
 
-
-
             <Button
                 android:id="@+id/loginButton"
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:background="@drawable/buttonlogin"
-                android:textAllCaps="false"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Log in"/>
-
+                android:layout_marginTop="25dp"
+                android:background="@drawable/buttonlogin"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="Log in"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
 
 
             <Button
-                android:paddingBottom="5dp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:textSize="20dp"
-                android:background="@drawable/buttonblue"
                 android:id="@+id/custom_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign in with facebook"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/buttonblue"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="Sign in with facebook"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
 
             <!--
                         <com.facebook.login.widget.LoginButton
@@ -187,7 +185,6 @@
         </LinearLayout>
 
     </RelativeLayout>
-
 
 
 </RelativeLayout>

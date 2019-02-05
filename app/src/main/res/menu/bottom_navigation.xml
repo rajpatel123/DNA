@@ -4,27 +4,24 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/homelogo"
-
-        android:title="Home"/>
+        android:title="Home" />
     <item
         android:id="@+id/nav_video"
-
         android:icon="@drawable/cameralogo"
-
-        android:title="Video"/>
+        android:title="Video" />
     <item
         android:id="@+id/nav_qbank"
         android:icon="@drawable/qm"
-        android:title="QBank"/>
+        android:title="QBank" />
 
     <item
         android:id="@+id/nav_text"
         android:icon="@drawable/text"
-        android:title="Text"/>
+        android:title="Text" />
     <item
         android:id="@+id/nav_online"
         android:icon="@drawable/live"
-        android:title="Online"/>
+        android:title="Online" />
 
 
 </menu>

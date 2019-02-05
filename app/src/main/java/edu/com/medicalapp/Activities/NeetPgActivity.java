@@ -25,11 +25,10 @@ public class NeetPgActivity extends AppCompatActivity {
     private ExpandableListView listView;
     private List<String> listDataheader;
     TextView catTitle;
-    private HashMap<String,List<SubSubChild>> listHashMap;
+    private HashMap<String, List<SubSubChild>> listHashMap;
     private ArrayList<SubSubChild> neetPg;
 
     private LinearLayout linearLayoutArrow;
-
 
 
     @Override
@@ -37,12 +36,11 @@ public class NeetPgActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neet_pg);
 
-        listView=findViewById(R.id.list_view);
-        catTitle=findViewById(R.id.catTitle);
+        listView = findViewById(R.id.list_view);
+        catTitle = findViewById(R.id.catTitle);
         initData();
-        listAdapter=new ExpandableListAdapter(this,listDataheader,listHashMap);
+        listAdapter = new ExpandableListAdapter(this, listDataheader, listHashMap);
         listView.setAdapter(listAdapter);
-
 
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -55,29 +53,29 @@ public class NeetPgActivity extends AppCompatActivity {
 
     private void initData() {
 
-        listDataheader=new ArrayList<>();
-        listHashMap=new HashMap<>();
+        listDataheader = new ArrayList<>();
+        listHashMap = new HashMap<>();
 
 
         String id = getIntent().getStringExtra("catId");
-        CategoryDetailData categoryDetailData = new Gson().fromJson(getIntent().getStringExtra("catData"),CategoryDetailData.class);
+        CategoryDetailData categoryDetailData = new Gson().fromJson(getIntent().getStringExtra("catData"), CategoryDetailData.class);
 
-        for (int i=0;i<categoryDetailData.getDetails().size();i++){
-            if (id.equalsIgnoreCase(categoryDetailData.getDetails().get(i).getCatId())){
-                int headerindex =i;
+        for (int i = 0; i < categoryDetailData.getDetails().size(); i++) {
+            if (id.equalsIgnoreCase(categoryDetailData.getDetails().get(i).getCatId())) {
+                int headerindex = i;
                 catTitle.setText(categoryDetailData.getDetails().get(i).getCatName());
-                for (int j=0;j<categoryDetailData.getDetails().get(i).getSubCat().size();j++ ){
+                for (int j = 0; j < categoryDetailData.getDetails().get(i).getSubCat().size(); j++) {
                     neetPg = new ArrayList<SubSubChild>();
-                   listDataheader.add(categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubCatName());
-                     List<SubSubChild> childs = categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubSubChild();
+                    listDataheader.add(categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubCatName());
+                    List<SubSubChild> childs = categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubSubChild();
 
-                    if (childs!=null && childs.size()>0){
-                         for (int k=0;k<childs.size();k++){
-                             neetPg.add(childs.get(k));
-                         }
-                         listHashMap.put(listDataheader.get(j),neetPg);
-                     }
-               }
+                    if (childs != null && childs.size() > 0) {
+                        for (int k = 0; k < childs.size(); k++) {
+                            neetPg.add(childs.get(k));
+                        }
+                        listHashMap.put(listDataheader.get(j), neetPg);
+                    }
+                }
             }
 
         }

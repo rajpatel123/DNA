@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activities.LiveActivity">
 
 
@@ -15,45 +15,38 @@
         android:background="@color/vedioborder"
         android:minHeight="?attr/actionBarSize">
 
-    >
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:paddingBottom="8dp"
             android:paddingLeft="15dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:layout_centerVertical="true"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Live Online"
-            android:textSize="20dp"
             android:textColor="@color/orange"
-            />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="10dp">
 
         <ExpandableListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-
+            android:layout_height="match_parent">
 
 
         </ExpandableListView>
-
-
-
 
 
     </RelativeLayout>

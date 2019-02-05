@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linear_arrow"
-    android:padding="8dp"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="20dp"
-    android:layout_marginBottom="10dp"
     android:background="@drawable/buttonlogin"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:padding="8dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
-            android:layout_weight="4"
-            android:paddingLeft="8dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:groupIndicator="@null"
+            android:id="@+id/listheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listheader"
+            android:layout_weight="4"
+            android:groupIndicator="@null"
+            android:paddingBottom="3dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/white"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
 
         <ImageView
             android:id="@+id/image_arrow"
-            android:paddingLeft="8dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/open_arrow"
-            />
+            android:paddingBottom="5dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/open_arrow" />
 
 
     </LinearLayout>

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-<!--Make sure image is present in Drawable folder-->
+    <!--Make sure image is present in Drawable folder-->
 
     <TextView
         android:id="@+id/textView"
