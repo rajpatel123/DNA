@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.subscribe) {
             Intent intent = new Intent(this, DNASuscribeActivity.class);
-            startActivity(intent);
+           // startActivity(intent);
         } else if (id == R.id.notice_board) {
 
             Intent intent = new Intent(this, Noticeboard.class);
