@@ -46,15 +46,13 @@ public class GrandTestAdapter extends RecyclerView.Adapter<GrandTestAdapter.View
         holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
         holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
         holder.textDate.setText(grandTests.get(holder.getAdapterPosition()).getTestDate());
-        if(grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes"))
-        {
+        if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
             holder.imageLock.setImageResource(R.drawable.test_lock);
         }
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onUserClickCallback!=null)
-                {
+                if (onUserClickCallback != null) {
                     onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId());
                 }
             }
@@ -81,10 +79,10 @@ public class GrandTestAdapter extends RecyclerView.Adapter<GrandTestAdapter.View
     public void setListener(GrandTestAdapter.OnCategoryClick onUserClickCallback) {
         this.onUserClickCallback = onUserClickCallback;
     }
+
     public interface OnCategoryClick {
         public void onCateClick(String id);
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {

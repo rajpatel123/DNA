@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative_head"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/relative_head"
+    android:layout_marginTop="10dp"
     android:background="@color/white">
 
     <LinearLayout
@@ -15,7 +17,7 @@
             android:id="@+id/textView_Date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="7dp"
 
             android:text="March 2018"
             android:textColor="@color/orange"
@@ -23,83 +25,117 @@
     </LinearLayout>
 
     <android.support.v7.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_top"
-        android:layout_margin="10dp">
+        android:layout_margin="6dp">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/relative_under"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/test_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:backgroundTint="@color/orange"
-                android:src="@drawable/test_icon"
-                android:tint="@color/orange" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="70sp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/dark_gray" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/testTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NIMHANS Mock Exam"
-                    android:textColor="@color/orange" />
-
-                <ImageView
-                    android:id="@+id/image_lock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:paddingRight="15dp"
-                  />
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/total_question"
+                    <ImageView
+                        android:id="@+id/test_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100 Q's"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="16sp" />
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:backgroundTint="@color/orange"
+                        android:src="@drawable/test_icon"
+                        android:tint="@color/orange" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="70sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/dark_gray" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:id="@+id/linear_vertical"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/total_time"
+                        android:padding="2dp"
+                        android:id="@+id/testTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NIMHANS Mock Exam"
+                        android:textColor="@color/orange" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:padding="2dp"
+                            android:id="@+id/total_question"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100 Q's"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:padding="2dp"
+                            android:id="@+id/total_time"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="8dp"
+                            android:text="1h"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:paddingLeft="20dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image_lock"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="8dp"
-                        android:text="1h"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="16sp" />
+                        android:src="@drawable/test_lock"/>
+
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+
+
+        </RelativeLayout>
+
+
     </android.support.v7.widget.CardView>
+
 </RelativeLayout>
