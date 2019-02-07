@@ -70,6 +70,7 @@ public class TruitonListFragment extends Fragment {
 					answer1.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
+							cardView1.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
 
 						}
 					});
@@ -87,6 +88,7 @@ public class TruitonListFragment extends Fragment {
 					answer2.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
+							cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
 
 						}
 					});
@@ -103,6 +105,7 @@ public class TruitonListFragment extends Fragment {
 					answer3.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
+							cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
 
 						}
 					});
@@ -119,7 +122,7 @@ public class TruitonListFragment extends Fragment {
 					answer4.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
-
+                       cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
 						}
 					});
 					break;
