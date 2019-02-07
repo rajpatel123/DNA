@@ -57,7 +57,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(grandTests.get(holder.getAdapterPosition()).getTestDate());
+            holder.textDate.setText(Utils.tripDateFormat(grandTests.get(holder.getAdapterPosition()).getTestDate()));
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
             if (holder.getAdapterPosition() > 0) {
@@ -86,7 +86,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(miniTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((miniTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(miniTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(miniTests.get(holder.getAdapterPosition()).getTestDate());
+            holder.textDate.setText(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition()).getTestDate()));
             if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
@@ -103,7 +103,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId());
+                        onUserClickCallback.onCateClick(miniTests.get(holder.getAdapterPosition()).getTestId());
                     }
                 }
             });
@@ -113,7 +113,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(allTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(allTests.get(holder.getAdapterPosition()).getTestDate());
+            holder.textDate.setText(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition()).getTestDate()));
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
@@ -138,7 +138,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate());
+            holder.textDate.setText(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition()).getTestDate()));
             if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }

@@ -85,7 +85,7 @@ public class Utils {
     public static String tripDateFormat(String testDate) {
         long testTime = getTime(testDate);
         Date dNow = new Date(testTime);
-        SimpleDateFormat tripDateFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+        SimpleDateFormat tripDateFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
         return tripDateFormat.format(dNow);
     }
 
@@ -99,4 +99,6 @@ public class Utils {
         }
         return 0;
     }
+
+
 }

@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Activities;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.R;
@@ -24,7 +29,11 @@ public class TestActivity extends FragmentActivity {
         static final int ITEMS = 10;
         MyAdapter mAdapter;
         ViewPager mPager;
+    TextView quesionCounter;
+    TextView timer;
+    CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
+    private Button button;
 
 
     @Override
@@ -32,22 +41,37 @@ public class TestActivity extends FragmentActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.fragment_pager);
 
-
-            Button button = (Button) findViewById(R.id.first);
+        quesionCounter = findViewById(R.id.counter);
+        timer = findViewById(R.id.timer);
+        button = (Button) findViewById(R.id.first);
             button.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
                     mPager.setCurrentItem(0);
                 }
             });
-            button = (Button) findViewById(R.id.last);
+            button = (Button) findViewById(R.id.next);
             button.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
                     if (qustionDetails.getDetail() != null && qustionDetails.getDetail().size() > 0)
-                        mPager.setCurrentItem(qustionDetails.getDetail().size() - 1);
+                       if (mPager.getCurrentItem()<qustionDetails.getDetail().size()) {
+                           mPager.setCurrentItem(qustionDetails.getDetail().size() - mPager.getCurrentItem() + 1);
+                           quesionCounter.setText((qustionDetails.getDetail().size() - mPager.getCurrentItem() + 1) + " of " + qustionDetails.getDetail().size());
+
+                       }
                 }
             });
 
 
+        countDownTimer = new CountDownTimer(1 * 60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timer.setText("" + new SimpleDateFormat("mm:ss:SS").format(new Date(millisUntilFinished)));
+            }
+
+            public void onFinish() {
+                timer.setText("Time up!");
+            }
+        }.start();
 
 
         }
@@ -61,10 +85,12 @@ public class TestActivity extends FragmentActivity {
 
     public static class MyAdapter extends FragmentPagerAdapter {
         QustionDetails qustionDetails = null;
+        TextView quesionCounter;
 
-        public MyAdapter(FragmentManager fragmentManager, QustionDetails qustionDetails) {
+        public MyAdapter(FragmentManager fragmentManager, QustionDetails qustionDetails, TextView quesionCounter) {
                 super(fragmentManager);
             this.qustionDetails = qustionDetails;
+            this.quesionCounter = quesionCounter;
             }
 
 
@@ -78,6 +104,7 @@ public class TestActivity extends FragmentActivity {
 
             @Override
             public Fragment getItem(int position) {
+                quesionCounter.setText((position) + " of " + qustionDetails.getDetail().size());
                 return TruitonListFragment.init(qustionDetails.getDetail().get(position),position);
             }
         }
@@ -92,7 +119,7 @@ public class TestActivity extends FragmentActivity {
 
                     if (response.code() == 200) {
                         qustionDetails = response.body();
-                        mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails);
+                        mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails, quesionCounter);
                         mPager = (ViewPager) findViewById(R.id.pager);
                         mPager.setAdapter(mAdapter);
                     }
