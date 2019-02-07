@@ -31,7 +31,6 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-   @BindView(R.id.noTest)
      TextView notext;
 
     private TestQuestionData testQuestionData;
@@ -46,6 +45,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_alltext,container,false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        notext=view.findViewById(R.id.noTest);
         return view;
     }
 
@@ -83,7 +83,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
         }
         else {
             Utils.dismissProgressDialog();
-
+            notext.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
         }
 

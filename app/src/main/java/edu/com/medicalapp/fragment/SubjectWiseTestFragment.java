@@ -24,7 +24,7 @@ import edu.com.medicalapp.utils.Utils;
 
 public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnCategoryClick{
 
-    @BindView(R.id.noTest)
+
     TextView notext;
     RecyclerView recyclerView;
     private TestQuestionData testQuestionData;
@@ -53,6 +53,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
 
         } else {
             Utils.dismissProgressDialog();
+            notext.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
         }
@@ -93,6 +94,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sybjectwisetest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView2);
+        notext=view.findViewById(R.id.noTest);
         return view;
     }
 
