@@ -56,9 +56,7 @@ public class TestActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails);
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(mAdapter);
+        getTest();
     }
 
     public static class MyAdapter extends FragmentPagerAdapter {
@@ -73,7 +71,6 @@ public class TestActivity extends FragmentActivity {
 
         @Override
             public int getCount() {
-
             if (qustionDetails.getDetail() != null && qustionDetails.getDetail().size() > 0)
                 return qustionDetails.getDetail().size();
         return 0;
@@ -88,21 +85,23 @@ public class TestActivity extends FragmentActivity {
     private void getTest() {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getQuestion(getIntent().getStringExtra("q_id"), new Callback<QustionDetails>() {
+            RestClient.getQuestion(getIntent().getStringExtra("id"), new Callback<QustionDetails>() {
                 @Override
                 public void onResponse(Call<QustionDetails> call, Response<QustionDetails> response) {
+                    Utils.dismissProgressDialog();
+
                     if (response.code() == 200) {
 
                         qustionDetails = response.body();
-
+                        mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails);
+                        mPager = (ViewPager) findViewById(R.id.pager);
+                        mPager.setAdapter(mAdapter);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<QustionDetails> call, Throwable t) {
-
                     Utils.dismissProgressDialog();
-
                 }
             });
         } else {

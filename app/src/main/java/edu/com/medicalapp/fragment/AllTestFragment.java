@@ -93,11 +93,12 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     private void showTest() {
         if (testQuestionData != null && testQuestionData.getGrandTest() != null && testQuestionData.getGrandTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            TestAdapter grandTestAdapter = new TestAdapter(getActivity());
-            grandTestAdapter.setAllData(testQuestionData.getAllTest());
+            TestAdapter testAdapter = new TestAdapter(getActivity());
+            testAdapter.setAllData(testQuestionData.getAllTest());
+            testAdapter.setListener(this);
 
             //videoListAdapter.setListener(FreeFragment.this);
-            recyclerView.setAdapter(grandTestAdapter);
+            recyclerView.setAdapter(testAdapter);
             recyclerView.setVisibility(View.VISIBLE);
 
 

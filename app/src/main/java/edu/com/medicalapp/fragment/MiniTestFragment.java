@@ -1,5 +1,6 @@
 package edu.com.medicalapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
+import edu.com.medicalapp.Activities.TestStartActivity;
 import edu.com.medicalapp.Adapters.MiniTestAdapter;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
@@ -26,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MiniTestFragment extends Fragment {
+public class MiniTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
     @BindView(R.id.noTest)
     TextView notext;
@@ -67,6 +69,8 @@ public class MiniTestFragment extends Fragment {
 
             TestAdapter miniTestAdapter = new TestAdapter(getActivity());
             miniTestAdapter.setMiniData(testQuestionData.getMiniTest());
+            miniTestAdapter.setListener(this);
+
             recyclerView.setAdapter(miniTestAdapter);
             recyclerView.setVisibility(View.VISIBLE);
 
@@ -96,5 +100,12 @@ public class MiniTestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_minitest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView1);
         return view;
+    }
+
+    @Override
+    public void onCateClick(String id) {
+        Intent intent=new Intent(getActivity(),TestStartActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }

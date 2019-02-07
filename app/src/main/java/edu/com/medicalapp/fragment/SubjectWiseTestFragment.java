@@ -1,5 +1,6 @@
 package edu.com.medicalapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
+import edu.com.medicalapp.Activities.TestStartActivity;
+import edu.com.medicalapp.Adapters.QuestionAdapter;
 import edu.com.medicalapp.Adapters.SubjectWiseAdapter;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
@@ -26,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SubjectWiseTestFragment extends Fragment {
+public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnCategoryClick{
 
     @BindView(R.id.noTest)
     TextView notext;
@@ -69,6 +72,7 @@ public class SubjectWiseTestFragment extends Fragment {
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter subjectWiseAdapter = new TestAdapter(getActivity());
             subjectWiseAdapter.setSubjectTestsData(testQuestionData.getSubjectTest());
+            subjectWiseAdapter.setListener(this);
             recyclerView.setAdapter(subjectWiseAdapter);
             recyclerView.setVisibility(View.VISIBLE);
             // noInternet.setVisibility(View.GONE);
@@ -96,5 +100,13 @@ public class SubjectWiseTestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sybjectwisetest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView2);
         return view;
+    }
+
+
+    @Override
+    public void onCateClick(String id) {
+        Intent intent=new Intent(getActivity(),TestStartActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }
