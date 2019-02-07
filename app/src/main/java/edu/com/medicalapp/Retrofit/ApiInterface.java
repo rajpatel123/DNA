@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Retrofit;
 
+import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -42,5 +43,8 @@ public interface ApiInterface {
     @GET("api/api.php?req=test")
     Call<TestQuestionData> getTest();
 
+
+    @GET("api/api.php?req=question")
+    Call<QustionDetails> getQuestion(@Query("test_id") String test_id);
 
 }

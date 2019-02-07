@@ -2,18 +2,23 @@ package edu.com.medicalapp.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import edu.com.medicalapp.Models.Detail;
+import edu.com.medicalapp.R;
+
 public class TruitonListFragment extends ListFragment {
 	int fragNum;
+	Detail question;
+	RecyclerView recyclerView;
 
-	static TruitonListFragment init(Question question, int position) {
+	public static TruitonListFragment init(Detail question, int position) {
 		TruitonListFragment truitonList = new TruitonListFragment();
 
 		// Supply val input as an argument.
@@ -32,7 +37,7 @@ public class TruitonListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		fragNum = getArguments() != null ? getArguments().getInt("val") : 1;
-		question = getArguments() != null ? getArguments().<Question>getParcelable("question") : null;
+		question = getArguments() != null ? getArguments().getParcelable("question") : null;
 	}
 
 	/**
@@ -45,6 +50,7 @@ public class TruitonListFragment extends ListFragment {
 		View layoutView = inflater.inflate(R.layout.fragment_pager_list,
 				container, false);
 		View tv = layoutView.findViewById(R.id.text);
+		recyclerView = layoutView.findViewById(R.id.list);
 		((TextView) tv).setText("Truiton Fragment #" + fragNum);
 
 		return layoutView;
@@ -53,8 +59,7 @@ public class TruitonListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		setListAdapter(new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, arr));
+
 	}
 
 	@Override
