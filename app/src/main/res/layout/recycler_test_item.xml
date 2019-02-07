@@ -40,7 +40,6 @@
                 android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -71,19 +70,19 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:id="@+id/linear_vertical"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
-                        android:padding="2dp"
                         android:id="@+id/testTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="2dp"
                         android:text="NIMHANS Mock Exam"
                         android:textColor="@color/orange" />
 
@@ -93,20 +92,20 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:padding="2dp"
                             android:id="@+id/total_question"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:padding="2dp"
                             android:text="100 Q's"
                             android:textColor="@color/dark_gray"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:padding="2dp"
                             android:id="@+id/total_time"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:padding="2dp"
                             android:paddingLeft="8dp"
                             android:text="1h"
                             android:textColor="@color/dark_gray"
@@ -116,18 +115,18 @@
 
                 <LinearLayout
 
-                    android:paddingLeft="20dp"
-                    android:layout_margin="10dp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:paddingLeft="20dp">
 
                     <ImageView
                         android:id="@+id/image_lock"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/test_lock"/>
+                        android:src="@drawable/test_lock" />
 
                 </LinearLayout>
             </LinearLayout>
