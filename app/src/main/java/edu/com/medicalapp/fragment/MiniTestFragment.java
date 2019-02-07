@@ -30,7 +30,6 @@ import retrofit2.Response;
 
 public class MiniTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
-    @BindView(R.id.noTest)
     TextView notext;
 
     RecyclerView recyclerView;
@@ -100,6 +99,7 @@ public class MiniTestFragment extends Fragment implements TestAdapter.OnCategory
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_minitest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView1);
+        notext=view.findViewById(R.id.noTest);
         return view;
     }
 

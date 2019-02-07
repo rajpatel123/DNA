@@ -27,7 +27,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
 
 
 
-    @BindView(R.id.noTest)
+
     TextView notext;
 
     RecyclerView recyclerView;
@@ -56,6 +56,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
         }
         else {
             Utils.dismissProgressDialog();
+            notext.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
         }
@@ -104,6 +105,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grandtest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        notext=view.findViewById(R.id.noTest);
         return view;
     }
 
