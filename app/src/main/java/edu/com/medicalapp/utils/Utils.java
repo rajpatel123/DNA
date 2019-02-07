@@ -8,6 +8,11 @@ import android.net.NetworkInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Utils {
 
 
@@ -77,4 +82,21 @@ public class Utils {
     }
 
 
+    public static String tripDateFormat(String testDate) {
+        long testTime = getTime(testDate);
+        Date dNow = new Date(testTime);
+        SimpleDateFormat tripDateFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+        return tripDateFormat.format(dNow);
+    }
+
+    private static long getTime(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        try {
+            Date myDate = sdf.parse(date);
+            return myDate.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
