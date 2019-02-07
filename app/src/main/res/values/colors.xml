@@ -24,6 +24,8 @@
     <color name="profile_cardview">#e9e9e9</color>
     <color name="profile_background_color">#f0f0f0</color>
     <color name="vedio_text_color">#6d6d6d</color>
+    <color name="test_fragment_card_bacckground">#f1e5df</color>
+
 
 
 

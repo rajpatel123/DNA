@@ -1,5 +1,6 @@
 package edu.com.medicalapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,9 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Activities.TestStartActivity;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
 import edu.com.medicalapp.Models.test.TestQuestionData;
@@ -26,6 +30,10 @@ import retrofit2.Response;
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
+   @BindView(R.id.noTest)
+     TextView notext;
+
     private TestQuestionData testQuestionData;
 
     @Override
@@ -73,6 +81,11 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 }
             });
         }
+        else {
+            Utils.dismissProgressDialog();
+
+            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -109,6 +122,10 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
 
     @Override
     public void onCateClick(String id) {
+        Intent intent=new Intent(getActivity(),TestStartActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
+
 
     }
 }

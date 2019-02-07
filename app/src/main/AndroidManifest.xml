@@ -99,7 +99,8 @@
             android:name=".Activities.VideoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.TestStartActivity"></activity>
+        <activity android:name=".Activities.TestStartActivity" />
+        <activity android:name=".Activities.TestQuestionExamActivity"></activity>
     </application>
 
 </manifest>
