@@ -2,20 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/gallery_thumb"
-    android:orientation="vertical" >
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
 
 
+    <TextView
+        android:id="@+id/questionTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        android:text="Tetsmfkfnldnv,fdf  fjefwfnfuyfw"
+        android:textStyle="bold"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1" >
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawSelectorOnTop="false" />
+            >
+            <LinearLayout
+                android:id="@+id/answerList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </ScrollView>
     </FrameLayout>
 
 </LinearLayout>
