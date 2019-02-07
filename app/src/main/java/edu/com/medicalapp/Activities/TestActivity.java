@@ -91,7 +91,6 @@ public class TestActivity extends FragmentActivity {
                     Utils.dismissProgressDialog();
 
                     if (response.code() == 200) {
-
                         qustionDetails = response.body();
                         mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails);
                         mPager = (ViewPager) findViewById(R.id.pager);

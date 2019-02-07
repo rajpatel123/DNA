@@ -16,18 +16,11 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import edu.com.medicalapp.Activities.TestStartActivity;
-import edu.com.medicalapp.Adapters.QuestionAdapter;
-import edu.com.medicalapp.Adapters.SubjectWiseAdapter;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
-import okhttp3.internal.Util;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnCategoryClick{
 
