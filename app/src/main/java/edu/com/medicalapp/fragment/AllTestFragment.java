@@ -115,6 +115,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
         } else {
             Log.d("Api Response :", "Got Success from Api");
             recyclerView.setVisibility(View.GONE);
+            notext.setVisibility(View.VISIBLE);
 
         }
 
