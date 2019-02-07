@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -23,12 +25,16 @@ import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
 import edu.com.medicalapp.utils.Utils;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements FragmentLifecycle, CourseListAdapter.OnCategoryClick {
 
+
+    @BindView(R.id.noInternet)
+    TextView textInternet;
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -64,7 +70,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                 public void onResponse(Call <CategoryDetailData> call, Response<CategoryDetailData> response) {
                     if (response.code() == 200) {
                          Utils.dismissProgressDialog();
-                      categoryDetailData = response.body();
+                         categoryDetailData = response.body();
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
@@ -88,6 +94,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                            // noInternet.setVisibility(View.VISIBLE);
                            // noInternet.setText(getString(R.string.no_project));
                             recyclerView.setVisibility(View.GONE);
+                            textInternet.setVisibility(View.VISIBLE);
+
                         }
                     } else {
 
@@ -102,6 +110,13 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
                 }
             });
+        }
+        else {
+            Utils.dismissProgressDialog();
+            textInternet.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
         }
     }
 

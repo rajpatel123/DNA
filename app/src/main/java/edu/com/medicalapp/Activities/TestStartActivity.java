@@ -1,19 +1,18 @@
 package edu.com.medicalapp.Activities;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.R;
 
-public class TestStartActivity extends AppCompatActivity implements TestAdapter.OnCategoryClick {
+public class TestStartActivity extends AppCompatActivity  {
 
     @BindView(R.id.test_topic)
     TextView testTopic;
@@ -22,20 +21,16 @@ public class TestStartActivity extends AppCompatActivity implements TestAdapter.
     Button btnStart;
 
 
-    @BindView(R.id.test_image)
-    ImageView testImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_start);
 
-        testImage.setOnClickListener(new View.OnClickListener() {
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startTest();
-
             }
         });
 
@@ -51,9 +46,9 @@ public class TestStartActivity extends AppCompatActivity implements TestAdapter.
             dialogBuilder.setView(dialogView);
 
             final AlertDialog dialog = dialogBuilder.create();
-            Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-            TextView text_logout=dialogView.findViewById(R.id.text_logout);
-            btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            Button btn_Done = dialogView.findViewById(R.id.btn_done);
+            TextView text_Cancel=dialogView.findViewById(R.id.text_cancel);
+            text_Cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
@@ -61,11 +56,13 @@ public class TestStartActivity extends AppCompatActivity implements TestAdapter.
                 }
             });
 
-            text_logout.setOnClickListener(new View.OnClickListener() {
+
+            btn_Done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //here we start new activity whatever u want
                     //startActivity(new Intent(this,FirstloginActivity.class));
+                    startActivity(new Intent(TestStartActivity.this,TestQuestionExamActivity.class));
                     finish();
                 }
             });
@@ -77,8 +74,4 @@ public class TestStartActivity extends AppCompatActivity implements TestAdapter.
 
 
 
-    @Override
-    public void onCateClick(String id) {
-
-    }
 }

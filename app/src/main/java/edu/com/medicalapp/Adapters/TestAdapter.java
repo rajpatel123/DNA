@@ -1,7 +1,9 @@
 package edu.com.medicalapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Activities.TestStartActivity;
 import edu.com.medicalapp.Models.test.AllTest;
 import edu.com.medicalapp.Models.test.GrandTest;
 import edu.com.medicalapp.Models.test.MiniTest;
@@ -50,12 +53,14 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final TestAdapter.ViewHolder holder, int i) {
 
-        if (grandTests!=null){
+        if (grandTests != null) {
             holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
             holder.textDate.setText(grandTests.get(holder.getAdapterPosition()).getTestDate());
-            if (holder.getAdapterPosition()>0){
+            holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
+
+            if (holder.getAdapterPosition() > 0) {
                 if (!Objects.requireNonNull(Utils.tripDateFormat(grandTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(grandTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
@@ -70,13 +75,14 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId());
                     }
                 }
             });
 
-        }else if (miniTests!=null){
+        } else if (miniTests != null) {
             holder.title.setText(miniTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((miniTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(miniTests.get(holder.getAdapterPosition()).getTestDuration());
@@ -86,7 +92,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             }
 
 
-            if (holder.getAdapterPosition()>0){
+            if (holder.getAdapterPosition() > 0) {
                 if (!Objects.requireNonNull(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
@@ -103,7 +109,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             });
 
 
-        }else if (allTests!=null){
+        } else if (allTests != null) {
             holder.title.setText(allTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getTestDuration());
@@ -112,7 +118,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
-            if (holder.getAdapterPosition()>0){
+            if (holder.getAdapterPosition() > 0) {
                 if (!Objects.requireNonNull(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
@@ -128,7 +134,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 }
             });
 
-        }else if (subjectTests!=null){
+        } else if (subjectTests != null) {
             holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getTestDuration());
@@ -137,7 +143,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
-            if (holder.getAdapterPosition()>0){
+            if (holder.getAdapterPosition() > 0) {
                 if (!Objects.requireNonNull(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
@@ -162,13 +168,13 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     public int getItemCount() {
         if (grandTests != null) {
             return grandTests.size();
-        } else if (allTests!=null){
+        } else if (allTests != null) {
             return allTests.size();
-        }else if (miniTests!=null){
+        } else if (miniTests != null) {
             return miniTests.size();
-        }else if (subjectTests!=null){
+        } else if (subjectTests != null) {
             return subjectTests.size();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -177,12 +183,15 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     public void setGrandData(List<GrandTest> testList) {
         this.grandTests = testList;
     }
+
     public void setMiniData(List<MiniTest> testList) {
         this.miniTests = testList;
     }
+
     public void setAllData(List<AllTest> testList) {
         this.allTests = testList;
     }
+
     public void setSubjectTestsData(List<SubjectTest> testList) {
         this.subjectTests = testList;
     }
@@ -213,6 +222,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
         @BindView(R.id.image_lock)
         ImageView imageLock;
+
+        @BindView(R.id.cardView)
+        CardView cardview;
 
         @BindView(R.id.relative_head)
         RelativeLayout relativeLayout;

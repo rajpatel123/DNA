@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import butterknife.BindView;
 import edu.com.medicalapp.Adapters.MiniTestAdapter;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
@@ -18,12 +21,15 @@ import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MiniTestFragment extends Fragment {
 
+    @BindView(R.id.noTest)
+    TextView notext;
 
     RecyclerView recyclerView;
     private TestQuestionData testQuestionData;
@@ -36,19 +42,30 @@ public class MiniTestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        testQuestionData= DNAApplication.getTestQuestionData();
-        if (testQuestionData!=null)
-        showTest();
+        if (Utils.isInternetConnected(getContext())) {
+            Utils.showProgressDialog(getContext());
+            testQuestionData = DNAApplication.getTestQuestionData();
+            if (testQuestionData != null) {
+                Utils.dismissProgressDialog();
+                showTest();
+            } else {
+                Utils.dismissProgressDialog();
+            }
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
 
     private void showTest() {
 
-        if(testQuestionData!=null && testQuestionData.getMiniTest()!=null && testQuestionData.getMiniTest().size()>0)
-        {
+        if (testQuestionData != null && testQuestionData.getMiniTest() != null && testQuestionData.getMiniTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
 
-            TestAdapter miniTestAdapter=new TestAdapter(getActivity());
+            TestAdapter miniTestAdapter = new TestAdapter(getActivity());
             miniTestAdapter.setMiniData(testQuestionData.getMiniTest());
             recyclerView.setAdapter(miniTestAdapter);
             recyclerView.setVisibility(View.VISIBLE);
@@ -70,9 +87,7 @@ public class MiniTestFragment extends Fragment {
 
         }
 
-        }
-
-
+    }
 
 
     @Nullable

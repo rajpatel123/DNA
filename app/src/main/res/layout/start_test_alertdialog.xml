@@ -22,7 +22,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
@@ -37,7 +37,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/text_logout"
+            android:id="@+id/text_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"

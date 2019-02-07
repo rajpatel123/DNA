@@ -25,7 +25,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.CardView
-
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_top"
@@ -123,10 +123,9 @@
 
                     <ImageView
                         android:id="@+id/image_lock"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/test_lock" />
+                     />
 
                 </LinearLayout>
             </LinearLayout>
