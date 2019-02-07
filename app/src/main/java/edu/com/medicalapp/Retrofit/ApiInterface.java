@@ -40,7 +40,7 @@ public interface ApiInterface {
     Call<VideoList> getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
 
     @GET("api/api.php?req=test")
-    Call<TestQuestionData> getTest(@Query("sub_test") String sub_test);
+    Call<TestQuestionData> getTest();
 
 
 }

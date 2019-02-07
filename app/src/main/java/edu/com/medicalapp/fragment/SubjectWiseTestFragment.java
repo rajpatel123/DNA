@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.com.medicalapp.Adapters.SubjectWiseAdapter;
+import edu.com.medicalapp.Adapters.TestAdapter;
+import edu.com.medicalapp.DNAApplication;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
@@ -34,37 +36,17 @@ public class SubjectWiseTestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getTest();
+        testQuestionData= DNAApplication.getTestQuestionData();
+        if (testQuestionData!=null)
+        showTest();
     }
 
-    private void getTest() {
-
-        if (Utils.isInternetConnected(getActivity())) {
-            Utils.showProgressDialog(getActivity());
-            RestClient.getTest(subTest, new Callback<TestQuestionData>() {
-                @Override
-                public void onResponse(Call<TestQuestionData> call, Response<TestQuestionData> response) {
-                    if (response.code() == 200)
-                        Utils.dismissProgressDialog();
-                    testQuestionData = response.body();
-                    showTest();
-
-
-                }
-
-                @Override
-                public void onFailure(Call<TestQuestionData> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                }
-            });
-        }
-    }
 
     private void showTest() {
         if (testQuestionData != null && testQuestionData.getSubjectTest() != null && testQuestionData.getSubjectTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            SubjectWiseAdapter subjectWiseAdapter = new SubjectWiseAdapter(getActivity());
-            subjectWiseAdapter.setData(testQuestionData.getSubjectTest());
+            TestAdapter subjectWiseAdapter = new TestAdapter(getActivity());
+            subjectWiseAdapter.setSubjectTestsData(testQuestionData.getSubjectTest());
             recyclerView.setAdapter(subjectWiseAdapter);
             recyclerView.setVisibility(View.VISIBLE);
             // noInternet.setVisibility(View.GONE);

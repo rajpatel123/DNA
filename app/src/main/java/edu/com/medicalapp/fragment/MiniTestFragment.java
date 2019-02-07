@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.com.medicalapp.Adapters.MiniTestAdapter;
+import edu.com.medicalapp.Adapters.TestAdapter;
+import edu.com.medicalapp.DNAApplication;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
@@ -34,34 +36,11 @@ public class MiniTestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getTest();
-
+        testQuestionData= DNAApplication.getTestQuestionData();
+        if (testQuestionData!=null)
+        showTest();
     }
 
-    private void getTest() {
-        if (Utils.isInternetConnected(getContext())) {
-            Utils.showProgressDialog(getContext());
-            RestClient.getTest(subTest, new Callback<TestQuestionData>() {
-                @Override
-                public void onResponse(Call<TestQuestionData> call, Response<TestQuestionData> response) {
-                    if (response.code() == 200) {
-                        Utils.dismissProgressDialog();
-                        testQuestionData = response.body();
-                        showTest();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<TestQuestionData> call, Throwable t) {
-
-                    Utils.dismissProgressDialog();
-
-                }
-            });
-        }
-
-
-    }
 
     private void showTest() {
 
@@ -69,8 +48,8 @@ public class MiniTestFragment extends Fragment {
         {
             Log.d("Api Response :", "Got Success from Api");
 
-            MiniTestAdapter miniTestAdapter=new MiniTestAdapter(getActivity());
-            miniTestAdapter.setData(testQuestionData.getMiniTest());
+            TestAdapter miniTestAdapter=new TestAdapter(getActivity());
+            miniTestAdapter.setMiniData(testQuestionData.getMiniTest());
             recyclerView.setAdapter(miniTestAdapter);
             recyclerView.setVisibility(View.VISIBLE);
 

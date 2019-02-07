@@ -1,7 +1,6 @@
 package edu.com.medicalapp.Activities;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,15 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import butterknife.BindView;
-import edu.com.medicalapp.Adapters.GrandTestAdapter;
+import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.utils.Constants;
-import edu.com.medicalapp.utils.DnaPrefs;
 
-public class TestStartActivity extends AppCompatActivity implements GrandTestAdapter.OnCategoryClick {
+public class TestStartActivity extends AppCompatActivity implements TestAdapter.OnCategoryClick {
 
     @BindView(R.id.test_topic)
     TextView testTopic;

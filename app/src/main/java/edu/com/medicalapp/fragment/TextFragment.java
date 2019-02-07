@@ -1,6 +1,5 @@
 package edu.com.medicalapp.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,11 +63,12 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFrag(new AllTextFragment(), "All Test");
+        adapter.addFrag(new AllTestFragment(), "All Test");
         adapter.addFrag(new GrandTestFragment(), "Grand Test");
         adapter.addFrag(new MiniTestFragment(), "Mini Test");
-        adapter.addFrag(new SubjectWiseTestFragment(), "Subject - Wise Test");
+        adapter.addFrag(new SubjectWiseTestFragment(), "Subject-Wise Test");
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(0);
     }
 
     public void setListener(VideoActivity.DisplayDataInterface displayDataInterface) {

@@ -37,8 +37,8 @@ public class RestClient {
         RetrofitClient.getClient().getVideos(sub_child_cat, fileType).enqueue(callback);
     }
 
-    public static void getTest(String sub_test, Callback<TestQuestionData> callback) {
-        RetrofitClient.getClient().getTest(sub_test).enqueue(callback);
+    public static void getTest( Callback<TestQuestionData> callback) {
+        RetrofitClient.getClient().getTest().enqueue(callback);
     }
 
 }
