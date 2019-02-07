@@ -91,6 +91,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
         } else {
             Log.d("Api Response :", "Got Success from Api");
             recyclerView.setVisibility(View.GONE);
+            notext.setVisibility(View.VISIBLE);
 
         }
 

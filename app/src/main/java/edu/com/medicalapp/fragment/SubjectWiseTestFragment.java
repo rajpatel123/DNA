@@ -81,6 +81,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
         } else {
             Log.d("Api Response :", "Got Success from Api");
             recyclerView.setVisibility(View.GONE);
+            notext.setVisibility(View.VISIBLE);
 
         }
 

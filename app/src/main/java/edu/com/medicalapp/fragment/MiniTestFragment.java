@@ -55,6 +55,7 @@ public class MiniTestFragment extends Fragment implements TestAdapter.OnCategory
             }
         } else {
             Utils.dismissProgressDialog();
+            notext.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
         }
@@ -88,7 +89,7 @@ public class MiniTestFragment extends Fragment implements TestAdapter.OnCategory
         } else {
             Log.d("Api Response :", "Got Success from Api");
             recyclerView.setVisibility(View.GONE);
-
+            notext.setVisibility(View.VISIBLE);
         }
 
     }
