@@ -77,7 +77,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
 
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId());
+                        onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId(),grandTests.get(holder.getAdapterPosition()).getTestDuration(),grandTests.get(holder.getAdapterPosition()).getTestName());
                     }
                 }
             });
@@ -103,7 +103,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(miniTests.get(holder.getAdapterPosition()).getTestId());
+                        onUserClickCallback.onCateClick(miniTests.get(holder.getAdapterPosition()).getTestId(),
+                                miniTests.get(holder.getAdapterPosition()).getTestDuration(),
+                                miniTests.get(holder.getAdapterPosition()).getTestName());
                     }
                 }
             });
@@ -129,7 +131,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(allTests.get(holder.getAdapterPosition()).getTestId());
+                        onUserClickCallback.onCateClick(allTests.get(holder.getAdapterPosition()).getTestId(),allTests.get(holder.getAdapterPosition()).getTestDuration(),allTests.get(holder.getAdapterPosition()).getTestName());
                     }
                 }
             });
@@ -154,7 +156,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(subjectTests.get(holder.getAdapterPosition()).getTestId());
+                        onUserClickCallback.onCateClick(subjectTests.get(holder.getAdapterPosition()).getTestId(),subjectTests.get(holder.getAdapterPosition()).getTestDuration(),subjectTests.get(holder.getAdapterPosition()).getTestName());
                     }
                 }
             });
@@ -202,7 +204,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     }
 
     public interface OnCategoryClick {
-        public void onCateClick(String id);
+        public void onCateClick(String id,String time,String testName);
     }
 
 

@@ -100,9 +100,12 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
 
 
     @Override
-    public void onCateClick(String id) {
+    public void onCateClick(String id,String time,String testName) {
         Intent intent=new Intent(getActivity(),TestStartActivity.class);
         intent.putExtra("id",id);
+        intent.putExtra("duration",time);
+        intent.putExtra("testName",testName);
+
         startActivity(intent);
     }
 }

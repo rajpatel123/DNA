@@ -7,6 +7,7 @@ import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Callback;
 
 public class RestClient {
@@ -46,4 +47,11 @@ public class RestClient {
         RetrofitClient.getClient().getTest().enqueue(callback);
     }
 
+
+
+    public static void submitTest(String user_id, String test_id,
+                                  String tquestion, String canswer, String wanswer, String sanswer, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitTest(user_id,test_id,tquestion,canswer,wanswer,sanswer).enqueue(callback);
+
+    }
 }

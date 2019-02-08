@@ -101,4 +101,15 @@ public class Utils {
     }
 
 
+
+    public static String tripDateFormat(long timeStamp) {
+        if (timeStamp <= 0) {
+            return null;
+        }
+         SimpleDateFormat tripDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+
+        Date dNow = new Date(timeStamp);
+        return tripDateFormat.format(dNow);
+    }
+
 }

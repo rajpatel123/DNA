@@ -7,6 +7,7 @@ import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -47,4 +48,8 @@ public interface ApiInterface {
     @GET("api/api.php?req=question")
     Call<QustionDetails> getQuestion(@Query("test_id") String test_id);
 
+    @POST("api/api.php?req=final_test")
+    Call<ResponseBody> submitTest(@Query("user_id") String user_id, @Query("test_id") String test_id,
+                                  @Query("tquestion") String tquestion, @Query("canswer") String canswer,
+                                  @Query("wanswer") String wanswer, @Query("sanswer") String sanswer);
 }

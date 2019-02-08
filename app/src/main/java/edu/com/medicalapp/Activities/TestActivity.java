@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -7,34 +8,50 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.TruitonListFragment;
 import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TestActivity extends FragmentActivity {
-        static final int ITEMS = 10;
         MyAdapter mAdapter;
         ViewPager mPager;
     TextView quesionCounter;
     TextView timer;
+    public Map<String, String> correctAnswerList = new HashMap<>();
+    public Map<String, String> skippedQuestions = new HashMap<>();
+    public Map<String, String> wrongAnswerList = new HashMap<>();
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
     private Button button;
-
+    static int currentPosition;
+    boolean timeUp;
+    private String testName;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -43,33 +60,63 @@ public class TestActivity extends FragmentActivity {
 
         quesionCounter = findViewById(R.id.counter);
         timer = findViewById(R.id.timer);
-        button = (Button) findViewById(R.id.first);
-            button.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    mPager.setCurrentItem(0);
-                }
-            });
+        String duration = getIntent().getStringExtra("duration");
+         testName = getIntent().getStringExtra("testName");
+
+        long testDuration = 0;
+        if (!TextUtils.isEmpty(duration)) {
+            switch (duration) {
+                case "30m":
+                    testDuration = 30;
+                    break;
+                case "45m":
+                    testDuration = 45;
+                    break;
+                case "1h":
+                    testDuration = 60;
+                    break;
+                case "2h":
+                    testDuration = 120;
+                    break;
+                case "3h":
+                    testDuration = 180;
+                    break;
+                case "3 hour":
+                    testDuration = 180;
+                    break;
+
+
+            }
+        }
             button = (Button) findViewById(R.id.next);
             button.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    if (qustionDetails.getDetail() != null && qustionDetails.getDetail().size() > 0)
-                       if (mPager.getCurrentItem()<qustionDetails.getDetail().size()) {
-                           mPager.setCurrentItem(qustionDetails.getDetail().size() - mPager.getCurrentItem() + 1);
-                           quesionCounter.setText((qustionDetails.getDetail().size() - mPager.getCurrentItem() + 1) + " of " + qustionDetails.getDetail().size());
+                    quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
+                    mPager.setCurrentItem(currentPosition + 1);
 
                        }
-                }
+
+            });
+
+        Button buttonSButton = findViewById(R.id.btnSubmit);
+        buttonSButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                showDialog();
+            }
+
             });
 
 
-        countDownTimer = new CountDownTimer(1 * 60000, 1000) {
+        countDownTimer = new CountDownTimer(TimeUnit.MINUTES.toMillis(testDuration), 1000) {
 
             public void onTick(long millisUntilFinished) {
-                timer.setText("" + new SimpleDateFormat("mm:ss:SS").format(new Date(millisUntilFinished)));
+                timer.setText("" + new SimpleDateFormat("hh:mm:ss").format(new Date(millisUntilFinished)));
             }
 
             public void onFinish() {
                 timer.setText("Time up!");
+                timeUp = true;
+
             }
         }.start();
 
@@ -121,6 +168,7 @@ public class TestActivity extends FragmentActivity {
                         qustionDetails = response.body();
                         mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails, quesionCounter);
                         mPager = (ViewPager) findViewById(R.id.pager);
+                        mPager.addOnPageChangeListener(pageChangeListener);
                         mPager.setAdapter(mAdapter);
                     }
                 }
@@ -138,5 +186,103 @@ public class TestActivity extends FragmentActivity {
 
     }
 
+    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int newPosition) {
+            currentPosition = newPosition;
+            quesionCounter.setText((newPosition + 1) + " of " + qustionDetails.getDetail().size());
+
+        }
+
+        @Override
+        public void onPageScrolled(int newPosition, float arg1, int arg2) {
+        }
+
+        public void onPageScrollStateChanged(int arg0) {
+        }
+    };
+
+    private void submitTest() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+
+            String user_id =  "1";
+            String test_id =  getIntent().getStringExtra("id");
+            String tquestion = ""+qustionDetails.getDetail().size();
+            String canswer =  ""+correctAnswerList.keySet().size();
+            String wanswer =""+ wrongAnswerList.keySet().size();
+            String sanswer = ""+(qustionDetails.getDetail().size()-(correctAnswerList.keySet().size()+wrongAnswerList.keySet().size()));
+
+
+
+            RestClient.submitTest(user_id,test_id,tquestion,canswer,wanswer,sanswer, new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Utils.dismissProgressDialog();
+
+                    if (response.code() == 200) {
+                        ResponseBody responseBody = response.body();
+                        try {
+                            String raw = responseBody.string();
+                            try {
+                                JSONObject jsonObject = new JSONObject(raw);
+                                Toast.makeText(TestActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(TestActivity.this,ResultActivity.class);
+                                intent.putExtra("average",jsonObject.getString("average"));
+                                intent.putExtra("tquestion",tquestion);
+                                intent.putExtra("canswer",canswer);
+                                intent.putExtra("wanswer",wanswer);
+                                intent.putExtra("sanswer",sanswer);
+                                intent.putExtra("testName",testName);
+                                startActivity(intent);
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+        }
 
     }
+
+    private void showDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Submit");
+        builder.setMessage("Are you sure you want to submit test?");
+        String positiveText ="OK";
+        builder.setPositiveButton(positiveText, (dialog, which) -> {
+            dialog.dismiss();
+            submitTest();
+        });
+        String negativeText = "CANCEL";
+        builder.setNegativeButton(negativeText, (dialog, which) -> {
+            dialog.dismiss();
+            finish();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+
+}
