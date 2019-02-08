@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,15 +25,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.TruitonListFragment;
 import edu.com.medicalapp.utils.Utils;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,10 +105,11 @@ public class TestActivity extends FragmentActivity {
             });
 
 
-        countDownTimer = new CountDownTimer(TimeUnit.MINUTES.toMillis(testDuration), 1000) {
+        countDownTimer = new CountDownTimer(testDuration * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                timer.setText("" + new SimpleDateFormat("hh:mm:ss").format(new Date(millisUntilFinished)));
+                Log.e("TOTAL_TIME", "" + millisUntilFinished);
+                timer.setText("" + new SimpleDateFormat("HH:mm:ss").format(new Date(millisUntilFinished)));
             }
 
             public void onFinish() {
@@ -118,9 +117,9 @@ public class TestActivity extends FragmentActivity {
                 timeUp = true;
 
             }
-        }.start();
+        };
 
-
+        countDownTimer.start();
         }
 
 
@@ -272,6 +271,8 @@ public class TestActivity extends FragmentActivity {
         String positiveText ="OK";
         builder.setPositiveButton(positiveText, (dialog, which) -> {
             dialog.dismiss();
+            if (countDownTimer != null)
+                countDownTimer.cancel();
             submitTest();
         });
         String negativeText = "CANCEL";
