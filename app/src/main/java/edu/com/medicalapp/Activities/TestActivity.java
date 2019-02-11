@@ -37,8 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TestActivity extends FragmentActivity {
-        MyAdapter mAdapter;
-        ViewPager mPager;
+    MyAdapter mAdapter;
+    ViewPager mPager;
     TextView quesionCounter;
     TextView timer;
     public Map<String, String> correctAnswerList = new HashMap<>();
@@ -52,14 +52,14 @@ public class TestActivity extends FragmentActivity {
     private String testName;
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.fragment_pager);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_pager);
 
         quesionCounter = findViewById(R.id.counter);
         timer = findViewById(R.id.timer);
         String duration = getIntent().getStringExtra("duration");
-         testName = getIntent().getStringExtra("testName");
+        testName = getIntent().getStringExtra("testName");
 
         long testDuration = 0;
         if (!TextUtils.isEmpty(duration)) {
@@ -86,15 +86,15 @@ public class TestActivity extends FragmentActivity {
 
             }
         }
-            button = (Button) findViewById(R.id.next);
-            button.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
-                    mPager.setCurrentItem(currentPosition + 1);
+        button = (Button) findViewById(R.id.next);
+        button.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
+                mPager.setCurrentItem(currentPosition + 1);
 
-                       }
+            }
 
-            });
+        });
 
         Button buttonSButton = findViewById(R.id.btnSubmit);
         buttonSButton.setOnClickListener(new OnClickListener() {
@@ -102,7 +102,7 @@ public class TestActivity extends FragmentActivity {
                 showDialog();
             }
 
-            });
+        });
 
 
         countDownTimer = new CountDownTimer(testDuration * 1000, 1000) {
@@ -120,7 +120,7 @@ public class TestActivity extends FragmentActivity {
         };
 
         countDownTimer.start();
-        }
+    }
 
 
     @Override
@@ -134,26 +134,25 @@ public class TestActivity extends FragmentActivity {
         TextView quesionCounter;
 
         public MyAdapter(FragmentManager fragmentManager, QustionDetails qustionDetails, TextView quesionCounter) {
-                super(fragmentManager);
+            super(fragmentManager);
             this.qustionDetails = qustionDetails;
             this.quesionCounter = quesionCounter;
-            }
-
+        }
 
 
         @Override
-            public int getCount() {
+        public int getCount() {
             if (qustionDetails.getDetail() != null && qustionDetails.getDetail().size() > 0)
                 return qustionDetails.getDetail().size();
-        return 0;
+            return 0;
         }
 
-            @Override
-            public Fragment getItem(int position) {
-                quesionCounter.setText((position) + " of " + qustionDetails.getDetail().size());
-                return TruitonListFragment.init(qustionDetails.getDetail().get(position),position);
-            }
+        @Override
+        public Fragment getItem(int position) {
+            quesionCounter.setText((position) + " of " + qustionDetails.getDetail().size());
+            return TruitonListFragment.init(qustionDetails.getDetail().get(position), position);
         }
+    }
 
     private void getTest() {
         if (Utils.isInternetConnected(this)) {
@@ -206,16 +205,15 @@ public class TestActivity extends FragmentActivity {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            String user_id =  "1";
-            String test_id =  getIntent().getStringExtra("id");
-            String tquestion = ""+qustionDetails.getDetail().size();
-            String canswer =  ""+correctAnswerList.keySet().size();
-            String wanswer =""+ wrongAnswerList.keySet().size();
-            String sanswer = ""+(qustionDetails.getDetail().size()-(correctAnswerList.keySet().size()+wrongAnswerList.keySet().size()));
+            String user_id = "1";
+            String test_id = getIntent().getStringExtra("id");
+            String tquestion = "" + qustionDetails.getDetail().size();
+            String canswer = "" + correctAnswerList.keySet().size();
+            String wanswer = "" + wrongAnswerList.keySet().size();
+            String sanswer = "" + (qustionDetails.getDetail().size() - (correctAnswerList.keySet().size() + wrongAnswerList.keySet().size()));
 
 
-
-            RestClient.submitTest(user_id,test_id,tquestion,canswer,wanswer,sanswer, new Callback<ResponseBody>() {
+            RestClient.submitTest(user_id, test_id, tquestion, canswer, wanswer, sanswer, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
@@ -226,21 +224,19 @@ public class TestActivity extends FragmentActivity {
                             String raw = responseBody.string();
                             try {
                                 JSONObject jsonObject = new JSONObject(raw);
-                                Toast.makeText(TestActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(TestActivity.this,ResultActivity.class);
-                                intent.putExtra("average",jsonObject.getString("average"));
-                                intent.putExtra("tquestion",tquestion);
-                                intent.putExtra("canswer",canswer);
-                                intent.putExtra("wanswer",wanswer);
-                                intent.putExtra("sanswer",sanswer);
-                                intent.putExtra("testName",testName);
+                                Toast.makeText(TestActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(TestActivity.this, ResultActivity.class);
+                                intent.putExtra("average", jsonObject.getString("average"));
+                                intent.putExtra("tquestion", tquestion);
+                                intent.putExtra("canswer", canswer);
+                                intent.putExtra("wanswer", wanswer);
+                                intent.putExtra("sanswer", sanswer);
+                                intent.putExtra("testName", testName);
                                 startActivity(intent);
                                 finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
 
 
                         } catch (IOException e) {
@@ -268,7 +264,7 @@ public class TestActivity extends FragmentActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Submit");
         builder.setMessage("Are you sure you want to submit test?");
-        String positiveText ="OK";
+        String positiveText = "OK";
         builder.setPositiveButton(positiveText, (dialog, which) -> {
             dialog.dismiss();
             if (countDownTimer != null)
@@ -283,7 +279,6 @@ public class TestActivity extends FragmentActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 
 
 }

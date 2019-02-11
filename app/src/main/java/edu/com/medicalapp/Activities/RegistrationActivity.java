@@ -66,6 +66,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(RegistrationActivity.this,FirstloginActivity.class));
                 finish();
             }
         });

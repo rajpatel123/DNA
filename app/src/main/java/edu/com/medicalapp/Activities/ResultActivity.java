@@ -18,9 +18,9 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        dateTv = findViewById(R.id.date);
+       // dateTv = findViewById(R.id.date);
         percentValue = findViewById(R.id.percentageValue);
-        testNameTv = findViewById(R.id.testName);
+      //  testNameTv = findViewById(R.id.testName);
 
         total = findViewById(R.id.total_question);
         skipped = findViewById(R.id.skipped);
@@ -36,16 +36,16 @@ public class ResultActivity extends AppCompatActivity {
         String sanswer = intent.getStringExtra("sanswer");
         String testName = intent.getStringExtra("testName");
 
-        dateTv.setText(Utils.tripDateFormat(System.currentTimeMillis()));
+        //dateTv.setText(Utils.tripDateFormat(System.currentTimeMillis()));
         percentValue.setText("" + average+"%");
-        total.setText("Total Q: " + tquestion);
-        correct.setText("Correct: " + canswer);
-        wrong.setText("Wrong: " + wanswer);
-        skipped.setText("Skipped: " + sanswer);
-        testNameTv.setText("" + testName);
+        total.setText( tquestion);
+        correct.setText(canswer);
+        wrong.setText(wanswer);
+        skipped.setText(sanswer);
+        //testNameTv.setText("" + testName);
 
 
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+        /*findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -57,7 +57,7 @@ public class ResultActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+*/
 
     }
 }

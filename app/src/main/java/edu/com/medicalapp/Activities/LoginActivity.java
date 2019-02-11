@@ -85,7 +85,13 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager=CallbackManager.Factory.create();
         loginwithFb();
 
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,FirstloginActivity.class));
+                finish();
+            }
+        });
        // loginFb();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

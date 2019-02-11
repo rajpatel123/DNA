@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public LinearLayout tabBar;
     public TabLayout tabLayout;
-
+    private Toolbar toolbar;
     public ViewPager pager;
     private HomeFragment dashboardHomeFragment;
     private videoFragment dashboardvideoFragment;
@@ -63,15 +64,15 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgOnlineIcon;
     private TextView onlineTitle;
     private NavigationView navigationView;
-    private TextView tvName, tvEmail,tvSetting;
+    private TextView tvName, tvEmail, tvSetting;
     private CircleImageView circleImageView;
-    String name,image,email;
+    String name, image, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
         circleImageView = headerView.findViewById(R.id.profile_image);
-        tvSetting=headerView.findViewById(R.id.setting);
+        tvSetting = headerView.findViewById(R.id.setting);
         pager = findViewById(R.id.vp_pages);
         tabBar = findViewById(R.id.tabBar);
         tabLayout = findViewById(R.id.tabs);
@@ -98,9 +99,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                    Intent intent1=new Intent(MainActivity.this,DNAProfileActivity.class);
-                    startActivity(intent1);
-                }
+                Intent intent1 = new Intent(MainActivity.this, DNAProfileActivity.class);
+                startActivity(intent1);
+            }
         });
         setUpFragments();
         updateNavViewHeader();
@@ -110,23 +111,23 @@ public class MainActivity extends AppCompatActivity
     private void updateNavViewHeader() {
         Intent intent = getIntent();
 
-             name= DnaPrefs.getString(getApplicationContext(),"NAME");
-             image=DnaPrefs.getString(getApplicationContext(),"URL");
-             email=DnaPrefs.getString(getApplicationContext(),"EMAIL");
+        name = DnaPrefs.getString(getApplicationContext(), "NAME");
+        image = DnaPrefs.getString(getApplicationContext(), "URL");
+        email = DnaPrefs.getString(getApplicationContext(), "EMAIL");
 
-            tvName.setText(name);
-            tvEmail.setText(email);
-           if (!TextUtils.isEmpty(image)){
-               Picasso.with(this).load(image)
-                       .error(R.drawable.dnalogo)
-                       .into(circleImageView);
-           }else{
-               Picasso.with(this)
-                       .load(R.drawable.dnalogo)
-                       .error(R.drawable.dnalogo)
-                       .into(circleImageView);
+        tvName.setText(name);
+        tvEmail.setText(email);
+        if (!TextUtils.isEmpty(image)) {
+            Picasso.with(this).load(image)
+                    .error(R.drawable.dnalogo)
+                    .into(circleImageView);
+        } else {
+            Picasso.with(this)
+                    .load(R.drawable.dnalogo)
+                    .error(R.drawable.dnalogo)
+                    .into(circleImageView);
 
-           }
+        }
 
     }
 
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity
         dashboardOnlineFragment = new OnlineFragment();
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
         adapter.addFragment(dashboardHomeFragment, "Home");
         adapter.addFragment(dashboardvideoFragment, "Video");
         adapter.addFragment(dashboardQbankFragment, "Q Bank");
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity
         ImageUtils.setTintedDrawable(this, R.drawable.nav_home, imgDeviceIcon, R.color.white);
 
         TabLayout.Tab tab = tabLayout.getTabAt(0);
+
         if (tab != null) {
             tab.setCustomView(deviceTab);
         }
@@ -178,12 +181,14 @@ public class MainActivity extends AppCompatActivity
         tab = tabLayout.getTabAt(1);
 
         if (tab != null) {
+
             tab.setCustomView(mapTab);
         }
 
         @SuppressLint("InflateParams") View alertTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         qbTitle = alertTab.findViewById(R.id.tab);
         qbTitle.setText("Q Bank");
+
         imgQBIcon = alertTab.findViewById(R.id.imgTab);
         ImageUtils.setTintedDrawable(this, R.drawable.nav_qbank, imgQBIcon, R.color.white);
 
@@ -213,6 +218,7 @@ public class MainActivity extends AppCompatActivity
             tab.setCustomView(accountTab);
         }
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -235,7 +241,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.subscribe) {
             Intent intent = new Intent(this, DNASuscribeActivity.class);
-           // startActivity(intent);
+            // startActivity(intent);
         } else if (id == R.id.notice_board) {
 
             Intent intent = new Intent(this, Noticeboard.class);
@@ -264,7 +270,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.contact_us) {
-           startActivity(new Intent(MainActivity.this,ContactUsActivity.class));
+            startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
 
         } else if (id == R.id.report) {
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
@@ -287,6 +293,24 @@ public class MainActivity extends AppCompatActivity
             FragmentLifecycle fragmentToShow = (FragmentLifecycle) adapter.getItem(newPosition);
             fragmentToShow.onResumeFragment();
             //invalidateOptionsMenu();
+            switch (newPosition) {
+                case 0:
+                    toolbar.setTitle("Home");
+                    break;
+                case 1:
+                    toolbar.setTitle("Video");
+                    break;
+                case 2:
+                    toolbar.setTitle("Q Bank");
+                    break;
+                case 3:
+                    toolbar.setTitle("Test");
+                    break;
+                case 4:
+                    toolbar.setTitle("Online");
+                    break;
+
+            }
             currentPosition = newPosition;
 
         }
@@ -298,6 +322,7 @@ public class MainActivity extends AppCompatActivity
         public void onPageScrollStateChanged(int arg0) {
         }
     };
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -324,6 +349,27 @@ public class MainActivity extends AppCompatActivity
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_logo, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.toolbar:
+                //your code here
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
