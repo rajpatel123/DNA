@@ -4,11 +4,12 @@
 
 
     <color name="colorPrimary">#f37636</color>
-    <color name="colorPrimaryDark">#f37636</color>
+    <color name="colorPrimaryDark">#dc5d01</color>
     <color name="colorAccent">#f37636</color>
     <color name="black_secondary">#757575</color>
     <color name="black_primary">#212121</color>
     <color name="app_bg">#EAEDF2</color>
+    <color name="app_bg1">#dc5d01</color>
 
     <color name="black">#000000</color>
     <color name="dark_gray">#aaa</color>

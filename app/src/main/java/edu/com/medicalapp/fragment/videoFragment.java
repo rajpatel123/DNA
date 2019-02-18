@@ -8,14 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.com.medicalapp.Activities.MainActivity;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
 
 public class videoFragment extends Fragment implements FragmentLifecycle{
+
+
+
+    MainActivity mainActivity;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.videofragment,container,false);
+        View view= inflater.inflate(R.layout.videofragment,container,false);
+
+        return view;
+
 
     }
 

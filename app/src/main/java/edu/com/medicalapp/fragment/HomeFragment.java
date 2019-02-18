@@ -1,5 +1,7 @@
 package edu.com.medicalapp.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import com.google.gson.Gson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Activities.MainActivity;
 import edu.com.medicalapp.Activities.NeetPgActivity;
 import edu.com.medicalapp.Adapters.CourseListAdapter;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
@@ -36,6 +39,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @BindView(R.id.noInternet)
     TextView textInternet;
 
+    MainActivity mainActivity;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private CategoryDetailData categoryDetailData;
@@ -45,6 +49,21 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     TextView noInternet;
 */
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
 
     @Nullable
     @Override
@@ -54,6 +73,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         return view;
 
     }
+
 
 
     @Override

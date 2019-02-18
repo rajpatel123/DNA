@@ -47,6 +47,7 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(PhoneloginActivity.this,FirstloginActivity.class));
                 finish();
             }
         });

@@ -1,5 +1,6 @@
 package edu.com.medicalapp.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.com.medicalapp.Activities.MainActivity;
 import edu.com.medicalapp.Activities.VideoActivity;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
@@ -25,6 +27,8 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView subcategory;
+
+    MainActivity mainActivity;
     public String subCatId;
     VideoActivity.DisplayDataInterface displayDataInterface;
 
@@ -38,6 +42,30 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
         return view;
 
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+
+    }
+
 
 
     private void setupTabIcons() {

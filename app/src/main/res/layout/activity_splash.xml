@@ -5,7 +5,7 @@
     android:layout_width="150dp"
     android:layout_height="150dp"
     android:layout_gravity="center"
-    android:background="@drawable/dnalogo"
+    android:background="@drawable/dna"
     tools:context=".Activities.SplashActivity">
 
 </RelativeLayout>

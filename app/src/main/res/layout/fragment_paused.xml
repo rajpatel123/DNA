@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="paused"
+        android:textColor="@color/colorAccent"
+        android:text="No Free Video found"
         android:textSize="30sp" />
 
 </LinearLayout>
