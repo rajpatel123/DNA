@@ -6,7 +6,7 @@
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="font_fontFamily_medium2">sans-serif-medium</string>>
 
-    <string name="loginText">Lorem ipsum dolor sit amet, consectetur</string>
+    <string name="loginText">A One-Stop Solution For SIKSHA | SWASTHYA | ROJGAR</string>
 
     <string name="loginbottomText"></string>
 
@@ -88,7 +88,7 @@
 
     <string name="already_member">Already member? Log In</string>
     <string name="edit_user_profile">Edit</string>
-    <string name="alert_text">Once you start, the rest timer cannot be paused.Continue?</string>
+    <string name="alert_text">Are you sure to logout?</string>
     <string name="select_state">Select State</string>
     <string name="error_unrecognized_stereo_mode">Error</string>
     <string name="storage_permission_denied">Permission denied</string>
@@ -103,5 +103,7 @@
     <string name="error_querying_decoders">Error_in decoders</string>
     <string name="error_no_secure_decoder">Error in source</string>
     <string name="vedio_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'ss standard dummy..</string>
-    <string name="test_start">The test contains 60 questions from Psychiatry with a duration of 60 minutes.</string>
+    <string name="test_start">The test contains</string>
+    <string name="test_start_medium">questions from Psychiatry with a duration of </string>
+    <string name="alert_text1">Once You Start, the  test timer cannot be paused. Continue?</string>
 </resources>

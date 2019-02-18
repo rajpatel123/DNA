@@ -110,12 +110,12 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     @Override
-    public void onCateClick(String id,String time,String testName) {
+    public void onCateClick(String id,String time,String testName,String testQuestion) {
         Intent intent=new Intent(getActivity(),TestStartActivity.class);
         intent.putExtra("id",id);
         intent.putExtra("duration",time);
         intent.putExtra("testName",testName);
-
+        intent.putExtra("testQuestion",testQuestion);
         startActivity(intent);
     }
 }

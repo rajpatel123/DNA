@@ -66,8 +66,6 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
 
     }
 
-
-
     private void setupTabIcons() {
         TextView tabOne = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
         tabOne.setText("All Test");
@@ -82,7 +80,7 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-        tabFour.setText("Subject - Wise Test");
+        tabFour.setText("SWT");
         tabLayout.getTabAt(3).setCustomView(tabFour);
 
 
@@ -94,7 +92,7 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
         adapter.addFrag(new AllTestFragment(), "All Test");
         adapter.addFrag(new GrandTestFragment(), "Grand Test");
         adapter.addFrag(new MiniTestFragment(), "Mini Test");
-        adapter.addFrag(new SubjectWiseTestFragment(), "Subject-Wise Test");
+        adapter.addFrag(new SubjectWiseTestFragment(), "SWT");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(0);
     }

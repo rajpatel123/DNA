@@ -11,9 +11,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,13 +43,14 @@ public class TestActivity extends FragmentActivity {
     ViewPager mPager;
     TextView quesionCounter;
     TextView timer;
+
     public Map<String, String> correctAnswerList = new HashMap<>();
     public Map<String, String> skippedQuestions = new HashMap<>();
     public Map<String, String> wrongAnswerList = new HashMap<>();
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
 
-    private Button button;
+    private Button button,menuButton;
     static int currentPosition;
     boolean timeUp;
     private String testName;
@@ -57,6 +60,17 @@ public class TestActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
 
+
+
+        menuButton=findViewById(R.id.nex1);
+        menuButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                OpenMenuOption();
+
+            }
+        });
         quesionCounter = findViewById(R.id.counter);
         timer = findViewById(R.id.timer);
         String duration = getIntent().getStringExtra("duration");
@@ -122,6 +136,21 @@ public class TestActivity extends FragmentActivity {
 
         countDownTimer.start();
     }
+
+    private void OpenMenuOption() {
+
+        PopupMenu popupMenu=new PopupMenu(TestActivity.this,menuButton);
+        popupMenu.getMenuInflater().inflate(R.menu.bottom_navigation,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });
+
+    }
+
+
 
 
     @Override

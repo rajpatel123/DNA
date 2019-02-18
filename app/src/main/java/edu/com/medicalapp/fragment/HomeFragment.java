@@ -94,6 +94,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
+
+
                             CourseListAdapter courseListAdapter = new CourseListAdapter(getActivity());
                             courseListAdapter.setData(categoryDetailData);
                             courseListAdapter.setListener(HomeFragment.this);
