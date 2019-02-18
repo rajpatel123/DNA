@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,9 +51,10 @@ public class TestActivity extends FragmentActivity {
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
 
-    private Button button,menuButton;
+    private Button button, menuButton;
     static int currentPosition;
     boolean timeUp;
+    private ImageView imageMenu;
     private String testName;
 
     @Override
@@ -60,10 +62,10 @@ public class TestActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
 
+        imageMenu = findViewById(R.id.menu_item);
 
-
-        menuButton=findViewById(R.id.nex1);
-        menuButton.setOnClickListener(new OnClickListener() {
+        menuButton = findViewById(R.id.nex1);
+        imageMenu.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -139,18 +141,31 @@ public class TestActivity extends FragmentActivity {
 
     private void OpenMenuOption() {
 
-        PopupMenu popupMenu=new PopupMenu(TestActivity.this,menuButton);
-        popupMenu.getMenuInflater().inflate(R.menu.bottom_navigation,popupMenu.getMenu());
+        PopupMenu popupMenu = new PopupMenu(TestActivity.this, menuButton);
+        popupMenu.getMenuInflater().inflate(R.menu.poupup_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                return false;
+
+                switch (item.getItemId()) {
+                    case R.id.review:
+                        Toast.makeText(TestActivity.this, "Review The Text", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.submit:
+                        Toast.makeText(TestActivity.this, "Submit The Text", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.discard:
+                        Toast.makeText(TestActivity.this, "Discard The Text", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
             }
         });
+        popupMenu.show();
 
     }
-
-
 
 
     @Override

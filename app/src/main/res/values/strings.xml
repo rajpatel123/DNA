@@ -106,4 +106,6 @@
     <string name="test_start">The test contains</string>
     <string name="test_start_medium">questions from Psychiatry with a duration of </string>
     <string name="alert_text1">Once You Start, the  test timer cannot be paused. Continue?</string>
+    <string name="discard_text1">Are you sure you want to discard the test?</string>
+    <string name="submit_text1">Your Test timed out! Submit the test?</string>
 </resources>
