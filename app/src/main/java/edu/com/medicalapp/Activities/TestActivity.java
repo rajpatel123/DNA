@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,8 +10,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuPopupHelper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,6 +58,7 @@ public class TestActivity extends FragmentActivity {
     private QustionDetails qustionDetails;
 
     private Button button, menuButton;
+    TextView nextText;
     static int currentPosition;
     boolean timeUp;
     private ImageView imageMenu;
@@ -64,7 +71,7 @@ public class TestActivity extends FragmentActivity {
 
         imageMenu = findViewById(R.id.menu_item);
 
-        menuButton = findViewById(R.id.nex1);
+       // menuButton = findViewById(R.id.nex1);
         imageMenu.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,8 +110,8 @@ public class TestActivity extends FragmentActivity {
 
             }
         }
-        button = (Button) findViewById(R.id.next);
-        button.setOnClickListener(new OnClickListener() {
+        nextText =  findViewById(R.id.next);
+        nextText.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
@@ -113,13 +120,13 @@ public class TestActivity extends FragmentActivity {
 
         });
 
-        Button buttonSButton = findViewById(R.id.btnSubmit);
+      /*  Button buttonSButton = findViewById(R.id.btnSubmit);
         buttonSButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 showDialog();
             }
 
-        });
+        });*/
 
 
         countDownTimer = new CountDownTimer(testDuration * 1000, 1000) {
@@ -139,9 +146,9 @@ public class TestActivity extends FragmentActivity {
         countDownTimer.start();
     }
 
+    @SuppressLint("RestrictedApi")
     private void OpenMenuOption() {
-
-        PopupMenu popupMenu = new PopupMenu(TestActivity.this, menuButton);
+        PopupMenu popupMenu = new PopupMenu(TestActivity.this, imageMenu);
         popupMenu.getMenuInflater().inflate(R.menu.poupup_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -149,21 +156,99 @@ public class TestActivity extends FragmentActivity {
 
                 switch (item.getItemId()) {
                     case R.id.review:
+                        reviewAlertDilog();
                         Toast.makeText(TestActivity.this, "Review The Text", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.submit:
-                        Toast.makeText(TestActivity.this, "Submit The Text", Toast.LENGTH_SHORT).show();
+                        submitAlertDiolog();
                         break;
 
                     case R.id.discard:
-                        Toast.makeText(TestActivity.this, "Discard The Text", Toast.LENGTH_SHORT).show();
+                        discardAlertDialog();
                         break;
                 }
                 return true;
             }
         });
         popupMenu.show();
+
+
+    }
+
+    private void submitAlertDiolog() {
+
+
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.submit_alert_diolog, null);
+        dialogBuilder.setView(dialogView);
+
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button btn_yes = dialogView.findViewById(R.id.btn_done);
+        TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
+        text_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (countDownTimer != null)
+                    countDownTimer.cancel();
+                submitTest();
+                Toast.makeText(TestActivity.this, "Open", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+
+
+
+
+
+    }
+
+    private void discardAlertDialog() {
+
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.discard_alert_diolog, null);
+        dialogBuilder.setView(dialogView);
+
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button btn_yes = dialogView.findViewById(R.id.btn_done);
+        TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
+        text_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(TestActivity.this, "Open", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+
+
+    }
+
+    private void reviewAlertDilog() {
+
 
     }
 
