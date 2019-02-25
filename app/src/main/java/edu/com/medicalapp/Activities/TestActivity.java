@@ -2,6 +2,7 @@ package edu.com.medicalapp.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -57,8 +58,12 @@ public class TestActivity extends FragmentActivity {
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
 
+    private ImageView guessImage;
     private Button button, menuButton;
-    TextView nextText;
+    private Button skip;
+
+
+    TextView nextText,previousText;
     static int currentPosition;
     boolean timeUp;
     private ImageView imageMenu;
@@ -68,10 +73,18 @@ public class TestActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
-
+        guessImage = findViewById(R.id.image_guess);
         imageMenu = findViewById(R.id.menu_item);
 
-       // menuButton = findViewById(R.id.nex1);
+
+        guessImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GuessOpen();
+            }
+        });
+
+        // menuButton = findViewById(R.id.nex1);
         imageMenu.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,9 +123,35 @@ public class TestActivity extends FragmentActivity {
 
             }
         }
-        nextText =  findViewById(R.id.next);
+
+        skip=findViewById(R.id.btn_skip);
+        skip.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
+                mPager.setCurrentItem(currentPosition + 1);
+
+            }
+        });
+
+        previousText=findViewById(R.id.text_previous);
+        previousText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previousText.setTextColor(getResources().getColor(R.color.darkwhite));
+                nextText.setTextColor(getResources().getColor(R.color.colorAccent));
+                quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
+                mPager.setCurrentItem(currentPosition - 1);
+
+            }
+        });
+
+
+        nextText = findViewById(R.id.next);
         nextText.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+                nextText.setTextColor(getResources().getColor(R.color.darkwhite));
+                previousText.setTextColor(getResources().getColor(R.color.colorAccent));
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
 
@@ -145,6 +184,32 @@ public class TestActivity extends FragmentActivity {
 
         countDownTimer.start();
     }
+
+    private void GuessOpen() {
+
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.guess_alert_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button btn_yes = dialogView.findViewById(R.id.button_guess);
+        btn_yes.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+
 
     @SuppressLint("RestrictedApi")
     private void OpenMenuOption() {
@@ -208,9 +273,6 @@ public class TestActivity extends FragmentActivity {
         });
 
         dialog.show();
-
-
-
 
 
     }

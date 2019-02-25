@@ -30,9 +30,18 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.Models.FacebookLoginData;
+import edu.com.medicalapp.Models.facebook.FacebookResponse;
+import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Constants;
 import edu.com.medicalapp.utils.DnaPrefs;
+import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FirstloginActivity extends AppCompatActivity {
 
@@ -89,26 +98,26 @@ public class FirstloginActivity extends AppCompatActivity {
         termsTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(FirstloginActivity.this,WebViewActivity.class);
-                intent.putExtra("title","Terms & Conditions");
+                Intent intent = new Intent(FirstloginActivity.this, WebViewActivity.class);
+                intent.putExtra("title", "Terms & Conditions");
                 startActivity(intent);
 
             }
         });
 
-        SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
+        SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         loginText.setText(spannableString1);
 
 
-        SpannableString privacytxtstr= new SpannableString(getString(R.string.privacy));
+        SpannableString privacytxtstr = new SpannableString(getString(R.string.privacy));
         privacytxtstr.setSpan(new UnderlineSpan(), 4, privacytxtstr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         privacytxt.setText(privacytxtstr);
         privacytxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(FirstloginActivity.this,WebViewActivity.class);
-                intent.putExtra("title","Privacy Policy");
+                Intent intent = new Intent(FirstloginActivity.this, WebViewActivity.class);
+                intent.putExtra("title", "Privacy Policy");
                 startActivity(intent);
             }
         });
@@ -187,21 +196,51 @@ public class FirstloginActivity extends AppCompatActivity {
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                     JSONObject data=response.getJSONObject();
+                        JSONObject data = response.getJSONObject();
                         try {
-                            String name=data.getString("name");
-                            String email=data.getString("email");
-                            String pictureurl=data.getJSONObject("picture").getJSONObject("data").getString("url");
-                            DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck,true);
+                            String name = data.getString("name");
+                            String email = data.getString("email");
+                            String facebook_id = data.getString("id");
+                            String pictureurl = data.getJSONObject("picture").getJSONObject("data").getString("url");
+                            DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck, true);
 
-                            Intent intent = new Intent(FirstloginActivity.this,MainActivity.class);
-                            DnaPrefs.putString(getApplicationContext(),"NAME",name);
-                            DnaPrefs.putString(getApplicationContext(),"URL",pictureurl);
-                            DnaPrefs.putString(getApplicationContext(),"EMAIL",email);
+                            RequestBody Email = RequestBody.create(MediaType.parse("text/plain"), email);
+                            RequestBody Name = RequestBody.create(MediaType.parse("text/plain"), name);
+                            RequestBody Facebook_id = RequestBody.create(MediaType.parse("text/plain"), facebook_id);
+                            Utils.showProgressDialog(FirstloginActivity.this);
+                            RestClient.facebookRegister(Name, Email, Facebook_id, new Callback<FacebookResponse>() {
+                                @Override
+                                public void onResponse(Call<FacebookResponse> call, Response<FacebookResponse> response) {
+                                    Utils.dismissProgressDialog();
+                                    if (response != null && response.body() != null) {
+                                        FacebookResponse facebookResponse = response.body();
+                                        if (Integer.parseInt(facebookResponse.getStatus()) == 1) {
+                                            Utils.displayToast(FirstloginActivity.this, facebookResponse.getMessage());
+                                            Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
+                                            DnaPrefs.putString(getApplicationContext(), "NAME", name);
+                                            DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
+                                            DnaPrefs.putString(getApplicationContext(), "EMAIL", email);
+                                            DnaPrefs.putString(getApplicationContext(),"FBID",facebook_id);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Utils.displayToast(FirstloginActivity.this, "Invalid login detail");
+                                        }
+
+                                    } else {
+                                        Utils.displayToast(FirstloginActivity.this, "Invalid login detail");
+
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<FacebookResponse> call, Throwable t) {
+                                    Utils.dismissProgressDialog();
+                                    Utils.displayToast(FirstloginActivity.this, "Invalid login detail");
+
+                                }
+                            });
 
 
-                            startActivity(intent);
-                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -216,12 +255,13 @@ public class FirstloginActivity extends AppCompatActivity {
                 graphRequest.executeAsync();
 
 
-
             }
+
             @Override
             public void onCancel() {
                 Toast.makeText(FirstloginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(FirstloginActivity.this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -231,10 +271,11 @@ public class FirstloginActivity extends AppCompatActivity {
         customFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginManager.getInstance().logInWithReadPermissions(FirstloginActivity.this,Arrays.asList("public_profile","email"));
+                LoginManager.getInstance().logInWithReadPermissions(FirstloginActivity.this, Arrays.asList("public_profile", "email"));
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -242,4 +283,4 @@ public class FirstloginActivity extends AppCompatActivity {
     }
 
 
-    }
+}

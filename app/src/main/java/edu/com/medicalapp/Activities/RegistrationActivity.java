@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.Adapters.CustomAdapter;
@@ -54,8 +55,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.privacy)
     TextView privacy;
 
-    String edit_name,edit_username,edit_email,edit_password;
-    String[] countryNames = {"Andhra Pradesh","Arunachal Pradesh","Gujarat","Karnataka","Maharashtra","Utter Pradesh", "Bihar"};
+    String edit_name, edit_username, edit_email, edit_password;
+    String[] countryNames = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Utter Pradesh", "Bihar"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegistrationActivity.this,FirstloginActivity.class));
+                startActivity(new Intent(RegistrationActivity.this, FirstloginActivity.class));
                 finish();
             }
         });
@@ -77,16 +79,15 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         termsTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(RegistrationActivity.this,WebViewActivity.class);
-                intent.putExtra("title","Terms & Conditions");
+                Intent intent = new Intent(RegistrationActivity.this, WebViewActivity.class);
+                intent.putExtra("title", "Terms & Conditions");
                 startActivity(intent);
 
             }
         });
 
 
-
-        SpannableString spannableString1= new SpannableString(getString(R.string.already_member));
+        SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textLogin.setText(spannableString1);
 
@@ -97,12 +98,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         privacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(RegistrationActivity.this,WebViewActivity.class);
-                intent.putExtra("title","Privacy Policy");
+                Intent intent = new Intent(RegistrationActivity.this, WebViewActivity.class);
+                intent.putExtra("title", "Privacy Policy");
                 startActivity(intent);
             }
         });
-
 
 
         //state spinner
@@ -118,14 +118,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
 
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.btn_signUp:
-               validation();
-               break;
+                validation();
+                break;
 
             case R.id.text_login:
-                startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                 finish();
                 break;
         }
@@ -136,76 +135,73 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         edit_name = editName.getText().toString();
         edit_username = editUsername.getText().toString();
-        edit_email=editEmailId.getText().toString();
-        edit_password=editPassword.getText().toString();
+        edit_email = editEmailId.getText().toString();
+        edit_password = editPassword.getText().toString();
 
-        if (TextUtils.isEmpty(edit_name.trim()) || edit_name.length() ==0) {
+        if (TextUtils.isEmpty(edit_name.trim()) || edit_name.length() == 0) {
             editName.setError(getString(R.string.invalid_name));
-            Utils.displayToast(getApplicationContext(),getString(R.string.invalid_name));
+            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_name));
             return;
         }
         if (TextUtils.isEmpty(edit_username.trim()) || edit_username.length() == 0) {
             editUsername.setError(getString(R.string.invalid_username));
-            Utils.displayToast(getApplicationContext(),getString(R.string.invalid_username));
+            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_username));
             return;
         }
         if (TextUtils.isEmpty(edit_email.trim()) || edit_email.length() == 0) {
             editEmailId.setError(getString(R.string.invalid_email));
-            Utils.displayToast(getApplicationContext(),getString(R.string.invalid_email));
+            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
             return;
         }
         if (TextUtils.isEmpty(edit_password.trim()) || edit_password.length() == 0) {
             editPassword.setError(getString(R.string.invalid_password));
-            Utils.displayToast(getApplicationContext(),getString(R.string.invalid_password));
+            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_password));
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(edit_email).matches())
-        {
+        if (!Patterns.EMAIL_ADDRESS.matcher(edit_email).matches()) {
             editEmailId.setError(getString(R.string.invalid_email));
-            Utils.displayToast(getApplicationContext(),getString(R.string.invalid_email));
+            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
             return;
         }
-        if(edit_password.length()<6)
-        {
+        if (edit_password.length() < 6) {
             editPassword.setError(getString(R.string.invalid_too_short));
-            Utils.displayToast(getApplicationContext(),getString(R.string.invalid_too_short));
+            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_too_short));
             return;
 
         }
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"),edit_name);
+        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), edit_name);
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
-        RequestBody password = RequestBody.create(MediaType.parse("text/plain"),edit_password);
-        RequestBody username=RequestBody.create(MediaType.parse("text/plain"),edit_username);
+        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
+        RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
         Utils.showProgressDialog(this);
-        RestClient.registerUser(name,username,email, password, new Callback<CommonResponse>() {
-           /* private Call<CommonResponse> call;
-            private Response<CommonResponse> response;
-*/
+        RestClient.registerUser(name, username, email, password, new Callback<CommonResponse>() {
+            /* private Call<CommonResponse> call;
+             private Response<CommonResponse> response;
+ */
             @Override
-                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                /* this.call = call;
                 this.response = response;*/
                 Utils.dismissProgressDialog();
-                    if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("1")) {
-                            Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                            finish();
-                        }
+                if (response.body() != null) {
+                    if (response.body().getStatus().equalsIgnoreCase("1")) {
+                        Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        finish();
                     }
                 }
-                @Override
-                public void onFailure(Call<CommonResponse> call, Throwable t)
-                {
-                    Utils.dismissProgressDialog();
-                    Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
+            }
 
-              }
-            });
+            @Override
+            public void onFailure(Call<CommonResponse> call, Throwable t) {
+                Utils.dismissProgressDialog();
+                Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
 
+            }
+        });
 
 
     }
@@ -213,9 +209,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id=item.getItemId();
-        if(id==R.id.home)
-        {
+        int id = item.getItemId();
+        if (id == R.id.home) {
             finish();
 
         }

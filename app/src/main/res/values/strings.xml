@@ -108,4 +108,6 @@
     <string name="alert_text1">Once You Start, the  test timer cannot be paused. Continue?</string>
     <string name="discard_text1">Are you sure you want to discard the test?</string>
     <string name="submit_text1">Your Test timed out! Submit the test?</string>
+    <string name="guess_heading">New Feature to help you with negative marking!</string>
+    <string name="guess_sub_heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum diam id mauris dignissim, vel placerat nisl blandit. Vestibulam ante ipsum primis in faucibus orciluctus et ultrices posuere cubilia Curae.</string>
 </resources>

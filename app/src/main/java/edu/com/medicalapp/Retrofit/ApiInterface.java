@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Retrofit;
 
 import edu.com.medicalapp.Models.QustionDetails;
+import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -33,6 +34,14 @@ public interface ApiInterface {
                                       @Part("username") RequestBody username,
                                       @Part("email_id") RequestBody email,
                                       @Part("password") RequestBody password);
+
+
+    @Multipart
+    @POST("api/api.php?req=facebook")
+    Call<FacebookResponse> facebookRegister(@Part("name") RequestBody name,
+                                            @Part("email_id") RequestBody emailId,
+                                             @Part("fb_id") RequestBody facebookbId);
+
 
 
     @GET("api/api.php?req=category")

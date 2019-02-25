@@ -81,6 +81,7 @@ public class TestStartActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TestStartActivity.this, TestActivity.class);
+                DnaPrefs.putBoolean(TestStartActivity.this,Constants.Resultsubmit,true);
                 String id = getIntent().getStringExtra("id");
                 String duration = getIntent().getStringExtra("duration");
                 String testName = getIntent().getStringExtra("testName");

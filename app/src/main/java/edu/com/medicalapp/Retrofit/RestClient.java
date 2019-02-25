@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Retrofit;
 
 import edu.com.medicalapp.Models.QustionDetails;
+import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -29,6 +30,9 @@ public class RestClient {
         RetrofitClient.getClient().registerUser(name, username, email_id, password).enqueue(callback);
     }
 
+    public static void facebookRegister(RequestBody name, RequestBody email_id, RequestBody fb_id, Callback<FacebookResponse> callback) {
+        RetrofitClient.getClient().facebookRegister(name, email_id, fb_id).enqueue(callback);
+    }
 
     public static void getCourses(Callback<CategoryDetailData> callback) {
         RetrofitClient.getClient().getCourse().enqueue(callback);
@@ -39,19 +43,19 @@ public class RestClient {
         RetrofitClient.getClient().getVideos(sub_child_cat, fileType).enqueue(callback);
     }
 
-    public static void getQuestion(String test_id,Callback<QustionDetails> callback) {
+    public static void getQuestion(String test_id, Callback<QustionDetails> callback) {
         RetrofitClient.getClient().getQuestion(test_id).enqueue(callback);
     }
 
-    public static void getTest( Callback<TestQuestionData> callback) {
+    public static void getTest(Callback<TestQuestionData> callback) {
         RetrofitClient.getClient().getTest().enqueue(callback);
     }
 
 
-
     public static void submitTest(String user_id, String test_id,
                                   String tquestion, String canswer, String wanswer, String sanswer, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().submitTest(user_id,test_id,tquestion,canswer,wanswer,sanswer).enqueue(callback);
+        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, canswer, wanswer, sanswer).enqueue(callback);
 
     }
+
 }

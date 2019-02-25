@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.com.medicalapp.Models.FacebookLoginData;
+import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
@@ -321,6 +322,8 @@ public class LoginActivity extends AppCompatActivity {
         });*/
 
 
+
+
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -329,18 +332,49 @@ public class LoginActivity extends AppCompatActivity {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         JSONObject data=response.getJSONObject();
                         try {
-                            String name=data.getString("name");
-                            String email=data.getString("email");
-                            String pictureurl=data.getJSONObject("picture").getJSONObject("data").getString("url");
-                            DnaPrefs.putBoolean(LoginActivity.this, Constants.LoginCheck,true);
-                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                            DnaPrefs.putString(getApplicationContext(),"NAME",name);
-                            DnaPrefs.putString(getApplicationContext(),"URL",pictureurl);
-                            DnaPrefs.putString(getApplicationContext(),"EMAIL",email);
+                            String name = data.getString("name");
+                            String email = data.getString("email");
+                            String facebook_id = data.getString("id");
+                            String pictureurl = data.getJSONObject("picture").getJSONObject("data").getString("url");
+                            DnaPrefs.putBoolean(LoginActivity.this, Constants.LoginCheck, true);
+
+                            RequestBody Email = RequestBody.create(MediaType.parse("text/plain"), email);
+                            RequestBody Name = RequestBody.create(MediaType.parse("text/plain"), name);
+                            RequestBody Facebook_id = RequestBody.create(MediaType.parse("text/plain"), facebook_id);
+                            Utils.showProgressDialog(LoginActivity.this);
+                            RestClient.facebookRegister(Name, Email, Facebook_id, new Callback<FacebookResponse>() {
+                                @Override
+                                public void onResponse(Call<FacebookResponse> call, Response<FacebookResponse> response) {
+                                    Utils.dismissProgressDialog();
+                                    if (response != null && response.body() != null) {
+                                        FacebookResponse facebookResponse = response.body();
+                                        if (Integer.parseInt(facebookResponse.getStatus()) == 1) {
+                                            Utils.displayToast(LoginActivity.this, facebookResponse.getMessage());
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            DnaPrefs.putString(getApplicationContext(), "NAME", name);
+                                            DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
+                                            DnaPrefs.putString(getApplicationContext(), "EMAIL", email);
+                                            DnaPrefs.putString(getApplicationContext(),"FBID",facebook_id);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Utils.displayToast(LoginActivity.this, "Invalid login detail");
+                                        }
+
+                                    } else {
+                                        Utils.displayToast(LoginActivity.this, "Invalid login detail");
+
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<FacebookResponse> call, Throwable t) {
+                                    Utils.dismissProgressDialog();
+                                    Utils.displayToast(LoginActivity.this, "Invalid login detail");
+
+                                }
+                            });
 
 
-                            startActivity(intent);
-                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
