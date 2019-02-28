@@ -30,6 +30,9 @@ private String testPaid;
 @SerializedName("test_image")
 @Expose
 private String testImage;
+@SerializedName("test_status")
+@Expose
+private String testStatus;
 
 public String getTestId() {
 return testId;
@@ -94,5 +97,14 @@ return testImage;
 public void setTestImage(String testImage) {
 this.testImage = testImage;
 }
+
+
+    public String getTestStatus() {
+        return testStatus;
+    }
+
+    public void setTestStatus(String testStatus) {
+        this.testStatus = testStatus;
+    }
 
 }

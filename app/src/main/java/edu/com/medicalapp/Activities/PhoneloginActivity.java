@@ -99,7 +99,7 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
          }
          else
          {
-             Toast.makeText(this, "Fill Right Detail", Toast.LENGTH_SHORT).show();
+             Toast.makeText(this, "Fill Right ReviewDetail", Toast.LENGTH_SHORT).show();
          }
 
 

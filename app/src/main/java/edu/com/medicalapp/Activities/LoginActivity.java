@@ -142,6 +142,10 @@ public class LoginActivity extends AppCompatActivity {
                     if (Integer.parseInt(loginResponse.getStatus()) == 1) {
                         Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                       String id=loginResponse.getLoginDetails().get(0).getId();
+                       DnaPrefs.putString(getApplicationContext(),"Login_Id",id);
+                       DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",false);
+
                         DnaPrefs.putString(getApplicationContext(),"NAME","DNA User");
                         DnaPrefs.putString(getApplicationContext(),"URL","");
                         DnaPrefs.putString(getApplicationContext(),"EMAIL",email_str);
@@ -351,6 +355,9 @@ public class LoginActivity extends AppCompatActivity {
                                         if (Integer.parseInt(facebookResponse.getStatus()) == 1) {
                                             Utils.displayToast(LoginActivity.this, facebookResponse.getMessage());
                                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            int fb_id=facebookResponse.getFacebookDetails().get(0).getId();
+                                            DnaPrefs.putInt(getApplicationContext(),"fB_ID",fb_id);
+                                            DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",true);
                                             DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                             DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
                                             DnaPrefs.putString(getApplicationContext(), "EMAIL", email);

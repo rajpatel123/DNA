@@ -217,6 +217,9 @@ public class FirstloginActivity extends AppCompatActivity {
                                         if (Integer.parseInt(facebookResponse.getStatus()) == 1) {
                                             Utils.displayToast(FirstloginActivity.this, facebookResponse.getMessage());
                                             Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
+                                            int fb_id=facebookResponse.getFacebookDetails().get(0).getId();
+                                            DnaPrefs.putInt(getApplicationContext(),"fB_ID",fb_id);
+                                            DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",true);
                                             DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                             DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
                                             DnaPrefs.putString(getApplicationContext(), "EMAIL", email);

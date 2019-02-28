@@ -6,17 +6,15 @@
     android:orientation="vertical"
     android:animateLayoutChanges="true">
 
-
-    <TextView
-        android:id="@+id/questionTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_margin="10dp"
-        android:text="Tetsmfkfnldnv,fdf  fjefwfnfuyfw"
-        android:textStyle="bold"/>
-
-
+<TextView
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="25dp"
+    android:text="vfudgsdvhkgdkhgd"
+    android:id="@+id/text_question"
+    />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -28,7 +26,7 @@
             android:layout_height="match_parent"
             >
             <LinearLayout
-                android:id="@+id/answerList"
+                android:id="@+id/answerList1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">

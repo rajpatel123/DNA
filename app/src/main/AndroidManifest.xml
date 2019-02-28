@@ -12,7 +12,8 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.ReviewResultActivity"></activity>
+        <activity android:name=".Activities.ReviewresulActivity"></activity>
+        <activity android:name=".Activities.ReviewResultActivity" />
         <activity
             android:name=".Activities.SplashActivity"
             android:theme="@style/AppTheme1">

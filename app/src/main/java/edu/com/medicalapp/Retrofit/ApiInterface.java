@@ -1,6 +1,8 @@
 package edu.com.medicalapp.Retrofit;
 
 import edu.com.medicalapp.Models.QustionDetails;
+import edu.com.medicalapp.Models.ResultData.ResultList;
+import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
@@ -61,4 +63,16 @@ public interface ApiInterface {
     Call<ResponseBody> submitTest(@Query("user_id") String user_id, @Query("test_id") String test_id,
                                   @Query("tquestion") String tquestion, @Query("canswer") String canswer,
                                   @Query("wanswer") String wanswer, @Query("sanswer") String sanswer);
+
+    @Multipart
+    @POST("api/api.php?req=result")
+    Call<ResultList> resultList(@Part("user_id") RequestBody user_id,
+                            @Part("test_id") RequestBody test_id);
+
+    @Multipart
+    @POST("api/api.php?req=showresult")
+    Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
+                                    @Part("test_id") RequestBody test_id);
+
+
 }

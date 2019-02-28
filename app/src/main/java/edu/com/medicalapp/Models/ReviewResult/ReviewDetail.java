@@ -1,4 +1,5 @@
-package edu.com.medicalapp.Models;
+package edu.com.medicalapp.Models.ReviewResult;
+
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,9 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class Detail implements Parcelable {
+public class ReviewDetail implements Parcelable{
 
 @SerializedName("qid")
 @Expose
@@ -32,7 +31,8 @@ private String answer4;
 @Expose
 private String currectAnswer;
 
-    public Detail(Parcel in) {
+
+    protected ReviewDetail(Parcel in) {
         qid = in.readString();
         question = in.readString();
         answer1 = in.readString();
@@ -41,6 +41,23 @@ private String currectAnswer;
         answer4 = in.readString();
         currectAnswer = in.readString();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ReviewDetail> CREATOR = new Creator<ReviewDetail>() {
+        @Override
+        public ReviewDetail createFromParcel(Parcel in) {
+            return new ReviewDetail(in);
+        }
+
+        @Override
+        public ReviewDetail[] newArray(int size) {
+            return new ReviewDetail[size];
+        }
+    };
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -53,24 +70,8 @@ private String currectAnswer;
         dest.writeString(currectAnswer);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    public static final Creator<Detail> CREATOR = new Creator<Detail>() {
-        @Override
-        public Detail createFromParcel(Parcel in) {
-            return new Detail(in);
-        }
-
-        @Override
-        public Detail[] newArray(int size) {
-            return new Detail[size];
-        }
-    };
-
-    public String getQid() {
+public String getQid() {
 return qid;
 }
 
@@ -126,5 +127,5 @@ public void setCurrectAnswer(String currectAnswer) {
 this.currectAnswer = currectAnswer;
 }
 
-}
 
+}

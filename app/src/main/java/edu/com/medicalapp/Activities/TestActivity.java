@@ -36,11 +36,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.com.medicalapp.Models.Detail;
 import edu.com.medicalapp.Models.QustionDetails;
+import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.TruitonListFragment;
+import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,12 +63,15 @@ public class TestActivity extends FragmentActivity {
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
 
+
     private ImageView guessImage;
     private Button button, menuButton;
     private Button skip;
 
+    String user_id;
 
-    TextView nextText,previousText;
+
+    TextView nextText, previousText;
     static int currentPosition;
     boolean timeUp;
     private ImageView imageMenu;
@@ -124,25 +132,37 @@ public class TestActivity extends FragmentActivity {
             }
         }
 
-        skip=findViewById(R.id.btn_skip);
+        skip = findViewById(R.id.btn_skip);
         skip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
+
                 mPager.setCurrentItem(currentPosition + 1);
 
+                if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
+                    skip.setText("COMPLETE");
+                       submitAlertDiolog();
+                } else {
+                    skip.setText("SKIP");
+                }
             }
         });
 
-        previousText=findViewById(R.id.text_previous);
+
+
+        previousText = findViewById(R.id.text_previous);
         previousText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 previousText.setTextColor(getResources().getColor(R.color.darkwhite));
                 nextText.setTextColor(getResources().getColor(R.color.colorAccent));
-                quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
-                mPager.setCurrentItem(currentPosition - 1);
-
+                if (currentPosition > 0) {
+                    quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
+                    mPager.setCurrentItem(currentPosition - 1);
+                }
+                skip.setText("SKIP");
             }
         });
 
@@ -154,6 +174,14 @@ public class TestActivity extends FragmentActivity {
                 previousText.setTextColor(getResources().getColor(R.color.colorAccent));
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
+
+
+                if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
+                    skip.setText("COMPLETE");
+
+                } else {
+                    skip.setText("SKIP");
+                }
 
             }
 
@@ -268,6 +296,8 @@ public class TestActivity extends FragmentActivity {
                 if (countDownTimer != null)
                     countDownTimer.cancel();
                 submitTest();
+                dialog.dismiss();
+                //submitTest2();
                 Toast.makeText(TestActivity.this, "Open", Toast.LENGTH_SHORT).show();
             }
         });
@@ -276,6 +306,18 @@ public class TestActivity extends FragmentActivity {
 
 
     }
+
+    private void submitTest2() {
+
+        String user_id = "1";
+        String test_id = getIntent().getStringExtra("id");
+        Intent intent = new Intent(TestActivity.this, ResultActivity.class);
+        intent.putExtra("User_Id", user_id);
+        intent.putExtra("Test_Id", test_id);
+        startActivity(intent);
+
+    }
+
 
     private void discardAlertDialog() {
 
@@ -396,8 +438,13 @@ public class TestActivity extends FragmentActivity {
     private void submitTest() {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
+            if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+                user_id = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+            } else {
+                user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
 
-            String user_id = "1";
+            }
+
             String test_id = getIntent().getStringExtra("id");
             String tquestion = "" + qustionDetails.getDetail().size();
             String canswer = "" + correctAnswerList.keySet().size();
@@ -419,6 +466,8 @@ public class TestActivity extends FragmentActivity {
                                 Toast.makeText(TestActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(TestActivity.this, ResultActivity.class);
                                 intent.putExtra("average", jsonObject.getString("average"));
+                                intent.putExtra("User_Id", user_id);
+                                intent.putExtra("Test_Id", test_id);
                                 intent.putExtra("tquestion", tquestion);
                                 intent.putExtra("canswer", canswer);
                                 intent.putExtra("wanswer", wanswer);

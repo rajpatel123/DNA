@@ -67,17 +67,16 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     holder.textDate.setVisibility(GONE);
                 }
             }
-
-
             if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
-
-                if (!DnaPrefs.getBoolean(applicationContext, "isPaid")) {
-                    holder.imageLock.setImageResource(R.drawable.test_lock);
-                } else {
+                holder.imageLock.setImageResource(R.drawable.test_lock);
+            }
+            if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
+                if (grandTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);
+
+
+
                 }
-
-
             }
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,9 +99,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
 
             }
-            if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("No"))
-            {
-                if (DnaPrefs.getBoolean(applicationContext, Constants.Resultsubmit)) {
+            if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
+                if (miniTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);
                 }
 
@@ -137,8 +135,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
+
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (DnaPrefs.getBoolean(applicationContext, Constants.Resultsubmit)) {
+                if (allTests.get(holder.getAdapterPosition()).getTestStatus().equals(1)) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);
                 }
             }
@@ -167,13 +166,12 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
-
-            if(subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("No"))
-            {
-                if (DnaPrefs.getBoolean(applicationContext, Constants.Resultsubmit)) {
+            if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
+                if (subjectTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);
                 }
             }
+
 
             if (holder.getAdapterPosition() > 0) {
                 if (!Objects.requireNonNull(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
@@ -190,9 +188,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     }
                 }
             });
-
         }
-
 
     }
 

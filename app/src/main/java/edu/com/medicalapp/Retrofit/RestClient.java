@@ -1,6 +1,8 @@
 package edu.com.medicalapp.Retrofit;
 
 import edu.com.medicalapp.Models.QustionDetails;
+import edu.com.medicalapp.Models.ResultData.ResultList;
+import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
@@ -57,5 +59,15 @@ public class RestClient {
         RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, canswer, wanswer, sanswer).enqueue(callback);
 
     }
+
+    public static void resultList(RequestBody user_id, RequestBody test_id, Callback<ResultList> callback) {
+        RetrofitClient.getClient().resultList(user_id, test_id).enqueue(callback);
+
+    }
+
+    public static void reviewQuestionResult(RequestBody user_id, RequestBody test_id, Callback<ReviewResult> callback) {
+        RetrofitClient.getClient().reviewQuestionResult(user_id, test_id).enqueue(callback);
+    }
+
 
 }

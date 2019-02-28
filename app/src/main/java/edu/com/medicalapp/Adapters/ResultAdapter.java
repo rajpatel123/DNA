@@ -4,32 +4,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import edu.com.medicalapp.Models.ResultData.AllReult;
 import edu.com.medicalapp.R;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHolder> {
 
-    private List<result> resultList;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView rank, name, question;
-
-        public MyViewHolder(View view) {
-            super(view);
-            rank = view.findViewById(R.id.rank);
-            name = view.findViewById(R.id.name);
-            question = view.findViewById(R.id.question);
-        }
+    private List<AllReult> allReults;
+    public ResultAdapter(List<AllReult> allReults) {
+        this.allReults = allReults;
     }
-
-
-    public ResultAdapter(List<result> moviesList) {
-        this.resultList = moviesList;
-    }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -40,19 +30,40 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        result result = resultList.get(position);
-        holder.question.setText("23");
-        holder.name.setText("rishu");
-        holder.rank.setText("1");
+        AllReult allReult = allReults.get(position);
+
+        holder.textSkipped.setText(allReult.getSkipQuestion());
+        holder.textWrong.setText(allReult.getSkipQuestion());
+        holder.textCorrect.setText(allReult.getCurrentQuestion());
+        holder.textQuestion.setText(allReult.getTotalQuestion());
+        holder.textName.setText(allReult.getUser());
+        holder.textRank.setText(allReult.getRank()+"th");
+
 
     }
 
     @Override
     public int getItemCount() {
-        if (resultList != null) {
-            return resultList.size();
+        if (allReults != null) {
+            return allReults.size();
         } else {
             return 0;
+        }
+    }
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView textRank,textName,textQuestion,textCorrect,textWrong,textSkipped;
+        public ImageView userImage;
+
+        public MyViewHolder(View view) {
+            super(view);
+            textRank=view.findViewById(R.id.rank);
+            textName=view.findViewById(R.id.name);
+            textQuestion=view.findViewById(R.id.question);
+            textCorrect=view.findViewById(R.id.correct_answer);
+            textWrong=view.findViewById(R.id.wrong_answer);
+            textSkipped=view.findViewById(R.id.skipped_answer);
+            userImage=view.findViewById(R.id.profile_image);
+
         }
     }
 }

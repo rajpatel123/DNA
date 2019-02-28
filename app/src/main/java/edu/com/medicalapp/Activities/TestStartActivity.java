@@ -28,7 +28,6 @@ public class TestStartActivity extends AppCompatActivity  {
     Button btnStart;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +89,7 @@ public class TestStartActivity extends AppCompatActivity  {
                 intent.putExtra("testName", testName);
                 startActivity(intent);
                 finish();
+                dialog.dismiss();
             }
         });
 

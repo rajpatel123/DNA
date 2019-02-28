@@ -15,8 +15,6 @@
         android:layout_margin="10dp"
         android:text="Tetsmfkfnldnv,fdf  fjefwfnfuyfw"
         android:textStyle="bold"/>
-
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"

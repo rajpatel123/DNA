@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import edu.com.medicalapp.Activities.TestActivity;
 import edu.com.medicalapp.Models.Detail;
 import edu.com.medicalapp.R;
