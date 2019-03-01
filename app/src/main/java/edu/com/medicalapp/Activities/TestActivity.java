@@ -70,7 +70,7 @@ public class TestActivity extends FragmentActivity {
 
     String user_id;
 
-
+    ImageView imgPrevious,imgNest;
     TextView nextText, previousText;
     static int currentPosition;
     boolean timeUp;
@@ -81,6 +81,9 @@ public class TestActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
+
+        imgPrevious=findViewById(R.id.image_previous);
+        imgNest=findViewById(R.id.image_next);
         guessImage = findViewById(R.id.image_guess);
         imageMenu = findViewById(R.id.menu_item);
 
@@ -137,11 +140,8 @@ public class TestActivity extends FragmentActivity {
         skip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
-
                 mPager.setCurrentItem(currentPosition + 1);
-
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
                        submitAlertDiolog();
@@ -157,8 +157,13 @@ public class TestActivity extends FragmentActivity {
         previousText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                previousText.setTextColor(getResources().getColor(R.color.darkwhite));
-                nextText.setTextColor(getResources().getColor(R.color.colorAccent));
+                previousText.setTextColor(getResources().getColor(R.color.colorAccent));
+                nextText.setTextColor(getResources().getColor(R.color.darkwhite));
+                imgPrevious.setImageResource(R.drawable.previou_red);
+                imgNest.setImageResource(R.drawable.next_white);
+
+
+
                 if (currentPosition > 0) {
                     quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
@@ -171,12 +176,12 @@ public class TestActivity extends FragmentActivity {
         nextText = findViewById(R.id.next);
         nextText.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                nextText.setTextColor(getResources().getColor(R.color.darkwhite));
-                previousText.setTextColor(getResources().getColor(R.color.colorAccent));
+                nextText.setTextColor(getResources().getColor(R.color.colorAccent));
+                previousText.setTextColor(getResources().getColor(R.color.darkwhite));
+                imgNest.setImageResource(R.drawable.next_red);
+                imgPrevious.setImageResource(R.drawable.previous_white);
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
-
-
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
 
@@ -299,7 +304,6 @@ public class TestActivity extends FragmentActivity {
                 submitTest();
                 dialog.dismiss();
                 //submitTest2();
-                Toast.makeText(TestActivity.this, "Open", Toast.LENGTH_SHORT).show();
             }
         });
 
