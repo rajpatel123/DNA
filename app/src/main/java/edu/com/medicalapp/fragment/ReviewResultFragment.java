@@ -66,7 +66,7 @@ public class ReviewResultFragment extends Fragment {
             switch (i) {
                 case 0:
 
-                    
+
                     break;
                 case 1:
                     break;

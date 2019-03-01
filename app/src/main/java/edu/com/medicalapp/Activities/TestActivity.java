@@ -85,6 +85,7 @@ public class TestActivity extends FragmentActivity {
         imageMenu = findViewById(R.id.menu_item);
 
 
+
         guessImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

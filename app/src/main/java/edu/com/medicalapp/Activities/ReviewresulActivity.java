@@ -37,9 +37,6 @@ public class ReviewresulActivity extends FragmentActivity {
     static int currentPosition;
     String userId;
 
-    public Map<String, String> correctAnswerList = new HashMap<>();
-    public Map<String, String> skippedQuestions = new HashMap<>();
-    public Map<String, String> wrongAnswerList = new HashMap<>();
      private ReviewResult reviewResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +53,13 @@ public class ReviewresulActivity extends FragmentActivity {
     }
 
     private void getReviewTest() {
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+        /*if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
 
-        }
+        }*/
+        String userId="1";
         String testId="14";
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),userId );

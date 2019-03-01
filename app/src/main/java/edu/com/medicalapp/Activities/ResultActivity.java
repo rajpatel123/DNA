@@ -40,7 +40,7 @@ public class ResultActivity extends AppCompatActivity {
     private List<AllReult> allReults;
     private RecyclerView recyclerView;
     private ResultAdapter resultAdapter;
-    private Button reviewButton,shareButton;
+    private Button reviewButton, shareButton;
     private CircleSeekBar circleSeekBar;
     String user_id;
 
@@ -52,9 +52,9 @@ public class ResultActivity extends AppCompatActivity {
         percentValue = findViewById(R.id.percentageValue);
         //  testNameTv = findViewById(R.id.testName);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        reviewButton=findViewById(R.id.review);
-        circleSeekBar=findViewById(R.id.circular);
-        shareButton=findViewById(R.id.btn_share);
+        reviewButton = findViewById(R.id.review);
+        circleSeekBar = findViewById(R.id.circular);
+        shareButton = findViewById(R.id.btn_share);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,18 +80,17 @@ public class ResultActivity extends AppCompatActivity {
         showRankResult();
 
 
-            reviewButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   ReviewSheet();
-                }
-            });
-
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReviewSheet();
+            }
+        });
 
 
         Intent intent = getIntent();
         String average = intent.getStringExtra("average");
-        String userid=intent.getStringExtra("user_Id");
+        String userid = intent.getStringExtra("user_Id");
         String tquestion = intent.getStringExtra("tquestion");
         String canswer = intent.getStringExtra("canswer");
         String wanswer = intent.getStringExtra("wanswer");
@@ -99,9 +98,8 @@ public class ResultActivity extends AppCompatActivity {
         String testName = intent.getStringExtra("testName");
 
 
-
         //dateTv.setText(Utils.tripDateFormat(System.currentTimeMillis()));
-        percentValue.setText("  "+average);
+        percentValue.setText("  " + average);
         circleSeekBar.setProgressDisplay(Integer.parseInt(canswer));
         total.setText(tquestion);
         correct.setText(canswer);
@@ -113,11 +111,11 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void ReviewSheet() {
-        String test_id=getIntent().getStringExtra("id");
+        String test_id = getIntent().getStringExtra("id");
 
-       Intent intent=new Intent(ResultActivity.this,ReviewresulActivity.class);
-       intent.putExtra("id",test_id);
-       startActivity(intent);
+        Intent intent = new Intent(ResultActivity.this, ReviewresulActivity.class);
+        intent.putExtra("id", test_id);
+        startActivity(intent);
 
 
     }
