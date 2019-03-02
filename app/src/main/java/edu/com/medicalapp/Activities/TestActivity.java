@@ -70,7 +70,7 @@ public class TestActivity extends FragmentActivity {
 
     String user_id;
 
-    ImageView imgPrevious,imgNest;
+    ImageView imgPrevious, imgNest;
     TextView nextText, previousText;
     static int currentPosition;
     boolean timeUp;
@@ -82,11 +82,10 @@ public class TestActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
 
-        imgPrevious=findViewById(R.id.image_previous);
-        imgNest=findViewById(R.id.image_next);
+        imgPrevious = findViewById(R.id.image_previous);
+        imgNest = findViewById(R.id.image_next);
         guessImage = findViewById(R.id.image_guess);
         imageMenu = findViewById(R.id.menu_item);
-
 
 
         guessImage.setOnClickListener(new OnClickListener() {
@@ -144,13 +143,12 @@ public class TestActivity extends FragmentActivity {
                 mPager.setCurrentItem(currentPosition + 1);
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
-                       submitAlertDiolog();
+                    submitAlertDiolog();
                 } else {
                     skip.setText("SKIP");
                 }
             }
         });
-
 
 
         previousText = findViewById(R.id.text_previous);
@@ -161,7 +159,6 @@ public class TestActivity extends FragmentActivity {
                 nextText.setTextColor(getResources().getColor(R.color.darkwhite));
                 imgPrevious.setImageResource(R.drawable.previou_red);
                 imgNest.setImageResource(R.drawable.next_white);
-
 
 
                 if (currentPosition > 0) {
@@ -483,8 +480,6 @@ public class TestActivity extends FragmentActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

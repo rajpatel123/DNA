@@ -13,9 +13,9 @@ private String status;
 @SerializedName("message")
 @Expose
 private String message;
-@SerializedName("reviewDetail")
+@SerializedName("detail")
 @Expose
-private List<ReviewDetail> reviewDetail = null;
+private List<ReviewDetail> detail = null;
 
 public String getStatus() {
 return status;
@@ -33,12 +33,12 @@ public void setMessage(String message) {
 this.message = message;
 }
 
-public List<ReviewDetail> getReviewDetail() {
-return reviewDetail;
+public List<ReviewDetail> getDetail() {
+return detail;
 }
 
-public void setReviewDetail(List<ReviewDetail> reviewDetail) {
-this.reviewDetail = reviewDetail;
+public void setDetail(List<ReviewDetail> detail) {
+this.detail = detail;
 }
 
 }

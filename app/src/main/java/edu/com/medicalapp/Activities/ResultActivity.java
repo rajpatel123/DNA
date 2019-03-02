@@ -61,12 +61,10 @@ public class ResultActivity extends AppCompatActivity {
                 Intent share = new Intent(android.content.Intent.ACTION_SEND);
                 share.setType("text/plain");
                 share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-
                 // Add data to the intent, the receiving app will decide
                 // what to do with it.
-                share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
-                share.putExtra(Intent.EXTRA_TEXT, "http://www.codeofaninja.com");
-
+                share.putExtra(Intent.EXTRA_SUBJECT, "DNA");
+                share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=edu.com.medicalapp");
                 startActivity(Intent.createChooser(share, "Share link!"));
             }
         });
@@ -75,7 +73,6 @@ public class ResultActivity extends AppCompatActivity {
         skipped = findViewById(R.id.skipped);
         wrong = findViewById(R.id.wrong);
         correct = findViewById(R.id.correct);
-
 
         showRankResult();
 
@@ -146,6 +143,8 @@ public class ResultActivity extends AppCompatActivity {
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setAdapter(resultAdapter);
+
+
 
 
                         } else {

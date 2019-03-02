@@ -73,11 +73,10 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
                 if (grandTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);
-
-
-
                 }
             }
+
+
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

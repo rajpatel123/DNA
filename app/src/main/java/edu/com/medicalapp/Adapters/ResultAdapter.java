@@ -13,6 +13,7 @@ import java.util.List;
 
 import edu.com.medicalapp.Models.ResultData.AllReult;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.utils.DnaPrefs;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHolder> {
 
@@ -38,6 +39,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
         holder.textQuestion.setText(allReult.getTotalQuestion());
         holder.textName.setText(allReult.getUser());
         holder.textRank.setText(allReult.getRank()+"th");
+
 
 
     }

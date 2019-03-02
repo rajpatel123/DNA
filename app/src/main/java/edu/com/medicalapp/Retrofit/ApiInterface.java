@@ -69,10 +69,11 @@ public interface ApiInterface {
     Call<ResultList> resultList(@Part("user_id") RequestBody user_id,
                             @Part("test_id") RequestBody test_id);
 
+
     @Multipart
     @POST("api/api.php?req=showresult")
     Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
-                                    @Part("test_id") RequestBody test_id);
+                                            @Part("test_id") RequestBody test_id);
 
 
 }
