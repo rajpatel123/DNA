@@ -4,6 +4,7 @@ import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
+import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -59,6 +60,8 @@ public interface ApiInterface {
     @GET("api/api.php?req=question")
     Call<QustionDetails> getQuestion(@Query("test_id") String test_id);
 
+
+
     @POST("api/api.php?req=final_test")
     Call<ResponseBody> submitTest(@Query("user_id") String user_id, @Query("test_id") String test_id,
                                   @Query("tquestion") String tquestion, @Query("canswer") String canswer,
@@ -69,11 +72,13 @@ public interface ApiInterface {
     Call<ResultList> resultList(@Part("user_id") RequestBody user_id,
                             @Part("test_id") RequestBody test_id);
 
-
     @Multipart
     @POST("api/api.php?req=showresult")
     Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
                                             @Part("test_id") RequestBody test_id);
 
+
+    @POST("http://192.168.1.11/DNAWeb/api/api.php?req=allfaculty")
+    Call<FacultyDetail> facultyData();
 
 }
