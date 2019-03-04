@@ -61,7 +61,7 @@ public class ReviewResultFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.review_fragment_pager_list, container, false);
-        questionImage = view.findViewById(R.id.review_question_image);
+
         answerList = view.findViewById(R.id.answerList1);
         //questionList = view.findViewById(R.id.text_question);
         //questionList.setText((fragNum + 1) + ". " + question.getQuestion());
@@ -79,32 +79,45 @@ public class ReviewResultFragment extends Fragment {
                     View answerView = inflater.inflate(R.layout.review_list_item,
                             container, false);
                     TextView answer1 = answerView.findViewById(R.id.answertext);
+
+                    ImageView imageType = answerView.findViewById(R.id.review_question_image);
                     answer1.setText("A" + ". " + question.getAnswer1());
 
-                    /*if (question.getCurrectAnswer().equals(question.getAnswer1())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(questionImage);
-                    }*/
+                    if (question.getCurrectAnswer().equals(question.getAnswer1())) {
+                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType);
+                    }
                     answerList.addView(answerView);
                     break;
                 case 2:
                     View answerView1 = inflater.inflate(R.layout.review_list_item,
                             container, false);
+                    ImageView imageType1 = answerView1.findViewById(R.id.review_question_image);
+
                     TextView answer2 = answerView1.findViewById(R.id.answertext);
                     answer2.setText("B" + ". " + question.getAnswer2());
-/*
+
                     if (question.getCurrectAnswer().equals(question.getAnswer2())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(questionImage);
-                    }*/
+                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType1);
+                    }
                     answerList.addView(answerView1);
 
                     break;
                 case 3:
                     View answerView2 = inflater.inflate(R.layout.review_list_item,
                             container, false);
+                    ImageView imageType2 = answerView2.findViewById(R.id.review_question_image);
+
                     TextView answer3 = answerView2.findViewById(R.id.answertext);
                     answer3.setText("C" + ". " + question.getAnswer3());
-                    /*if (question.getCurrectAnswer().equals(question.getAnswer3())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(questionImage);
+                    if (question.getCurrectAnswer().equals(question.getAnswer3())) {
+                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType2);
+
+                    }
+                   /* if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer3())) {
+                        if (question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
+                            Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType2);
+
+                        }
 
                     }*/
                     answerList.addView(answerView2);
@@ -113,10 +126,12 @@ public class ReviewResultFragment extends Fragment {
                     View answerView3 = inflater.inflate(R.layout.review_list_item,
                             container, false);
                     TextView answer4 = answerView3.findViewById(R.id.answertext);
+                    ImageView imageType3 = answerView3.findViewById(R.id.review_question_image);
+
                     answer4.setText("D" + ". " + question.getAnswer4());
-                    /*if (question.getCurrectAnswer().equals(question.getAnswer4())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(questionImage);
-                    }*/
+                    if (question.getCurrectAnswer().equals(question.getAnswer4())) {
+                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType3);
+                    }
                     answerList.addView(answerView3);
 
                     break;

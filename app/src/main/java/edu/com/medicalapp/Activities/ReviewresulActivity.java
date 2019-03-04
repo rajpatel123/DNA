@@ -57,7 +57,6 @@ public class ReviewresulActivity extends FragmentActivity {
         leftTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (currentPosition > 0) {
                     quesionCounter.setText((currentPosition - 1) + " of " + reviewResult.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
