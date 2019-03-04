@@ -84,9 +84,6 @@ public class ReviewresulActivity extends FragmentActivity {
         //getReviewTest();
 
 
-    }
-
-
     /*  private void getReviewTest() {
      *//*if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
