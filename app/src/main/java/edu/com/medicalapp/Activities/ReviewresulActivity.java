@@ -46,7 +46,7 @@ public class ReviewresulActivity extends FragmentActivity {
         if (reviewResult != null) {
             mAdapter = new MyAdapter(getSupportFragmentManager(), reviewResult, quesionCounter);
             mPager = (ViewPager) findViewById(R.id.pager2);
-            mPager.addOnPageChangeListener(pageChangeListener);gi
+            mPager.addOnPageChangeListener(pageChangeListener);
             mPager.setAdapter(mAdapter);
             mPager.setCurrentItem(itemPosition);
 
