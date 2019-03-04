@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Activities;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import android.support.v4.app.FragmentActivity;
@@ -11,18 +12,10 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.ReviewResultFragment;
-import edu.com.medicalapp.utils.Utils;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class ReviewresulActivity extends FragmentActivity {
 
@@ -33,9 +26,10 @@ public class ReviewresulActivity extends FragmentActivity {
     static int currentPosition;
     String userId;
     TextView leftTest, rightTest;
-
+    int itemPosition;
 
     private ReviewResult reviewResult;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +37,35 @@ public class ReviewresulActivity extends FragmentActivity {
         setContentView(R.layout.activity_reviewresul);
 
 
-        getReviewTest();
+        //  getReviewTest();
         quesionCounter = findViewById(R.id.question_number);
+
+        Intent intent = getIntent();
+        reviewResult = intent.getParcelableExtra("list");
+         itemPosition=intent.getIntExtra("position",0);
+        if (reviewResult != null) {
+            mAdapter = new MyAdapter(getSupportFragmentManager(), reviewResult, quesionCounter);
+            mPager = (ViewPager) findViewById(R.id.pager2);
+            mPager.addOnPageChangeListener(pageChangeListener);
+            mPager.setAdapter(mAdapter);
+            mPager.setCurrentItem(itemPosition);
+
+        }
+
 
         leftTest = findViewById(R.id.left_arrow);
         leftTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(currentPosition>0) {
+                if (currentPosition > 0) {
                     quesionCounter.setText((currentPosition - 1) + " of " + reviewResult.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
                 }
 
             }
         });
-        rightTest=findViewById(R.id.right_arrow);
+        rightTest = findViewById(R.id.right_arrow);
         rightTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,19 +81,19 @@ public class ReviewresulActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getReviewTest();
+        //getReviewTest();
 
 
     }
 
 
-    private void getReviewTest() {
-        /*if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+    /*  private void getReviewTest() {
+     *//*if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
 
-        }*/
+        }*//*
         String userId = "1";
         String testId = "6";
 
@@ -122,7 +129,7 @@ public class ReviewresulActivity extends FragmentActivity {
             Utils.dismissProgressDialog();
             Toast.makeText(this, "Internet Connection Failed!!", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
 

@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Activities;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,7 +66,16 @@ public class ReviewQuestionList extends AppCompatActivity {
                                     reviewQuestionListAdapter.setReviewDetails(reviewResult.getDetail());
 
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
+                                  reviewQuestionListAdapter.setReviewClickListener(new ReviewQuestionListAdapter.ReviewOnClickListener() {
+                                        @Override
+                                        public void onReviewClick(int position) {
+                                            Intent intent = new Intent(getApplicationContext(), ReviewresulActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.putExtra("list", reviewResult);
+                                            intent.putExtra("position",position);
+                                            startActivity(intent);
+                                        }
+                                    });
                                     recyclerView.setLayoutManager(layoutManager);
                                     recyclerView.setAdapter(reviewQuestionListAdapter);
                                 } else {

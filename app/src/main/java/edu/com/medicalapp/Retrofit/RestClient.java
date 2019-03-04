@@ -1,10 +1,12 @@
 package edu.com.medicalapp.Retrofit;
 
+import edu.com.medicalapp.Models.QbankSubCat.QbankSubResponse;
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
+import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -72,7 +74,17 @@ public class RestClient {
 
     public static void facultyData(Callback<FacultyDetail> callback) {
         RetrofitClient.getClient().facultyData().enqueue(callback);
+
+
     }
 
+
+    public static void qbankDetail(Callback<QbankResponse> callback) {
+        RetrofitClient.getClient().qbankDetail().enqueue(callback);
+    }
+
+    public static void qbanksubData(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
+        RetrofitClient.getClient().qbanksubData(qcat_id).enqueue(callback);
+    }
 
 }

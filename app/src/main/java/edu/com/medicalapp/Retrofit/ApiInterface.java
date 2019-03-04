@@ -1,10 +1,12 @@
 package edu.com.medicalapp.Retrofit;
 
+import edu.com.medicalapp.Models.QbankSubCat.QbankSubResponse;
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
+import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -78,7 +80,18 @@ public interface ApiInterface {
                                             @Part("test_id") RequestBody test_id);
 
 
-    @POST("http://192.168.1.11/DNAWeb/api/api.php?req=allfaculty")
+    @POST("api/api.php?req=faculty")
     Call<FacultyDetail> facultyData();
+
+
+    @POST("api/api.php?req=qbank_cate")
+    Call<QbankResponse> qbankDetail();
+
+
+    @Multipart
+    @POST("api/api.php?req=qbank_subcate")
+    Call<QbankSubResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
+
+
 
 }
