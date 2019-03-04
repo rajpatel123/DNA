@@ -1,6 +1,7 @@
 package edu.com.medicalapp.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import edu.com.medicalapp.Activities.ReviewresulActivity;
 import edu.com.medicalapp.Models.ReviewResult.ReviewDetail;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.utils.Utils;
 
 public class ReviewResultFragment extends Fragment {
 
@@ -66,6 +70,7 @@ public class ReviewResultFragment extends Fragment {
                             container, false);
                     TextView answer1 = answerView.findViewById(R.id.answertext);
                     answer1.setText("A" + ". " + question.getAnswer1());
+
                    /* if (question.getCurrectAnswer().equals(question.getAnswer1())) {
                         questionImage.setImageResource(R.drawable.right_answer_icon);
                     }*/
@@ -104,21 +109,34 @@ public class ReviewResultFragment extends Fragment {
                     }*/
                     break;
                 case 4:
-                    View answerView4 = inflater.inflate(R.layout.review_list_item,
+                    View answerView4 = inflater.inflate(R.layout.review_explanation_recycler_view,
                             container, false);
-                    TextView answer5 = answerView4.findViewById(R.id.answertext);
+                    WebView webView = answerView4.findViewById(R.id.dataWebView);
+                    webView.getSettings().setJavaScriptEnabled(true);
+                    Utils.showProgressDialog(getContext());
+                    webView.setWebViewClient(new WebViewClient() {
+                        @Override
+                        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                            super.onPageStarted(view, url, favicon);
 
-                    answer5.setText("Explanation:" + ". " + question.getExplanation());
+                            // Toast.makeText(MainActivity.this, "Page Started", Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onPageFinished(WebView view, String url) {
+                            super.onPageFinished(view, url);
+
+                            Utils.dismissProgressDialog();
+                            webView.setVisibility(View.VISIBLE);
+                            // Toast.makeText(MainActivity.this, "Page Loaded", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    webView.loadUrl("https://www.earthorganic.co.in/");
                     answerList.addView(answerView4);
                     break;
-
             }
-
-
         }
         return view;
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
