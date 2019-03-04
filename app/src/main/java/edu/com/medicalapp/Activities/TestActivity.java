@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,6 +75,10 @@ public class TestActivity extends FragmentActivity {
     private ImageView imageMenu;
     private String testName;
     private BottomSheetBehavior sheetBehavior, sheetBehaviorStealthModeTimeChooser;
+    private String ssanswer;
+    private String wwanswerIds;
+    private String ttQuestion;
+    private String ccAnswerIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,7 +221,7 @@ public class TestActivity extends FragmentActivity {
                 submitAlertDiolog();
             }
 
-        }.start();
+        };
         countDownTimer.start();
     }
 
@@ -353,12 +358,7 @@ public class TestActivity extends FragmentActivity {
         });
 
         dialog.show();
-
-
     }
-
-
-
 
     @Override
     protected void onResume() {
@@ -458,21 +458,40 @@ public class TestActivity extends FragmentActivity {
             for (Detail detail : qustionDetails.getDetail()) {
               builder.append(detail.getQid()+",");
             }
-            String ttQuestion =builder.replace(0,builder.toString().length()-1,builder.toString()).toString();
+
+            if (!TextUtils.isEmpty(builder))
+             ttQuestion =builder.substring(0,builder.toString().length()-1).toString();
 
             StringBuilder ccAnswer = new StringBuilder();
 
-            for (String ss: wrongAnswerList.keySet()){
+            for (String ss: correctAnswerList.keySet()){
                 ccAnswer.append(ss+",");
             }
-            String ccAnswerIds =builder.replace(0,ccAnswer.toString().length()-1,ccAnswer.toString()).toString();
+            if (!TextUtils.isEmpty(ccAnswer))
+                ccAnswerIds =ccAnswer.substring(0,ccAnswer.toString().length()-1).toString();
+
+            StringBuilder wwanswer = new StringBuilder();
+            for (String ss : wrongAnswerList.keySet()) {
+                wwanswer.append(ss+":"+wrongAnswerList.get(ss)+",");
+            }
+
+            if (!TextUtils.isEmpty(wwanswer))
+                wwanswerIds = wwanswer.substring(0, wwanswer.toString().length() - 1).toString();
 
 
+            StringBuilder skiped = new StringBuilder();
+            for (String ss : skippedAnswerIdList) {
+                skiped.append(ss+",");
+            }
+            if (!TextUtils.isEmpty(skiped))
+                ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
 
 
+            Log.d("TEstData","userid->"+user_id+"testid->"+test_id+"tquestion->"
+                    +tquestion+"ttQuestion"+ttQuestion+
+                   "canswer->"+canswer+"ccAnswerIds->"+ccAnswerIds +"wanswer->"+wanswer+"wwanswerIds->"+wwanswerIds+"ssanswer->"+ssanswer);
 
-
-            RestClient.submitTest(user_id, test_id, tquestion, canswer, wanswer, sanswer, new Callback<ResponseBody>() {
+            RestClient.submitTest(user_id, test_id, tquestion,ttQuestion, canswer,ccAnswerIds, wanswer,wwanswerIds, sanswer,ssanswer, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();

@@ -101,11 +101,15 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
                     intent.putExtra("user_id", response.body().getUser_id());
                     startActivity(intent);
                     finish();
+                } else {
+                    Utils.displayToast(getApplicationContext(), response.body().getMessage());
+
                 }
             }
 
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
+                Utils.dismissProgressDialog();
 
             }
         });
