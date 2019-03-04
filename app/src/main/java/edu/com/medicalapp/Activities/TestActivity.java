@@ -2,7 +2,6 @@ package edu.com.medicalapp.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.BottomSheetBehavior;
@@ -13,13 +12,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.view.menu.MenuPopupHelper;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,22 +27,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import edu.com.medicalapp.Models.Detail;
 import edu.com.medicalapp.Models.QustionDetails;
-import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.ReviewAnswerSheetFreagment;
 import edu.com.medicalapp.fragment.TruitonListFragment;
 import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +52,9 @@ public class TestActivity extends FragmentActivity {
     TextView timer;
 
     public Map<String, String> correctAnswerList = new HashMap<>();
+    public ArrayList<String> correctAnswerIdList = new ArrayList<>();
+    public ArrayList<String> wrongAnswerIdList = new ArrayList<>();
+    public ArrayList<String> skippedAnswerIdList = new ArrayList<>();
     public Map<String, String> skippedQuestions = new HashMap<>();
     public Map<String, String> wrongAnswerList = new HashMap<>();
     CountDownTimer countDownTimer;
@@ -151,6 +145,10 @@ public class TestActivity extends FragmentActivity {
                 } else {
                     skip.setText("SKIP");
                 }
+
+                if (skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
+                    skippedAnswerIdList.add(qustionDetails.getDetail().get(currentPosition).getQid());
+                }
             }
         });
 
@@ -203,11 +201,13 @@ public class TestActivity extends FragmentActivity {
         });*/
 
 
-        countDownTimer = new CountDownTimer(testDuration*1000, 1000) {
+        countDownTimer = new CountDownTimer(testDuration * 60 * 1000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-                timer.setText(String.format(getResources().getString(R.string.resend_otp_remain),
-                        millisUntilFinished / 1000));
+            public void onTick(long millis) {
+                String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                timer.setText(hms);
             }
 
             public void onFinish() {
@@ -217,9 +217,6 @@ public class TestActivity extends FragmentActivity {
             }
 
         }.start();
-
-
-
         countDownTimer.start();
     }
 
@@ -456,6 +453,23 @@ public class TestActivity extends FragmentActivity {
             String canswer = "" + correctAnswerList.keySet().size();
             String wanswer = "" + wrongAnswerList.keySet().size();
             String sanswer = "" + (qustionDetails.getDetail().size() - (correctAnswerList.keySet().size() + wrongAnswerList.keySet().size()));
+
+            StringBuilder builder = new StringBuilder();
+            for (Detail detail : qustionDetails.getDetail()) {
+              builder.append(detail.getQid()+",");
+            }
+            String ttQuestion =builder.replace(0,builder.toString().length()-1,builder.toString()).toString();
+
+            StringBuilder ccAnswer = new StringBuilder();
+
+            for (String ss: wrongAnswerList.keySet()){
+                ccAnswer.append(ss+",");
+            }
+            String ccAnswerIds =builder.replace(0,ccAnswer.toString().length()-1,ccAnswer.toString()).toString();
+
+
+
+
 
 
             RestClient.submitTest(user_id, test_id, tquestion, canswer, wanswer, sanswer, new Callback<ResponseBody>() {

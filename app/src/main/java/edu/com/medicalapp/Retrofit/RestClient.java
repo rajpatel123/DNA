@@ -3,6 +3,7 @@ package edu.com.medicalapp.Retrofit;
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
+import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.test.TestQuestionData;
@@ -78,5 +79,10 @@ public class RestClient {
 
     public static void sendOtp(RequestBody phone,Callback<CommonResponse> callback) {
         RetrofitClient.getClient().sendOtp(phone).enqueue(callback);
+    }
+
+    public static void verifyOtp(RequestBody userid, RequestBody code, Callback<VerifyOtpResponse> callback) {
+        RetrofitClient.getClient().verifyOTP(userid,code).enqueue(callback);
+
     }
 }

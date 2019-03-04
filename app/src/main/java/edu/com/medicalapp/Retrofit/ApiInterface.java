@@ -3,6 +3,7 @@ package edu.com.medicalapp.Retrofit;
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
+import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.test.TestQuestionData;
@@ -38,6 +39,8 @@ public interface ApiInterface {
     Call<CommonResponse> registerUser(@Part("name") RequestBody name,
                                       @Part("username") RequestBody username,
                                       @Part("email_id") RequestBody email,
+                                      @Part("mobile") RequestBody phone,
+                                      @Part("state") RequestBody state,
                                       @Part("password") RequestBody password);
 
 
@@ -62,8 +65,6 @@ public interface ApiInterface {
     @GET("api/api.php?req=question")
     Call<QustionDetails> getQuestion(@Query("test_id") String test_id);
 
-
-
     @POST("api/api.php?req=final_test")
     Call<ResponseBody> submitTest(@Query("user_id") String user_id, @Query("test_id") String test_id,
                                   @Query("tquestion") String tquestion, @Query("canswer") String canswer,
@@ -74,16 +75,24 @@ public interface ApiInterface {
     Call<ResultList> resultList(@Part("user_id") RequestBody user_id,
                             @Part("test_id") RequestBody test_id);
 
+
     @Multipart
     @POST("api/api.php?req=showresult")
     Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
                                             @Part("test_id") RequestBody test_id);
 
-
-    @POST("http://192.168.1.11/DNAWeb/api/api.php?req=allfaculty")
-    Call<FacultyDetail> facultyData();
-
     @Multipart
     @POST("api/api.php?req=mobilelogin")
     Call<CommonResponse> sendOtp(@Part("mobile") RequestBody phone);
+
+
+    @POST("api/api.php?req=allfaculty")
+    Call<FacultyDetail> facultyData();
+
+    @Multipart
+    @POST("api/api.php?req=mobileverify")
+    Call<VerifyOtpResponse> verifyOTP(
+            @Part("user_id") RequestBody user_id,
+            @Part("code") RequestBody code
+            );
 }

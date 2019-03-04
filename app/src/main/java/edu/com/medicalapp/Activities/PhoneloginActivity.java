@@ -96,8 +96,9 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
                 Utils.dismissProgressDialog();
                 if (response.body().getStatus().equalsIgnoreCase("1")) {
                     Utils.displayToast(getApplicationContext(), response.body().getMessage());
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), VerifyOTPActivity.class);
                     intent.putExtra("mobile", phone);
+                    intent.putExtra("user_id", response.body().getUser_id());
                     startActivity(intent);
                     finish();
                 }

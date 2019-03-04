@@ -78,12 +78,19 @@ public class TruitonListFragment extends Fragment {
 						public void onClick(View view) {
 							if (answer1.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
 								activity.correctAnswerList.put(question.getQid(),answer1.getText().toString());
-								if (activity.wrongAnswerList.containsKey(question.getQid()));
+								if (activity.wrongAnswerList.containsKey(question.getQid()))
 								activity.wrongAnswerList.remove(question.getQid());
+
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
+								}
 							}else{
-								activity.wrongAnswerList.put(question.getQid(),answer1.getText().toString());
+								activity.wrongAnswerList.put(question.getQid(),"a");
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
+								}
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
 								}
 							}
 							updateAnswer(cardView1);
@@ -106,12 +113,20 @@ public class TruitonListFragment extends Fragment {
 						public void onClick(View view) {
 							if (answer2.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
 								activity.correctAnswerList.put(question.getQid(),answer2.getText().toString());
-								if (activity.wrongAnswerList.containsKey(question.getQid()));
+								if (activity.wrongAnswerList.containsKey(question.getQid()))
 								activity.wrongAnswerList.remove(question.getQid());
+
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
+								}
 							}else{
-								activity.wrongAnswerList.put(question.getQid(),answer2.getText().toString());
+								activity.wrongAnswerList.put(question.getQid(),"b");
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
+								}
+
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
 								}
 							}
 							updateAnswer(cardView2);
@@ -132,12 +147,20 @@ public class TruitonListFragment extends Fragment {
 						public void onClick(View view) {
 							if (answer3.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
 								activity.correctAnswerList.put(question.getQid(),answer3.getText().toString());
-								if (activity.wrongAnswerList.containsKey(question.getQid()));
+								if (activity.wrongAnswerList.containsKey(question.getQid()))
 								activity.wrongAnswerList.remove(question.getQid());
+
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
+								}
 							}else{
-								activity.wrongAnswerList.put(question.getQid(),answer3.getText().toString());
+								activity.wrongAnswerList.put(question.getQid(),"c");
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
+								}
+
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
 								}
 							}
 							updateAnswer(cardView3);
@@ -158,12 +181,20 @@ public class TruitonListFragment extends Fragment {
 						public void onClick(View view) {
 							if (answer4.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
 								activity.correctAnswerList.put(question.getQid(),answer4.getText().toString());
-								if (activity.wrongAnswerList.containsKey(question.getQid()));
+								if (activity.wrongAnswerList.containsKey(question.getQid()))
 								activity.wrongAnswerList.remove(question.getQid());
+
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
+								}
 							}else{
-								activity.wrongAnswerList.put(question.getQid(),answer4.getText().toString());
+								activity.wrongAnswerList.put(question.getQid(),"d");
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
+								}
+
+								if (activity.skippedAnswerIdList.contains(question.getQid())){
+									activity.skippedAnswerIdList.remove(question.getQid());
 								}
 							}
 							updateAnswer(cardView4);

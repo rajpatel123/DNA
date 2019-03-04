@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -23,9 +24,11 @@ import com.alimuzaffar.lib.pin.PinEntryEditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.registration.CommonResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -55,6 +58,8 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
     private final int COUNT_TIMER = 60 * 1000;
     private final int COUNT_INTERVAL = 1000;
+    private String user_id;
+    private String phone;
 
 
     @Override
@@ -68,6 +73,11 @@ public class VerifyOTPActivity extends AppCompatActivity {
         spannableString.setSpan(new UnderlineSpan(), 0, resendOtp.getText().toString().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         resendOtp.setText(spannableString);
 
+
+        Intent intent = getIntent();
+
+        user_id = intent.getStringExtra("user_id");
+        phone = intent.getStringExtra("mobile");
 
 
 
@@ -96,7 +106,36 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
     }
 
-    private void verifyOtp(String trim) {
+    private void verifyOtp(String code) {
+
+        RequestBody userid = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody otp = RequestBody.create(MediaType.parse("text/plain"), code);
+        Utils.showProgressDialog(this);
+        //showProgressDialog(this);
+        RestClient.verifyOtp(userid,otp, new Callback<VerifyOtpResponse>() {
+            @Override
+            public void onResponse(Call<VerifyOtpResponse> call, Response<VerifyOtpResponse> response) {
+                Utils.dismissProgressDialog();
+                if (response.body().getStatus().equalsIgnoreCase("1")) {
+                    Utils.displayToast(getApplicationContext(), response.body().getMessage());
+                    String id=response.body().getLoginDetails().get(0).getId();
+                    DnaPrefs.putString(getApplicationContext(),"Login_Id",response.body().getLoginDetails().get(0).getId());
+                    DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",false);
+
+                    DnaPrefs.putString(getApplicationContext(),"NAME",response.body().getLoginDetails().get(0).getName());
+                    DnaPrefs.putString(getApplicationContext(),"URL","");
+                    DnaPrefs.putString(getApplicationContext(),"EMAIL",response.body().getLoginDetails().get(0).getEmailId());
+                    startActivity(new Intent(VerifyOTPActivity.this,MainActivity.class));
+                    finish();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerifyOtpResponse> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -108,9 +147,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
     @OnClick(R.id.nextBtn)
     public void onNextBtnClick() {
             if (pinLayout.getText().toString().length() >= 6) {
-
                    verifyOtp(pinLayout.getText().toString());
-
             } else {
                 Utils.displayToast(this, "Please enter OTP");
             }
