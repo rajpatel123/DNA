@@ -59,7 +59,7 @@
     <string name="login_cancel">Login Cancelled!!!</string>
     <string name="empty_field">Field can\'t be empty!!!</string>
     <string name="invalid_email">Invalid Email</string>
-    <string name="fill_detail">Fill the complete details!!!!</string>
+    <string name="fill_detail">Fill the complete qbankDetails!!!!</string>
     <string name="full_number">Enter 10 digit Number!!!</string>
     <string name="too_short">Password is too short!!!</string>
     <string name="invalid_data">User Enter Invalid Data!!!</string>
