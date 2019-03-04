@@ -86,13 +86,6 @@ public class FirstloginActivity extends AppCompatActivity {
 
         }
 
-        if (ContextCompat.checkSelfPermission(FirstloginActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
-
-        }
-
-
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

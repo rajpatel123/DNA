@@ -66,9 +66,16 @@ public interface ApiInterface {
     Call<QustionDetails> getQuestion(@Query("test_id") String test_id);
 
     @POST("api/api.php?req=final_test")
-    Call<ResponseBody> submitTest(@Query("user_id") String user_id, @Query("test_id") String test_id,
-                                  @Query("tquestion") String tquestion, @Query("canswer") String canswer,
-                                  @Query("wanswer") String wanswer, @Query("sanswer") String sanswer);
+    Call<ResponseBody> submitTest(@Query("user_id") String user_id,
+                                  @Query("test_id") String test_id,
+                                  @Query("tquestion") String tquestion,
+                                  @Query("ttquestion") String ttquestion,
+                                  @Query("canswer") String canswer,
+                                  @Query("ccanswer") String ccanswer,
+                                  @Query("wanswer") String wanswer,
+                                  @Query("wwanswer") String wwanswer,
+                                  @Query("sanswer") String sanswer,
+                                  @Query("ssanswer") String ssanswer);
 
     @Multipart
     @POST("api/api.php?req=result")

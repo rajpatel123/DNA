@@ -268,8 +268,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         Intent intent = new Intent(getApplicationContext(), VerifyOTPActivity.class);
                         intent.putExtra("mobile", "");
                         intent.putExtra("user_id", response.body().getUser_id());
-                        startActivity(new Intent(getApplicationContext(), VerifyOTPActivity.class));
+                        startActivity(intent);
                         finish();
+                    }else{
+                        Utils.displayToast(getApplicationContext(), response.body().getMessage());
+
                     }
                 }
             }
