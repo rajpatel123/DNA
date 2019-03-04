@@ -4,6 +4,7 @@ import edu.com.medicalapp.Models.QbankSubCat.QbankSubResponse;
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
+import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
@@ -12,6 +13,7 @@ import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
@@ -31,8 +33,8 @@ public class RestClient {
         RetrofitClient.getClient().loginUser(email, password).enqueue(callback);
     }
 
-    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody password, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(name, username, email_id, password).enqueue(callback);
+    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id,RequestBody phone, RequestBody statetxt, RequestBody password, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(name, username, email_id,phone,statetxt, password).enqueue(callback);
     }
 
     public static void facebookRegister(RequestBody name, RequestBody email_id, RequestBody fb_id, Callback<FacebookResponse> callback) {
@@ -87,4 +89,12 @@ public class RestClient {
         RetrofitClient.getClient().qbanksubData(qcat_id).enqueue(callback);
     }
 
+    public static void sendOtp(RequestBody phone,Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().sendOtp(phone).enqueue(callback);
+    }
+
+    public static void verifyOtp(RequestBody userid, RequestBody code, Callback<VerifyOtpResponse> callback) {
+        RetrofitClient.getClient().verifyOTP(userid,code).enqueue(callback);
+
+    }
 }

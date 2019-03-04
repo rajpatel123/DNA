@@ -10,4 +10,5 @@ public class Constants {
     public static final String Resultsubmit ="resultsubmit" ;
 
 
+    public static final int CAPTURE_IMAGE =209 ;
 }

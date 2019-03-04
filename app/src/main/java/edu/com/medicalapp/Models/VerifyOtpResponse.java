@@ -1,29 +1,21 @@
-package edu.com.medicalapp.Models.registration;
-
+package edu.com.medicalapp.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CommonResponse {
+import java.util.List;
+
+public class VerifyOtpResponse {
 
 @SerializedName("status")
 @Expose
 private String status;
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    @SerializedName("user_id")
-@Expose
-private String user_id;
 @SerializedName("message")
 @Expose
 private String message;
+@SerializedName("login details")
+@Expose
+private List<LoginDetail> loginDetails = null;
 
 public String getStatus() {
 return status;
@@ -39,6 +31,14 @@ return message;
 
 public void setMessage(String message) {
 this.message = message;
+}
+
+public List<LoginDetail> getLoginDetails() {
+return loginDetails;
+}
+
+public void setLoginDetails(List<LoginDetail> loginDetails) {
+this.loginDetails = loginDetails;
 }
 
 }
