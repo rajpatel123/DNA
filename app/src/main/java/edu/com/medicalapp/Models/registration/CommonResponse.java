@@ -9,6 +9,18 @@ public class CommonResponse {
 @SerializedName("status")
 @Expose
 private String status;
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    @SerializedName("user_id")
+@Expose
+private String user_id;
 @SerializedName("message")
 @Expose
 private String message;

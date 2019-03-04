@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.menu.MenuBuilder;
@@ -41,6 +43,7 @@ import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.fragment.ReviewAnswerSheetFreagment;
 import edu.com.medicalapp.fragment.TruitonListFragment;
 import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
@@ -76,6 +79,7 @@ public class TestActivity extends FragmentActivity {
     boolean timeUp;
     private ImageView imageMenu;
     private String testName;
+    private BottomSheetBehavior sheetBehavior, sheetBehaviorStealthModeTimeChooser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,22 +203,28 @@ public class TestActivity extends FragmentActivity {
         });*/
 
 
-        countDownTimer = new CountDownTimer(testDuration * 1000, 1000) {
+        countDownTimer = new CountDownTimer(testDuration*1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                Log.e("TOTAL_TIME", "" + millisUntilFinished);
-                timer.setText("" + new SimpleDateFormat("HH:mm:ss").format(new Date(millisUntilFinished)));
+                timer.setText(String.format(getResources().getString(R.string.resend_otp_remain),
+                        millisUntilFinished / 1000));
             }
 
             public void onFinish() {
                 timer.setText("Time up!");
                 timeUp = true;
-
+                submitAlertDiolog();
             }
-        };
+
+        }.start();
+
+
 
         countDownTimer.start();
     }
+
+
+
 
     private void GuessOpen() {
 
@@ -252,8 +262,7 @@ public class TestActivity extends FragmentActivity {
 
                 switch (item.getItemId()) {
                     case R.id.review:
-                        reviewAlertDilog();
-                        Toast.makeText(TestActivity.this, "Review The Text", Toast.LENGTH_SHORT).show();
+                        showAnswerDetails(qustionDetails,currentPosition);
                         break;
 
                     case R.id.submit:
@@ -273,8 +282,6 @@ public class TestActivity extends FragmentActivity {
     }
 
     private void submitAlertDiolog() {
-
-
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
         LayoutInflater inflater = this.getLayoutInflater();
@@ -353,10 +360,7 @@ public class TestActivity extends FragmentActivity {
 
     }
 
-    private void reviewAlertDilog() {
 
-
-    }
 
 
     @Override
@@ -521,5 +525,19 @@ public class TestActivity extends FragmentActivity {
         dialog.show();
     }
 
+    public void showAnswerDetails(final QustionDetails quesQustionDetails,int position) {
+            if (sheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED ) {
+                FragmentManager                  fragmentManager     = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ReviewAnswerSheetFreagment fragment            = new ReviewAnswerSheetFreagment();
+                Bundle                           args                = new Bundle();
+                args.putParcelable("questionDetail", quesQustionDetails);
+                args.putInt("position", position);
+                fragment.setArguments(args);
+                fragmentTransaction.add(R.id.fragmentAnswerSheet, fragment);
+                fragmentTransaction.commit();
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        }
+    }
 
-}

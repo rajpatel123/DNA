@@ -1,12 +1,12 @@
 package edu.com.medicalapp.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +15,15 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Models.registration.CommonResponse;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PhoneloginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,7 +69,11 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId())
         {
             case R.id.btn_continue:
-                Utils.displayToast(this,"Coming soon, please try other login method");
+                if (!TextUtils.isEmpty(edit_phone.getText().toString().trim())) {
+                    sentOTP(edit_phone.getText().toString().trim());
+                } else {
+
+                }
                 break;
 
             case R.id.try_login:
@@ -73,6 +84,30 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
 
         }
 
+    }
+
+    private void sentOTP(String phone) {
+        RequestBody phonebRequestBody = RequestBody.create(MediaType.parse("text/plain"), phone);
+        Utils.showProgressDialog(this);
+        //showProgressDialog(this);
+        RestClient.sendOtp(phonebRequestBody, new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                Utils.dismissProgressDialog();
+                if (response.body().getStatus().equalsIgnoreCase("1")) {
+                    Utils.displayToast(getApplicationContext(), response.body().getMessage());
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.putExtra("mobile", phone);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void validation() {

@@ -4,11 +4,11 @@ import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
-import edu.com.medicalapp.Models.test.TestQuestionData;
-import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
+import edu.com.medicalapp.Models.test.TestQuestionData;
+import edu.com.medicalapp.Models.video.VideoList;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -35,6 +35,8 @@ public interface ApiInterface {
     Call<CommonResponse> registerUser(@Part("name") RequestBody name,
                                       @Part("username") RequestBody username,
                                       @Part("email_id") RequestBody email,
+                                      @Part("mobile") RequestBody phone,
+                                      @Part("state") RequestBody state,
                                       @Part("password") RequestBody password);
 
 
@@ -75,5 +77,7 @@ public interface ApiInterface {
     Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
                                             @Part("test_id") RequestBody test_id);
 
-
+    @Multipart
+    @POST("api/api.php?req=mobilelogin")
+    Call<CommonResponse> sendOtp(@Part("mobile") RequestBody phone);
 }
