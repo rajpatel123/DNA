@@ -108,12 +108,11 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void ReviewSheet() {
-        String test_id = getIntent().getStringExtra("id");
+        String test_id = getIntent().getStringExtra("Test_Id");
 
         Intent intent = new Intent(ResultActivity.this, ReviewQuestionList.class);
         intent.putExtra("id", test_id);
         startActivity(intent);
-
 
     }
 
