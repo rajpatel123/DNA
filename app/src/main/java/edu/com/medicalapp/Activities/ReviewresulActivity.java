@@ -82,7 +82,7 @@ public class ReviewresulActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         //getReviewTest();
-
+    }
 
     /*  private void getReviewTest() {
      *//*if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {

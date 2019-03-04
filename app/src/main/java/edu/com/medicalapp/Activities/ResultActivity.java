@@ -75,16 +75,12 @@ public class ResultActivity extends AppCompatActivity {
         correct = findViewById(R.id.correct);
 
         showRankResult();
-
-
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ReviewSheet();
             }
         });
-
-
         Intent intent = getIntent();
         String average = intent.getStringExtra("average");
         String userid = intent.getStringExtra("user_Id");
@@ -94,7 +90,6 @@ public class ResultActivity extends AppCompatActivity {
         String sanswer = intent.getStringExtra("sanswer");
         String testName = intent.getStringExtra("testName");
 
-
         //dateTv.setText(Utils.tripDateFormat(System.currentTimeMillis()));
         percentValue.setText("  " + average);
         circleSeekBar.setProgressDisplay(Integer.parseInt(canswer));
@@ -102,18 +97,14 @@ public class ResultActivity extends AppCompatActivity {
         correct.setText(canswer);
         wrong.setText(wanswer);
         skipped.setText(sanswer);
-
         //testNameTv.setText("" + testName);
-
     }
 
     private void ReviewSheet() {
         String test_id = getIntent().getStringExtra("id");
-
         Intent intent = new Intent(ResultActivity.this, ReviewQuestionList.class);
         intent.putExtra("id", test_id);
         startActivity(intent);
-
 
     }
 
@@ -121,11 +112,8 @@ public class ResultActivity extends AppCompatActivity {
 
         String userid = getIntent().getStringExtra("User_Id");
         String testid = getIntent().getStringExtra("Test_Id");
-
-
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), userid);
         RequestBody testId = RequestBody.create(MediaType.parse("text/plain"), testid);
-
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RestClient.resultList(userId, testId, new Callback<ResultList>() {
@@ -136,17 +124,11 @@ public class ResultActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
-
                             allReults = response.body().getAllReult();
-
                             resultAdapter = new ResultAdapter(allReults);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setAdapter(resultAdapter);
-
-
-
-
                         } else {
                             Toast.makeText(ResultActivity.this, "Invalid Status", Toast.LENGTH_SHORT).show();
                         }
@@ -154,18 +136,12 @@ public class ResultActivity extends AppCompatActivity {
                         Toast.makeText(ResultActivity.this, "Response is Invalid", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResultList> call, Throwable t) {
                     Utils.dismissProgressDialog();
                     Toast.makeText(ResultActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         }
-
     }
-
-
 }
