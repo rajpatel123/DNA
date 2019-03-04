@@ -16,6 +16,7 @@ import edu.com.medicalapp.Models.ReviewResult.ReviewDetail;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -47,14 +48,17 @@ public class ReviewQuestionList extends AppCompatActivity {
     }
 
     private void getReviewTest() {
-        /*if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+        String userId ;
+        String testId;
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
 
-        }*/
-        String userId = "1";
-        String testId = "6";
+        }
+
+        testId = getIntent().getStringExtra("id");
+
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody test_id = RequestBody.create(MediaType.parse("text/plain"), testId);
