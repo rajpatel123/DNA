@@ -68,8 +68,16 @@
                         android:paddingLeft="2dp"
                         android:paddingTop="2dp"
                         android:paddingRight="2dp"
+                        android:textSize="18sp"
                         android:text="BIOLOGY"
+                        android:textStyle="bold"
                         android:textColor="@color/orange" />
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:id="@+id/progress_bar"
+                        />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,17 +92,6 @@
                             android:textColor="@color/dark_gray"
                             android:textSize="16sp" />
 
-
-                        <TextView
-                            android:id="@+id/total_time1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:paddingLeft="2dp"
-                            android:paddingRight="2dp"
-                            android:text="1h"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
 

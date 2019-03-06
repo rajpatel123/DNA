@@ -113,7 +113,6 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent = new Intent(ResultActivity.this, ReviewQuestionList.class);
         intent.putExtra("id", test_id);
         startActivity(intent);
-
     }
 
     private void showRankResult() {

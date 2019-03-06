@@ -31,6 +31,7 @@ public interface ApiInterface {
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 */
 
+
     @Multipart
     @POST("api/api.php?req=login")
     Call<loginResponse> loginUser(@Part("email_id") RequestBody email, @Part("password") RequestBody password);

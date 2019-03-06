@@ -44,7 +44,8 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
         Detail detail = qbankDetailList.get(0);
         holder.textName.setText(detail.getCatName());
         Picasso.with(applicationContext).load(detail.getCatImage()).error(R.drawable.biology).into(holder.imageView);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+
+       holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (qbankClickListner != null) {
@@ -52,9 +53,8 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
                 }
             }
         });
-
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -78,14 +78,14 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.test_image1);
+            imageView = itemView.findViewById(R.id.test_image1);
             textName = itemView.findViewById(R.id.testName);
             cardView = itemView.findViewById(R.id.cardview);
         }
     }
 
     public interface QbankClickListner {
-        public void onQbankClick(int postion,String id);
+        public void onQbankClick(int postion, String id);
 
     }
 }

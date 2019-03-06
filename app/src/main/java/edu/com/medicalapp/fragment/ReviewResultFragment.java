@@ -2,6 +2,7 @@ package edu.com.medicalapp.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -79,12 +80,21 @@ public class ReviewResultFragment extends Fragment {
                     View answerView = inflater.inflate(R.layout.review_list_item,
                             container, false);
                     TextView answer1 = answerView.findViewById(R.id.answertext);
-
                     ImageView imageType = answerView.findViewById(R.id.review_question_image);
                     answer1.setText("A" + ". " + question.getAnswer1());
+                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer1())) {
+                        imageType.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
+                        answer1.setTextColor(getResources().getColor(R.color.green));
+                    }
+                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer1())) {
+                        /*if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
+                            imageType.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                            answer1.setTextColor(getResources().getColor(R.color.red));
+                        }
+                        else {*/
+                        imageType.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                        answer1.setTextColor(getResources().getColor(R.color.red));
 
-                    if (question.getCurrectAnswer().equals(question.getAnswer1())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType);
                     }
                     answerList.addView(answerView);
                     break;
@@ -92,13 +102,24 @@ public class ReviewResultFragment extends Fragment {
                     View answerView1 = inflater.inflate(R.layout.review_list_item,
                             container, false);
                     ImageView imageType1 = answerView1.findViewById(R.id.review_question_image);
-
                     TextView answer2 = answerView1.findViewById(R.id.answertext);
+                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer2())) {
+                        imageType1.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
+                        answer2.setTextColor(getResources().getColor(R.color.green));
+                    }
+                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer2())) {
+                       /* if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
+                            imageType1.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                            answer2.setTextColor(getResources().getColor(R.color.red));
+                        }
+                        else {*/
+                        imageType1.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                        answer2.setTextColor(getResources().getColor(R.color.red));
+
+                    }
+
                     answer2.setText("B" + ". " + question.getAnswer2());
 
-                    if (question.getCurrectAnswer().equals(question.getAnswer2())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType1);
-                    }
                     answerList.addView(answerView1);
 
                     break;
@@ -107,19 +128,23 @@ public class ReviewResultFragment extends Fragment {
                             container, false);
                     ImageView imageType2 = answerView2.findViewById(R.id.review_question_image);
 
+
                     TextView answer3 = answerView2.findViewById(R.id.answertext);
                     answer3.setText("C" + ". " + question.getAnswer3());
-                    if (question.getCurrectAnswer().equals(question.getAnswer3())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType2);
+                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer3())) {
+                        imageType2.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
+                        answer3.setTextColor(getResources().getColor(R.color.green));
+                    }
+                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer3())) {
+                       /* if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
+                            imageType2.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                            answer3.setTextColor(getResources().getColor(R.color.red));
+                        }
+                        else {*/
+                        imageType2.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                        answer3.setTextColor(getResources().getColor(R.color.red));
 
                     }
-                   /* if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer3())) {
-                        if (question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType2);
-
-                        }
-
-                    }*/
                     answerList.addView(answerView2);
                     break;
                 case 4:
@@ -127,11 +152,21 @@ public class ReviewResultFragment extends Fragment {
                             container, false);
                     TextView answer4 = answerView3.findViewById(R.id.answertext);
                     ImageView imageType3 = answerView3.findViewById(R.id.review_question_image);
-
-                    answer4.setText("D" + ". " + question.getAnswer4());
-                    if (question.getCurrectAnswer().equals(question.getAnswer4())) {
-                        Picasso.with(getContext()).load(R.drawable.right_answer_icon).into(imageType3);
+                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer4())) {
+                        imageType3.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
+                        answer4.setTextColor(getResources().getColor(R.color.green));
                     }
+                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer4())) {
+                       /* if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
+                            imageType3.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                            answer4.setTextColor(getResources().getColor(R.color.red));
+                        }
+                        else {*/
+                        imageType3.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                        answer4.setTextColor(getResources().getColor(R.color.red));
+                    }
+                    answer4.setText("D" + ". " + question.getAnswer4());
+
                     answerList.addView(answerView3);
 
                     break;
@@ -146,7 +181,6 @@ public class ReviewResultFragment extends Fragment {
                         public void onPageStarted(WebView view, String url, Bitmap favicon) {
                             super.onPageStarted(view, url, favicon);
 
-                            // Toast.makeText(MainActivity.this, "Page Started", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

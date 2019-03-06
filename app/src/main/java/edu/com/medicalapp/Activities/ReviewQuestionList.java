@@ -36,7 +36,7 @@ public class ReviewQuestionList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_question_list);
         recyclerView = findViewById(R.id.recycler);
-        imageBack=findViewById(R.id.back);
+        imageBack = findViewById(R.id.back);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,16 +48,17 @@ public class ReviewQuestionList extends AppCompatActivity {
     }
 
     private void getReviewTest() {
-        String userId ;
+        String userId;
         String testId;
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+       /* if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
 
         }
-
-        testId = getIntent().getStringExtra("id");
+*/
+        userId = "1";
+        testId = "6";
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
@@ -80,13 +81,13 @@ public class ReviewQuestionList extends AppCompatActivity {
                                     reviewQuestionListAdapter.setReviewDetails(reviewResult.getDetail());
 
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                                  reviewQuestionListAdapter.setReviewClickListener(new ReviewQuestionListAdapter.ReviewOnClickListener() {
+                                    reviewQuestionListAdapter.setReviewClickListener(new ReviewQuestionListAdapter.ReviewOnClickListener() {
                                         @Override
                                         public void onReviewClick(int position) {
                                             Intent intent = new Intent(getApplicationContext(), ReviewresulActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra("list", reviewResult);
-                                            intent.putExtra("position",position);
+                                            intent.putExtra("position", position);
                                             startActivity(intent);
                                         }
                                     });
@@ -96,13 +97,13 @@ public class ReviewQuestionList extends AppCompatActivity {
                                     Toast.makeText(ReviewQuestionList.this, "No Data", Toast.LENGTH_SHORT).show();
                                 }
                             }
-                            Toast.makeText(ReviewQuestionList.this, "Invalid Status", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(ReviewQuestionList.this, "Invalid Status", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(ReviewQuestionList.this, "Invalid Data", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(ReviewQuestionList.this, "Invalid Data", Toast.LENGTH_SHORT).show();
                         }
                     }
 
-                    Toast.makeText(ReviewQuestionList.this, "Response Failed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ReviewQuestionList.this, "Response Failed", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

@@ -6,17 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.com.medicalapp.Activities.BookmarkActivity;
 import edu.com.medicalapp.Activities.QbankSubActivity;
 import edu.com.medicalapp.Adapters.QbankAdapter;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
@@ -36,6 +39,9 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @BindView(R.id.bookmark_cardview)
+    CardView bookmarkedCardView;
     private QbankResponse qbankResponse;
 
     @Override
@@ -68,7 +74,22 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
         View view = inflater.inflate(R.layout.qbankfragment, container, false);
         ButterKnife.bind(this,view);
         getQbankData();
+        bookmarkedCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookmarkData();
+            }
+        });
+        /*ProgressBar progressBar=view.findViewById(R.id.progress_bar);
+        progressBar.setProgress(25);*/
         return view;
+    }
+
+    private void bookmarkData() {
+        Intent intent=new Intent(getActivity(), BookmarkActivity.class);
+        startActivity(intent);
+
+
     }
 
     private void getQbankData() {
