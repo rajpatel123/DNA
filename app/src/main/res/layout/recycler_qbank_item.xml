@@ -73,6 +73,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/orange" />
                     <ProgressBar
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="?android:attr/progressBarStyleHorizontal"

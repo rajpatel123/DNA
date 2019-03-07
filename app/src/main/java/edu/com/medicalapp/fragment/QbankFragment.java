@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.com.medicalapp.Activities.BookmarkActivity;
 import edu.com.medicalapp.Activities.QbankSubActivity;
+import edu.com.medicalapp.Activities.WebViewActivity;
 import edu.com.medicalapp.Adapters.QbankAdapter;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.R;
@@ -32,6 +33,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class QbankFragment extends Fragment implements FragmentLifecycle {
+
+
+    @BindView(R.id.readmore)
+    TextView textRead;
 
 
     @BindView(R.id.noInternet)
@@ -62,8 +67,15 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onResume() {
         super.onResume();
-        getQbankData();
-
+         getQbankData();
+         textRead.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                 intent.putExtra("title","readmore");
+                 startActivity(intent);
+             }
+         });
 
     }
 
@@ -74,12 +86,12 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
         View view = inflater.inflate(R.layout.qbankfragment, container, false);
         ButterKnife.bind(this,view);
         getQbankData();
-        bookmarkedCardView.setOnClickListener(new View.OnClickListener() {
+       /* bookmarkedCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bookmarkData();
             }
-        });
+        });*/
         /*ProgressBar progressBar=view.findViewById(R.id.progress_bar);
         progressBar.setProgress(25);*/
         return view;

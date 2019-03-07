@@ -43,6 +43,7 @@ public class ResultActivity extends AppCompatActivity {
     private Button reviewButton, shareButton;
     private CircleSeekBar circleSeekBar;
     String user_id;
+    String tquestion,average,canswer,wanswer,sanswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +87,12 @@ public class ResultActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String average = intent.getStringExtra("average");
+         average = intent.getStringExtra("average");
         String userid = intent.getStringExtra("user_Id");
-        String tquestion = intent.getStringExtra("tquestion");
-        String canswer = intent.getStringExtra("canswer");
-        String wanswer = intent.getStringExtra("wanswer");
-        String sanswer = intent.getStringExtra("sanswer");
+         tquestion = intent.getStringExtra("tquestion");
+       canswer = intent.getStringExtra("canswer");
+         wanswer = intent.getStringExtra("wanswer");
+        sanswer = intent.getStringExtra("sanswer");
         String testName = intent.getStringExtra("testName");
 
 
@@ -112,6 +113,7 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent intent = new Intent(ResultActivity.this, ReviewQuestionList.class);
         intent.putExtra("id", test_id);
+        intent.putExtra("tquestion",tquestion);
         startActivity(intent);
     }
 

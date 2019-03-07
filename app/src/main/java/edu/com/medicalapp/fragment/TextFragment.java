@@ -62,8 +62,6 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-
     }
 
     private void setupTabIcons() {
@@ -82,8 +80,6 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
         TextView tabFour = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
         tabFour.setText("SWT");
         tabLayout.getTabAt(3).setCustomView(tabFour);
-
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -110,7 +106,6 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
     public void onResumeFragment() {
         viewPager = getView().findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
         tabLayout = getView().findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -145,8 +140,6 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-
-
     }
 
 

@@ -103,6 +103,11 @@ public class WebViewActivity extends AppCompatActivity {
                 mWebView.loadUrl("https://termsfeed.com/blog/privacy-policy-url-facebook-app/");
                 break;
 
+            case "readmore":
+                progressBar.setVisibility(View.VISIBLE);
+                mWebView.loadUrl("http://www.readingrockets.org/article/reading-information");
+                break;
+
 
         }
     }

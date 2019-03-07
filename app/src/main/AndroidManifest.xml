@@ -14,11 +14,12 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.BookmarkActivity"
-            android:theme="@style/AppTheme5"
-            android:screenOrientation="portrait"
+        <activity android:name=".Activities.QbankTestActivity"></activity>
+        <activity
+            android:name=".Activities.BookmarkActivity"
             android:label="MCQ Bookmarks"
-            ></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.QbankStartTestActivity"
             android:parentActivityName=".Activities.QbankSubActivity"

@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".Activities.ReviewQuestionList">
 
+
+
     <LinearLayout
         android:padding="10dp"
         android:background="@color/colorAccent"
@@ -25,7 +27,7 @@
             android:layout_marginLeft="50dp"
             android:textColor="@color/white"
             android:gravity="center"
-          android:layout_gravity="center"
+            android:layout_gravity="center"
             android:text="All"
             android:textSize="20dp"
             android:drawableRight="@drawable/reviewtext_all_bottom_icon"
@@ -34,11 +36,51 @@
             />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relative_head"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabPadding="8sp"
+            app:tabIndicatorColor="@color/orange"
+            app:tabIndicatorHeight="4sp"
+            app:tabMode="scrollable" />
+        <!-- </android.support.design.widget.AppBarLayout>-->
+        <View
+            android:id="@+id/tabBarShadow"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shape_gradient_top_shadow" />
+    </LinearLayout>
+
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tablayout">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </LinearLayout>
+
+<!--
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
+       android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.RecyclerView>-->
 
 </LinearLayout>
