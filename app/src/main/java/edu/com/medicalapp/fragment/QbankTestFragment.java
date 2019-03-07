@@ -2,6 +2,7 @@ package edu.com.medicalapp.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.com.medicalapp.Activities.QbankTestActivity;
 import edu.com.medicalapp.Models.QbankTest.QbankTest;
+import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.qbank.Detail;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.R;
@@ -29,7 +33,7 @@ public class QbankTestFragment extends Fragment {
         QbankTestFragment qbankTestFragment=new QbankTestFragment();
         Bundle args=new Bundle();
         args.putInt("val", position);
-        args.putParcelable("question", qbankTest);
+        args.putParcelable("question",qbankTest);
         qbankTestFragment.setArguments(args);
         return qbankTestFragment;
 

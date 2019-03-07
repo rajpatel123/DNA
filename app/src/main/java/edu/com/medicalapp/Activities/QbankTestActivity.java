@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,15 +22,18 @@ import edu.com.medicalapp.fragment.ReviewResultFragment;
 
 public class QbankTestActivity extends AppCompatActivity {
 
-    ReviewresulActivity.MyAdapter mAdapter;
+   MyAdapter mAdapter;
     ViewPager mPager;
     TextView quesionCounter;
     static int currentPosition;
     List<QbankTestResponse> qbankResponse=new ArrayList<>();
+    List<QbankTest> qbankTests=new ArrayList<>();
+    ImageView imageViewCancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_test);
+        imageViewCancel=findViewById(R.id.btnCancel);
 
         for(int i=0;i<=100;i++)
         {
@@ -39,9 +43,20 @@ public class QbankTestActivity extends AppCompatActivity {
            qbankTest.setAnswer2("JAVA");
            qbankTest.setAnswer3("SQL");
            qbankTest.setAnswer4("None Of These");
-
-
+           qbankTests.add(qbankTest);
+           QbankTestResponse qbankTestResponse=new QbankTestResponse();
+           qbankTestResponse.setDetails(qbankTests);
+           qbankResponse.add(qbankTestResponse);
         }
+       // mAdapter=new MyAdapter(getSupportFragmentManager(),qbankResponse,quesionCounter);
+        mPager = (ViewPager) findViewById(R.id.pager2);
+        mPager.addOnPageChangeListener(pageChangeListener);
+        mPager.setAdapter(mAdapter);
+
+
+
+
+
     }
 
 

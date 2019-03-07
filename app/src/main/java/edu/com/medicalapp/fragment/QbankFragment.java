@@ -72,7 +72,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
              @Override
              public void onClick(View v) {
                  Intent intent=new Intent(getActivity(), WebViewActivity.class);
-                 intent.putExtra("title","readmore");
+                 intent.putExtra("title","Read More");
                  startActivity(intent);
              }
          });
