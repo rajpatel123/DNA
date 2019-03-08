@@ -36,21 +36,19 @@ android {
     buildTypes {
         release {
             def uatSigningKey = signingConfigs.dna
-
             signingConfig uatSigningKey
             multiDexEnabled true
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"http://akwebtech.com/demo/education/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://reddyenterprise.com/education/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
             multiDexEnabled true
-            buildConfigField "String", "API_SERVER_IP", "\"http://akwebtech.com/demo/education/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://reddyenterprise.com/education/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     repositories {
         jcenter();
         mavenCentral();

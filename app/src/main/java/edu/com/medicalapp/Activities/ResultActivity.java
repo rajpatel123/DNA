@@ -144,9 +144,6 @@ public class ResultActivity extends AppCompatActivity {
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setAdapter(resultAdapter);
 
-
-
-
                         } else {
                             Toast.makeText(ResultActivity.this, "Invalid Status", Toast.LENGTH_SHORT).show();
                         }

@@ -53,10 +53,6 @@ public class QbankTestActivity extends AppCompatActivity {
         mPager.addOnPageChangeListener(pageChangeListener);
         mPager.setAdapter(mAdapter);
 
-
-
-
-
     }
 
 

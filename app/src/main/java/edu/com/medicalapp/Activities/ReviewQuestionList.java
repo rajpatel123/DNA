@@ -91,8 +91,8 @@ public class ReviewQuestionList extends AppCompatActivity {
             //            adapter.addFragment(new TwoFragment(), "TWO");
             viewPager.setAdapter(adapter);
             viewPager.setCurrentItem(i);
-        }
 
+        }
 
     }
 
@@ -103,8 +103,6 @@ public class ReviewQuestionList extends AppCompatActivity {
             //i = i + 4;
             tabLayout.getTabAt(i).setCustomView(tabOne);
         }
-
-
     }
 
     public class ReviewViewPagerAdapter extends FragmentPagerAdapter {
@@ -122,7 +120,6 @@ public class ReviewQuestionList extends AppCompatActivity {
 
         @Override
         public int getCount() {
-
             return mFragmentList.size();
         }
 
