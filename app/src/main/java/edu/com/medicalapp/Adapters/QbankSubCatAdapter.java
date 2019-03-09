@@ -48,7 +48,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
       if (detailList.get(holder.getAdapterPosition()).getSubCat() != null && detailList.get(holder.getAdapterPosition()).getSubCat().size() > 0) {
             for (int j = 0; j < detailList.get(holder.getAdapterPosition()).getSubCat().size(); j++) {
                 holder.subTitle.setText(""+detailList.get(holder.getAdapterPosition()).getSubCat().get(j).getModuleName());
-                holder.subTotalQuestion.setText(""+detailList.get(holder.getAdapterPosition()).getSubCat().get(j).getTotalmcq());
+                holder.subTotalQuestion.setText(""+detailList.get(holder.getAdapterPosition()).getSubCat().get(j).getTotalmcq()+" MCQ's");
             }
         }
     }
