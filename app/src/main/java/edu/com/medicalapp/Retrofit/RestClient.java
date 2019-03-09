@@ -33,8 +33,8 @@ public class RestClient {
         RetrofitClient.getClient().loginUser(email, password).enqueue(callback);
     }
 
-    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id,RequestBody phone, RequestBody statetxt, RequestBody password, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(name, username, email_id,phone,statetxt, password).enqueue(callback);
+    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password).enqueue(callback);
     }
 
     public static void facebookRegister(RequestBody name, RequestBody email_id, RequestBody fb_id, Callback<FacebookResponse> callback) {
@@ -60,8 +60,8 @@ public class RestClient {
 
 
     public static void submitTest(String user_id, String test_id,
-                                  String tquestion,String ttquestion, String canswer,String ccanswer, String wanswer,String wwanswer, String sanswer,String ssanswer, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion,ttquestion, canswer,ccanswer,wanswer,wwanswer, sanswer,ssanswer).enqueue(callback);
+                                  String tquestion, String ttquestion, String canswer, String ccanswer, String wanswer, String wwanswer, String sanswer, String ssanswer, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, ttquestion, canswer, ccanswer, wanswer, wwanswer, sanswer, ssanswer).enqueue(callback);
 
     }
 
@@ -85,16 +85,20 @@ public class RestClient {
         RetrofitClient.getClient().qbankDetail().enqueue(callback);
     }
 
-    public static void qbanksubData(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
+   /* public static void qbanksubData(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
         RetrofitClient.getClient().qbanksubData(qcat_id).enqueue(callback);
+    }*/
+
+    public static void qbanksubdata(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
+        RetrofitClient.getClient().qbanksubdata(qcat_id).enqueue(callback);
     }
 
-    public static void sendOtp(RequestBody phone,Callback<CommonResponse> callback) {
+    public static void sendOtp(RequestBody phone, Callback<CommonResponse> callback) {
         RetrofitClient.getClient().sendOtp(phone).enqueue(callback);
     }
 
     public static void verifyOtp(RequestBody userid, RequestBody code, Callback<VerifyOtpResponse> callback) {
-        RetrofitClient.getClient().verifyOTP(userid,code).enqueue(callback);
+        RetrofitClient.getClient().verifyOTP(userid, code).enqueue(callback);
 
     }
 }

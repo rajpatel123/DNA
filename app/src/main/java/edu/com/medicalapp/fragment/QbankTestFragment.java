@@ -82,7 +82,7 @@ public class QbankTestFragment extends Fragment {
                  case 2:
                      View answer2 = inflater.inflate(R.layout.qbank_item_test, container, false);
                      questionTestList=answer2.findViewById(R.id.qbank_answer);
-                     questionTestList.setText("A." +question.getAnswer2());
+                     questionTestList.setText("B." +question.getAnswer2());
                      answerList.addView(answer2);
                      break;
 
@@ -90,13 +90,13 @@ public class QbankTestFragment extends Fragment {
 
                      View answer3 = inflater.inflate(R.layout.qbank_item_test, container, false);
                      questionTestList=answer3.findViewById(R.id.qbank_answer);
-                     questionTestList.setText("A." +question.getAnswer3());
+                     questionTestList.setText("C." +question.getAnswer3());
                      answerList.addView(answer3);
                      break;
                  case 4:
                      View answer4 = inflater.inflate(R.layout.qbank_item_test, container, false);
                      questionTestList=answer4.findViewById(R.id.qbank_answer);
-                     questionTestList.setText("A." +question.getAnswer4());
+                     questionTestList.setText("D." +question.getAnswer4());
                      answerList.addView(answer4);
                      break;
 

@@ -48,13 +48,14 @@ public class ReviewQuestionList extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     String totalQuestion;
+    static int currentPosition;
     int total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_question_list);
-       // recyclerView = findViewById(R.id.recycler);
+        // recyclerView = findViewById(R.id.recycler);
         imageBack = findViewById(R.id.back);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,34 +81,66 @@ public class ReviewQuestionList extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+        //setupTabIcons();
     }
 
     private void setupViewPager(ViewPager viewPager) {
 
-       ReviewViewPagerAdapter adapter = new ReviewViewPagerAdapter(getSupportFragmentManager());
-        for(int i=0;i<total;i++){
-            adapter.addFrag(new ReviewQuestionListFragment(),"");
-            //            adapter.addFragment(new TwoFragment(), "TWO");
-            viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(i);
+        ReviewViewPagerAdapter adapter = new ReviewViewPagerAdapter(getSupportFragmentManager());
+        for (int i = 0; i < (total / 2); i++) {
 
+            ReviewQuestionListFragment reviewQuestionListFragment = new ReviewQuestionListFragment();
+            View view = reviewQuestionListFragment.getView();
+
+            TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
+            tabOne.setText(String.valueOf(i + 1) + "-" + String.valueOf(i + 5));
+            adapter.addFrag(reviewQuestionListFragment, "" + String.valueOf(i + 1) + "-" + String.valueOf(i + 5));
+            i = i + 4;
         }
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(0);
+        viewPager.addOnPageChangeListener(pageChangeListener);
+        adapter.getItem(viewPager.getCurrentItem());
+
+
+        // viewPager.setCurrentItem();
 
     }
 
-    private void setupTabIcons() {
+   /* private void setupTabIcons() {
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
-        for (int i = 0; i <total; i++) {
-           tabOne.setText(String.valueOf(i + 1) + "-" + String.valueOf(i + 5));
+        for (int i = 0; i < total; i++) {
+            tabOne.setText(String.valueOf(i + 1) + "-" + String.valueOf(i + 5));
             //i = i + 4;
             tabLayout.getTabAt(i).setCustomView(tabOne);
         }
-    }
+    }*/
+
+
+    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int newPosition) {
+
+            currentPosition = newPosition;
+            // quesionCounter.setText(((newPosition + 1) + " of " + reviewResult.getDetail().size());
+
+        }
+
+        @Override
+        public void onPageScrolled(int newPosition, float arg1, int arg2) {
+        }
+
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+    };
+
 
     public class ReviewViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
+
 
         public ReviewViewPagerAdapter(FragmentManager manager) {
             super(manager);
@@ -167,7 +200,6 @@ public class ReviewQuestionList extends AppCompatActivity {
                                     Log.d("Api Response :", "Got Success from Api");
                                     ReviewQuestionListAdapter reviewQuestionListAdapter = new ReviewQuestionListAdapter(getApplicationContext());
                                     reviewQuestionListAdapter.setReviewDetails(reviewResult.getDetail());
-
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                                     reviewQuestionListAdapter.setReviewClickListener(new ReviewQuestionListAdapter.ReviewOnClickListener() {
                                         @Override
@@ -190,7 +222,6 @@ public class ReviewQuestionList extends AppCompatActivity {
                             // Toast.makeText(ReviewQuestionList.this, "Invalid Data", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     //Toast.makeText(ReviewQuestionList.this, "Response Failed", Toast.LENGTH_SHORT).show();
                 }
 
@@ -206,4 +237,6 @@ public class ReviewQuestionList extends AppCompatActivity {
             Toast.makeText(this, "Internet Connection Failed!!", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

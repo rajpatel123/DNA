@@ -18,6 +18,7 @@ import edu.com.medicalapp.utils.DnaPrefs;
 
 public class TestStartActivity extends AppCompatActivity  {
 
+
     @BindView(R.id.test_topic)
     TextView testTopic;
 
@@ -26,7 +27,6 @@ public class TestStartActivity extends AppCompatActivity  {
 
     @BindView(R.id.btn_Start)
     Button btnStart;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -58,7 +58,8 @@ public class ReviewresulActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 if (currentPosition > 0) {
-                    quesionCounter.setText((currentPosition - 1) + " of " + reviewResult.getDetail().size());
+                    quesionCounter.setText(""+(currentPosition-1));
+                    //quesionCounter.setText((currentPosition - 1) + " of " + reviewResult.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
                 }
 
@@ -68,8 +69,8 @@ public class ReviewresulActivity extends FragmentActivity {
         rightTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                quesionCounter.setText((currentPosition + 1) + " of " + reviewResult.getDetail().size());
+                  quesionCounter.setText(""+(currentPosition+1));
+               // quesionCounter.setText((currentPosition + 1) + " of " + reviewResult.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
 
             }
@@ -132,7 +133,8 @@ public class ReviewresulActivity extends FragmentActivity {
         @Override
         public void onPageSelected(int newPosition) {
             currentPosition = newPosition;
-            quesionCounter.setText((newPosition + 1) + " of " + reviewResult.getDetail().size());
+            quesionCounter.setText(""+(newPosition+1));
+           // quesionCounter.setText(((newPosition + 1) + " of " + reviewResult.getDetail().size());
 
         }
 
@@ -141,9 +143,9 @@ public class ReviewresulActivity extends FragmentActivity {
         }
 
         public void onPageScrollStateChanged(int arg0) {
+
         }
     };
-
 
     public static class MyAdapter extends FragmentPagerAdapter {
         ReviewResult reviewResult = null;
@@ -165,9 +167,9 @@ public class ReviewresulActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
+            quesionCounter.setText(""+(position));
+            //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
             return ReviewResultFragment.init(reviewResult.getDetail().get(position), position);
         }
     }
 }
-

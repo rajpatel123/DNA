@@ -87,11 +87,6 @@ public class ReviewResultFragment extends Fragment {
                         answer1.setTextColor(getResources().getColor(R.color.green));
                     }
                     if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer1())) {
-                        /*if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer1.setTextColor(getResources().getColor(R.color.red));
-                        }
-                        else {*/
                         imageType.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
                         answer1.setTextColor(getResources().getColor(R.color.red));
 
@@ -108,42 +103,30 @@ public class ReviewResultFragment extends Fragment {
                         answer2.setTextColor(getResources().getColor(R.color.green));
                     }
                     if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer2())) {
-                       /* if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType1.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer2.setTextColor(getResources().getColor(R.color.red));
-                        }
-                        else {*/
                         imageType1.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
                         answer2.setTextColor(getResources().getColor(R.color.red));
-
                     }
-
                     answer2.setText("B" + ". " + question.getAnswer2());
-
                     answerList.addView(answerView1);
-
                     break;
                 case 3:
                     View answerView2 = inflater.inflate(R.layout.review_list_item,
                             container, false);
                     ImageView imageType2 = answerView2.findViewById(R.id.review_question_image);
-
-
                     TextView answer3 = answerView2.findViewById(R.id.answertext);
                     answer3.setText("C" + ". " + question.getAnswer3());
                     if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer3())) {
                         imageType2.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
                         answer3.setTextColor(getResources().getColor(R.color.green));
                     }
+
                     if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer3())) {
-                       /* if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType2.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer3.setTextColor(getResources().getColor(R.color.red));
-                        }
-                        else {*/
                         imageType2.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
                         answer3.setTextColor(getResources().getColor(R.color.red));
-
+                    }
+                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer3())) {
+                        imageType2.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
+                        answer3.setTextColor(getResources().getColor(R.color.red));
                     }
                     answerList.addView(answerView2);
                     break;
@@ -157,18 +140,11 @@ public class ReviewResultFragment extends Fragment {
                         answer4.setTextColor(getResources().getColor(R.color.green));
                     }
                     if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer4())) {
-                       /* if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType3.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer4.setTextColor(getResources().getColor(R.color.red));
-                        }
-                        else {*/
                         imageType3.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
                         answer4.setTextColor(getResources().getColor(R.color.red));
                     }
                     answer4.setText("D" + ". " + question.getAnswer4());
-
                     answerList.addView(answerView3);
-
                     break;
                 case 5:
                     View answerView4 = inflater.inflate(R.layout.review_explanation_recycler_view,
@@ -192,7 +168,7 @@ public class ReviewResultFragment extends Fragment {
                             // Toast.makeText(MainActivity.this, "Page Loaded", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    webView.loadUrl("https://www.earthorganic.co.in/");
+                    webView.loadUrl("http://www.dnaftb.org/");
                     answerList.addView(answerView4);
                     break;
             }

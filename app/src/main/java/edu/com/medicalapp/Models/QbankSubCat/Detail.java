@@ -1,43 +1,64 @@
 package edu.com.medicalapp.Models.QbankSubCat;
-
-
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Detail {
 
-@SerializedName("subcat_id")
+@SerializedName("id")
 @Expose
-private String subcatId;
-@SerializedName("subcat_name")
+private String id;
+@SerializedName("cat_id")
 @Expose
-private String subcatName;
-@SerializedName("subcat_image")
+private String catId;
+@SerializedName("sub_cat_name")
 @Expose
-private String subcatImage;
+private String subCatName;
+@SerializedName("image")
+@Expose
+private String image;
+@SerializedName("sub_cat")
+@Expose
+private List<SubCat> subCat = null;
 
-public String getSubcatId() {
-return subcatId;
+public String getId() {
+return id;
 }
 
-public void setSubcatId(String subcatId) {
-this.subcatId = subcatId;
+public void setId(String id) {
+this.id = id;
 }
 
-public String getSubcatName() {
-return subcatName;
+public String getCatId() {
+return catId;
 }
 
-public void setSubcatName(String subcatName) {
-this.subcatName = subcatName;
+public void setCatId(String catId) {
+this.catId = catId;
 }
 
-public String getSubcatImage() {
-return subcatImage;
+public String getSubCatName() {
+return subCatName;
 }
 
-public void setSubcatImage(String subcatImage) {
-this.subcatImage = subcatImage;
+public void setSubCatName(String subCatName) {
+this.subCatName = subCatName;
+}
+
+public String getImage() {
+return image;
+}
+
+public void setImage(String image) {
+this.image = image;
+}
+
+public List<SubCat> getSubCat() {
+return subCat;
+}
+
+public void setSubCat(List<SubCat> subCat) {
+this.subCat = subCat;
 }
 
 }

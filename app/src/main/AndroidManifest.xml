@@ -14,7 +14,9 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QbankTestActivity"></activity>
+        <activity android:name=".Activities.QbankTestActivity"
+            android:theme="@style/AppTheme6"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activities.BookmarkActivity"
             android:label="MCQ Bookmarks"
@@ -22,6 +24,7 @@
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.QbankStartTestActivity"
+            android:label="Amino acid:Metabolism"
             android:parentActivityName=".Activities.QbankSubActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />

@@ -83,14 +83,14 @@
                                         <ImageView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:src="@drawable/faculty_icon"
+                                            android:src="@drawable/faculty"
                                             />
 
 
                     <TextView
                         android:id="@+id/faculty_quotes"
                         android:paddingBottom="15sp"
-                        android:paddingTop="10sp"
+                        android:paddingTop="15sp"
                         android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

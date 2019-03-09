@@ -41,15 +41,16 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        Detail detail = qbankDetailList.get(0);
+        Detail detail = qbankDetailList.get(i);
         holder.textName.setText(detail.getCatName());
+        holder.totalQuestion.setText("0"+"/"+detail.getTotalmodules()+"modules Completed");
         Picasso.with(applicationContext).load(detail.getCatImage()).error(R.drawable.biology).into(holder.imageView);
 
        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (qbankClickListner != null) {
-                    qbankClickListner.onQbankClick(holder.getAdapterPosition(),detail.getCatId());
+                    qbankClickListner.onQbankClick(holder.getAdapterPosition(),detail.getCatId(),detail.getCatName());
                 }
             }
         });
@@ -72,7 +73,9 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textName;
+
+
+        TextView textName,totalQuestion;
         ImageView imageView;
         CardView cardView;
 
@@ -80,12 +83,13 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
             super(itemView);
             imageView = itemView.findViewById(R.id.test_image1);
             textName = itemView.findViewById(R.id.testName);
+            totalQuestion=itemView.findViewById(R.id.total_question1);
             cardView = itemView.findViewById(R.id.cardview);
         }
     }
 
     public interface QbankClickListner {
-        public void onQbankClick(int postion, String id);
+        public void onQbankClick(int postion, String id,String name);
 
     }
 }

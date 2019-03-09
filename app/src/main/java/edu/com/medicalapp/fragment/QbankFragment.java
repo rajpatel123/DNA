@@ -123,9 +123,10 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
 
                                 qbankAdapter.setQbankClickListner(new QbankAdapter.QbankClickListner() {
                                     @Override
-                                    public void onQbankClick(int postion, String id) {
+                                    public void onQbankClick(int postion, String id,String name) {
                                         Intent intent = new Intent(getActivity(), QbankSubActivity.class);
                                         intent.putExtra("cat_id",id);
+                                        intent.putExtra("cat_name",name);
                                         startActivity(intent);
                                     }
                                 });

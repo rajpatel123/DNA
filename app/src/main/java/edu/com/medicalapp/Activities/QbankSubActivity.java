@@ -33,10 +33,23 @@ public class QbankSubActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    public String qbankcat_id;
+    public String qbankcat_name;
+    TextView toolbarName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_sub);
+        toolbarName = findViewById(R.id.qbank_subcategory_name);
+
+        if (getIntent().hasExtra("cat_id")) {
+            qbankcat_id = getIntent().getStringExtra("cat_id");
+            qbankcat_name = getIntent().getStringExtra("cat_name");
+
+        }
+        toolbarName.setText(qbankcat_name);
 
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,17 +59,15 @@ public class QbankSubActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        viewPager=(ViewPager)findViewById(R.id.qbank_viewpager);
+        viewPager = (ViewPager) findViewById(R.id.qbank_viewpager);
         setupViewPager(viewPager);
 
-        tabLayout=(TabLayout)findViewById(R.id.qbank_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.qbank_tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
@@ -89,12 +100,12 @@ public class QbankSubActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
 
-        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFrag(new QbankAllFragment(),"All");
-        viewPagerAdapter.addFrag(new QbankPausedFragment(),"Paused");
-        viewPagerAdapter.addFrag(new QbankCompletedFragment(),"Completed");
-        viewPagerAdapter.addFrag(new QbankUnattemptedFragment(),"Unattempted");
-        viewPagerAdapter.addFrag(new QbankFreeFragment(),"Free");
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFrag(new QbankAllFragment(), "All");
+        viewPagerAdapter.addFrag(new QbankPausedFragment(), "Paused");
+        viewPagerAdapter.addFrag(new QbankCompletedFragment(), "Completed");
+        viewPagerAdapter.addFrag(new QbankUnattemptedFragment(), "Unattempted");
+        viewPagerAdapter.addFrag(new QbankFreeFragment(), "Free");
         viewPager.setAdapter(viewPagerAdapter);
 
 

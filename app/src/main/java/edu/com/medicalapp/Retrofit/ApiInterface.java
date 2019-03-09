@@ -13,8 +13,6 @@ import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
 import edu.com.medicalapp.Models.maincat.CategoryDetailData;
 import edu.com.medicalapp.Models.registration.CommonResponse;
-import edu.com.medicalapp.Models.test.TestQuestionData;
-import edu.com.medicalapp.Models.video.VideoList;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -103,9 +101,15 @@ public interface ApiInterface {
     Call<QbankResponse> qbankDetail();
 
 
-    @Multipart
+    /*@Multipart
     @POST("api/api.php?req=qbank_subcate")
     Call<QbankSubResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
+
+*/
+
+    @Multipart
+     @POST("api/api.php?req=qbank_subcate")
+    Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id);
 
 
 
