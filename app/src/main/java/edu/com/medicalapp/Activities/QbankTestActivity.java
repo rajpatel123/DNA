@@ -1,36 +1,30 @@
 package edu.com.medicalapp.Activities;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.com.medicalapp.Models.QbankSubTest.QbankTestResponse;
-import edu.com.medicalapp.Models.QbankTest.QbankTest;
-import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
-import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.QbankTestFragment;
-import edu.com.medicalapp.fragment.ReviewResultFragment;
 import edu.com.medicalapp.utils.Utils;
+import edu.com.medicalapp.views.CustomViewPager;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,46 +32,82 @@ import retrofit2.Response;
 public class QbankTestActivity extends AppCompatActivity {
 
     MyAdapter mAdapter;
-    ViewPager mPager;
+    CustomViewPager mPager;
     TextView quesionCounter;
     static int currentPosition;
     private QbankTestResponse qbankTestResponse;
     ImageView imageViewCancel;
     ProgressBar mProgressBar;
     CountDownTimer mCountDownTimer;
-    int i = 0;
+    int progress = 100;
+    LinearLayout linearBottom;
+    Button nextBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_test);
         imageViewCancel = findViewById(R.id.btnCancel);
+        linearBottom = findViewById(R.id.linearBottom);
+        nextBtn = findViewById(R.id.nextBtn);
         imageViewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPager.setCurrentItem(currentPosition+1);
+            }
+        });
+
+
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        mProgressBar.setProgress(100);
+        mProgressBar.setProgress(progress);
+
         mCountDownTimer = new CountDownTimer(20000, 500) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                Log.v("Log_tag", "Tick of Progress" + i + millisUntilFinished);
-                i++;
-                mProgressBar.setProgress((int) i);
+                Log.v("Log_tag", "Tick of Progress" + progress + millisUntilFinished);
+                progress--;
+                mProgressBar.setProgress((int) progress);
+
             }
+
             @Override
             public void onFinish() {
                 //Do what you want
                 //qbankgetTest();
-                i++;
-                mProgressBar.setProgress(100);
+                progress=100;
+                mProgressBar.setProgress(0);
+                linearBottom.setVisibility(View.VISIBLE);
+
+                showHideBottomLayout(true);
+
             }
         };
-        mCountDownTimer.start();
+
+
     }
+
+    private void showHideBottomLayout(boolean show) {
+        //TODO call submit answer api and visible layout on response
+        if (show){
+            linearBottom.setVisibility(View.VISIBLE);
+        }else{
+            linearBottom.setVisibility(View.GONE);
+
+        }
+
+    }
+
 
     @Override
     protected void onResume() {
@@ -98,16 +128,19 @@ public class QbankTestActivity extends AppCompatActivity {
                 public void onResponse(Call<QbankTestResponse> call, Response<QbankTestResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.isSuccessful()) {
+
                         if (response.body() != null)
                             qbankTestResponse = response.body();
-                        mAdapter = new MyAdapter(getSupportFragmentManager(), qbankTestResponse, quesionCounter);
-                        mPager = (ViewPager) findViewById(R.id.pager2);
+
+                        mAdapter = new MyAdapter(getSupportFragmentManager(), qbankTestResponse, quesionCounter, mProgressBar, mCountDownTimer);
+                        mPager = findViewById(R.id.pager2);
                         mPager.addOnPageChangeListener(pageChangeListener);
                         mPager.setAdapter(mAdapter);
                         mPager.setOnTouchListener(vOnTouchListener);
                         mPager.setHorizontalScrollBarEnabled(false);
                     }
                 }
+
                 @Override
                 public void onFailure(Call<QbankTestResponse> call, Throwable t) {
                     Toast.makeText(QbankTestActivity.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -139,11 +172,16 @@ public class QbankTestActivity extends AppCompatActivity {
     public static class MyAdapter extends FragmentPagerAdapter {
         QbankTestResponse qbankTestResponse;
         TextView quesionCounter;
+        ProgressBar mpProgressBar;
+        CountDownTimer countDownTimer;
 
-        public MyAdapter(FragmentManager fragmentManager, QbankTestResponse qbankTestResponse, TextView quesionCounter) {
+        public MyAdapter(FragmentManager fragmentManager, QbankTestResponse qbankTestResponse, TextView quesionCounter, ProgressBar mpProgressBar, CountDownTimer countDownTimer) {
             super(fragmentManager);
             this.qbankTestResponse = qbankTestResponse;
             this.quesionCounter = quesionCounter;
+            this.mpProgressBar = mpProgressBar;
+            this.countDownTimer = countDownTimer;
+
         }
 
 
@@ -155,11 +193,16 @@ public class QbankTestActivity extends AppCompatActivity {
                 return 0;
             }
         }
+
         @Override
         public Fragment getItem(int position) {
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
             // return ReviewResultFragment.init(qbankResponse.getDetails()., position);
             // return ReviewResultFragment.init(reviewResult.getDetail().get(position), position);
+            mpProgressBar.setMax(100);
+            mpProgressBar.setProgress(100);
+            countDownTimer.start();
+
             return QbankTestFragment.init(qbankTestResponse.getDetails().get(position), position);
         }
     }
