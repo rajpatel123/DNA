@@ -1,64 +1,57 @@
 package edu.com.medicalapp.views;
-
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.Scroller;
+import java.lang.reflect.Field;
 
 public class CustomViewPager extends ViewPager {
-    private int leftX, leftY, rightX, rightY;
-    private int lastItemIndex = -1;
-    private boolean disableSwipe = false;
 
-    public CustomViewPager(@NonNull Context context) {
+    public CustomViewPager(Context context) {
         super(context);
+        setMyScroller();
     }
 
-    public CustomViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setMyScroller();
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        try {
-            if (disableSwipe && (getCurrentItem() == lastItemIndex ||
-                    ev.getX() >= leftX && ev.getX() <= rightX && ev.getY() >= leftY && ev.getY() <= rightY)) {
-                return false;
-            } else {
-                return super.onInterceptTouchEvent(ev);
-            }
-        } catch (IllegalArgumentException e) {
-            return true;
-        }
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages 
+        return false;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages 
+        return false;
+    }
+
+    //down one is added for smooth scrolling 
+
+    private void setMyScroller() {
         try {
-            if (disableSwipe && (getCurrentItem() == lastItemIndex || ev.getX() >= leftX && ev.getX() <= rightX &&
-                    ev.getY() >= leftY && ev.getY() <= rightY)) {
-                return false;
-            } else {
-                return super.onTouchEvent(ev);
-            }
-        } catch (IllegalArgumentException e) {
-            return true;
+            Class<?> viewpager = ViewPager.class;
+            Field scroller = viewpager.getDeclaredField("mScroller");
+            scroller.setAccessible(true);
+            scroller.set(this, new MyScroller(getContext()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public class MyScroller extends Scroller {
+        public MyScroller(Context context) {
+            super(context, new DecelerateInterpolator());
         }
 
-
+        @Override
+        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+            super.startScroll(startX, startY, dx, dy, 350 /*1 secs*/);
+        }
     }
-
-
-    public void setRestrictedArea(int leftX, int leftY, int rightX, int rightY) {
-        this.leftX = leftX;
-        this.leftY = leftY;
-        this.rightX = rightX;
-        this.rightY = rightY;
-    }
-
-    public void disableSwipe(boolean disableSwipe) {
-        this.disableSwipe = disableSwipe;
-    }
-}
+} 

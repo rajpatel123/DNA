@@ -1,12 +1,12 @@
 package edu.com.medicalapp.Activities;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.fragment.BuynowFragment;
+import edu.com.medicalapp.fragment.CompleteFragment;
+import edu.com.medicalapp.fragment.FreeFragment;
+import edu.com.medicalapp.fragment.PausedFragment;
 import edu.com.medicalapp.fragment.QbankAllFragment;
 import edu.com.medicalapp.fragment.QbankCompletedFragment;
 import edu.com.medicalapp.fragment.QbankFreeFragment;
 import edu.com.medicalapp.fragment.QbankPausedFragment;
 import edu.com.medicalapp.fragment.QbankUnattemptedFragment;
-import edu.com.medicalapp.views.CustomViewPager;
+import edu.com.medicalapp.fragment.UnattemptedFragment;
 
 public class QbankSubActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
-    private CustomViewPager viewPager;
+    private ViewPager viewPager;
 
     public String qbankcat_id;
     public String qbankcat_name;
@@ -60,9 +64,9 @@ public class QbankSubActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        viewPager = findViewById(R.id.qbank_viewpager);
+        viewPager = (ViewPager) findViewById(R.id.qbank_viewpager);
         setupViewPager(viewPager);
-         viewPager.disableSwipe(true);
+
         tabLayout = (TabLayout) findViewById(R.id.qbank_tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
