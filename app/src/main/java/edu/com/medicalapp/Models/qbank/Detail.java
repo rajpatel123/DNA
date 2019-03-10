@@ -14,6 +14,9 @@ public class Detail {
     @SerializedName("totalmodules")
     @Expose
     private String totalmodules;
+    @SerializedName("completedmodules")
+    @Expose
+    private String completedmodules;
     @SerializedName("cat_image")
     @Expose
     private String catImage;
@@ -40,6 +43,14 @@ public class Detail {
 
     public void setTotalmodules(String totalmodules) {
         this.totalmodules = totalmodules;
+    }
+
+    public String getCompletedmodules() {
+        return completedmodules;
+    }
+
+    public void setCompletedmodules(String completedmodules) {
+        this.completedmodules = completedmodules;
     }
 
     public String getCatImage() {

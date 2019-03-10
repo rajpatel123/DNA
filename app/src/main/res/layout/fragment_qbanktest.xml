@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/app_bg"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <FrameLayout
@@ -20,8 +20,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
