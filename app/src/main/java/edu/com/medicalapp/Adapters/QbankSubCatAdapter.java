@@ -8,15 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
-import edu.com.medicalapp.Models.QbankSubCat.Detail;
+
+import edu.com.medicalapp.Models.qbank.QBank;
 import edu.com.medicalapp.R;
 
 public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.ViewHolder> {
 
 
     private Context applicationContext;
-    private List<Detail> detailList;
+    private List<QBank> detailList;
 
     public QbankSubCatAdapter() {
     }
@@ -26,7 +28,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     }
 
 
-    public void setDetailList(List<Detail> detailList) {
+    public void setDetailList(List<QBank> detailList) {
         this.detailList = detailList;
     }
 
@@ -39,19 +41,27 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        Detail detail = detailList.get(i);
-        for (int k = i; k < detailList.size(); k++) {
-            holder.title.setText("" + detailList.get(i).getSubCatName());
-            // holder.subTitle.setText(""+detailList.get(i).getSubCat().get(i).getModuleName());
-            if (detailList.get(holder.getAdapterPosition()).getSubCat() != null && detailList.get(holder.getAdapterPosition()).getSubCat().size() > 0) {
-                for (int j = 0; j < detailList.get(k).getSubCat().size(); j++) {
-                    holder.subTitle.setText("" + detailList.get(k).getSubCat().get(j).getModuleName());
-                    holder.subTotalQuestion.setText("" + detailList.get(k).getSubCat().get(j).getTotalmcq() + " MCQ's");
-                    holder.subRating.setText(""+detailList.get(k).getSubCat().get(j).getModuleId());
-                }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        QBank detail = detailList.get(position);
+        if (position==0){
+            holder.title.setText("" + detail.getSubCatName());
+            holder.title.setVisibility(View.VISIBLE);
+        }
+
+        if (position > 0) {
+            if (!detail.getSubCatName().equalsIgnoreCase(detailList.get(position - 1).getSubCatName())) {
+                holder.title.setText("" + detail.getSubCatName());
+                holder.title.setVisibility(View.VISIBLE);
+            } else {
+                holder.title.setVisibility(View.GONE);
             }
         }
+
+        holder.subTitle.setText("" + detail.getModuleName());
+        holder.itemNumber.setText("" +(position+1));
+        holder.subTotalQuestion.setText("" + detail.getTotalmcq() + " MCQ's");
+        holder.subRating.setText(""+detail.getModuleId());
+
     }
 
     @Override
