@@ -30,8 +30,9 @@
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+
         android:text="@string/nav_header_title"
         android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -41,7 +42,7 @@
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:text="@string/nav_header_subtitle" />
 
     <TextView
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/setting"
         android:tint="@color/white"
+        android:textAllCaps="false"
         android:gravity="center_vertical"
         android:text="@string/action_settings" />
 </LinearLayout>
