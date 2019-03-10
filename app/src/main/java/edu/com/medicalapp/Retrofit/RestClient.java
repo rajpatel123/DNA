@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Retrofit;
 
 import edu.com.medicalapp.Models.QbankSubCat.QbankSubResponse;
+import edu.com.medicalapp.Models.QbankSubTest.QbankTestResponse;
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
@@ -91,6 +92,10 @@ public class RestClient {
 
     public static void qbanksubdata(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
         RetrofitClient.getClient().qbanksubdata(qcat_id).enqueue(callback);
+    }
+
+    public static void qbanksubTestData(RequestBody qmodule_id, Callback<QbankTestResponse> callback) {
+        RetrofitClient.getClient().qbanksubTestData(qmodule_id).enqueue(callback);
     }
 
     public static void sendOtp(RequestBody phone, Callback<CommonResponse> callback) {

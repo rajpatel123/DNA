@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Retrofit;
 
 import edu.com.medicalapp.Models.QbankSubCat.QbankSubResponse;
+import edu.com.medicalapp.Models.QbankSubTest.QbankTestResponse;
 import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
@@ -44,13 +45,11 @@ public interface ApiInterface {
                                       @Part("state") RequestBody state,
                                       @Part("password") RequestBody password);
 
-
     @Multipart
     @POST("api/api.php?req=facebook")
     Call<FacebookResponse> facebookRegister(@Part("name") RequestBody name,
                                             @Part("email_id") RequestBody emailId,
                                              @Part("fb_id") RequestBody facebookbId);
-
 
 
     @GET("api/api.php?req=category")
@@ -112,6 +111,11 @@ public interface ApiInterface {
     Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id);
 
 
+
+
+    @Multipart
+    @POST("api/api.php?req=qbank_mcq")
+    Call<QbankTestResponse> qbanksubTestData(@Part("qmodule_id") RequestBody qmodule_id);
 
     @Multipart
     @POST("api/api.php?req=mobileverify")

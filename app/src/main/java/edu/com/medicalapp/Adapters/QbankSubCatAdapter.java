@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,11 +21,18 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     private Context applicationContext;
     private List<QBank> detailList;
 
+
+    private QbanksubListener qbanksubListener;
+
     public QbankSubCatAdapter() {
     }
 
     public QbankSubCatAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    public void setQbanksubListener(QbanksubListener qbanksubListener) {
+        this.qbanksubListener = qbanksubListener;
     }
 
 
@@ -43,7 +51,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         QBank detail = detailList.get(position);
-        if (position==0){
+        if (position == 0) {
             holder.title.setText("" + detail.getSubCatName());
             holder.title.setVisibility(View.VISIBLE);
         }
@@ -58,9 +66,19 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
         }
 
         holder.subTitle.setText("" + detail.getModuleName());
-        holder.itemNumber.setText("" +(position+1));
+        holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getTotalmcq() + " MCQ's");
-        holder.subRating.setText(""+detail.getModuleId());
+        holder.subRating.setText("" + detail.getModuleId());
+        holder.linearClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (qbanksubListener != null) {
+                    qbanksubListener.onQbankSubClick(detail.getModuleId(),detail.getModuleName());
+                }
+            }
+        });
+
 
     }
 
@@ -76,6 +94,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, subTitle, subRating, subTotalQuestion, itemNumber;
         ImageView subImage;
+        LinearLayout linearClick;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +104,13 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subRating = itemView.findViewById(R.id.rating);
             itemNumber = itemView.findViewById(R.id.index);
             subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);
+            linearClick = itemView.findViewById(R.id.linear);
         }
+    }
+
+
+    public interface QbanksubListener {
+        public void onQbankSubClick(String id, String moduleName);
+
     }
 }
