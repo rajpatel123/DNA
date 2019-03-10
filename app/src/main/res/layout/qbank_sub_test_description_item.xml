@@ -1,6 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/question_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="20sp"
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gdkhbdhbdhbhjdlddhgdhldhdhldhgd"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/answer_one"
+            android:layout_margin="10dp"
+            android:layout_below="@id/question_linear"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/imageOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wrong_answer_icon"/>
+            <TextView
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:id="@+id/answer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gsudjggdjsyudgldygdyugldyugd"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/answer_two"
+            android:layout_margin="10dp"
+            android:layout_below="@id/answer_one"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wrong_answer_icon"/>
+            <TextView
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gsudjggdjsyudgldygdyugldyugd"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/answer_three"
+            android:layout_margin="10dp"
+            android:layout_below="@id/answer_two"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wrong_answer_icon"/>
+            <TextView
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gsudjggdjsyudgldygdyugldyugd"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/answer_four"
+            android:layout_margin="10dp"
+            android:layout_below="@id/answer_three"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wrong_answer_icon"/>
+            <TextView
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gsudjggdjsyudgldygdyugldyugd"/>
+        </LinearLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

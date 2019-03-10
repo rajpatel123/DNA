@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import edu.com.medicalapp.Activities.QbankTestActivity;
 import edu.com.medicalapp.Models.QbankSubTest.Detail;
 import edu.com.medicalapp.R;

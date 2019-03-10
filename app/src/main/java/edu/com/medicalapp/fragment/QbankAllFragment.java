@@ -75,7 +75,6 @@ public class QbankAllFragment extends Fragment {
 
     private void qbanksubData() {
 
-
         String qbank_sub_cat = qbankSubActivity.qbankcat_id;
         RequestBody qcat_id = RequestBody.create(MediaType.parse("text/plain"), qbank_sub_cat);
 
@@ -104,7 +103,6 @@ public class QbankAllFragment extends Fragment {
                                     qBankDetails.setPaidStatus(subCat.getPaidStatus());
                                     qBankDetails.setTotalmcq(subCat.getTotalmcq());
                                     qBankDetails.setImage(subCat.getImage());
-
                                     qBank.add(qBankDetails);
 
                                 }
@@ -114,6 +112,16 @@ public class QbankAllFragment extends Fragment {
                             qbankSubCatAdapter.setDetailList(qBank);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                             recyclerView.setLayoutManager(mLayoutManager);
+                            qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
+                                @Override
+                                public void onQbankSubClick(String id, String moduleName) {
+                                    Intent intent=new Intent(getActivity(),QbankStartTestActivity.class);
+                                    intent.putExtra("qmodule_id",id);
+                                    intent.putExtra("qmodule_name",moduleName);
+                                    startActivity(intent);
+                                }
+                            });
+
                             recyclerView.setAdapter(qbankSubCatAdapter);
                             recyclerView.setVisibility(View.VISIBLE);
                             itemText.setVisibility(View.GONE);

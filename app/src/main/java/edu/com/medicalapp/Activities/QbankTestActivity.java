@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,6 +29,7 @@ import edu.com.medicalapp.fragment.ReviewResultFragment;
 import edu.com.medicalapp.utils.Utils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,21 +75,12 @@ public class QbankTestActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 //Do what you want
+                //qbankgetTest();
                 i++;
                 mProgressBar.setProgress(100);
             }
         };
         mCountDownTimer.start();
-/*
-        for (int i = 0; i <= 100; i++) {
-            QbankTest qbankTest = new QbankTest();
-            qbankTest.setQuestion("Select One Programming Language-------");
-            qbankTest.setAnswer1("ANDROID");
-            qbankTest.setAnswer2("JAVA");
-            qbankTest.setAnswer3("SQL");
-            qbankTest.setAnswer4("None Of These");
-            qbankTests.add(qbankTest);
-        }*/
 
     }
 
@@ -108,6 +101,7 @@ public class QbankTestActivity extends AppCompatActivity {
             RestClient.qbanksubTestData(qmodule_id, new Callback<QbankTestResponse>() {
                 @Override
                 public void onResponse(Call<QbankTestResponse> call, Response<QbankTestResponse> response) {
+                    Utils.dismissProgressDialog();
                     if (response.isSuccessful()) {
 
                         if (response.body() != null)
@@ -117,10 +111,9 @@ public class QbankTestActivity extends AppCompatActivity {
                         mPager = (ViewPager) findViewById(R.id.pager2);
                         mPager.addOnPageChangeListener(pageChangeListener);
                         mPager.setAdapter(mAdapter);
-
+                        mPager.setOnTouchListener(vOnTouchListener);
+                        mPager.setHorizontalScrollBarEnabled(false);
                     }
-
-
                 }
 
                 @Override
@@ -179,4 +172,21 @@ public class QbankTestActivity extends AppCompatActivity {
             return QbankTestFragment.init(qbankTestResponse.getDetails().get(position), position);
         }
     }
+
+    View.OnTouchListener vOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (mPager.getCurrentItem() == 0) {
+                mPager.setCurrentItem(-1, false);
+                return false;
+            } else if (mPager.getCurrentItem() == 1) {
+                mPager.setCurrentItem(1, false);
+                return false;
+            } else if (mPager.getCurrentItem() == 2) {
+                mPager.setCurrentItem(2, false);
+                return false;
+            }
+            return true;
+        }
+    };
 }
