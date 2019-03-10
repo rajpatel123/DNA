@@ -49,12 +49,9 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
                     holder.subTitle.setText("" + detailList.get(k).getSubCat().get(j).getModuleName());
                     holder.subTotalQuestion.setText("" + detailList.get(k).getSubCat().get(j).getTotalmcq() + " MCQ's");
                     holder.subRating.setText(""+detailList.get(k).getSubCat().get(j).getModuleId());
-
                 }
             }
-
         }
-
     }
 
     @Override

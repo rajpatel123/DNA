@@ -12,17 +12,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.com.medicalapp.Models.QbankSubTest.QbankTestResponse;
 import edu.com.medicalapp.Models.QbankTest.QbankTest;
-import edu.com.medicalapp.Models.QbankTest.QbankTestResponse;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.fragment.QbankTestFragment;
 import edu.com.medicalapp.fragment.ReviewResultFragment;
+import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QbankTestActivity extends AppCompatActivity {
 
@@ -30,8 +38,7 @@ public class QbankTestActivity extends AppCompatActivity {
     ViewPager mPager;
     TextView quesionCounter;
     static int currentPosition;
-    //List<QbankTestResponse> qbankResponse=new ArrayList<>();
-    List<QbankTest> qbankTests = new ArrayList<>();
+    private QbankTestResponse qbankTestResponse;
     ImageView imageViewCancel;
     ProgressBar mProgressBar;
     CountDownTimer mCountDownTimer;
@@ -62,6 +69,7 @@ public class QbankTestActivity extends AppCompatActivity {
                 mProgressBar.setProgress((int) i);
 
             }
+
             @Override
             public void onFinish() {
                 //Do what you want
@@ -70,7 +78,7 @@ public class QbankTestActivity extends AppCompatActivity {
             }
         };
         mCountDownTimer.start();
-
+/*
         for (int i = 0; i <= 100; i++) {
             QbankTest qbankTest = new QbankTest();
             qbankTest.setQuestion("Select One Programming Language-------");
@@ -79,14 +87,51 @@ public class QbankTestActivity extends AppCompatActivity {
             qbankTest.setAnswer3("SQL");
             qbankTest.setAnswer4("None Of These");
             qbankTests.add(qbankTest);
-        }
-        mAdapter = new MyAdapter(getSupportFragmentManager(), qbankTests, quesionCounter);
-        mPager = (ViewPager) findViewById(R.id.pager2);
-        mPager.addOnPageChangeListener(pageChangeListener);
-        mPager.setAdapter(mAdapter);
+        }*/
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        qbankgetTest();
+    }
+
+    private void qbankgetTest() {
+
+        String id = "1";
+        RequestBody qmodule_id = RequestBody.create(MediaType.parse("text/plain"), id);
+
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.qbanksubTestData(qmodule_id, new Callback<QbankTestResponse>() {
+                @Override
+                public void onResponse(Call<QbankTestResponse> call, Response<QbankTestResponse> response) {
+                    if (response.isSuccessful()) {
+
+                        if (response.body() != null)
+                            qbankTestResponse = response.body();
+
+                        mAdapter = new MyAdapter(getSupportFragmentManager(), qbankTestResponse, quesionCounter);
+                        mPager = (ViewPager) findViewById(R.id.pager2);
+                        mPager.addOnPageChangeListener(pageChangeListener);
+                        mPager.setAdapter(mAdapter);
+
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<QbankTestResponse> call, Throwable t) {
+                    Toast.makeText(QbankTestActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+        }
+    }
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
 
@@ -107,21 +152,21 @@ public class QbankTestActivity extends AppCompatActivity {
 
 
     public static class MyAdapter extends FragmentPagerAdapter {
-        List<QbankTest> qbankTest;
+        QbankTestResponse qbankTestResponse;
         TextView quesionCounter;
 
-        public MyAdapter(FragmentManager fragmentManager, List<QbankTest> qbankTest, TextView quesionCounter) {
+        public MyAdapter(FragmentManager fragmentManager, QbankTestResponse qbankTestResponse, TextView quesionCounter) {
             super(fragmentManager);
-            this.qbankTest = qbankTest;
+            this.qbankTestResponse = qbankTestResponse;
             this.quesionCounter = quesionCounter;
         }
 
 
         @Override
         public int getCount() {
-            if (qbankTest != null && qbankTest.size() > 0)
-                return qbankTest.size();
-            else {
+            if (qbankTestResponse != null && qbankTestResponse.getDetails().size() > 0) {
+                return qbankTestResponse.getDetails().size();
+            } else {
                 return 0;
             }
         }
@@ -131,7 +176,7 @@ public class QbankTestActivity extends AppCompatActivity {
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
             // return ReviewResultFragment.init(qbankResponse.getDetails()., position);
             // return ReviewResultFragment.init(reviewResult.getDetail().get(position), position);
-            return QbankTestFragment.init(qbankTest.get(position), position);
+            return QbankTestFragment.init(qbankTestResponse.getDetails().get(position), position);
         }
     }
 }
