@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.com.medicalapp.Activities.QbankStartTestActivity;
@@ -24,6 +25,8 @@ import edu.com.medicalapp.Activities.QbankSubActivity;
 import edu.com.medicalapp.Adapters.QbankSubCatAdapter;
 import edu.com.medicalapp.Models.QbankSubCat.Detail;
 import edu.com.medicalapp.Models.QbankSubCat.QbankSubResponse;
+import edu.com.medicalapp.Models.QbankSubCat.SubCat;
+import edu.com.medicalapp.Models.qbank.QBank;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
@@ -86,8 +89,29 @@ public class QbankAllFragment extends Fragment {
                         qbankSubResponse = response.body().getDetails();
                         if (qbankSubResponse != null && qbankSubResponse.size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
+
+
+                            List<QBank>  qBank = new ArrayList<>();
+
+                            for (Detail  detail :qbankSubResponse){
+                                for (SubCat subCat: detail.getSubCat()){
+                                    QBank qBankDetails = new QBank();
+                                    qBankDetails.setCatId(detail.getCatId());
+                                    qBankDetails.setId(detail.getId());
+                                    qBankDetails.setSubCatName(detail.getSubCatName());
+                                    qBankDetails.setModuleId(subCat.getModuleId());
+                                    qBankDetails.setModuleName(subCat.getModuleName());
+                                    qBankDetails.setPaidStatus(subCat.getPaidStatus());
+                                    qBankDetails.setTotalmcq(subCat.getTotalmcq());
+                                    qBankDetails.setImage(subCat.getImage());
+
+                                    qBank.add(qBankDetails);
+
+                                }
+                            }
+
                             QbankSubCatAdapter qbankSubCatAdapter=new QbankSubCatAdapter();
-                            qbankSubCatAdapter.setDetailList(qbankSubResponse);
+                            qbankSubCatAdapter.setDetailList(qBank);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setAdapter(qbankSubCatAdapter);
