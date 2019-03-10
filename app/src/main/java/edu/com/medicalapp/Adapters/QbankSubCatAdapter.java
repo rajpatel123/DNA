@@ -50,8 +50,17 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         QBank detail = detailList.get(position);
-        if (position == 0) {
+        if (!detail.getPausedStatus().equalsIgnoreCase("1")){
+          return;
+        }
+
+        if (!detail.getPaidStatus().equalsIgnoreCase("Yes")){
+           return;
+        }
+
+            if (position == 0) {
             holder.title.setText("" + detail.getSubCatName());
             holder.title.setVisibility(View.VISIBLE);
         }
@@ -65,6 +74,12 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             }
         }
 
+
+        if (detail.getPaidStatus().equalsIgnoreCase("Yes")){
+            holder.sub_cat_free.setVisibility(View.VISIBLE);
+        }else{
+            holder.sub_cat_free.setVisibility(View.GONE);
+        }
         holder.subTitle.setText("" + detail.getModuleName());
         holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getTotalmcq() + " MCQ's");
@@ -93,7 +108,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, subTitle, subRating, subTotalQuestion, itemNumber;
-        ImageView subImage;
+        ImageView subImage,sub_cat_free;
         LinearLayout linearClick;
 
         public ViewHolder(@NonNull View itemView) {
@@ -103,6 +118,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subTitle = itemView.findViewById(R.id.sub_cat_title);
             subRating = itemView.findViewById(R.id.rating);
             itemNumber = itemView.findViewById(R.id.index);
+            sub_cat_free = itemView.findViewById(R.id.sub_cat_free);
             subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);
             linearClick = itemView.findViewById(R.id.linear);
         }

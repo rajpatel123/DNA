@@ -131,6 +131,7 @@
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:paddingRight="8dp"
+                        android:visibility="gone"
                         android:src="@drawable/question_bank_lock" />
 
                 </LinearLayout>
