@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import edu.com.medicalapp.Models.QbankSubCat.Detail;
 import edu.com.medicalapp.R;
 
@@ -31,6 +29,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     public void setDetailList(List<Detail> detailList) {
         this.detailList = detailList;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -41,17 +40,23 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-
         Detail detail = detailList.get(i);
-        holder.title.setText("" + detailList.get(i).getSubCatName());
-       // holder.subTitle.setText(""+detailList.get(i).getSubCat().get(i).getModuleName());
-      if (detailList.get(holder.getAdapterPosition()).getSubCat() != null && detailList.get(holder.getAdapterPosition()).getSubCat().size() > 0) {
-            for (int j = 0; j < detailList.get(holder.getAdapterPosition()).getSubCat().size(); j++) {
-                holder.subTitle.setText(""+detailList.get(holder.getAdapterPosition()).getSubCat().get(j).getModuleName());
-                holder.subTotalQuestion.setText(""+detailList.get(holder.getAdapterPosition()).getSubCat().get(j).getTotalmcq()+" MCQ's");
+        for (int k = i; k < detailList.size(); k++) {
+            holder.title.setText("" + detailList.get(i).getSubCatName());
+            // holder.subTitle.setText(""+detailList.get(i).getSubCat().get(i).getModuleName());
+            if (detailList.get(holder.getAdapterPosition()).getSubCat() != null && detailList.get(holder.getAdapterPosition()).getSubCat().size() > 0) {
+                for (int j = 0; j < detailList.get(k).getSubCat().size(); j++) {
+                    holder.subTitle.setText("" + detailList.get(k).getSubCat().get(j).getModuleName());
+                    holder.subTotalQuestion.setText("" + detailList.get(k).getSubCat().get(j).getTotalmcq() + " MCQ's");
+                    holder.subRating.setText(""+detailList.get(k).getSubCat().get(j).getModuleId());
+
+                }
             }
+
         }
+
     }
+
     @Override
     public int getItemCount() {
         if (detailList != null && detailList.size() > 0) {
@@ -60,9 +65,11 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             return 0;
         }
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, subTitle, subRating, subTotalQuestion, itemNumber;
         ImageView subImage;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.cat_title);
@@ -70,7 +77,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subTitle = itemView.findViewById(R.id.sub_cat_title);
             subRating = itemView.findViewById(R.id.rating);
             itemNumber = itemView.findViewById(R.id.index);
-            subTotalQuestion=itemView.findViewById(R.id.sub_cat_total_question);
+            subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);
         }
     }
 }
