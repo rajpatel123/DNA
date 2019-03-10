@@ -32,7 +32,40 @@ public class QBank {
     @SerializedName("module_name")
     @Expose
     private String moduleName;
+    @SerializedName("rating")
+    @Expose
+    private String rating;
 
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getCopletedStatus() {
+        return copletedStatus;
+    }
+
+    public void setCopletedStatus(String copletedStatus) {
+        this.copletedStatus = copletedStatus;
+    }
+
+    public String getPausedStatus() {
+        return pausedStatus;
+    }
+
+    public void setPausedStatus(String pausedStatus) {
+        this.pausedStatus = pausedStatus;
+    }
+
+    @SerializedName("copleted_status")
+    @Expose
+    private String copletedStatus;
+    @SerializedName("paused_status")
+    @Expose
+    private String pausedStatus;
 
     public String getId() {
         return id;

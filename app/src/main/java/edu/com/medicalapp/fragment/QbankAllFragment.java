@@ -68,7 +68,7 @@ public class QbankAllFragment extends Fragment {
         itemText=view.findViewById(R.id.item_text);
         /*String name=qbankSubActivity.qbankcat_name;
         getActivity().setTitle(name);*/
-        qbanksubData();
+           qbanksubData();
 
         return view;
     }
@@ -90,8 +90,6 @@ public class QbankAllFragment extends Fragment {
                             Log.d("Api Response :", "Got Success from Api");
 
 
-                            List<QBank>  qBank = new ArrayList<>();
-
                             for (Detail  detail :qbankSubResponse){
                                 for (SubCat subCat: detail.getSubCat()){
                                     QBank qBankDetails = new QBank();
@@ -103,13 +101,16 @@ public class QbankAllFragment extends Fragment {
                                     qBankDetails.setPaidStatus(subCat.getPaidStatus());
                                     qBankDetails.setTotalmcq(subCat.getTotalmcq());
                                     qBankDetails.setImage(subCat.getImage());
-                                    qBank.add(qBankDetails);
+                                    qBankDetails.setCopletedStatus(subCat.getCopletedStatus());
+                                    qBankDetails.setPausedStatus(subCat.getPausedStatus());
+                                    qBankDetails.setRating(subCat.getRating());
+                                    qbankSubActivity.qBank.add(qBankDetails);
 
                                 }
                             }
 
                             QbankSubCatAdapter qbankSubCatAdapter=new QbankSubCatAdapter();
-                            qbankSubCatAdapter.setDetailList(qBank);
+                            qbankSubCatAdapter.setDetailList(qbankSubActivity.qBank);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                             recyclerView.setLayoutManager(mLayoutManager);
                             qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {

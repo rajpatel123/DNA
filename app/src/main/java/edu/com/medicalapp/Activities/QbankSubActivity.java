@@ -1,12 +1,12 @@
 package edu.com.medicalapp.Activities;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +15,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.com.medicalapp.Models.qbank.QBank;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.fragment.BuynowFragment;
-import edu.com.medicalapp.fragment.CompleteFragment;
-import edu.com.medicalapp.fragment.FreeFragment;
-import edu.com.medicalapp.fragment.PausedFragment;
 import edu.com.medicalapp.fragment.QbankAllFragment;
 import edu.com.medicalapp.fragment.QbankCompletedFragment;
 import edu.com.medicalapp.fragment.QbankFreeFragment;
 import edu.com.medicalapp.fragment.QbankPausedFragment;
 import edu.com.medicalapp.fragment.QbankUnattemptedFragment;
-import edu.com.medicalapp.fragment.UnattemptedFragment;
 
 public class QbankSubActivity extends AppCompatActivity {
 
@@ -37,7 +33,7 @@ public class QbankSubActivity extends AppCompatActivity {
     public String qbankcat_id;
     public String qbankcat_name;
     TextView toolbarName;
-
+    public List<QBank> qBank = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
