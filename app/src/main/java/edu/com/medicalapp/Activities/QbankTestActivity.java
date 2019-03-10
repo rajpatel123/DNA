@@ -1,6 +1,7 @@
 package edu.com.medicalapp.Activities;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -57,11 +58,8 @@ public class QbankTestActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mProgressBar.setProgress(100);
-
         mCountDownTimer = new CountDownTimer(20000, 500) {
 
             @Override
@@ -69,9 +67,7 @@ public class QbankTestActivity extends AppCompatActivity {
                 Log.v("Log_tag", "Tick of Progress" + i + millisUntilFinished);
                 i++;
                 mProgressBar.setProgress((int) i);
-
             }
-
             @Override
             public void onFinish() {
                 //Do what you want
@@ -81,7 +77,6 @@ public class QbankTestActivity extends AppCompatActivity {
             }
         };
         mCountDownTimer.start();
-
     }
 
     @Override
@@ -103,10 +98,8 @@ public class QbankTestActivity extends AppCompatActivity {
                 public void onResponse(Call<QbankTestResponse> call, Response<QbankTestResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.isSuccessful()) {
-
                         if (response.body() != null)
                             qbankTestResponse = response.body();
-
                         mAdapter = new MyAdapter(getSupportFragmentManager(), qbankTestResponse, quesionCounter);
                         mPager = (ViewPager) findViewById(R.id.pager2);
                         mPager.addOnPageChangeListener(pageChangeListener);
@@ -115,7 +108,6 @@ public class QbankTestActivity extends AppCompatActivity {
                         mPager.setHorizontalScrollBarEnabled(false);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<QbankTestResponse> call, Throwable t) {
                     Toast.makeText(QbankTestActivity.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -163,7 +155,6 @@ public class QbankTestActivity extends AppCompatActivity {
                 return 0;
             }
         }
-
         @Override
         public Fragment getItem(int position) {
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());

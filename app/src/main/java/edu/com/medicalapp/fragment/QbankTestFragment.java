@@ -49,13 +49,12 @@ public class QbankTestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbanktest, container, false);
         answerList = view.findViewById(R.id.questionList);
-
         for (int i = 0; i < 5; i++) {
             switch (i) {
                 case 0:
                     View answer = inflater.inflate(R.layout.review_question_list, container, false);
                     questionTestList = answer.findViewById(R.id.text_question);
-                    questionTestList.setText((fragNum + 1) + ". " + questionDetail.getQname());
+                    questionTestList.setText("Q"+(fragNum + 1) + ". " + questionDetail.getQname());
                     answerList.addView(answer);
                     break;
 
