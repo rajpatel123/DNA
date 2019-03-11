@@ -9,6 +9,7 @@ import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.answer.SubmitAnswer;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
+import edu.com.medicalapp.Models.feedback.QbankfeedbackResponse;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.Models.qbankstart.QbankstartResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
@@ -119,6 +120,12 @@ public interface ApiInterface {
                                         @Part("user_id") RequestBody user_id
                                         ,@Part("is_paused") RequestBody is_paused);
 
+    @Multipart
+    @POST("api/api.php?req=qbank_mcq_model_feedback")
+    Call<QbankfeedbackResponse> qbankFeedback(@Part("user_id") RequestBody user_id,
+                                              @Part("qmodule_id") RequestBody qmodule_id,
+                                              @Part("rating") RequestBody rating,
+                                              @Part("feedback") RequestBody feedback);
 
 
 

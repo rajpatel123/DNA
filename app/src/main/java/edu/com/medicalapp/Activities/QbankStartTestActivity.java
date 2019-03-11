@@ -41,6 +41,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
         testTotalQuestion = findViewById(R.id.total_questions);
         pauseImage = findViewById(R.id.pause_image);
         testTime = findViewById(R.id.test_time);
+        testCompletedQuestion=findViewById(R.id.completed_question);
 
         testName = findViewById(R.id.qbank_sub_subcategory_name);
 
@@ -89,10 +90,10 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             qbankstartResponse = response.body();
-                            testModuleName.setText(qbankstartResponse.getDetails().get(0).getModuleName());
-                            testTotalQuestion.setText(qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
-                            testCompletedQuestion.setText(qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
-
+                            testModuleName.setText(""+qbankstartResponse.getDetails().get(0).getModuleName());
+                            testTotalQuestion.setText(""+qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
+                            testCompletedQuestion.setText(""+qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
+                            testTime.setText("You paused this module on "+qbankstartResponse.getDetails().get(0).getLastattempedquesdate());
                         }
                     }
                 }

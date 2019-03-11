@@ -20,7 +20,7 @@ private String totalmcq;
 private String totalattempedmcq;
 @SerializedName("lastattempedquesdate")
 @Expose
-private Object lastattempedquesdate;
+private String lastattempedquesdate;
 
 public String getModuleId() {
 return moduleId;
@@ -53,12 +53,11 @@ return totalattempedmcq;
 public void setTotalattempedmcq(String totalattempedmcq) {
 this.totalattempedmcq = totalattempedmcq;
 }
-
-public Object getLastattempedquesdate() {
+public String getLastattempedquesdate() {
 return lastattempedquesdate;
 }
 
-public void setLastattempedquesdate(Object lastattempedquesdate) {
+public void setLastattempedquesdate(String lastattempedquesdate) {
 this.lastattempedquesdate = lastattempedquesdate;
 }
 

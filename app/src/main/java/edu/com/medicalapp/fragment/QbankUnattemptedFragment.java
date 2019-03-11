@@ -36,12 +36,6 @@ public class QbankUnattemptedFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         return view;
     }
-
-
-
-
-
-
     @Override
     public void onResume() {
         super.onResume();
