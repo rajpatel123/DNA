@@ -73,9 +73,6 @@ public class QbankAllFragment extends Fragment {
         itemText=view.findViewById(R.id.item_text);
         /*String name=qbankSubActivity.qbankcat_name;
         getActivity().setTitle(name);*/
-        if (qbankSubActivity.qBankAll.size() < 1) {
-            qbanksubData();
-        }
 
         qbankSubCatAdapter = new QbankSubCatAdapter();
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -93,6 +90,17 @@ public class QbankAllFragment extends Fragment {
         });
 
         recyclerView.setAdapter(qbankSubCatAdapter);
+
+        if (qbankSubActivity.qBankAll.size() < 1) {
+            qbanksubData();
+        }else{
+            if (qbankSubCatAdapter!=null){
+                recyclerView.setVisibility(View.VISIBLE);
+                itemText.setVisibility(View.GONE);
+                qbankSubCatAdapter.notifyDataSetChanged();
+            }
+        }
+
         return view;
     }
 

@@ -30,6 +30,7 @@ public class QbankCompletedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbank_completed, container, false);
+        recyclerView = view.findViewById(R.id.recycler);
         return view;
     }
 
