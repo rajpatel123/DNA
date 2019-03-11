@@ -72,9 +72,6 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-
-
         TextView textName,totalQuestion;
         ImageView imageView;
         CardView cardView;

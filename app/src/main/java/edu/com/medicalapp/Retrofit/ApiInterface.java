@@ -95,9 +95,9 @@ public interface ApiInterface {
     @POST("api/api.php?req=faculty")
     Call<FacultyDetail> facultyData();
 
-
+    @Multipart
     @POST("api/api.php?req=qbank_cate")
-    Call<QbankResponse> qbankDetail();
+    Call<QbankResponse> qbankDetail(@Part("user_id") RequestBody user_id);
 
 
     /*@Multipart
@@ -108,7 +108,7 @@ public interface ApiInterface {
 
     @Multipart
      @POST("api/api.php?req=qbank_subcate")
-    Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id);
+    Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id,@Part("user_id") RequestBody user_id);
 
 
 

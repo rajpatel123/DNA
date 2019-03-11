@@ -28,6 +28,7 @@ import edu.com.medicalapp.Models.QbankSubCat.SubCat;
 import edu.com.medicalapp.Models.qbank.QBank;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -41,6 +42,7 @@ import static edu.com.medicalapp.utils.Constants.UN_ATTEMPTED;
 public class QbankAllFragment extends Fragment {
 
 
+ String UserId;
     QbankSubActivity qbankSubActivity;
     LinearLayout linearLayout;
 
@@ -98,10 +100,12 @@ public class QbankAllFragment extends Fragment {
 
         String qbank_sub_cat = qbankSubActivity.qbankcat_id;
         RequestBody qcat_id = RequestBody.create(MediaType.parse("text/plain"), qbank_sub_cat);
+        UserId= DnaPrefs.getString(getContext(),"Login_Id");
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
 
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.qbanksubdata(qcat_id, new Callback<QbankSubResponse>() {
+            RestClient.qbanksubdata(qcat_id,user_id, new Callback<QbankSubResponse>() {
                 @Override
                 public void onResponse(Call<QbankSubResponse> call, Response<QbankSubResponse> response) {
                     Utils.dismissProgressDialog();
@@ -109,8 +113,6 @@ public class QbankAllFragment extends Fragment {
                         qbankSubResponse = response.body().getDetails();
                         if (qbankSubResponse != null && qbankSubResponse.size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
-
-
                             for (Detail  detail :qbankSubResponse){
                                 for (SubCat subCat: detail.getSubCat()){
                                     QBank qBankDetails = new QBank();
@@ -128,6 +130,7 @@ public class QbankAllFragment extends Fragment {
                                     qBankDetails.setIsAttempted(subCat.getIsAttempted());
 
 
+
                                     if (qBankDetails.getPaidStatus().equalsIgnoreCase(FREE)) {
                                         qbankSubActivity.qBankUnFree.add(qBankDetails);
                                     }
@@ -140,9 +143,9 @@ public class QbankAllFragment extends Fragment {
                                         qbankSubActivity.qBankUnAttempted.add(qBankDetails);
                                     }
 
-                                    if (qBankDetails.getCopletedStatus().equalsIgnoreCase("1")){
+                                 /*   if (qBankDetails.getCopletedStatus().equalsIgnoreCase("1")){
                                         qbankSubActivity.qBankUnAttempted.add(qBankDetails);
-                                    }
+                                    }*/
 
                                     qbankSubActivity.qBankAll.add(qBankDetails);
 

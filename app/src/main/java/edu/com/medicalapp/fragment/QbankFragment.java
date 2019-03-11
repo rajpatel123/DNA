@@ -27,7 +27,10 @@ import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.interfaces.FragmentLifecycle;
+import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +50,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
 
     @BindView(R.id.bookmark_cardview)
     CardView bookmarkedCardView;
+    String UserId;
     private QbankResponse qbankResponse;
 
     @Override
@@ -101,13 +105,55 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
         Intent intent=new Intent(getActivity(), BookmarkActivity.class);
         startActivity(intent);
 
-
     }
 
     private void getQbankData() {
+        UserId= DnaPrefs.getString(getContext(),"Login_Id");
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.qbankDetail(new Callback<QbankResponse>() {
+            RestClient.qbankDetail(user_id, new Callback<QbankResponse>() {
+                @Override
+                public void onResponse(Call<QbankResponse> call, Response<QbankResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equals("1")) {
+                            qbankResponse = response.body();
+                            Log.d("Data", "Done");
+                            if (qbankResponse != null && qbankResponse.getDetails().size() > 0) {
+                                Log.d("Api Response :", "Got Success from Api");
+                                QbankAdapter qbankAdapter = new QbankAdapter(getActivity());
+                                qbankAdapter.setQbankDetailList(qbankResponse.getDetails());
+                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                                qbankAdapter.setQbankClickListner(new QbankAdapter.QbankClickListner() {
+                                    @Override
+                                    public void onQbankClick(int postion, String id, String name) {
+                                        Intent intent = new Intent(getActivity(), QbankSubActivity.class);
+                                        intent.putExtra("cat_id", id);
+                                        intent.putExtra("cat_name", name);
+                                    }
+                                });
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setAdapter(qbankAdapter);
+                                recyclerView.setVisibility(View.VISIBLE);
+                            } else {
+                                Log.d("Api Response :", "Got Success from Api");
+                                // noInternet.setVisibility(View.VISIBLE);
+                                // noInternet.setText(getString(R.string.no_project));
+                                recyclerView.setVisibility(View.GONE);
+                                textInternet.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<QbankResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    Toast.makeText(getActivity(), "Data Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+            /*RestClient.qbankDetail(user_id,new Callback<QbankResponse>() {
                 @Override
                 public void onResponse(Call<QbankResponse> call, Response<QbankResponse> response) {
                     Utils.dismissProgressDialog();
@@ -120,17 +166,14 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                                 QbankAdapter qbankAdapter = new QbankAdapter(getActivity());
                                 qbankAdapter.setQbankDetailList(qbankResponse.getDetails());
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-
                                 qbankAdapter.setQbankClickListner(new QbankAdapter.QbankClickListner() {
                                     @Override
                                     public void onQbankClick(int postion, String id,String name) {
                                         Intent intent = new Intent(getActivity(), QbankSubActivity.class);
                                         intent.putExtra("cat_id",id);
                                         intent.putExtra("cat_name",name);
-                                        startActivity(intent);
                                     }
                                 });
-
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setAdapter(qbankAdapter);
                                 recyclerView.setVisibility(View.VISIBLE);
@@ -157,7 +200,9 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
             Utils.dismissProgressDialog();
             textInternet.setVisibility(View.VISIBLE);
             Toast.makeText(getActivity(), "Internet Connection Failed!!!", Toast.LENGTH_SHORT).show();
+        }*/
         }
+
 
     }
 

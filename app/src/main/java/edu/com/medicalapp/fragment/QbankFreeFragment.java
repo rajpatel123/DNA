@@ -34,12 +34,9 @@ public class QbankFreeFragment extends Fragment {
         return view;
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
-
         QbankSubCatAdapter qbankSubCatAdapter=new QbankSubCatAdapter();
         qbankSubCatAdapter.setDetailList(activity.qBankUnFree);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -53,7 +50,6 @@ public class QbankFreeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         recyclerView.setAdapter(qbankSubCatAdapter);
         recyclerView.setVisibility(View.VISIBLE);
     }

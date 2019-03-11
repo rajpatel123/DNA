@@ -82,16 +82,16 @@ public class RestClient {
     }
 
 
-    public static void qbankDetail(Callback<QbankResponse> callback) {
-        RetrofitClient.getClient().qbankDetail().enqueue(callback);
+    public static void qbankDetail(RequestBody user_id,Callback<QbankResponse> callback) {
+        RetrofitClient.getClient().qbankDetail(user_id).enqueue(callback);
     }
 
    /* public static void qbanksubData(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
         RetrofitClient.getClient().qbanksubData(qcat_id).enqueue(callback);
     }*/
 
-    public static void qbanksubdata(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
-        RetrofitClient.getClient().qbanksubdata(qcat_id).enqueue(callback);
+    public static void qbanksubdata(RequestBody qcat_id,RequestBody user_id, Callback<QbankSubResponse> callback) {
+        RetrofitClient.getClient().qbanksubdata(qcat_id,user_id).enqueue(callback);
     }
 
     public static void qbanksubTestData(RequestBody qmodule_id, Callback<QbankTestResponse> callback) {
