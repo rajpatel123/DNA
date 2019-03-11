@@ -62,7 +62,6 @@
                 android:textColor="@color/black_titles"
                 android:textSize="30dp" />
             <LinearLayout
-                android:visibility="gone"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"

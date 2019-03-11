@@ -62,7 +62,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 //           return;
 //        }
 
-            if (position == 0) {
+        if (position == 0) {
             holder.title.setText("" + detail.getSubCatName());
             holder.title.setVisibility(View.VISIBLE);
         }
@@ -77,17 +77,15 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
         }
 
 
-        if (detail.getPaidStatus().equalsIgnoreCase("Paid")){
+        if (detail.getPaidStatus().equalsIgnoreCase("Paid")) {
             holder.sub_cat_free.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.sub_cat_free.setVisibility(View.GONE);
         }
-
-
-        if (detail.getPausedStatus().equalsIgnoreCase("1")){
+        if (detail.getPausedStatus().equalsIgnoreCase("1")) {
             Picasso.with(applicationContext).load(R.drawable.paused_icon).into(holder.sub_cat_free);
-           //show  pause icon
-        }else{
+            //show  pause icon
+        } else {
             // hide puuse icon
             holder.sub_cat_free.setVisibility(View.GONE);
         }
@@ -95,13 +93,12 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
         holder.subTitle.setText("" + detail.getModuleName());
         holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getmCQ() + " MCQ's");
-        holder.subRating.setText("" + detail.getModuleId());
+        holder.subRating.setText("" + detail.getRating());
         holder.linearClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (qbanksubListener != null) {
-                    qbanksubListener.onQbankSubClick(detail.getModuleId(),detail.getModuleName());
+                    qbanksubListener.onQbankSubClick(detail.getModuleId(), detail.getModuleName());
                 }
             }
         });
@@ -118,7 +115,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, subTitle, subRating, subTotalQuestion, itemNumber;
-        ImageView subImage,sub_cat_free;
+        ImageView subImage, sub_cat_free;
         LinearLayout linearClick;
 
         public ViewHolder(@NonNull View itemView) {
