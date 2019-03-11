@@ -25,13 +25,12 @@ import retrofit2.Response;
 public class QbankStartTestActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView testName;
-    ImageView backImage;
-    TextView testModuleName, testCompletedQuestion, testTotalQuestion;
+    ImageView backImage, pauseImage;
+    TextView testModuleName, testCompletedQuestion, testTotalQuestion, testTime;
     String qbank_module_id, qbank_name;
     Button btnStart;
     String userId;
     QbankstartResponse qbankstartResponse;
-    Detail detailList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,8 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
         btnStart = findViewById(R.id.start_test);
         testModuleName = findViewById(R.id.test_name);
         testTotalQuestion = findViewById(R.id.total_questions);
+        pauseImage = findViewById(R.id.pause_image);
+        testTime = findViewById(R.id.test_time);
 
         testName = findViewById(R.id.qbank_sub_subcategory_name);
 
@@ -90,6 +91,8 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                             qbankstartResponse = response.body();
                             testModuleName.setText(qbankstartResponse.getDetails().get(0).getModuleName());
                             testTotalQuestion.setText(qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
+                            testCompletedQuestion.setText(qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
+
                         }
                     }
                 }
@@ -130,7 +133,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
-                intent.putExtra("qmodule_id",qbank_module_id);
+                intent.putExtra("qmodule_id", qbank_module_id);
                 startActivity(intent);
             }
         });
