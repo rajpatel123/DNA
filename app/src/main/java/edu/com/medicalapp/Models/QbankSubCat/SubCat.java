@@ -11,21 +11,24 @@ public class SubCat {
     @SerializedName("module_name")
     @Expose
     private String moduleName;
-    @SerializedName("paid_status")
+    @SerializedName("PaidStatus")
     @Expose
     private String paidStatus;
-    @SerializedName("totalmcq")
+    @SerializedName("is_paused")
     @Expose
-    private String totalmcq;
+    private String isPaused;
+    @SerializedName("is_completed")
+    @Expose
+    private String isCompleted;
     @SerializedName("rating")
     @Expose
     private String rating;
-    @SerializedName("copleted_status")
+    @SerializedName("IsAttempted")
     @Expose
-    private String copletedStatus;
-    @SerializedName("paused_status")
+    private String isAttempted;
+    @SerializedName("MCQ")
     @Expose
-    private String pausedStatus;
+    private String mCQ;
     @SerializedName("image")
     @Expose
     private String image;
@@ -54,12 +57,20 @@ public class SubCat {
         this.paidStatus = paidStatus;
     }
 
-    public String getTotalmcq() {
-        return totalmcq;
+    public String getIsPaused() {
+        return isPaused;
     }
 
-    public void setTotalmcq(String totalmcq) {
-        this.totalmcq = totalmcq;
+    public void setIsPaused(String isPaused) {
+        this.isPaused = isPaused;
+    }
+
+    public String getIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(String isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     public String getRating() {
@@ -70,20 +81,20 @@ public class SubCat {
         this.rating = rating;
     }
 
-    public String getCopletedStatus() {
-        return copletedStatus;
+    public String getIsAttempted() {
+        return isAttempted;
     }
 
-    public void setCopletedStatus(String copletedStatus) {
-        this.copletedStatus = copletedStatus;
+    public void setIsAttempted(String isAttempted) {
+        this.isAttempted = isAttempted;
     }
 
-    public String getPausedStatus() {
-        return pausedStatus;
+    public String getMCQ() {
+        return mCQ;
     }
 
-    public void setPausedStatus(String pausedStatus) {
-        this.pausedStatus = pausedStatus;
+    public void setMCQ(String mCQ) {
+        this.mCQ = mCQ;
     }
 
     public String getImage() {

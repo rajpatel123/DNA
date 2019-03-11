@@ -52,13 +52,13 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         QBank detail = detailList.get(position);
-        if (!detail.getPausedStatus().equalsIgnoreCase("1")){
-          return;
-        }
-
-        if (!detail.getPaidStatus().equalsIgnoreCase("Yes")){
-           return;
-        }
+//        if (!detail.getPausedStatus().equalsIgnoreCase("1")){
+//          return;
+//        }
+//
+//        if (!detail.getPaidStatus().equalsIgnoreCase("Yes")){
+//           return;
+//        }
 
             if (position == 0) {
             holder.title.setText("" + detail.getSubCatName());
@@ -75,14 +75,22 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
         }
 
 
-        if (detail.getPaidStatus().equalsIgnoreCase("Yes")){
+        if (detail.getPaidStatus().equalsIgnoreCase("Paid")){
             holder.sub_cat_free.setVisibility(View.VISIBLE);
         }else{
             holder.sub_cat_free.setVisibility(View.GONE);
         }
+
+
+        if (detail.getPausedStatus().equalsIgnoreCase("1")){
+           //show  pause icon
+        }else{
+            // hide puuse icon
+            holder.sub_cat_free.setVisibility(View.GONE);
+        }
         holder.subTitle.setText("" + detail.getModuleName());
         holder.itemNumber.setText("" + (position + 1));
-        holder.subTotalQuestion.setText("" + detail.getTotalmcq() + " MCQ's");
+        holder.subTotalQuestion.setText("" + detail.getmCQ() + " MCQ's");
         holder.subRating.setText("" + detail.getModuleId());
         holder.linearClick.setOnClickListener(new View.OnClickListener() {
             @Override

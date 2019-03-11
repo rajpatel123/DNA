@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.com.medicalapp.Activities.QbankStartTestActivity;
@@ -36,6 +35,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static edu.com.medicalapp.utils.Constants.FREE;
+import static edu.com.medicalapp.utils.Constants.UN_ATTEMPTED;
+
 public class QbankAllFragment extends Fragment {
 
 
@@ -47,6 +49,7 @@ public class QbankAllFragment extends Fragment {
 
     RecyclerView recyclerView;
     TextView itemText;
+    private QbankSubCatAdapter qbankSubCatAdapter;
 
 
     @Override
@@ -68,8 +71,26 @@ public class QbankAllFragment extends Fragment {
         itemText=view.findViewById(R.id.item_text);
         /*String name=qbankSubActivity.qbankcat_name;
         getActivity().setTitle(name);*/
-           qbanksubData();
+        if (qbankSubActivity.qBankAll.size() < 1) {
+            qbanksubData();
+        }
 
+        qbankSubCatAdapter = new QbankSubCatAdapter();
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankAll);
+        qbankSubCatAdapter.notifyDataSetChanged();
+        qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
+            @Override
+            public void onQbankSubClick(String id, String moduleName) {
+                Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
+                intent.putExtra("qmodule_id", id);
+                intent.putExtra("qmodule_name", moduleName);
+                startActivity(intent);
+            }
+        });
+
+        recyclerView.setAdapter(qbankSubCatAdapter);
         return view;
     }
 
@@ -99,31 +120,37 @@ public class QbankAllFragment extends Fragment {
                                     qBankDetails.setModuleId(subCat.getModuleId());
                                     qBankDetails.setModuleName(subCat.getModuleName());
                                     qBankDetails.setPaidStatus(subCat.getPaidStatus());
-                                    qBankDetails.setTotalmcq(subCat.getTotalmcq());
+                                    qBankDetails.setmCQ(subCat.getMCQ());
                                     qBankDetails.setImage(subCat.getImage());
-                                    qBankDetails.setCopletedStatus(subCat.getCopletedStatus());
-                                    qBankDetails.setPausedStatus(subCat.getPausedStatus());
+                                    qBankDetails.setCopletedStatus(subCat.getIsCompleted());
+                                    qBankDetails.setPausedStatus(subCat.getPaidStatus());
                                     qBankDetails.setRating(subCat.getRating());
-                                    qbankSubActivity.qBank.add(qBankDetails);
+                                    qBankDetails.setIsAttempted(subCat.getIsAttempted());
+
+
+                                    if (qBankDetails.getPaidStatus().equalsIgnoreCase(FREE)) {
+                                        qbankSubActivity.qBankUnFree.add(qBankDetails);
+                                    }
+
+                                    if (qBankDetails.getPausedStatus().equalsIgnoreCase("1")) {
+                                        qbankSubActivity.qBankPaused.add(qBankDetails);
+                                    }
+
+                                    if (qBankDetails.getIsAttempted().equalsIgnoreCase(UN_ATTEMPTED)){
+                                        qbankSubActivity.qBankUnAttempted.add(qBankDetails);
+                                    }
+
+                                    if (qBankDetails.getCopletedStatus().equalsIgnoreCase("1")){
+                                        qbankSubActivity.qBankUnAttempted.add(qBankDetails);
+                                    }
+
+                                    qbankSubActivity.qBankAll.add(qBankDetails);
 
                                 }
                             }
 
-                            QbankSubCatAdapter qbankSubCatAdapter=new QbankSubCatAdapter();
-                            qbankSubCatAdapter.setDetailList(qbankSubActivity.qBank);
-                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                            recyclerView.setLayoutManager(mLayoutManager);
-                            qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
-                                @Override
-                                public void onQbankSubClick(String id, String moduleName) {
-                                    Intent intent=new Intent(getActivity(),QbankStartTestActivity.class);
-                                    intent.putExtra("qmodule_id",id);
-                                    intent.putExtra("qmodule_name",moduleName);
-                                    startActivity(intent);
-                                }
-                            });
-
-                            recyclerView.setAdapter(qbankSubCatAdapter);
+                            qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankAll);
+                            qbankSubCatAdapter.notifyDataSetChanged();
                             recyclerView.setVisibility(View.VISIBLE);
                             itemText.setVisibility(View.GONE);
 
