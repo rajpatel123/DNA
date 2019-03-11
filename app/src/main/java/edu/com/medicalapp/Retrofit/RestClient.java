@@ -8,6 +8,7 @@ import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
+import edu.com.medicalapp.Models.feedback.QbankfeedbackResponse;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
 import edu.com.medicalapp.Models.qbankstart.QbankstartResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
@@ -97,6 +98,10 @@ public class RestClient {
 
     public static void qbanksubTestData(RequestBody qmodule_id, Callback<QbankTestResponse> callback) {
         RetrofitClient.getClient().qbanksubTestData(qmodule_id).enqueue(callback);
+    }
+
+    public static void qbankFeedback(String user_id, String qmodule_id,String rating, String feedback, Callback<QbankfeedbackResponse> callback) {
+        RetrofitClient.getClient().qbankFeedback(user_id, qmodule_id, rating, feedback).enqueue(callback);
     }
 
     public static void sendOtp(RequestBody phone, Callback<CommonResponse> callback) {

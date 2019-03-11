@@ -121,10 +121,10 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=qbank_mcq_model_feedback")
-    Call<QbankfeedbackResponse> qbankFeedback(@Part("user_id") RequestBody user_id,
-                                              @Part("qmodule_id") RequestBody qmodule_id,
-                                              @Part("rating") RequestBody rating,
-                                              @Part("feedback") RequestBody feedback);
+    Call<QbankfeedbackResponse> qbankFeedback(@Query("user_id") String user_id,
+                                              @Query("qmodule_id")String qmodule_id,
+                                              @Query("rating") String rating,
+                                              @Query("feedback") String feedback);
 
     @Multipart
     @POST("api/api.php?req=qbank_mcq")

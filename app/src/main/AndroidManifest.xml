@@ -14,7 +14,9 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QbankRatingActivity"></activity>
+        <activity android:name=".Activities.QbankAddFeedbackActivity"></activity>
+        <activity android:name=".Activities.QbankResultActivity" />
+        <activity android:name=".Activities.QbankRatingActivity" />
         <activity
             android:name=".Activities.QbankTestActivity"
             android:screenOrientation="portrait"
