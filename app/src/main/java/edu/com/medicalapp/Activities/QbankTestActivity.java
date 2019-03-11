@@ -1,5 +1,6 @@
 package edu.com.medicalapp.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -42,13 +43,14 @@ public class QbankTestActivity extends AppCompatActivity {
     static int currentPosition;
     public QbankTestResponse qbankTestResponse;
     ImageView imageViewCancel;
-    ProgressBar mProgressBar;
-    CountDownTimer mCountDownTimer;
+   public ProgressBar mProgressBar;
+    public CountDownTimer mCountDownTimer;
     int progress = 100;
     LinearLayout linearBottom;
-    Button nextBtn;
+    public Button nextBtn;
     String module_id;
     private QbankTestFragment fragment;
+    private int questionStartId;
 
 
     @Override
@@ -68,13 +70,23 @@ public class QbankTestActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("qmodule_id")) {
             module_id = getIntent().getStringExtra("qmodule_id");
+            user_id = getIntent().getStringExtra("userId");
+            questionStartId = Integer.parseInt(getIntent().getStringExtra("questionStartId"));
         }
         qbankgetTest();
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPager.setCurrentItem(currentPosition + 1);
+                if (nextBtn.getText().toString().equalsIgnoreCase("Complete")){
+                    Intent intent = new Intent(QbankTestActivity.this, QbankRatingActivity.class);
+                    intent.putExtra("module_id",module_id);
+                    intent.putExtra("userId",user_id);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    mPager.setCurrentItem(currentPosition + 1);
+                }
             }
         });
 
@@ -144,6 +156,7 @@ public class QbankTestActivity extends AppCompatActivity {
                         mPager = findViewById(R.id.pager2);
                         mPager.addOnPageChangeListener(pageChangeListener);
                         mPager.setAdapter(mAdapter);
+                        mPager.setCurrentItem(questionStartId);
                         mPager.setOnTouchListener(vOnTouchListener);
                         mPager.setHorizontalScrollBarEnabled(false);
                     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.QbankStartTestActivity">
 
@@ -45,8 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center">
 
         <LinearLayout
             android:id="@+id/linear1"
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="Amino acid:Metabolism"
                 android:textColor="@color/black_titles"
-                android:textSize="30dp" />
+                android:textSize="16sp" />
             <LinearLayout
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -85,7 +86,7 @@
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
+                android:layout_height="1px"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/darkwhite" />
@@ -222,4 +223,4 @@
 
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

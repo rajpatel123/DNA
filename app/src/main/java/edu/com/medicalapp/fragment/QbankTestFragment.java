@@ -39,8 +39,8 @@ public class QbankTestFragment extends Fragment {
     private CardView cardView2;
     private CardView cardView3;
     private CardView cardView4;
-    ProgressBar progressBar;
-
+    public ProgressBar progressBar;
+    boolean isLast;
     LinearLayout questionList, questionListDescription;
     TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV;
     WebView webView;
@@ -96,24 +96,18 @@ public class QbankTestFragment extends Fragment {
 
         webView = view.findViewById(R.id.webView);
 
+        View answer = inflater.inflate(R.layout.review_question_list, container, false);
+        questionTestList = answer.findViewById(R.id.text_question);
+        questionTestList.setText("Q"+(fragNum + 1) + ". " + questionDetail.getQname());
+        qbankTestActivity.quest_id = questionDetail.getId();
+        answerList.addView(answer);
 
 
-        for (int i = 0; i < 5; i++) {
+        if (qbankTestActivity.qbankTestResponse.getDetails().get(qbankTestActivity.qbankTestResponse.getDetails().size()-1).getId().equalsIgnoreCase(questionDetail.getId())){
+            qbankTestActivity.is_completed="1";
+        }
+        for (int i = 1; i < 5; i++) {
             switch (i) {
-                case 0:
-                    View answer = inflater.inflate(R.layout.review_question_list, container, false);
-                    questionTestList = answer.findViewById(R.id.text_question);
-                    questionTestList.setText("Q"+(fragNum + 1) + ". " + questionDetail.getQname());
-
-                    if (qbankTestActivity.qbankTestResponse.getDetails().get(qbankTestActivity.qbankTestResponse.getDetails().size() - 1).getId().equalsIgnoreCase(questionDetail.getId())) {
-                        qbankTestActivity.is_completed = "1";
-                    } else {
-                        qbankTestActivity.is_completed = "0";
-                    }
-                    qbankTestActivity.quest_id = questionDetail.getId();
-                    answerList.addView(answer);
-
-                    break;
 
                 case 1:
 
@@ -235,6 +229,8 @@ public class QbankTestFragment extends Fragment {
     }
 
     public void submitAnswer() {
+        qbankTestActivity.mCountDownTimer.cancel();
+        qbankTestActivity.mProgressBar.setVisibility(View.GONE);
         Utils.showProgressDialog(qbankTestActivity);
         RestClient.submitAnswer(qbankTestActivity.quest_id, qbankTestActivity.user_id, qbankTestActivity.is_completed, qbankTestActivity.user_answer, new Callback<SubmitAnswer>() {
             @Override
@@ -242,6 +238,9 @@ public class QbankTestFragment extends Fragment {
                 Utils.dismissProgressDialog();
                 qbankTestActivity.showHideBottomLayout(true);
                 updateUI(response.body());
+                if (qbankTestActivity.is_completed.equalsIgnoreCase("1")) {
+                    qbankTestActivity.nextBtn.setText("Complete");
+                }
                 answerList.setVisibility(GONE);
                 questionListDescription.setVisibility(View.VISIBLE);
 
@@ -260,13 +259,13 @@ public class QbankTestFragment extends Fragment {
         if (body != null) {
             qustion.setText(body.getDetails().get(0).getQname());
             aTV.setText(body.getDetails().get(0).getOptionA());
-            aTVPer.setText(body.getDetails().get(0).getOptionAperc());
+            aTVPer.setText("["+body.getDetails().get(0).getOptionAperc()+"]");
             bTV.setText(body.getDetails().get(0).getOptionB());
-            bTVPer.setText(body.getDetails().get(0).getOptionBperc());
+            bTVPer.setText("["+body.getDetails().get(0).getOptionBperc()+"]");
             cTV.setText(body.getDetails().get(0).getOptionC());
-            cTVPer.setText(body.getDetails().get(0).getOptionCperc());
+            cTVPer.setText("["+body.getDetails().get(0).getOptionCperc()+"]");
             dTV.setText(body.getDetails().get(0).getOptionD());
-            dTVPer.setText(body.getDetails().get(0).getOptionDperc());
+            dTVPer.setText("["+body.getDetails().get(0).getOptionDperc()+"]");
             rTV.setText(body.getDetails().get(0).getRefrence());
             try {
                 initComponent(body.getDetails().get(0).getDescriptionUrl());

@@ -92,7 +92,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                             qbankstartResponse = response.body();
                             testModuleName.setText(""+qbankstartResponse.getDetails().get(0).getModuleName());
                             testTotalQuestion.setText(""+qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
-                            testCompletedQuestion.setText(""+qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
+                            testCompletedQuestion.setText(""+qbankstartResponse.getDetails().get(0).getTotalattempedmcq()+" Completed");
                             testTime.setText("You paused this module on "+qbankstartResponse.getDetails().get(0).getLastattempedquesdate());
                         }
                     }
@@ -135,7 +135,10 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             public void onClick(View v) {
                 Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
                 intent.putExtra("qmodule_id", qbank_module_id);
+                intent.putExtra("userId", userId);
+                intent.putExtra("questionStartId",qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
                 startActivity(intent);
+                finish();
             }
         });
     }
