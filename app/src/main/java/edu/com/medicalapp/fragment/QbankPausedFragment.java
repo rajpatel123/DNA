@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import edu.com.medicalapp.Activities.QbankStartTestActivity;
 import edu.com.medicalapp.Activities.QbankSubActivity;
@@ -45,11 +46,16 @@ public class QbankPausedFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(String id, String moduleName) {
-                Intent intent=new Intent(getActivity(), QbankStartTestActivity.class);
-                intent.putExtra("qmodule_id",id);
-                intent.putExtra("qmodule_name",moduleName);
-                startActivity(intent);
+            public void onQbankSubClick(int position, String id, String moduleName) {
+                if (Integer.parseInt(activity.qBankAll.get(position).getmCQ()) > 0) {
+                    Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
+                    intent.putExtra("qmodule_id", id);
+                    intent.putExtra("qmodule_name", moduleName);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(activity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

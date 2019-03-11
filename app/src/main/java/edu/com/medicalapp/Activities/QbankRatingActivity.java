@@ -1,8 +1,9 @@
 package edu.com.medicalapp.Activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,12 +15,9 @@ import edu.com.medicalapp.Models.feedback.QbankfeedbackResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Part;
 
 public class QbankRatingActivity extends AppCompatActivity {
 
@@ -41,7 +39,6 @@ public class QbankRatingActivity extends AppCompatActivity {
         textViewExplanations = findViewById(R.id.explanation_not_clear);
         textViewlacksConcept = findViewById(R.id.lacks_concepts);
         textViewNeedmore = findViewById(R.id.need_more_images);
-        textViewOthers = findViewById(R.id.other);
         textViewNotNeet = findViewById(R.id.no_neet_pattern);
         textViewTooEasy = findViewById(R.id.too_easy);
         textViewToohard = findViewById(R.id.too_hard);
@@ -54,56 +51,110 @@ public class QbankRatingActivity extends AppCompatActivity {
         textViewToolittle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewToolittle.getText());
+                if (result.toString().contains(textViewToolittle.getText().toString())) {
+                    textViewToolittle.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+                    result.toString().replace(textViewToolittle.getText().toString(), "");
+                } else {
+                    result.append(textViewToolittle.getText().toString());
+                    textViewToolittle.setBackgroundColor(getResources().getColor(R.color.green));
+
+
+                }
             }
         });
         textViewToohard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewToohard.getText());
+
+                if (result.toString().contains(textViewToohard.getText().toString())) {
+                    textViewToohard.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+                    result.toString().replace(textViewToohard.getText().toString(), "");
+                } else {
+                    result.append(textViewToohard.getText().toString());
+                    textViewToohard.setBackgroundColor(getResources().getColor(R.color.green));
+
+
+                }
             }
         });
         textViewToomuch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewToomuch.getText());
+
+                if (result.toString().contains(textViewToomuch.getText().toString())) {
+                    textViewToomuch.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+                    result.toString().replace(textViewToomuch.getText().toString(), "");
+                } else {
+                    result.append(textViewToomuch.getText().toString());
+                    textViewToomuch.setBackgroundColor(getResources().getColor(R.color.green));
+
+                }
             }
         });
         textViewTooEasy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewTooEasy.getText());
+
+                if (result.toString().contains(textViewTooEasy.getText().toString())) {
+                    textViewTooEasy.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+                    result.toString().replace(textViewTooEasy.getText().toString(), "");
+                } else {
+                    result.append(textViewTooEasy.getText().toString());
+                    textViewTooEasy.setBackgroundColor(getResources().getColor(R.color.green));
+
+
+                }
             }
         });
         textViewNotNeet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewNotNeet.getText());
+
+                if (result.toString().contains(textViewNotNeet.getText().toString())) {
+                    textViewNotNeet.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+                    result.toString().replace(textViewNotNeet.getText().toString(), "");
+                } else {
+                    result.append(textViewNotNeet.getText().toString());
+                    textViewNotNeet.setBackgroundColor(getResources().getColor(R.color.green));
+
+                }
             }
         });
-        textViewOthers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                result.append((StringBuilder) textViewOthers.getText());
-            }
-        });
-        textViewOthers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                result.append((StringBuilder) textViewOthers.getText());
-            }
-        });
+
         textViewNeedmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewNeedmore.getText());
+
+                if (result.toString().contains(textViewNeedmore.getText().toString())) {
+                    textViewNeedmore.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+                    result.toString().replace(textViewNeedmore.getText().toString(), "");
+                } else {
+                    result.append(textViewNeedmore.getText().toString());
+                    textViewNeedmore.setBackgroundColor(getResources().getColor(R.color.green));
+
+
+                }
             }
         });
 
         textViewlacksConcept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewExplanations.getText());
+
+                if (result.toString().contains(textViewlacksConcept.getText().toString())) {
+                    textViewlacksConcept.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+                    result.toString().replace(textViewlacksConcept.getText().toString(), "");
+                } else {
+                    result.append(textViewlacksConcept.getText().toString());
+                    textViewlacksConcept.setBackgroundColor(getResources().getColor(R.color.green));
+
+                }
             }
         });
 
@@ -111,19 +162,23 @@ public class QbankRatingActivity extends AppCompatActivity {
         textViewExplanations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result.append((StringBuilder) textViewExplanations.getText());
+
+                if (result.toString().contains(textViewExplanations.getText().toString())) {
+                    result.toString().replace(textViewExplanations.getText().toString(), "");
+                    textViewExplanations.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+                } else {
+                    result.append(textViewExplanations.getText().toString());
+                    textViewExplanations.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
+
+
+                }
             }
         });
         buttonsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendData();
-            }
-        });
-        textViewToolittle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                result.append((StringBuilder) textViewToolittle.getText());
             }
         });
 
@@ -142,7 +197,6 @@ public class QbankRatingActivity extends AppCompatActivity {
                 linearLayout.setVisibility(View.VISIBLE);
             }
         });
-
     }
 
 
@@ -157,10 +211,9 @@ public class QbankRatingActivity extends AppCompatActivity {
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-
-            String user_id = "30";
-            String qmodule_id = "1";
-            String rating = "4.5";
+            String user_id = getIntent().getStringExtra("userId");
+            String qmodule_id = getIntent().getStringExtra("module_id");
+            String rating = String.valueOf(ratingbar.getRating());
             String feedback = result.toString();
 
             RestClient.qbankFeedback(user_id, qmodule_id, rating, feedback, new Callback<QbankfeedbackResponse>() {
@@ -170,7 +223,8 @@ public class QbankRatingActivity extends AppCompatActivity {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
-                            Toast.makeText(QbankRatingActivity.this, "Registered Your Feedback", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(QbankRatingActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     }
 

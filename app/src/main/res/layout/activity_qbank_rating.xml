@@ -7,7 +7,7 @@
     tools:context=".Activities.QbankRatingActivity">
 
     <RelativeLayout
-      android:layout_marginTop="50dp"
+      android:layout_marginTop="20dp"
         android:id="@+id/relative_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -50,6 +50,7 @@
               />
 
             <RatingBar
+                android:id="@+id/ratingBar"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -63,7 +64,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -93,8 +93,8 @@
                     android:layout_margin="5dp"
                     android:padding="10dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
                     android:textSize="16sp"
+                    android:background="@color/profile_cardtext"
                     android:id="@+id/too_much_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                     android:layout_weight="1"
                     android:padding="10dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                     android:paddingLeft="20sp"
                     android:paddingRight="20sp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                     android:paddingLeft="20sp"
                     android:paddingRight="20sp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                     android:layout_margin="5dp"
                     android:padding="10dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                     android:layout_weight="1"
                     android:padding="10dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                     android:layout_margin="5dp"
                     android:padding="10dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:id="@+id/explanation_not_clear"
                     android:layout_width="wrap_content"
@@ -216,7 +216,7 @@
                     android:layout_margin="5dp"
                     android:padding="10dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:id="@+id/lacks_concepts"
@@ -227,33 +227,13 @@
                     android:layout_weight="1"
                     android:padding="10dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
+                    android:background="@color/profile_cardtext"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:id="@+id/poorly_orgainez"
                     android:layout_height="wrap_content"
                     android:text="Poorly organized"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
-
-                <TextView
-
-                    android:layout_margin="5dp"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/ratingbar_text_design"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/other"
-                    android:text="Others"/>
             </LinearLayout>
 
             <LinearLayout
@@ -273,24 +253,13 @@
                     android:id="@+id/submit_button"
                     android:layout_gravity="center"
                     android:text="Submit"
-                    android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"/>
             </LinearLayout>
 
-
-
-
-
-
         </LinearLayout>
 
-
-
-
     </RelativeLayout>
-
-
 
 </ScrollView>

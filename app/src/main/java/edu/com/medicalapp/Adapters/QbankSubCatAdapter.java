@@ -98,7 +98,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             @Override
             public void onClick(View v) {
                 if (qbanksubListener != null) {
-                    qbanksubListener.onQbankSubClick(detail.getModuleId(), detail.getModuleName());
+                    qbanksubListener.onQbankSubClick(holder.getAdapterPosition(),detail.getModuleId(), detail.getModuleName());
                 }
             }
         });
@@ -133,7 +133,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
 
     public interface QbanksubListener {
-        public void onQbankSubClick(String id, String moduleName);
+        public void onQbankSubClick(int position ,String id, String moduleName);
 
     }
 }

@@ -128,10 +128,14 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                                 qbankAdapter.setQbankClickListner(new QbankAdapter.QbankClickListner() {
                                     @Override
                                     public void onQbankClick(int postion, String id, String name) {
-                                        Intent intent = new Intent(getActivity(), QbankSubActivity.class);
-                                        intent.putExtra("cat_id", id);
-                                        intent.putExtra("cat_name", name);
-                                        startActivity(intent);
+                                        if (Integer.parseInt(qbankResponse.getDetails().get(postion).getTotalmodules())>0){
+                                            Intent intent = new Intent(getActivity(), QbankSubActivity.class);
+                                            intent.putExtra("cat_id", id);
+                                            intent.putExtra("cat_name", name);
+                                            startActivity(intent);
+                                        }else{
+                                            Toast.makeText(getActivity(),"No module found",Toast.LENGTH_LONG).show();
+                                        }
                                     }
                                 });
                                 recyclerView.setLayoutManager(layoutManager);
@@ -139,8 +143,6 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                                 recyclerView.setVisibility(View.VISIBLE);
                             } else {
                                 Log.d("Api Response :", "Got Success from Api");
-                                // noInternet.setVisibility(View.VISIBLE);
-                                // noInternet.setText(getString(R.string.no_project));
                                 recyclerView.setVisibility(View.GONE);
                                 textInternet.setVisibility(View.VISIBLE);
                             }

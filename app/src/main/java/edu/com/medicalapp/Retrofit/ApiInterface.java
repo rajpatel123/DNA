@@ -120,7 +120,6 @@ public interface ApiInterface {
                                         @Part("user_id") RequestBody user_id
                                         ,@Part("is_paused") RequestBody is_paused);
 
-    @Multipart
     @POST("api/api.php?req=qbank_mcq_model_feedback")
     Call<QbankfeedbackResponse> qbankFeedback(@Query("user_id") String user_id,
                                               @Query("qmodule_id")String qmodule_id,
