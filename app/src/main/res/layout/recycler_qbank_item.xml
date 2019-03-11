@@ -38,9 +38,7 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="@color/orange"
-                        android:src="@drawable/biology"
-                        android:tint="@color/orange" />
+                       />
 
                     <View
                         android:layout_width="1dp"

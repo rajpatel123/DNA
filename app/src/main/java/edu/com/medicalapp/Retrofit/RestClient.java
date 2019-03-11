@@ -9,6 +9,7 @@ import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
+import edu.com.medicalapp.Models.qbankstart.QbankstartResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -82,16 +83,16 @@ public class RestClient {
     }
 
 
-    public static void qbankDetail(RequestBody user_id,Callback<QbankResponse> callback) {
+    public static void qbankDetail(RequestBody user_id, Callback<QbankResponse> callback) {
         RetrofitClient.getClient().qbankDetail(user_id).enqueue(callback);
     }
 
-   /* public static void qbanksubData(RequestBody qcat_id, Callback<QbankSubResponse> callback) {
-        RetrofitClient.getClient().qbanksubData(qcat_id).enqueue(callback);
-    }*/
+    public static void qbankStart(RequestBody qmodule_id, RequestBody user_id, RequestBody is_paused, Callback<QbankstartResponse> callback) {
+        RetrofitClient.getClient().qbankStart(qmodule_id, user_id, is_paused).enqueue(callback);
+    }
 
-    public static void qbanksubdata(RequestBody qcat_id,RequestBody user_id, Callback<QbankSubResponse> callback) {
-        RetrofitClient.getClient().qbanksubdata(qcat_id,user_id).enqueue(callback);
+    public static void qbanksubdata(RequestBody qcat_id, RequestBody user_id, Callback<QbankSubResponse> callback) {
+        RetrofitClient.getClient().qbanksubdata(qcat_id, user_id).enqueue(callback);
     }
 
     public static void qbanksubTestData(RequestBody qmodule_id, Callback<QbankTestResponse> callback) {

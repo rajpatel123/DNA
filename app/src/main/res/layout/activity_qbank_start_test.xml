@@ -37,17 +37,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="10dp"
-            android:src="@drawable/dnalogo"
-            android:visibility="visible" />
 
     </RelativeLayout>
 
@@ -66,6 +55,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/test_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amino acid:Metabolism"
@@ -103,8 +93,7 @@
                 android:id="@+id/start_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                app:cardElevation="10dp">
+               >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,11 +111,13 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/total_questions"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="26 MCQs" />
 
                         <TextView
+                            android:id="@+id/completed_question"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"

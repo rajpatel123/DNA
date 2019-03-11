@@ -131,6 +131,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                                         Intent intent = new Intent(getActivity(), QbankSubActivity.class);
                                         intent.putExtra("cat_id", id);
                                         intent.putExtra("cat_name", name);
+                                        startActivity(intent);
                                     }
                                 });
                                 recyclerView.setLayoutManager(layoutManager);

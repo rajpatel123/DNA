@@ -42,6 +42,7 @@ public class QbankTestActivity extends AppCompatActivity {
     int progress = 100;
     LinearLayout linearBottom;
     Button nextBtn;
+    String module_id;
 
 
     @Override
@@ -58,12 +59,15 @@ public class QbankTestActivity extends AppCompatActivity {
             }
         });
 
+        if (getIntent().hasExtra("qmodule_id")) {
+            module_id = getIntent().getStringExtra("qmodule_id");
+        }
 
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPager.setCurrentItem(currentPosition+1);
+                mPager.setCurrentItem(currentPosition + 1);
             }
         });
 
@@ -85,7 +89,7 @@ public class QbankTestActivity extends AppCompatActivity {
             public void onFinish() {
                 //Do what you want
                 //qbankgetTest();
-                progress=100;
+                progress = 100;
                 mProgressBar.setProgress(0);
                 linearBottom.setVisibility(View.VISIBLE);
 
@@ -99,9 +103,9 @@ public class QbankTestActivity extends AppCompatActivity {
 
     private void showHideBottomLayout(boolean show) {
         //TODO call submit answer api and visible layout on response
-        if (show){
+        if (show) {
             linearBottom.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             linearBottom.setVisibility(View.GONE);
 
         }
@@ -116,11 +120,7 @@ public class QbankTestActivity extends AppCompatActivity {
     }
 
     private void qbankgetTest() {
-
-        String id = "1";
-        RequestBody qmodule_id = RequestBody.create(MediaType.parse("text/plain"), id);
-
-
+        RequestBody qmodule_id = RequestBody.create(MediaType.parse("text/plain"), module_id);
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RestClient.qbanksubTestData(qmodule_id, new Callback<QbankTestResponse>() {

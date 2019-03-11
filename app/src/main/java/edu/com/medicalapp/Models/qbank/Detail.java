@@ -14,9 +14,9 @@ public class Detail {
     @SerializedName("totalmodules")
     @Expose
     private String totalmodules;
-    @SerializedName("completedmodules")
+    @SerializedName("totalcompletedmodules")
     @Expose
-    private String completedmodules;
+    private String totalcompletedmodules;
     @SerializedName("cat_image")
     @Expose
     private String catImage;
@@ -45,12 +45,12 @@ public class Detail {
         this.totalmodules = totalmodules;
     }
 
-    public String getCompletedmodules() {
-        return completedmodules;
+    public String getTotalcompletedmodules() {
+        return totalcompletedmodules;
     }
 
-    public void setCompletedmodules(String completedmodules) {
-        this.completedmodules = completedmodules;
+    public void setTotalcompletedmodules(String totalcompletedmodules) {
+        this.totalcompletedmodules = totalcompletedmodules;
     }
 
     public String getCatImage() {
