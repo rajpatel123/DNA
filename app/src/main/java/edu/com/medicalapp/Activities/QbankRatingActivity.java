@@ -174,7 +174,6 @@ public class QbankRatingActivity extends AppCompatActivity {
                         }
                     }
 
-
                 }
 
                 @Override
