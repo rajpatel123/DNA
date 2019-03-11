@@ -6,6 +6,7 @@ import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.VerifyOtpResponse;
+import edu.com.medicalapp.Models.answer.SubmitAnswer;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
@@ -120,6 +121,12 @@ public interface ApiInterface {
 
 
 
+
+    @GET("api/api.php?req=qbank_mcq_atteped_answer")
+    Call<SubmitAnswer> submitAnswer(@Query("quest_id") String quest_id,
+                                    @Query("user_id") String user_id,
+                                    @Query("is_completed") String is_completed,
+                                    @Query("user_answer") String user_answer);
 
 
     @Multipart

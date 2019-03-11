@@ -31,11 +31,16 @@ import retrofit2.Response;
 
 public class QbankTestActivity extends AppCompatActivity {
 
+
+    public String quest_id;
+    public String user_id;
+    public String is_completed;
+    public String user_answer = null;
     MyAdapter mAdapter;
     CustomViewPager mPager;
     TextView quesionCounter;
     static int currentPosition;
-    private QbankTestResponse qbankTestResponse;
+    public QbankTestResponse qbankTestResponse;
     ImageView imageViewCancel;
     ProgressBar mProgressBar;
     CountDownTimer mCountDownTimer;
@@ -43,6 +48,7 @@ public class QbankTestActivity extends AppCompatActivity {
     LinearLayout linearBottom;
     Button nextBtn;
     String module_id;
+    private QbankTestFragment fragment;
 
 
     @Override
@@ -52,7 +58,7 @@ public class QbankTestActivity extends AppCompatActivity {
         imageViewCancel = findViewById(R.id.btnCancel);
         linearBottom = findViewById(R.id.linearBottom);
         nextBtn = findViewById(R.id.nextBtn);
-        qbankgetTest();
+
         imageViewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +69,7 @@ public class QbankTestActivity extends AppCompatActivity {
         if (getIntent().hasExtra("qmodule_id")) {
             module_id = getIntent().getStringExtra("qmodule_id");
         }
-
+        qbankgetTest();
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +99,8 @@ public class QbankTestActivity extends AppCompatActivity {
                 progress = 100;
                 mProgressBar.setProgress(0);
                 linearBottom.setVisibility(View.VISIBLE);
-
+                if (fragment != null)
+                    fragment.submitAnswer();
                 showHideBottomLayout(true);
 
             }
@@ -102,7 +109,7 @@ public class QbankTestActivity extends AppCompatActivity {
 
     }
 
-    private void showHideBottomLayout(boolean show) {
+    public void showHideBottomLayout(boolean show) {
         //TODO call submit answer api and visible layout on response
         if (show) {
             linearBottom.setVisibility(View.VISIBLE);
@@ -175,6 +182,7 @@ public class QbankTestActivity extends AppCompatActivity {
         TextView quesionCounter;
         ProgressBar mpProgressBar;
         CountDownTimer countDownTimer;
+        QbankTestFragment fragment;
 
         public MyAdapter(FragmentManager fragmentManager, QbankTestResponse qbankTestResponse, TextView quesionCounter, ProgressBar mpProgressBar, CountDownTimer countDownTimer) {
             super(fragmentManager);
@@ -203,8 +211,8 @@ public class QbankTestActivity extends AppCompatActivity {
             mpProgressBar.setMax(100);
             mpProgressBar.setProgress(100);
             countDownTimer.start();
-
-            return QbankTestFragment.init(qbankTestResponse.getDetails().get(position), position);
+            fragment = (QbankTestFragment) QbankTestFragment.init(qbankTestResponse.getDetails().get(position), position);
+            return fragment;
         }
     }
 
@@ -224,4 +232,9 @@ public class QbankTestActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public void setFragment(QbankTestFragment fragment) {
+        this.fragment = fragment;
+
+    }
 }

@@ -1,8 +1,7 @@
 package edu.com.medicalapp.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,12 +10,23 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import edu.com.medicalapp.Activities.QbankTestActivity;
 import edu.com.medicalapp.Models.QbankSubTest.Detail;
+import edu.com.medicalapp.Models.answer.SubmitAnswer;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.Utils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.view.View.GONE;
 
 public class QbankTestFragment extends Fragment {
     LinearLayout answerList;
@@ -24,11 +34,17 @@ public class QbankTestFragment extends Fragment {
     QbankTestActivity qbankTestActivity;
     int fragNum;
     Detail questionDetail;
-    private View answer4;
-    private View answer3;
-    private View answer2;
-    private View answer1;
-    private View answer;
+    private CardView cardView;
+    private CardView cardView1;
+    private CardView cardView2;
+    private CardView cardView3;
+    private CardView cardView4;
+    ProgressBar progressBar;
+
+    LinearLayout questionList, questionListDescription;
+    TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV;
+    WebView webView;
+
 
 
     public static Fragment init(Detail qbankTest, int position) {
@@ -51,6 +67,8 @@ public class QbankTestFragment extends Fragment {
         super.onCreate(savedInstanceState);
         fragNum = getArguments() != null ? getArguments().getInt("val") : 1;
         questionDetail = getArguments() != null ? getArguments().getParcelable("question") : null;
+
+        qbankTestActivity.setFragment(this);
     }
 
     @Nullable
@@ -58,41 +76,109 @@ public class QbankTestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbanktest, container, false);
         answerList = view.findViewById(R.id.questionList);
+        questionListDescription = view.findViewById(R.id.questionListDescription);
+
+        progressBar = view.findViewById(R.id.progressBar);
+        qustion = view.findViewById(R.id.qtext);
+
+        aTV = view.findViewById(R.id.optionA);
+        aTVPer = view.findViewById(R.id.optionAPer);
+
+        bTV = view.findViewById(R.id.optionB);
+        bTVPer = view.findViewById(R.id.optionBPer);
+
+        cTV = view.findViewById(R.id.optionC);
+        cTVPer = view.findViewById(R.id.optionBPer);
+
+        dTV = view.findViewById(R.id.optionA);
+        dTVPer = view.findViewById(R.id.optionDPer);
+        rTV = view.findViewById(R.id.reference);
+
+        webView = view.findViewById(R.id.webView);
+
+
+
         for (int i = 0; i < 5; i++) {
             switch (i) {
                 case 0:
-                    answer = inflater.inflate(R.layout.review_question_list, container, false);
+                    View answer = inflater.inflate(R.layout.review_question_list, container, false);
                     questionTestList = answer.findViewById(R.id.text_question);
                     questionTestList.setText("Q"+(fragNum + 1) + ". " + questionDetail.getQname());
+
+                    if (qbankTestActivity.qbankTestResponse.getDetails().get(qbankTestActivity.qbankTestResponse.getDetails().size() - 1).getId().equalsIgnoreCase(questionDetail.getId())) {
+                        qbankTestActivity.is_completed = "1";
+                    } else {
+                        qbankTestActivity.is_completed = "0";
+                    }
+                    qbankTestActivity.quest_id = questionDetail.getId();
                     answerList.addView(answer);
+
                     break;
 
                 case 1:
 
-                    answer1 = inflater.inflate(R.layout.qbank_item_test, container, false);
+                    View answer1 = inflater.inflate(R.layout.qbank_item_test, container, false);
                     questionTestList = answer1.findViewById(R.id.qbank_answer);
+                    cardView1 = answer1.findViewById(R.id.cardView);
                     questionTestList.setText("A." + questionDetail.getOptionA());
+                    qbankTestActivity.user_answer = questionDetail.getOptionA();
                     answerList.addView(answer1);
+                    cardView1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateAnswer(cardView1, questionDetail.getOptionA());
+                        }
+                    });
                     break;
                 case 2:
-                    answer2 = inflater.inflate(R.layout.qbank_item_test, container, false);
+                    View answer2 = inflater.inflate(R.layout.qbank_item_test, container, false);
                     questionTestList = answer2.findViewById(R.id.qbank_answer);
+                    cardView2 = answer2.findViewById(R.id.cardView);
+                    qbankTestActivity.user_answer = questionDetail.getOptionB();
+
                     questionTestList.setText("B." + questionDetail.getOptionB());
                     answerList.addView(answer2);
+                    cardView2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateAnswer(cardView2, questionDetail.getOptionB());
+
+                        }
+                    });
                     break;
 
                 case 3:
 
-                    answer3 = inflater.inflate(R.layout.qbank_item_test, container, false);
+                    View answer3 = inflater.inflate(R.layout.qbank_item_test, container, false);
                     questionTestList = answer3.findViewById(R.id.qbank_answer);
                     questionTestList.setText("C." + questionDetail.getOptionC());
+                    cardView3 = answer3.findViewById(R.id.cardView);
+                    qbankTestActivity.user_answer = questionDetail.getOptionC();
+
                     answerList.addView(answer3);
+                    cardView3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateAnswer(cardView3, questionDetail.getOptionC());
+
+                        }
+                    });
                     break;
                 case 4:
-                    answer4 = inflater.inflate(R.layout.qbank_item_test, container, false);
+                    View answer4 = inflater.inflate(R.layout.qbank_item_test, container, false);
                     questionTestList = answer4.findViewById(R.id.qbank_answer);
+                    cardView4 = answer4.findViewById(R.id.cardView);
+                    qbankTestActivity.user_answer = questionDetail.getOptionD();
+
                     questionTestList.setText("D." + questionDetail.getOptionD());
                     answerList.addView(answer4);
+                    cardView4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateAnswer(cardView4, questionDetail.getOptionD());
+
+                        }
+                    });
                     break;
             }
         }
@@ -100,36 +186,130 @@ public class QbankTestFragment extends Fragment {
     }
 
     private void updateAnswer(CardView cardView, String answervalue) {
-        GradientDrawable bgShape = (GradientDrawable) answer.getBackground();
-        bgShape.setColor(Color.parseColor("#FFFFFF"));
-
-        GradientDrawable bgShape1 = (GradientDrawable) answer1.getBackground();
-        bgShape1.setColor(Color.parseColor("#FFFFFF"));
-
-
-        GradientDrawable bgShape2 = (GradientDrawable) answer2.getBackground();
-        bgShape2.setColor(Color.parseColor("#FFFFFF"));
-
-        GradientDrawable bgShape3 = (GradientDrawable) answer3.getBackground();
-        bgShape3.setColor(Color.parseColor("#FFFFFF"));
+        cardView1.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
+        cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
+        cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
+        cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
 
 
         if (answervalue.equalsIgnoreCase(questionDetail.getOptionA())) {
-            bgShape.setColor(Color.parseColor("#FF59B449"));
+            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+                cardView1.setCardBackgroundColor(getContext().getResources().getColor(R.color.green));
+            } else {
+                cardView1.setCardBackgroundColor(getContext().getResources().getColor(R.color.red));
 
-        } else if (answervalue.equalsIgnoreCase(questionDetail.getOptionB())) {
-            bgShape1.setColor(Color.parseColor("#FF59B449"));
+            }
 
-        } else if (answervalue.equalsIgnoreCase(questionDetail.getOptionC())) {
-            bgShape2.setColor(Color.parseColor("#FF59B449"));
-
-        } else if (answervalue.equalsIgnoreCase(questionDetail.getOptionD())) {
-            bgShape3.setColor(Color.parseColor("#FF59B449"));
 
         }
+        if (answervalue.equalsIgnoreCase(questionDetail.getOptionB())) {
+            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+                cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.green));
+            } else {
+                cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.red));
 
+            }
 
-        cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
+        }
+        if (answervalue.equalsIgnoreCase(questionDetail.getOptionC())) {
+            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+                cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.green));
+
+            } else {
+                cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.red));
+
+            }
+        }
+        if (answervalue.equalsIgnoreCase(questionDetail.getOptionD())) {
+            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+                cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.green));
+
+            } else {
+                cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.red));
+
+            }
+
+        }
+        submitAnswer();
 
     }
+
+    public void submitAnswer() {
+        Utils.showProgressDialog(qbankTestActivity);
+        RestClient.submitAnswer(qbankTestActivity.quest_id, qbankTestActivity.user_id, qbankTestActivity.is_completed, qbankTestActivity.user_answer, new Callback<SubmitAnswer>() {
+            @Override
+            public void onResponse(Call<SubmitAnswer> call, Response<SubmitAnswer> response) {
+                Utils.dismissProgressDialog();
+                qbankTestActivity.showHideBottomLayout(true);
+                updateUI(response.body());
+                answerList.setVisibility(GONE);
+                questionListDescription.setVisibility(View.VISIBLE);
+
+            }
+
+            @Override
+            public void onFailure(Call<SubmitAnswer> call, Throwable t) {
+                qbankTestActivity.showHideBottomLayout(false);
+                Utils.dismissProgressDialog();
+
+            }
+        });
+    }
+
+    private void updateUI(SubmitAnswer body) {
+        if (body != null) {
+            qustion.setText(body.getDetails().get(0).getQname());
+            aTV.setText(body.getDetails().get(0).getOptionA());
+            aTVPer.setText(body.getDetails().get(0).getOptionAperc());
+            bTV.setText(body.getDetails().get(0).getOptionB());
+            bTVPer.setText(body.getDetails().get(0).getOptionBperc());
+            cTV.setText(body.getDetails().get(0).getOptionC());
+            cTVPer.setText(body.getDetails().get(0).getOptionCperc());
+            dTV.setText(body.getDetails().get(0).getOptionD());
+            dTVPer.setText(body.getDetails().get(0).getOptionDperc());
+            rTV.setText(body.getDetails().get(0).getRefrence());
+            try {
+                initComponent(body.getDetails().get(0).getDescriptionUrl());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+    private void initComponent(String url) throws Exception {
+
+        webView.setWebViewClient(new myWebClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        progressBar.setVisibility(View.VISIBLE);
+        webView.loadUrl(url);
+
+
+    }
+
+    public class myWebClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            progressBar.setVisibility(View.VISIBLE);
+            view.loadUrl(url);
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            progressBar.setVisibility(GONE);
+        }
+    }
+
 }
+
+
+
+

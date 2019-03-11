@@ -6,6 +6,7 @@ import edu.com.medicalapp.Models.QustionDetails;
 import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.VerifyOtpResponse;
+import edu.com.medicalapp.Models.answer.SubmitAnswer;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
@@ -45,6 +46,11 @@ public class RestClient {
 
     public static void getCourses(Callback<CategoryDetailData> callback) {
         RetrofitClient.getClient().getCourse().enqueue(callback);
+    }
+
+
+ public static void submitAnswer(String q_id,String u_id,String is_completed, String userAnswer,Callback<SubmitAnswer> callback) {
+        RetrofitClient.getClient().submitAnswer(q_id,u_id,is_completed,userAnswer).enqueue(callback);
     }
 
 
