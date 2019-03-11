@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import edu.com.medicalapp.Models.qbank.QBank;
@@ -88,6 +90,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             // hide puuse icon
             holder.sub_cat_free.setVisibility(View.GONE);
         }
+        Picasso.with(applicationContext).load(detail.getImage()).error(R.drawable.biology).into(holder.subImage);
         holder.subTitle.setText("" + detail.getModuleName());
         holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getmCQ() + " MCQ's");

@@ -9,6 +9,7 @@ import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.qbank.QbankResponse;
+import edu.com.medicalapp.Models.qbankstart.QbankstartResponse;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.Models.video.VideoList;
 import edu.com.medicalapp.Models.login.loginResponse;
@@ -102,13 +103,21 @@ public interface ApiInterface {
 
     /*@Multipart
     @POST("api/api.php?req=qbank_subcate")
-    Call<QbankSubResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
+    Call<QbankstartResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
 
 */
 
     @Multipart
      @POST("api/api.php?req=qbank_subcate")
     Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id,@Part("user_id") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=qbank_solve")
+    Call<QbankstartResponse> qbankStart(@Part("qmodule_id") RequestBody qmodule_id,
+                                        @Part("user_id") RequestBody user_id
+                                        ,@Part("is_paused") RequestBody is_paused);
+
 
 
 

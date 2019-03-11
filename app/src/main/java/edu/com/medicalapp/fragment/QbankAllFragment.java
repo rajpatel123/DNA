@@ -110,7 +110,6 @@ public class QbankAllFragment extends Fragment {
         RequestBody qcat_id = RequestBody.create(MediaType.parse("text/plain"), qbank_sub_cat);
         UserId= DnaPrefs.getString(getContext(),"Login_Id");
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
-
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());
             RestClient.qbanksubdata(qcat_id,user_id, new Callback<QbankSubResponse>() {

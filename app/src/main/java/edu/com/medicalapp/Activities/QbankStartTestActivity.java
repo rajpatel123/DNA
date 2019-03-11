@@ -8,29 +8,47 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import edu.com.medicalapp.Models.qbankstart.Detail;
+import edu.com.medicalapp.Models.qbankstart.QbankstartResponse;
 import edu.com.medicalapp.R;
+import edu.com.medicalapp.Retrofit.RestClient;
+import edu.com.medicalapp.utils.DnaPrefs;
+import edu.com.medicalapp.utils.Utils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QbankStartTestActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     TextView testName;
     ImageView backImage;
-    String qbank_id, qbank_name;
+    TextView testModuleName, testCompletedQuestion, testTotalQuestion;
+    String qbank_module_id, qbank_name;
     Button btnStart;
+    String userId;
+    QbankstartResponse qbankstartResponse;
+    Detail detailList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_start_test);
         btnStart = findViewById(R.id.start_test);
+        testModuleName = findViewById(R.id.test_name);
+        testTotalQuestion = findViewById(R.id.total_questions);
+
         testName = findViewById(R.id.qbank_sub_subcategory_name);
 
-        backImage=findViewById(R.id.back_button);
+
+        backImage = findViewById(R.id.back_button);
         btnStart.setOnClickListener(this);
         backImage.setOnClickListener(this);
         if (getIntent().hasExtra("qmodule_id")) {
-            qbank_id = getIntent().getStringExtra("qmodule_id");
+            qbank_module_id = getIntent().getStringExtra("qmodule_id");
             qbank_name = getIntent().getStringExtra("qmodule_name");
         }
         testName.setText(qbank_name);
@@ -47,6 +65,46 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getStartData();
+    }
+
+    private void getStartData() {
+        userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        String isPaused = "1";
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody is_paused = RequestBody.create(MediaType.parse("text/plain"), isPaused);
+        RequestBody qmodule_id = RequestBody.create(MediaType.parse("text/plain"), qbank_module_id);
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.qbankStart(qmodule_id, user_id, is_paused, new Callback<QbankstartResponse>() {
+                @Override
+                public void onResponse(Call<QbankstartResponse> call, Response<QbankstartResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equalsIgnoreCase("1")) {
+                            qbankstartResponse = response.body();
+                            testModuleName.setText(qbankstartResponse.getDetails().get(0).getModuleName());
+                            testTotalQuestion.setText(qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<QbankstartResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    Toast.makeText(QbankStartTestActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            Toast.makeText(this, "Connection Internet Failed", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -72,6 +130,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
+                intent.putExtra("qmodule_id",qbank_module_id);
                 startActivity(intent);
             }
         });

@@ -44,7 +44,8 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
         Detail detail = qbankDetailList.get(i);
         holder.textName.setText(detail.getCatName());
         holder.totalQuestion.setText("0"+" / "+detail.getTotalmodules()+"Modules Completed");
-        Picasso.with(applicationContext).load(detail.getCatImage()).error(R.drawable.biology).into(holder.imageView);
+        Picasso.with(applicationContext).load(detail.getCatImage()).into(holder.imageView);
+        //Picasso.with(applicationContext).load(detail.getCatImage()).error(R.drawable.biology).into(holder.imageView);
 
        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
