@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="gone"
+                    android:visibility="visible"
 
                     android:padding="10dp">
 
@@ -45,7 +45,13 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/imga"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                         <TextView
                             android:id="@+id/optionA"
@@ -66,8 +72,13 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
+                        <ImageView
+                            android:id="@+id/imgb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                         <TextView
                             android:id="@+id/optionB"
                             android:layout_width="wrap_content"
@@ -87,8 +98,13 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
+                        <ImageView
+                            android:id="@+id/imgc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                         <TextView
                             android:id="@+id/optionC"
                             android:layout_width="wrap_content"
@@ -108,8 +124,13 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
+                        <ImageView
+                            android:id="@+id/imgd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                         <TextView
                             android:id="@+id/optionD"
                             android:layout_width="wrap_content"

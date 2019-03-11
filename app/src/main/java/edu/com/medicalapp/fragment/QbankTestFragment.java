@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class QbankTestFragment extends Fragment {
     boolean isLast;
     LinearLayout questionList, questionListDescription;
     TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV;
+    ImageView imgA,imgB,imgC,imgD;
     WebView webView;
 
 
@@ -80,6 +82,11 @@ public class QbankTestFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progressBar);
         qustion = view.findViewById(R.id.qtext);
+
+        imgA = view.findViewById(R.id.imga);
+        imgB = view.findViewById(R.id.imgb);
+        imgC = view.findViewById(R.id.imgc);
+        imgD = view.findViewById(R.id.imgd);
 
         aTV = view.findViewById(R.id.optionA);
         aTVPer = view.findViewById(R.id.optionAPer);
