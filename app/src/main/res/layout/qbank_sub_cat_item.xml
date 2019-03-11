@@ -87,19 +87,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@drawable/vedio_image_background">
-
+                >
                 <ImageView
                     android:id="@+id/sub_cat_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
-                    android:background="@drawable/vedio_image_background"
                     android:src="@drawable/dr1" />
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -131,7 +128,6 @@
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:paddingRight="8dp"
-                        android:visibility="gone"
                         android:src="@drawable/question_bank_lock" />
 
                 </LinearLayout>

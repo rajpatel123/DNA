@@ -85,6 +85,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
 
         if (detail.getPausedStatus().equalsIgnoreCase("1")){
+            Picasso.with(applicationContext).load(R.drawable.paused_icon).into(holder.sub_cat_free);
            //show  pause icon
         }else{
             // hide puuse icon
@@ -104,8 +105,6 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
                 }
             }
         });
-
-
     }
 
     @Override
