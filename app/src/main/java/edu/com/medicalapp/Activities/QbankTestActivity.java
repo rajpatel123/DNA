@@ -51,6 +51,7 @@ public class QbankTestActivity extends AppCompatActivity {
         imageViewCancel = findViewById(R.id.btnCancel);
         linearBottom = findViewById(R.id.linearBottom);
         nextBtn = findViewById(R.id.nextBtn);
+        qbankgetTest();
         imageViewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +113,7 @@ public class QbankTestActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        qbankgetTest();
+
     }
 
     private void qbankgetTest() {
