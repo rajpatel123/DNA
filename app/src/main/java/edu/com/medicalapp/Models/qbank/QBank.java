@@ -5,6 +5,37 @@ import com.google.gson.annotations.SerializedName;
 
 public class QBank {
 
+    public String getIsPaused() {
+        return isPaused;
+    }
+
+    public void setIsPaused(String isPaused) {
+        this.isPaused = isPaused;
+    }
+
+    public String getIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(String isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    public String getIsAttempted() {
+        return isAttempted;
+    }
+
+    public void setIsAttempted(String isAttempted) {
+        this.isAttempted = isAttempted;
+    }
+
+    public String getmCQ() {
+        return mCQ;
+    }
+
+    public void setmCQ(String mCQ) {
+        this.mCQ = mCQ;
+    }
 
     @SerializedName("id")
     @Expose
@@ -20,21 +51,31 @@ public class QBank {
     @SerializedName("module_id")
     @Expose
     private String moduleId;
-    @SerializedName("paid_status")
-    @Expose
-    private String paidStatus;
-    @SerializedName("totalmcq")
-    @Expose
-    private String totalmcq;
-    @SerializedName("image")
-    @Expose
-    private String image;
     @SerializedName("module_name")
     @Expose
     private String moduleName;
+    @SerializedName("PaidStatus")
+    @Expose
+    private String paidStatus;
+    @SerializedName("is_paused")
+    @Expose
+    private String isPaused;
+    @SerializedName("is_completed")
+    @Expose
+    private String isCompleted;
     @SerializedName("rating")
     @Expose
     private String rating;
+    @SerializedName("IsAttempted")
+    @Expose
+    private String isAttempted;
+    @SerializedName("MCQ")
+    @Expose
+    private String mCQ;
+    @SerializedName("image")
+    @Expose
+    private String image;
+
 
     public String getRating() {
         return rating;
@@ -115,13 +156,6 @@ public class QBank {
         this.paidStatus = paidStatus;
     }
 
-    public String getTotalmcq() {
-        return totalmcq;
-    }
-
-    public void setTotalmcq(String totalmcq) {
-        this.totalmcq = totalmcq;
-    }
 
     public String getImage() {
         return image;

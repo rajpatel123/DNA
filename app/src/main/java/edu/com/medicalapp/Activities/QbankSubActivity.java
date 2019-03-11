@@ -33,7 +33,11 @@ public class QbankSubActivity extends AppCompatActivity {
     public String qbankcat_id;
     public String qbankcat_name;
     TextView toolbarName;
-    public List<QBank> qBank = new ArrayList<>();
+    public List<QBank> qBankAll = new ArrayList<>();
+    public List<QBank> qBankPaused = new ArrayList<>();
+    public List<QBank> qBankCompleted = new ArrayList<>();
+    public List<QBank> qBankUnAttempted = new ArrayList<>();
+    public List<QBank> qBankUnFree = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
