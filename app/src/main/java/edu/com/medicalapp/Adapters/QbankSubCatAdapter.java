@@ -125,7 +125,9 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subTitle = itemView.findViewById(R.id.sub_cat_title);
             subRating = itemView.findViewById(R.id.rating);
             itemNumber = itemView.findViewById(R.id.index);
-            sub_cat_free = itemView.findViewById(R.id.sub_cat_free);
+            sub_cat_free = itemView.findViewById(R.id.lock);
+
+
             subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);
             linearClick = itemView.findViewById(R.id.linear);
         }
