@@ -14,9 +14,27 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.ReviewLessonActivity"></activity>
-        <activity android:name=".Activities.FeedBack2Activity" />
-        <activity android:name=".Activities.FeedBackActivity" />
+        <activity android:name=".Activities.QbankAddFeedbackActivity"></activity>
+        <activity android:name=".Activities.QbankResultActivity" />
+        <activity android:name=".Activities.QbankRatingActivity" />
+        <activity
+            android:name=".Activities.QbankTestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme6" />
+        <activity
+            android:name=".Activities.BookmarkActivity"
+            android:label="MCQ Bookmarks"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.QbankStartTestActivity"
+            android:label="Amino acid:Metabolism"
+            android:parentActivityName=".Activities.QbankSubActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.QbankSubActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ReviewQuestionList"
             android:screenOrientation="portrait" />
@@ -28,8 +46,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SplashActivity"
-            android:theme="@style/AppTheme1">
+            android:theme="@style/AppTheme6">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

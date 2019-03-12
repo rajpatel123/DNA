@@ -265,8 +265,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 if (response.body() != null) {
                     if (response.body().getStatus().equalsIgnoreCase("1")) {
                         Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                        startActivity(new Intent(getApplicationContext(), VerifyOTPActivity.class));
+                        Intent intent = new Intent(getApplicationContext(), VerifyOTPActivity.class);
+                        intent.putExtra("mobile", "");
+                        intent.putExtra("user_id", response.body().getUser_id());
+                        startActivity(intent);
                         finish();
+                    }else{
+                        Utils.displayToast(getApplicationContext(), response.body().getMessage());
+
                     }
                 }
             }
