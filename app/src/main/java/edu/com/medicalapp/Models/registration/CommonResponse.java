@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class CommonResponse {
 
-@SerializedName("status")
-@Expose
-private String status;
+    @SerializedName("status")
+    @Expose
+    private String status;
 
     public String getUser_id() {
         return user_id;
@@ -19,26 +19,26 @@ private String status;
     }
 
     @SerializedName("user_id")
-@Expose
-private String user_id;
-@SerializedName("message")
-@Expose
-private String message;
+    @Expose
+    private String user_id;
+    @SerializedName("message")
+    @Expose
+    private String message;
 
-public String getStatus() {
-return status;
-}
+    public String getStatus() {
+        return status;
+    }
 
-public void setStatus(String status) {
-this.status = status;
-}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-public String getMessage() {
-return message;
-}
+    public String getMessage() {
+        return message;
+    }
 
-public void setMessage(String message) {
-this.message = message;
-}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 }
