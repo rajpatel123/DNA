@@ -24,22 +24,22 @@
                     android:id="@+id/questionList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible"
-                    android:orientation="vertical" />
+                    android:orientation="vertical"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/questionListDescription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="gone"
-
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/qtext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
                         android:text="Test Questions"
                         android:textStyle="bold" />
 
@@ -50,15 +50,18 @@
 
                         <ImageView
                             android:id="@+id/imga"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
 
                         <TextView
                             android:id="@+id/optionA"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="Test" />
+                            android:layout_toRightOf="@id/imga"
+                            android:text="Test"
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/optionAPer"
@@ -67,7 +70,8 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionA"
-                            android:text="[14%]" />
+                            android:text="[14%]"
+                            android:textSize="20sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -77,14 +81,19 @@
 
                         <ImageView
                             android:id="@+id/imgb"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp" />
+
                         <TextView
                             android:id="@+id/optionB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="Test" />
+                            android:layout_toRightOf="@id/imgb"
+                            android:text="Test"
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/optionBPer"
@@ -93,7 +102,8 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionB"
-                            android:text="[14%]" />
+                            android:text="[14%]"
+                            android:textSize="20sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -103,14 +113,19 @@
 
                         <ImageView
                             android:id="@+id/imgc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp" />
+
                         <TextView
                             android:id="@+id/optionC"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="Test" />
+                            android:layout_toRightOf="@id/imgc"
+                            android:text="Test"
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/optionCPer"
@@ -119,7 +134,8 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionC"
-                            android:text="[14%]" />
+                            android:text="[14%]"
+                            android:textSize="20sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -129,23 +145,30 @@
 
                         <ImageView
                             android:id="@+id/imgd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp" />
+
                         <TextView
                             android:id="@+id/optionD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="Test" />
+                            android:layout_toRightOf="@id/imgd"
+                            android:text="Test"
+                            android:textSize="20sp" />
 
                         <TextView
+
                             android:id="@+id/optionDPer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionD"
-                            android:text="[14%]" />
+                            android:text="[14%]"
+                            android:textSize="20sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -156,8 +179,11 @@
                             android:id="@+id/reference"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="Ref By Dr. Niraj Kumar Author" />
+                            android:padding="10dp"
+                            android:text="Ref By Dr. Niraj Kumar Author"
+                            android:textSize="20sp" />
 
 
                     </RelativeLayout>
@@ -171,7 +197,7 @@
                         android:id="@+id/progressBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center" />
                 </LinearLayout>
             </LinearLayout>
 
