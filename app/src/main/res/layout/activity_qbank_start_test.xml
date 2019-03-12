@@ -111,6 +111,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:paddingTop="10dp"
+        android:textColor="@color/black"
             android:text="2 Fresh Mcq added"
             android:textSize="14sp" />
 
