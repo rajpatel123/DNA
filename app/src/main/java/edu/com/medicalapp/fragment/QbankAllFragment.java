@@ -81,11 +81,16 @@ public class QbankAllFragment extends Fragment {
         qbankSubCatAdapter.notifyDataSetChanged();
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(String id, String moduleName) {
-                Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
-                intent.putExtra("qmodule_id", id);
-                intent.putExtra("qmodule_name", moduleName);
-                startActivity(intent);
+            public void onQbankSubClick(int position, String id, String moduleName) {
+                if (Integer.parseInt(qbankSubActivity.qBankAll.get(position).getmCQ()) > 0) {
+                    Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
+                    intent.putExtra("qmodule_id", id);
+                    intent.putExtra("qmodule_name", moduleName);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
