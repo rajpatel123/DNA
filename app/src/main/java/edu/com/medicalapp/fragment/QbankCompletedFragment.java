@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.com.medicalapp.Activities.QbankStartTestActivity;
@@ -21,6 +22,7 @@ import edu.com.medicalapp.R;
 public class QbankCompletedFragment extends Fragment {
     QbankSubActivity activity;
     RecyclerView recyclerView;
+    TextView no_item;
 
     @Override
     public void onAttach(Context context) {
@@ -32,6 +34,7 @@ public class QbankCompletedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbank_completed, container, false);
         recyclerView=view.findViewById(R.id.recycler);
+        no_item=view.findViewById(R.id.item_text);
         return view;
     }
 
@@ -58,5 +61,8 @@ public class QbankCompletedFragment extends Fragment {
         });
         recyclerView.setAdapter(qbankSubCatAdapter);
         recyclerView.setVisibility(View.VISIBLE);
+        no_item.setVisibility(View.GONE);
+
+
     }
 }

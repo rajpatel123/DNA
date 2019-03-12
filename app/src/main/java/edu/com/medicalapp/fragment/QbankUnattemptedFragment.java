@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.com.medicalapp.Activities.QbankStartTestActivity;
@@ -21,6 +22,7 @@ import edu.com.medicalapp.R;
 public class QbankUnattemptedFragment extends Fragment {
 
     RecyclerView recyclerView;
+    TextView noItem;
     private QbankSubActivity activity;
 
     @Override
@@ -35,6 +37,7 @@ public class QbankUnattemptedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbank_unattempted, container, false);
         recyclerView = view.findViewById(R.id.recycler);
+        noItem=view.findViewById(R.id.item_text);
         return view;
     }
     @Override
@@ -42,7 +45,7 @@ public class QbankUnattemptedFragment extends Fragment {
         super.onResume();
 
         QbankSubCatAdapter qbankSubCatAdapter=new QbankSubCatAdapter();
-        qbankSubCatAdapter.setDetailList(activity.qBankPaused);
+        qbankSubCatAdapter.setDetailList(activity.qBankUnAttempted);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
@@ -62,5 +65,7 @@ public class QbankUnattemptedFragment extends Fragment {
 
         recyclerView.setAdapter(qbankSubCatAdapter);
         recyclerView.setVisibility(View.VISIBLE);
+        noItem.setVisibility(View.GONE);
+
     }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
     android:background="@color/white"
     android:orientation="vertical">
@@ -27,16 +28,18 @@
                     android:orientation="vertical"
                     android:visibility="visible" />
 
+
                 <LinearLayout
                     android:id="@+id/questionListDescription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="10dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/qtext"
+                        android:textSize="18sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
@@ -71,6 +74,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionA"
                             android:text="[14%]"
+                            android:textColor="@color/black_titles"
                             android:textSize="20sp" />
                     </RelativeLayout>
 
@@ -103,6 +107,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionB"
                             android:text="[14%]"
+                            android:textColor="@color/black_titles"
                             android:textSize="20sp" />
                     </RelativeLayout>
 
@@ -135,6 +140,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionC"
                             android:text="[14%]"
+                            android:textColor="@color/black_titles"
                             android:textSize="20sp" />
                     </RelativeLayout>
 
@@ -168,7 +174,49 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/optionD"
                             android:text="[14%]"
+                            android:textColor="@color/black_titles"
                             android:textSize="20sp" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                       android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <android.support.v7.widget.CardView
+                            app:cardBackgroundColor="@color/card_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ProgressBar
+                                    android:visibility="gone"
+                                    style="?android:attr/progressBarStyle"
+                                    android:outlineSpotShadowColor="@color/black"
+                                    android:id="@+id/progress_bar_chart"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/bar_chart_percentage"
+                                    android:paddingLeft="15dp"
+                                    android:textSize="18sp"
+                                    android:textColor="@color/black_titles"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="gydghjdghj" />
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
                     </RelativeLayout>
 
                     <RelativeLayout
