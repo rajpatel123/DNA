@@ -137,18 +137,18 @@ public class FirstloginActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 100) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            }else{
+            } else {
                 finish();
             }
         }
     }
+
     private void loginwithFb() {
 
  /*       loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -242,13 +242,13 @@ public class FirstloginActivity extends AppCompatActivity {
                                         if (Integer.parseInt(facebookResponse.getStatus()) == 1) {
                                             Utils.displayToast(FirstloginActivity.this, facebookResponse.getMessage());
                                             Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
-                                            int fb_id=facebookResponse.getFacebookDetails().get(0).getId();
-                                            DnaPrefs.putInt(getApplicationContext(),"fB_ID",fb_id);
-                                            DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",true);
+                                            int fb_id = facebookResponse.getFacebookDetails().get(0).getId();
+                                            DnaPrefs.putInt(getApplicationContext(), "fB_ID", fb_id);
+                                            DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", true);
                                             DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                             DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
                                             DnaPrefs.putString(getApplicationContext(), "EMAIL", email);
-                                            DnaPrefs.putString(getApplicationContext(),"FBID",facebook_id);
+                                            DnaPrefs.putString(getApplicationContext(), "FBID", facebook_id);
                                             startActivity(intent);
                                             finish();
                                         } else {
@@ -260,6 +260,7 @@ public class FirstloginActivity extends AppCompatActivity {
 
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<FacebookResponse> call, Throwable t) {
                                     Utils.dismissProgressDialog();

@@ -24,9 +24,8 @@ public class DNASuscribeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id=item.getItemId();
-        if(id==R.id.home)
-        {
+        int id = item.getItemId();
+        if (id == R.id.home) {
             finish();
 
         }
