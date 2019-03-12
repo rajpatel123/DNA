@@ -27,7 +27,6 @@ public class NeetPgActivity extends AppCompatActivity {
     TextView catTitle;
     private HashMap<String, List<SubSubChild>> listHashMap;
     private ArrayList<SubSubChild> neetPg;
-
     private LinearLayout linearLayoutArrow;
 
 

@@ -47,8 +47,8 @@ public class QbankSubActivity extends AppCompatActivity {
         if (getIntent().hasExtra("cat_id")) {
             qbankcat_id = getIntent().getStringExtra("cat_id");
             qbankcat_name = getIntent().getStringExtra("cat_name");
-
         }
+
         toolbarName.setText(qbankcat_name);
 
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {

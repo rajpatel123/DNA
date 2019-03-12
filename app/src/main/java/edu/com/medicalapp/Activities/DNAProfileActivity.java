@@ -27,16 +27,16 @@ import edu.com.medicalapp.utils.DnaPrefs;
 
 public class DNAProfileActivity extends AppCompatActivity {
 
-@BindView(R.id.profile_image)
+    @BindView(R.id.profile_image)
     CircleImageView circleImageView;
-   @BindView(R.id.profile_name)
-   TextView tvName;
+    @BindView(R.id.profile_name)
+    TextView tvName;
 
-   @BindView(R.id.profile_email)
+    @BindView(R.id.profile_email)
     TextView tvEmail;
 
-   @BindView(R.id.profile_logout)
-   TextView textViewProfile;
+    @BindView(R.id.profile_logout)
+    TextView textViewProfile;
 
 
     @Override
@@ -60,16 +60,16 @@ public class DNAProfileActivity extends AppCompatActivity {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView= inflater.inflate(R.layout.profile_alertdialog, null);
+        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
         dialogBuilder.setView(dialogView);
 
         final AlertDialog dialog = dialogBuilder.create();
         Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-        TextView text_logout=dialogView.findViewById(R.id.text_logout);
+        TextView text_logout = dialogView.findViewById(R.id.text_logout);
         btn_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             dialog.dismiss();
+                dialog.dismiss();
 
             }
         });
@@ -77,8 +77,8 @@ public class DNAProfileActivity extends AppCompatActivity {
         text_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DnaPrefs.putBoolean(DNAProfileActivity.this, Constants.LoginCheck,false);
-                startActivity(new Intent(DNAProfileActivity.this,FirstloginActivity.class));
+                DnaPrefs.putBoolean(DNAProfileActivity.this, Constants.LoginCheck, false);
+                startActivity(new Intent(DNAProfileActivity.this, FirstloginActivity.class));
                 finish();
             }
         });
@@ -88,53 +88,49 @@ public class DNAProfileActivity extends AppCompatActivity {
     }
 
     private void setprofiledata() {
-        Intent intent=getIntent();
+        Intent intent = getIntent();
 
-            String name=DnaPrefs.getString(getApplicationContext(),"NAME");
-            String image=DnaPrefs.getString(getApplicationContext(),"URL");
-            String email=DnaPrefs.getString(getApplicationContext(),"EMAIL");
+        String name = DnaPrefs.getString(getApplicationContext(), "NAME");
+        String image = DnaPrefs.getString(getApplicationContext(), "URL");
+        String email = DnaPrefs.getString(getApplicationContext(), "EMAIL");
 
-            tvName.setText(name);
-            tvEmail.setText(email);
-            if(!TextUtils.isEmpty(image))
-            {
+        tvName.setText(name);
+        tvEmail.setText(email);
+        if (!TextUtils.isEmpty(image)) {
 
-                Picasso.with(this)
-                        .load(image)
-                        .error(R.drawable.dnalogo)
-                        .into(circleImageView);
-            }
-            else
-            {
+            Picasso.with(this)
+                    .load(image)
+                    .error(R.drawable.dnalogo)
+                    .into(circleImageView);
+        } else {
 
-                Picasso.with(this)
-                        .load(R.drawable.dnalogo)
-                        .error(R.drawable.dnalogo)
-                        .into(circleImageView);
-            }
+            Picasso.with(this)
+                    .load(R.drawable.dnalogo)
+                    .error(R.drawable.dnalogo)
+                    .into(circleImageView);
+        }
 
 
     }
 
 
     @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.profile_main_drawer, menu);
-            return true;
-        }
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item)
-        {
-            switch (item.getItemId())
-            {
-                case R.id.profile_edit:
-                    //your code here
-                    return true;
-                default:
-                    return super.onOptionsItemSelected(item);
-            }
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.profile_main_drawer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_edit:
+                //your code here
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
+}
 

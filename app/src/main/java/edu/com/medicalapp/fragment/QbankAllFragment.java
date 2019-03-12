@@ -154,10 +154,9 @@ public class QbankAllFragment extends Fragment {
                                     if (qBankDetails.getIsAttempted().equalsIgnoreCase(UN_ATTEMPTED)){
                                         qbankSubActivity.qBankUnAttempted.add(qBankDetails);
                                     }
-
-                                 /*   if (qBankDetails.getCopletedStatus().equalsIgnoreCase("1")){
-                                        qbankSubActivity.qBankUnAttempted.add(qBankDetails);
-                                    }*/
+                                   if (qBankDetails.getCopletedStatus().equalsIgnoreCase("1")){
+                                        qbankSubActivity.qBankCompleted.add(qBankDetails);
+                                    }
 
                                     qbankSubActivity.qBankAll.add(qBankDetails);
 

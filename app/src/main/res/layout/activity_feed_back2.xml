@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    >
+    tools:context=".Activities.FeedBack2Activity">
+
+
     <LinearLayout
-        android:layout_margin="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <EditText
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/ic_keyboard_backspace_black_24dp" />
+
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
@@ -19,38 +31,38 @@
             android:text="Tell us What we missed"
             android:textColor="@color/black"
             android:textSize="18dp"
-            />
+             />
 
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edit_feedback"
-            android:layout_margin="20sp"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/cardview_border"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/edit_feedcak_boundry"
             android:hint="How can We improve this module?"
             android:textColor="@color/dark_gray"
             android:textSize="18dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <Button
-            android:padding="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@color/orange"
             android:gravity="center"
             android:text="SUBMIT"
-            android:id="@+id/submit"
-
             android:textColor="@color/white" />
 
 

@@ -44,7 +44,7 @@ public class QbankRatingActivity extends AppCompatActivity {
         textViewToohard = findViewById(R.id.too_hard);
         textViewToomuch = findViewById(R.id.too_much_content);
         textViewToolittle = findViewById(R.id.too_little_content);
-        ratingbar = findViewById(R.id.ratingBar);
+      ratingbar = findViewById(R.id.ratingBar);
         buttonsubmit = findViewById(R.id.submit_button);
         linearLayout = findViewById(R.id.linear_bottom);
         result = new StringBuilder();
@@ -53,7 +53,6 @@ public class QbankRatingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (result.toString().contains(textViewToolittle.getText().toString())) {
                     textViewToolittle.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
-
                     result.toString().replace(textViewToolittle.getText().toString(), "");
                 } else {
                     result.append(textViewToolittle.getText().toString());
@@ -191,7 +190,7 @@ public class QbankRatingActivity extends AppCompatActivity {
         });
 */
 
-        ratingbar.setOnClickListener(new View.OnClickListener() {
+     ratingbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 linearLayout.setVisibility(View.VISIBLE);
@@ -206,7 +205,6 @@ public class QbankRatingActivity extends AppCompatActivity {
         // sendData();
 
     }
-
     private void sendData() {
 
         if (Utils.isInternetConnected(this)) {

@@ -445,7 +445,6 @@ public class TestActivity extends FragmentActivity {
                 user_id = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
             } else {
                 user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
-
             }
 
             String test_id = getIntent().getStringExtra("id");
