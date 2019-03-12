@@ -53,7 +53,6 @@ public class QbankRatingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (result.toString().contains(textViewToolittle.getText().toString())) {
                     textViewToolittle.setBackgroundColor(getResources().getColor(R.color.profile_cardtext));
-
                     result.toString().replace(textViewToolittle.getText().toString(), "");
                 } else {
                     result.append(textViewToolittle.getText().toString());
@@ -206,7 +205,6 @@ public class QbankRatingActivity extends AppCompatActivity {
         // sendData();
 
     }
-
     private void sendData() {
 
         if (Utils.isInternetConnected(this)) {

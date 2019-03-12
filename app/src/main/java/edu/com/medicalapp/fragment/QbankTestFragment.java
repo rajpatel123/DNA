@@ -243,14 +243,13 @@ public class QbankTestFragment extends Fragment {
                 Utils.dismissProgressDialog();
                 qbankTestActivity.showHideBottomLayout(true);
                 updateUI(response.body());
-              /*  if (qbankTestActivity.is_completed.equalsIgnoreCase("1")) {
+                 if (qbankTestActivity.is_completed.equalsIgnoreCase("1")) {
                     qbankTestActivity.nextBtn.setText("Complete");
-                }*/
+                }
                 answerList.setVisibility(GONE);
                 questionListDescription.setVisibility(View.VISIBLE);
 
             }
-
             @Override
             public void onFailure(Call<SubmitAnswer> call, Throwable t) {
                 qbankTestActivity.showHideBottomLayout(false);
@@ -301,8 +300,6 @@ public class QbankTestFragment extends Fragment {
                     cTV.setTextColor(Color.RED);
                 }
             }
-
-
             dTV.setText("D." + body.getDetails().get(0).getOptionD());
             dTVPer.setText("[" + body.getDetails().get(0).getOptionDperc() + "]");
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {

@@ -42,7 +42,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:src="@drawable/qbank_test_cancel_icon" />
+                android:src="@drawable/qbank_wrong_answer" />
 
 
         </LinearLayout>
@@ -62,9 +62,9 @@
     android:id="@+id/linearBottom"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:visibility="gone"
+
     android:gravity="center_vertical"
-    android:layout_marginBottom="15dp"
+    android:layout_marginBottom="10dp"
     android:layout_alignParentBottom="true">
 
         <ImageView
@@ -75,9 +75,9 @@
             android:src="@drawable/review_result_question_icon"/>
         <Button
             android:id="@+id/nextBtn"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="40dp"
-            android:padding="10dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="60dp"
+           android:padding="5dp"
             android:layout_weight="1"
             android:textColor="@color/white"
             android:text="Next"

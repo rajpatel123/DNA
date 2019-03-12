@@ -78,6 +78,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
 
         if (detail.getPaidStatus().equalsIgnoreCase("Paid")) {
+            
             holder.sub_cat_free.setVisibility(View.VISIBLE);
         } else {
             holder.sub_cat_free.setVisibility(View.GONE);
@@ -93,7 +94,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
         holder.subTitle.setText("" + detail.getModuleName());
         holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getmCQ() + " MCQ's");
-        holder.subRating.setText("" + detail.getRating());
+        holder.subRating.setText("(" + detail.getRating()+")");
         holder.linearClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

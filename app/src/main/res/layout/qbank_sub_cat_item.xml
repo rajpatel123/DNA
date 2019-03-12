@@ -117,7 +117,7 @@
                         android:layout_weight="1"
                         android:paddingLeft="10dp"
                         android:text="Introduction to Anotomy"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/com_facebook_likeview_text_color"
                         android:textSize="16sp" />
                     <!--
                                         <ImageView
