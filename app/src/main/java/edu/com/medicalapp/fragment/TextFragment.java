@@ -127,10 +127,8 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
 
         @Override
         public int getCount() {
-
             return mFragmentList.size();
         }
-
         public void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
@@ -141,8 +139,6 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
             return mFragmentTitleList.get(position);
         }
     }
-
-
     public interface DisplayDataInterface {
         public void showVideos();
     }

@@ -44,7 +44,7 @@ public class QbankRatingActivity extends AppCompatActivity {
         textViewToohard = findViewById(R.id.too_hard);
         textViewToomuch = findViewById(R.id.too_much_content);
         textViewToolittle = findViewById(R.id.too_little_content);
-      ratingbar = findViewById(R.id.rating_Bar);
+      ratingbar = findViewById(R.id.ratingBar);
         buttonsubmit = findViewById(R.id.submit_button);
         linearLayout = findViewById(R.id.linear_bottom);
         result = new StringBuilder();

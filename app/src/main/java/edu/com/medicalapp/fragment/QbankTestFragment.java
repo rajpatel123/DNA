@@ -2,6 +2,7 @@ package edu.com.medicalapp.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,9 +45,8 @@ public class QbankTestFragment extends Fragment {
     boolean isLast;
     LinearLayout questionList, questionListDescription;
     TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV;
-    ImageView imgA,imgB,imgC,imgD;
+    ImageView imgA, imgB, imgC, imgD;
     WebView webView;
-
 
 
     public static Fragment init(Detail qbankTest, int position) {
@@ -95,9 +95,9 @@ public class QbankTestFragment extends Fragment {
         bTVPer = view.findViewById(R.id.optionBPer);
 
         cTV = view.findViewById(R.id.optionC);
-        cTVPer = view.findViewById(R.id.optionBPer);
+        cTVPer = view.findViewById(R.id.optionCPer);
 
-        dTV = view.findViewById(R.id.optionA);
+        dTV = view.findViewById(R.id.optionD);
         dTVPer = view.findViewById(R.id.optionDPer);
         rTV = view.findViewById(R.id.reference);
 
@@ -105,13 +105,13 @@ public class QbankTestFragment extends Fragment {
 
         View answer = inflater.inflate(R.layout.review_question_list, container, false);
         questionTestList = answer.findViewById(R.id.text_question);
-        questionTestList.setText("Q"+(fragNum + 1) + ". " + questionDetail.getQname());
+        questionTestList.setText("Q" + (fragNum + 1) + ". " + questionDetail.getQname());
         qbankTestActivity.quest_id = questionDetail.getId();
         answerList.addView(answer);
 
 
-        if (qbankTestActivity.qbankTestResponse.getDetails().get(qbankTestActivity.qbankTestResponse.getDetails().size()-1).getId().equalsIgnoreCase(questionDetail.getId())){
-            qbankTestActivity.is_completed="1";
+        if (qbankTestActivity.qbankTestResponse.getDetails().get(qbankTestActivity.qbankTestResponse.getDetails().size() - 1).getId().equalsIgnoreCase(questionDetail.getId())) {
+            qbankTestActivity.is_completed = "1";
         }
         for (int i = 1; i < 5; i++) {
             switch (i) {
@@ -227,9 +227,7 @@ public class QbankTestFragment extends Fragment {
 
             } else {
                 cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.red));
-
             }
-
         }
         submitAnswer();
 
@@ -245,9 +243,9 @@ public class QbankTestFragment extends Fragment {
                 Utils.dismissProgressDialog();
                 qbankTestActivity.showHideBottomLayout(true);
                 updateUI(response.body());
-                if (qbankTestActivity.is_completed.equalsIgnoreCase("1")) {
+              /*  if (qbankTestActivity.is_completed.equalsIgnoreCase("1")) {
                     qbankTestActivity.nextBtn.setText("Complete");
-                }
+                }*/
                 answerList.setVisibility(GONE);
                 questionListDescription.setVisibility(View.VISIBLE);
 
@@ -265,14 +263,60 @@ public class QbankTestFragment extends Fragment {
     private void updateUI(SubmitAnswer body) {
         if (body != null) {
             qustion.setText(body.getDetails().get(0).getQname());
-            aTV.setText(body.getDetails().get(0).getOptionA());
-            aTVPer.setText("["+body.getDetails().get(0).getOptionAperc()+"]");
-            bTV.setText(body.getDetails().get(0).getOptionB());
-            bTVPer.setText("["+body.getDetails().get(0).getOptionBperc()+"]");
-            cTV.setText(body.getDetails().get(0).getOptionC());
-            cTVPer.setText("["+body.getDetails().get(0).getOptionCperc()+"]");
-            dTV.setText(body.getDetails().get(0).getOptionD());
-            dTVPer.setText("["+body.getDetails().get(0).getOptionDperc()+"]");
+            aTV.setText("A." + body.getDetails().get(0).getOptionA());
+            aTVPer.setText("[" + body.getDetails().get(0).getOptionAperc() + "]");
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                imgA.setImageResource(R.drawable.right_answer_icon);
+                aTV.setTextColor(Color.GREEN);
+            }
+            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+                    imgA.setImageResource(R.drawable.qbank_wrong_answer);
+                    aTV.setTextColor(Color.RED);
+                }
+            }
+
+            bTV.setText("B." + body.getDetails().get(0).getOptionB());
+            bTVPer.setText("[" + body.getDetails().get(0).getOptionBperc() + "]");
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                imgB.setImageResource(R.drawable.right_answer_icon);
+                bTV.setTextColor(Color.GREEN);
+            }
+            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+                    imgB.setImageResource(R.drawable.qbank_wrong_answer);
+                    bTV.setTextColor(Color.RED);
+                }
+            }
+
+            cTV.setText("C." + body.getDetails().get(0).getOptionC());
+            cTVPer.setText("[" + body.getDetails().get(0).getOptionCperc() + "]");
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                imgC.setImageResource(R.drawable.right_answer_icon);
+                cTV.setTextColor(Color.GREEN);
+            }
+            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+                    imgC.setImageResource(R.drawable.qbank_wrong_answer);
+                    cTV.setTextColor(Color.RED);
+                }
+            }
+
+
+            dTV.setText("D." + body.getDetails().get(0).getOptionD());
+            dTVPer.setText("[" + body.getDetails().get(0).getOptionDperc() + "]");
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                imgD.setImageResource(R.drawable.right_answer_icon);
+                dTV.setTextColor(Color.GREEN);
+            }
+            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+                    imgD.setImageResource(R.drawable.qbank_wrong_answer);
+                    dTV.setTextColor(Color.RED);
+                }
+            }
+
+
             rTV.setText(body.getDetails().get(0).getRefrence());
             try {
                 initComponent(body.getDetails().get(0).getDescriptionUrl());
