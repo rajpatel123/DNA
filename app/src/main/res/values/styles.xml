@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -27,8 +28,8 @@
     </style>
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-       <!---->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!---->
     <!--</style>-->
 
     <style name="RatingBar" parent="Theme.AppCompat">
@@ -43,6 +44,7 @@
     <style name="AppTheme.ProgressBarWhite" parent="@style/Theme.AppCompat">
         <item name="colorAccent">@color/white</item>
     </style>
+
     <style name="AppTheme2" parent="Base.Theme.AppCompat.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -57,6 +59,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
     <style name="AppTheme6" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:windowFullscreen">true</item>
@@ -66,6 +69,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -76,22 +80,22 @@
     <style name="AppTheme.PopupOverlay"></style>
 
     <declare-styleable name="CircleSeekBar">
-        <attr name="csb_progress" format="integer"/>
-        <attr name="csb_min" format="integer"/>
-        <attr name="csb_max" format="integer"/>
-        <attr name="csb_step" format="integer"/>
+        <attr name="csb_progress" format="integer" />
+        <attr name="csb_min" format="integer" />
+        <attr name="csb_max" format="integer" />
+        <attr name="csb_step" format="integer" />
 
-        <attr name="csb_thumbDrawable" format="reference"/>
+        <attr name="csb_thumbDrawable" format="reference" />
         <attr name="csb_thumbSize" format="dimension" />
 
-        <attr name="csb_progressColor" format="color"/>
-        <attr name="csb_progressWidth" format="dimension"/>
+        <attr name="csb_progressColor" format="color" />
+        <attr name="csb_progressWidth" format="dimension" />
 
-        <attr name="csb_arcColor" format="color"/>
-        <attr name="csb_arcWidth" format="dimension"/>
+        <attr name="csb_arcColor" format="color" />
+        <attr name="csb_arcWidth" format="dimension" />
 
-        <attr name="csb_textSize" format="dimension"/>
-        <attr name="csb_textColor" format="color"/>
+        <attr name="csb_textSize" format="dimension" />
+        <attr name="csb_textColor" format="color" />
 
         <attr name="csb_isShowText" format="boolean" />
 

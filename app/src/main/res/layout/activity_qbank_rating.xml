@@ -251,6 +251,7 @@
                     android:layout_height="wrap_content"
                     android:text="Add Feedback"/>
                 <Button
+                    android:layout_margin="20sp"
                     android:id="@+id/submit_button"
                     android:layout_gravity="center"
                     android:text="Submit"
