@@ -70,6 +70,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
+                android:id="@+id/status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -79,8 +80,8 @@
 
                 <ImageView
                     android:id="@+id/pause_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/paused_icon" />
 
                 <TextView

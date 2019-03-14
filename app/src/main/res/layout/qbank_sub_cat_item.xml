@@ -27,6 +27,7 @@
     </LinearLayout>
 
     <LinearLayout
+
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/space" />
-
 
             <TextView
                 android:id="@+id/index"
@@ -76,9 +76,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/linear_top"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+
             android:layout_weight="4"
             android:background="@color/vediobackgroundColor"
             android:orientation="horizontal">
@@ -102,6 +103,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -119,30 +121,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:text="Introduction to Anotomy"
                         android:textColor="@color/com_facebook_likeview_text_color"
                         android:textSize="16sp" />
-                    <!--
-                                        <ImageView
-                                            android:id="@+id/sub_cat_free"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="end"
-                                            android:layout_marginRight="8dp"
-                                            android:layout_weight="1"
-                                            android:paddingRight="1dp"
-                                            android:src="@drawable/question_bank_lock" />-->
 
 
-                    <ImageView
-                        android:id="@+id/lock_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        android:paddingRight="1dp"
-                        android:src="@drawable/question_bank_lock" />
+
                 </LinearLayout>
 
                 <TextView
@@ -192,6 +177,24 @@
                         android:textSize="14dp"
                         android:textColor="@color/vedio_text_color" />
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:padding="5dp"
+                    android:id="@+id/lock_icon"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:paddingRight="1dp"
+                     />
 
             </LinearLayout>
         </LinearLayout>
