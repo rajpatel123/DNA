@@ -130,7 +130,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
     }
 
     private void getTest() {
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        btnStart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
