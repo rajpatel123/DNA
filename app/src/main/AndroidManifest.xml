@@ -14,12 +14,16 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QbankAddFeedbackActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activities.QbankResultActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.QbankRatingActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.QbankReviewResult"></activity>
+        <activity
+            android:name=".Activities.QbankAddFeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.QbankResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.QbankRatingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.QbankTestActivity"
             android:screenOrientation="portrait"
@@ -102,6 +106,7 @@
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNASuscribeActivity"
+            android:label="Subscribe"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />

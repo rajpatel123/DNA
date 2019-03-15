@@ -111,14 +111,10 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                                 } else {
                                     linearLayoutStatus.setVisibility(View.GONE);
                                 }
-
                             }
-
-
                         }
                     }
                 }
-
                 @Override
                 public void onFailure(Call<QbankstartResponse> call, Throwable t) {
                     Utils.dismissProgressDialog();
@@ -156,6 +152,9 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             public void onClick(View v) {
                 if (qbankstartResponse.getDetails().get(0).getTotalmcq()
                         .equalsIgnoreCase(num)) {
+                    Intent intent=new Intent(QbankStartTestActivity.this,QbankReviewResult.class);
+                    startActivity(intent);
+
                     Toast.makeText(QbankStartTestActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
