@@ -31,18 +31,18 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Comming Soon"
-        android:textColor="@color/orange" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Comming Soon"-->
+        <!--android:textColor="@color/orange" />-->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <RelativeLayout
