@@ -15,18 +15,19 @@ import android.view.ViewGroup;
 
 import edu.com.medicalapp.Activities.QbankStartTestActivity;
 import edu.com.medicalapp.Activities.QbankSubActivity;
+import edu.com.medicalapp.Activities.VideoActivity;
 import edu.com.medicalapp.Adapters.QbankSubCatAdapter;
 import edu.com.medicalapp.R;
 
 public class PausedFragment extends Fragment {
 
 
-    private QbankSubActivity activity;
+    private VideoActivity activity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity= (QbankSubActivity) getActivity();
+        activity= (VideoActivity) getActivity();
     }
 
     public PausedFragment()
