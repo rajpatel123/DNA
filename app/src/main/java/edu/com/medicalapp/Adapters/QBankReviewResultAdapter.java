@@ -8,14 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.com.medicalapp.Activities.QbankReviewResult;
 import edu.com.medicalapp.Models.QbankReviewResult.QbankreviewResult;
 import edu.com.medicalapp.R;
 
@@ -71,20 +67,15 @@ public class QBankReviewResultAdapter extends RecyclerView.Adapter<QBankReviewRe
         TextView textViewSecond;
         @BindView(R.id.optionC)
         TextView textViewThird;
-
         @BindView(R.id.optionD)
         TextView textViewFourth;
         @BindView(R.id.qtext)
         TextView question;
         @BindView(R.id.webView)
         WebView webview;
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
-
         }
     }
 }
