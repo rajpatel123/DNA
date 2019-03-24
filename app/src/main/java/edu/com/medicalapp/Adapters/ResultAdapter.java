@@ -34,7 +34,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         AllReult allReult = allReults.get(position);
         holder.textSkipped.setText(allReult.getSkipQuestion());
-        holder.textWrong.setText(allReult.getSkipQuestion());
+        holder.textWrong.setText(allReult.getCurrentQuestion());
         holder.textCorrect.setText(allReult.getCurrentQuestion());
         holder.textQuestion.setText(allReult.getTotalQuestion());
         holder.textName.setText(allReult.getUser());

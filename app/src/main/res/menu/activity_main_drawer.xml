@@ -42,6 +42,9 @@
             <item
                 android:id="@+id/report"
                 android:title="Report Cpoyright Issue" />
+            <item
+                android:id="@+id/terms_conditions"
+                android:title="T&amp;C" />
         </menu>
     </item>
 

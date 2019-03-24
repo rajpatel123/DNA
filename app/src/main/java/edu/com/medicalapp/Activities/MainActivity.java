@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.subscribe) {
             Intent intent = new Intent(this, DNASuscribeActivity.class);
-            // startActivity(intent);
+            startActivity(intent);
         } else if (id == R.id.notice_board) {
 
             Intent intent = new Intent(this, Noticeboard.class);
@@ -275,6 +275,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.report) {
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
+        } else if (id == R.id.terms_conditions) {
+            Intent intent=new Intent(MainActivity.this,WebViewActivity.class);
+            intent.putExtra("title","Terms & Conditions");
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

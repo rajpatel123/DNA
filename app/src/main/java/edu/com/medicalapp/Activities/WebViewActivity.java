@@ -107,6 +107,10 @@ public class WebViewActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 mWebView.loadUrl("http://www.readingrockets.org/article/reading-information");
                 break;
+            case "condition":
+                progressBar.setVisibility(View.VISIBLE);
+                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
+                break;
 
 
         }

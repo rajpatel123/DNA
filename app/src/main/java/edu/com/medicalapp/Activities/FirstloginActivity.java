@@ -224,7 +224,7 @@ public class FirstloginActivity extends AppCompatActivity {
                         JSONObject data = response.getJSONObject();
                         try {
                             String name = data.getString("name");
-                            String email = data.getString("email");
+                            String email = data.optString("email");
                             String facebook_id = data.getString("id");
                             String pictureurl = data.getJSONObject("picture").getJSONObject("data").getString("url");
                             DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck, true);
