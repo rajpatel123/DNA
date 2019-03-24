@@ -100,6 +100,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             holder.subRating.setText("(" + detail.getRating() + ")");
         } else {
             holder.subRating.setText("(0.0)");
+
         }
         holder.linearClick.setOnClickListener(new View.OnClickListener() {
             @Override

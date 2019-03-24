@@ -36,6 +36,7 @@
                     android:id="@+id/image_login"
                     android:layout_width="wrap_content"
                     android:layout_height="110dp"
+                    android:layout_marginBottom="20dp"
                     android:src="@drawable/dnalogo" />
 
                 <TextView
@@ -50,7 +51,7 @@
                     android:gravity="center"
                     android:text="@string/loginText"
                     android:textColor="@color/black_titles"
-                    android:textSize="24sp" />
+                    android:textSize="16sp" />
 
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/login_button"

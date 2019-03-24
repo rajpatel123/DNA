@@ -6,7 +6,7 @@
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="font_fontFamily_medium2">sans-serif-medium</string>>
 
-    <string name="loginText">A One-Stop Solution For SIKSHA | SWASTHYA | ROJGAR</string>
+    <string name="loginText">A One-Stop Solution For\n SIKSHA | SWASTHYA | ROJGAR</string>
 
     <string name="loginbottomText"></string>
 
