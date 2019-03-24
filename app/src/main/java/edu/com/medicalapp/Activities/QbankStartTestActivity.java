@@ -169,5 +169,19 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             }
         });
     }
+  /*  // Enable or disable and change button text by EditText text length.
+    private void processButtonByTextLength()
+    {
+
+        if(testCompletedQuestion==testTotalQuestion)
+        {
+            button.setText("I Am Enabled.");
+            button.setEnabled(true);
+        }else
+        {
+             button.setText("I Am Disabled.");
+             button.setEnabled(false);
+        }
+    }*/
 }
 
