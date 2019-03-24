@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
+import edu.com.medicalapp.Activities.DNAKnowmoreActivity;
 import edu.com.medicalapp.Activities.TestStartActivity;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
@@ -98,14 +98,19 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
         return view;
     }
 
-
     @Override
-    public void onCateClick(String id,String time,String testName,String testQuestion) {
-        Intent intent=new Intent(getActivity(),TestStartActivity.class);
-        intent.putExtra("id",id);
-        intent.putExtra("duration",time);
-        intent.putExtra("testName",testName);
-        intent.putExtra("testQuestion",testQuestion);
-        startActivity(intent);
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid) {
+        if (testPaid.equalsIgnoreCase("Yes")) {
+            Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), TestStartActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("duration", time);
+            intent.putExtra("testName", testName);
+            intent.putExtra("testQuestion", testQuestion);
+            startActivity(intent);
+
+        }
     }
 }

@@ -112,6 +112,7 @@
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNAKnowmoreActivity"
+            android:label="Know More"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />

@@ -112,6 +112,31 @@ public class WebViewActivity extends AppCompatActivity {
                 mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
                 break;
 
+            case "FAQ":
+                progressBar.setVisibility(View.VISIBLE);
+                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
+                break;
+            case "Report":
+
+                progressBar.setVisibility(View.VISIBLE);
+                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
+                break;
+
+            case "About Us":
+
+                progressBar.setVisibility(View.VISIBLE);
+                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
+                break;
+
+
+            case "Contact Us":
+
+                progressBar.setVisibility(View.VISIBLE);
+                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
+                break;
+
+
+
 
         }
     }

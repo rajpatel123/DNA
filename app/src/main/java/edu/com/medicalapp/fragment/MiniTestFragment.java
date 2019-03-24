@@ -14,19 +14,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
+import edu.com.medicalapp.Activities.DNAKnowmoreActivity;
 import edu.com.medicalapp.Activities.TestStartActivity;
-import edu.com.medicalapp.Adapters.MiniTestAdapter;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
 import edu.com.medicalapp.Models.test.TestQuestionData;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.Retrofit.RestClient;
 import edu.com.medicalapp.utils.Utils;
-import okhttp3.internal.Util;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MiniTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
@@ -104,13 +98,18 @@ public class MiniTestFragment extends Fragment implements TestAdapter.OnCategory
     }
 
     @Override
-    public void onCateClick(String id,String time,String testName,String testQuestion) {
-        Intent intent=new Intent(getActivity(),TestStartActivity.class);
-        intent.putExtra("id",id);
-        intent.putExtra("duration",time);
-        intent.putExtra("testName",testName);
-        intent.putExtra("testQuestion",testQuestion);
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid) {
+        if (testPaid.equalsIgnoreCase("Yes")) {
+            Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), TestStartActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("duration", time);
+            intent.putExtra("testName", testName);
+            intent.putExtra("testQuestion", testQuestion);
+            startActivity(intent);
 
-        startActivity(intent);
+        }
     }
 }

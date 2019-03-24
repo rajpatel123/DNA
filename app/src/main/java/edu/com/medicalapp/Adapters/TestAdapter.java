@@ -1,7 +1,6 @@
 package edu.com.medicalapp.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,14 +16,11 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.com.medicalapp.Activities.TestStartActivity;
 import edu.com.medicalapp.Models.test.AllTest;
 import edu.com.medicalapp.Models.test.GrandTest;
 import edu.com.medicalapp.Models.test.MiniTest;
 import edu.com.medicalapp.Models.test.SubjectTest;
 import edu.com.medicalapp.R;
-import edu.com.medicalapp.utils.Constants;
-import edu.com.medicalapp.utils.DnaPrefs;
 import edu.com.medicalapp.utils.Utils;
 
 import static android.view.View.GONE;
@@ -37,7 +33,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     private List<SubjectTest> subjectTests;
     private List<AllTest> allTests;
     TestAdapter.OnCategoryClick onUserClickCallback;
-
 
     public TestAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -84,7 +79,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId()
                                 , grandTests.get(holder.getAdapterPosition()).getTestDuration()
-                                , grandTests.get(holder.getAdapterPosition()).getTestName(), grandTests.get(holder.getAdapterPosition()).getTestQueation());
+                                , grandTests.get(holder.getAdapterPosition()).getTestName(),
+                                grandTests.get(holder.getAdapterPosition()).getTestQueation(),
+                                grandTests.get(holder.getAdapterPosition()).getTestPaid());
                     }
                 }
             });
@@ -120,7 +117,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                         onUserClickCallback.onCateClick(miniTests.get(holder.getAdapterPosition()).getTestId(),
                                 miniTests.get(holder.getAdapterPosition()).getTestDuration(),
                                 miniTests.get(holder.getAdapterPosition()).getTestName(),
-                                miniTests.get(holder.getAdapterPosition()).getTestQueation());
+                                miniTests.get(holder.getAdapterPosition()).getTestQueation(),
+                                miniTests.get(holder.getAdapterPosition()).getTestPaid());
                     }
                 }
             });
@@ -136,7 +134,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             }
 
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (allTests.get(holder.getAdapterPosition()).getTestStatus().equals(1)) {
+                if (allTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
+
                     holder.imageLock.setImageResource(R.drawable.submitresult);
                 }
             }
@@ -152,7 +151,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(allTests.get(holder.getAdapterPosition()).getTestId(), allTests.get(holder.getAdapterPosition()).getTestDuration(), allTests.get(holder.getAdapterPosition()).getTestName(), allTests.get(holder.getAdapterPosition()).getTestQueation());
+                        onUserClickCallback.onCateClick(allTests.get(holder.getAdapterPosition()).getTestId(),
+                                allTests.get(holder.getAdapterPosition()).getTestDuration(),
+                                allTests.get(holder.getAdapterPosition()).getTestName(),
+                                allTests.get(holder.getAdapterPosition()).getTestQueation(),
+                                allTests.get(holder.getAdapterPosition()).getTestPaid());
                     }
                 }
             });
@@ -183,7 +186,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(subjectTests.get(holder.getAdapterPosition()).getTestId(), subjectTests.get(holder.getAdapterPosition()).getTestDuration(), subjectTests.get(holder.getAdapterPosition()).getTestName(), subjectTests.get(holder.getAdapterPosition()).getTestQueation());
+                        onUserClickCallback.onCateClick(subjectTests.get(holder.getAdapterPosition()).getTestId(),
+                                subjectTests.get(holder.getAdapterPosition()).getTestDuration(),
+                                subjectTests.get(holder.getAdapterPosition()).getTestName(),
+                                subjectTests.get(holder.getAdapterPosition()).getTestQueation(),
+                                subjectTests.get(holder.getAdapterPosition()).getTestPaid());
                     }
                 }
             });
@@ -229,7 +236,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     }
 
     public interface OnCategoryClick {
-        public void onCateClick(String id, String time, String testName, String textQuestion);
+        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid);
     }
 
 

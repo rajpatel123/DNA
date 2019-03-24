@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import edu.com.medicalapp.Activities.DNAKnowmoreActivity;
 import edu.com.medicalapp.Activities.TestStartActivity;
 import edu.com.medicalapp.Adapters.TestAdapter;
 import edu.com.medicalapp.DNAApplication;
@@ -28,10 +28,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
-   @BindView(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-     TextView notext;
+    TextView notext;
 
     private TestQuestionData testQuestionData;
 
@@ -43,9 +43,9 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_alltext,container,false);
+        View view = inflater.inflate(R.layout.fragment_alltext, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
-        notext=view.findViewById(R.id.noTest);
+        notext = view.findViewById(R.id.noTest);
         return view;
     }
 
@@ -64,8 +64,8 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 public void onResponse(Call<TestQuestionData> call, Response<TestQuestionData> response) {
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
-                        if (testQuestionData!=null){
-                            testQuestionData=null;
+                        if (testQuestionData != null) {
+                            testQuestionData = null;
                         }
                         testQuestionData = response.body();
                         DNAApplication.setTestQuestionData(testQuestionData);
@@ -80,8 +80,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
 
                 }
             });
-        }
-        else {
+        } else {
             Utils.dismissProgressDialog();
             notext.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
@@ -123,15 +122,20 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     }
 
     @Override
-    public void onCateClick(String id, String time,String testName,String testQuestion) {
-        Intent intent=new Intent(getActivity(),TestStartActivity.class);
-        intent.putExtra("id",id);
-        intent.putExtra("duration",time);
-        intent.putExtra("testName",testName);
-        intent.putExtra("testQuestion",testQuestion);
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid) {
 
+        if (testPaid.equalsIgnoreCase("Yes")) {
+            Intent intent = new Intent(getActivity(),DNAKnowmoreActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), TestStartActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("duration", time);
+            intent.putExtra("testName", testName);
+            intent.putExtra("testQuestion", testQuestion);
+            startActivity(intent);
 
-        startActivity(intent);
+        }
 
 
     }

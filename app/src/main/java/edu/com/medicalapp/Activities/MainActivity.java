@@ -251,12 +251,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.faq) {
-            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            intent.putExtra("title", "FAQ");
+            startActivity(intent);
         } else if (id == R.id.rate) {
 
             Intent i = new Intent(android.content.Intent.ACTION_VIEW);
-            i.setData(Uri.parse("https://play.google.com/store/apps/details?id=my packagename "));
+            i.setData(Uri.parse("https://play.google.com/store/apps/details?id=edu.com.medicalapp"));
             startActivity(i);
 
         } else if (id == R.id.nav_share) {
@@ -267,17 +268,22 @@ public class MainActivity extends AppCompatActivity
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } else if (id == R.id.about) {
-            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            intent.putExtra("title", "About Us");
+            startActivity(intent);
 
         } else if (id == R.id.contact_us) {
-            startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
+            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            intent.putExtra("title", "Contact Us");
+            startActivity(intent);
 
         } else if (id == R.id.report) {
-            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            intent.putExtra("title", "Report");
+            startActivity(intent);
         } else if (id == R.id.terms_conditions) {
-            Intent intent=new Intent(MainActivity.this,WebViewActivity.class);
-            intent.putExtra("title","Terms & Conditions");
+            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            intent.putExtra("title", "Terms & Conditions");
             startActivity(intent);
         }
 
