@@ -105,22 +105,25 @@
                 android:textColor="@color/colorAccent"
                 android:drawableRight="@drawable/profile_arrow"
                 android:text="Course:NEET PG"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/profile_cardview">
 
-            </View>
-            <TextView
-                android:textSize="16sp"
-                android:layout_margin="10sp"
-                android:padding="12sp"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:drawableRight="@drawable/profile_arrow"
-                android:text="Reset"/>
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="3dp"-->
+                <!--android:background="@color/profile_cardview">-->
+
+            <!--</View>-->
+
+            <!--<TextView-->
+                <!--android:textSize="16sp"-->
+                <!--android:layout_margin="10sp"-->
+                <!--android:padding="12sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:drawableRight="@drawable/profile_arrow"-->
+                <!--android:text="Reset"/>-->
             <View
                 android:background="@color/profile_cardview"
                 android:layout_width="match_parent"
@@ -173,28 +176,30 @@
                 android:layout_height="3dp"
                 android:background="@color/profile_cardview">
             </View>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_weight="2"
-                    android:textSize="16sp"
-                    android:layout_margin="10sp"
-                    android:padding="12sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MCQ: Dark theme"/>
-                <Switch
-                    android:layout_weight="1"
-                    android:layout_margin="10sp"
-                    android:padding="12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </LinearLayout>
+
+
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<TextView-->
+                    <!--android:layout_weight="2"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:layout_margin="10sp"-->
+                    <!--android:padding="12sp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="MCQ: Dark theme"/>-->
+                <!--<Switch-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_margin="10sp"-->
+                    <!--android:padding="12sp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
