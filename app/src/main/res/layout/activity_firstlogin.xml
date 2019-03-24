@@ -51,7 +51,7 @@
                     android:gravity="center"
                     android:text="@string/loginText"
                     android:textColor="@color/black_titles"
-                    android:textSize="16spsp" />
+                    android:textSize="16sp" />
 
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/login_button"
