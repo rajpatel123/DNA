@@ -6,7 +6,7 @@
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="font_fontFamily_medium2">sans-serif-medium</string>>
 
-    <string name="loginText">A One-Stop Solution For\n SIKSHA | SWASTHYA | ROJGAR</string>
+    <string name="loginText">A One-Stop Solution For</string>
 
     <string name="loginbottomText"></string>
 
@@ -116,4 +116,5 @@
     <string name="enter_otp_on_email">Enter otp sent on your phone</string>
     <string name="resend_otp">RESEND</string>
     <string name="resend_otp_remain">%1$d Seconds</string>
+    <string name="know_more_data">Latest Online Platform For MD / MS / DNB / DM / M.Ch  Preparation With Questions Bank , Test Series , Recorded Video Lectures and Live Video Lectures</string>
 </resources>

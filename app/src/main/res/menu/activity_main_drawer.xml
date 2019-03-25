@@ -42,12 +42,14 @@
                 android:id="@+id/nav_share"
                 android:title="Share the App" />
 
-            <item
-                android:id="@+id/report"
-                android:title="Report Cpoyright Issue" />
+
             <item
                 android:id="@+id/terms_conditions"
                 android:title="T&amp;C" />
+
+            <item
+                android:id="@+id/report"
+                android:title="Report Cpoyright Issue" />
         </menu>
     </item>
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +26,7 @@ import edu.com.medicalapp.R;
 import edu.com.medicalapp.utils.Constants;
 import edu.com.medicalapp.utils.DnaPrefs;
 
-public class DNAProfileActivity extends AppCompatActivity {
+public class DNAProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.profile_image)
     CircleImageView circleImageView;
@@ -38,12 +39,29 @@ public class DNAProfileActivity extends AppCompatActivity {
     @BindView(R.id.profile_logout)
     TextView textViewProfile;
 
+    @BindView(R.id.id__verification)
+    TextView textViewVerification;
+
+    @BindView(R.id.subscription)
+    TextView textViewSubscription;
+
+    @BindView(R.id.course_neet)
+    TextView textViewCourseNeet;
+
+    @BindView(R.id.change_password)
+    TextView textViewChangePassword;
+
+    @BindView(R.id.change_phone)
+    TextView textViewChangePhone;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnaprofile);
         ButterKnife.bind(this);
+        textViewChangePassword.setOnClickListener(this);
+        textViewVerification.setOnClickListener(this);
 
         setprofiledata();
         textViewProfile.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +148,20 @@ public class DNAProfileActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.change_password:
+                Toast.makeText(this, "Reset Password link sent to your email id", Toast.LENGTH_SHORT).show();
+                break;
+
+
+            case R.id.id__verification:
+                Toast.makeText(this, "Verification link sent to your email id", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 }
