@@ -64,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/subscription"
                 android:layout_margin="10sp"
                 android:padding="12sp"
                 android:textStyle="bold"
@@ -79,23 +80,10 @@
                 android:background="@color/profile_cardview">
 
             </View>
-            <TextView
-                android:textSize="16sp"
-                android:layout_margin="10sp"
-                android:padding="12sp"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:drawableRight="@drawable/profile_arrow"
-                android:text="Stats"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/profile_cardview">
 
-            </View>
+
             <TextView
+                android:id="@+id/course_neet"
                 android:textSize="16sp"
                 android:layout_margin="10sp"
                 android:padding="12sp"
@@ -131,6 +119,7 @@
               >
             </View>
             <TextView
+                android:id="@+id/change_password"
                 android:textSize="16sp"
                 android:layout_margin="10sp"
                 android:padding="12sp"
@@ -147,6 +136,7 @@
                 >
             </View>
             <TextView
+                android:id="@+id/change_phone"
                 android:textSize="16sp"
                 android:layout_margin="10sp"
                 android:padding="12sp"
@@ -162,6 +152,7 @@
                 android:background="@color/profile_cardview">
             </View>
             <TextView
+                android:id="@+id/id__verification"
                 android:textSize="16sp"
                 android:layout_margin="10sp"
                 android:padding="12sp"
