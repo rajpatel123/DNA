@@ -10,6 +10,7 @@
     <color name="black_primary">#212121</color>
     <color name="app_bg">#EAEDF2</color>
     <color name="app_bg1">#dc5d01</color>
+    <color name="card_gray">#E7E3DE</color>
 
     <color name="black">#000000</color>
     <color name="dark_gray">#aaa</color>

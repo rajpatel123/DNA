@@ -7,16 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import edu.com.medicalapp.Models.faculties.Faculty;
-import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.R;
 
 public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHolder> {
@@ -55,7 +54,17 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
         Picasso.with(context)
                 .load(faculty.getFImage())
                 .error(R.drawable.dr1)
-                .into(holder.facultyImage);
+                .into(holder.facultyImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.imageLoader.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+                        holder.imageLoader.setVisibility(View.GONE);
+                    }
+                });
 
     }
 
@@ -72,11 +81,13 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
        private ImageView facultyImage;
+        private ProgressBar imageLoader;
        private TextView facultyName,facultyProfile,facultyQuotes,facultySubtitile;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
          facultyQuotes=itemView.findViewById(R.id.faculty_quotes);
          facultyProfile=itemView.findViewById(R.id.faculty_prfile);
+            imageLoader = itemView.findViewById(R.id.imageLoader);
          facultyName=itemView.findViewById(R.id.faculty_name);
          facultySubtitile=itemView.findViewById(R.id.faculty_sub_title);
          facultyImage=itemView.findViewById(R.id.faculty_image);

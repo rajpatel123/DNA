@@ -226,8 +226,6 @@ public class TestActivity extends FragmentActivity {
     }
 
 
-
-
     private void GuessOpen() {
 
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
@@ -264,7 +262,7 @@ public class TestActivity extends FragmentActivity {
 
                 switch (item.getItemId()) {
                     case R.id.review:
-                        showAnswerDetails(qustionDetails,currentPosition);
+                        showAnswerDetails(qustionDetails, currentPosition);
                         break;
 
                     case R.id.submit:
@@ -455,23 +453,23 @@ public class TestActivity extends FragmentActivity {
 
             StringBuilder builder = new StringBuilder();
             for (Detail detail : qustionDetails.getDetail()) {
-              builder.append(detail.getQid()+",");
+                builder.append(detail.getQid() + ",");
             }
 
             if (!TextUtils.isEmpty(builder))
-             ttQuestion =builder.substring(0,builder.toString().length()-1).toString();
+                ttQuestion = builder.substring(0, builder.toString().length() - 1).toString();
 
             StringBuilder ccAnswer = new StringBuilder();
 
-            for (String ss: correctAnswerList.keySet()){
-                ccAnswer.append(ss+",");
+            for (String ss : correctAnswerList.keySet()) {
+                ccAnswer.append(ss + ",");
             }
             if (!TextUtils.isEmpty(ccAnswer))
-                ccAnswerIds =ccAnswer.substring(0,ccAnswer.toString().length()-1).toString();
+                ccAnswerIds = ccAnswer.substring(0, ccAnswer.toString().length() - 1).toString();
 
             StringBuilder wwanswer = new StringBuilder();
             for (String ss : wrongAnswerList.keySet()) {
-                wwanswer.append(ss+":"+wrongAnswerList.get(ss)+",");
+                wwanswer.append(ss + ":" + wrongAnswerList.get(ss) + ",");
             }
 
             if (!TextUtils.isEmpty(wwanswer))
@@ -480,17 +478,17 @@ public class TestActivity extends FragmentActivity {
 
             StringBuilder skiped = new StringBuilder();
             for (String ss : skippedAnswerIdList) {
-                skiped.append(ss+",");
+                skiped.append(ss + ",");
             }
             if (!TextUtils.isEmpty(skiped))
                 ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
 
 
-            Log.d("TEstData","userid->"+user_id+"testid->"+test_id+"tquestion->"
-                    +tquestion+"ttQuestion"+ttQuestion+
-                   "canswer->"+canswer+"ccAnswerIds->"+ccAnswerIds +"wanswer->"+wanswer+"wwanswerIds->"+wwanswerIds+"ssanswer->"+ssanswer);
+            Log.d("TEstData", "userid->" + user_id + "testid->" + test_id + "tquestion->"
+                    + tquestion + "ttQuestion" + ttQuestion +
+                    "canswer->" + canswer + "ccAnswerIds->" + ccAnswerIds + "wanswer->" + wanswer + "wwanswerIds->" + wwanswerIds + "ssanswer->" + ssanswer);
 
-            RestClient.submitTest(user_id, test_id, tquestion,ttQuestion, canswer,ccAnswerIds, wanswer,wwanswerIds, sanswer,ssanswer, new Callback<ResponseBody>() {
+            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, sanswer, ssanswer, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
@@ -557,19 +555,19 @@ public class TestActivity extends FragmentActivity {
         dialog.show();
     }
 
-    public void showAnswerDetails(final QustionDetails quesQustionDetails,int position) {
-            if (sheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED ) {
-                FragmentManager                  fragmentManager     = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ReviewAnswerSheetFreagment fragment            = new ReviewAnswerSheetFreagment();
-                Bundle                           args                = new Bundle();
-                args.putParcelable("questionDetail", quesQustionDetails);
-                args.putInt("position", position);
-                fragment.setArguments(args);
-                fragmentTransaction.add(R.id.fragmentAnswerSheet, fragment);
-                fragmentTransaction.commit();
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            }
+    public void showAnswerDetails(final QustionDetails quesQustionDetails, int position) {
+        if (sheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            ReviewAnswerSheetFreagment fragment = new ReviewAnswerSheetFreagment();
+            Bundle args = new Bundle();
+            args.putParcelable("questionDetail", quesQustionDetails);
+            args.putInt("position", position);
+            fragment.setArguments(args);
+            fragmentTransaction.add(R.id.fragmentAnswerSheet, fragment);
+            fragmentTransaction.commit();
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }
+}
 

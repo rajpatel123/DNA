@@ -75,31 +75,38 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
                 holder.title.setVisibility(View.GONE);
             }
         }
-
-
         if (detail.getPaidStatus().equalsIgnoreCase("Paid")) {
-            
-            holder.sub_cat_free.setVisibility(View.VISIBLE);
-        } else {
-            holder.sub_cat_free.setVisibility(View.GONE);
+            holder.sub_cat_free.setImageResource(R.drawable.question_bank_lock);
         }
         if (detail.getPausedStatus().equalsIgnoreCase("1")) {
-            Picasso.with(applicationContext).load(R.drawable.paused_icon).into(holder.sub_cat_free);
-            //show  pause icon
-        } else {
-            // hide puuse icon
-            holder.sub_cat_free.setVisibility(View.GONE);
+            holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
+        }
+        try {
+            if (detail.getIsPaused().equalsIgnoreCase("1")) {
+                holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (detail.getCopletedStatus().equalsIgnoreCase("1")) {
+            Picasso.with(applicationContext).load(R.drawable.qbank_right_answer).into(holder.sub_cat_free);
         }
         Picasso.with(applicationContext).load(detail.getImage()).error(R.drawable.biology).into(holder.subImage);
         holder.subTitle.setText("" + detail.getModuleName());
         holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getmCQ() + " MCQ's");
-        holder.subRating.setText("(" + detail.getRating()+")");
+        if (detail.getRating() != null) {
+            holder.subRating.setText("(" + detail.getRating() + ")");
+        } else {
+            holder.subRating.setText("(0.0)");
+
+        }
         holder.linearClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (qbanksubListener != null) {
-                    qbanksubListener.onQbankSubClick(holder.getAdapterPosition(),detail.getModuleId(), detail.getModuleName());
+                    qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getModuleName());
                 }
             }
         });
@@ -126,9 +133,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subTitle = itemView.findViewById(R.id.sub_cat_title);
             subRating = itemView.findViewById(R.id.rating);
             itemNumber = itemView.findViewById(R.id.index);
-            sub_cat_free = itemView.findViewById(R.id.lock);
-
-
+            sub_cat_free = itemView.findViewById(R.id.lock_icon);
             subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);
             linearClick = itemView.findViewById(R.id.linear);
         }
@@ -136,7 +141,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
 
     public interface QbanksubListener {
-        public void onQbankSubClick(int position ,String id, String moduleName);
+        public void onQbankSubClick(int position, String id, String moduleName);
 
     }
 }

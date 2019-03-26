@@ -7,12 +7,11 @@
         <item
             android:id="@+id/no_more"
             android:title="Know More" />
-        <item
-            android:id="@+id/subscribe"
-            android:title="Subscribe" />
+
         <item
             android:id="@+id/notice_board"
-            android:title="Notice Board" />
+            android:title="Notice Board"
+            android:visible="false"/>
         <item
             android:id="@+id/dna_faculy"
             android:title="DNA Faculty" />
@@ -20,17 +19,14 @@
         <item
             android:id="@+id/faq"
             android:title="FAQ" />
+
+        <item
+            android:id="@+id/subscribe"
+            android:title="Subscribe" />
     </group>
 
     <item android:title="Communicate">
         <menu>
-
-            <item
-                android:id="@+id/rate"
-                android:title="Rate Us" />
-            <item
-                android:id="@+id/nav_share"
-                android:title="Share the App" />
             <item
                 android:id="@+id/about"
                 android:title="About Us" />
@@ -40,8 +36,18 @@
                 android:title="Contact Us" />
 
             <item
+                android:id="@+id/rate"
+                android:title="Rate Us" />
+            <item
+                android:id="@+id/nav_share"
+                android:title="Share the App" />
+
+            <item
                 android:id="@+id/report"
                 android:title="Report Cpoyright Issue" />
+            <item
+                android:id="@+id/terms_conditions"
+                android:title="T&amp;C" />
         </menu>
     </item>
 

@@ -6,7 +6,7 @@
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="font_fontFamily_medium2">sans-serif-medium</string>>
 
-    <string name="loginText">A One-Stop Solution For SIKSHA | SWASTHYA | ROJGAR</string>
+    <string name="loginText">A One-Stop Solution For\n SIKSHA | SWASTHYA | ROJGAR</string>
 
     <string name="loginbottomText"></string>
 
@@ -85,6 +85,7 @@
     <string name="try_other_login">Try other login methods</string>
     <string name="terms">Terms Conditions</string>
     <string name="privacy"> and Privacy Policy</string>
+    <string name="rupay">Rs. 3,500</string>
 
     <string name="already_member">Already member? Log In</string>
     <string name="edit_user_profile">Edit</string>

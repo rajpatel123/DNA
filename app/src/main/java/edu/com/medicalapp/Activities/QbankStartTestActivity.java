@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,9 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
     TextView testModuleName, testCompletedQuestion, testTotalQuestion, testTime;
     String qbank_module_id, qbank_name;
     Button btnStart;
+    String num;
     String userId;
+    LinearLayout linearLayoutStatus;
     QbankstartResponse qbankstartResponse;
 
     @Override
@@ -41,10 +44,10 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
         testTotalQuestion = findViewById(R.id.total_questions);
         pauseImage = findViewById(R.id.pause_image);
         testTime = findViewById(R.id.test_time);
-        testCompletedQuestion=findViewById(R.id.completed_question);
+        testCompletedQuestion = findViewById(R.id.completed_question);
+        linearLayoutStatus = findViewById(R.id.status);
 
         testName = findViewById(R.id.qbank_sub_subcategory_name);
-
 
         backImage = findViewById(R.id.back_button);
         btnStart.setOnClickListener(this);
@@ -52,6 +55,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
         if (getIntent().hasExtra("qmodule_id")) {
             qbank_module_id = getIntent().getStringExtra("qmodule_id");
             qbank_name = getIntent().getStringExtra("qmodule_name");
+
         }
         testName.setText(qbank_name);
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
@@ -90,14 +94,27 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             qbankstartResponse = response.body();
-                            testModuleName.setText(""+qbankstartResponse.getDetails().get(0).getModuleName());
-                            testTotalQuestion.setText(""+qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
-                            testCompletedQuestion.setText(""+qbankstartResponse.getDetails().get(0).getTotalattempedmcq()+" Completed");
-                            testTime.setText("You paused this module on "+qbankstartResponse.getDetails().get(0).getLastattempedquesdate());
+                            testModuleName.setText("" + qbankstartResponse.getDetails().get(0).getModuleName());
+                            testTotalQuestion.setText("" + qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
+                            testCompletedQuestion.setText("" + qbankstartResponse.getDetails().get(0).getTotalattempedmcq() + " Completed");
+                             num= String.valueOf(Integer.parseInt(qbankstartResponse.getDetails().get(0).getTotalattempedmcq())+1);
+                             if (qbankstartResponse.getDetails().get(0).getTotalmcq()
+                                    .equalsIgnoreCase(num)) {
+                                btnStart.setText("Review");
+                                pauseImage.setImageResource(R.drawable.qbank_right_answer);
+                                testTime.setText("You've Completed this module " + qbankstartResponse.getDetails().get(0).getLastattempedquesdate());
+                                testCompletedQuestion.setText(""+num+ " Completed");
+
+                            } else {
+                                if (qbankstartResponse.getDetails().get(0).getLastattempedquesdate() != null) {
+                                    testTime.setText("You paused this module on " + qbankstartResponse.getDetails().get(0).getLastattempedquesdate());
+                                } else {
+                                    linearLayoutStatus.setVisibility(View.GONE);
+                                }
+                            }
                         }
                     }
                 }
-
                 @Override
                 public void onFailure(Call<QbankstartResponse> call, Throwable t) {
                     Utils.dismissProgressDialog();
@@ -130,17 +147,40 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
     }
 
     private void getTest() {
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        btnStart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
-                intent.putExtra("qmodule_id", qbank_module_id);
-                intent.putExtra("userId", userId);
-                intent.putExtra("questionStartId",qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
-                startActivity(intent);
-                finish();
+                if (qbankstartResponse.getDetails().get(0).getTotalmcq()
+                        .equalsIgnoreCase(num)) {
+                    Intent intent=new Intent(QbankStartTestActivity.this,QbankReviewResult.class);
+                    startActivity(intent);
+
+                    Toast.makeText(QbankStartTestActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
+                    intent.putExtra("qmodule_id", qbank_module_id);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("questionStartId", qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
+                    startActivity(intent);
+                    finish();
+
+                }
             }
         });
     }
+  /*  // Enable or disable and change button text by EditText text length.
+    private void processButtonByTextLength()
+    {
+
+        if(testCompletedQuestion==testTotalQuestion)
+        {
+            button.setText("I Am Enabled.");
+            button.setEnabled(true);
+        }else
+        {
+             button.setText("I Am Disabled.");
+             button.setEnabled(false);
+        }
+    }*/
 }
 

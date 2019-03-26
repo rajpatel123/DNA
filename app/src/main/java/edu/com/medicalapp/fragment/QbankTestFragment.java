@@ -44,8 +44,9 @@ public class QbankTestFragment extends Fragment {
     public ProgressBar progressBar;
     boolean isLast;
     LinearLayout questionList, questionListDescription;
-    TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV;
+    TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV,barChart;
     ImageView imgA, imgB, imgC, imgD;
+    ProgressBar progressBarChart;
     WebView webView;
 
 
@@ -78,9 +79,11 @@ public class QbankTestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbanktest, container, false);
         answerList = view.findViewById(R.id.questionList);
+        progressBarChart=view.findViewById(R.id.progress_bar_chart);
         questionListDescription = view.findViewById(R.id.questionListDescription);
 
         progressBar = view.findViewById(R.id.progressBar);
+
         qustion = view.findViewById(R.id.qtext);
 
         imgA = view.findViewById(R.id.imga);
@@ -99,6 +102,7 @@ public class QbankTestFragment extends Fragment {
 
         dTV = view.findViewById(R.id.optionD);
         dTVPer = view.findViewById(R.id.optionDPer);
+        barChart=view.findViewById(R.id.bar_chart_percentage);
         rTV = view.findViewById(R.id.reference);
 
         webView = view.findViewById(R.id.webView);
@@ -243,13 +247,18 @@ public class QbankTestFragment extends Fragment {
                 Utils.dismissProgressDialog();
                 qbankTestActivity.showHideBottomLayout(true);
                 updateUI(response.body());
-                 if (qbankTestActivity.is_completed.equalsIgnoreCase("1")) {
-                    qbankTestActivity.nextBtn.setText("Complete");
+                try {
+                    if (qbankTestActivity.is_completed.equalsIgnoreCase("1")) {
+                        qbankTestActivity.nextBtn.setText("Complete");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 answerList.setVisibility(GONE);
                 questionListDescription.setVisibility(View.VISIBLE);
 
             }
+
             @Override
             public void onFailure(Call<SubmitAnswer> call, Throwable t) {
                 qbankTestActivity.showHideBottomLayout(false);
@@ -265,12 +274,12 @@ public class QbankTestFragment extends Fragment {
             aTV.setText("A." + body.getDetails().get(0).getOptionA());
             aTVPer.setText("[" + body.getDetails().get(0).getOptionAperc() + "]");
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                imgA.setImageResource(R.drawable.right_answer_icon);
+                imgA.setImageResource(R.drawable.qbank_right_answer);
                 aTV.setTextColor(Color.GREEN);
             }
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
                 if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgA.setImageResource(R.drawable.qbank_wrong_answer);
+                    imgA.setImageResource(R.drawable.qbank_wrong_test_answer);
                     aTV.setTextColor(Color.RED);
                 }
             }
@@ -278,12 +287,12 @@ public class QbankTestFragment extends Fragment {
             bTV.setText("B." + body.getDetails().get(0).getOptionB());
             bTVPer.setText("[" + body.getDetails().get(0).getOptionBperc() + "]");
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                imgB.setImageResource(R.drawable.right_answer_icon);
+                imgB.setImageResource(R.drawable.qbank_right_answer);
                 bTV.setTextColor(Color.GREEN);
             }
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
                 if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgB.setImageResource(R.drawable.qbank_wrong_answer);
+                    imgB.setImageResource(R.drawable.qbank_wrong_test_answer);
                     bTV.setTextColor(Color.RED);
                 }
             }
@@ -291,30 +300,31 @@ public class QbankTestFragment extends Fragment {
             cTV.setText("C." + body.getDetails().get(0).getOptionC());
             cTVPer.setText("[" + body.getDetails().get(0).getOptionCperc() + "]");
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                imgC.setImageResource(R.drawable.right_answer_icon);
+                imgC.setImageResource(R.drawable.qbank_right_answer);
                 cTV.setTextColor(Color.GREEN);
             }
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
                 if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgC.setImageResource(R.drawable.qbank_wrong_answer);
+                    imgC.setImageResource(R.drawable.qbank_wrong_test_answer);
                     cTV.setTextColor(Color.RED);
                 }
             }
             dTV.setText("D." + body.getDetails().get(0).getOptionD());
             dTVPer.setText("[" + body.getDetails().get(0).getOptionDperc() + "]");
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                imgD.setImageResource(R.drawable.right_answer_icon);
+                imgD.setImageResource(R.drawable.qbank_right_answer);
                 dTV.setTextColor(Color.GREEN);
             }
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
                 if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgD.setImageResource(R.drawable.qbank_wrong_answer);
+                    imgD.setImageResource(R.drawable.qbank_wrong_test_answer);
                     dTV.setTextColor(Color.RED);
                 }
             }
 
 
             rTV.setText(body.getDetails().get(0).getRefrence());
+            barChart.setText(body.getDetails().get(0).getGotrightperc()+"of the people got this right");
             try {
                 initComponent(body.getDetails().get(0).getDescriptionUrl());
             } catch (Exception e) {

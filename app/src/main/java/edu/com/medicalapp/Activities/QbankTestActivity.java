@@ -78,14 +78,15 @@ public class QbankTestActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nextBtn.getText().toString().equalsIgnoreCase("Complete")){
+                if (nextBtn.getText().toString().equalsIgnoreCase("Complete")) {
                     Intent intent = new Intent(QbankTestActivity.this, QbankRatingActivity.class);
-                    intent.putExtra("module_id",module_id);
-                    intent.putExtra("userId",user_id);
+                    intent.putExtra("module_id", module_id);
+                    intent.putExtra("userId", user_id);
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     mPager.setCurrentItem(currentPosition + 1);
+
                 }
             }
         });
@@ -101,10 +102,31 @@ public class QbankTestActivity extends AppCompatActivity {
                 Log.v("Log_tag", "Tick of Progress" + progress + millisUntilFinished);
                 progress--;
                 mProgressBar.setProgress((int) progress);
+                mCountDownTimer = new CountDownTimer(20000, 500) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        Log.v("Log_tag", "Tick of Progress" + progress + millisUntilFinished);
+                        progress--;
+                        mProgressBar.setProgress((int) progress);
+                    }
+                    @Override
+                    public void onFinish() {
+                        //Do what you want
+                        //qbankgetTest();
+                        progress = 100;
+                        mProgressBar.setProgress(0);
+                        linearBottom.setVisibility(View.VISIBLE);
+                        if (fragment != null)
+                            fragment.submitAnswer();
+                        showHideBottomLayout(true);
+
+                    }
+                };
+
 
             }
 
-            @Override
+        @Override
             public void onFinish() {
                 //Do what you want
                 //qbankgetTest();

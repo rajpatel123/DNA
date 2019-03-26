@@ -21,8 +21,7 @@
                 android:src="@drawable/qbank_feedback_icon"
                 android:layout_gravity="center"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-             />
+                android:layout_height="100dp" />
 
             <TextView
                 android:padding="10dp"
@@ -41,7 +40,7 @@
             android:layout_height="wrap_content">
 
           <TextView
-              android:padding="10dp"
+
               android:layout_gravity="center"
               android:textSize="18sp"
               android:text="Please rate the QBank module"
@@ -54,13 +53,11 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_below="@id/linear_rating"
             android:orientation="vertical"
-
             android:id="@+id/linear_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -71,7 +68,6 @@
                 <TextView
                      android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:padding="10dp"
                     android:textColor="@color/black_titles"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
@@ -251,6 +247,7 @@
                     android:layout_height="wrap_content"
                     android:text="Add Feedback"/>
                 <Button
+                    android:layout_margin="5sp"
                     android:id="@+id/submit_button"
                     android:layout_gravity="center"
                     android:text="Submit"
