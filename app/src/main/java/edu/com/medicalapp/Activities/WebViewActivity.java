@@ -40,7 +40,7 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_usdetails);
+        setContentView(R.layout.webview_layout);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -114,29 +114,23 @@ public class WebViewActivity extends AppCompatActivity {
 
             case "FAQ":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
+                mWebView.loadUrl("http://reddyenterprise.com/education/dnafaq.php");
                 break;
             case "Report":
-
                 progressBar.setVisibility(View.VISIBLE);
                 mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
                 break;
 
             case "About Us":
-
                 progressBar.setVisibility(View.VISIBLE);
                 mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
                 break;
 
 
             case "Contact Us":
-
                 progressBar.setVisibility(View.VISIBLE);
                 mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
                 break;
-
-
-
 
         }
     }

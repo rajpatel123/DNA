@@ -1,10 +1,15 @@
 package edu.com.medicalapp.Activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.com.medicalapp.Adapters.KnowMoreAdapter;
@@ -19,12 +24,57 @@ import retrofit2.Response;
 public class DNAKnowmoreActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private FacultyDetail facultyDetail;
+    Button btnSuscribe;
+    TextView textCall,textGmail,textFAQ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnaknowmore);
         recyclerView = findViewById(R.id.knowmore);
+        btnSuscribe = findViewById(R.id.suscribe);
+        textCall=findViewById(R.id.read_call);
+        textGmail=findViewById(R.id.read_gmail);
+
+        textFAQ=findViewById(R.id.read_faq);
+        textFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DNAKnowmoreActivity.this, WebViewActivity.class);
+                intent.putExtra("title", "FAQ");
+                startActivity(intent);
+            }
+        });
+        textCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:9800691244"));
+                startActivity(intent);
+            }
+        });
+        textGmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"Dnahelpgroup@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Any subject if you want");
+                intent.setPackage("com.google.android.gm");
+                if (intent.resolveActivity(getPackageManager())!=null)
+                    startActivity(intent);
+                else
+                    Toast.makeText(DNAKnowmoreActivity.this,"Gmail App is not installed",Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnSuscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DNAKnowmoreActivity.this, DNASuscribeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         facultyData();
 
 
@@ -45,7 +95,7 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
                         if (response.body().getStatus().equals("1")) {
-                           facultyDetail= response.body();
+                            facultyDetail = response.body();
                             if (facultyDetail != null && facultyDetail.getFaculty().size() > 0) {
                                 Log.d("Api Response :", "Got Success from Api");
                                 KnowMoreAdapter knowMoreAdapter = new KnowMoreAdapter(getApplicationContext());
@@ -71,7 +121,6 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
 
 
                 }
-
 
 
                 @Override
