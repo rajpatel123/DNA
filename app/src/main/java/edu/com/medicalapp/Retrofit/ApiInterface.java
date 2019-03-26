@@ -108,6 +108,8 @@ public interface ApiInterface {
     Call<QbankstartResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
 
 */
+    @POST("api/api.php?req=faculty")
+    Call<FacultyDetail> knowMoreData();
 
     @Multipart
      @POST("api/api.php?req=qbank_subcate")
