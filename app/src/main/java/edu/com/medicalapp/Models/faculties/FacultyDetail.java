@@ -33,11 +33,11 @@ public void setMessage(String message) {
 this.message = message;
 }
 
-public List<Faculty> getFaculty() {
-return faculty;
-}
+    public List<Faculty> getFaculty() {
+        return faculty;
+    }
 
-public void setFaculty(List<Faculty> faculty) {
+    public void setFaculty(List<Faculty> faculty) {
 this.faculty = faculty;
 }
 

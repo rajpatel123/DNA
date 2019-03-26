@@ -42,11 +42,11 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-      Faculty faculty=facultyDetailList.get(i);
-      holder.facultyName.setText(faculty.getFName());
-      holder.facultyProfile.setText(faculty.getFDeg());
-      holder.facultySubtitile.setText(faculty.getFDesc());
-      holder.facultyQuotes.setText(faculty.getFQuote());
+        Faculty faculty = facultyDetailList.get(i);
+        holder.facultyName.setText(faculty.getFName());
+        holder.facultyProfile.setText(faculty.getFDeg());
+        holder.facultySubtitile.setText(faculty.getFDesc());
+        holder.facultyQuotes.setText(faculty.getFQuote());
         /*Picasso.with(context)
                 .load(faculty.getFImage())
                 .into(holder.facultyImage);
@@ -80,18 +80,18 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-       private ImageView facultyImage;
+        private ImageView facultyImage;
         private ProgressBar imageLoader;
-       private TextView facultyName,facultyProfile,facultyQuotes,facultySubtitile;
+        private TextView facultyName, facultyProfile, facultyQuotes, facultySubtitile;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-         facultyQuotes=itemView.findViewById(R.id.faculty_quotes);
-         facultyProfile=itemView.findViewById(R.id.faculty_prfile);
-            imageLoader = itemView.findViewById(R.id.imageLoader);
-         facultyName=itemView.findViewById(R.id.faculty_name);
-         facultySubtitile=itemView.findViewById(R.id.faculty_sub_title);
-         facultyImage=itemView.findViewById(R.id.faculty_image);
-
+            facultyQuotes = itemView.findViewById(R.id.faculty_quotes);
+            facultyProfile = itemView.findViewById(R.id.faculty_prfile);
+            imageLoader = itemView.findViewById(R.id.imageloader);
+            facultyName = itemView.findViewById(R.id.faculty_name);
+            facultySubtitile = itemView.findViewById(R.id.faculty_sub_title);
+            facultyImage = itemView.findViewById(R.id.faculty_image);
 
 
         }

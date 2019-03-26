@@ -89,6 +89,13 @@ public class RestClient {
 
     }
 
+    public static void knowMoreData(Callback<FacultyDetail> callback) {
+        RetrofitClient.getClient().knowMoreData().enqueue(callback);
+
+
+    }
+
+
 
     public static void qbankDetail(RequestBody user_id, Callback<QbankResponse> callback) {
         RetrofitClient.getClient().qbankDetail(user_id).enqueue(callback);

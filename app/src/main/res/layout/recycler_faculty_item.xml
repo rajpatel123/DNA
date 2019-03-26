@@ -41,7 +41,7 @@
                             android:src="@drawable/dr1" />
 
                         <ProgressBar
-                            android:id="@+id/imageLoader"
+                            android:id="@+id/imageloader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center" />
