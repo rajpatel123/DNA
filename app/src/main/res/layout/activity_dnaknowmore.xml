@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeHead"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
 
@@ -34,7 +34,7 @@
                 android:layout_width="120dp"
                 android:layout_height="35dp"
                 android:background="@drawable/rounded_shape"
-                android:padding="8dp"
+                android:padding="5dp"
                 android:text="Edition 2019"
                 android:textColor="@color/white"
                 android:textSize="14dp" />
@@ -45,138 +45,18 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="15sp"
                 android:gravity="center"
+                android:visibility="gone"
                 android:textColor="@color/colorAccent"
                 android:text="Built by legendary teachers and Dailyrounds"
                 android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
+           <android.support.v7.widget.RecyclerView
+               android:id="@+id/knowmore"
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/dr1" />
-
-                    </android.support.v7.widget.CardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:textColor="@color/colorAccent"
-                        android:gravity="center"
-                        android:text="Dr.Deepu Singh"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/black_titles"
-                        android:text="MD, Internal Medicine"
-                        android:textSize="8sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/dr2" />
-
-                    </android.support.v7.widget.CardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:textColor="@color/colorAccent"
-                        android:text="Dr.Kamal Singh"
-
-
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/black_titles"
-                        android:text="MD, Internal Medicine"
-                        android:textSize="8sp"
-
-                        />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/doctor" />
-
-                    </android.support.v7.widget.CardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:textColor="@color/colorAccent"
-                        android:text="Dr.Narayan Singh"
-
-
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/black_titles"
-                        android:text="MD, Internal Medicine"
-                        android:textSize="8sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+           </android.support.v7.widget.RecyclerView>
 
 
             <LinearLayout
@@ -194,7 +74,7 @@
                     android:paddingRight="10dp"
                     android:padding="10dp"
                     android:textColor="@color/black_titles"
-                    android:text="An evidence based online platform for NEET PG Medicine with QBank,Text Series and highyield videos."
+                    android:text="@string/know_more_data"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -288,7 +168,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Highly selected 26,500+ MCQs(QBank + Text Series)" />
+                            android:text="MCQs arranged in Topic Wise, Chapter Wise &amp; Subject Wise" />
                     </LinearLayout>
 
                     <View
@@ -313,7 +193,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Over 60% strike rate in recents exams" />
+                            android:text="MCQs Framed by Experienced Faculties Team.
+" />
                     </LinearLayout>
 
                     <View
@@ -339,7 +220,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Only repeat $ high yield MCQs" />
+                            android:text="Recent Updated MCQs as per Latest Pattern of Exam" />
                     </LinearLayout>
 
 
@@ -366,7 +247,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Update after every major exam" />
+                            android:text="All MCQs With Fully Explained answer" />
                     </LinearLayout>
 
                     <View
@@ -391,7 +272,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Solve MCQs , don't just read them" />
+                            android:text="75 % strike rate in recent Exams" />
                     </LinearLayout>
 
                     <View
@@ -400,6 +281,25 @@
                         android:background="@color/darkwhite" />
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="10sp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="More than 20,000 MCQs" />
+                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -443,6 +343,15 @@
                             android:textColor="@color/colorAccent"
                             android:layout_marginTop="5dp"
                             android:text="Test Series"/>
+                        <Button
+                            android:layout_width="120dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/rounded_shape"
+                            android:padding="8dp"
+                            android:text="Edition 2019"
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
 
                     </LinearLayout>
 
@@ -482,7 +391,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Highly selected 26,500+ MCQs(QBank + Text Series)"/>
+                            android:text="MCQs as per latest Exam pattern"/>
                     </LinearLayout>
 
                     <View
@@ -506,7 +415,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Only repeat $ high yield MCQs"/>
+                            android:text="Exam is on Latest Software with All India Ranking ( AIR )"/>
                     </LinearLayout>
                     <View
                         android:layout_width="match_parent"
@@ -529,7 +438,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Over 60% strike rate in recents exams" />
+                            android:text="No. of Questions in Each Exam as per Guideline Framed by Examination Body." />
                     </LinearLayout>
 
                     <View
@@ -552,7 +461,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Update after every major exam"/>
+                            android:text="Questions Similar with Real Exams"/>
                     </LinearLayout>
 
                     <View
@@ -575,7 +484,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Solve MCQs , don't just read them"/>
+                            android:text="Grand Test ( GT ) / Major Test  &amp; Subject Wise Test ( SWT ) / Minor Test"/>
                     </LinearLayout>
 
                     <View
@@ -584,6 +493,24 @@
                         android:background="@color/darkwhite"/>
 
 
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Special Mock Test Before AIIMS / JIPMER / NEET – PG "/>
+                    </LinearLayout>
 
 
 
@@ -632,6 +559,15 @@
                             android:textColor="@color/colorAccent"
                             android:text="Video Lessons"/>
 
+                        <Button
+                            android:layout_width="120dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/rounded_shape"
+                            android:padding="8dp"
+                            android:text="Edition 2019"
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
 
                     </LinearLayout>
 
@@ -673,7 +609,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Highly selected 26,500+ MCQs(QBank + Text Series)"/>
+                            android:text="Video Lecture Recorded after NEET-PG 2019"/>
                     </LinearLayout>
 
                     <View
@@ -696,7 +632,8 @@
                             android:layout_marginLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Only repeat $ high yield MCQs"/>
+                            android:text="Concept Based Teaching on Latest Pattern
+"/>
                     </LinearLayout>
 
                     <View
@@ -721,7 +658,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Over 60% strike rate in recents exams" />
+                            android:text="Recorded Video Lectures By India’s Top Faculties, Teaching on Latest Trends
+" />
                     </LinearLayout>
                     <View
                         android:layout_width="match_parent"
@@ -768,13 +706,207 @@
                             android:layout_marginLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Solve MCQs , don't just read them"/>
+                            android:text="All 19 Subjects video lecture covered"/>
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/darkwhite"/>
+
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Watch Multiple Times ,  Any Time &amp; Any places with your convenience"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="10sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15sp"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            android:background="@drawable/ic_switch_video_black_24dp"
+                            />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textColor="@color/colorAccent"
+                            android:text="Live Online Sessions"/>
+
+                        <Button
+                            android:layout_width="120dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/rounded_shape"
+                            android:padding="8dp"
+                            android:text="Edition 2019"
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite" />
+
+
+
+                    <!--<TextView-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:layout_marginLeft="10sp"-->
+                    <!--android:paddingTop="10sp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="640+ hours of recorded video lectures from some of india's best medical faculty.Our teachers focus on concept based learning."-->
+
+                    <!--/>-->
+                    <LinearLayout
+
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Direct Relay of Live Lecture by India’s Top Faculties from Class room"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Watch Lecture with your convenience place &amp; Time, No Need to travel Long Distance"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="10sp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Valid For 24 hr only" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+
+
+                    <LinearLayout
+                        android:paddingTop="10sp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ask your query from the Faculties by mail "/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/darkwhite"/>
+
+
 
                 </LinearLayout>
 
@@ -796,6 +928,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:visibility="gone"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:textColor="@color/colorAccent"
@@ -808,12 +941,14 @@
 
 
                     <View
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/darkwhite"/>
 
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
@@ -826,6 +961,7 @@
                         android:text="Concept-based learning"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -834,6 +970,7 @@
                         android:text="@string/knowmore"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10sp"
                         android:textSize="16dp"
                         android:layout_marginRight="10dp"
@@ -845,6 +982,7 @@
                         android:text="SOLVE  MCQs as opposed to Reading them"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -853,6 +991,7 @@
                         android:text="@string/knowmore"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
@@ -864,6 +1003,7 @@
                         android:text="Error Free, Evidence Based"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
@@ -873,6 +1013,7 @@
 
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10sp"
                         android:textSize="16dp"
                         android:layout_marginLeft="10dp"
@@ -884,6 +1025,7 @@
                         android:text="Makes You exam ready"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
@@ -893,6 +1035,7 @@
 
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10sp"
                         android:textSize="16dp"
                         android:layout_marginLeft="10dp"
@@ -904,6 +1047,7 @@
                         android:text="Be part of the largest Pan-India NEET PG text Series"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
@@ -912,6 +1056,7 @@
                         android:text="@string/knowmore"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10sp"
                         android:textSize="16dp"
                         android:layout_marginLeft="10dp"
@@ -923,6 +1068,7 @@
                         android:text="Be part of the largest Pan-India NEET PG text Series"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -930,6 +1076,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/knowmore"/>
                     <TextView
+                        android:visibility="gone"
                         android:layout_marginTop="10sp"
                         android:textSize="16dp"
                         android:layout_marginLeft="10dp"
@@ -941,6 +1088,7 @@
                         android:text="Be part of the largest Pan-India NEET PG text Series"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/knowmore"
@@ -949,17 +1097,20 @@
                         android:layout_marginTop="10dp"/>
 
                    <Button
+                       android:id="@+id/suscribe"
                        android:layout_marginTop="15sp"
                        android:background="@color/colorPrimary"
                        android:textColor="@color/white"
                        android:elevation="10sp"
+                       android:layout_marginBottom="10dp"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Subscibe and get PRO access"/>
+                       android:text="Subscibe"/>
 
 
                     <TextView
                         android:gravity="center"
+                        android:visibility="gone"
                         android:layout_gravity="center"
                         android:layout_marginTop="15sp"
                         android:textColor="@color/colorPrimary"
@@ -967,6 +1118,7 @@
                         android:layout_height="wrap_content"
                         android:text="Learn how to prepare using DNA"/>
                     <View
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/darkwhite" />
@@ -978,7 +1130,10 @@
 
 
 
+
+
             <LinearLayout
+                android:visibility="gone"
 
                 android:background="@color/darkwhite"
                 android:orientation="vertical"
@@ -996,6 +1151,7 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_marginTop="20dp"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -1024,6 +1180,7 @@
 
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:paddingTop="10sp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -1207,6 +1364,7 @@
                         android:layout_height="wrap_content"
                         />
                     <TextView
+                        android:id="@+id/read_faq"
                         android:textColor="@color/colorPrimary"
                         android:paddingLeft="5sp"
                         android:paddingRight="5sp"
@@ -1234,12 +1392,14 @@
                         android:paddingLeft="5sp"
                         android:paddingRight="5sp"
                         android:paddingTop="5sp"
+                        android:layout_gravity="center"
                         android:paddingBottom="5sp"
                         android:src="@drawable/phone_knowmore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
                     <TextView
+                        android:id="@+id/read_call"
                         android:textColor="@color/colorPrimary"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="5sp"
@@ -1248,7 +1408,7 @@
                         android:paddingBottom="5sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Get a call to know more about the PRO plans"/>
+                        android:text="Get a call to know more about the DNA plans"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -1264,12 +1424,14 @@
                         android:paddingLeft="5sp"
                         android:paddingRight="5sp"
                         android:paddingTop="5sp"
+                        android:layout_gravity="center"
                         android:paddingBottom="5sp"
                         android:src="@drawable/email_knowmore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
                     <TextView
+                        android:id="@+id/read_gmail"
                         android:textColor="@color/colorPrimary"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="5sp"
@@ -1278,7 +1440,7 @@
                         android:paddingBottom="5sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="support@dna.com"/>
+                        android:text="Dnahelpgroup@gmail.com"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"

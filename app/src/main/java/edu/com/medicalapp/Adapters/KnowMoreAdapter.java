@@ -18,13 +18,12 @@ import java.util.List;
 import edu.com.medicalapp.Models.faculties.Faculty;
 import edu.com.medicalapp.R;
 
-public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHolder> {
-
+public class KnowMoreAdapter   extends RecyclerView.Adapter<KnowMoreAdapter.ViewHolder>{
     private Context context;
     private List<Faculty> facultyDetailList;
 
 
-    public FacultyAdapter(Context context) {
+    public KnowMoreAdapter(Context context) {
         this.context = context;
     }
 
@@ -35,25 +34,21 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_faculty_item, viewGroup, false);
-        return new ViewHolder(view);
+    public KnowMoreAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_knowmore_item, viewGroup, false);
+        return new KnowMoreAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         Faculty faculty = facultyDetailList.get(i);
-        holder.facultyName.setText(faculty.getFName());
-        holder.facultyProfile.setText(faculty.getFDeg());
+
+        holder.facultyName.setText(faculty.getFDeg());
         holder.facultySubtitile.setText(faculty.getFDesc());
-        holder.facultyQuotes.setText(faculty.getFQuote());
-        /*Picasso.with(context)
-                .load(faculty.getFImage())
-                .into(holder.facultyImage);
-*/
+
         Picasso.with(context)
                 .load(faculty.getFImage())
-                .error(R.drawable.dr1)
+                .error(R.drawable.doctor)
                 .into(holder.facultyImage, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -69,6 +64,7 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
     }
 
 
+
     @Override
     public int getItemCount() {
 
@@ -82,17 +78,15 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView facultyImage;
         private ProgressBar imageLoader;
-        private TextView facultyName, facultyProfile, facultyQuotes, facultySubtitile;
+        private TextView facultyName,  facultySubtitile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            facultyQuotes = itemView.findViewById(R.id.faculty_quotes);
-            facultyProfile = itemView.findViewById(R.id.faculty_prfile);
-            imageLoader = itemView.findViewById(R.id.imageloader);
-            facultyName = itemView.findViewById(R.id.faculty_name);
-            facultySubtitile = itemView.findViewById(R.id.faculty_sub_title);
-            facultyImage = itemView.findViewById(R.id.faculty_image);
 
+            facultyImage = itemView.findViewById(R.id.facultyprofile);
+            facultyName= itemView.findViewById(R.id.facultyname);
+            imageLoader = itemView.findViewById(R.id.imageloader);
+            facultySubtitile = itemView.findViewById(R.id.medicine);
 
         }
     }
