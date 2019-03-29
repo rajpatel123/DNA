@@ -31,7 +31,7 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnaknowmore);
-        recyclerView = findViewById(R.id.knowmore);
+       recyclerView = findViewById(R.id.knowmore);
         btnSuscribe = findViewById(R.id.suscribe);
         textCall=findViewById(R.id.read_call);
         textGmail=findViewById(R.id.read_gmail);

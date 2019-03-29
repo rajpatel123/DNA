@@ -18,7 +18,7 @@ import java.util.List;
 import edu.com.medicalapp.Models.faculties.Faculty;
 import edu.com.medicalapp.R;
 
-public class KnowMoreAdapter   extends RecyclerView.Adapter<KnowMoreAdapter.ViewHolder>{
+public class KnowMoreAdapter extends RecyclerView.Adapter<KnowMoreAdapter.ViewHolder> {
     private Context context;
     private List<Faculty> facultyDetailList;
 
@@ -41,35 +41,31 @@ public class KnowMoreAdapter   extends RecyclerView.Adapter<KnowMoreAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        Faculty faculty = facultyDetailList.get(i);
+        if (i == 0) {
+            Picasso.with(context).load(R.drawable.dr_niraj_singh_dna).into(holder.facultyImage);
+            holder.facultyName.setText("Dr. Niraj Singh");
+            holder.facultySubtitile.setText("Co-Founder DNA & Chief Mentor");
+        }
+        if (i == 1) {
+            Picasso.with(context).load(R.drawable.dr_azam_dna).into(holder.facultyImage);
+            holder.facultyName.setText("Dr. Mohammed Azam");
+            holder.facultySubtitile.setText(" Co-Founder DNA & Faculty");
+        }
+        if (i == 2) {
+            Picasso.with(context).load(R.drawable.dr_rupesh_dna).into(holder.facultyImage);
+            holder.facultyName.setText("Rupesh Sirjee");
+            holder.facultySubtitile.setText("Director & Co-Founder DNA");
+        }
 
-        holder.facultyName.setText(faculty.getFDeg());
-        holder.facultySubtitile.setText(faculty.getFDesc());
-
-        Picasso.with(context)
-                .load(faculty.getFImage())
-                .error(R.drawable.doctor)
-                .into(holder.facultyImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        holder.imageLoader.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError() {
-                        holder.imageLoader.setVisibility(View.GONE);
-                    }
-                });
 
     }
-
 
 
     @Override
     public int getItemCount() {
 
         if (facultyDetailList != null) {
-            return facultyDetailList.size();
+            return 3;
         } else {
             return 0;
         }
@@ -78,13 +74,13 @@ public class KnowMoreAdapter   extends RecyclerView.Adapter<KnowMoreAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView facultyImage;
         private ProgressBar imageLoader;
-        private TextView facultyName,  facultySubtitile;
+        private TextView facultyName, facultySubtitile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             facultyImage = itemView.findViewById(R.id.facultyprofile);
-            facultyName= itemView.findViewById(R.id.facultyname);
+            facultyName = itemView.findViewById(R.id.facultyname);
             imageLoader = itemView.findViewById(R.id.imageloader);
             facultySubtitile = itemView.findViewById(R.id.medicine);
 

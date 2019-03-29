@@ -91,15 +91,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@drawable/vedio_image_background">
+              >
 
                 <ImageView
-
+                    android:id="@+id/image_doctor"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
-                    android:background="@drawable/vedio_image_background"
+
                     android:src="@drawable/doctor" />
 
             </LinearLayout>
@@ -152,7 +152,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:text="25 MCQ"
+                        android:text=""
                         android:textColor="@color/vedio_text_color" />
                 </LinearLayout>
 

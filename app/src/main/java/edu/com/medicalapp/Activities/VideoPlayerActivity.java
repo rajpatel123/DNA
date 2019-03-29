@@ -88,7 +88,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @BindView(R.id.llControllerWrapperFlexible)
     LinearLayout llControllerWrapperFlexible;
 
+    @BindView(R.id.heading)
+    TextView textHeading;
+
+    @BindView(R.id.techer_name)
+    TextView textTeacher;
+
     private Unbinder unbinder;
+    private String title;
     private Handler handler = new Handler();
     private String TAG = getClass().getSimpleName();
     private int seekBarProgress = 0;
@@ -221,6 +228,26 @@ public class VideoPlayerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("url")){
             url= intent.getStringExtra("url");
+            title=intent.getStringExtra("title");
+
+        }
+        textHeading.setText(title);
+
+        if(title.equalsIgnoreCase("BIOCHEMISTRY"))
+        {
+            textTeacher.setText("Dr. Nilesh Chandra ");
+        }
+        if(title.equalsIgnoreCase("P.SM. BY DR. ASWANI"))
+        {
+            textTeacher.setText("Dr. Ashwani");
+        }
+        if(title.equalsIgnoreCase("MICROBIOLOGY"))
+        {
+          textTeacher.setText("Dr. NEETU SHREE ");
+        }
+        if(title.equalsIgnoreCase("PHARMACOLOGY MADE SIMPLE"))
+        {
+      textTeacher.setText("Dr. DINESH");
         }
 
         setUpperSeekBar();

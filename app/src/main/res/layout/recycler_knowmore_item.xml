@@ -8,38 +8,47 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="10dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp"
-            android:layout_weight="1"
-            android:background="@color/knowmorebck"
-            android:gravity="center"
-            android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+         <!--   <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:layout_weight="1"
+                android:background="@color/knowmorebck"
+                android:gravity="center"
+                android:orientation="vertical">
+-->
 
-
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
+                android:layout_gravity="center"
                 android:id="@+id/facultyprofile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/dr1" />
 
             <ProgressBar
+android:visibility="gone"
                 android:id="@+id/imageloader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
 
+        </FrameLayout>
+
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/facultyname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
+                android:textSize="14dp"
                 android:text="Dr.Narayan Singh"
                 android:textColor="@color/colorAccent"
 
@@ -47,16 +56,16 @@
                 />
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/medicine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="MD, Internal Medicine"
-                android:textColor="@color/black_titles"
-                android:textSize="8sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>

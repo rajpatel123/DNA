@@ -95,6 +95,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
 
             }
+
             if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
                 if (miniTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);

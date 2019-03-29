@@ -4,6 +4,7 @@
         android:id="@+id/review"
         android:icon="@drawable/ic_star"
         android:title="Review test sheet"
+        android:visible="false"
         />
     <item
         android:id="@+id/submit"
