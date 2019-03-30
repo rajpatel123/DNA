@@ -24,6 +24,7 @@
                 android:orientation="vertical">
 -->
 
+
             <ImageView
                 android:layout_gravity="center"
                 android:id="@+id/facultyprofile"

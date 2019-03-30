@@ -51,34 +51,121 @@
                 android:visibility="gone" />
 
             <LinearLayout
-                android:visibility="gone"
+
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:layout_gravity="center"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/dr_niraj_singh_dna"/>
+                        android:src="@drawable/neeraj"/>
 
                     <TextView
+                        android:padding="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/orange"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""/>
+                        android:text="Dr. Niraj Singh"/>
 
-
-
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Co-Founder DNA"/>
+                    <TextView
+                        android:textColor="@color/black"
+                        android:padding="2dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chief Mentor"/>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/md"/>
+
+                    <TextView
+                        android:textColor="@color/orange"
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dr. Mohammed Azam"/>
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Co-Founder DNA"/>
 
 
+                    <TextView
+                        android:padding="2dp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Faculty"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rupesh"/>
+
+                    <TextView
+                        android:textColor="@color/orange"
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rupesh Sirjee"/>
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Co-Founder DNA"/>
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Director"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
                 android:id="@+id/knowmore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,7 +221,7 @@
                             android:layout_height="30sp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="15sp"
-                            android:background="@drawable/ic_switch_video_black_24dp" />
+                            android:background="@drawable/ic_description_black_24dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -1446,7 +1533,7 @@
 
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="Dnahelpgroup@gmail.com"
+                        android:text="dnahelpgroup@gmail.com"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
 

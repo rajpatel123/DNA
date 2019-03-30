@@ -52,6 +52,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                holder.desc.setText("" + subcats);
                holder.desc.setVisibility(View.VISIBLE);
 
+
            }else{
                holder.desc.setText("");
                holder.desc.setVisibility(View.GONE);
@@ -106,7 +107,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         @BindView(R.id.title)
         TextView title;
-
 
         @BindView(R.id.desc)
         TextView desc;

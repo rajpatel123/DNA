@@ -111,25 +111,45 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:id="@+id/vid_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Introduction to Anotomy"
+                        android:textColor="#313133"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="1dp"
+                        android:src="@drawable/lock" />
+
+                </LinearLayout>
                 <TextView
-                    android:id="@+id/vid_title"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:id="@+id/vid_doctor_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Introduction to Anotomy"
                     android:textColor="#313133"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="1dp"
-                    android:src="@drawable/lock" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -141,9 +161,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="7dp"
                         android:layout_weight="1"
-                        android:text="4.5"
+                        android:text="(5.0)"
                         android:textColor="@color/vedio_text_color" />
 
                     <TextView
