@@ -35,6 +35,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import edu.com.medicalapp.Adapters.CollegeCustomAdapter;
 import edu.com.medicalapp.Adapters.CustomAdapter;
 import edu.com.medicalapp.Models.registration.CommonResponse;
 import edu.com.medicalapp.R;
@@ -85,8 +86,12 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     String edit_name, edit_username, edit_email, edit_password;
     String[] countryNames = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Utter Pradesh", "Bihar"};
+    String[] collegeNames = {"Narayana Medical College,Nellore", "NRI Medical College,Guntur", "Santhiram Medical College,Kakinada"
+            , "S V Mediacal College,Tirupati", "Katihar Medical College, Katihar",
+            "Nalanda Medical College,Patna"};
     private String imagePath;
     private String statetxt;
+    private String collegetext;
     private String edit_phonetxt;
 
     @Override
@@ -118,7 +123,6 @@ public class RegistrationActivity extends AppCompatActivity implements
         });
 
 
-
         SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textLogin.setText(spannableString1);
@@ -140,7 +144,12 @@ public class RegistrationActivity extends AppCompatActivity implements
         //state spinner
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.selectState);
+        Spinner spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
+        spinnerCollege.setOnItemSelectedListener(this);
         spin.setOnItemSelectedListener(this);
+
+        CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeNames);
+        spinnerCollege.setAdapter(collegeCustomAdapter);
 
         CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countryNames);
         spin.setAdapter(customAdapter);
@@ -158,6 +167,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             }
         }
     }
+
     @Override
     public void onClick(View view) {
 
@@ -215,8 +225,8 @@ public class RegistrationActivity extends AppCompatActivity implements
             edit_phone.setError(getString(R.string.invalid_email));
 
             return;
-        }else{
-            if (edit_phonetxt.length()<10){
+        } else {
+            if (edit_phonetxt.length() < 10) {
                 edit_phone.setError(getString(R.string.valid_phone));
                 return;
             }
@@ -254,7 +264,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
         Utils.showProgressDialog(this);
-        RestClient.registerUser(name, username, email,phone,states, password,vFile, new Callback<CommonResponse>() {
+        RestClient.registerUser(name, username, email, phone, states, password, vFile, new Callback<CommonResponse>() {
             /* private Call<CommonResponse> call;
              private Response<CommonResponse> response;
  */
@@ -271,7 +281,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                         intent.putExtra("user_id", response.body().getUser_id());
                         startActivity(intent);
                         finish();
-                    }else{
+                    } else {
                         Utils.displayToast(getApplicationContext(), response.body().getMessage());
 
                     }
@@ -289,16 +299,16 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     }
 
-    private String getRealPath(Uri uri){
-            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-            if (cursor == null) {
-                return uri.getPath();
-            } else {
-                cursor.moveToFirst();
-                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                return cursor.getString(idx);
-            }
+    private String getRealPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        if (cursor == null) {
+            return uri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(idx);
         }
+    }
 
 
     @Override

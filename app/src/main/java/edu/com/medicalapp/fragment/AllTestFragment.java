@@ -90,7 +90,8 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
 
 
     private void showTest() {
-        if (testQuestionData != null && testQuestionData.getGrandTest() != null && testQuestionData.getGrandTest().size() > 0) {
+        if (testQuestionData != null && testQuestionData.getAllTest()
+                != null && testQuestionData.getAllTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter testAdapter = new TestAdapter(getActivity());
             testAdapter.setAllData(testQuestionData.getAllTest());
@@ -125,7 +126,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid) {
 
         if (testPaid.equalsIgnoreCase("Yes")) {
-            Intent intent = new Intent(getActivity(),DNAKnowmoreActivity.class);
+            Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getActivity(), TestStartActivity.class);

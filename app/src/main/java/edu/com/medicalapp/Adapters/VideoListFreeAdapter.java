@@ -50,7 +50,8 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         }
         if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("P.SM. BY DR. ASWANI")) {
             Picasso.with(applicationContext).load(R.drawable.aswani_dna).into(holder.imageDoctor);
-            holder.doctorName.setText("By Dr. Aswani");
+            holder.title.setText("P.S.M");
+            holder.doctorName.setText("By Dr. Ashwani");
         }
         if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("MICROBIOLOGY")) {
             Picasso.with(applicationContext).load(R.drawable.neetushri).into(holder.imageDoctor);

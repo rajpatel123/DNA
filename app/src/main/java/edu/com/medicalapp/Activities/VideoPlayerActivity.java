@@ -234,10 +234,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
         textHeading.setText(title);
 
         if (title.equalsIgnoreCase("BIOCHEMISTRY")) {
+
             textTeacher.setText("Dr. Nilesh Chandra ");
         }
         if (title.equalsIgnoreCase("P.SM. BY DR. ASWANI")) {
             textTeacher.setText("Dr. Ashwani");
+            textHeading.setText("P.S.M");
         }
         if (title.equalsIgnoreCase("MICROBIOLOGY")) {
             textTeacher.setText("Dr. NEETU SHREE ");
