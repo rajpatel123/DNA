@@ -112,13 +112,19 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
 
     private void setprofiledata() {
         Intent intent = getIntent();
-
+        String state=DnaPrefs.getString(getApplicationContext(),"STATE");
+        String college=DnaPrefs.getString(getApplicationContext(),"COLLEGE");
         String name = DnaPrefs.getString(getApplicationContext(), "NAME");
         String image = DnaPrefs.getString(getApplicationContext(), "URL");
         String email = DnaPrefs.getString(getApplicationContext(), "EMAIL");
 
         tvName.setText(name);
         tvEmail.setText(email);
+        tvState.setText(state);
+        tvCollege.setText(college);
+
+
+
         if (!TextUtils.isEmpty(image)) {
 
             Picasso.with(this)

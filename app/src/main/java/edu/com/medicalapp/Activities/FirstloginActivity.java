@@ -98,7 +98,7 @@ public class FirstloginActivity extends AppCompatActivity {
         loginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FirstloginActivity.this, PhoneloginActivity.class));
+                startActivity(new Intent(FirstloginActivity.this, LoginActivity.class));
                 finish();
             }
         });

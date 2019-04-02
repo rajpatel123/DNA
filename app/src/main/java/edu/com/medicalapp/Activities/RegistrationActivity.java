@@ -154,13 +154,14 @@ public class RegistrationActivity extends AppCompatActivity implements
         spinnerCollege.setOnItemSelectedListener(this);
         spin.setOnItemSelectedListener(this);
 
-      CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
-      spinnerCollege.setAdapter(collegeCustomAdapter);
+    /*  CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
+      spinnerCollege.setAdapter(collegeCustomAdapter);*/
 
         CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countryNames);
         spin.setAdapter(customAdapter);
 
     }
+
 
     private void getCollegeList() {
 
@@ -174,7 +175,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             collegeListResponse = response.body();
                             if (collegeListResponse != null && collegeListResponse.getName().size() > 0) {
-                                collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
+                                collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse.getName());
                                 spinnerCollege.setAdapter(collegeCustomAdapter);
 
                             }
@@ -230,6 +231,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         edit_phonetxt = edit_phone.getText().toString();
         edit_password = editPassword.getText().toString();
 
+
         if (TextUtils.isEmpty(edit_name.trim()) || edit_name.length() == 0) {
             editName.setError(getString(R.string.invalid_name));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_name));
@@ -281,11 +283,11 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
-        if (TextUtils.isEmpty(collegetext)) {
+       /* if (TextUtils.isEmpty(collegetext)) {
             Utils.displayToast(getApplicationContext(), "Please select College");
             return;
 
-        }
+        }*/
 
         Uri uri = Uri.parse("android.resource://edu.com.medicalapp/drawable/dna_log_new");
         File videoFile = new File(getRealPath(uri));
@@ -300,7 +302,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
         RequestBody states = RequestBody.create(MediaType.parse("text/plain"), statetxt);
-        RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
+        RequestBody college = RequestBody.create(MediaType.parse("text/plain"), "AIIMS,NEW Delhi");
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
         Utils.showProgressDialog(this);
@@ -318,7 +320,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                 if (response.body() != null) {
                     if (response.body().getStatus().equalsIgnoreCase("1")) {
                         Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.putExtra("mobile", "");
                         intent.putExtra("user_id", response.body().getUser_id());
                         startActivity(intent);
@@ -365,9 +367,13 @@ public class RegistrationActivity extends AppCompatActivity implements
     }
 
 
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         statetxt = countryNames[position];
+
+        //collegetext=collegeListResponse.getName().get(position).getName();
+
 
     }
 

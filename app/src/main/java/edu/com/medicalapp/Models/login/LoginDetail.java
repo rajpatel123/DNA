@@ -8,12 +8,27 @@ public class LoginDetail {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("user_name")
+    @SerializedName("name")
     @Expose
-    private String userName;
+    private String name;
+    @SerializedName("username")
+    @Expose
+    private String username;
     @SerializedName("email_id")
     @Expose
     private String emailId;
+    @SerializedName("college")
+    @Expose
+    private String college;
+    @SerializedName("mobile_no")
+    @Expose
+    private String mobileNo;
+    @SerializedName("state")
+    @Expose
+    private String state;
+    @SerializedName("image")
+    @Expose
+    private String image;
 
     public String getId() {
         return id;
@@ -23,12 +38,20 @@ public class LoginDetail {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmailId() {
@@ -37,5 +60,37 @@ public class LoginDetail {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

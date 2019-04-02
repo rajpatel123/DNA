@@ -109,7 +109,7 @@ public class QbankTestFragment extends Fragment {
 
         View answer = inflater.inflate(R.layout.review_question_list, container, false);
         questionTestList = answer.findViewById(R.id.text_question);
-        questionTestList.setText("Q" + (fragNum ) + ". " + questionDetail.getQname());
+        questionTestList.setText("Q" + (fragNum+1 ) + ". " + questionDetail.getQname());
         qbankTestActivity.quest_id = questionDetail.getId();
         answerList.addView(answer);
 

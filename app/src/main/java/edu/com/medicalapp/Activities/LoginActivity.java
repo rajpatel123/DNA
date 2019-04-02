@@ -71,9 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
 
     String email_str, pass_str;
-    boolean check=false;
-
-
+    boolean check = false;
 
 
     @Override
@@ -81,19 +79,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
-        customFacebook=findViewById(R.id.custom_login);
+        customFacebook = findViewById(R.id.custom_login);
         ButterKnife.bind(this);
-        callbackManager=CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
         loginwithFb();
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,FirstloginActivity.class));
+                startActivity(new Intent(LoginActivity.this, FirstloginActivity.class));
                 finish();
             }
         });
-       // loginFb();
+        // loginFb();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     //Login Validation
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     private void Validation() {
@@ -108,16 +107,14 @@ public class LoginActivity extends AppCompatActivity {
 
         email_str = editEmail.getText().toString();
         pass_str = editPassword.getText().toString();
-        if(loginCheck.isChecked())
-        {
-            check=true;
-            DnaPrefs.putBoolean(this, Constants.LoginCheck,check);
+        if (loginCheck.isChecked()) {
+            check = true;
+            DnaPrefs.putBoolean(this, Constants.LoginCheck, check);
+        } else {
+            check = false;
+            DnaPrefs.putBoolean(this, Constants.LoginCheck, check);
         }
-        else {
-            check=false;
-            DnaPrefs.putBoolean(this,Constants.LoginCheck,check);
-        }
-        if (TextUtils.isEmpty(email_str.trim()) || email_str.length() ==0) {
+        if (TextUtils.isEmpty(email_str.trim()) || email_str.length() == 0) {
             Utils.displayToast(getApplicationContext(), "Please enter valid email");
             return;
         }
@@ -125,15 +122,14 @@ public class LoginActivity extends AppCompatActivity {
             Utils.displayToast(getApplicationContext(), "Please enter valid password");
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email_str).matches())
-        {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email_str).matches()) {
             Utils.displayToast(getApplicationContext(), "Please enter valid email");
             return;
         }
-         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), email_str);
+        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), email_str);
         RequestBody pwd = RequestBody.create(MediaType.parse("text/plain"), pass_str);
         Utils.showProgressDialog(this);
-        RestClient.loginUser(email,pwd, new Callback<loginResponse>() {
+        RestClient.loginUser(email, pwd, new Callback<loginResponse>() {
             @Override
             public void onResponse(Call<loginResponse> call, Response<loginResponse> response) {
                 Utils.dismissProgressDialog();
@@ -141,18 +137,24 @@ public class LoginActivity extends AppCompatActivity {
                     loginResponse loginResponse = response.body();
                     if (Integer.parseInt(loginResponse.getStatus()) == 1) {
                         Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                       String id=loginResponse.getLoginDetails().get(0).getId();
-                       DnaPrefs.putString(getApplicationContext(),"Login_Id",id);
-                       DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",false);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        String id = loginResponse.getLoginDetails().get(0).getId();
+                        String state = loginResponse.getLoginDetails().get(0).getState();
+                        String college = loginResponse.getLoginDetails().get(0).getCollege();
 
-                        DnaPrefs.putString(getApplicationContext(),"NAME","DNA User");
-                        DnaPrefs.putString(getApplicationContext(),"URL","");
-                        DnaPrefs.putString(getApplicationContext(),"EMAIL",email_str);
+                        DnaPrefs.putString(getApplicationContext(), "Login_Id", id);
+                        DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
+                        DnaPrefs.putString(getApplicationContext(), "STATE",state);
+                        DnaPrefs.putString(getApplicationContext(),"COLLEGE",college);
 
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        DnaPrefs.putString(getApplicationContext(), "NAME", "DNA User");
+                        DnaPrefs.putString(getApplicationContext(), "URL", "");
+                        DnaPrefs.putString(getApplicationContext(), "EMAIL", email_str);
+
+
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
-                    }else{
+                    } else {
                         Utils.displayToast(LoginActivity.this, "Invalid login detail");
                     }
 
@@ -161,9 +163,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
             }
-
-
-
 
 
             @Override
@@ -257,7 +256,6 @@ public class LoginActivity extends AppCompatActivity {
     }*/
 
 
-
     }
 
     private void loginwithFb() {
@@ -326,15 +324,13 @@ public class LoginActivity extends AppCompatActivity {
         });*/
 
 
-
-
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        JSONObject data=response.getJSONObject();
+                        JSONObject data = response.getJSONObject();
                         try {
                             String name = data.getString("name");
                             String email = data.getString("email");
@@ -355,13 +351,13 @@ public class LoginActivity extends AppCompatActivity {
                                         if (Integer.parseInt(facebookResponse.getStatus()) == 1) {
                                             Utils.displayToast(LoginActivity.this, facebookResponse.getMessage());
                                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                            int fb_id=facebookResponse.getFacebookDetails().get(0).getId();
-                                            DnaPrefs.putInt(getApplicationContext(),"fB_ID",fb_id);
-                                            DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",true);
+                                            int fb_id = facebookResponse.getFacebookDetails().get(0).getId();
+                                            DnaPrefs.putInt(getApplicationContext(), "fB_ID", fb_id);
+                                            DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", true);
                                             DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                             DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
                                             DnaPrefs.putString(getApplicationContext(), "EMAIL", email);
-                                            DnaPrefs.putString(getApplicationContext(),"FBID",facebook_id);
+                                            DnaPrefs.putString(getApplicationContext(), "FBID", facebook_id);
                                             startActivity(intent);
                                             finish();
                                         } else {
@@ -373,6 +369,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<FacebookResponse> call, Throwable t) {
                                     Utils.dismissProgressDialog();
@@ -396,10 +393,12 @@ public class LoginActivity extends AppCompatActivity {
                 graphRequest.executeAsync();
 
             }
+
             @Override
             public void onCancel() {
                 Toast.makeText(LoginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(LoginActivity.this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -409,20 +408,17 @@ public class LoginActivity extends AppCompatActivity {
         customFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile","email"));
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "email"));
             }
         });
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id=item.getItemId();
-        if(id==R.id.home)
-        {
+        int id = item.getItemId();
+        if (id == R.id.home) {
             finish();
 
         }
@@ -435,8 +431,6 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
 
 
 }
