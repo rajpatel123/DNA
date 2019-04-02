@@ -36,6 +36,11 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
     @BindView(R.id.profile_email)
     TextView tvEmail;
 
+    @BindView(R.id.profile_College)
+    TextView tvCollege;
+
+    @BindView(R.id.profile_state)
+    TextView tvState;
     @BindView(R.id.profile_logout)
     TextView textViewProfile;
 

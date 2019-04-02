@@ -97,21 +97,20 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                             testModuleName.setText("" + qbankstartResponse.getDetails().get(0).getModuleName());
                             testTotalQuestion.setText("" + qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
                             testCompletedQuestion.setText("" + qbankstartResponse.getDetails().get(0).getTotalattempedmcq() + " Completed");
-                             num= String.valueOf(Integer.parseInt(qbankstartResponse.getDetails().get(0).getTotalattempedmcq())+1);
-                             if (qbankstartResponse.getDetails().get(0).getTotalmcq()
-                                    .equalsIgnoreCase(num)) {
+                            /* num= String.valueOf(Integer.parseInt(qbankstartResponse.getDetails().get(0).getTotalattempedmcq())+1);
+                             if (qbankstartResponse.getDetails().get(0).getTotalmcq().equalsIgnoreCase(num)) {
                                 btnStart.setText("Review");
                                 pauseImage.setImageResource(R.drawable.qbank_right_answer);
                                 testTime.setText("You've Completed this module " + qbankstartResponse.getDetails().get(0).getLastattempedquesdate());
                                 testCompletedQuestion.setText(""+num+ " Completed");
 
-                            } else {
+                            } else {*/
                                 if (qbankstartResponse.getDetails().get(0).getLastattempedquesdate() != null) {
                                     testTime.setText("You paused this module on " + qbankstartResponse.getDetails().get(0).getLastattempedquesdate());
                                 } else {
                                     linearLayoutStatus.setVisibility(View.GONE);
                                 }
-                            }
+
                         }
                     }
                 }

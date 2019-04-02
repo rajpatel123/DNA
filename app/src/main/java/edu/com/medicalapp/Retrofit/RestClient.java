@@ -7,6 +7,7 @@ import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.answer.SubmitAnswer;
+import edu.com.medicalapp.Models.collegelist.CollegeListResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.feedback.QbankfeedbackResponse;
@@ -37,8 +38,8 @@ public class RestClient {
         RetrofitClient.getClient().loginUser(email, password).enqueue(callback);
     }
 
-    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password).enqueue(callback);
+    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password, college).enqueue(callback);
     }
 
     public static void facebookRegister(RequestBody name, RequestBody email_id, RequestBody fb_id, Callback<FacebookResponse> callback) {
@@ -49,9 +50,13 @@ public class RestClient {
         RetrofitClient.getClient().getCourse().enqueue(callback);
     }
 
+    public static void getCollege(Callback<CollegeListResponse> callback) {
+        RetrofitClient.getClient().collegeData().enqueue(callback);
+    }
 
- public static void submitAnswer(String q_id,String u_id,String is_completed, String userAnswer,Callback<SubmitAnswer> callback) {
-        RetrofitClient.getClient().submitAnswer(q_id,u_id,is_completed,userAnswer).enqueue(callback);
+
+    public static void submitAnswer(String q_id, String u_id, String is_completed, String userAnswer, Callback<SubmitAnswer> callback) {
+        RetrofitClient.getClient().submitAnswer(q_id, u_id, is_completed, userAnswer).enqueue(callback);
     }
 
 
@@ -96,7 +101,6 @@ public class RestClient {
     }
 
 
-
     public static void qbankDetail(RequestBody user_id, Callback<QbankResponse> callback) {
         RetrofitClient.getClient().qbankDetail(user_id).enqueue(callback);
     }
@@ -113,7 +117,7 @@ public class RestClient {
         RetrofitClient.getClient().qbanksubTestData(qmodule_id).enqueue(callback);
     }
 
-    public static void qbankFeedback(String user_id, String qmodule_id,String rating, String feedback, Callback<QbankfeedbackResponse> callback) {
+    public static void qbankFeedback(String user_id, String qmodule_id, String rating, String feedback, Callback<QbankfeedbackResponse> callback) {
         RetrofitClient.getClient().qbankFeedback(user_id, qmodule_id, rating, feedback).enqueue(callback);
     }
 

@@ -7,6 +7,7 @@ import edu.com.medicalapp.Models.ResultData.ResultList;
 import edu.com.medicalapp.Models.ReviewResult.ReviewResult;
 import edu.com.medicalapp.Models.VerifyOtpResponse;
 import edu.com.medicalapp.Models.answer.SubmitAnswer;
+import edu.com.medicalapp.Models.collegelist.CollegeListResponse;
 import edu.com.medicalapp.Models.facebook.FacebookResponse;
 import edu.com.medicalapp.Models.faculties.FacultyDetail;
 import edu.com.medicalapp.Models.feedback.QbankfeedbackResponse;
@@ -46,7 +47,8 @@ public interface ApiInterface {
                                       @Part("email_id") RequestBody email,
                                       @Part("mobile") RequestBody phone,
                                       @Part("state") RequestBody state,
-                                      @Part("password") RequestBody password);
+                                      @Part("password") RequestBody password,
+                                      @Part("college") RequestBody college);
 
     @Multipart
     @POST("api/api.php?req=facebook")
@@ -98,6 +100,10 @@ public interface ApiInterface {
     @POST("api/api.php?req=faculty")
     Call<FacultyDetail> facultyData();
 
+
+    @POST("api/api.php?req=collegelist")
+    Call<CollegeListResponse> collegeData();
+
     @Multipart
     @POST("api/api.php?req=qbank_cate")
     Call<QbankResponse> qbankDetail(@Part("user_id") RequestBody user_id);
@@ -147,4 +153,8 @@ public interface ApiInterface {
             @Part("user_id") RequestBody user_id,
             @Part("code") RequestBody code
             );
+
+
+
+
 }

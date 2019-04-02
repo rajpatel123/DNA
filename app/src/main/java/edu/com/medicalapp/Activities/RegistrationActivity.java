@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.io.File;
@@ -37,6 +38,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.com.medicalapp.Adapters.CollegeCustomAdapter;
 import edu.com.medicalapp.Adapters.CustomAdapter;
+import edu.com.medicalapp.Models.collegelist.CollegeListResponse;
 import edu.com.medicalapp.Models.registration.CommonResponse;
 import edu.com.medicalapp.R;
 import edu.com.medicalapp.Retrofit.RestClient;
@@ -93,12 +95,16 @@ public class RegistrationActivity extends AppCompatActivity implements
     private String statetxt;
     private String collegetext;
     private String edit_phonetxt;
+    Spinner spinnerCollege;
+    CollegeCustomAdapter collegeCustomAdapter;
+    CollegeListResponse collegeListResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
+        getCollegeList();
         btnSignUp.setOnClickListener(this);
         textLogin.setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -144,15 +150,46 @@ public class RegistrationActivity extends AppCompatActivity implements
         //state spinner
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.selectState);
-        Spinner spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
+        spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
         spinnerCollege.setOnItemSelectedListener(this);
         spin.setOnItemSelectedListener(this);
 
-        CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeNames);
-        spinnerCollege.setAdapter(collegeCustomAdapter);
+      CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
+      spinnerCollege.setAdapter(collegeCustomAdapter);
 
         CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countryNames);
         spin.setAdapter(customAdapter);
+
+    }
+
+    private void getCollegeList() {
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.getCollege(new Callback<CollegeListResponse>() {
+                @Override
+                public void onResponse(Call<CollegeListResponse> call, Response<CollegeListResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equalsIgnoreCase("1")) {
+                            collegeListResponse = response.body();
+                            if (collegeListResponse != null && collegeListResponse.getName().size() > 0) {
+                                collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
+                                spinnerCollege.setAdapter(collegeCustomAdapter);
+
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CollegeListResponse> call, Throwable t) {
+                    Toast.makeText(RegistrationActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        }
 
     }
 
@@ -244,6 +281,11 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
+        if (TextUtils.isEmpty(collegetext)) {
+            Utils.displayToast(getApplicationContext(), "Please select College");
+            return;
+
+        }
 
         Uri uri = Uri.parse("android.resource://edu.com.medicalapp/drawable/dna_log_new");
         File videoFile = new File(getRealPath(uri));
@@ -258,13 +300,13 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
         RequestBody states = RequestBody.create(MediaType.parse("text/plain"), statetxt);
-
+        RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
         Utils.showProgressDialog(this);
-        RestClient.registerUser(name, username, email, phone, states, password, vFile, new Callback<CommonResponse>() {
+        RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
             /* private Call<CommonResponse> call;
              private Response<CommonResponse> response;
  */

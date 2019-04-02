@@ -109,12 +109,14 @@ public class QbankTestFragment extends Fragment {
 
         View answer = inflater.inflate(R.layout.review_question_list, container, false);
         questionTestList = answer.findViewById(R.id.text_question);
-        questionTestList.setText("Q" + (fragNum + 1) + ". " + questionDetail.getQname());
+        questionTestList.setText("Q" + (fragNum ) + ". " + questionDetail.getQname());
         qbankTestActivity.quest_id = questionDetail.getId();
         answerList.addView(answer);
 
 
-        if (qbankTestActivity.qbankTestResponse.getDetails().get(qbankTestActivity.qbankTestResponse.getDetails().size() - 1).getId().equalsIgnoreCase(questionDetail.getId())) {
+        if (qbankTestActivity.qbankTestResponse.getDetails()
+                .get(qbankTestActivity.qbankTestResponse.getDetails().size() - 1)
+                .getId().equalsIgnoreCase(questionDetail.getId())) {
             qbankTestActivity.is_completed = "1";
         }
         for (int i = 1; i < 5; i++) {
