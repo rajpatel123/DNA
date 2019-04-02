@@ -48,7 +48,7 @@
                 android:title="T&amp;C" />
 
             <item
-                android:visible="false"
+
                 android:id="@+id/report"
                 android:title="Report Cpoyright Issue" />
         </menu>

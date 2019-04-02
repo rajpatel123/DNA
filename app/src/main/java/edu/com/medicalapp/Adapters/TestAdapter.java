@@ -105,7 +105,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
+                if (!Objects.requireNonNull(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition())
+                        .getTestDate())).equals(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);

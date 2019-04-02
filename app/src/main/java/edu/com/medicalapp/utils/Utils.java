@@ -107,7 +107,6 @@ public class Utils {
             return null;
         }
          SimpleDateFormat tripDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
-
         Date dNow = new Date(timeStamp);
         return tripDateFormat.format(dNow);
     }

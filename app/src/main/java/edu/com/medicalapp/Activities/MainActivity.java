@@ -240,8 +240,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, DNAKnowmoreActivity.class);
             startActivity(intent);
         } else if (id == R.id.subscribe) {
-            Intent intent = new Intent(this, DNASuscribeActivity.class);
-            startActivity(intent);
+           /* Intent intent = new Intent(this, DNASuscribeActivity.class);
+            startActivity(intent);*/
         } else if (id == R.id.notice_board) {
 
             Intent intent = new Intent(this, Noticeboard.class);
@@ -255,10 +255,10 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("title", "FAQ");
             startActivity(intent);
         } else if (id == R.id.rate) {
-
+/*
             Intent i = new Intent(android.content.Intent.ACTION_VIEW);
             i.setData(Uri.parse("https://play.google.com/store/apps/details?id=edu.com.medicalapp"));
-            startActivity(i);
+            startActivity(i);*/
 
         } else if (id == R.id.nav_share) {
             Intent sendIntent = new Intent();
@@ -268,19 +268,19 @@ public class MainActivity extends AppCompatActivity
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } else if (id == R.id.about) {
-            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+           /* Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "About Us");
             startActivity(intent);
-
+*/
         } else if (id == R.id.contact_us) {
-            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+           /* Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "Contact Us");
-            startActivity(intent);
+            startActivity(intent);*/
 
         } else if (id == R.id.report) {
-            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            /*Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "Report");
-            startActivity(intent);
+            startActivity(intent);*/
         } else if (id == R.id.terms_conditions) {
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "Terms & Conditions");
