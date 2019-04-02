@@ -1,24 +1,17 @@
 package edu.com.medicalapp.Activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,9 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,6 +89,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     Spinner spinnerCollege;
     CollegeCustomAdapter collegeCustomAdapter;
     CollegeListResponse collegeListResponse;
+    private String collegeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +168,13 @@ public class RegistrationActivity extends AppCompatActivity implements
                             collegeListResponse = response.body();
                             if (collegeListResponse != null && collegeListResponse.getName().size() > 0) {
                                 collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse.getName());
+                                collegeCustomAdapter.setOnCollegeSecect(new CollegeCustomAdapter.OnCollegeSelect() {
+                                    @Override
+                                    public void onSelect(String college) {
+                                        collegeName = college;
+                                        Toast.makeText(RegistrationActivity.this, college, Toast.LENGTH_LONG).show();
+                                    }
+                                });
                                 spinnerCollege.setAdapter(collegeCustomAdapter);
 
                             }
