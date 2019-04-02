@@ -172,7 +172,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                                     @Override
                                     public void onSelect(String college) {
                                         collegeName = college;
-                                        Toast.makeText(RegistrationActivity.this, college, Toast.LENGTH_LONG).show();
+                                        collegetext=college;
                                     }
                                 });
                                 spinnerCollege.setAdapter(collegeCustomAdapter);
@@ -301,7 +301,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
         RequestBody states = RequestBody.create(MediaType.parse("text/plain"), statetxt);
-        RequestBody college = RequestBody.create(MediaType.parse("text/plain"), "AIIMS,NEW Delhi");
+        RequestBody college = RequestBody.create(MediaType.parse("text/plain"),collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
         Utils.showProgressDialog(this);
