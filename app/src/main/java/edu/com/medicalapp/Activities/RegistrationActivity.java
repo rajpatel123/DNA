@@ -98,6 +98,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     Spinner spinnerCollege;
     CollegeCustomAdapter collegeCustomAdapter;
     CollegeListResponse collegeListResponse;
+    private String collegeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +177,12 @@ public class RegistrationActivity extends AppCompatActivity implements
                             collegeListResponse = response.body();
                             if (collegeListResponse != null && collegeListResponse.getName().size() > 0) {
                                 collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse.getName());
+                                collegeCustomAdapter.setOnCollegeSecect(new CollegeCustomAdapter.OnCollegeSelect() {
+                                    @Override
+                                    public void onSelect(String college) {
+                                       collegeName = college;
+                                    }
+                                });
                                 spinnerCollege.setAdapter(collegeCustomAdapter);
 
                             }

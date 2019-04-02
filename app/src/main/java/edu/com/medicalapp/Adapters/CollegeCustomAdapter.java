@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.com.medicalapp.Models.collegelist.CollegeListResponse;
 import edu.com.medicalapp.Models.collegelist.Name;
 import edu.com.medicalapp.R;
 
@@ -18,6 +17,7 @@ public class CollegeCustomAdapter extends BaseAdapter {
     Context applicationContext;
     String collegeName[];
     Name nameList;
+    OnCollegeSelect onCollegeSelect;
    List<Name> collegeListResponse;
     int flags[];
     LayoutInflater layoutInflater;
@@ -54,8 +54,23 @@ public class CollegeCustomAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.spinner_item_college, null);
         TextView names = (TextView) view.findViewById(R.id.textView1);
         names.setText(""+collegeListResponse.get(position).getName());
-
+        names.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCollegeSelect != null) {
+                    onCollegeSelect.onSelect(names.getText().toString());
+                }
+            }
+        });
         //imageView.setVisibility(View.GONE);
         return view;
+    }
+
+    public void setOnCollegeSecect(OnCollegeSelect onCollegeSelect) {
+        this.onCollegeSelect = onCollegeSelect;
+    }
+
+    public interface OnCollegeSelect {
+        public void onSelect(String college);
     }
 }
