@@ -58,14 +58,14 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@color/orange"
                             android:text="Dr. Deepu Singh"/>
                         <TextView
                             android:id="@+id/faculty_sub_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@color/black"
                             android:text="Co-founder CEO, Daily Rounds  DNA"/>
 
                         <TextView
@@ -73,7 +73,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/orange"
                             android:text="MD, Internal Medicine"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -91,6 +91,7 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:paddingTop="15sp"
+
                     android:paddingLeft="10sp"
                     android:paddingRight="10dp"
                     android:layout_height="wrap_content">
@@ -100,11 +101,12 @@
                                             android:layout_height="20dp"
                                             android:backgroundTint="@color/white"
                                             android:foregroundTint="@color/white"
-                                            android:src="@drawable/faculty"
+                                            android:src="@drawable/faculty_icon"
                                             />
 
 
                     <TextView
+
                         android:id="@+id/faculty_quotes"
                         android:paddingBottom="15sp"
                         android:paddingTop="15sp"

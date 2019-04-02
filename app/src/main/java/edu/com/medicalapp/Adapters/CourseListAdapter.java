@@ -48,26 +48,32 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 stringBuilder.append(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().get(i).getSubCatName() + "/");
             }
             subcats = stringBuilder.substring(0, stringBuilder.length() - 1);
-           if (!TextUtils.isEmpty(subcats)){
-               holder.desc.setText("" + subcats);
-               holder.desc.setVisibility(View.VISIBLE);
+            if (!TextUtils.isEmpty(subcats)) {
 
-           }else{
-               holder.desc.setText("");
-               holder.desc.setVisibility(View.GONE);
-           }
+                holder.desc.setText("" + subcats);
+                if (categoryDetailData.getDetails().get(holder.getAdapterPosition())
+                        .getCatName().equalsIgnoreCase("MBBS PROF.")) {
+                    holder.desc.setText("University Exam");
+                }
+                holder.desc.setVisibility(View.VISIBLE);
+
+
+            } else {
+                holder.desc.setText("");
+                holder.desc.setVisibility(View.GONE);
+            }
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId())>3))
-                        onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3))
+                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
                     }
 
                 }
             });
-        }else{
+        } else {
             holder.desc.setText("");
             holder.desc.setVisibility(View.GONE);
 
@@ -106,7 +112,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         @BindView(R.id.title)
         TextView title;
-
 
         @BindView(R.id.desc)
         TextView desc;

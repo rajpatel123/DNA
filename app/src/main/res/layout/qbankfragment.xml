@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+
             android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -64,6 +66,7 @@
                         android:text="28,000+ high yield and Repeat MCQs" />
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/readmore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -74,6 +77,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"

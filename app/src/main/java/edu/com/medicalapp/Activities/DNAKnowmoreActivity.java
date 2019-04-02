@@ -25,7 +25,7 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private FacultyDetail facultyDetail;
     Button btnSuscribe;
-    TextView textCall,textGmail,textFAQ;
+    TextView textCall, textGmail, textFAQ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,10 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dnaknowmore);
         recyclerView = findViewById(R.id.knowmore);
         btnSuscribe = findViewById(R.id.suscribe);
-        textCall=findViewById(R.id.read_call);
-        textGmail=findViewById(R.id.read_gmail);
+        textCall = findViewById(R.id.read_call);
+        textGmail = findViewById(R.id.read_gmail);
 
-        textFAQ=findViewById(R.id.read_faq);
+        textFAQ = findViewById(R.id.read_faq);
         textFAQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,15 +56,15 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
         textGmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"Dnahelpgroup@gmail.com"});
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"dnahelpgroup@gmail.com"});
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Any subject if you want");
                 intent.setPackage("com.google.android.gm");
-                if (intent.resolveActivity(getPackageManager())!=null)
+                if (intent.resolveActivity(getPackageManager()) != null)
                     startActivity(intent);
                 else
-                    Toast.makeText(DNAKnowmoreActivity.this,"Gmail App is not installed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DNAKnowmoreActivity.this, "Gmail App is not installed", Toast.LENGTH_SHORT).show();
             }
         });
         btnSuscribe.setOnClickListener(new View.OnClickListener() {

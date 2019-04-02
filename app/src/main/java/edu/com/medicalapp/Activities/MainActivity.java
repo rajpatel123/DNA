@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         dashboardHomeFragment = new HomeFragment();
-        dashboardvideoFragment = new videoFragment();
+    //  dashboardvideoFragment = new videoFragment();
         dashboardQbankFragment = new QbankFragment();
         dashboardTextFragment = new TextFragment();
         dashboardOnlineFragment = new OnlineFragment();
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(dashboardHomeFragment, "Home");
-        adapter.addFragment(dashboardvideoFragment, "Video");
+    //  adapter.addFragment(dashboardvideoFragment, "Video");
         adapter.addFragment(dashboardQbankFragment, "Q Bank");
         adapter.addFragment(dashboardTextFragment, "Test");
         adapter.addFragment(dashboardOnlineFragment, "Online");
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity
             tab.setCustomView(deviceTab);
         }
 
-        @SuppressLint("InflateParams") View mapTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+      /*  @SuppressLint("InflateParams") View mapTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         videoText = mapTab.findViewById(R.id.tab);
         videoText.setText("Video");
         imgVideoViewIcon = mapTab.findViewById(R.id.imgTab);
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity
         if (tab != null) {
 
             tab.setCustomView(mapTab);
-        }
+        }*/
 
         @SuppressLint("InflateParams") View alertTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         qbTitle = alertTab.findViewById(R.id.tab);
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity
         imgQBIcon = alertTab.findViewById(R.id.imgTab);
         ImageUtils.setTintedDrawable(this, R.drawable.nav_qbank, imgQBIcon, R.color.white);
 
-        tab = tabLayout.getTabAt(2);
+        tab = tabLayout.getTabAt(1);
         if (tab != null) {
             tab.setCustomView(alertTab);
         }
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity
         testTitle.setText("Test");
         testIcon = recordingTab.findViewById(R.id.imgTab);
         ImageUtils.setTintedDrawable(this, R.drawable.nav_text, testIcon, R.color.white);
-        tab = tabLayout.getTabAt(3);
+        tab = tabLayout.getTabAt(2);
         if (tab != null) {
             tab.setCustomView(recordingTab);
         }
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity
         imgOnlineIcon = accountTab.findViewById(R.id.imgTab);
         ImageUtils.setTintedDrawable(this, R.drawable.nav_live, imgOnlineIcon, R.color.white);
 
-        tab = tabLayout.getTabAt(4);
+        tab = tabLayout.getTabAt(3);
         if (tab != null) {
             tab.setCustomView(accountTab);
         }
@@ -307,16 +307,16 @@ public class MainActivity extends AppCompatActivity
                 case 0:
                     toolbar.setTitle("Home");
                     break;
-                case 1:
+              /*  case 1:
                     toolbar.setTitle("Video");
-                    break;
-                case 2:
+                    break;*/
+                case 1:
                     toolbar.setTitle("Q Bank");
                     break;
-                case 3:
+                case 2:
                     toolbar.setTitle("Test");
                     break;
-                case 4:
+                case 3:
                     toolbar.setTitle("Online");
                     break;
 
