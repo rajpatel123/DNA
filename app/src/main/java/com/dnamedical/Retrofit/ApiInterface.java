@@ -1,0 +1,160 @@
+package com.dnamedical.Retrofit;
+
+import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
+import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
+import com.dnamedical.Models.QustionDetails;
+import com.dnamedical.Models.ResultData.ResultList;
+import com.dnamedical.Models.ReviewResult.ReviewResult;
+import com.dnamedical.Models.VerifyOtpResponse;
+import com.dnamedical.Models.answer.SubmitAnswer;
+import com.dnamedical.Models.collegelist.CollegeListResponse;
+import com.dnamedical.Models.facebook.FacebookResponse;
+import com.dnamedical.Models.faculties.FacultyDetail;
+import com.dnamedical.Models.feedback.QbankfeedbackResponse;
+import com.dnamedical.Models.qbank.QbankResponse;
+import com.dnamedical.Models.qbankstart.QbankstartResponse;
+import com.dnamedical.Models.test.TestQuestionData;
+import com.dnamedical.Models.video.VideoList;
+import com.dnamedical.Models.login.loginResponse;
+import com.dnamedical.Models.maincat.CategoryDetailData;
+import com.dnamedical.Models.registration.CommonResponse;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Query;
+
+public interface ApiInterface {
+
+
+   /* @POST("api/api.php?req=login")
+    Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
+*/
+
+
+    @Multipart
+    @POST("api/api.php?req=login")
+    Call<loginResponse> loginUser(@Part("email_id") RequestBody email, @Part("password") RequestBody password);
+
+
+    @Multipart
+    @POST("api/api.php?req=registration")
+    Call<CommonResponse> registerUser(@Part("name") RequestBody name,
+                                      @Part("username") RequestBody username,
+                                      @Part("email_id") RequestBody email,
+                                      @Part("mobile") RequestBody phone,
+                                      @Part("state") RequestBody state,
+                                      @Part("password") RequestBody password,
+                                      @Part("college") RequestBody college);
+
+    @Multipart
+    @POST("api/api.php?req=facebook")
+    Call<FacebookResponse> facebookRegister(@Part("name") RequestBody name,
+                                            @Part("email_id") RequestBody emailId,
+                                             @Part("fb_id") RequestBody facebookbId);
+
+
+    @GET("api/api.php?req=category")
+    Call<CategoryDetailData> getCourse();
+
+    @GET("api/api.php?req=allfile")
+    Call<VideoList> getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
+
+    @GET("api/api.php?req=test")
+    Call<TestQuestionData> getTest();
+
+
+    @GET("api/api.php?req=question")
+    Call<QustionDetails> getQuestion(@Query("test_id") String test_id);
+
+    @POST("api/api.php?req=final_test")
+    Call<ResponseBody> submitTest(@Query("user_id") String user_id,
+                                  @Query("test_id") String test_id,
+                                  @Query("tquestion") String tquestion,
+                                  @Query("ttquestion") String ttquestion,
+                                  @Query("canswer") String canswer,
+                                  @Query("ccanswer") String ccanswer,
+                                  @Query("wanswer") String wanswer,
+                                  @Query("wwanswer") String wwanswer,
+                                  @Query("sanswer") String sanswer,
+                                  @Query("ssanswer") String ssanswer);
+
+    @Multipart
+    @POST("api/api.php?req=result")
+    Call<ResultList> resultList(@Part("user_id") RequestBody user_id,
+                            @Part("test_id") RequestBody test_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=showresult")
+    Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
+                                            @Part("test_id") RequestBody test_id);
+
+    @Multipart
+    @POST("api/api.php?req=mobilelogin")
+    Call<CommonResponse> sendOtp(@Part("mobile") RequestBody phone);
+
+    @POST("api/api.php?req=faculty")
+    Call<FacultyDetail> facultyData();
+
+
+    @POST("api/api.php?req=collegelist")
+    Call<CollegeListResponse> collegeData();
+
+    @Multipart
+    @POST("api/api.php?req=qbank_cate")
+    Call<QbankResponse> qbankDetail(@Part("user_id") RequestBody user_id);
+
+
+    /*@Multipart
+    @POST("api/api.php?req=qbank_subcate")
+    Call<QbankstartResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
+
+*/
+    @POST("api/api.php?req=faculty")
+    Call<FacultyDetail> knowMoreData();
+
+    @Multipart
+     @POST("api/api.php?req=qbank_subcate")
+    Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id,@Part("user_id") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=qbank_solve")
+    Call<QbankstartResponse> qbankStart(@Part("qmodule_id") RequestBody qmodule_id,
+                                        @Part("user_id") RequestBody user_id
+                                        ,@Part("is_paused") RequestBody is_paused);
+
+    @POST("api/api.php?req=qbank_mcq_model_feedback")
+    Call<QbankfeedbackResponse> qbankFeedback(@Query("user_id") String user_id,
+                                              @Query("qmodule_id")String qmodule_id,
+                                              @Query("rating") String rating,
+                                              @Query("feedback") String feedback);
+
+
+
+    @GET("api/api.php?req=qbank_mcq_atteped_answer")
+    Call<SubmitAnswer> submitAnswer(@Query("quest_id") String quest_id,
+                                    @Query("user_id") String user_id,
+                                    @Query("is_completed") String is_completed,
+                                    @Query("user_answer") String user_answer);
+
+
+    @Multipart
+    @POST("api/api.php?req=qbank_mcq")
+    Call<QbankTestResponse> qbanksubTestData(@Part("qmodule_id") RequestBody qmodule_id);
+
+    @Multipart
+    @POST("api/api.php?req=mobileverify")
+    Call<VerifyOtpResponse> verifyOTP(
+            @Part("user_id") RequestBody user_id,
+            @Part("code") RequestBody code
+            );
+
+
+
+
+}
