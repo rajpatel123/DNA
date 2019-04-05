@@ -93,14 +93,12 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.textDate.setText(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition()).getTestDate()));
             if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
-
             }
 
             if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
                 if (miniTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);
                 }
-
             }
 
 
@@ -143,7 +141,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             }
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
+                if (!Objects.requireNonNull(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition())
+                        .getTestDate())).equals(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition() - 1)
+                        .getTestDate()))) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);

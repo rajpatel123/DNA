@@ -33,7 +33,8 @@ import retrofit2.Response;
 public class QbankTestActivity extends AppCompatActivity {
 
 
-    public String quest_id;
+    /// public String quest_id="";
+    public static int quest_id;
     public String user_id;
     public String is_completed;
     public String user_answer = null;
@@ -43,7 +44,7 @@ public class QbankTestActivity extends AppCompatActivity {
     static int currentPosition;
     public QbankTestResponse qbankTestResponse;
     ImageView imageViewCancel;
-   public ProgressBar mProgressBar;
+    public ProgressBar mProgressBar;
     public CountDownTimer mCountDownTimer;
     int progress = 100;
     LinearLayout linearBottom;
@@ -85,7 +86,7 @@ public class QbankTestActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    mPager.setCurrentItem(currentPosition + 1);
+                    mPager.setCurrentItem((currentPosition) + 1);
 
                 }
             }
@@ -109,6 +110,7 @@ public class QbankTestActivity extends AppCompatActivity {
                         progress--;
                         mProgressBar.setProgress((int) progress);
                     }
+
                     @Override
                     public void onFinish() {
                         //Do what you want
@@ -119,6 +121,7 @@ public class QbankTestActivity extends AppCompatActivity {
                         if (fragment != null)
                             fragment.submitAnswer();
                         showHideBottomLayout(true);
+                        // finish();
 
                     }
                 };
@@ -126,7 +129,7 @@ public class QbankTestActivity extends AppCompatActivity {
 
             }
 
-        @Override
+            @Override
             public void onFinish() {
                 //Do what you want
                 //qbankgetTest();
@@ -225,7 +228,6 @@ public class QbankTestActivity extends AppCompatActivity {
             this.quesionCounter = quesionCounter;
             this.mpProgressBar = mpProgressBar;
             this.countDownTimer = countDownTimer;
-
         }
 
 

@@ -31,8 +31,8 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    TextView notext;
 
+    TextView notext;
     private TestQuestionData testQuestionData;
 
     @Override
@@ -64,6 +64,8 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 public void onResponse(Call<TestQuestionData> call, Response<TestQuestionData> response) {
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
+
+
                         if (testQuestionData != null) {
                             testQuestionData = null;
                         }
@@ -71,6 +73,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                         DNAApplication.setTestQuestionData(testQuestionData);
                         showTest();
                     }
+
                 }
 
                 @Override
@@ -125,19 +128,21 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     @Override
     public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid) {
 
-        if (testPaid.equalsIgnoreCase("Yes")) {
-            Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getActivity(), TestStartActivity.class);
-            intent.putExtra("id", id);
-            intent.putExtra("duration", time);
-            intent.putExtra("testName", testName);
-            intent.putExtra("testQuestion", testQuestion);
-            startActivity(intent);
+
+            if (testPaid.equalsIgnoreCase("Yes")) {
+                Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(getActivity(), TestStartActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("duration", time);
+                intent.putExtra("testName", testName);
+                intent.putExtra("testQuestion", testQuestion);
+                startActivity(intent);
+
+
 
         }
-
 
     }
 }

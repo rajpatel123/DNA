@@ -44,7 +44,7 @@ public class QbankTestFragment extends Fragment {
     public ProgressBar progressBar;
     boolean isLast;
     LinearLayout questionList, questionListDescription;
-    TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV,barChart;
+    TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV, barChart;
     ImageView imgA, imgB, imgC, imgD;
     ProgressBar progressBarChart;
     WebView webView;
@@ -79,7 +79,7 @@ public class QbankTestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbanktest, container, false);
         answerList = view.findViewById(R.id.questionList);
-        progressBarChart=view.findViewById(R.id.progress_bar_chart);
+        progressBarChart = view.findViewById(R.id.progress_bar_chart);
         questionListDescription = view.findViewById(R.id.questionListDescription);
 
         progressBar = view.findViewById(R.id.progressBar);
@@ -102,17 +102,17 @@ public class QbankTestFragment extends Fragment {
 
         dTV = view.findViewById(R.id.optionD);
         dTVPer = view.findViewById(R.id.optionDPer);
-        barChart=view.findViewById(R.id.bar_chart_percentage);
+        barChart = view.findViewById(R.id.bar_chart_percentage);
         rTV = view.findViewById(R.id.reference);
 
         webView = view.findViewById(R.id.webView);
 
         View answer = inflater.inflate(R.layout.review_question_list, container, false);
         questionTestList = answer.findViewById(R.id.text_question);
-        questionTestList.setText("Q" + (fragNum+1 ) + ". " + questionDetail.getQname());
-        qbankTestActivity.quest_id = questionDetail.getId();
+        questionTestList.setText("Q" + (fragNum + 1) + ". " + questionDetail.getQname());
+       qbankTestActivity.quest_id = fragNum+1;
+
         answerList.addView(answer);
-        
 
 
         if (qbankTestActivity.qbankTestResponse.getDetails()
@@ -122,7 +122,6 @@ public class QbankTestFragment extends Fragment {
         }
         for (int i = 1; i < 5; i++) {
             switch (i) {
-
                 case 1:
 
                     View answer1 = inflater.inflate(R.layout.qbank_item_test, container, false);
@@ -244,7 +243,7 @@ public class QbankTestFragment extends Fragment {
         qbankTestActivity.mCountDownTimer.cancel();
         qbankTestActivity.mProgressBar.setVisibility(View.GONE);
         Utils.showProgressDialog(qbankTestActivity);
-        RestClient.submitAnswer(qbankTestActivity.quest_id, qbankTestActivity.user_id, qbankTestActivity.is_completed, qbankTestActivity.user_answer, new Callback<SubmitAnswer>() {
+        RestClient.submitAnswer(String.valueOf(qbankTestActivity.quest_id), qbankTestActivity.user_id, qbankTestActivity.is_completed, qbankTestActivity.user_answer, new Callback<SubmitAnswer>() {
             @Override
             public void onResponse(Call<SubmitAnswer> call, Response<SubmitAnswer> response) {
                 Utils.dismissProgressDialog();
@@ -327,7 +326,7 @@ public class QbankTestFragment extends Fragment {
 
 
             rTV.setText(body.getDetails().get(0).getRefrence());
-            barChart.setText(body.getDetails().get(0).getGotrightperc()+"of the people got this right");
+            barChart.setText(body.getDetails().get(0).getGotrightperc() + "of the people got this right");
             try {
                 initComponent(body.getDetails().get(0).getDescriptionUrl());
             } catch (Exception e) {

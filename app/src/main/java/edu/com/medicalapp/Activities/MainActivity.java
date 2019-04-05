@@ -261,12 +261,12 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);*/
 
         } else if (id == R.id.nav_share) {
-            Intent sendIntent = new Intent();
+            /*Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT,
                     "Hey check out my app at: https://play.google.com/store/apps/details?id=com.google.android.apps.plus");
             sendIntent.setType("text/plain");
-            startActivity(sendIntent);
+            startActivity(sendIntent);*/
         } else if (id == R.id.about) {
            /* Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "About Us");
