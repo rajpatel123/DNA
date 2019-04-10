@@ -2,28 +2,15 @@
     android:shape="rectangle"
     android:thickness="20dp">
 
-    <corners
-        android:radius="10dp"
+    <corners android:radius="10dp"
 
         />
-
     <gradient
         android:angle="0"
-        android:startColor="@color/blue"
         android:endColor="@color/blue"
-        android:type="linear"/>
-
-
-
-
-
-
+        android:startColor="@color/blue"
+        android:type="linear" />
     <stroke
         android:width="2dp"
-        android:color="@color/blue"
-        />
-
-
-
-
+        android:color="@color/blue" />
 </shape>

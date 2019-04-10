@@ -7,7 +7,7 @@ uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "edu.com.medicalapp"
+        applicationId "com.dnamedical"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 4

@@ -47,9 +47,10 @@
                 android:id="@+id/terms_conditions"
                 android:title="T&amp;C" />
 
+
             <item
                 android:id="@+id/report"
-                android:title="Report Cpoyright Issue" />
+                android:title="Report Copyright Issue" />
         </menu>
     </item>
 

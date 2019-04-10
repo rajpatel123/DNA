@@ -46,6 +46,26 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="rbhu00@gmail.com"/>
+
+       <TextView
+           android:id="@+id/profile_state"
+           android:layout_marginBottom="10dp"
+           android:textSize="16sp"
+           android:gravity="center"
+           android:textColor="@color/white"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="America"/>
+
+       <TextView
+           android:id="@+id/profile_College"
+           android:layout_marginBottom="10dp"
+           android:textSize="16sp"
+           android:gravity="center"
+           android:textColor="@color/white"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="AIIMS,New Delhi"/>
    </LinearLayout>
     <LinearLayout
         android:orientation="vertical"

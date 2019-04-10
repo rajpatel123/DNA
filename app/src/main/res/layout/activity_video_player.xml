@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="edu.com.medicalapp.Activities.VideoPlayerActivity">
+    tools:context="com.dnamedical.Activities.VideoPlayerActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -67,7 +67,7 @@
                 app:srcCompat="@drawable/video_player"
                 tools:visibility="visible" />
 
-            <edu.com.medicalapp.player.EasyExoVideoPlayer
+            <com.dnamedical.player.EasyExoVideoPlayer
                 android:id="@+id/upper_exoplayer"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
