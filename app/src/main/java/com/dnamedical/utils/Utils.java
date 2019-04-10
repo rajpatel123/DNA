@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -77,17 +78,50 @@ public class Utils {
     }
 
     public static void displayToast(Context applicationContext, String s) {
-        Toast.makeText(applicationContext,s,Toast.LENGTH_LONG).show();
+        Toast.makeText(applicationContext, s, Toast.LENGTH_LONG).show();
 
+    }
+
+
+    public long milliseconds(String date) {
+        //String date_ = date;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date mDate = sdf.parse(date);
+            long timeInMilliseconds = mDate.getTime();
+            System.out.println("Date in milli :: " + timeInMilliseconds);
+            return timeInMilliseconds;
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
 
     public static String tripDateFormat(String testDate) {
-        long testTime = getTime(testDate);
+       /* long testTime = getTime(testDate);
+        Log.d("millies",""+testTime);
+
         Date dNow = new Date(testTime);
         SimpleDateFormat tripDateFormat = new SimpleDateFormat("DD MMMM yyyy", Locale.ENGLISH);
-        return tripDateFormat.format(dNow);
+        return tripDateFormat.format(dNow);*/
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        try {
+            Date mDate = sdf.parse(testDate);
+            String timeInMilliseconds = String.valueOf(mDate.getTime());
+            System.out.println("Date in milli :: " + timeInMilliseconds);
+            System.out.println("Date in milli :: " + mDate);
+
+            return timeInMilliseconds;
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+       return null;
     }
+
 
     private static long getTime(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
@@ -101,12 +135,11 @@ public class Utils {
     }
 
 
-
     public static String tripDateFormat(long timeStamp) {
         if (timeStamp <= 0) {
             return null;
         }
-         SimpleDateFormat tripDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+        SimpleDateFormat tripDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
         Date dNow = new Date(timeStamp);
         return tripDateFormat.format(dNow);
     }

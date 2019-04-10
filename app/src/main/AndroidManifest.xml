@@ -51,7 +51,7 @@
             android:name=".Activities.ReviewResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dnamedical.Activities.SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:theme="@style/AppTheme6">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -16,6 +16,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.dnamedical.Models.test.AllTest;
 import com.dnamedical.Models.test.GrandTest;
 import com.dnamedical.Models.test.MiniTest;
@@ -166,7 +167,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition()).getTestDate()));
+           holder.textDate.setText(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition()).getTestDate()));
+        //  holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate()   );
             if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
