@@ -4,7 +4,9 @@ package com.dnamedical.Models.test;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MiniTest {
+import java.util.Date;
+
+public class MiniTest implements Comparable<MiniTest>{
 
 @SerializedName("test_id")
 @Expose
@@ -110,4 +112,8 @@ this.testImage = testImage;
         this.testStatus = testStatus;
     }
 
+    @Override
+    public int compareTo(MiniTest o) {
+        return new Date(getTestDate()).compareTo(new Date(o.getTestDate()));
+    }
 }

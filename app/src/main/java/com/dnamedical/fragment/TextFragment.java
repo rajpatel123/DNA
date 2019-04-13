@@ -87,7 +87,7 @@ public class TextFragment extends Fragment implements FragmentLifecycle {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
         adapter.addFrag(new AllTestFragment(), "All Test");
         adapter.addFrag(new GrandTestFragment(), "Grand Test");
-        adapter.addFrag(new MiniTestFragment(), "Mini Test");
+        adapter.addFrag(new MockTestFragment(), "Mock Test");
         adapter.addFrag(new SubjectWiseTestFragment(), "SWT");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(0);

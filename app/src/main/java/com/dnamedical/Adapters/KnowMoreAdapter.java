@@ -10,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.dnamedical.Models.Faculty;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import com.dnamedical.Models.faculties.Faculty;
 import com.dnamedical.R;
 
 public class KnowMoreAdapter extends RecyclerView.Adapter<KnowMoreAdapter.ViewHolder> {
@@ -40,22 +40,25 @@ public class KnowMoreAdapter extends RecyclerView.Adapter<KnowMoreAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        if (i == 0) {
-            Picasso.with(context).load(R.drawable.dr_niraj_singh_dna).into(holder.facultyImage);
-            holder.facultyName.setText("Dr. Niraj Singh");
-            holder.facultySubtitile.setText("Co-Founder DNA & Chief Mentor");
-        }
-        if (i == 1) {
-            Picasso.with(context).load(R.drawable.dr_azam_dna).into(holder.facultyImage);
-            holder.facultyName.setText("Dr. Mohammed Azam");
-            holder.facultySubtitile.setText(" Co-Founder DNA & Faculty");
-        }
-        if (i == 2) {
-            Picasso.with(context).load(R.drawable.dr_rupesh_dna).into(holder.facultyImage);
-            holder.facultyName.setText("Rupesh Sirjee");
-            holder.facultySubtitile.setText("Director & Co-Founder DNA");
-        }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+       Faculty faculty = facultyDetailList.get(position);
+       holder.facultyName.setText(faculty.getFName());
+       holder.facultySubtitile.setText(faculty.getFDeg());
+
+        Picasso.with(context)
+                .load(faculty.getFImage())
+                .error(R.drawable.dr1)
+                .into(holder.facultyImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.imageLoader.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+                        holder.imageLoader.setVisibility(View.GONE);
+                    }
+                });
 
 
     }
@@ -65,7 +68,7 @@ public class KnowMoreAdapter extends RecyclerView.Adapter<KnowMoreAdapter.ViewHo
     public int getItemCount() {
 
         if (facultyDetailList != null) {
-            return 3;
+            return facultyDetailList.size();
         } else {
             return 0;
         }

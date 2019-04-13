@@ -101,25 +101,23 @@ public class Utils {
 
 
     public static String tripDateFormat(String testDate) {
-       /* long testTime = getTime(testDate);
-        Log.d("millies",""+testTime);
+        long testTime = getTime(testDate);
+        Log.d("millies", "" + testTime);
 
-        Date dNow = new Date(testTime);
+         /* Date dNow = new Date(testTime);
         SimpleDateFormat tripDateFormat = new SimpleDateFormat("DD MMMM yyyy", Locale.ENGLISH);
         return tripDateFormat.format(dNow);*/
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-        try {
-            Date mDate = sdf.parse(testDate);
-            String timeInMilliseconds = String.valueOf(mDate.getTime());
-            System.out.println("Date in milli :: " + timeInMilliseconds);
-            System.out.println("Date in milli :: " + mDate);
 
-            return timeInMilliseconds;
-        } catch (ParseException e) {
+        try {
+            SimpleDateFormat sdfDate = new SimpleDateFormat("DD MMM yyyy ");
+            String date = sdfDate.format(testTime);
+            System.out.println("Date in milli :: " + date);
+            return date;
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-       return null;
+        return null;
     }
 
 

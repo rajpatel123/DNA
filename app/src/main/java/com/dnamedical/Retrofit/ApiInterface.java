@@ -1,5 +1,6 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QustionDetails;
@@ -112,8 +113,8 @@ public interface ApiInterface {
     Call<QbankstartResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
 
 */
-    @POST("api/api.php?req=faculty")
-    Call<FacultyDetail> knowMoreData();
+    @POST("api/api.php?req=faculty_head")
+    Call<Directors> knowMoreData();
 
     @Multipart
      @POST("api/api.php?req=qbank_subcate")

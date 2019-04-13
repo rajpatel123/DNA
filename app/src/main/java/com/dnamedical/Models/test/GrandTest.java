@@ -4,7 +4,9 @@ package com.dnamedical.Models.test;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GrandTest {
+import java.util.Date;
+
+public class GrandTest implements Comparable<GrandTest>{
 
 @SerializedName("test_id")
 @Expose
@@ -110,6 +112,11 @@ this.testImage = testImage;
 
     public void setTestStatus(String testStatus) {
         this.testStatus = testStatus;
+    }
+
+    @Override
+    public int compareTo(GrandTest o) {
+        return new Date(getTestDate()).compareTo(new Date(o.getTestDate()));
     }
 
 }

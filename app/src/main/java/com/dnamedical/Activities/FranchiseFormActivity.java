@@ -3,6 +3,8 @@ package com.dnamedical.Activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.dnamedical.R;
+
 public class FranchiseFormActivity extends AppCompatActivity {
 
     @Override

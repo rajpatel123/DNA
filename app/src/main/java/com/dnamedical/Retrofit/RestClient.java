@@ -1,5 +1,6 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QustionDetails;
@@ -94,7 +95,7 @@ public class RestClient {
 
     }
 
-    public static void knowMoreData(Callback<FacultyDetail> callback) {
+    public static void knowMoreData(Callback<Directors> callback) {
         RetrofitClient.getClient().knowMoreData().enqueue(callback);
 
 

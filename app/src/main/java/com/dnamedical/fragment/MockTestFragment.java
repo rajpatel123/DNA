@@ -22,7 +22,7 @@ import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
-public class MiniTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
+public class MockTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
     TextView notext;
 
@@ -30,7 +30,7 @@ public class MiniTestFragment extends Fragment implements TestAdapter.OnCategory
     private TestQuestionData testQuestionData;
     private String subTest;
 
-    public MiniTestFragment() {
+    public MockTestFragment() {
 
     }
 

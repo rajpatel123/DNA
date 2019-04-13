@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +56,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
             holder.textDate.setText(Utils.tripDateFormat(grandTests.get(holder.getAdapterPosition()).getTestDate()));
+
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
             if (holder.getAdapterPosition() > 0) {
@@ -130,6 +133,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getTestDuration());
             holder.textDate.setText(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition()).getTestDate()));
+            Log.d("time",""+allTests.get(holder.getAdapterPosition()).getTestDate());
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
@@ -142,9 +146,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             }
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition())
-                        .getTestDate())).equals(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition() - 1)
-                        .getTestDate()))) {
+                if (!allTests.get(holder.getAdapterPosition())
+                        .getTestDate().equalsIgnoreCase(allTests.get(holder.getAdapterPosition() - 1)
+                        .getTestDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
@@ -219,18 +223,22 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
     public void setGrandData(List<GrandTest> testList) {
+        Collections.sort(testList);
         this.grandTests = testList;
     }
 
     public void setMiniData(List<MiniTest> testList) {
+        Collections.sort(testList);
         this.miniTests = testList;
     }
 
     public void setAllData(List<AllTest> testList) {
-        this.allTests = testList;
+        Collections.sort(testList);
+        this.allTests = testList; ;
     }
 
     public void setSubjectTestsData(List<SubjectTest> testList) {
+        Collections.sort(testList);
         this.subjectTests = testList;
     }
 
