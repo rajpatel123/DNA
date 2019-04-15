@@ -124,7 +124,6 @@ public class TruitonListFragment extends Fragment {
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
 								}
-
 								if (activity.skippedAnswerIdList.contains(question.getQid())){
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
