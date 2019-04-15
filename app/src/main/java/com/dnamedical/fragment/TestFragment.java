@@ -22,7 +22,7 @@ import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.R;
 import com.dnamedical.interfaces.FragmentLifecycle;
 
-public class TextFragment extends Fragment implements FragmentLifecycle {
+public class TestFragment extends Fragment implements FragmentLifecycle {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;

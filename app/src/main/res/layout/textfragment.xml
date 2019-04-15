@@ -55,7 +55,7 @@
             app:tabGravity="fill"
 
             app:tabIndicatorColor="@color/orange"
-            app:tabIndicatorHeight="4sp"
+            app:tabIndicatorHeight="3sp"
             app:tabMode="fixed" />
         <!-- </android.support.design.widget.AppBarLayout>-->
         <View

@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.dnamedical.R;
 import com.dnamedical.fragment.OnlineFragment;
 import com.dnamedical.fragment.QbankFragment;
-import com.dnamedical.fragment.TextFragment;
+import com.dnamedical.fragment.TestFragment;
 import com.dnamedical.fragment.videoFragment;
 
 public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -31,7 +31,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 2) {
             return new QbankFragment();
         } else if (position == 3) {
-            return new TextFragment();
+            return new TestFragment();
         } else {
             return new OnlineFragment();
         }

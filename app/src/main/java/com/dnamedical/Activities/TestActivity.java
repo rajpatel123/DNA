@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import com.dnamedical.fragment.ReviewAnswerSheetFreagment;
 import com.dnamedical.fragment.TruitonListFragment;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,6 +81,7 @@ public class TestActivity extends FragmentActivity {
     private String wwanswerIds;
     private String ttQuestion;
     private String ccAnswerIds;
+    private RelativeLayout relative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class TestActivity extends FragmentActivity {
         imgNest = findViewById(R.id.image_next);
         guessImage = findViewById(R.id.image_guess);
         imageMenu = findViewById(R.id.menu_item);
+        relative = findViewById(R.id.relative);
 
 
         guessImage.setOnClickListener(new OnClickListener() {
@@ -115,6 +119,8 @@ public class TestActivity extends FragmentActivity {
         long testDuration = 0;
         if (!TextUtils.isEmpty(duration)) {
             switch (duration) {
+                case "15m":
+                    testDuration = 15;
                 case "30m":
                     testDuration = 30;
                     break;
@@ -399,10 +405,18 @@ public class TestActivity extends FragmentActivity {
 
                     if (response.code() == 200) {
                         qustionDetails = response.body();
-                        mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails, quesionCounter);
-                        mPager = (ViewPager) findViewById(R.id.pager);
-                        mPager.addOnPageChangeListener(pageChangeListener);
-                        mPager.setAdapter(mAdapter);
+                        if (qustionDetails.getDetail() != null && qustionDetails.getDetail().size() > 0) {
+                            mAdapter = new MyAdapter(getSupportFragmentManager(), qustionDetails, quesionCounter);
+                            mPager = (ViewPager) findViewById(R.id.pager);
+                            mPager.addOnPageChangeListener(pageChangeListener);
+                            mPager.setAdapter(mAdapter);
+                            relative.setVisibility(View.VISIBLE);
+                        } else {
+                            relative.setVisibility(View.GONE);
+                            Toast.makeText(TestActivity.this, "No question here", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+
                     }
                 }
 
