@@ -2,38 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/app_bg"
-    android:orientation="vertical"
-    android:animateLayoutChanges="true">
+    android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/questionTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:layout_margin="10dp"
-        android:text="Tetsmfkfnldnv,fdf  fjefwfnfuyfw"
-        android:textStyle="bold"/>
+        android:text="Tetsmfkfnldnv,  fjefwfnfuyfw"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold" />
 
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1" >
+        android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
-            >
+            android:scrollbars="none">
+
             <LinearLayout
-                android:id="@+id/answerList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/dr1"
+                    android:minHeight="300dp"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:id="@+id/answerList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/app_bg1"
+                    android:orientation="vertical">
+
+                </LinearLayout>
             </LinearLayout>
 
         </ScrollView>

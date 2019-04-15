@@ -1,6 +1,7 @@
 package com.dnamedical.Retrofit;
 
 import com.dnamedical.Models.Directors;
+import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QustionDetails;
@@ -153,7 +154,6 @@ public interface ApiInterface {
             @Part("code") RequestBody code
             );
 
-
-
-
+    @GET("api/api.php?req=promotionvideo")
+    Call<PromoVideo> getVideo();
 }

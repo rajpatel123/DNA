@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -82,43 +85,26 @@ public class Utils {
 
     }
 
-
-    public long milliseconds(String date) {
-        //String date_ = date;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date mDate = sdf.parse(date);
-            long timeInMilliseconds = mDate.getTime();
-            System.out.println("Date in milli :: " + timeInMilliseconds);
-            return timeInMilliseconds;
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-
-    public static String tripDateFormat(String testDate) {
-        long testTime = getTime(testDate);
-        Log.d("millies", "" + testTime);
-
-         /* Date dNow = new Date(testTime);
-        SimpleDateFormat tripDateFormat = new SimpleDateFormat("DD MMMM yyyy", Locale.ENGLISH);
-        return tripDateFormat.format(dNow);*/
-
-        try {
-            SimpleDateFormat sdfDate = new SimpleDateFormat("DD MMM yyyy ");
-            String date = sdfDate.format(testTime);
-            System.out.println("Date in milli :: " + date);
-            return date;
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public static String tripDateFormat(String testDate) {
+//        String myDate = "2014/10/29 18:10:45";
+//        LocalDateTime localDateTime = LocalDateTime.parse(myDate,
+//                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss") );
+///*
+//  With this new Date/Time API, when using a date, you need to
+//  specify the Zone where the date/time will be used. For your case,
+//  seems that you want/need to use the default zone of your system.
+//  Check which zone you need to use for specific behaviour e.g.
+//  CET or America/Lima
+//*/
+//        long millis = localDateTime
+//                .atZone(ZoneId.systemDefault())
+//                .toInstant().toEpochMilli();
+//
+//
+//        long testTime = getTime(testDate);
+//        Log.d("Time:",""+testTime);
+//        return dateFormat(testTime);
+//    }
 
 
     private static long getTime(String date) {
@@ -133,7 +119,7 @@ public class Utils {
     }
 
 
-    public static String tripDateFormat(long timeStamp) {
+    public static String dateFormat(long timeStamp) {
         if (timeStamp <= 0) {
             return null;
         }

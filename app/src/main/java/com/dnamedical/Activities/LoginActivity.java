@@ -271,7 +271,7 @@ public class LoginActivity extends AppCompatActivity {
                 String link = profile.getLinkUri().toString();
 
                 Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
-                intent.putExtra("Name", name);
+                intent.putExtra("VideoModel", name);
                 intent.putExtra("Link", link);
                 startActivity(intent);
 

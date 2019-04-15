@@ -78,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     Spinner selectState;
 
     String edit_name, edit_username, edit_email, edit_password;
-    String[] countryNames = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Utter Pradesh", "Bihar"};
+    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Utter Pradesh", "Bihar"};
     String[] collegeNames = {"Narayana Medical College,Nellore", "NRI Medical College,Guntur", "Santhiram Medical College,Kakinada"
             , "S V Mediacal College,Tirupati", "Katihar Medical College, Katihar",
             "Nalanda Medical College,Patna"};
@@ -143,13 +143,12 @@ public class RegistrationActivity extends AppCompatActivity implements
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.selectState);
         spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
-        spinnerCollege.setOnItemSelectedListener(this);
         spin.setOnItemSelectedListener(this);
 
     /*  CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
       spinnerCollege.setAdapter(collegeCustomAdapter);*/
 
-        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countryNames);
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), statesName);
         spin.setAdapter(customAdapter);
 
     }
@@ -171,7 +170,6 @@ public class RegistrationActivity extends AppCompatActivity implements
                                 collegeCustomAdapter.setOnCollegeSecect(new CollegeCustomAdapter.OnCollegeSelect() {
                                     @Override
                                     public void onSelect(String college) {
-                                        collegeName = college;
                                         collegetext=college;
                                     }
                                 });
@@ -282,11 +280,11 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
-       /* if (TextUtils.isEmpty(collegetext)) {
-            Utils.displayToast(getApplicationContext(), "Please select College");
-            return;
+       if (TextUtils.isEmpty(collegetext)) {
+           Utils.displayToast(getApplicationContext(), "Please select College");
+           return;
 
-        }*/
+       }
 
         Uri uri = Uri.parse("android.resource://com.dnamedical/drawable/dna_log_new");
         File videoFile = new File(getRealPath(uri));
@@ -369,7 +367,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        statetxt = countryNames[position];
+        statetxt = statesName[position];
 
         //collegetext=collegeListResponse.getName().get(position).getName();
 

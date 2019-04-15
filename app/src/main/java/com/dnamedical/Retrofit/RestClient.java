@@ -1,6 +1,7 @@
 package com.dnamedical.Retrofit;
 
 import com.dnamedical.Models.Directors;
+import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QustionDetails;
@@ -129,5 +130,9 @@ public class RestClient {
     public static void verifyOtp(RequestBody userid, RequestBody code, Callback<VerifyOtpResponse> callback) {
         RetrofitClient.getClient().verifyOTP(userid, code).enqueue(callback);
 
+    }
+
+    public static void getVideo(Callback<PromoVideo> responseBodyCallback) {
+        RetrofitClient.getClient().getVideo().enqueue(responseBodyCallback);
     }
 }

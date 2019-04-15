@@ -24,6 +24,7 @@ import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -110,7 +111,7 @@ public class QbankTestFragment extends Fragment {
         View answer = inflater.inflate(R.layout.review_question_list, container, false);
         questionTestList = answer.findViewById(R.id.text_question);
         questionTestList.setText("Q" + (fragNum + 1) + ". " + questionDetail.getQname());
-       qbankTestActivity.quest_id = fragNum+1;
+        qbankTestActivity.quest_id = fragNum + 1;
 
         answerList.addView(answer);
 
