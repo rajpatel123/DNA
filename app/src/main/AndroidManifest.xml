@@ -121,7 +121,6 @@
         <activity
             android:name=".Activities.ContactUsActivity"
             android:label="Contact Us"
-            android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity android:name=".Activities.DNASettingActivity" />

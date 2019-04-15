@@ -271,9 +271,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 */
         } else if (id == R.id.contact_us) {
-           /* Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            Intent intent = new Intent(MainActivity.this, ContactUsActivity.class);
             intent.putExtra("title", "Contact Us");
-            startActivity(intent);*/
+            startActivity(intent);
 
         } else if (id == R.id.report) {
             /*Intent intent = new Intent(MainActivity.this, WebViewActivity.class);

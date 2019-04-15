@@ -1,6 +1,7 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.R;
 
@@ -39,6 +42,18 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
 
         holder.title.setText("" + categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName()
+                        .equalsIgnoreCase("Contact us"))
+                {
+                    Intent intent =new Intent(applicationContext, ContactUsActivity.class);
+                    applicationContext.startActivity(intent);
+                }
+            }
+        });
         if (categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
                 && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat() != null
                 && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size() > 0) {
