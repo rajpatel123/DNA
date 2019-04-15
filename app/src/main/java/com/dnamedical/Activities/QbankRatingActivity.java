@@ -15,6 +15,7 @@ import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +26,6 @@ public class QbankRatingActivity extends AppCompatActivity {
     private TextView textViewToomuch, textViewToolittle, textViewToohard, textViewTooEasy, textViewNotNeet, textViewNeedmore,
             textViewExplanations, textViewlacksConcept,
             textViewPoorly, textViewOthers, textViewAddFeedback;
-
     private Button buttonsubmit;
     StringBuilder result;
     RatingBar ratingbar;
@@ -44,7 +44,7 @@ public class QbankRatingActivity extends AppCompatActivity {
         textViewToohard = findViewById(R.id.too_hard);
         textViewToomuch = findViewById(R.id.too_much_content);
         textViewToolittle = findViewById(R.id.too_little_content);
-      ratingbar = findViewById(R.id.ratingBar);
+        ratingbar = findViewById(R.id.ratingBar);
         buttonsubmit = findViewById(R.id.submit_button);
         linearLayout = findViewById(R.id.linear_bottom);
         result = new StringBuilder();
@@ -190,7 +190,7 @@ public class QbankRatingActivity extends AppCompatActivity {
         });
 */
 
-     ratingbar.setOnClickListener(new View.OnClickListener() {
+        ratingbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 linearLayout.setVisibility(View.VISIBLE);
@@ -205,6 +205,7 @@ public class QbankRatingActivity extends AppCompatActivity {
         // sendData();
 
     }
+
     private void sendData() {
 
         if (Utils.isInternetConnected(this)) {
