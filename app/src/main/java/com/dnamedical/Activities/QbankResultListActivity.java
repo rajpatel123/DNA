@@ -27,17 +27,15 @@ public class QbankResultListActivity extends AppCompatActivity {
     String user_Id, question_id;
 
     private ReviewListResponse detailList;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_result_list);
+        recyclerView1 = findViewById(R.id.recycler);
+        getReviewData();
 
-        recyclerView = findViewById(R.id.recycler);
-
-
-        //getReviewData();
     }
 
     private void getReviewData() {
@@ -45,13 +43,15 @@ public class QbankResultListActivity extends AppCompatActivity {
             user_Id = getIntent().getStringExtra("userId");
             question_id = getIntent().getStringExtra("qmodule_id");
         }
+
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), user_Id);
         RequestBody qmodule_id = RequestBody.create(MediaType.parse("text/plain"), question_id);
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.qbankReview(user_id,qmodule_id,new Callback<ReviewListResponse>() {
+
+            RestClient.qbankReview(user_id, qmodule_id, new Callback<ReviewListResponse>() {
                 @Override
                 public void onResponse(Call<ReviewListResponse> call, Response<ReviewListResponse> response) {
                     Utils.dismissProgressDialog();
@@ -61,21 +61,15 @@ public class QbankResultListActivity extends AppCompatActivity {
                                 detailList = response.body();
                                 if (detailList != null && detailList.getDetails().size() > 0) {
                                     Log.d("Api Response :", "Got Success from Api");
+
                                     QbankReviewListAdapter qbankReviewListAdapter = new QbankReviewListAdapter(getApplicationContext());
                                     qbankReviewListAdapter.setDetailList(detailList.getDetails());
-                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                                   /*reviewQuestionListAdapter.setReviewClickListener(new ReviewQuestionListAdapter.ReviewOnClickListener() {
-                                       @Override
-                                       public void onReviewClick(int position) {
-                                           Intent intent = new Intent(getApplicationContext(), ReviewresulActivity.class);
-                                           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                           intent.putExtra("list", reviewResult);
-                                           intent.putExtra("position", position);
-                                           startActivity(intent);
-                                       }
-                                   });*/
-                                   recyclerView.setLayoutManager(layoutManager);
-                                    recyclerView.setAdapter(qbankReviewListAdapter);
+                                    Log.d("Api Response :", "Got Success from data");
+                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                                    recyclerView1.setLayoutManager(mLayoutManager);
+                                    Log.d("Api Response :", "Got Success from layout");
+                                    recyclerView1.setAdapter(qbankReviewListAdapter);
+                                    Log.d("Api Response :", "Got Success from send");
                                 }
                             }
                         }

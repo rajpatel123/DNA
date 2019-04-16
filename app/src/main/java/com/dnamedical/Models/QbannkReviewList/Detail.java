@@ -1,9 +1,12 @@
 package com.dnamedical.Models.QbannkReviewList;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Detail {
+public class Detail implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -50,6 +53,36 @@ public class Detail {
     @SerializedName("description_url")
     @Expose
     private String descriptionUrl;
+
+    protected Detail(Parcel in) {
+        id = in.readString();
+        qname = in.readString();
+        optionA = in.readString();
+        optionB = in.readString();
+        optionC = in.readString();
+        optionD = in.readString();
+        optionAperc = in.readString();
+        optionBperc = in.readString();
+        optionCperc = in.readString();
+        optionDperc = in.readString();
+        gotrightperc = in.readString();
+        answer = in.readString();
+        useranswer = in.readString();
+        refrence = in.readString();
+        descriptionUrl = in.readString();
+    }
+
+    public static final Creator<Detail> CREATOR = new Creator<Detail>() {
+        @Override
+        public Detail createFromParcel(Parcel in) {
+            return new Detail(in);
+        }
+
+        @Override
+        public Detail[] newArray(int size) {
+            return new Detail[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -169,5 +202,29 @@ public class Detail {
 
     public void setDescriptionUrl(String descriptionUrl) {
         this.descriptionUrl = descriptionUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(qname);
+        dest.writeString(optionA);
+        dest.writeString(optionB);
+        dest.writeString(optionC);
+        dest.writeString(optionD);
+        dest.writeString(optionAperc);
+        dest.writeString(optionBperc);
+        dest.writeString(optionCperc);
+        dest.writeString(optionDperc);
+        dest.writeString(gotrightperc);
+        dest.writeString(answer);
+        dest.writeString(useranswer);
+        dest.writeString(refrence);
+        dest.writeString(descriptionUrl);
     }
 }
