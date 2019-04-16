@@ -35,8 +35,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
         AllReult allReult = allReults.get(position);
         holder.textSkipped.setText(allReult.getSkipQuestion());
         holder.textWrong.setText(allReult.getCurrentQuestion());
-        String num=allReult.getCurrentQuestion()+allReult.getTotalQuestion();
         holder.textCorrect.setText(allReult.getTotalQuestion());
+      /* String num=Integer.parseInt(allReult.getTotalQuestion())-(Integer.parseInt(allReult.getCurrentQuestion())
+                                                    +(Integer.parseInt(allReult.getSkipQuestion());*/
         holder.textQuestion.setText(allReult.getTotalQuestion());
         holder.textName.setText(allReult.getUser());
         holder.textRank.setText(allReult.getRank() + "th");

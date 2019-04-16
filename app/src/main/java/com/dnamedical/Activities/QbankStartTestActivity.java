@@ -153,8 +153,8 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             public void onClick(View v) {
                 if (qbankstartResponse.getDetails().get(0).getTotalmcq()
                         .equalsIgnoreCase(qbankstartResponse.getDetails().get(0).getTotalattempedmcq())) {
-                   /* Intent intent = new Intent(QbankStartTestActivity.this, QbankReviewResult.class);
-                    startActivity(intent);*/
+                   Intent intent = new Intent(QbankStartTestActivity.this, QbankReviewResult.class);
+                    startActivity(intent);
                     Toast.makeText(QbankStartTestActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);

@@ -33,6 +33,7 @@ import com.dnamedical.fragment.ReviewQuestionListFragment;
 import com.dnamedical.fragment.UnattemptedFragment;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -48,6 +49,7 @@ public class ReviewQuestionList extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     String totalQuestion;
+    String testId;
     static int currentPosition;
     int total;
 
@@ -66,10 +68,12 @@ public class ReviewQuestionList extends AppCompatActivity {
 
         if (getIntent().hasExtra("tquestion")) {
             totalQuestion = getIntent().getStringExtra("tquestion");
+            testId = getIntent().getStringExtra("id");
             total = Integer.parseInt(totalQuestion);
 
         }
-        //getReviewTest();
+        //
+        getReviewTest();
 
     }
 
@@ -170,25 +174,22 @@ public class ReviewQuestionList extends AppCompatActivity {
 
     private void getReviewTest() {
         String userId;
-        String testId;
-       /* if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
-
         }
-*/
-        userId = "1";
-        testId = "6";
-
-
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody test_id = RequestBody.create(MediaType.parse("text/plain"), testId);
+
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.reviewQuestionResult(user_id, test_id, new Callback<ReviewResult>() {
+
+
+           RestClient.reviewQuestionResult(user_id, test_id, new Callback<ReviewResult>() {
                 @Override
                 public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
                     Utils.dismissProgressDialog();
