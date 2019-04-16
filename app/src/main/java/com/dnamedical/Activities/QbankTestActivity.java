@@ -29,7 +29,6 @@ import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.fragment.QbankTestFragment;
 import com.dnamedical.utils.Utils;
 import com.dnamedical.views.CustomViewPager;
 
@@ -52,7 +51,6 @@ public class QbankTestActivity extends AppCompatActivity {
     public String user_id;
     public String is_completed;
     public String user_answer = null;
-    MyAdapter mAdapter;
     CustomViewPager mPager;
     TextView quesionCounter;
     static int currentPosition;
@@ -64,7 +62,6 @@ public class QbankTestActivity extends AppCompatActivity {
     RelativeLayout linearBottom;
     public Button nextBtn;
     String module_id;
-    private QbankTestFragment fragment;
     private int questionStartId;
     LinearLayout answerList;
     TextView questionTestList;
@@ -102,7 +99,7 @@ public class QbankTestActivity extends AppCompatActivity {
         if (getIntent().hasExtra("qmodule_id")) {
             module_id = getIntent().getStringExtra("qmodule_id");
             user_id = getIntent().getStringExtra("userId");
-            questionStartId = Integer.parseInt(getIntent().getStringExtra("questionStartId"));
+            questionNo = Integer.parseInt(getIntent().getStringExtra("questionStartId"));
         }
         qbankgetTest();
 
@@ -195,7 +192,8 @@ public class QbankTestActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             qbankTestResponse = response.body();
                             questionDetail = qbankTestResponse.getDetails();
-                            solveQBank(0);
+
+                            solveQBank(questionNo);
                         }
 //                        mAdapter = new MyAdapter(getSupportFragmentManager(), qbankTestResponse, quesionCounter, mProgressBar, mCountDownTimer);
 //                        mPager = findViewById(R.id.pager2);
@@ -320,66 +318,6 @@ public class QbankTestActivity extends AppCompatActivity {
         }
     };
 
-
-    public static class MyAdapter extends FragmentPagerAdapter {
-        QbankTestResponse qbankTestResponse;
-        TextView quesionCounter;
-        ProgressBar mpProgressBar;
-        CountDownTimer countDownTimer;
-        QbankTestFragment fragment;
-
-        public MyAdapter(FragmentManager fragmentManager, QbankTestResponse qbankTestResponse, TextView quesionCounter, ProgressBar mpProgressBar, CountDownTimer countDownTimer) {
-            super(fragmentManager);
-            this.qbankTestResponse = qbankTestResponse;
-            this.quesionCounter = quesionCounter;
-            this.mpProgressBar = mpProgressBar;
-            this.countDownTimer = countDownTimer;
-        }
-
-
-        @Override
-        public int getCount() {
-            if (qbankTestResponse != null && qbankTestResponse.getDetails().size() > 0) {
-                return qbankTestResponse.getDetails().size();
-            } else {
-                return 0;
-            }
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
-            // return ReviewResultFragment.init(qbankResponse.getDetails()., position);
-            // return ReviewResultFragment.init(reviewResult.getDetail().get(position), position);
-            mpProgressBar.setMax(100);
-            mpProgressBar.setProgress(100);
-            countDownTimer.start();
-            fragment = (QbankTestFragment) QbankTestFragment.init(qbankTestResponse.getDetails().get(position), position);
-            return fragment;
-        }
-    }
-
-    View.OnTouchListener vOnTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (mPager.getCurrentItem() == 0) {
-                mPager.setCurrentItem(-1, false);
-                return false;
-            } else if (mPager.getCurrentItem() == 1) {
-                mPager.setCurrentItem(1, false);
-                return false;
-            } else if (mPager.getCurrentItem() == 2) {
-                mPager.setCurrentItem(2, false);
-                return false;
-            }
-            return true;
-        }
-    };
-
-    public void setFragment(QbankTestFragment fragment) {
-        this.fragment = fragment;
-
-    }
 
 
     private void updateAnswer(Detail questionDetail, CardView cardView, String answervalue, String questionId, boolean isLast) {
