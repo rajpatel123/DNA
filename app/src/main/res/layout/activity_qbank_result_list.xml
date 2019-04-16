@@ -37,7 +37,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,8 +60,7 @@
             android:background="@drawable/shape_gradient_top_shadow" />
     </LinearLayout>
 
- <LinearLayout
-     android:visibility="gone"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tablayout">
@@ -76,12 +74,13 @@
 
     </LinearLayout>
 
+    <!--
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+           android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_one"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>-->
 
 </LinearLayout>

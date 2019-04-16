@@ -15,7 +15,8 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.PromoActivity"></activity>
+        <activity android:name=".Activities.QbankResultListActivity"></activity>
+        <activity android:name=".Activities.PromoActivity" />
         <activity android:name=".Activities.QbankReviewResult" />
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"

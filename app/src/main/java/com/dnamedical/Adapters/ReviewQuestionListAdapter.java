@@ -51,6 +51,7 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ReviewDetail reviewDetail = reviewDetails.get(i);
 
+
         holder.questionText.setText((i + 1) + ". " + reviewDetail.getQuestion());
         holder.questionSubtitle.setText(reviewDetail.getQid());
 

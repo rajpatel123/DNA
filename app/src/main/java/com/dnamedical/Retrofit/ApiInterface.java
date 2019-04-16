@@ -4,6 +4,7 @@ import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
+import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
@@ -108,6 +109,11 @@ public interface ApiInterface {
     @POST("api/api.php?req=qbank_cate")
     Call<QbankResponse> qbankDetail(@Part("user_id") RequestBody user_id);
 
+    @Multipart
+    @POST("api/api.php?req=qbankmodulereview")
+    Call<ReviewListResponse> qbankReview(@Part("user_id") RequestBody user_id,@Part("qmodule_id") RequestBody qmodule_id );
+
+
 
     /*@Multipart
     @POST("api/api.php?req=qbank_subcate")
@@ -120,6 +126,8 @@ public interface ApiInterface {
     @Multipart
      @POST("api/api.php?req=qbank_subcate")
     Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id,@Part("user_id") RequestBody user_id);
+
+
 
 
     @Multipart

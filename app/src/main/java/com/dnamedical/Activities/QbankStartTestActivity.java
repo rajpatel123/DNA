@@ -17,6 +17,7 @@ import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -153,7 +154,9 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             public void onClick(View v) {
                 if (qbankstartResponse.getDetails().get(0).getTotalmcq()
                         .equalsIgnoreCase(qbankstartResponse.getDetails().get(0).getTotalattempedmcq())) {
-                   Intent intent = new Intent(QbankStartTestActivity.this, QbankReviewResult.class);
+                    Intent intent = new Intent(QbankStartTestActivity.this, QbankResultListActivity.class);
+                    intent.putExtra("qmodule_id", qbank_module_id);
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                     Toast.makeText(QbankStartTestActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 } else {
@@ -163,7 +166,6 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                     intent.putExtra("questionStartId", qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
                     startActivity(intent);
                     finish();
-
                 }
             }
         });
