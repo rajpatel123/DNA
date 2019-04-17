@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Activities.VideoPlayerActivity;
 import com.dnamedical.Adapters.VideoListFreeAdapter;
+import com.dnamedical.Models.video.Free;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -139,10 +140,9 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
     }
 
     @Override
-    public void onCateClick(String url, String title) {
+    public void onCateClick(Free free) {
         Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-        intent.putExtra("url",url);
-        intent.putExtra("title",title);
+        intent.putExtra("free",free);
         startActivity(intent);
 
     }

@@ -45,7 +45,20 @@ public class PromoActivity extends AppCompatActivity {
 
 
                 } else {
-                    Utils.displayToast(PromoActivity.this, "Invalid login detail");
+                    if(DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck))
+                    {
+                        Intent i = new Intent(PromoActivity.this,MainActivity.class);
+                        startActivity(i);
+                        // close this activity
+                        finish();
+                    }
+                    else
+                    {
+                        Intent i = new Intent(PromoActivity.this,FirstloginActivity.class);
+                        startActivity(i);
+                        // close this activity
+                        finish();
+                    }
 
                 }
             }
@@ -54,7 +67,20 @@ public class PromoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PromoVideo> call, Throwable t) {
                 Utils.dismissProgressDialog();
-                Utils.displayToast(PromoActivity.this, "Invalid login detail");
+                if(DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck))
+                {
+                    Intent i = new Intent(PromoActivity.this,MainActivity.class);
+                    startActivity(i);
+                    // close this activity
+                    finish();
+                }
+                else
+                {
+                    Intent i = new Intent(PromoActivity.this,FirstloginActivity.class);
+                    startActivity(i);
+                    // close this activity
+                    finish();
+                }
 
             }
         });
