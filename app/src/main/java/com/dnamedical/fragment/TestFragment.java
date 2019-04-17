@@ -74,7 +74,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-        tabThree.setText("Mini Test");
+        tabThree.setText("Mock Test");
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
