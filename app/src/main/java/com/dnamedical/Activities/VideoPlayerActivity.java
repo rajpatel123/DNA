@@ -22,9 +22,13 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +39,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dnamedical.Adapters.TimeListFreeAdapter;
+import com.dnamedical.Adapters.VideoListFreeAdapter;
+import com.dnamedical.Models.video.Free;
+import com.dnamedical.fragment.FreeFragment;
 import com.warkiz.widget.DotIndicatorSeekBar;
 import com.warkiz.widget.DotOnSeekChangeListener;
 import com.warkiz.widget.DotSeekParams;
@@ -78,6 +86,18 @@ public class VideoPlayerActivity extends AppCompatActivity {
     TextView upper_name;
     @BindView(R.id.txtSpeed)
     TextView txtSpeed;
+
+    @BindView(R.id.timeslot)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.designation)
+    TextView designation;
+
+    @BindView(R.id.video_title)
+    TextView video_title;
+
+    @BindView(R.id.text)
+    TextView text;
     @BindView(R.id.upper_progress)
     ProgressBar upper_progress;
     @BindView(R.id.play_btn)
@@ -103,6 +123,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private float timeDiff = 0;
     private float playbackSpeed = NORMAL_PLAYBACK_SPEED;
 
+    private Free free;
 
     String url = "http://akwebtech.com/demo/education/img/file/154857089723992637_296895610714539_3897207797737062400_n.mp4";
 
@@ -226,34 +247,65 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        if (intent.hasExtra("url")) {
-            url = intent.getStringExtra("url");
-            title = intent.getStringExtra("title");
+        if (intent.hasExtra("free")) {
+             free = intent.getParcelableExtra("free");
+            url = free.getUrl();
+            title = free.getTitle();
+            textHeading.setText(title);
+            textTeacher.setText(free.getSubTitle());
+            video_title.setText(free.getDescription());
+            text.setText(""+free.getDescription());
+
+            if (free.getSourceTime()!=null && free.getSourceTime().size()>0){
+                TimeListFreeAdapter videoListAdapter = new TimeListFreeAdapter(this);
+                videoListAdapter.setData(free.getSourceTime());
+                videoListAdapter.setListener(new TimeListFreeAdapter.OnTimeClick() {
+                    @Override
+                    public void onTimeClick(String time) {
+                     if (upper_exoplayer!=null){
+                         upper_exoplayer.seekTo(Integer.parseInt(time));
+                     }
+                    }
+                });
+                recyclerView.setAdapter(videoListAdapter);
+                recyclerView.setVisibility(View.VISIBLE);
+
+                Log.d("Api Response :", "Got Success from Api");
+                // noInternet.setVisibility(View.GONE);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return true;
+                    }
+
+                };
+                recyclerView.setLayoutManager(layoutManager);
+            }
 
         }
-        textHeading.setText(title);
 
-        if (title.equalsIgnoreCase("BIOCHEMISTRY")) {
 
-            textTeacher.setText("Dr. Nilesh Chandra ");
-        }
-        if (title.equalsIgnoreCase("P.SM. BY DR. ASWANI")) {
-            textTeacher.setText("Dr. Ashwani");
-            textHeading.setText("P.S.M");
-        }
-        if (title.equalsIgnoreCase("MICROBIOLOGY")) {
-            textTeacher.setText("Dr. NEETU SHREE ");
-        }
-        if (title.equalsIgnoreCase("PHARMACOLOGY MADE SIMPLE")) {
-            textTeacher.setText("Dr. DINESH");
-        }
-        if (title.equalsIgnoreCase("PSYCHIATRY")) {
-            textTeacher.setText("Dr. Prashant Agarwal");
-        }
-
-        if (title.equalsIgnoreCase("ORTHOPAEDICS")) {
-            textTeacher.setText("By Dr. Yusuf Ali Tyagi");
-        }
+//        if (title.equalsIgnoreCase("BIOCHEMISTRY")) {
+//
+//            textTeacher.setText("Dr. Nilesh Chandra ");
+//        }
+//        if (title.equalsIgnoreCase("P.SM. BY DR. ASWANI")) {
+//            textTeacher.setText("Dr. Ashwani");
+//            textHeading.setText("P.S.M");
+//        }
+//        if (title.equalsIgnoreCase("MICROBIOLOGY")) {
+//            textTeacher.setText("Dr. NEETU SHREE ");
+//        }
+//        if (title.equalsIgnoreCase("PHARMACOLOGY MADE SIMPLE")) {
+//            textTeacher.setText("Dr. DINESH");
+//        }
+//        if (title.equalsIgnoreCase("PSYCHIATRY")) {
+//            textTeacher.setText("Dr. Prashant Agarwal");
+//        }
+//
+//        if (title.equalsIgnoreCase("ORTHOPAEDICS")) {
+//            textTeacher.setText("By Dr. Yusuf Ali Tyagi");
+//        }
 
         setUpperSeekBar();
 
