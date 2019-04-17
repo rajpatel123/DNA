@@ -276,9 +276,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.report) {
-            /*Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-            intent.putExtra("title", "Report");
-            startActivity(intent);*/
+            Intent intent = new Intent(MainActivity.this, FranchiActivity.class);
+            startActivity(intent);
         } else if (id == R.id.terms_conditions) {
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "Terms & Conditions");

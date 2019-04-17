@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.QbankReviewListAdapter;
@@ -28,12 +30,20 @@ public class QbankResultListActivity extends AppCompatActivity {
 
     private ReviewListResponse detailList;
     private RecyclerView recyclerView1;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_result_list);
         recyclerView1 = findViewById(R.id.recycler);
+        imageView=findViewById(R.id.back);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getReviewData();
 
     }

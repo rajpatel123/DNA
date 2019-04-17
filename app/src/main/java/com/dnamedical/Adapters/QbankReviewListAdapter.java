@@ -2,6 +2,7 @@ package com.dnamedical.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -9,11 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dnamedical.Models.QbannkReviewList.Detail;
 import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,19 +56,73 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
         holder.ques4.setText("D." + detail.getOptionD() + "." + "[" + detail.getOptionDperc() + "]");
         holder.refrences.setText("Refrences By: " + detail.getRefrence());
         holder.percentage.setText("" + detail.getGotrightperc() + "  of the people got this write answer");
-        holder.ques1.setTextColor(R.color.green);
-        if (detail.getOptionA().equalsIgnoreCase(detail.getAnswer())) {
+        Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView1);
+
+        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionA())) {
             holder.ques1.setTextColor(R.color.green);
+            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView1);
         }
-        if (detail.getOptionB().equalsIgnoreCase(detail.getAnswer())) {
+        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionB())) {
             holder.ques2.setTextColor(R.color.green);
+            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView2);
         }
-        if (detail.getOptionB().equalsIgnoreCase(detail.getAnswer())) {
+        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionC())) {
             holder.ques3.setTextColor(R.color.green);
+            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView3);
         }
-        if (detail.getOptionB().equalsIgnoreCase(detail.getAnswer())) {
+        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionD())) {
             holder.ques4.setTextColor(R.color.green);
+            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView4);
         }
+
+
+        if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
+            if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
+                holder.ques1.setTextColor(R.color.red);
+                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView1);
+            }
+        }
+
+        if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
+            if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
+                holder.ques2.setTextColor(R.color.red);
+                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView2);
+            }
+        }
+
+        if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionC())) {
+            if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
+                holder.ques3.setTextColor(R.color.red);
+                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView3);
+            }
+        }
+
+        if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionD())) {
+            if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
+                holder.ques4.setTextColor(R.color.red);
+                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView4);
+            }
+        }
+        holder.webView.getSettings().setJavaScriptEnabled(true);
+
+        Utils.showProgressDialog(applicationContext);
+        holder.webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                Utils.dismissProgressDialog();
+                holder.webView.setVisibility(View.VISIBLE);
+                // Toast.makeText(MainActivity.this, "Page Loaded", Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.webView.loadUrl(detail.getDescriptionUrl());
 
 
     }
@@ -82,6 +141,7 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
         TextView questionText, ques1, ques2, ques3, ques4, percentage, refrences;
         ImageView imageView1, imageView2, imageView3, imageView4;
         CardView cardElement;
+        WebView webView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +158,7 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
             imageView2 = itemView.findViewById(R.id.image_two);
             imageView3 = itemView.findViewById(R.id.image_three);
             imageView4 = itemView.findViewById(R.id.image_four);
+            webView = itemView.findViewById(R.id.webview_result);
 
 
         }

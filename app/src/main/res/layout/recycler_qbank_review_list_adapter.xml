@@ -27,7 +27,7 @@
                 android:padding="5dp"
                 android:text="kdkdgkhdckhdgkdhb"
                 android:textColor="@color/black_titles"
-                android:textSize="16sp" />
+                android:textSize="19sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,8 +122,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textColor="@color/black"
                 android:text="shjgjd"
+                android:textColor="@color/black"
                 android:textSize="18dp" />
         </LinearLayout>
     </LinearLayout>
@@ -163,8 +163,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingLeft="10sp"
-                android:textColor="@color/black"
                 android:text="shjgjd"
+                android:textColor="@color/black"
                 android:textSize="18dp" />
         </LinearLayout>
 
@@ -216,45 +216,73 @@
 
     <View
         android:id="@+id/view"
-        android:layout_below="@id/linear_top_four"
         android:layout_width="match_parent"
         android:layout_height="2px"
+        android:layout_below="@id/linear_top_four"
         android:background="@color/black_titles" />
 
     <LinearLayout
         android:id="@+id/linear_top_five"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:textSize="18sp"
-            android:id="@+id/right_percent"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:background="@color/darkwhite">
 
-            android:textColor="@color/orange" />
+            <TextView
+                android:id="@+id/right_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/orange"
+                android:textColorHint="@color/orange"
+
+                android:textSize="18sp" />
+        </LinearLayout>
+
 
         <TextView
-            android:textSize="18sp"
+            android:layout_marginTop="5dp"
             android:id="@+id/refrences_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="@color/black_titles" />
+            android:textColor="@color/black_titles"
+            android:textSize="18sp" />
 
 
     </LinearLayout>
+
     <View
 
-        android:layout_below="@id/linear_top_five"
+        android:id="@+id/view_two"
         android:layout_width="match_parent"
         android:layout_height="2px"
+        android:layout_below="@id/linear_top_five"
         android:layout_marginBottom="29dp"
-        android:background="@color/black_titles" />
+        android:background="@color/black" />
+
+    <WebView
+        android:id="@+id/webview_result"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_below="@id/view_two" />
+
+    <View
+
+        android:id="@+id/view_three"
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:layout_below="@id/webview_result"
+        android:layout_marginBottom="29dp"
+        android:background="@color/orange" />
+
 
 </RelativeLayout>

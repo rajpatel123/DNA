@@ -15,9 +15,15 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QbankResultListActivity"></activity>
-        <activity android:name=".Activities.PromoActivity" />
-        <activity android:name=".Activities.QbankReviewResult" />
+        <activity android:name=".Activities.FranchiActivity"
+            android:screenOrientation="portrait"
+            android:label="Query"
+            android:theme="@style/AppTheme5"></activity>
+        <activity android:name=".Activities.QbankResultListActivity" />
+        <activity android:name=".Activities.PromoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.QbankReviewResult"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"
             android:screenOrientation="portrait" />

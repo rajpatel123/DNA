@@ -14,6 +14,7 @@ import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
+import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.test.TestQuestionData;
@@ -50,6 +51,15 @@ public interface ApiInterface {
                                       @Part("state") RequestBody state,
                                       @Part("password") RequestBody password,
                                       @Part("college") RequestBody college);
+
+
+    @Multipart
+    @POST("api/api.php?req=userquery")
+    Call<FranchiesResponse> franchiRegister(@Part("username") RequestBody username,
+                                            @Part("phoneno") RequestBody phoneno,
+                                            @Part("usermail") RequestBody usermail,
+                                            @Part("comment") RequestBody comment);
+
 
     @Multipart
     @POST("api/api.php?req=facebook")
