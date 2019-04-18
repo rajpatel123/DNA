@@ -42,8 +42,9 @@ public class TimeListFreeAdapter extends RecyclerView.Adapter<TimeListFreeAdapte
 
     @Override
     public void onBindViewHolder(final TimeListFreeAdapter.ViewHolder holder, final int position) {
-        holder.title.setText(sourceTimes.get(holder.getAdapterPosition()).getSourceTime());
-        holder.time.setText("" + (holder.getAdapterPosition() + 1));
+
+
+        holder.time.setText(sourceTimes.get(holder.getAdapterPosition()).getSourceTime());
         holder.title.setText(sourceTimes.get(holder.getAdapterPosition()).getTopicName());
 
 

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Free implements Parcelable {
+public class Free implements  Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -19,6 +19,44 @@ public class Free implements Parcelable {
     @SerializedName("sub_title")
     @Expose
     private String subTitle;
+
+    protected Free(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        subTitle = in.readString();
+        dr_img = in.readString();
+        description = in.readString();
+        sourceTime = in.createTypedArrayList(SourceTime.CREATOR);
+        url = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(subTitle);
+        dest.writeString(dr_img);
+        dest.writeString(description);
+        dest.writeTypedList(sourceTime);
+        dest.writeString(url);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Free> CREATOR = new Creator<Free>() {
+        @Override
+        public Free createFromParcel(Parcel in) {
+            return new Free(in);
+        }
+
+        @Override
+        public Free[] newArray(int size) {
+            return new Free[size];
+        }
+    };
 
     public String getDr_img() {
         return dr_img;
@@ -41,41 +79,9 @@ public class Free implements Parcelable {
     @Expose
     private String url;
 
-    protected Free(Parcel in) {
-        id = in.readString();
-        title = in.readString();
-        subTitle = in.readString();
-        description = in.readString();
-        url = in.readString();
-        dr_img = in.readString();
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(title);
-        dest.writeString(subTitle);
-        dest.writeString(description);
-        dest.writeString(url);
-        dest.writeString(dr_img);
-    }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    public static final Creator<Free> CREATOR = new Creator<Free>() {
-        @Override
-        public Free createFromParcel(Parcel in) {
-            return new Free(in);
-        }
-
-        @Override
-        public Free[] newArray(int size) {
-            return new Free[size];
-        }
-    };
 
     public String getId() {
         return id;
