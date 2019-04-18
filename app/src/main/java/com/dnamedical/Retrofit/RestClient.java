@@ -8,6 +8,7 @@ import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
+import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
@@ -22,6 +23,7 @@ import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.registration.CommonResponse;
+
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -98,7 +100,7 @@ public class RestClient {
 
     }
 
-    public static void reviewQuestionResult(RequestBody user_id, RequestBody test_id, Callback<ReviewResult> callback) {
+    public static void reviewQuestionResult(RequestBody user_id, RequestBody test_id, Callback<TestReviewResponse> callback) {
         RetrofitClient.getClient().reviewQuestionResult(user_id, test_id).enqueue(callback);
     }
 

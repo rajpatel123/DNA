@@ -35,6 +35,7 @@
             />
     </LinearLayout>
 
+<!--
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/tablayout"
@@ -52,7 +53,7 @@
             app:tabIndicatorColor="@color/orange"
             app:tabIndicatorHeight="4sp"
             app:tabMode="scrollable" />
-        <!-- </android.support.design.widget.AppBarLayout>-->
+        &lt;!&ndash; </android.support.design.widget.AppBarLayout>&ndash;&gt;
         <View
             android:id="@+id/tabBarShadow"
             android:layout_width="match_parent"
@@ -74,12 +75,13 @@
 
 
     </LinearLayout>
+-->
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_one"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
 

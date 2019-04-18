@@ -27,16 +27,17 @@ public class FranchiActivity extends AppCompatActivity {
     String username1, email, mobile, comment1;
 
     private Button btnSubmit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_franchi);
-      editUsername = findViewById(R.id.edit_name_frenchi);
+        editUsername = findViewById(R.id.edit_name_frenchi);
         edituserEmail = findViewById(R.id.edit_emailId_frenchi);
         edituserMobile = findViewById(R.id.edit_phone_frenchi);
         edituserComment = findViewById(R.id.edit_comment_frenchi);
         btnSubmit = findViewById(R.id.btn_submit);
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -51,16 +52,17 @@ public class FranchiActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()== android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
 
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-   private void submitFrenchies() {
+    private void submitFrenchies() {
         username1 = editUsername.getText().toString().trim();
         email = edituserEmail.getText().toString().trim();
         mobile = edituserMobile.getText().toString().trim();

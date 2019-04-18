@@ -50,7 +50,7 @@
 
             <item
                 android:id="@+id/report"
-                android:title="franchise Query" />
+                android:title="Franchise Query" />
         </menu>
     </item>
 

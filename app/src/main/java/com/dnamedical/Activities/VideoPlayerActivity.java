@@ -358,7 +358,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * Seek Handling VIEWS
      */
     private void setUpperSeekBar() {
@@ -454,7 +454,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.upper_exoplayer, R.id.back, R.id.play_btn, R.id.md_speed, R.id.md_replay, R.id.md_play, R.id.full_mode})
+    @OnClick({R.id.upper_exoplayer, R.id.back,
+            R.id.play_btn,
+            R.id.md_speed,
+            R.id.md_replay,
+            R.id.md_play,
+            R.id.full_mode})
     public void onControlClick(View view) {
         switch (view.getId()) {
             case R.id.full_mode:
