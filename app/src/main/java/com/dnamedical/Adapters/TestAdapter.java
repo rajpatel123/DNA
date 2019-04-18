@@ -56,7 +56,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
             holder.textDate.setText(grandTests.get(holder.getAdapterPosition()).getTestDate());
-
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
             if (holder.getAdapterPosition() > 0) {
@@ -184,7 +183,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(subjectTests.get(holder.getAdapterPosition()).getTestDate()).equals(subjectTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
+                if (!Objects.requireNonNull(subjectTests.get(holder.getAdapterPosition()).getTestDate())
+                        .equals(subjectTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);

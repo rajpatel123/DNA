@@ -57,7 +57,7 @@ public class ReviewQuestionList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_question_list);
-        // recyclerView = findViewById(R.id.recycler);
+         recyclerView = findViewById(R.id.recycler);
         imageBack = findViewById(R.id.back);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +81,7 @@ public class ReviewQuestionList extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         viewPager = (ViewPager) findViewById(R.id.view);
-        setupViewPager(viewPager);
+        //setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(viewPager);
@@ -121,6 +121,7 @@ public class ReviewQuestionList extends AppCompatActivity {
     }*/
 
 
+
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
@@ -139,6 +140,7 @@ public class ReviewQuestionList extends AppCompatActivity {
 
         }
     };
+
 
 
     public class ReviewViewPagerAdapter extends FragmentPagerAdapter {
