@@ -38,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Adapters.TimeListFreeAdapter;
 import com.dnamedical.Adapters.VideoListFreeAdapter;
@@ -263,7 +264,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     @Override
                     public void onTimeClick(String time) {
                      if (upper_exoplayer!=null){
-                         upper_exoplayer.seekTo(Integer.parseInt(time));
+                         int miliis = getTimeMillies(time);
+                         if (upper_exoplayer.isPlaying()){
+                             upper_exoplayer.seekTo(miliis);
+                         }else{
+                             Toast.makeText(VideoPlayerActivity.this,"Please play video first",Toast.LENGTH_LONG).show();
+                         }
                      }
                     }
                 });
@@ -313,6 +319,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
             handler.removeCallbacks(mediaProgressRunnable);
             handler.postDelayed(mediaProgressRunnable, MEDIA_CALLBACK_DURATION);
         });
+    }
+
+    private int getTimeMillies(String source) {
+        String[] tokens = source.split(":");
+        int secondsToMs = Integer.parseInt(tokens[2]) * 1000;
+        int minutesToMs = Integer.parseInt(tokens[1]) * 60000;
+        int hoursToMs = Integer.parseInt(tokens[0]) * 3600000;
+        int total = secondsToMs + minutesToMs + hoursToMs;
+        return total;
     }
 
 
