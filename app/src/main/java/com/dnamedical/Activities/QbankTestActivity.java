@@ -342,17 +342,13 @@ public class QbankTestActivity extends AppCompatActivity {
                 cardView2.setCardBackgroundColor(getResources().getColor(R.color.green));
             } else {
                 cardView2.setCardBackgroundColor(getResources().getColor(R.color.red));
-
             }
-
         }
         if (answervalue.equalsIgnoreCase(questionDetail.getOptionC())) {
             if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
                 cardView3.setCardBackgroundColor(getResources().getColor(R.color.green));
-
             } else {
                 cardView3.setCardBackgroundColor(getResources().getColor(R.color.red));
-
             }
         }
         if (answervalue.equalsIgnoreCase(questionDetail.getOptionD())) {
@@ -364,9 +360,7 @@ public class QbankTestActivity extends AppCompatActivity {
             }
         }
         submitAnswer(questionId,isLast);
-
     }
-
     public void submitAnswer(String questionID,boolean isLast) {
         Utils.showProgressDialog(qbankTestActivity);
         RestClient.submitAnswer(String.valueOf(questionID), user_id, isLast ? "1" : "0", user_answer, new Callback<SubmitAnswer>() {
@@ -385,18 +379,14 @@ public class QbankTestActivity extends AppCompatActivity {
                 answerList.removeAllViews();
                 answerList.setVisibility(GONE);
                 questionListDescription.setVisibility(View.VISIBLE);
-
             }
-
             @Override
             public void onFailure(Call<SubmitAnswer> call, Throwable t) {
                 qbankTestActivity.showHideBottomLayout(false);
                 Utils.dismissProgressDialog();
-
             }
         });
     }
-
     private void updateUI(SubmitAnswer body) {
         if (body != null) {
             qustion.setText(body.getDetails().get(0).getQname());
@@ -444,14 +434,13 @@ public class QbankTestActivity extends AppCompatActivity {
                 imgD.setImageResource(R.drawable.qbank_right_answer);
                 dTV.setTextColor(Color.GREEN);
             }
+
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
                 if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
                     imgD.setImageResource(R.drawable.qbank_wrong_test_answer);
                     dTV.setTextColor(Color.RED);
                 }
             }
-
-
             rTV.setText(body.getDetails().get(0).getRefrence());
             barChart.setText(body.getDetails().get(0).getGotrightperc() + "of the people got this right");
             try {

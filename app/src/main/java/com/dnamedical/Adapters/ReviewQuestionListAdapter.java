@@ -55,10 +55,90 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
         holder.ques3.setText("C. " + detailList.getAnswer3());
         holder.ques4.setText("D. " + detailList.getAnswer4());
 
-        if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
-           holder.ques1.setTextColor(Color.GREEN);
-            holder.imageView1.setImageResource(R.drawable.right_answer_icon);
 
+        if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+            holder.ques1.setTextColor(Color.GREEN);
+            holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+                holder.ques1.setTextColor(Color.GREEN);
+                holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+                holder.ques2.setTextColor(Color.RED);
+                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+                holder.ques3.setTextColor(Color.RED);
+                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
+                holder.ques4.setTextColor(Color.RED);
+                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+            }
+
+        }
+
+        if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+            holder.ques2.setTextColor(Color.GREEN);
+            holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+                holder.ques2.setTextColor(Color.GREEN);
+                holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+                holder.ques1.setTextColor(Color.RED);
+                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+                holder.ques3.setTextColor(Color.RED);
+                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
+                holder.ques4.setTextColor(Color.RED);
+                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+            }
+        }
+
+        if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+            holder.ques3.setTextColor(Color.GREEN);
+            holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+                holder.ques3.setTextColor(Color.GREEN);
+                holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+                holder.ques1.setTextColor(Color.RED);
+                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+                holder.ques2.setTextColor(Color.RED);
+                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+            }if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())){
+                holder.ques4.setTextColor(Color.RED);
+                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+            }
+        }
+        if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
+            holder.ques4.setTextColor(Color.GREEN);
+            holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
+                holder.ques4.setTextColor(Color.GREEN);
+                holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+                holder.ques1.setTextColor(Color.RED);
+                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+            }  if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+                holder.ques2.setTextColor(Color.RED);
+                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+                holder.ques3.setTextColor(Color.RED);
+                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+            }
+        }
+
+
+/*
+        if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+            holder.ques1.setTextColor(Color.GREEN);
+            holder.imageView1.setImageResource(R.drawable.right_answer_icon);
         }
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
             holder.ques2.setTextColor(Color.GREEN);
@@ -71,8 +151,50 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
             holder.ques4.setTextColor(Color.GREEN);
             holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+        }*/
+
+     /*   if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+            if (detailList.getAnswer1().equalsIgnoreCase(detailList.getCurrectAnswer())) {
+                holder.ques1.setTextColor(Color.GREEN);
+                holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                holder.ques1.setTextColor(Color.RED);
+                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+            }
+
         }
-        if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+        if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+            if (detailList.getAnswer2().equalsIgnoreCase(detailList.getCurrectAnswer())) {
+                holder.ques2.setTextColor(Color.GREEN);
+                holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                holder.ques2.setTextColor(Color.RED);
+                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+            }
+        }
+        if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+            if (detailList.getAnswer3().equalsIgnoreCase(detailList.getCurrectAnswer())) {
+                holder.ques3.setTextColor(Color.GREEN);
+                holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                holder.ques3.setTextColor(Color.RED);
+                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+            }
+        }
+        if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
+            if (detailList.getAnswer4().equalsIgnoreCase(detailList.getCurrectAnswer())) {
+                holder.ques4.setTextColor(Color.GREEN);
+                holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                holder.ques4.setTextColor(Color.RED);
+                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+            }
+        }
+
+*/
+
+
+        /*if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
             if (!detailList.getUserAnswer().equalsIgnoreCase(detailList.getCurrectAnswer())) {
                 holder.ques1.setTextColor(Color.RED);
                 holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
@@ -98,7 +220,7 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
                 holder.ques4.setTextColor(Color.RED);
                 holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
             }
-        }
+        }*/
 
         holder.webView.getSettings().setJavaScriptEnabled(true);
         Utils.showProgressDialog(applicationContext);

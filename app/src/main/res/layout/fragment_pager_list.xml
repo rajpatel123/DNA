@@ -34,11 +34,11 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/dr1"
-                    android:minHeight="300dp"
+                    android:minHeight="200dp"
                     android:visibility="invisible" />
 
                 <LinearLayout
@@ -46,7 +46,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:background="@color/app_bg1"
                     android:orientation="vertical">
 
                 </LinearLayout>

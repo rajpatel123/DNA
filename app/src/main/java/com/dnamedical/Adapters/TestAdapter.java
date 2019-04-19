@@ -137,6 +137,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
+
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
                 if (allTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
 
@@ -144,7 +145,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 }
             }
 
-            if (holder.getAdapterPosition() > 0) {
+          /*  if (holder.getAdapterPosition() > 0) {
                 if (!allTests.get(holder.getAdapterPosition())
                         .getTestDate().equalsIgnoreCase(allTests.get(holder.getAdapterPosition() - 1)
                         .getTestDate())) {
@@ -152,7 +153,18 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 } else {
                     holder.textDate.setVisibility(GONE);
                 }
-            }
+            }*/
+
+
+           /* if (holder.getAdapterPosition() > 0) {
+                if (!Objects.requireNonNull(allTests.get(holder.getAdapterPosition())
+                        .getTestDate()).equals(allTests.get(holder.getAdapterPosition() - 1)
+                        .getTestDate())) {
+                    holder.textDate.setVisibility(View.VISIBLE);
+                } else {
+                    holder.textDate.setVisibility(GONE);
+                }
+            }*/
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

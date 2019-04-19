@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -272,6 +273,7 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("title", "About Us");
             startActivity(intent);
 */
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.contact_us) {
             Intent intent = new Intent(MainActivity.this, ContactUsActivity.class);
             intent.putExtra("title", "Contact Us");
