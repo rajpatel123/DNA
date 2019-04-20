@@ -163,7 +163,7 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
         }
 
 /*
-        if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
+        if (detail.getUseranswer().equals4IgnoreCase(detail.getOptionA())) {
             if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
                 holder.ques1.setTextColor(Color.RED);
                 holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);

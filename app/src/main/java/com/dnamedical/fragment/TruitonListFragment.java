@@ -202,9 +202,7 @@ public class TruitonListFragment extends Fragment {
 		cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
 		cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
 		cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
-
 		cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
-
 	}
 
 
