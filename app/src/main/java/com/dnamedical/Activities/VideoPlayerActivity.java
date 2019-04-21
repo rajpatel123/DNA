@@ -96,6 +96,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     @BindView(R.id.video_title)
     TextView video_title;
+    @BindView(R.id.videoDuration)
+    TextView videoDuration;
 
     @BindView(R.id.text)
     TextView text;
