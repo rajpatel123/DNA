@@ -2,6 +2,7 @@ package com.dnamedical.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.dnamedical.R;
 import com.dnamedical.fragment.HomeFragment;
 import com.dnamedical.fragment.OnlineFragment;
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         dashboardHomeFragment = new HomeFragment();
-    //  dashboardvideoFragment = new videoFragment();
+        //  dashboardvideoFragment = new videoFragment();
         dashboardQbankFragment = new QbankFragment();
         dashboardTestFragment = new TestFragment();
         dashboardOnlineFragment = new OnlineFragment();
@@ -146,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(dashboardHomeFragment, "Home");
-    //  adapter.addFragment(dashboardvideoFragment, "Video");
+        //  adapter.addFragment(dashboardvideoFragment, "Video");
         adapter.addFragment(dashboardQbankFragment, "Q Bank");
         adapter.addFragment(dashboardTestFragment, "Test");
         adapter.addFragment(dashboardOnlineFragment, "Online");
@@ -253,23 +256,24 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("title", "FAQ");
             startActivity(intent);
         } else if (id == R.id.rate) {
-/*
+
             Intent i = new Intent(android.content.Intent.ACTION_VIEW);
             i.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.dnamedical"));
-            startActivity(i);*/
+            startActivity(i);
 
         } else if (id == R.id.nav_share) {
-            /*Intent sendIntent = new Intent();
+            Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "Hey check out my app at: https://play.google.com/store/apps/details?id=com.google.android.apps.plus");
+                    "Hey check out my app at: https://play.google.com/store/apps/details?id=com.dnamedical");
             sendIntent.setType("text/plain");
-            startActivity(sendIntent);*/
+            startActivity(sendIntent);
         } else if (id == R.id.about) {
            /* Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "About Us");
             startActivity(intent);
 */
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.contact_us) {
             Intent intent = new Intent(MainActivity.this, ContactUsActivity.class);
             intent.putExtra("title", "Contact Us");

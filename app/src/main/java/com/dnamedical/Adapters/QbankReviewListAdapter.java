@@ -56,53 +56,144 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
         holder.ques4.setText("D." + detail.getOptionD() + "." + "[" + detail.getOptionDperc() + "]");
         holder.refrences.setText("Refrences By: " + detail.getRefrence());
         holder.percentage.setText("" + detail.getGotrightperc() + "  of the people got this write answer");
-        Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView1);
 
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionA())) {
-            holder.ques1.setTextColor(R.color.green);
-            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView1);
+            holder.ques1.setTextColor(Color.GREEN);
+            holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+
+            if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
+                holder.ques1.setTextColor(Color.GREEN);
+                holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
+                    holder.ques2.setTextColor(Color.RED);
+                    holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionC())) {
+                    holder.ques3.setTextColor(Color.RED);
+                    holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionD())) {
+                    holder.ques4.setTextColor(Color.RED);
+                    holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                }
+            }
         }
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionB())) {
-            holder.ques2.setTextColor(R.color.green);
-            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView2);
+            holder.ques2.setTextColor(Color.GREEN);
+            holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+
+            if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
+                holder.ques2.setTextColor(Color.GREEN);
+                holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
+                    holder.ques1.setTextColor(Color.RED);
+                    holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionC())) {
+                    holder.ques3.setTextColor(Color.RED);
+                    holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionD())) {
+                    holder.ques4.setTextColor(Color.RED);
+                    holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                }
+            }
         }
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionC())) {
-            holder.ques3.setTextColor(R.color.green);
-            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView3);
+            holder.ques3.setTextColor(Color.GREEN);
+            holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+
+            if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionC())) {
+                holder.ques3.setTextColor(Color.GREEN);
+                holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
+                    holder.ques1.setTextColor(Color.RED);
+                    holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
+                    holder.ques2.setTextColor(Color.RED);
+                    holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionD())) {
+                    holder.ques4.setTextColor(Color.RED);
+                    holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                }
+            }
+        }
+
+        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionD())) {
+            holder.ques4.setTextColor(Color.GREEN);
+            holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+
+            if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionD())) {
+                holder.ques4.setTextColor(Color.GREEN);
+                holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+            } else {
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
+                    holder.ques1.setTextColor(Color.RED);
+                    holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionC())) {
+                    holder.ques3.setTextColor(Color.RED);
+                    holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                }
+                if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
+                    holder.ques2.setTextColor(Color.RED);
+                    holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                }
+            }
+        }
+        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionB())) {
+            holder.ques2.setTextColor(Color.GREEN);
+            holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+
+        }
+        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionC())) {
+            holder.ques3.setTextColor(Color.GREEN);
+            holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+
         }
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionD())) {
-            holder.ques4.setTextColor(R.color.green);
-            Picasso.with(applicationContext).load(R.drawable.right_answer_icon).into(holder.imageView4);
+            holder.ques4.setTextColor(Color.GREEN);
+            holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+
         }
 
-
-        if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
+/*
+        if (detail.getUseranswer().equals4IgnoreCase(detail.getOptionA())) {
             if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
-                holder.ques1.setTextColor(R.color.red);
-                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView1);
+                holder.ques1.setTextColor(Color.RED);
+                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+
             }
         }
 
         if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
             if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
-                holder.ques2.setTextColor(R.color.red);
-                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView2);
+                holder.ques2.setTextColor(Color.RED);
+                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+
             }
         }
 
         if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionC())) {
             if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
-                holder.ques3.setTextColor(R.color.red);
-                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView3);
+                holder.ques3.setTextColor(Color.RED);
+                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+
             }
         }
 
         if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionD())) {
             if (!detail.getUseranswer().equalsIgnoreCase(detail.getAnswer())) {
-                holder.ques4.setTextColor(R.color.red);
-                Picasso.with(applicationContext).load(R.drawable.wrong_answer_icon).into(holder.imageView4);
+                holder.ques4.setTextColor(Color.RED);
+                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+
             }
-        }
+        }*/
         holder.webView.getSettings().setJavaScriptEnabled(true);
 
         Utils.showProgressDialog(applicationContext);

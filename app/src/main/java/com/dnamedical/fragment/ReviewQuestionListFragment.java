@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.dnamedical.Activities.ReviewQuestionList;
 import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.Adapters.ReviewQuestionListAdapter;
-import com.dnamedical.Models.ReviewResult.ReviewResult;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
@@ -30,7 +29,7 @@ import retrofit2.Response;
 public class ReviewQuestionListFragment extends Fragment {
 
     RecyclerView recyclerView;
-    private ReviewResult reviewResult;
+   // private ReviewResult reviewResult;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -44,7 +43,7 @@ public class ReviewQuestionListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-       getReviewTest();
+      // getReviewTest();
     }
 
     @Nullable
@@ -55,17 +54,20 @@ public class ReviewQuestionListFragment extends Fragment {
 
         return view;
     }
+/*
 
     private void getReviewTest() {
         String userId;
         String testId;
-       /* if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+       */
+/* if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
 
         }
-*/
+*//*
+
         userId = "1";
         testId = "6";
 
@@ -127,5 +129,6 @@ public class ReviewQuestionListFragment extends Fragment {
             Toast.makeText(getContext(), "Internet Connection Failed!!", Toast.LENGTH_SHORT).show();
         }
     }
+*/
 
 }

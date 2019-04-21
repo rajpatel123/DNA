@@ -80,6 +80,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 public void onFailure(Call<TestQuestionData> call, Throwable t) {
 
                     Utils.dismissProgressDialog();
+                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
 
                 }
             });

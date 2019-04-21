@@ -250,11 +250,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:orientation="vertical">
 
                 <TextView
@@ -277,7 +275,7 @@
                     android:paddingLeft="15dp"
                     android:text="Spermatogenesis | Human Reproduction | Dr Rajeev Ranjan"
                     android:textSize="@dimen/evp_text_size_medium"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/video_title"
@@ -286,7 +284,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
                     android:text="-NEET AIIMS prepration videos"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/text"
@@ -302,13 +300,15 @@
                     android:id="@+id/timeslot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="50dp"
+                    >
+
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
-
-
 </RelativeLayout>

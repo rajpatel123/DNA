@@ -7,7 +7,7 @@ import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
-import com.dnamedical.Models.ReviewResult.ReviewResult;
+import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
@@ -22,6 +22,8 @@ import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.registration.CommonResponse;
+
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -99,10 +101,12 @@ public interface ApiInterface {
                             @Part("test_id") RequestBody test_id);
 
 
+
     @Multipart
     @POST("api/api.php?req=showresult")
-    Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
-                                            @Part("test_id") RequestBody test_id);
+    Call<TestReviewResponse> reviewQuestionResult(@Part("user_id") RequestBody user_id,
+                                                  @Part("test_id") RequestBody test_id);
+
 
     @Multipart
     @POST("api/api.php?req=mobilelogin")

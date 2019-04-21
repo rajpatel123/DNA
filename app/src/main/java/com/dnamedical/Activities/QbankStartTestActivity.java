@@ -98,7 +98,6 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                             testModuleName.setText("" + qbankstartResponse.getDetails().get(0).getModuleName());
                             testTotalQuestion.setText("" + qbankstartResponse.getDetails().get(0).getTotalmcq() + " MCQs");
                             testCompletedQuestion.setText("" + qbankstartResponse.getDetails().get(0).getTotalattempedmcq() + " Completed");
-
                             //num = String.valueOf(Integer.parseInt(qbankstartResponse.getDetails().get(0).getTotalattempedmcq()));
                             if (qbankstartResponse.getDetails().get(0).getTotalmcq().equalsIgnoreCase(qbankstartResponse.getDetails().get(0).getTotalattempedmcq())) {
                                 btnStart.setText("Review");
@@ -125,6 +124,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             });
 
         } else {
+            Utils.dismissProgressDialog();
             Toast.makeText(this, "Connection Internet Failed", Toast.LENGTH_SHORT).show();
         }
 
