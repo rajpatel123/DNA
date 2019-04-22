@@ -38,9 +38,11 @@ import retrofit2.Response;
 public class QbankFragment extends Fragment implements FragmentLifecycle {
 
 
+/*
     @BindView(R.id.readmore)
     TextView textRead;
 
+*/
 
     @BindView(R.id.noInternet)
     TextView textInternet;
@@ -48,8 +50,8 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @BindView(R.id.bookmark_cardview)
-    CardView bookmarkedCardView;
+  /*  @BindView(R.id.bookmark_cardview)
+    CardView bookmarkedCardView;*/
     String UserId;
     private QbankResponse qbankResponse;
 
@@ -71,8 +73,8 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onResume() {
         super.onResume();
-         getQbankData();
-         textRead.setOnClickListener(new View.OnClickListener() {
+        getQbankData();
+         /*textRead.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  Intent intent=new Intent(getActivity(), WebViewActivity.class);
@@ -81,6 +83,8 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
              }
          });
 
+    }
+*/
     }
 
 

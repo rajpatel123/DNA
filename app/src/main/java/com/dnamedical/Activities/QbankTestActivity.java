@@ -44,7 +44,7 @@ import static android.view.View.GONE;
 
 public class QbankTestActivity extends AppCompatActivity {
 
-    boolean isLast=false;
+    boolean isLast = false;
 
     /// public String quest_id="";
     public static int quest_id;
@@ -117,7 +117,7 @@ public class QbankTestActivity extends AppCompatActivity {
                     answerList.setVisibility(View.VISIBLE);
                     questionListDescription.setVisibility(View.GONE);
 
-                    solveQBank(questionNo+1);
+                    solveQBank(questionNo + 1);
                     questionNo++;
 
                 }
@@ -134,7 +134,7 @@ public class QbankTestActivity extends AppCompatActivity {
         answerList = findViewById(R.id.questionList);
         progressBarChart = findViewById(R.id.progress_bar_chart);
         questionListDescription = findViewById(R.id.questionListDescription);
-        qbankTestActivity=this;
+        qbankTestActivity = this;
         progressBar = findViewById(R.id.progressBar);
 
         qustion = findViewById(R.id.qtext);
@@ -143,6 +143,7 @@ public class QbankTestActivity extends AppCompatActivity {
         imgB = findViewById(R.id.imgb);
         imgC = findViewById(R.id.imgc);
         imgD = findViewById(R.id.imgd);
+
 
         aTV = findViewById(R.id.optionA);
         aTVPer = findViewById(R.id.optionAPer);
@@ -216,15 +217,15 @@ public class QbankTestActivity extends AppCompatActivity {
     }
 
     private void solveQBank(int questinNo) {
-        if (questinNo<questionDetail.size()){
+        if (questinNo < questionDetail.size()) {
 
-            if (questinNo==questionDetail.size()-1){
-                isLast=true;
+            if (questinNo == questionDetail.size() - 1) {
+                isLast = true;
             }
             Detail questionDetails = questionDetail.get(questinNo);
-           TextView questionText= new TextView(this);
+            TextView questionText = new TextView(this);
             questionText.setPadding(15, 0, 5, 0);
-           questionText.setText("Q "+(questinNo+1)+". "+questionDetails.getQname());
+            questionText.setText("Q " + (questinNo + 1) + ". " + questionDetails.getQname());
 
             answerList.addView(questionText);
 
@@ -241,6 +242,7 @@ public class QbankTestActivity extends AppCompatActivity {
                         cardView1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+
                                 user_answer = questionDetails.getOptionA();
                                 updateAnswer(questionDetails, cardView1, questionDetails.getOptionA(), questionDetails.getId(), isLast);
                             }
@@ -256,6 +258,7 @@ public class QbankTestActivity extends AppCompatActivity {
                         cardView2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+
                                 user_answer = questionDetails.getOptionB();
 
                                 updateAnswer(questionDetails, cardView2, questionDetails.getOptionB(), questionDetails.getId(), isLast);
@@ -275,6 +278,7 @@ public class QbankTestActivity extends AppCompatActivity {
                         cardView3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+
                                 user_answer = questionDetails.getOptionC();
 
                                 updateAnswer(questionDetails, cardView3, questionDetails.getOptionC(), questionDetails.getId(), isLast);
@@ -292,6 +296,7 @@ public class QbankTestActivity extends AppCompatActivity {
                         cardView4.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+
                                 user_answer = questionDetails.getOptionD();
 
                                 updateAnswer(questionDetails, cardView4, questionDetails.getOptionD(), questionDetails.getId(), isLast);
@@ -321,7 +326,6 @@ public class QbankTestActivity extends AppCompatActivity {
         public void onPageScrollStateChanged(int arg0) {
         }
     };
-
 
 
     private void updateAnswer(Detail questionDetail, CardView cardView, String answervalue, String questionId, boolean isLast) {
@@ -363,9 +367,11 @@ public class QbankTestActivity extends AppCompatActivity {
                 cardView4.setCardBackgroundColor(getResources().getColor(R.color.red));
             }
         }
-        submitAnswer(questionId,isLast);
+
+        submitAnswer(questionId, isLast);
     }
-    public void submitAnswer(String questionID,boolean isLast) {
+
+    public void submitAnswer(String questionID, boolean isLast) {
         Utils.showProgressDialog(qbankTestActivity);
         RestClient.submitAnswer(String.valueOf(questionID), user_id, isLast ? "1" : "0", user_answer, new Callback<SubmitAnswer>() {
             @Override
@@ -384,6 +390,7 @@ public class QbankTestActivity extends AppCompatActivity {
                 answerList.setVisibility(GONE);
                 questionListDescription.setVisibility(View.VISIBLE);
             }
+
             @Override
             public void onFailure(Call<SubmitAnswer> call, Throwable t) {
                 qbankTestActivity.showHideBottomLayout(false);
@@ -391,7 +398,22 @@ public class QbankTestActivity extends AppCompatActivity {
             }
         });
     }
+
     private void updateUI(SubmitAnswer body) {
+
+        aTV.setTextColor(Color.BLACK);
+        bTV.setTextColor(Color.BLACK);
+        cTV.setTextColor(Color.BLACK);
+        dTV.setTextColor(Color.BLACK);
+        aTVPer.setTextColor(Color.BLACK);
+        bTVPer.setTextColor(Color.BLACK);
+        cTVPer.setTextColor(Color.BLACK);
+        dTVPer.setTextColor(Color.BLACK);
+        imgA.setVisibility(GONE);
+        imgB.setVisibility(GONE);
+        imgC.setVisibility(GONE);
+        imgD.setVisibility(GONE);
+
         if (body != null) {
             qustion.setText(body.getDetails().get(0).getQname());
             aTV.setText("A." + body.getDetails().get(0).getOptionA());
@@ -406,8 +428,6 @@ public class QbankTestActivity extends AppCompatActivity {
 
             dTV.setText("D." + body.getDetails().get(0).getOptionD());
             dTVPer.setText("[" + body.getDetails().get(0).getOptionDperc() + "]");
-
-
 
 
 //            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
@@ -457,108 +477,161 @@ public class QbankTestActivity extends AppCompatActivity {
 //                }
 //            }
 
-            /*if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
                 aTV.setTextColor(Color.GREEN);
+                aTVPer.setTextColor(Color.GREEN);
                 imgA.setImageResource(R.drawable.right_answer_icon);
+                imgA.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                    holder.ques1.setTextColor(Color.GREEN);
-                    holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+                    aTV.setTextColor(Color.GREEN);
+                    aTVPer.setTextColor(Color.GREEN);
+                    imgA.setImageResource(R.drawable.right_answer_icon);
+                    imgA.setVisibility(View.VISIBLE);
                 } else {
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                        holder.ques2.setTextColor(Color.RED);
-                        holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                        bTV.setTextColor(Color.RED);
+                        bTVPer.setTextColor(Color.RED);
+                        imgB.setImageResource(R.drawable.wrong_answer_icon);
+                        imgB.setVisibility(View.VISIBLE);
                     }
-                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                        holder.ques3.setTextColor(Color.RED);
-                        holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                   if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                        cTV.setTextColor(Color.RED);
+                        cTVPer.setTextColor(Color.RED);
+                        imgC.setImageResource(R.drawable.wrong_answer_icon);
+                        imgC.setVisibility(View.VISIBLE);
                     }
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                        holder.ques4.setTextColor(Color.RED);
-                        holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                        dTV.setTextColor(Color.RED);
+                        dTVPer.setTextColor(Color.RED);
+                        imgD.setImageResource(R.drawable.wrong_answer_icon);
+                        imgD.setVisibility(View.VISIBLE);
                     }
                 }
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                holder.ques2.setTextColor(Color.GREEN);
-                holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+                bTV.setTextColor(Color.GREEN);
+                bTVPer.setTextColor(Color.GREEN);
+                imgB.setImageResource(R.drawable.right_answer_icon);
+                imgB.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                    holder.ques2.setTextColor(Color.GREEN);
-                    holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+                    bTV.setTextColor(Color.GREEN);
+                    bTVPer.setTextColor(Color.GREEN);
+                    imgB.setImageResource(R.drawable.right_answer_icon);
+                    imgB.setVisibility(View.VISIBLE);
+
                 } else {
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                        holder.ques1.setTextColor(Color.RED);
-                        holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                        aTV.setTextColor(Color.RED);
+                        aTVPer.setTextColor(Color.RED);
+                        imgA.setImageResource(R.drawable.wrong_answer_icon);
+                        imgA.setVisibility(View.VISIBLE);
+
                     }
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                        holder.ques3.setTextColor(Color.RED);
-                        holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                        cTV.setTextColor(Color.RED);
+                        cTVPer.setTextColor(Color.RED);
+                        imgC.setImageResource(R.drawable.wrong_answer_icon);
+                        imgC.setVisibility(View.VISIBLE);
+
                     }
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                        holder.ques4.setTextColor(Color.RED);
-                        holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                        dTV.setTextColor(Color.RED);
+                        dTVPer.setTextColor(Color.RED);
+                        imgD.setImageResource(R.drawable.wrong_answer_icon);
+                        imgD.setVisibility(View.VISIBLE);
+
                     }
                 }
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                holder.ques3.setTextColor(Color.GREEN);
-                holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+                cTV.setTextColor(Color.GREEN);
+                cTVPer.setTextColor(Color.GREEN);
+                imgC.setImageResource(R.drawable.right_answer_icon);
+                imgC.setVisibility(View.VISIBLE);
+
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                    holder.ques3.setTextColor(Color.GREEN);
-                    holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+                    cTV.setTextColor(Color.GREEN);
+                    cTVPer.setTextColor(Color.GREEN);
+                    imgC.setImageResource(R.drawable.right_answer_icon);
+                    imgC.setVisibility(View.VISIBLE);
+
                 } else {
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                        holder.ques1.setTextColor(Color.RED);
-                        holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                        aTV.setTextColor(Color.RED);
+                        aTVPer.setTextColor(Color.RED);
+                        imgA.setImageResource(R.drawable.wrong_answer_icon);
+                        imgA.setVisibility(View.VISIBLE);
+
                     }
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                        holder.ques2.setTextColor(Color.RED);
-                        holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                        bTV.setTextColor(Color.RED);
+                        bTVPer.setTextColor(Color.RED);
+                        imgB.setImageResource(R.drawable.wrong_answer_icon);
+                        imgB.setVisibility(View.VISIBLE);
+
                     }
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                        holder.ques4.setTextColor(Color.RED);
-                        holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                        dTV.setTextColor(Color.RED);
+                        dTVPer.setTextColor(Color.RED);
+                        imgD.setImageResource(R.drawable.wrong_answer_icon);
+                        imgD.setVisibility(View.VISIBLE);
+
                     }
                 }
             }
 
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                holder.ques4.setTextColor(Color.GREEN);
-                holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+                dTV.setTextColor(Color.GREEN);
+                dTVPer.setTextColor(Color.GREEN);
+                imgD.setImageResource(R.drawable.right_answer_icon);
+                imgD.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                    holder.ques4.setTextColor(Color.GREEN);
-                    holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+                    dTV.setTextColor(Color.GREEN);
+                    dTVPer.setTextColor(Color.GREEN);
+                    imgD.setImageResource(R.drawable.right_answer_icon);
+                    imgD.setVisibility(View.VISIBLE);
+
                 } else {
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                        holder.ques1.setTextColor(Color.RED);
-                        holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                        aTV.setTextColor(Color.RED);
+                        aTVPer.setTextColor(Color.RED);
+                        imgA.setImageResource(R.drawable.wrong_answer_icon);
+                        imgA.setVisibility(View.VISIBLE);
+
                     }
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                        holder.ques3.setTextColor(Color.RED);
-                        holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                        cTV.setTextColor(Color.RED);
+                        cTVPer.setTextColor(Color.RED);
+                        imgC.setImageResource(R.drawable.wrong_answer_icon);
+                        imgC.setVisibility(View.VISIBLE);
+
                     }
                     if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                        holder.ques2.setTextColor(Color.RED);
-                        holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                        bTV.setTextColor(Color.RED);
+                        bTVPer.setTextColor(Color.RED);
+                        imgB.setImageResource(R.drawable.wrong_answer_icon);
+                        imgB.setVisibility(View.VISIBLE);
+
                     }
                 }
             }
-            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                holder.ques2.setTextColor(Color.GREEN);
-                holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+           /* if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                bTV.setTextColor(Color.GREEN);
+                imgB.setImageResource(R.drawable.right_answer_icon);
 
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                holder.ques3.setTextColor(Color.GREEN);
-                holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+                cTV.setTextColor(Color.GREEN);
+                imgC.setImageResource(R.drawable.right_answer_icon);
 
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                holder.ques4.setTextColor(Color.GREEN);
-                holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+                dTV.setTextColor(Color.GREEN);
+                imgD.setImageResource(R.drawable.right_answer_icon);
 
             }*/
             rTV.setText(body.getDetails().get(0).getRefrence());
