@@ -457,7 +457,7 @@ public class QbankTestActivity extends AppCompatActivity {
 //                }
 //            }
 
-            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+            /*if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
                 aTV.setTextColor(Color.GREEN);
                 imgA.setImageResource(R.drawable.right_answer_icon);
 
@@ -560,7 +560,7 @@ public class QbankTestActivity extends AppCompatActivity {
                 holder.ques4.setTextColor(Color.GREEN);
                 holder.imageView4.setImageResource(R.drawable.right_answer_icon);
 
-            }
+            }*/
             rTV.setText(body.getDetails().get(0).getRefrence());
             barChart.setText(body.getDetails().get(0).getGotrightperc() + "of the people got this right");
             try {

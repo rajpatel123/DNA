@@ -166,6 +166,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             collegeListResponse = response.body();
                             if (collegeListResponse != null && collegeListResponse.getName().size() > 0) {
+                                collegetext = collegeListResponse.getName().get(0).getName();
                                 collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse.getName());
                                 collegeCustomAdapter.setOnCollegeSecect(new CollegeCustomAdapter.OnCollegeSelect() {
                                     @Override
