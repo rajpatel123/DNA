@@ -410,51 +410,156 @@ public class QbankTestActivity extends AppCompatActivity {
 
 
 
-            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                    imgA.setImageResource(R.drawable.qbank_right_answer);
-                    aTV.setTextColor(Color.GREEN);
-                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgA.setImageResource(R.drawable.qbank_wrong_test_answer);
-                    aTV.setTextColor(Color.RED);
+//            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+//                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+//                    imgA.setImageResource(R.drawable.qbank_right_answer);
+//                    aTV.setTextColor(Color.GREEN);
+//                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+//                    imgA.setImageResource(R.drawable.qbank_wrong_test_answer);
+//                    aTV.setTextColor(Color.RED);
+//                }
+//            }
+//
+//
+//
+//            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+//                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+//                    imgB.setImageResource(R.drawable.qbank_right_answer);
+//                    bTV.setTextColor(Color.GREEN);
+//                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+//                    imgB.setImageResource(R.drawable.qbank_wrong_test_answer);
+//                    bTV.setTextColor(Color.RED);
+//                }
+//            }
+//
+//
+//
+//            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+//
+//                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+//                    imgC.setImageResource(R.drawable.qbank_right_answer);
+//                    cTV.setTextColor(Color.GREEN);
+//                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+//                    imgC.setImageResource(R.drawable.qbank_wrong_test_answer);
+//                    cTV.setTextColor(Color.RED);
+//                }
+//            }
+//
+//
+//
+//            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+//                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+//                    imgD.setImageResource(R.drawable.qbank_right_answer);
+//                    dTV.setTextColor(Color.GREEN);
+//                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+//                    imgD.setImageResource(R.drawable.qbank_wrong_test_answer);
+//                    dTV.setTextColor(Color.RED);
+//                }
+//            }
+
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                aTV.setTextColor(Color.GREEN);
+                imgA.setImageResource(R.drawable.right_answer_icon);
+
+                if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                    holder.ques1.setTextColor(Color.GREEN);
+                    holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+                } else {
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                        holder.ques2.setTextColor(Color.RED);
+                        holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                        holder.ques3.setTextColor(Color.RED);
+                        holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                        holder.ques4.setTextColor(Color.RED);
+                        holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                }
+            }
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                holder.ques2.setTextColor(Color.GREEN);
+                holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+
+                if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                    holder.ques2.setTextColor(Color.GREEN);
+                    holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+                } else {
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                        holder.ques1.setTextColor(Color.RED);
+                        holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                        holder.ques3.setTextColor(Color.RED);
+                        holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                        holder.ques4.setTextColor(Color.RED);
+                        holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                }
+            }
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                holder.ques3.setTextColor(Color.GREEN);
+                holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+
+                if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                    holder.ques3.setTextColor(Color.GREEN);
+                    holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+                } else {
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                        holder.ques1.setTextColor(Color.RED);
+                        holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                        holder.ques2.setTextColor(Color.RED);
+                        holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                        holder.ques4.setTextColor(Color.RED);
+                        holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                    }
                 }
             }
 
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                holder.ques4.setTextColor(Color.GREEN);
+                holder.imageView4.setImageResource(R.drawable.right_answer_icon);
 
-
-            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                    imgB.setImageResource(R.drawable.qbank_right_answer);
-                    bTV.setTextColor(Color.GREEN);
-                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgB.setImageResource(R.drawable.qbank_wrong_test_answer);
-                    bTV.setTextColor(Color.RED);
+                if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                    holder.ques4.setTextColor(Color.GREEN);
+                    holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+                } else {
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                        holder.ques1.setTextColor(Color.RED);
+                        holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                        holder.ques3.setTextColor(Color.RED);
+                        holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                    }
+                    if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                        holder.ques2.setTextColor(Color.RED);
+                        holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                    }
                 }
             }
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                holder.ques2.setTextColor(Color.GREEN);
+                holder.imageView2.setImageResource(R.drawable.right_answer_icon);
 
-
-
-            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-
-                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                    imgC.setImageResource(R.drawable.qbank_right_answer);
-                    cTV.setTextColor(Color.GREEN);
-                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgC.setImageResource(R.drawable.qbank_wrong_test_answer);
-                    cTV.setTextColor(Color.RED);
-                }
             }
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                holder.ques3.setTextColor(Color.GREEN);
+                holder.imageView3.setImageResource(R.drawable.right_answer_icon);
 
+            }
+            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                holder.ques4.setTextColor(Color.GREEN);
+                holder.imageView4.setImageResource(R.drawable.right_answer_icon);
 
-
-            if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                    imgD.setImageResource(R.drawable.qbank_right_answer);
-                    dTV.setTextColor(Color.GREEN);
-                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
-                    imgD.setImageResource(R.drawable.qbank_wrong_test_answer);
-                    dTV.setTextColor(Color.RED);
-                }
             }
             rTV.setText(body.getDetails().get(0).getRefrence());
             barChart.setText(body.getDetails().get(0).getGotrightperc() + "of the people got this right");

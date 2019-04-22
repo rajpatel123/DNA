@@ -158,7 +158,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                     intent.putExtra("qmodule_id", qbank_module_id);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
-                    Toast.makeText(QbankStartTestActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(QbankStartTestActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
                     intent.putExtra("qmodule_id", qbank_module_id);
