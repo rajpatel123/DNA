@@ -81,6 +81,7 @@ public class ReviewQuestionList extends AppCompatActivity {
         RequestBody test_id = RequestBody.create(MediaType.parse("text/plain"), testId);
 
         if (Utils.isInternetConnected(this)) {
+
             Utils.showProgressDialog(this);
             RestClient.reviewQuestionResult(user_id, test_id, new Callback<TestReviewResponse>() {
                 @Override

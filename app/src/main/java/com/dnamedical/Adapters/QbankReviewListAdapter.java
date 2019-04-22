@@ -146,21 +146,7 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
                 }
             }
         }
-        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionB())) {
-            holder.ques2.setTextColor(Color.GREEN);
-            holder.imageView2.setImageResource(R.drawable.right_answer_icon);
 
-        }
-        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionC())) {
-            holder.ques3.setTextColor(Color.GREEN);
-            holder.imageView3.setImageResource(R.drawable.right_answer_icon);
-
-        }
-        if (detail.getAnswer().equalsIgnoreCase(detail.getOptionD())) {
-            holder.ques4.setTextColor(Color.GREEN);
-            holder.imageView4.setImageResource(R.drawable.right_answer_icon);
-
-        }
 
 /*
         if (detail.getUseranswer().equals4IgnoreCase(detail.getOptionA())) {
