@@ -54,7 +54,7 @@ public class CollegeCustomAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.spinner_item_college, null);
         TextView names = (TextView) view.findViewById(R.id.textView1);
         names.setText("" + collegeListResponse.get(position).getName());
-        view.setOnClickListener(new View.OnClickListener() {
+        names.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onCollegeSelect != null) {
