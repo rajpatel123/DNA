@@ -134,7 +134,7 @@ public class QbankTestActivity extends AppCompatActivity {
         answerList = findViewById(R.id.questionList);
         progressBarChart = findViewById(R.id.progress_bar_chart);
         questionListDescription = findViewById(R.id.questionListDescription);
-
+        qbankTestActivity=this;
         progressBar = findViewById(R.id.progressBar);
 
         qustion = findViewById(R.id.qtext);
@@ -236,11 +236,12 @@ public class QbankTestActivity extends AppCompatActivity {
                         questionTestList = answer1.findViewById(R.id.qbank_answer);
                         cardView1 = answer1.findViewById(R.id.cardView);
                         questionTestList.setText("A." + questionDetails.getOptionA());
-                        user_answer = questionDetails.getOptionA();
+
                         answerList.addView(answer1);
                         cardView1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                user_answer = questionDetails.getOptionA();
                                 updateAnswer(questionDetails, cardView1, questionDetails.getOptionA(), questionDetails.getId(), isLast);
                             }
                         });
@@ -249,13 +250,14 @@ public class QbankTestActivity extends AppCompatActivity {
                         View answer2 = inflater.inflate(R.layout.qbank_item_test, null);
                         questionTestList = answer2.findViewById(R.id.qbank_answer);
                         cardView2 = answer2.findViewById(R.id.cardView);
-                        user_answer = questionDetails.getOptionB();
 
                         questionTestList.setText("B." + questionDetails.getOptionB());
                         answerList.addView(answer2);
                         cardView2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                user_answer = questionDetails.getOptionB();
+
                                 updateAnswer(questionDetails, cardView2, questionDetails.getOptionB(), questionDetails.getId(), isLast);
 
                             }
@@ -268,12 +270,13 @@ public class QbankTestActivity extends AppCompatActivity {
                         questionTestList = answer3.findViewById(R.id.qbank_answer);
                         questionTestList.setText("C." + questionDetails.getOptionC());
                         cardView3 = answer3.findViewById(R.id.cardView);
-                        user_answer = questionDetails.getOptionC();
 
                         answerList.addView(answer3);
                         cardView3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                user_answer = questionDetails.getOptionC();
+
                                 updateAnswer(questionDetails, cardView3, questionDetails.getOptionC(), questionDetails.getId(), isLast);
 
                             }
@@ -283,13 +286,14 @@ public class QbankTestActivity extends AppCompatActivity {
                         View answer4 = inflater.inflate(R.layout.qbank_item_test, null);
                         questionTestList = answer4.findViewById(R.id.qbank_answer);
                         cardView4 = answer4.findViewById(R.id.cardView);
-                        user_answer = questionDetails.getOptionD();
 
                         questionTestList.setText("D." + questionDetails.getOptionD());
                         answerList.addView(answer4);
                         cardView4.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                user_answer = questionDetails.getOptionD();
+
                                 updateAnswer(questionDetails, cardView4, questionDetails.getOptionD(), questionDetails.getId(), isLast);
 
                             }
@@ -392,51 +396,62 @@ public class QbankTestActivity extends AppCompatActivity {
             qustion.setText(body.getDetails().get(0).getQname());
             aTV.setText("A." + body.getDetails().get(0).getOptionA());
             aTVPer.setText("[" + body.getDetails().get(0).getOptionAperc() + "]");
-            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                imgA.setImageResource(R.drawable.qbank_right_answer);
-                aTV.setTextColor(Color.GREEN);
-            }
+
+            bTV.setText("B." + body.getDetails().get(0).getOptionB());
+            bTVPer.setText("[" + body.getDetails().get(0).getOptionBperc() + "]");
+
+            cTV.setText("C." + body.getDetails().get(0).getOptionC());
+            cTVPer.setText("[" + body.getDetails().get(0).getOptionCperc() + "]");
+
+
+            dTV.setText("D." + body.getDetails().get(0).getOptionD());
+            dTVPer.setText("[" + body.getDetails().get(0).getOptionDperc() + "]");
+
+
+
+
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
+                    imgA.setImageResource(R.drawable.qbank_right_answer);
+                    aTV.setTextColor(Color.GREEN);
+                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
                     imgA.setImageResource(R.drawable.qbank_wrong_test_answer);
                     aTV.setTextColor(Color.RED);
                 }
             }
 
-            bTV.setText("B." + body.getDetails().get(0).getOptionB());
-            bTVPer.setText("[" + body.getDetails().get(0).getOptionBperc() + "]");
-            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                imgB.setImageResource(R.drawable.qbank_right_answer);
-                bTV.setTextColor(Color.GREEN);
-            }
+
+
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
+                    imgB.setImageResource(R.drawable.qbank_right_answer);
+                    bTV.setTextColor(Color.GREEN);
+                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
                     imgB.setImageResource(R.drawable.qbank_wrong_test_answer);
                     bTV.setTextColor(Color.RED);
                 }
             }
 
-            cTV.setText("C." + body.getDetails().get(0).getOptionC());
-            cTVPer.setText("[" + body.getDetails().get(0).getOptionCperc() + "]");
-            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                imgC.setImageResource(R.drawable.qbank_right_answer);
-                cTV.setTextColor(Color.GREEN);
-            }
+
+
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+
+                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
+                    imgC.setImageResource(R.drawable.qbank_right_answer);
+                    cTV.setTextColor(Color.GREEN);
+                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
                     imgC.setImageResource(R.drawable.qbank_wrong_test_answer);
                     cTV.setTextColor(Color.RED);
                 }
             }
-            dTV.setText("D." + body.getDetails().get(0).getOptionD());
-            dTVPer.setText("[" + body.getDetails().get(0).getOptionDperc() + "]");
-            if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                imgD.setImageResource(R.drawable.qbank_right_answer);
-                dTV.setTextColor(Color.GREEN);
-            }
+
+
 
             if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
+                if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
+                    imgD.setImageResource(R.drawable.qbank_right_answer);
+                    dTV.setTextColor(Color.GREEN);
+                }else if (!body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getAnswer())) {
                     imgD.setImageResource(R.drawable.qbank_wrong_test_answer);
                     dTV.setTextColor(Color.RED);
                 }

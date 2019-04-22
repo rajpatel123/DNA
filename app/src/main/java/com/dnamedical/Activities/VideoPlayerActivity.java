@@ -164,8 +164,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-            upper_progress.setVisibility(View.GONE);
+            upper_progress.setVisibility(View.VISIBLE);
             videoPlayerControlsPortraitMode.setVisibility(View.VISIBLE);
+
             enablePlayPause(true, true);
         }
 
@@ -224,7 +225,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         @Override
         public void onSeekChange(EasyExoVideoPlayer player, boolean isSeeking) {
-
+            String currentTime = getTimeDurationFormat(player.getCurrentPosition());
+            String totalDuration = getTimeDurationFormat(player.getDuration());
+            videoDuration.setText(currentTime+" / "+totalDuration);
         }
 
         @Override
@@ -234,6 +237,20 @@ public class VideoPlayerActivity extends AppCompatActivity {
             enablePlayPause(true, false);
         }
     };
+
+    private String getTimeDurationFormat(int millis) {
+
+        String duration = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+       if (duration.length()>4){
+           String hh = duration.substring(0,2);
+           if (hh.equalsIgnoreCase("00")){
+               return duration.substring(3,duration.length());
+           }
+       }
+   return duration;
+    }
 
     private void showBottomController(EasyExoVideoPlayer player) {
         md_parentview.setVisibility(View.VISIBLE);
