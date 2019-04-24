@@ -76,8 +76,10 @@ public interface ApiInterface {
     @GET("api/api.php?req=allfile")
     Call<VideoList> getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
 
-    @GET("api/api.php?req=test")
-    Call<TestQuestionData> getTest();
+
+    @Multipart
+    @POST("api/api.php?req=test")
+    Call<TestQuestionData> getTest(@Part("user_id") RequestBody user_id);
 
 
     @GET("api/api.php?req=question")

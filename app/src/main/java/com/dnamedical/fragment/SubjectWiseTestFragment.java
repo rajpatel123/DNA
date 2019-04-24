@@ -99,7 +99,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid,String TestStatus) {
         if (testPaid.equalsIgnoreCase("Yes")) {
             Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
             startActivity(intent);
@@ -109,6 +109,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             intent.putExtra("duration", time);
             intent.putExtra("testName", testName);
             intent.putExtra("testQuestion", testQuestion);
+            intent.putExtra("testStatus",TestStatus);
             startActivity(intent);
 
         }

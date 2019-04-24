@@ -22,10 +22,16 @@ import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
     @BindView(R.id.recyclerView)
@@ -57,9 +63,19 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     }
 
     private void getTest() {
+
+        String userId;
+
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getContext());
-            RestClient.getTest(new Callback<TestQuestionData>() {
+
+            RestClient.getTest(user_id, new Callback<TestQuestionData>() {
                 @Override
                 public void onResponse(Call<TestQuestionData> call, Response<TestQuestionData> response) {
                     if (response.code() == 200) {
@@ -78,7 +94,6 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
 
                 @Override
                 public void onFailure(Call<TestQuestionData> call, Throwable t) {
-
                     Utils.dismissProgressDialog();
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
 
@@ -127,7 +142,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid,String TestStatus) {
 
 
             if (testPaid.equalsIgnoreCase("Yes")) {
@@ -139,6 +154,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 intent.putExtra("duration", time);
                 intent.putExtra("testName", testName);
                 intent.putExtra("testQuestion", testQuestion);
+                intent.putExtra("testStatus",TestStatus);
                 startActivity(intent);
 
 

@@ -144,6 +144,7 @@ public class TestActivity extends FragmentActivity {
             }
         }
 
+
         skip = findViewById(R.id.btn_skip);
         skip.setOnClickListener(new OnClickListener() {
             @Override
@@ -156,8 +157,7 @@ public class TestActivity extends FragmentActivity {
                 } else {
                     skip.setText("SKIP");
                 }
-
-                if (skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
+                if (!skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
                     skippedAnswerIdList.add(qustionDetails.getDetail().get(currentPosition).getQid());
                 }
             }
@@ -186,6 +186,7 @@ public class TestActivity extends FragmentActivity {
         nextText = findViewById(R.id.next);
         nextText.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+//                hideShowSkip(false);
                 nextText.setTextColor(getResources().getColor(R.color.colorAccent));
                 previousText.setTextColor(getResources().getColor(R.color.darkwhite));
                 imgNest.setImageResource(R.drawable.next_red);
@@ -232,6 +233,24 @@ public class TestActivity extends FragmentActivity {
     }
 
 
+
+    public void hideShowSkip(boolean isHide){
+        if (isHide){
+            skip.setEnabled(false);
+            nextText.setEnabled(true);
+        }else{
+            skip.setEnabled(true);
+            nextText.setEnabled(false);
+        }
+    }
+
+    public void nextEnable(boolean isEnable){
+        if (isEnable){
+            nextText.setEnabled(false);
+        }else{
+            nextText.setEnabled(true);
+        }
+    }
     private void GuessOpen() {
 
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
@@ -463,7 +482,7 @@ public class TestActivity extends FragmentActivity {
             String tquestion = "" + qustionDetails.getDetail().size();
             String canswer = "" + correctAnswerList.keySet().size();
             String wanswer = "" + wrongAnswerList.keySet().size();
-            String sanswer = "" + (qustionDetails.getDetail().size() - (correctAnswerList.keySet().size() + wrongAnswerList.keySet().size()));
+            String sanswer = "" + skippedAnswerIdList.size();
 
             StringBuilder builder = new StringBuilder();
             for (Detail detail : qustionDetails.getDetail()) {
@@ -492,15 +511,16 @@ public class TestActivity extends FragmentActivity {
 
             StringBuilder skiped = new StringBuilder();
             for (String ss : skippedAnswerIdList) {
-                skiped.append(ss + ",");
+               //skiped.append(ss + ":" + skippedQuestions.get(ss) + ",");
+               skiped.append(ss + ",");
             }
             if (!TextUtils.isEmpty(skiped))
                 ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
 
 
-            Log.d("TEstData", "userid->" + user_id + "testid->" + test_id + "tquestion->"
-                    + tquestion + "ttQuestion" + ttQuestion +
-                    "canswer->" + canswer + "ccAnswerIds->" + ccAnswerIds + "wanswer->" + wanswer + "wwanswerIds->" + wwanswerIds + "ssanswer->" + ssanswer);
+            Log.d("TEstData", " userid->" + user_id + " testid->" + test_id + " tquestion->"
+                    + tquestion + " ttQuestion" + ttQuestion +
+                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer);
 
             RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, sanswer, ssanswer, new Callback<ResponseBody>() {
                 @Override
