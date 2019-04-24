@@ -157,7 +157,6 @@ public class TestActivity extends FragmentActivity {
                 } else {
                     skip.setText("SKIP");
                 }
-
                 if (!skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
                     skippedAnswerIdList.add(qustionDetails.getDetail().get(currentPosition).getQid());
                 }
