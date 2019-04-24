@@ -141,13 +141,14 @@ public class LoginActivity extends AppCompatActivity {
                         String id = loginResponse.getLoginDetails().get(0).getId();
                         String state = loginResponse.getLoginDetails().get(0).getState();
                         String college = loginResponse.getLoginDetails().get(0).getCollege();
+                        String username=loginResponse.getLoginDetails().get(0).getUsername();
 
                         DnaPrefs.putString(getApplicationContext(), "Login_Id", id);
                         DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                         DnaPrefs.putString(getApplicationContext(), "STATE",state);
                         DnaPrefs.putString(getApplicationContext(),"COLLEGE",college);
 
-                        DnaPrefs.putString(getApplicationContext(), "NAME", "DNA User");
+                        DnaPrefs.putString(getApplicationContext(), "NAME",username);
                         DnaPrefs.putString(getApplicationContext(), "URL", "");
                         DnaPrefs.putString(getApplicationContext(), "EMAIL", email_str);
 
@@ -270,7 +271,7 @@ public class LoginActivity extends AppCompatActivity {
                 String link = profile.getLinkUri().toString();
 
                 Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
-                intent.putExtra("Name", name);
+                intent.putExtra("VideoModel", name);
                 intent.putExtra("Link", link);
                 startActivity(intent);
 

@@ -118,10 +118,10 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
         String image = DnaPrefs.getString(getApplicationContext(), "URL");
         String email = DnaPrefs.getString(getApplicationContext(), "EMAIL");
 
-        tvName.setText(name);
-        tvEmail.setText(email);
-        tvState.setText(state);
-        tvCollege.setText(college);
+        tvName.setText(""+name);
+        tvEmail.setText(""+email);
+        tvState.setText(""+state);
+        tvCollege.setText(""+college);
 
 
 

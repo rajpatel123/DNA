@@ -22,9 +22,13 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +38,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dnamedical.Adapters.TimeListFreeAdapter;
+import com.dnamedical.Adapters.VideoListFreeAdapter;
+import com.dnamedical.Models.video.Free;
+import com.dnamedical.fragment.FreeFragment;
 import com.warkiz.widget.DotIndicatorSeekBar;
 import com.warkiz.widget.DotOnSeekChangeListener;
 import com.warkiz.widget.DotSeekParams;
@@ -78,6 +87,20 @@ public class VideoPlayerActivity extends AppCompatActivity {
     TextView upper_name;
     @BindView(R.id.txtSpeed)
     TextView txtSpeed;
+
+    @BindView(R.id.timeslot)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.designation)
+    TextView designation;
+
+    @BindView(R.id.video_title)
+    TextView video_title;
+    @BindView(R.id.videoDuration)
+    TextView videoDuration;
+
+    @BindView(R.id.text)
+    TextView text;
     @BindView(R.id.upper_progress)
     ProgressBar upper_progress;
     @BindView(R.id.play_btn)
@@ -103,6 +126,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private float timeDiff = 0;
     private float playbackSpeed = NORMAL_PLAYBACK_SPEED;
 
+    private Free free;
 
     String url = "http://akwebtech.com/demo/education/img/file/154857089723992637_296895610714539_3897207797737062400_n.mp4";
 
@@ -140,8 +164,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-            upper_progress.setVisibility(View.GONE);
+            upper_progress.setVisibility(View.VISIBLE);
             videoPlayerControlsPortraitMode.setVisibility(View.VISIBLE);
+
             enablePlayPause(true, true);
         }
 
@@ -200,7 +225,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         @Override
         public void onSeekChange(EasyExoVideoPlayer player, boolean isSeeking) {
-
+            String currentTime = getTimeDurationFormat(player.getCurrentPosition());
+            String totalDuration = getTimeDurationFormat(player.getDuration());
+            videoDuration.setText(currentTime+" / "+totalDuration);
         }
 
         @Override
@@ -210,6 +237,20 @@ public class VideoPlayerActivity extends AppCompatActivity {
             enablePlayPause(true, false);
         }
     };
+
+    private String getTimeDurationFormat(int millis) {
+
+        String duration = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+       if (duration.length()>4){
+           String hh = duration.substring(0,2);
+           if (hh.equalsIgnoreCase("00")){
+               return duration.substring(3,duration.length());
+           }
+       }
+   return duration;
+    }
 
     private void showBottomController(EasyExoVideoPlayer player) {
         md_parentview.setVisibility(View.VISIBLE);
@@ -226,34 +267,70 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        if (intent.hasExtra("url")) {
-            url = intent.getStringExtra("url");
-            title = intent.getStringExtra("title");
+        if (intent.hasExtra("free")) {
+             free = intent.getParcelableExtra("free");
+            url = free.getUrl();
+            title = free.getTitle();
+            textHeading.setText(title);
+            textTeacher.setText(free.getSubTitle());
+            video_title.setText(free.getDescription());
+            text.setText(""+free.getDescription());
+
+            if (free.getSourceTime()!=null && free.getSourceTime().size()>0){
+                TimeListFreeAdapter videoListAdapter = new TimeListFreeAdapter(this);
+                videoListAdapter.setData(free.getSourceTime());
+                videoListAdapter.setListener(new TimeListFreeAdapter.OnTimeClick() {
+                    @Override
+                    public void onTimeClick(String time) {
+                     if (upper_exoplayer!=null){
+                         int miliis = getTimeMillies(time);
+                         if (upper_exoplayer.isPlaying()){
+                             upper_exoplayer.seekTo(miliis);
+                         }else{
+                             Toast.makeText(VideoPlayerActivity.this,"Please play video first",Toast.LENGTH_LONG).show();
+                         }
+                     }
+                    }
+                });
+                recyclerView.setAdapter(videoListAdapter);
+                recyclerView.setVisibility(View.VISIBLE);
+
+                Log.d("Api Response :", "Got Success from Api");
+                // noInternet.setVisibility(View.GONE);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return true;
+                    }
+
+                };
+                recyclerView.setLayoutManager(layoutManager);
+            }
 
         }
-        textHeading.setText(title);
 
-        if (title.equalsIgnoreCase("BIOCHEMISTRY")) {
 
-            textTeacher.setText("Dr. Nilesh Chandra ");
-        }
-        if (title.equalsIgnoreCase("P.SM. BY DR. ASWANI")) {
-            textTeacher.setText("Dr. Ashwani");
-            textHeading.setText("P.S.M");
-        }
-        if (title.equalsIgnoreCase("MICROBIOLOGY")) {
-            textTeacher.setText("Dr. NEETU SHREE ");
-        }
-        if (title.equalsIgnoreCase("PHARMACOLOGY MADE SIMPLE")) {
-            textTeacher.setText("Dr. DINESH");
-        }
-        if (title.equalsIgnoreCase("PSYCHIATRY")) {
-            textTeacher.setText("Dr. Prashant Agarwal");
-        }
-
-        if (title.equalsIgnoreCase("ORTHOPAEDICS")) {
-            textTeacher.setText("By Dr. Yusuf Ali Tyagi");
-        }
+//        if (title.equalsIgnoreCase("BIOCHEMISTRY")) {
+//
+//            textTeacher.setText("Dr. Nilesh Chandra ");
+//        }
+//        if (title.equalsIgnoreCase("P.SM. BY DR. ASWANI")) {
+//            textTeacher.setText("Dr. Ashwani");
+//            textHeading.setText("P.S.M");
+//        }
+//        if (title.equalsIgnoreCase("MICROBIOLOGY")) {
+//            textTeacher.setText("Dr. NEETU SHREE ");
+//        }
+//        if (title.equalsIgnoreCase("PHARMACOLOGY MADE SIMPLE")) {
+//            textTeacher.setText("Dr. DINESH");
+//        }
+//        if (title.equalsIgnoreCase("PSYCHIATRY")) {
+//            textTeacher.setText("Dr. Prashant Agarwal");
+//        }
+//
+//        if (title.equalsIgnoreCase("ORTHOPAEDICS")) {
+//            textTeacher.setText("By Dr. Yusuf Ali Tyagi");
+//        }
 
         setUpperSeekBar();
 
@@ -261,6 +338,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
             handler.removeCallbacks(mediaProgressRunnable);
             handler.postDelayed(mediaProgressRunnable, MEDIA_CALLBACK_DURATION);
         });
+    }
+
+    private int getTimeMillies(String source) {
+        String[] tokens = source.split(":");
+        int secondsToMs = Integer.parseInt(tokens[2]) * 1000;
+        int minutesToMs = Integer.parseInt(tokens[1]) * 60000;
+        int hoursToMs = Integer.parseInt(tokens[0]) * 3600000;
+        int total = secondsToMs + minutesToMs + hoursToMs;
+        return total;
     }
 
 
@@ -291,7 +377,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * Seek Handling VIEWS
      */
     private void setUpperSeekBar() {
@@ -387,7 +473,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.upper_exoplayer, R.id.back, R.id.play_btn, R.id.md_speed, R.id.md_replay, R.id.md_play, R.id.full_mode})
+    @OnClick({R.id.upper_exoplayer, R.id.back,
+            R.id.play_btn,
+            R.id.md_speed,
+            R.id.md_replay,
+            R.id.md_play,
+            R.id.full_mode})
     public void onControlClick(View view) {
         switch (view.getId()) {
             case R.id.full_mode:

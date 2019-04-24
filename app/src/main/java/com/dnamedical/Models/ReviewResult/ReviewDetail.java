@@ -37,7 +37,6 @@ public class ReviewDetail implements Parcelable {
     @Expose
     private String explanation;
 
-
     protected ReviewDetail(Parcel in) {
         qid = in.readString();
         question = in.readString();
@@ -46,13 +45,8 @@ public class ReviewDetail implements Parcelable {
         answer3 = in.readString();
         answer4 = in.readString();
         currectAnswer = in.readString();
-        userAnswer=in.readString();
-        explanation=in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        userAnswer = in.readString();
+        explanation = in.readString();
     }
 
     public static final Creator<ReviewDetail> CREATOR = new Creator<ReviewDetail>() {
@@ -66,20 +60,6 @@ public class ReviewDetail implements Parcelable {
             return new ReviewDetail[size];
         }
     };
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(qid);
-        dest.writeString(question);
-        dest.writeString(answer1);
-        dest.writeString(answer2);
-        dest.writeString(answer3);
-        dest.writeString(answer4);
-        dest.writeString(currectAnswer);
-        dest.writeString(explanation);
-        dest.writeString(userAnswer);
-    }
-
 
     public String getQid() {
         return qid;
@@ -153,4 +133,21 @@ public class ReviewDetail implements Parcelable {
         this.explanation = explanation;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(qid);
+        dest.writeString(question);
+        dest.writeString(answer1);
+        dest.writeString(answer2);
+        dest.writeString(answer3);
+        dest.writeString(answer4);
+        dest.writeString(currectAnswer);
+        dest.writeString(userAnswer);
+        dest.writeString(explanation);
+    }
 }

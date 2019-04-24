@@ -61,14 +61,11 @@ public class TruitonListFragment extends Fragment {
 		answerList = layoutView.findViewById(R.id.answerList);
 		questionTxt = layoutView.findViewById(R.id.questionTxt);
 		questionTxt.setText("Q" + (fragNum + 1) + ". " + question.getQuestion());
-
-
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4;i++) {
 			switch (i) {
 				case 0:
 					View answerView = inflater.inflate(R.layout.item_answer,
 							container, false);
-
 					TextView answer1 = answerView.findViewById(R.id.answer);
 					cardView1 = answerView.findViewById(R.id.cardView);
 					answer1.setText(question.getAnswer1());
@@ -76,11 +73,11 @@ public class TruitonListFragment extends Fragment {
 					answer1.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
+							answer1.setText(question.getAnswer1());
 							if (answer1.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
 								activity.correctAnswerList.put(question.getQid(),answer1.getText().toString());
 								if (activity.wrongAnswerList.containsKey(question.getQid()))
 								activity.wrongAnswerList.remove(question.getQid());
-
 								if (activity.skippedAnswerIdList.contains(question.getQid())){
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
@@ -94,23 +91,20 @@ public class TruitonListFragment extends Fragment {
 								}
 							}
 							updateAnswer(cardView1);
-
 						}
 					});
-
 					break;
 				case 1:
 					View answerView1 = inflater.inflate(R.layout.item_answer,
 							container, false);
-
 					TextView answer2 = answerView1.findViewById(R.id.answer);
 					cardView2 = answerView1.findViewById(R.id.cardView);
 					answer2.setText(question.getAnswer2());
 					answerList.addView(answerView1);
-
 					answer2.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
+							answer2.setText(question.getAnswer2());
 							if (answer2.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
 								activity.correctAnswerList.put(question.getQid(),answer2.getText().toString());
 								if (activity.wrongAnswerList.containsKey(question.getQid()))
@@ -124,7 +118,6 @@ public class TruitonListFragment extends Fragment {
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
 								}
-
 								if (activity.skippedAnswerIdList.contains(question.getQid())){
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
@@ -136,20 +129,18 @@ public class TruitonListFragment extends Fragment {
 				case 2:
 					View answerView2 = inflater.inflate(R.layout.item_answer,
 							container, false);
-
 					TextView answer3 = answerView2.findViewById(R.id.answer);
 					cardView3 = answerView2.findViewById(R.id.cardView);
 					answer3.setText(question.getAnswer3());
 					answerList.addView(answerView2);
-
 					answer3.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
+							answer3.setText(question.getAnswer3());
 							if (answer3.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
-								activity.correctAnswerList.put(question.getQid(),answer3.getText().toString());
+								    activity.correctAnswerList.put(question.getQid(),answer3.getText().toString());
 								if (activity.wrongAnswerList.containsKey(question.getQid()))
-								activity.wrongAnswerList.remove(question.getQid());
-
+								    activity.wrongAnswerList.remove(question.getQid());
 								if (activity.skippedAnswerIdList.contains(question.getQid())){
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
@@ -158,7 +149,6 @@ public class TruitonListFragment extends Fragment {
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
 								}
-
 								if (activity.skippedAnswerIdList.contains(question.getQid())){
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
@@ -170,20 +160,18 @@ public class TruitonListFragment extends Fragment {
 				case 3:
 					View answerView4 = inflater.inflate(R.layout.item_answer,
 							container, false);
-
 					TextView answer4 = answerView4.findViewById(R.id.answer);
 					cardView4 = answerView4.findViewById(R.id.cardView);
 					answer4.setText(question.getAnswer4());
 					answerList.addView(answerView4);
-
 					answer4.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
+							answer4.setText(question.getAnswer4());
 							if (answer4.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
 								activity.correctAnswerList.put(question.getQid(),answer4.getText().toString());
 								if (activity.wrongAnswerList.containsKey(question.getQid()))
 								activity.wrongAnswerList.remove(question.getQid());
-
 								if (activity.skippedAnswerIdList.contains(question.getQid())){
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
@@ -192,7 +180,6 @@ public class TruitonListFragment extends Fragment {
 								if (activity.correctAnswerList.containsKey(question.getQid())){
 									activity.correctAnswerList.remove(question.getQid());
 								}
-
 								if (activity.skippedAnswerIdList.contains(question.getQid())){
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
@@ -203,8 +190,6 @@ public class TruitonListFragment extends Fragment {
 					break;
 			}
 		}
-
-
 		return layoutView;
 	}
 
@@ -213,9 +198,7 @@ public class TruitonListFragment extends Fragment {
 		cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
 		cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
 		cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
-
 		cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
-
 	}
 
 

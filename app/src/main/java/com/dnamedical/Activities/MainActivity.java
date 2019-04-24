@@ -31,11 +31,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.dnamedical.R;
 import com.dnamedical.fragment.HomeFragment;
 import com.dnamedical.fragment.OnlineFragment;
 import com.dnamedical.fragment.QbankFragment;
-import com.dnamedical.fragment.TextFragment;
+import com.dnamedical.fragment.TestFragment;
 import com.dnamedical.fragment.videoFragment;
 import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.DnaPrefs;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private HomeFragment dashboardHomeFragment;
     private videoFragment dashboardvideoFragment;
     private QbankFragment dashboardQbankFragment;
-    private TextFragment dashboardTextFragment;
+    private TestFragment dashboardTestFragment;
     private OnlineFragment dashboardOnlineFragment;
     private ViewPagerAdapter adapter;
     private TextView myDeviceTitle;
@@ -140,17 +141,17 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         dashboardHomeFragment = new HomeFragment();
-    //  dashboardvideoFragment = new videoFragment();
+        //  dashboardvideoFragment = new videoFragment();
         dashboardQbankFragment = new QbankFragment();
-        dashboardTextFragment = new TextFragment();
+        dashboardTestFragment = new TestFragment();
         dashboardOnlineFragment = new OnlineFragment();
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(dashboardHomeFragment, "Home");
-    //  adapter.addFragment(dashboardvideoFragment, "Video");
+        //  adapter.addFragment(dashboardvideoFragment, "Video");
         adapter.addFragment(dashboardQbankFragment, "Q Bank");
-        adapter.addFragment(dashboardTextFragment, "Test");
+        adapter.addFragment(dashboardTestFragment, "Test");
         adapter.addFragment(dashboardOnlineFragment, "Online");
 
         pager.setAdapter(adapter);
@@ -255,16 +256,16 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("title", "FAQ");
             startActivity(intent);
         } else if (id == R.id.rate) {
-/*
+
             Intent i = new Intent(android.content.Intent.ACTION_VIEW);
             i.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.dnamedical"));
-            startActivity(i);*/
+            startActivity(i);
 
         } else if (id == R.id.nav_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "Hey check out my app at: https://play.google.com/store/apps/details?id=com.google.android.apps.plus");
+                    "Hey check out my app at: https://play.google.com/store/apps/details?id=com.dnamedical");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } else if (id == R.id.about) {
@@ -272,15 +273,15 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("title", "About Us");
             startActivity(intent);
 */
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.contact_us) {
-           /* Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            Intent intent = new Intent(MainActivity.this, ContactUsActivity.class);
             intent.putExtra("title", "Contact Us");
-            startActivity(intent);*/
+            startActivity(intent);
 
         } else if (id == R.id.report) {
-            /*Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-            intent.putExtra("title", "Report");
-            startActivity(intent);*/
+            Intent intent = new Intent(MainActivity.this, FranchiActivity.class);
+            startActivity(intent);
         } else if (id == R.id.terms_conditions) {
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "Terms & Conditions");

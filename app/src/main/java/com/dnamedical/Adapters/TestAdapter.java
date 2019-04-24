@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.dnamedical.Models.test.AllTest;
 import com.dnamedical.Models.test.GrandTest;
 import com.dnamedical.Models.test.MiniTest;
@@ -52,11 +55,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.tripDateFormat(grandTests.get(holder.getAdapterPosition()).getTestDate()));
+            holder.textDate.setText(grandTests.get(holder.getAdapterPosition()).getTestDate());
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(Utils.tripDateFormat(grandTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(grandTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
+                if (!Objects.requireNonNull(grandTests.get(holder.getAdapterPosition()).getTestDate()).equals(grandTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
@@ -90,23 +93,21 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(miniTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((miniTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(miniTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition()).getTestDate()));
+            holder.textDate.setText(miniTests.get(holder.getAdapterPosition()).getTestDate());
             if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
-
             }
 
             if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
                 if (miniTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
                     holder.imageLock.setImageResource(R.drawable.submitresult);
                 }
-
             }
 
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition())
-                        .getTestDate())).equals(Utils.tripDateFormat(miniTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
+                if (!Objects.requireNonNull(miniTests.get(holder.getAdapterPosition())
+                        .getTestDate()).equals(miniTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
@@ -130,10 +131,12 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(allTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition()).getTestDate()));
+            holder.textDate.setText(allTests.get(holder.getAdapterPosition()).getTestDate());
+            Log.d("time",""+allTests.get(holder.getAdapterPosition()).getTestDate());
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
+
 
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
                 if (allTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
@@ -142,13 +145,26 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 }
             }
 
-            if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(allTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
+          /*  if (holder.getAdapterPosition() > 0) {
+                if (!allTests.get(holder.getAdapterPosition())
+                        .getTestDate().equalsIgnoreCase(allTests.get(holder.getAdapterPosition() - 1)
+                        .getTestDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
                 }
-            }
+            }*/
+
+
+           /* if (holder.getAdapterPosition() > 0) {
+                if (!Objects.requireNonNull(allTests.get(holder.getAdapterPosition())
+                        .getTestDate()).equals(allTests.get(holder.getAdapterPosition() - 1)
+                        .getTestDate())) {
+                    holder.textDate.setVisibility(View.VISIBLE);
+                } else {
+                    holder.textDate.setVisibility(GONE);
+                }
+            }*/
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -166,7 +182,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition()).getTestDate()));
+           holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate());
+        //  holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate()   );
             if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
@@ -178,7 +195,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition()).getTestDate())).equals(Utils.tripDateFormat(subjectTests.get(holder.getAdapterPosition() - 1).getTestDate()))) {
+                if (!Objects.requireNonNull(subjectTests.get(holder.getAdapterPosition()).getTestDate())
+                        .equals(subjectTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
@@ -217,18 +235,22 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
     public void setGrandData(List<GrandTest> testList) {
+       // Collections.sort(testList);
         this.grandTests = testList;
     }
 
     public void setMiniData(List<MiniTest> testList) {
+        //Collections.sort(testList);
         this.miniTests = testList;
     }
 
     public void setAllData(List<AllTest> testList) {
-        this.allTests = testList;
+        //Collections.sort(testList);
+        this.allTests = testList; ;
     }
 
     public void setSubjectTestsData(List<SubjectTest> testList) {
+       // Collections.sort(testList);
         this.subjectTests = testList;
     }
 

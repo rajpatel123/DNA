@@ -13,17 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.KnowMoreAdapter;
-import com.dnamedical.Models.faculties.FacultyDetail;
+import com.dnamedical.Models.Directors;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DNAKnowmoreActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    private FacultyDetail facultyDetail;
+    private Directors directors;
     Button btnSuscribe;
     TextView textCall, textGmail, textFAQ;
 
@@ -89,22 +90,23 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.knowMoreData(new Callback<FacultyDetail>() {
+            RestClient.knowMoreData(new Callback<com.dnamedical.Models.Directors>() {
                 @Override
-                public void onResponse(Call<FacultyDetail> call, Response<FacultyDetail> response) {
+                public void onResponse(Call<Directors> call, Response<Directors> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
                         if (response.body().getStatus().equals("1")) {
-                            facultyDetail = response.body();
-                            if (facultyDetail != null && facultyDetail.getFaculty().size() > 0) {
+                            directors = response.body();
+                            if (directors != null && directors.getFaculty().size() > 0) {
                                 Log.d("Api Response :", "Got Success from Api");
                                 KnowMoreAdapter knowMoreAdapter = new KnowMoreAdapter(getApplicationContext());
 
 
-                                knowMoreAdapter.setFacultyDetailList(facultyDetail.getFaculty());
+                                knowMoreAdapter.setFacultyDetailList(directors.getFaculty());
 
-                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                                ((LinearLayoutManager) layoutManager).setOrientation(LinearLayoutManager.HORIZONTAL);
+                                LinearLayoutManager layoutManager
+                                        = new LinearLayoutManager(DNAKnowmoreActivity.this, LinearLayoutManager.HORIZONTAL, false);
+
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setAdapter(knowMoreAdapter);
                             } else {
@@ -124,7 +126,7 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
 
 
                 @Override
-                public void onFailure(Call<FacultyDetail> call, Throwable t) {
+                public void onFailure(Call<Directors> call, Throwable t) {
                     Utils.dismissProgressDialog();
                     Toast.makeText(DNAKnowmoreActivity.this, "Api Failed", Toast.LENGTH_SHORT).show();
 

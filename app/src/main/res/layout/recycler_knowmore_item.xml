@@ -1,55 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="center">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-         <!--   <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15sp"
-                android:layout_weight="1"
-                android:background="@color/knowmorebck"
-                android:gravity="center"
-                android:orientation="vertical">
--->
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    >
 
 
-            <ImageView
-                android:layout_gravity="center"
-                android:id="@+id/facultyprofile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/dr1" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ProgressBar
-android:visibility="gone"
-                android:id="@+id/imageloader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
 
-        </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/facultyprofile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:src="@drawable/dr1" />
+
+                <ProgressBar
+                    android:id="@+id/imageloader"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center" />
+
+
+            </FrameLayout>
 
 
             <TextView
-                android:layout_gravity="center"
                 android:id="@+id/facultyname"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:textSize="14dp"
                 android:text="Dr.Narayan Singh"
                 android:textColor="@color/colorAccent"
 
@@ -57,16 +45,15 @@ android:visibility="gone"
                 />
 
             <TextView
-                android:layout_gravity="center"
                 android:id="@+id/medicine"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="MD, Internal Medicine"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textColor="@color/black_titles"
+                android:textSize="8sp" />
 
         </LinearLayout>
 
-    </LinearLayout>
 
+</LinearLayout>

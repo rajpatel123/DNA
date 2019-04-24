@@ -19,11 +19,11 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:tint="@color/white"
             app:srcCompat="@drawable/ic_left_arrow" />
 
@@ -121,27 +121,35 @@
                 android:id="@+id/llControllerWrapperFlexible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/progress_rl"
                 android:background="@color/black"
                 android:orientation="horizontal"
-                android:paddingTop="30dp">
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/md_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:foreground="?attr/selectableItemBackground"
-                    android:padding="8dp"
+                    android:padding="4dp"
                     app:srcCompat="@drawable/ic_play" />
 
+                <TextView
+                    android:id="@+id/videoDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00 / 00:00"
+                    android:padding="4dp"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"/>
                 <ImageView
                     android:id="@+id/md_replay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:foreground="?attr/selectableItemBackground"
-                    android:padding="8dp"
+                    android:padding="4dp"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_audio_replay_new" />
 
 
@@ -149,7 +157,7 @@
                     android:id="@+id/md_speed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center_horizontal">
 
@@ -157,7 +165,7 @@
                         android:id="@+id/imgSpeed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
+                        android:padding="4dp"
                         app:srcCompat="@drawable/ic_next_new" />
 
                     <TextView
@@ -170,44 +178,45 @@
 
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:id="@+id/progress_rl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-30dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+
+                    <com.warkiz.widget.DotIndicatorSeekBar
+                        android:id="@+id/seekbarVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="5dp"
+                        app:isb_indicator_color="@color/transparent"
+                        app:isb_indicator_text_color="@color/colorPrimary"
+                        app:isb_seek_smoothly="true"
+                        app:isb_show_indicator="none"
+                        app:isb_thumb_color="@color/black"
+                        app:isb_thumb_drawable="@drawable/ic_seekbar_thumb"
+                        app:isb_track_background_color="@color/dark_gray"
+                        app:isb_track_progress_color="@color/white"
+                        app:isb_user_seekable="true" />
+
+
+                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/full_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:foreground="?attr/selectableItemBackground"
-                    android:padding="8dp"
+                    android:padding="4dp"
                     app:srcCompat="@drawable/ic_full_screen" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/progress_rl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="-30dp"
-                android:orientation="horizontal">
-
-
-                <com.warkiz.widget.DotIndicatorSeekBar
-                    android:id="@+id/seekbarVideo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/transparent"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="10dp"
-                    app:isb_indicator_color="@color/transparent"
-                    app:isb_indicator_text_color="@color/colorPrimary"
-                    app:isb_seek_smoothly="true"
-                    app:isb_show_indicator="none"
-                    app:isb_thumb_color="@color/black"
-                    app:isb_thumb_drawable="@drawable/ic_seekbar_thumb"
-                    app:isb_track_background_color="@color/dark_gray"
-                    app:isb_track_progress_color="@color/white"
-                    app:isb_user_seekable="true" />
-
-
-            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -227,26 +236,24 @@
         android:textSize="18sp" />
 
     <View
-        android:layout_below="@id/heading"
         android:layout_width="match_parent"
         android:layout_height="8pt"
-        android:background="@color/black"/>
+        android:layout_below="@id/heading"
+        android:background="@color/black" />
 
     <ScrollView
 
-        android:background="#efeded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heading">
+        android:layout_below="@+id/heading"
+        android:background="#efeded">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:orientation="vertical">
 
                 <TextView
@@ -255,172 +262,54 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:paddingLeft="15dp"
-                    android:textSize="18sp"
                     android:paddingBottom="10dp"
                     android:text="DR RAJEEV RANJAN"
                     android:textAllCaps="true"
-                    android:textColor="@color/Black" />
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/text_large" />
 
                 <TextView
-                    android:visibility="gone"
+                    android:id="@+id/designation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
-                    android:text="Spermatogenesis | Human Reproduction | Dr Rajeev Ranjan" />
+                    android:text="Spermatogenesis | Human Reproduction | Dr Rajeev Ranjan"
+                    android:textSize="@dimen/evp_text_size_medium"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:visibility="gone"
+                    android:id="@+id/video_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
-                    android:text="-NEET AIIMS prepration videos" />
+                    android:text="-NEET AIIMS prepration videos"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
                     android:text="@string/vedio_text"
-                    android:textColor="@color/Black" />
+                    android:textColor="@color/Black"
+                    android:visibility="visible" />
 
-                <LinearLayout
-                    android:visibility="gone"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/timeslot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="50dp"
+                    >
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20sp"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="20sp"
-                            android:layout_height="20sp"
-                            android:src="@drawable/video_player" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingLeft="8sp"
-                            android:text="00:00:00"
-                            android:textColor="@color/orange1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingLeft="8sp"
-                            android:text="Introduction" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20sp"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-
-                        <ImageView
-                            android:layout_width="20sp"
-                            android:layout_height="20sp"
-                            android:src="@drawable/video_player" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="8sp"
-                            android:text="00:20:12"
-                            android:textColor="@color/orange1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="8sp"
-                            android:text="Cellular Physiology" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20sp"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-
-                        <ImageView
-                            android:layout_width="20sp"
-                            android:layout_height="20sp"
-                            android:src="@drawable/video_player" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="8sp"
-                            android:text="00:20:12"
-                            android:textColor="@color/orange1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="8sp"
-                            android:text="Lorem Ipsum is simply" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20sp"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-
-                        <ImageView
-                            android:layout_width="20sp"
-                            android:layout_height="20sp"
-                            android:src="@drawable/video_player" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="8sp"
-                            android:text="00:20:12"
-                            android:textColor="@color/orange1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="8sp"
-                            android:text="Cellular Physiology" />
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
-
-
 </RelativeLayout>

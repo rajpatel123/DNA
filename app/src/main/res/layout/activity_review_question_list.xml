@@ -28,15 +28,16 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="All"
+            android:text="Review"
             android:textSize="20dp"
-            android:drawableRight="@drawable/reviewtext_all_bottom_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
     </LinearLayout>
 
+<!--
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +53,7 @@
             app:tabIndicatorColor="@color/orange"
             app:tabIndicatorHeight="4sp"
             app:tabMode="scrollable" />
-        <!-- </android.support.design.widget.AppBarLayout>-->
+        &lt;!&ndash; </android.support.design.widget.AppBarLayout>&ndash;&gt;
         <View
             android:id="@+id/tabBarShadow"
             android:layout_width="match_parent"
@@ -61,6 +62,7 @@
     </LinearLayout>
 
  <LinearLayout
+     android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tablayout">
@@ -73,14 +75,14 @@
 
 
     </LinearLayout>
+-->
 
-<!--
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-       android:visibility="gone"
+        android:id="@+id/recycler_one"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>-->
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

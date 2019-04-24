@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dnamedical">
-<uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -14,7 +15,17 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QbankReviewResult"></activity>
+        <activity android:name=".Activities.FranchiActivity"
+            android:screenOrientation="portrait"
+            android:label="Query"
+            android:theme="@style/AppTheme5"></activity>
+        <activity android:name=".Activities.QbankResultListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.PromoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme6"/>
+        <activity android:name=".Activities.QbankReviewResult"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"
             android:screenOrientation="portrait" />
@@ -51,7 +62,7 @@
             android:name=".Activities.ReviewResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dnamedical.Activities.SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:theme="@style/AppTheme6">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -119,7 +130,6 @@
         <activity
             android:name=".Activities.ContactUsActivity"
             android:label="Contact Us"
-            android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity android:name=".Activities.DNASettingActivity" />

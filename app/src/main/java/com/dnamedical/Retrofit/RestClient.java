@@ -1,16 +1,21 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Models.Directors;
+import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
+import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
+import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
+import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.test.TestQuestionData;
@@ -18,6 +23,8 @@ import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.registration.CommonResponse;
+
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -40,6 +47,10 @@ public class RestClient {
 
     public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
         RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password, college).enqueue(callback);
+    }
+
+    public static void franchiesRegister(RequestBody username, RequestBody phoneno, RequestBody usermail, RequestBody comment, Callback<FranchiesResponse> callback) {
+        RetrofitClient.getClient().franchiRegister(username, phoneno, usermail, comment).enqueue(callback);
     }
 
     public static void facebookRegister(RequestBody name, RequestBody email_id, RequestBody fb_id, Callback<FacebookResponse> callback) {
@@ -68,6 +79,11 @@ public class RestClient {
         RetrofitClient.getClient().getQuestion(test_id).enqueue(callback);
     }
 
+    public static void qbankReview(RequestBody user_id, RequestBody qmodule_id, Callback<ReviewListResponse> callback) {
+        RetrofitClient.getClient().qbankReview(user_id, qmodule_id).enqueue(callback);
+    }
+
+
     public static void getTest(Callback<TestQuestionData> callback) {
         RetrofitClient.getClient().getTest().enqueue(callback);
     }
@@ -84,7 +100,7 @@ public class RestClient {
 
     }
 
-    public static void reviewQuestionResult(RequestBody user_id, RequestBody test_id, Callback<ReviewResult> callback) {
+    public static void reviewQuestionResult(RequestBody user_id, RequestBody test_id, Callback<TestReviewResponse> callback) {
         RetrofitClient.getClient().reviewQuestionResult(user_id, test_id).enqueue(callback);
     }
 
@@ -94,7 +110,7 @@ public class RestClient {
 
     }
 
-    public static void knowMoreData(Callback<FacultyDetail> callback) {
+    public static void knowMoreData(Callback<Directors> callback) {
         RetrofitClient.getClient().knowMoreData().enqueue(callback);
 
 
@@ -128,5 +144,9 @@ public class RestClient {
     public static void verifyOtp(RequestBody userid, RequestBody code, Callback<VerifyOtpResponse> callback) {
         RetrofitClient.getClient().verifyOTP(userid, code).enqueue(callback);
 
+    }
+
+    public static void getVideo(Callback<PromoVideo> responseBodyCallback) {
+        RetrofitClient.getClient().getVideo().enqueue(responseBodyCallback);
     }
 }

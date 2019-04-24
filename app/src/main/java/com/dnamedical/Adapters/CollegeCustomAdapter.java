@@ -18,14 +18,14 @@ public class CollegeCustomAdapter extends BaseAdapter {
     String collegeName[];
     Name nameList;
     OnCollegeSelect onCollegeSelect;
-   List<Name> collegeListResponse;
+    List<Name> collegeListResponse;
     int flags[];
     LayoutInflater layoutInflater;
 
     public CollegeCustomAdapter(Context applicationContext, List<Name> collegeListResponse) {
         this.applicationContext = applicationContext;
         this.flags = flags;
-        this.collegeListResponse=collegeListResponse;
+        this.collegeListResponse = collegeListResponse;
         layoutInflater = (LayoutInflater.from(applicationContext));
     }
 
@@ -53,7 +53,7 @@ public class CollegeCustomAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         view = layoutInflater.inflate(R.layout.spinner_item_college, null);
         TextView names = (TextView) view.findViewById(R.id.textView1);
-        names.setText(""+collegeListResponse.get(position).getName());
+        names.setText("" + collegeListResponse.get(position).getName());
         names.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

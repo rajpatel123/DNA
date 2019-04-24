@@ -5,11 +5,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -77,17 +81,31 @@ public class Utils {
     }
 
     public static void displayToast(Context applicationContext, String s) {
-        Toast.makeText(applicationContext,s,Toast.LENGTH_LONG).show();
+        Toast.makeText(applicationContext, s, Toast.LENGTH_LONG).show();
 
     }
 
+//    public static String tripDateFormat(String testDate) {
+//        String myDate = "2014/10/29 18:10:45";
+//        LocalDateTime localDateTime = LocalDateTime.parse(myDate,
+//                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss") );
+///*
+//  With this new Date/Time API, when using a date, you need to
+//  specify the Zone where the date/time will be used. For your case,
+//  seems that you want/need to use the default zone of your system.
+//  Check which zone you need to use for specific behaviour e.g.
+//  CET or America/Lima
+//*/
+//        long millis = localDateTime
+//                .atZone(ZoneId.systemDefault())
+//                .toInstant().toEpochMilli();
+//
+//
+//        long testTime = getTime(testDate);
+//        Log.d("Time:",""+testTime);
+//        return dateFormat(testTime);
+//    }
 
-    public static String tripDateFormat(String testDate) {
-        long testTime = getTime(testDate);
-        Date dNow = new Date(testTime);
-        SimpleDateFormat tripDateFormat = new SimpleDateFormat("DD MMMM yyyy", Locale.ENGLISH);
-        return tripDateFormat.format(dNow);
-    }
 
     private static long getTime(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
@@ -101,12 +119,11 @@ public class Utils {
     }
 
 
-
-    public static String tripDateFormat(long timeStamp) {
+    public static String dateFormat(long timeStamp) {
         if (timeStamp <= 0) {
             return null;
         }
-         SimpleDateFormat tripDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+        SimpleDateFormat tripDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
         Date dNow = new Date(timeStamp);
         return tripDateFormat.format(dNow);
     }

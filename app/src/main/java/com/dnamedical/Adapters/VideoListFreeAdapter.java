@@ -43,39 +43,15 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
     public void onBindViewHolder(final VideoListFreeAdapter.ViewHolder holder, final int position) {
         holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
         holder.index.setText("" + (holder.getAdapterPosition() + 1));
+        Picasso.with(applicationContext).load(freeList.get(holder.getAdapterPosition()).getDr_img()).into(holder.imageDoctor);
+        holder.doctorName.setText(freeList.get(holder.getAdapterPosition()).getSubTitle());
 
-        if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("BIOCHEMISTRY")) {
-            Picasso.with(applicationContext).load(R.drawable.nileshchandra).into(holder.imageDoctor);
-            holder.doctorName.setText("By Dr. Nilesh Chandra");
-        }
-        if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("P.SM. BY DR. ASWANI")) {
-            Picasso.with(applicationContext).load(R.drawable.aswani_dna).into(holder.imageDoctor);
-            holder.title.setText("P.S.M");
-            holder.doctorName.setText("By Dr. Ashwani");
-        }
-        if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("MICROBIOLOGY")) {
-            Picasso.with(applicationContext).load(R.drawable.neetushri).into(holder.imageDoctor);
-            holder.doctorName.setText("By Dr. Neetu Shree");
-
-        }
-        if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("PHARMACOLOGY MADE SIMPLE")) {
-            Picasso.with(applicationContext).load(R.drawable.dinesh_dna).into(holder.imageDoctor);
-            holder.doctorName.setText("By Dr. Dinesh");
-        }
-        if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("PSYCHIATRY")) {
-            Picasso.with(applicationContext).load(R.drawable.prasant_agrawal).into(holder.imageDoctor);
-            holder.doctorName.setText("By Dr. Prashant Agarwal");
-        }
-        if (freeList.get(holder.getAdapterPosition()).getTitle().equalsIgnoreCase("ORTHOPAEDICS")) {
-            Picasso.with(applicationContext).load(R.drawable.yusuf).into(holder.imageDoctor);
-            holder.doctorName.setText("By Dr. Yusuf Ali Tyagi");
-        }
 
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onUserClickCallback != null) {
-                    onUserClickCallback.onCateClick(freeList.get(holder.getAdapterPosition()).getUrl(), freeList.get(holder.getAdapterPosition()).getTitle());
+                    onUserClickCallback.onCateClick(freeList.get(holder.getAdapterPosition()));
                 }
 
             }
@@ -128,7 +104,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
 
     public interface OnCategoryClick {
-        public void onCateClick(String url, String title);
+        public void onCateClick(Free free);
     }
 
 }

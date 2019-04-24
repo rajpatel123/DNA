@@ -35,7 +35,7 @@
             android:paddingLeft="10dp"
             android:text="Anatomy"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_large"
             android:textStyle="bold" />
 
 
@@ -67,7 +67,7 @@
                 android:paddingTop="5dp"
                 android:text="Introducion to Anatomy"
                 android:textColor="@color/black_titles"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_large" />
 
             <LinearLayout
                 android:id="@+id/status"
@@ -75,13 +75,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingTop="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
                 android:paddingRight="10dp">
 
                 <ImageView
                     android:id="@+id/pause_image"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@drawable/paused_icon" />
 
                 <TextView
@@ -111,6 +112,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:paddingTop="10dp"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:text="2 Fresh Mcq added"
             android:textSize="16sp" />
@@ -175,7 +177,7 @@
 
                         <Button
                             android:id="@+id/start_test"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/colorAccent"
                             android:paddingLeft="10dp"

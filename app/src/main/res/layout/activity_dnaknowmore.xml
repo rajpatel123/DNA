@@ -55,7 +55,8 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
                 <LinearLayout
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -165,11 +166,13 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/knowmore"
-                android:layout_width="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+               >
 
             </android.support.v7.widget.RecyclerView>
 
@@ -177,7 +180,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:gravity="center">
 
 
@@ -199,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="15sp"
                 app:cardElevation="10sp">
 
@@ -211,6 +213,7 @@
                     android:paddingBottom="20dp">
 
                     <LinearLayout
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -232,15 +235,25 @@
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
-                        <Button
-                            android:layout_width="120dp"
-                            android:layout_height="35dp"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/rounded_shape"
-                            android:padding="8dp"
-                            android:text="Edition 2019"
-                            android:textColor="@color/white"
-                            android:textSize="14dp" />
+                        <LinearLayout
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:layout_width="120dp"
+                                android:layout_height="35dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/rounded_shape"
+                                android:padding="8dp"
+                                android:layout_marginRight="15dp"
+                                android:text="Edition 2019"
+                                android:textColor="@color/white"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -435,6 +448,7 @@
                     android:paddingBottom="20dp">
 
                     <LinearLayout
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -457,15 +471,25 @@
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
-                        <Button
-                            android:layout_width="120dp"
-                            android:layout_height="35dp"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/rounded_shape"
-                            android:padding="8dp"
-                            android:text="Edition 2019"
-                            android:textColor="@color/white"
-                            android:textSize="14dp" />
+                        <LinearLayout
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:layout_width="120dp"
+                                android:layout_height="35dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/rounded_shape"
+                                android:padding="8dp"
+                                android:layout_marginRight="15dp"
+                                android:text="Edition 2019"
+                                android:textColor="@color/white"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -653,6 +677,7 @@
                     android:paddingBottom="20dp">
 
                     <LinearLayout
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -673,16 +698,26 @@
                             android:textColor="@color/colorAccent"
                             android:textSize="20sp"
                             android:textStyle="bold" />
+                        <LinearLayout
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:layout_width="120dp"
+                                android:layout_height="35dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/rounded_shape"
+                                android:padding="8dp"
+                                android:layout_marginRight="15dp"
+                                android:text="Edition 2019"
+                                android:textColor="@color/white"
+                                android:textSize="14dp" />
 
-                        <Button
-                            android:layout_width="120dp"
-                            android:layout_height="35dp"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/rounded_shape"
-                            android:padding="8dp"
-                            android:text="Edition 2019"
-                            android:textColor="@color/white"
-                            android:textSize="14dp" />
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
@@ -871,6 +906,7 @@
                     android:paddingBottom="20dp">
 
                     <LinearLayout
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -892,15 +928,25 @@
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
-                        <Button
-                            android:layout_width="100dp"
-                            android:layout_height="35dp"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/rounded_shape"
-                            android:padding="5dp"
-                            android:text="Edition 2019"
-                            android:textColor="@color/white"
-                            android:textSize="14dp" />
+                        <LinearLayout
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:layout_width="120dp"
+                                android:layout_height="35dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/rounded_shape"
+                                android:padding="8dp"
+                                android:layout_marginRight="15dp"
+                                android:text="Edition 2019"
+                                android:textColor="@color/white"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -1516,7 +1562,7 @@
                     android:background="@color/darkwhite" />
 
                 <LinearLayout
-
+                    android:padding="5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">

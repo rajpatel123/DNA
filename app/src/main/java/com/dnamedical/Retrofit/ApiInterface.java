@@ -1,16 +1,20 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Models.Directors;
+import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
+import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
-import com.dnamedical.Models.ReviewResult.ReviewResult;
+import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
+import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.test.TestQuestionData;
@@ -18,6 +22,8 @@ import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.registration.CommonResponse;
+
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -30,9 +36,7 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
 
-   /* @POST("api/api.php?req=login")
-    Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
-*/
+
 
 
     @Multipart
@@ -49,6 +53,15 @@ public interface ApiInterface {
                                       @Part("state") RequestBody state,
                                       @Part("password") RequestBody password,
                                       @Part("college") RequestBody college);
+
+
+    @Multipart
+    @POST("api/api.php?req=userquery")
+    Call<FranchiesResponse> franchiRegister(@Part("username") RequestBody username,
+                                            @Part("phoneno") RequestBody phoneno,
+                                            @Part("usermail") RequestBody usermail,
+                                            @Part("comment") RequestBody comment);
+
 
     @Multipart
     @POST("api/api.php?req=facebook")
@@ -88,10 +101,12 @@ public interface ApiInterface {
                             @Part("test_id") RequestBody test_id);
 
 
+
     @Multipart
     @POST("api/api.php?req=showresult")
-    Call<ReviewResult> reviewQuestionResult(@Part("user_id") RequestBody user_id,
-                                            @Part("test_id") RequestBody test_id);
+    Call<TestReviewResponse> reviewQuestionResult(@Part("user_id") RequestBody user_id,
+                                                  @Part("test_id") RequestBody test_id);
+
 
     @Multipart
     @POST("api/api.php?req=mobilelogin")
@@ -108,18 +123,25 @@ public interface ApiInterface {
     @POST("api/api.php?req=qbank_cate")
     Call<QbankResponse> qbankDetail(@Part("user_id") RequestBody user_id);
 
+    @Multipart
+    @POST("api/api.php?req=qbankmodulereview")
+    Call<ReviewListResponse> qbankReview(@Part("user_id") RequestBody user_id,@Part("qmodule_id") RequestBody qmodule_id );
+
+
 
     /*@Multipart
     @POST("api/api.php?req=qbank_subcate")
     Call<QbankstartResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
 
 */
-    @POST("api/api.php?req=faculty")
-    Call<FacultyDetail> knowMoreData();
+    @POST("api/api.php?req=faculty_head")
+    Call<Directors> knowMoreData();
 
     @Multipart
      @POST("api/api.php?req=qbank_subcate")
     Call<QbankSubResponse> qbanksubdata(@Part("qcat_id") RequestBody qcat_id,@Part("user_id") RequestBody user_id);
+
+
 
 
     @Multipart
@@ -154,7 +176,6 @@ public interface ApiInterface {
             @Part("code") RequestBody code
             );
 
-
-
-
+    @GET("api/api.php?req=promotionvideo")
+    Call<PromoVideo> getVideo();
 }

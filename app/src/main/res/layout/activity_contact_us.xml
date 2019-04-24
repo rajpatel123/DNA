@@ -30,6 +30,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/contact_us_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -41,7 +42,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="8dp"
             android:paddingTop="3dp"
-            android:text="  support@dna.com"
+            android:text="dnahelpgroup@gmail.com"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
@@ -50,36 +51,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
-            android:text="Call us(9 am -9 pm)"
+            android:text="Get a call to know more about the DNA Plans"
             android:textColor="@color/colorAccent"
             android:textSize="16sp" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="8sp"
-            android:background="@color/colorAccent"
-            android:drawableLeft="@drawable/phone_contact_us"
-            android:elevation="10dp"
-            android:paddingBottom="3dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="8dp"
-            android:paddingTop="3dp"
-            android:text="  08048138456"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp"
-            android:text="Get a call to know more about the PRO Plans"
-            android:textColor="@color/colorAccent"
-            android:textSize="16sp" />
-
-        <Button
+            android:id="@+id/contact_us_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
