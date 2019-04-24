@@ -471,7 +471,7 @@ public class TestActivity extends FragmentActivity {
             }
 
             if (!TextUtils.isEmpty(builder))
-                ttQuestion = builder.substring(0, builder.toString().length() - 1).toString();
+                    ttQuestion = builder.substring(0, builder.toString().length() - 1).toString();
 
             StringBuilder ccAnswer = new StringBuilder();
 
