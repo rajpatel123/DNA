@@ -23,6 +23,7 @@ import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
 import hiennguyen.me.circleseekbar.CircleSeekBar;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -43,7 +44,7 @@ public class ResultActivity extends AppCompatActivity {
     private Button reviewButton, shareButton;
     private CircleSeekBar circleSeekBar;
     String user_id;
-    String tquestion,average,canswer,wanswer,sanswer;
+    String tquestion, average, canswer, wanswer, sanswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,24 +86,29 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
+/*
 
-        Intent intent = getIntent();
-         average = intent.getStringExtra("average");
-        String userid = intent.getStringExtra("user_Id");
-         tquestion = intent.getStringExtra("tquestion");
-       canswer = intent.getStringExtra("canswer");
-         wanswer = intent.getStringExtra("wanswer");
-        sanswer = intent.getStringExtra("sanswer");
-        String testName = intent.getStringExtra("testName");
+        if (getIntent().hasExtra("tquestion")) {
+            Intent intent = getIntent();
+            average = intent.getStringExtra("average");
+            String userid = intent.getStringExtra("user_Id");
+            tquestion = intent.getStringExtra("tquestion");
+            canswer = intent.getStringExtra("canswer");
+            wanswer = intent.getStringExtra("wanswer");
+            sanswer = intent.getStringExtra("sanswer");
+            String testName = intent.getStringExtra("testName");
+            percentValue.setText("  " + average);
+            circleSeekBar.setProgressDisplay(Integer.parseInt(canswer));
+            total.setText(tquestion);
+            correct.setText(canswer);
+            wrong.setText(wanswer);
+            skipped.setText(sanswer);
 
+        }
+
+*/
 
         //dateTv.setText(Utils.tripDateFormat(System.currentTimeMillis()));
-        percentValue.setText("  " + average);
-        circleSeekBar.setProgressDisplay(Integer.parseInt(canswer));
-        total.setText(tquestion);
-        correct.setText(canswer);
-        wrong.setText(wanswer);
-        skipped.setText(sanswer);
 
         //testNameTv.setText("" + testName);
 
@@ -110,20 +116,23 @@ public class ResultActivity extends AppCompatActivity {
 
     private void ReviewSheet() {
         String test_id = getIntent().getStringExtra("Test_Id");
-
         Intent intent = new Intent(ResultActivity.this, ReviewQuestionList.class);
         intent.putExtra("id", test_id);
-        intent.putExtra("tquestion",tquestion);
         startActivity(intent);
     }
 
     private void showRankResult() {
+        String user_id;
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            user_id = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
 
-        String userid = getIntent().getStringExtra("User_Id");
         String testid = getIntent().getStringExtra("Test_Id");
 
 
-        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), userid);
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testId = RequestBody.create(MediaType.parse("text/plain"), testid);
 
         if (Utils.isInternetConnected(this)) {
@@ -136,7 +145,13 @@ public class ResultActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
+                            total.setText(userResults.get(0).getTotalQuestion());
+                            skipped.setText(userResults.get(0).getSkipQuestion());
+                            correct.setText(userResults.get(0).getCurrentQuestion());
+                            wrong.setText(userResults.get(0).getWrongQuestion());
+                            percentValue.setText(userResults.get(0).getAverage());
                             allReults = response.body().getAllReult();
+
                             resultAdapter = new ResultAdapter(allReults);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(mLayoutManager);

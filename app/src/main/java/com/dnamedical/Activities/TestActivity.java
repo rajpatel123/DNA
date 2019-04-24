@@ -498,9 +498,9 @@ public class TestActivity extends FragmentActivity {
                 ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
 
 
-            Log.d("TEstData", "userid->" + user_id + "testid->" + test_id + "tquestion->"
-                    + tquestion + "ttQuestion" + ttQuestion +
-                    "canswer->" + canswer + "ccAnswerIds->" + ccAnswerIds + "wanswer->" + wanswer + "wwanswerIds->" + wwanswerIds + "ssanswer->" + ssanswer);
+            Log.d("TEstData", " userid->" + user_id + " testid->" + test_id + " tquestion->"
+                    + tquestion + " ttQuestion" + ttQuestion +
+                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer);
 
             RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, sanswer, ssanswer, new Callback<ResponseBody>() {
                 @Override

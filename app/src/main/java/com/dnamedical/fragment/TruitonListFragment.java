@@ -105,20 +105,20 @@ public class TruitonListFragment extends Fragment {
 						@Override
 						public void onClick(View view) {
 							answer2.setText(question.getAnswer2());
-							if (answer2.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())){
-								activity.correctAnswerList.put(question.getQid(),answer2.getText().toString());
+							if (answer2.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
+								activity.correctAnswerList.put(question.getQid(), answer2.getText().toString());
 								if (activity.wrongAnswerList.containsKey(question.getQid()))
-								activity.wrongAnswerList.remove(question.getQid());
+									activity.wrongAnswerList.remove(question.getQid());
 
-								if (activity.skippedAnswerIdList.contains(question.getQid())){
+								if (activity.skippedAnswerIdList.contains(question.getQid())) {
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
-							}else{
-								activity.wrongAnswerList.put(question.getQid(),"b");
-								if (activity.correctAnswerList.containsKey(question.getQid())){
+							} else {
+								activity.wrongAnswerList.put(question.getQid(), "b");
+								if (activity.correctAnswerList.containsKey(question.getQid())) {
 									activity.correctAnswerList.remove(question.getQid());
 								}
-								if (activity.skippedAnswerIdList.contains(question.getQid())){
+								if (activity.skippedAnswerIdList.contains(question.getQid())) {
 									activity.skippedAnswerIdList.remove(question.getQid());
 								}
 							}
