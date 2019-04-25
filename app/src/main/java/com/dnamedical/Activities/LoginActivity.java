@@ -34,6 +34,7 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.dnamedical.Models.FacebookLoginData;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.login.loginResponse;
@@ -42,6 +43,7 @@ import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -128,51 +130,58 @@ public class LoginActivity extends AppCompatActivity {
         }
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), email_str);
         RequestBody pwd = RequestBody.create(MediaType.parse("text/plain"), pass_str);
-        Utils.showProgressDialog(this);
-        RestClient.loginUser(email, pwd, new Callback<loginResponse>() {
-            @Override
-            public void onResponse(Call<loginResponse> call, Response<loginResponse> response) {
-                Utils.dismissProgressDialog();
-                if (response != null && response.body() != null) {
-                    loginResponse loginResponse = response.body();
-                    if (Integer.parseInt(loginResponse.getStatus()) == 1) {
-                        Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        String id = loginResponse.getLoginDetails().get(0).getId();
-                        String state = loginResponse.getLoginDetails().get(0).getState();
-                        String college = loginResponse.getLoginDetails().get(0).getCollege();
-                        String username=loginResponse.getLoginDetails().get(0).getUsername();
 
-                        DnaPrefs.putString(getApplicationContext(), "Login_Id", id);
-                        DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
-                        DnaPrefs.putString(getApplicationContext(), "STATE",state);
-                        DnaPrefs.putString(getApplicationContext(),"COLLEGE",college);
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.loginUser(email, pwd, new Callback<loginResponse>() {
+                @Override
+                public void onResponse(Call<loginResponse> call, Response<loginResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response != null && response.body() != null) {
+                        loginResponse loginResponse = response.body();
+                        if (Integer.parseInt(loginResponse.getStatus()) == 1) {
+                            Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            String id = loginResponse.getLoginDetails().get(0).getId();
+                            String state = loginResponse.getLoginDetails().get(0).getState();
+                            String college = loginResponse.getLoginDetails().get(0).getCollege();
+                            String username = loginResponse.getLoginDetails().get(0).getUsername();
 
-                        DnaPrefs.putString(getApplicationContext(), "NAME",username);
-                        DnaPrefs.putString(getApplicationContext(), "URL", "");
-                        DnaPrefs.putString(getApplicationContext(), "EMAIL", email_str);
+                            DnaPrefs.putString(getApplicationContext(), "Login_Id", id);
+                            DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
+                            DnaPrefs.putString(getApplicationContext(), "STATE", state);
+                            DnaPrefs.putString(getApplicationContext(), "COLLEGE", college);
+
+                            DnaPrefs.putString(getApplicationContext(), "NAME", username);
+                            DnaPrefs.putString(getApplicationContext(), "URL", "");
+                            DnaPrefs.putString(getApplicationContext(), "EMAIL", email_str);
 
 
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Utils.displayToast(LoginActivity.this, "Invalid login detail");
+                        }
+
                     } else {
                         Utils.displayToast(LoginActivity.this, "Invalid login detail");
-                    }
 
-                } else {
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<loginResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
                     Utils.displayToast(LoginActivity.this, "Invalid login detail");
 
                 }
-            }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(this, "Internet Connection Failed", Toast.LENGTH_SHORT).show();
+        }
 
-
-            @Override
-            public void onFailure(Call<loginResponse> call, Throwable t) {
-                Utils.dismissProgressDialog();
-                Utils.displayToast(LoginActivity.this, "Invalid login detail");
-
-            }
-        });
 
       /*  Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);*/
