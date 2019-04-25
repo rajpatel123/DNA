@@ -68,6 +68,7 @@ public class TestActivity extends FragmentActivity {
     private ImageView guessImage;
     private Button button, menuButton;
     private Button skip;
+    long testCompleteTime=0;
 
     String user_id;
 
@@ -82,6 +83,7 @@ public class TestActivity extends FragmentActivity {
     private String wwanswerIds;
     private String ttQuestion;
     private String ccAnswerIds;
+    long testDuration = 0;
     private RelativeLayout relative;
     private LinearLayout linearLayoutNext,linearLayoutPrevious;
 
@@ -118,28 +120,28 @@ public class TestActivity extends FragmentActivity {
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
 
-        long testDuration = 0;
+
         if (!TextUtils.isEmpty(duration)) {
             switch (duration) {
                 case "15m":
-                    testDuration = 15;
+                    testDuration = 15 * 60 * 1000;
                 case "30m":
-                    testDuration = 30;
+                    testDuration = 30 * 60 * 1000;
                     break;
                 case "45m":
-                    testDuration = 45;
+                    testDuration = 45 * 60 * 1000;
                     break;
                 case "1h":
-                    testDuration = 60;
+                    testDuration = 60 * 60 * 1000;
                     break;
                 case "2h":
-                    testDuration = 120;
+                    testDuration = 120 * 60 * 1000;
                     break;
                 case "3h":
-                    testDuration = 180;
+                    testDuration = 180 * 60 * 1000;
                     break;
                 case "3 hour":
-                    testDuration = 180;
+                    testDuration = 180 * 60 * 1000;
                     break;
 
 
@@ -217,13 +219,14 @@ public class TestActivity extends FragmentActivity {
         });*/
 
 
-        countDownTimer = new CountDownTimer(testDuration * 60 * 1000, 1000) {
+        countDownTimer = new CountDownTimer(testDuration, 1000) {
 
             public void onTick(long millis) {
                 String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                         TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 timer.setText(hms);
+                testCompleteTime = TimeUnit.MILLISECONDS.toMinutes(testDuration-millis);
             }
 
             public void onFinish() {
@@ -526,11 +529,11 @@ public class TestActivity extends FragmentActivity {
                 ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
 
 
-            Log.d("TEstData", " userid->" + user_id + " testid->" + test_id + " tquestion->"
+            Log.d("TEstData", "  Duration  "+testCompleteTime +" userid->" + user_id + " testid->" + test_id + " tquestion->"
                     + tquestion + " ttQuestion" + ttQuestion +
                     " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer);
 
-            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer, new Callback<ResponseBody>() {
+            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer,""+testCompleteTime, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();

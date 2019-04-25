@@ -198,30 +198,29 @@
                                <FrameLayout
                                    android:layout_width="wrap_content"
                                    android:layout_height="wrap_content">
-                                   <hiennguyen.me.circleseekbar.CircleSeekBar
-                                       android:id="@+id/circular"
-                                       android:layout_width="0dp"
-                                       android:layout_height="0dp"
-                                       android:padding="64dp"
-                                       app:csb_arcColor="@color/color_arc"
-                                       app:csb_arcWidth="6dp"
-                                       app:csb_max="1000"
-                                       app:csb_min="10"
-                                       app:csb_progress="300"
-                                       app:csb_progressColor="@color/colorPrimary"
-                                       app:csb_progressWidth="12dp"
-                                       app:csb_step="5"
-                                       app:csb_textColor="@color/color_text"
-                                       app:csb_textSize="36sp"
-                                       app:csb_thumbSize="36dp"
-                                       />
-                                   <TextView
+                                   <me.tankery.lib.circularseekbar.CircularSeekBar
                                        android:id="@+id/correct"
-                                       android:layout_width="70sp"
-                                       android:layout_height="70sp"
-                                       android:background="@drawable/result_number"
-                                       android:gravity="center"
-                                       android:textColor="@color/orange" />
+                                       android:layout_width="80dp"
+                                       android:layout_height="wrap_content"
+                                       android:layout_gravity="center_horizontal"
+                                       app:cs_circle_color = "@color/app_bg"
+                                       app:cs_circle_progress_color = "@color/orange"
+                                       app:cs_pointer_color = "@color/orange"
+                                       app:cs_negative_enabled="true"
+                                       app:cs_circle_style="butt"
+                                       app:cs_circle_stroke_width="8dp"
+                                       app:cs_pointer_stroke_width="6dp"
+                                       app:cs_pointer_angle="44"/>
+
+
+                                   <TextView
+                                       android:id="@+id/correctText"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:layout_gravity="center"
+                                       android:textSize="15sp"
+                                       android:textColor="@color/orange"
+                                       android:text="23"/>
 
                                </FrameLayout>
 
@@ -243,14 +242,34 @@
                                android:layout_weight="1"
                                android:orientation="vertical">
 
-                               <TextView
-                                   android:id="@+id/wrong"
-                                   android:layout_width="70sp"
-                                   android:layout_height="70sp"
-                                   android:background="@drawable/result_number"
-                                   android:gravity="center"
+                               <FrameLayout
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content">
+                                   <me.tankery.lib.circularseekbar.CircularSeekBar
+                                       android:id="@+id/skipped"
+                                       android:layout_width="80dp"
+                                       android:layout_height="wrap_content"
+                                       android:layout_gravity="center_horizontal"
+                                       app:cs_circle_color = "@color/app_bg"
+                                       app:cs_circle_progress_color = "@color/orange"
+                                       app:cs_pointer_color = "@color/orange"
+                                       app:cs_negative_enabled="true"
+                                       app:cs_circle_style="butt"
+                                       app:cs_circle_stroke_width="8dp"
+                                       app:cs_pointer_stroke_width="6dp"
+                                       app:cs_pointer_angle="44"/>
 
-                                   android:textColor="@color/orange" />
+
+                                   <TextView
+                                       android:id="@+id/skippedText"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:layout_gravity="center"
+                                       android:textSize="15sp"
+                                       android:textColor="@color/orange"
+                                       android:text="23"/>
+
+                               </FrameLayout>
 
                                <TextView
                                    android:layout_width="wrap_content"
@@ -268,13 +287,35 @@
                                android:layout_weight="1"
                                android:orientation="vertical">
 
-                               <TextView
-                                   android:id="@+id/skipped"
-                                   android:layout_width="70sp"
-                                   android:layout_height="70sp"
-                                   android:background="@drawable/result_number"
-                                   android:gravity="center"
-                                   android:textColor="@color/orange" />
+                               <FrameLayout
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content">
+                                   <me.tankery.lib.circularseekbar.CircularSeekBar
+                                       android:id="@+id/wrong"
+                                       android:layout_width="80dp"
+                                       android:layout_height="wrap_content"
+                                       android:layout_gravity="center_horizontal"
+                                       app:cs_circle_color = "@color/app_bg"
+                                       app:cs_circle_progress_color = "@color/orange"
+                                       app:cs_pointer_color = "@color/orange"
+                                       app:cs_negative_enabled="true"
+                                       app:cs_circle_style="butt"
+                                       app:cs_circle_stroke_width="8dp"
+                                       app:cs_pointer_stroke_width="6dp"
+                                       app:cs_pointer_angle="44"/>
+
+
+                                   <TextView
+                                       android:id="@+id/wrongText"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:layout_gravity="center"
+                                       android:textSize="15sp"
+                                       android:textColor="@color/orange"
+                                       android:text="23"/>
+
+                               </FrameLayout>
+
 
                                <TextView
                                    android:layout_width="wrap_content"
