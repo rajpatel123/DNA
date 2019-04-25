@@ -153,6 +153,7 @@ public class TestActivity extends FragmentActivity {
                 mPager.setCurrentItem(currentPosition + 1);
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
+                    skip.setEnabled(true);
                     submitAlertDiolog();
                 } else {
                     skip.setText("SKIP");
@@ -195,7 +196,7 @@ public class TestActivity extends FragmentActivity {
                 mPager.setCurrentItem(currentPosition + 1);
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
-
+                    skip.setEnabled(true);
                 } else {
                     skip.setText("SKIP");
                 }
@@ -234,15 +235,15 @@ public class TestActivity extends FragmentActivity {
 
 
 
-    public void hideShowSkip(boolean isHide){
-        if (isHide){
-            skip.setEnabled(false);
-            nextText.setEnabled(true);
-        }else{
-            skip.setEnabled(true);
-            nextText.setEnabled(false);
-        }
-    }
+//    public void hideShowSkip(boolean isHide){
+//        if (isHide){
+//            skip.setEnabled(false);
+//            nextText.setEnabled(true);
+//        }else{
+//            skip.setEnabled(true);
+//            nextText.setEnabled(false);
+//        }
+//    }
 
     public void nextEnable(boolean isEnable){
         if (isEnable){
@@ -482,7 +483,7 @@ public class TestActivity extends FragmentActivity {
             String tquestion = "" + qustionDetails.getDetail().size();
             String canswer = "" + correctAnswerList.keySet().size();
             String wanswer = "" + wrongAnswerList.keySet().size();
-            String sanswer = "" + skippedAnswerIdList.size();
+            int sanswer =0;
 
             StringBuilder builder = new StringBuilder();
             for (Detail detail : qustionDetails.getDetail()) {
@@ -510,9 +511,10 @@ public class TestActivity extends FragmentActivity {
 
 
             StringBuilder skiped = new StringBuilder();
-            for (String ss : skippedAnswerIdList) {
-               //skiped.append(ss + ":" + skippedQuestions.get(ss) + ",");
-               skiped.append(ss + ",");
+            for (Detail ss : qustionDetails.getDetail()) {
+               if (!correctAnswerList.containsKey(ss.getQid())&& !wrongAnswerList.containsKey(ss.getQid())){
+                   skiped.append(ss.getQid() + ",");
+               }
             }
             if (!TextUtils.isEmpty(skiped))
                 ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
@@ -522,7 +524,7 @@ public class TestActivity extends FragmentActivity {
                     + tquestion + " ttQuestion" + ttQuestion +
                     " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer);
 
-            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, sanswer, ssanswer, new Callback<ResponseBody>() {
+            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();

@@ -77,24 +77,20 @@ public class TruitonListFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             if (activity != null) {
-                                activity.hideShowSkip(true);
+                                //activity.hideShowSkip(true);
                             }
                             answer1.setText(question.getAnswer1());
                             if (answer1.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
                                 activity.correctAnswerList.put(question.getQid(), answer1.getText().toString());
                                 if (activity.wrongAnswerList.containsKey(question.getQid()))
                                     activity.wrongAnswerList.remove(question.getQid());
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             } else {
                                 activity.wrongAnswerList.put(question.getQid(), "a");
                                 if (activity.correctAnswerList.containsKey(question.getQid())) {
                                     activity.correctAnswerList.remove(question.getQid());
                                 }
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             }
                             updateAnswer(cardView1);
                         }
@@ -113,7 +109,7 @@ public class TruitonListFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             if (activity != null) {
-                                activity.hideShowSkip(true);
+                                //activity.hideShowSkip(true);
                             }
                             answer2.setText(question.getAnswer2());
                             if (answer2.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
@@ -121,17 +117,13 @@ public class TruitonListFragment extends Fragment {
                                 if (activity.wrongAnswerList.containsKey(question.getQid()))
                                     activity.wrongAnswerList.remove(question.getQid());
 
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             } else {
                                 activity.wrongAnswerList.put(question.getQid(), "b");
                                 if (activity.correctAnswerList.containsKey(question.getQid())) {
                                     activity.correctAnswerList.remove(question.getQid());
                                 }
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             }
                             updateAnswer(cardView2);
                         }
@@ -150,24 +142,20 @@ public class TruitonListFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             if (activity != null) {
-                                activity.hideShowSkip(true);
+                               // activity.hideShowSkip(true);
                             }
                             answer3.setText(question.getAnswer3());
                             if (answer3.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
                                 activity.correctAnswerList.put(question.getQid(), answer3.getText().toString());
                                 if (activity.wrongAnswerList.containsKey(question.getQid()))
                                     activity.wrongAnswerList.remove(question.getQid());
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             } else {
                                 activity.wrongAnswerList.put(question.getQid(), "c");
                                 if (activity.correctAnswerList.containsKey(question.getQid())) {
                                     activity.correctAnswerList.remove(question.getQid());
                                 }
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             }
                             updateAnswer(cardView3);
                         }
@@ -186,24 +174,20 @@ public class TruitonListFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             if (activity != null) {
-                                activity.hideShowSkip(true);
+                                //activity.hideShowSkip(true);
                             }
                             answer4.setText(question.getAnswer4());
                             if (answer4.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
                                 activity.correctAnswerList.put(question.getQid(), answer4.getText().toString());
                                 if (activity.wrongAnswerList.containsKey(question.getQid()))
                                     activity.wrongAnswerList.remove(question.getQid());
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             } else {
                                 activity.wrongAnswerList.put(question.getQid(), "d");
                                 if (activity.correctAnswerList.containsKey(question.getQid())) {
                                     activity.correctAnswerList.remove(question.getQid());
                                 }
-                                if (activity.skippedAnswerIdList.contains(question.getQid())) {
-                                    activity.skippedAnswerIdList.remove(question.getQid());
-                                }
+
                             }
                             updateAnswer(cardView4);
                         }
@@ -217,10 +201,10 @@ public class TruitonListFragment extends Fragment {
     private void updatePreviousSelection(String qid, CardView cardView1) {
 
         if (activity.correctAnswerList.keySet().contains(qid) || activity.wrongAnswerList.keySet().contains(qid)){
-            activity.hideShowSkip(true);
+            //activity.hideShowSkip(true);
             updateAnswer(cardView1);
         }else{
-            activity.hideShowSkip(false);
+            //activity.hideShowSkip(false);
 
         }
     }
