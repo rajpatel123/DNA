@@ -35,7 +35,7 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, total, skipped, wrong, correct;
+    TextView dateTv, percentValue, testNameTv, total, skipped, wrong, correct,totalUser;
 
     private List<UserResult> userResults;
     private List<ResultList> resultLists;
@@ -53,6 +53,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         // dateTv = findViewById(R.id.date);
         percentValue = findViewById(R.id.percentageValue);
+        totalUser=findViewById(R.id.total_user);
         //  testNameTv = findViewById(R.id.testName);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         reviewButton = findViewById(R.id.review);
@@ -155,9 +156,9 @@ public class ResultActivity extends AppCompatActivity {
                             } else {
                                 correct.setText(userResults.get(0).getCurrectQuestion());
                             }
-
+                            totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
                             wrong.setText(userResults.get(0).getWrongQuestion());
-                            percentValue.setText(userResults.get(0).getAverage());
+                            percentValue.setText(userResults.get(0).getPercentile());
                             allReults = response.body().getAllReult();
                             resultAdapter = new ResultAdapter(allReults);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserResult {
-
     @SerializedName("total_question")
     @Expose
     private String totalQuestion;
@@ -18,9 +17,12 @@ public class UserResult {
     @SerializedName("skip_question")
     @Expose
     private String skipQuestion;
-    @SerializedName("average")
+    @SerializedName("percentile")
     @Expose
-    private String average;
+    private String percentile;
+    @SerializedName("total_users_test")
+    @Expose
+    private String totalUsersTest;
 
     public String getTotalQuestion() {
         return totalQuestion;
@@ -54,12 +56,20 @@ public class UserResult {
         this.skipQuestion = skipQuestion;
     }
 
-    public String getAverage() {
-        return average;
+    public String getPercentile() {
+        return percentile;
     }
 
-    public void setAverage(String average) {
-        this.average = average;
+    public void setPercentile(String percentile) {
+        this.percentile = percentile;
+    }
+
+    public String getTotalUsersTest() {
+        return totalUsersTest;
+    }
+
+    public void setTotalUsersTest(String totalUsersTest) {
+        this.totalUsersTest = totalUsersTest;
     }
 
 }
