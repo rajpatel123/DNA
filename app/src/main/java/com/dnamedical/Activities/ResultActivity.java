@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -147,11 +148,17 @@ public class ResultActivity extends AppCompatActivity {
                             userResults = response.body().getUserResult();
                             total.setText(userResults.get(0).getTotalQuestion());
                             skipped.setText(userResults.get(0).getSkipQuestion());
-                            correct.setText(userResults.get(0).getCurrentQuestion());
+
+                            if (!(userResults.get(0).getCurrectQuestion() != null)
+                                    && TextUtils.isEmpty(userResults.get(0).getCurrectQuestion())) {
+                                    correct.setText("0");
+                            } else {
+                                correct.setText(userResults.get(0).getCurrectQuestion());
+                            }
+
                             wrong.setText(userResults.get(0).getWrongQuestion());
                             percentValue.setText(userResults.get(0).getAverage());
                             allReults = response.body().getAllReult();
-
                             resultAdapter = new ResultAdapter(allReults);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(mLayoutManager);

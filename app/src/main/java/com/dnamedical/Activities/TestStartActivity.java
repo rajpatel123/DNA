@@ -61,7 +61,14 @@ public class TestStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                StartTest();
+                if (check_status == 0) {
+                    StartTest();
+                } else {
+                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
+                    intent.putExtra("Test_Id", id);
+                    startActivity(intent);
+
+                }
             }
         });
 
@@ -91,25 +98,18 @@ public class TestStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (check_status == 0) {
-                    Intent intent = new Intent(TestStartActivity.this, TestActivity.class);
-                    DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
-                    id = getIntent().getStringExtra("id");
-                    duration = getIntent().getStringExtra("duration");
-                    testName = getIntent().getStringExtra("testName");
+                Intent intent = new Intent(TestStartActivity.this, TestActivity.class);
+                DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
+                id = getIntent().getStringExtra("id");
+                duration = getIntent().getStringExtra("duration");
+                testName = getIntent().getStringExtra("testName");
+                intent.putExtra("id", id);
+                intent.putExtra("duration", duration);
+                intent.putExtra("testName", testName);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
 
-                    intent.putExtra("id", id);
-                    intent.putExtra("duration", duration);
-                    intent.putExtra("testName", testName);
-                    startActivity(intent);
-                    finish();
-                    dialog.dismiss();
-                } else {
-                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
-                    intent.putExtra("Test_Id", id);
-                    startActivity(intent);
-
-                }
 
             }
         });

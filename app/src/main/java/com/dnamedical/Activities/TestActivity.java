@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -82,6 +83,7 @@ public class TestActivity extends FragmentActivity {
     private String ttQuestion;
     private String ccAnswerIds;
     private RelativeLayout relative;
+    private LinearLayout linearLayoutNext,linearLayoutPrevious;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +147,7 @@ public class TestActivity extends FragmentActivity {
         }
 
 
-        skip = findViewById(R.id.btn_skip);
+       /* skip = findViewById(R.id.btn_skip);
         skip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,10 +165,10 @@ public class TestActivity extends FragmentActivity {
                 }
             }
         });
-
-
+*/
+        linearLayoutPrevious=findViewById(R.id.linear_previous);
         previousText = findViewById(R.id.text_previous);
-        previousText.setOnClickListener(new OnClickListener() {
+        linearLayoutPrevious.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 previousText.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -179,13 +181,14 @@ public class TestActivity extends FragmentActivity {
                     quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
                 }
-                skip.setText("SKIP");
+                //skip.setText("SKIP");
             }
         });
 
 
+        linearLayoutNext=findViewById(R.id.linear_next);
         nextText = findViewById(R.id.next);
-        nextText.setOnClickListener(new OnClickListener() {
+        linearLayoutNext.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 //                hideShowSkip(false);
                 nextText.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -194,13 +197,13 @@ public class TestActivity extends FragmentActivity {
                 imgPrevious.setImageResource(R.drawable.previous_white);
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
-                if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
+               /* if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
                     skip.setEnabled(true);
                 } else {
                     skip.setText("SKIP");
                 }
-
+*/
             }
 
         });
@@ -488,6 +491,7 @@ public class TestActivity extends FragmentActivity {
             StringBuilder builder = new StringBuilder();
             for (Detail detail : qustionDetails.getDetail()) {
                 builder.append(detail.getQid() + ",");
+
             }
 
             if (!TextUtils.isEmpty(builder))
@@ -514,6 +518,8 @@ public class TestActivity extends FragmentActivity {
             for (Detail ss : qustionDetails.getDetail()) {
                if (!correctAnswerList.containsKey(ss.getQid())&& !wrongAnswerList.containsKey(ss.getQid())){
                    skiped.append(ss.getQid() + ",");
+                   sanswer++;
+
                }
             }
             if (!TextUtils.isEmpty(skiped))
@@ -543,7 +549,6 @@ public class TestActivity extends FragmentActivity {
                                 intent.putExtra("tquestion", tquestion);
                                 intent.putExtra("canswer", canswer);
                                 intent.putExtra("wanswer", wanswer);
-                                intent.putExtra("sanswer", sanswer);
                                 intent.putExtra("testName", testName);
                                 startActivity(intent);
                                 finish();

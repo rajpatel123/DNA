@@ -9,9 +9,9 @@ public class UserResult {
     @SerializedName("total_question")
     @Expose
     private String totalQuestion;
-    @SerializedName("current_question")
+    @SerializedName("currect_question")
     @Expose
-    private String currentQuestion;
+    private String currectQuestion;
     @SerializedName("wrong_question")
     @Expose
     private String wrongQuestion;
@@ -30,12 +30,12 @@ public class UserResult {
         this.totalQuestion = totalQuestion;
     }
 
-    public String getCurrentQuestion() {
-        return currentQuestion;
+    public String getCurrectQuestion() {
+        return currectQuestion;
     }
 
-    public void setCurrentQuestion(String currentQuestion) {
-        this.currentQuestion = currentQuestion;
+    public void setCurrectQuestion(String currectQuestion) {
+        this.currectQuestion = currectQuestion;
     }
 
     public String getWrongQuestion() {

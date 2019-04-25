@@ -221,7 +221,6 @@
                                        android:layout_height="70sp"
                                        android:background="@drawable/result_number"
                                        android:gravity="center"
-                                       android:text="20"
                                        android:textColor="@color/orange" />
 
                                </FrameLayout>
@@ -231,6 +230,7 @@
                                    android:layout_height="wrap_content"
                                    android:layout_gravity="center"
                                    android:paddingTop="5dp"
+                                   android:gravity="center"
                                    android:text="Correct" />
 
                            </LinearLayout>
@@ -249,7 +249,7 @@
                                    android:layout_height="70sp"
                                    android:background="@drawable/result_number"
                                    android:gravity="center"
-                                   android:text="30"
+
                                    android:textColor="@color/orange" />
 
                                <TextView
@@ -274,7 +274,6 @@
                                    android:layout_height="70sp"
                                    android:background="@drawable/result_number"
                                    android:gravity="center"
-                                   android:text="40"
                                    android:textColor="@color/orange" />
 
                                <TextView
