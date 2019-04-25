@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -82,6 +83,7 @@ public class TestActivity extends FragmentActivity {
     private String ttQuestion;
     private String ccAnswerIds;
     private RelativeLayout relative;
+    private LinearLayout linearLayoutNext,linearLayoutPrevious;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +146,8 @@ public class TestActivity extends FragmentActivity {
             }
         }
 
-        skip = findViewById(R.id.btn_skip);
+
+       /* skip = findViewById(R.id.btn_skip);
         skip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,20 +155,20 @@ public class TestActivity extends FragmentActivity {
                 mPager.setCurrentItem(currentPosition + 1);
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
+                    skip.setEnabled(true);
                     submitAlertDiolog();
                 } else {
                     skip.setText("SKIP");
                 }
-
-                if (skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
+                if (!skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
                     skippedAnswerIdList.add(qustionDetails.getDetail().get(currentPosition).getQid());
                 }
             }
         });
-
-
+*/
+        linearLayoutPrevious=findViewById(R.id.linear_previous);
         previousText = findViewById(R.id.text_previous);
-        previousText.setOnClickListener(new OnClickListener() {
+        linearLayoutPrevious.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 previousText.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -178,27 +181,29 @@ public class TestActivity extends FragmentActivity {
                     quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
                 }
-                skip.setText("SKIP");
+                //skip.setText("SKIP");
             }
         });
 
 
+        linearLayoutNext=findViewById(R.id.linear_next);
         nextText = findViewById(R.id.next);
-        nextText.setOnClickListener(new OnClickListener() {
+        linearLayoutNext.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+//                hideShowSkip(false);
                 nextText.setTextColor(getResources().getColor(R.color.colorAccent));
                 previousText.setTextColor(getResources().getColor(R.color.darkwhite));
                 imgNest.setImageResource(R.drawable.next_red);
                 imgPrevious.setImageResource(R.drawable.previous_white);
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
-                if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
+               /* if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
-
+                    skip.setEnabled(true);
                 } else {
                     skip.setText("SKIP");
                 }
-
+*/
             }
 
         });
@@ -232,6 +237,24 @@ public class TestActivity extends FragmentActivity {
     }
 
 
+
+//    public void hideShowSkip(boolean isHide){
+//        if (isHide){
+//            skip.setEnabled(false);
+//            nextText.setEnabled(true);
+//        }else{
+//            skip.setEnabled(true);
+//            nextText.setEnabled(false);
+//        }
+//    }
+
+    public void nextEnable(boolean isEnable){
+        if (isEnable){
+            nextText.setEnabled(false);
+        }else{
+            nextText.setEnabled(true);
+        }
+    }
     private void GuessOpen() {
 
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
@@ -463,15 +486,16 @@ public class TestActivity extends FragmentActivity {
             String tquestion = "" + qustionDetails.getDetail().size();
             String canswer = "" + correctAnswerList.keySet().size();
             String wanswer = "" + wrongAnswerList.keySet().size();
-            String sanswer = "" + (qustionDetails.getDetail().size() - (correctAnswerList.keySet().size() + wrongAnswerList.keySet().size()));
+            int sanswer =0;
 
             StringBuilder builder = new StringBuilder();
             for (Detail detail : qustionDetails.getDetail()) {
                 builder.append(detail.getQid() + ",");
+
             }
 
             if (!TextUtils.isEmpty(builder))
-                ttQuestion = builder.substring(0, builder.toString().length() - 1).toString();
+                    ttQuestion = builder.substring(0, builder.toString().length() - 1).toString();
 
             StringBuilder ccAnswer = new StringBuilder();
 
@@ -491,18 +515,22 @@ public class TestActivity extends FragmentActivity {
 
 
             StringBuilder skiped = new StringBuilder();
-            for (String ss : skippedAnswerIdList) {
-                skiped.append(ss + ",");
+            for (Detail ss : qustionDetails.getDetail()) {
+               if (!correctAnswerList.containsKey(ss.getQid())&& !wrongAnswerList.containsKey(ss.getQid())){
+                   skiped.append(ss.getQid() + ",");
+                   sanswer++;
+
+               }
             }
             if (!TextUtils.isEmpty(skiped))
                 ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
 
 
-            Log.d("TEstData", "userid->" + user_id + "testid->" + test_id + "tquestion->"
-                    + tquestion + "ttQuestion" + ttQuestion +
-                    "canswer->" + canswer + "ccAnswerIds->" + ccAnswerIds + "wanswer->" + wanswer + "wwanswerIds->" + wwanswerIds + "ssanswer->" + ssanswer);
+            Log.d("TEstData", " userid->" + user_id + " testid->" + test_id + " tquestion->"
+                    + tquestion + " ttQuestion" + ttQuestion +
+                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer);
 
-            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, sanswer, ssanswer, new Callback<ResponseBody>() {
+            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
@@ -521,7 +549,6 @@ public class TestActivity extends FragmentActivity {
                                 intent.putExtra("tquestion", tquestion);
                                 intent.putExtra("canswer", canswer);
                                 intent.putExtra("wanswer", wanswer);
-                                intent.putExtra("sanswer", sanswer);
                                 intent.putExtra("testName", testName);
                                 startActivity(intent);
                                 finish();

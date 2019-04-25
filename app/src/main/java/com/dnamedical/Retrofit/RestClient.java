@@ -84,8 +84,8 @@ public class RestClient {
     }
 
 
-    public static void getTest(Callback<TestQuestionData> callback) {
-        RetrofitClient.getClient().getTest().enqueue(callback);
+    public static void getTest(RequestBody user_id,Callback<TestQuestionData> callback) {
+        RetrofitClient.getClient().getTest(user_id).enqueue(callback);
     }
 
 

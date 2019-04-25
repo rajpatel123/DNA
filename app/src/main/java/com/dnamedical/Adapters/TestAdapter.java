@@ -68,11 +68,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
-            if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (grandTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
+
 
 
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +80,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                 , grandTests.get(holder.getAdapterPosition()).getTestDuration()
                                 , grandTests.get(holder.getAdapterPosition()).getTestName(),
                                 grandTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                grandTests.get(holder.getAdapterPosition()).getTestPaid());
+                                grandTests.get(holder.getAdapterPosition()).getTestPaid(),
+                                grandTests.get(holder.getAdapterPosition()).getTestStatus());
                     }
                 }
             });
@@ -98,11 +95,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
-            if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (miniTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
+
 
 
             if (holder.getAdapterPosition() > 0) {
@@ -121,7 +114,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                 miniTests.get(holder.getAdapterPosition()).getTestDuration(),
                                 miniTests.get(holder.getAdapterPosition()).getTestName(),
                                 miniTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                miniTests.get(holder.getAdapterPosition()).getTestPaid());
+                                miniTests.get(holder.getAdapterPosition()).getTestPaid(),
+                                miniTests.get(holder.getAdapterPosition()).getTestStatus());
                     }
                 }
             });
@@ -137,13 +131,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
-
-            if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (allTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
 
           /*  if (holder.getAdapterPosition() > 0) {
                 if (!allTests.get(holder.getAdapterPosition())
@@ -173,7 +160,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                 allTests.get(holder.getAdapterPosition()).getTestDuration(),
                                 allTests.get(holder.getAdapterPosition()).getTestName(),
                                 allTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                allTests.get(holder.getAdapterPosition()).getTestPaid());
+                                allTests.get(holder.getAdapterPosition()).getTestPaid(),
+                                allTests.get(holder.getAdapterPosition()).getTestStatus());
                     }
                 }
             });
@@ -187,11 +175,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
-            if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (subjectTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
+
 
 
             if (holder.getAdapterPosition() > 0) {
@@ -210,7 +194,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                 subjectTests.get(holder.getAdapterPosition()).getTestDuration(),
                                 subjectTests.get(holder.getAdapterPosition()).getTestName(),
                                 subjectTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                subjectTests.get(holder.getAdapterPosition()).getTestPaid());
+                                subjectTests.get(holder.getAdapterPosition()).getTestPaid(),
+                                subjectTests.get(holder.getAdapterPosition()).getTestStatus());
                     }
                 }
             });
@@ -260,7 +245,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     }
 
     public interface OnCategoryClick {
-        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid);
+        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid,String TestStatus);
     }
 
 

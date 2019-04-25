@@ -164,7 +164,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-            upper_progress.setVisibility(View.VISIBLE);
+            upper_progress.setVisibility(View.GONE);
             videoPlayerControlsPortraitMode.setVisibility(View.VISIBLE);
 
             enablePlayPause(true, true);
@@ -228,6 +228,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             String currentTime = getTimeDurationFormat(player.getCurrentPosition());
             String totalDuration = getTimeDurationFormat(player.getDuration());
             videoDuration.setText(currentTime+" / "+totalDuration);
+            upper_progress.setVisibility(View.GONE);
         }
 
         @Override

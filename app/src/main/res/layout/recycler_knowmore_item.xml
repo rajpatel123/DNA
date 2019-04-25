@@ -13,13 +13,13 @@
 
 
             <FrameLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/facultyprofile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/dr1" />
 
                 <ProgressBar
@@ -46,9 +46,9 @@
 
             <TextView
                 android:id="@+id/medicine"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="MD, Internal Medicine"
                 android:textColor="@color/black_titles"
                 android:textSize="8sp" />

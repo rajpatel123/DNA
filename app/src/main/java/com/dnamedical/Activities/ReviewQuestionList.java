@@ -52,10 +52,9 @@ public class ReviewQuestionList extends AppCompatActivity {
             }
         });
 
-        if (getIntent().hasExtra("tquestion")) {
-            totalQuestion = getIntent().getStringExtra("tquestion");
+        if (getIntent().hasExtra("id")) {
             testId = getIntent().getStringExtra("id");
-            total = Integer.parseInt(totalQuestion);
+
 
         }
         //
