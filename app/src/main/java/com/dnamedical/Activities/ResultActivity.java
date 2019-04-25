@@ -26,6 +26,7 @@ import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
 import hiennguyen.me.circleseekbar.CircleSeekBar;
+import me.tankery.lib.circularseekbar.CircularSeekBar;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -35,7 +36,9 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, total, skipped, wrong, correct,totalUser;
+    TextView dateTv, percentValue, testNameTv, totalUser;
+    CircularSeekBar correct,wrong,skipped;
+    TextView correctTXT,wrongTXT,skippedTXT;
 
     private List<UserResult> userResults;
     private List<ResultList> resultLists;
@@ -57,7 +60,14 @@ public class ResultActivity extends AppCompatActivity {
         //  testNameTv = findViewById(R.id.testName);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         reviewButton = findViewById(R.id.review);
-        circleSeekBar = findViewById(R.id.circular);
+        correct = findViewById(R.id.correct);
+        wrong = findViewById(R.id.wrong);
+        skipped = findViewById(R.id.skipped);
+
+        correctTXT = findViewById(R.id.correctText);
+        wrongTXT = findViewById(R.id.wrongText);
+        skippedTXT = findViewById(R.id.skippedText);
+
         shareButton = findViewById(R.id.btn_share);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,10 +83,10 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        total = findViewById(R.id.total_question);
-        skipped = findViewById(R.id.skipped);
-        wrong = findViewById(R.id.wrong);
-        correct = findViewById(R.id.correct);
+        totalUser = findViewById(R.id.total_question);
+//        skipped = findViewById(R.id.skipped);
+//        wrong = findViewById(R.id.wrong);
+//        correct = findViewById(R.id.correct);
 
         showRankResult();
 
@@ -147,17 +157,47 @@ public class ResultActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
-                            total.setText(userResults.get(0).getTotalQuestion());
-                            skipped.setText(userResults.get(0).getSkipQuestion());
+                            totalUser.setText(userResults.get(0).getTotalQuestion());
+                            correct.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
+                            skipped.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
+                            wrong.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
+                            skipped.setProgress(Float.parseFloat(userResults.get(0).getSkipQuestion()));
 
                             if (!(userResults.get(0).getCurrectQuestion() != null)
                                     && TextUtils.isEmpty(userResults.get(0).getCurrectQuestion())) {
-                                    correct.setText("0");
+                                correct.setProgress(0);
+                                correctTXT.setText(0+"");
+
                             } else {
-                                correct.setText(userResults.get(0).getCurrectQuestion());
+                                correct.setProgress(Integer.parseInt(userResults.get(0).getCurrectQuestion()));
+                                correctTXT.setText(userResults.get(0).getCurrectQuestion());
+                            }
+
+                            if (!(userResults.get(0).getWrongQuestion() != null)
+                                    && TextUtils.isEmpty(userResults.get(0).getWrongQuestion())) {
+                                wrong.setProgress(0);
+                                wrongTXT.setText(""+0);
+
+                            } else {
+                                wrong.setProgress(Integer.parseInt(userResults.get(0).getWrongQuestion()));
+                                wrongTXT.setText(""+userResults.get(0).getWrongQuestion());
+
+                            }
+
+                            if (!(userResults.get(0).getSkipQuestion() != null)
+                                    && TextUtils.isEmpty(userResults.get(0).getSkipQuestion())) {
+                                skipped.setProgress(0);
+                                skippedTXT.setText(""+0);
+
+
+                            } else {
+                                skipped.setProgress(Integer.parseInt(userResults.get(0).getSkipQuestion()));
+                                skippedTXT.setText(""+userResults.get(0).getSkipQuestion());
+
                             }
                             totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
-                            wrong.setText(userResults.get(0).getWrongQuestion());
+                            percentValue.setText(userResults.get(0).getPercentile());
+
                             percentValue.setText(userResults.get(0).getPercentile());
                             allReults = response.body().getAllReult();
                             resultAdapter = new ResultAdapter(allReults);
