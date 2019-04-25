@@ -53,6 +53,7 @@
 
 
                 <TextView
+                    android:id="@+id/total_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -200,7 +201,8 @@
                                    android:layout_height="wrap_content">
                                    <me.tankery.lib.circularseekbar.CircularSeekBar
                                        android:id="@+id/correct"
-                                       android:layout_width="80dp"
+                                       android:layout_width="65dp"
+                                       app:cs_progress = "0"
                                        android:layout_height="wrap_content"
                                        android:layout_gravity="center_horizontal"
                                        app:cs_circle_color = "@color/app_bg"
@@ -247,7 +249,7 @@
                                    android:layout_height="wrap_content">
                                    <me.tankery.lib.circularseekbar.CircularSeekBar
                                        android:id="@+id/skipped"
-                                       android:layout_width="80dp"
+                                       android:layout_width="65dp"
                                        android:layout_height="wrap_content"
                                        android:layout_gravity="center_horizontal"
                                        app:cs_circle_color = "@color/app_bg"
@@ -292,7 +294,7 @@
                                    android:layout_height="wrap_content">
                                    <me.tankery.lib.circularseekbar.CircularSeekBar
                                        android:id="@+id/wrong"
-                                       android:layout_width="80dp"
+                                       android:layout_width="65dp"
                                        android:layout_height="wrap_content"
                                        android:layout_gravity="center_horizontal"
                                        app:cs_circle_color = "@color/app_bg"
@@ -300,6 +302,7 @@
                                        app:cs_pointer_color = "@color/orange"
                                        app:cs_negative_enabled="true"
                                        app:cs_circle_style="butt"
+
                                        app:cs_circle_stroke_width="8dp"
                                        app:cs_pointer_stroke_width="6dp"
                                        app:cs_pointer_angle="44"/>

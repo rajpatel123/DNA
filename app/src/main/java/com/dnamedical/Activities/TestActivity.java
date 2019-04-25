@@ -91,6 +91,7 @@ public class TestActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
+        skip = findViewById(R.id.btn_skip);
 
         imgPrevious = findViewById(R.id.image_previous);
         imgNest = findViewById(R.id.image_next);
@@ -149,25 +150,21 @@ public class TestActivity extends FragmentActivity {
         }
 
 
-       /* skip = findViewById(R.id.btn_skip);
+
         skip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
-                mPager.setCurrentItem(currentPosition + 1);
+
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
-                    skip.setEnabled(true);
                     submitAlertDiolog();
-                } else {
-                    skip.setText("SKIP");
                 }
-                if (!skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
+              /*  if (!skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
                     skippedAnswerIdList.add(qustionDetails.getDetail().get(currentPosition).getQid());
-                }
+                }*/
             }
         });
-*/
+
         linearLayoutPrevious=findViewById(R.id.linear_previous);
         previousText = findViewById(R.id.text_previous);
         linearLayoutPrevious.setOnClickListener(new OnClickListener() {
@@ -177,8 +174,7 @@ public class TestActivity extends FragmentActivity {
                 nextText.setTextColor(getResources().getColor(R.color.darkwhite));
                 imgPrevious.setImageResource(R.drawable.previou_red);
                 imgNest.setImageResource(R.drawable.next_white);
-
-
+                  skip.setVisibility(View.GONE);
                 if (currentPosition > 0) {
                     quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
@@ -199,13 +195,15 @@ public class TestActivity extends FragmentActivity {
                 imgPrevious.setImageResource(R.drawable.previous_white);
                 quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
-               /* if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
+                if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
-                    skip.setEnabled(true);
+                    skip.setVisibility(View.VISIBLE);
+
                 } else {
+                    skip.setVisibility(View.GONE);
                     skip.setText("SKIP");
                 }
-*/
+
             }
 
         });

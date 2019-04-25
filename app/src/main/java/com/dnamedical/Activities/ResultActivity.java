@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, total;
+    TextView dateTv, percentValue, testNameTv, totalUser;
     CircularSeekBar correct,wrong,skipped;
     TextView correctTXT,wrongTXT,skippedTXT;
 
@@ -56,6 +56,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         // dateTv = findViewById(R.id.date);
         percentValue = findViewById(R.id.percentageValue);
+        totalUser=findViewById(R.id.total_user);
         //  testNameTv = findViewById(R.id.testName);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         reviewButton = findViewById(R.id.review);
@@ -82,7 +83,7 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        total = findViewById(R.id.total_question);
+        totalUser = findViewById(R.id.total_question);
 //        skipped = findViewById(R.id.skipped);
 //        wrong = findViewById(R.id.wrong);
 //        correct = findViewById(R.id.correct);
@@ -156,7 +157,7 @@ public class ResultActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
-                            total.setText(userResults.get(0).getTotalQuestion());
+                            totalUser.setText(userResults.get(0).getTotalQuestion());
                             correct.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             skipped.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             wrong.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
@@ -194,8 +195,10 @@ public class ResultActivity extends AppCompatActivity {
                                 skippedTXT.setText(""+userResults.get(0).getSkipQuestion());
 
                             }
+                            totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
+                            percentValue.setText(userResults.get(0).getPercentile());
 
-                            percentValue.setText(userResults.get(0).getAverage());
+                            percentValue.setText(userResults.get(0).getPercentile());
                             allReults = response.body().getAllReult();
                             resultAdapter = new ResultAdapter(allReults);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
