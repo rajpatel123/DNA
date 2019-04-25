@@ -181,7 +181,6 @@ public class TestActivity extends FragmentActivity {
             }
         });
 
-
         linearLayoutNext=findViewById(R.id.linear_next);
         nextText = findViewById(R.id.next);
         linearLayoutNext.setOnClickListener(new OnClickListener() {
@@ -271,14 +270,8 @@ public class TestActivity extends FragmentActivity {
 
             }
         });
-
-
         dialog.show();
-
-
     }
-
-
     @SuppressLint("RestrictedApi")
     private void OpenMenuOption() {
         PopupMenu popupMenu = new PopupMenu(TestActivity.this, imageMenu);
@@ -286,16 +279,13 @@ public class TestActivity extends FragmentActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 switch (item.getItemId()) {
                     case R.id.review:
                         showAnswerDetails(qustionDetails, currentPosition);
                         break;
-
                     case R.id.submit:
                         submitAlertDiolog();
                         break;
-
                     case R.id.discard:
                         discardAlertDialog();
                         break;
