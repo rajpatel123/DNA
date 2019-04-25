@@ -210,8 +210,8 @@
                                        app:cs_pointer_color = "@color/orange"
                                        app:cs_negative_enabled="true"
                                        app:cs_circle_style="butt"
-                                       app:cs_circle_stroke_width="8dp"
-                                       app:cs_pointer_stroke_width="6dp"
+                                       app:cs_circle_stroke_width="6dp"
+                                       app:cs_pointer_stroke_width="4dp"
                                        app:cs_pointer_angle="44"/>
 
 
@@ -257,8 +257,8 @@
                                        app:cs_pointer_color = "@color/orange"
                                        app:cs_negative_enabled="true"
                                        app:cs_circle_style="butt"
-                                       app:cs_circle_stroke_width="8dp"
-                                       app:cs_pointer_stroke_width="6dp"
+                                       app:cs_circle_stroke_width="6dp"
+                                       app:cs_pointer_stroke_width="4dp"
                                        app:cs_pointer_angle="44"/>
 
 
@@ -303,8 +303,8 @@
                                        app:cs_negative_enabled="true"
                                        app:cs_circle_style="butt"
 
-                                       app:cs_circle_stroke_width="8dp"
-                                       app:cs_pointer_stroke_width="6dp"
+                                       app:cs_circle_stroke_width="6dp"
+                                       app:cs_pointer_stroke_width="4dp"
                                        app:cs_pointer_angle="44"/>
 
 
