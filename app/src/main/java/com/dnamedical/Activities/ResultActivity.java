@@ -207,7 +207,8 @@ public class ResultActivity extends AppCompatActivity {
 
                             }
                             totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
-                            percentValue.setText(userResults.get(0).getPercentile());
+                            percentValue.setText(""+userResults.get(0).getPercentile());
+                            userRank.setText(""+userResults.get(0).getUserRank());
 
                             allReults = response.body().getAllReult();
                             resultAdapter = new ResultAdapter(allReults);

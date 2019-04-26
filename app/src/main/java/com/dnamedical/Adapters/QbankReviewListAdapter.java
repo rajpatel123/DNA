@@ -50,10 +50,10 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
 
         Detail detail = detailList.get(i);
         holder.questionText.setText("" + (i + 1) + ". " + detail.getQname());
-        holder.ques1.setText("A." + detail.getOptionA() + "." + "[" + detail.getOptionAperc() + "]");
-        holder.ques2.setText("B." + detail.getOptionB() + "." + "[" + detail.getOptionBperc() + "]");
-        holder.ques3.setText("C." + detail.getOptionC() + "." + "[" + detail.getOptionCperc() + "]");
-        holder.ques4.setText("D." + detail.getOptionD() + "." + "[" + detail.getOptionDperc() + "]");
+        holder.ques1.setText("A." + detail.getOptionA() );
+        holder.ques2.setText("B." + detail.getOptionB() );
+        holder.ques3.setText("C." + detail.getOptionC() );
+        holder.ques4.setText("D." + detail.getOptionD() );
         holder.refrences.setText("Refrences By: " + detail.getRefrence());
         holder.percentage.setText("" + detail.getGotrightperc() + "  of the people got this write answer");
 
