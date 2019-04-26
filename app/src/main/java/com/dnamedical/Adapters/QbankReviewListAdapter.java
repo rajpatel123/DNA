@@ -58,11 +58,11 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
         //holder.percentage.setText("" + detail.getGotrightperc() + "  of the people got this write answer");
 
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionA())) {
-            holder.ques1.setTextColor(Color.GREEN);
+            holder.ques1.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView1.setImageResource(R.drawable.right_answer_icon);
 
             if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
-                holder.ques1.setTextColor(Color.GREEN);
+                holder.ques1.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView1.setImageResource(R.drawable.right_answer_icon);
             } else {
                 if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
@@ -80,11 +80,11 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
             }
         }
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionB())) {
-            holder.ques2.setTextColor(Color.GREEN);
+            holder.ques2.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView2.setImageResource(R.drawable.right_answer_icon);
 
             if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionB())) {
-                holder.ques2.setTextColor(Color.GREEN);
+                holder.ques2.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView2.setImageResource(R.drawable.right_answer_icon);
             } else {
                 if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
@@ -102,11 +102,11 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
             }
         }
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionC())) {
-            holder.ques3.setTextColor(Color.GREEN);
+            holder.ques3.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView3.setImageResource(R.drawable.right_answer_icon);
 
             if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionC())) {
-                holder.ques3.setTextColor(Color.GREEN);
+                holder.ques3.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView3.setImageResource(R.drawable.right_answer_icon);
             } else {
                 if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {
@@ -125,11 +125,11 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
         }
 
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionD())) {
-            holder.ques4.setTextColor(Color.GREEN);
+            holder.ques4.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView4.setImageResource(R.drawable.right_answer_icon);
 
             if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionD())) {
-                holder.ques4.setTextColor(Color.GREEN);
+                holder.ques4.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView4.setImageResource(R.drawable.right_answer_icon);
             } else {
                 if (detail.getUseranswer().equalsIgnoreCase(detail.getOptionA())) {

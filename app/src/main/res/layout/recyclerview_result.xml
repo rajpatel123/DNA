@@ -58,7 +58,7 @@
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="1dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/dr1"
+                        android:src="@drawable/dr2"
                         app:civ_border_color="#FFFF"
                         app:civ_border_width="2dp" />
 

@@ -1,5 +1,6 @@
 package com.dnamedical.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.dnamedical.utils.DnaPrefs;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHolder> {
 
+    private Context applicationContext;
     private List<AllReult> allReults;
 
     public ResultAdapter(List<AllReult> allReults) {
@@ -41,6 +43,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
         holder.textUserNumber.setText(allReult.getScore());
         holder.textName.setText(allReult.getUser());
         holder.textRank.setText(allReult.getRank() + "th");
+        Picasso.with(applicationContext).load(allReult.getUrl()).error(R.drawable.dr2).into(holder.userImage);
     }
 
     @Override

@@ -84,19 +84,20 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
+                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_one"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="0dp">
+
+                            >
 
                             <ImageView
                                 android:id="@+id/imga"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="10dp" />
+                                android:padding="5dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="8dp" />
 
                         </LinearLayout>
 
@@ -114,7 +115,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@id/imga"
                                 android:text="Test"
-                                android:textSize="@dimen/evp_text_size_medium" />
+                                android:textSize="19sp"/>
 
                             <TextView
                                 android:id="@+id/optionAPer"
@@ -136,6 +137,7 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
+                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_two"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
@@ -165,7 +167,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@id/imgb"
                                 android:text="Test"
-                                android:textSize="@dimen/evp_text_size_medium" />
+                                android:textSize="19sp" />
 
                             <TextView
                                 android:id="@+id/optionBPer"
@@ -188,6 +190,7 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
+                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_three"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
@@ -197,7 +200,7 @@
                                 android:id="@+id/imgc"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:layout_marginTop="10dp" />
+                                android:layout_marginTop="8dp" />
 
                         </LinearLayout>
 
@@ -216,7 +219,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@id/imgc"
                                 android:text="Test"
-                                android:textSize="@dimen/evp_text_size_medium" />
+                                android:textSize="19sp" />
 
                             <TextView
                                 android:id="@+id/optionCPer"
@@ -239,6 +242,7 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
+                        android:layout_margin="5dp"
                             android:id="@+id/linear_txt_four"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
@@ -249,7 +253,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="5dp"
                                 />
 
 
@@ -269,7 +273,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@id/imgd"
                                 android:text="Test"
-                                android:textSize="@dimen/evp_text_size_medium" />
+                                android:textSize="19sp" />
 
                             <TextView
 

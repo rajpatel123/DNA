@@ -3,8 +3,10 @@ package com.dnamedical.Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -378,7 +380,8 @@ public class QbankTestActivity extends AppCompatActivity {
             public void onResponse(Call<SubmitAnswer> call, Response<SubmitAnswer> response) {
                 Utils.dismissProgressDialog();
                 showHideBottomLayout(true);
-                updateUI(response.body());
+                    updateUI(response.body());
+
                 try {
                     if (isLast) {
                         nextBtn.setText("Complete");
@@ -399,6 +402,7 @@ public class QbankTestActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateUI(SubmitAnswer body) {
 
         aTV.setTextColor(Color.BLACK);
@@ -478,13 +482,13 @@ public class QbankTestActivity extends AppCompatActivity {
 //            }
 
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                aTV.setTextColor(Color.GREEN);
+                aTV.setTextColor(getColor(R.color.green));
                // aTVPer.setTextColor(Color.GREEN);
                 imgA.setImageResource(R.drawable.right_answer_icon);
                 imgA.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                    aTV.setTextColor(Color.GREEN);
+                    aTV.setTextColor(getColor(R.color.green));
                     //aTVPer.setTextColor(Color.GREEN);
                     imgA.setImageResource(R.drawable.right_answer_icon);
                     imgA.setVisibility(View.VISIBLE);
@@ -510,13 +514,13 @@ public class QbankTestActivity extends AppCompatActivity {
                 }
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                bTV.setTextColor(Color.GREEN);
+                bTV.setTextColor(getColor(R.color.green));
                // bTVPer.setTextColor(Color.GREEN);
                 imgB.setImageResource(R.drawable.right_answer_icon);
                 imgB.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                    bTV.setTextColor(Color.GREEN);
+                    bTV.setTextColor(getColor(R.color.green));
                    // bTVPer.setTextColor(Color.GREEN);
                     imgB.setImageResource(R.drawable.right_answer_icon);
                     imgB.setVisibility(View.VISIBLE);
@@ -546,14 +550,14 @@ public class QbankTestActivity extends AppCompatActivity {
                 }
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                cTV.setTextColor(Color.GREEN);
+                cTV.setTextColor(getColor(R.color.green));
                // cTVPer.setTextColor(Color.GREEN);
                 imgC.setImageResource(R.drawable.right_answer_icon);
                 imgC.setVisibility(View.VISIBLE);
 
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                    cTV.setTextColor(Color.GREEN);
+                    cTV.setTextColor(getColor(R.color.green));
                    // cTVPer.setTextColor(Color.GREEN);
                     imgC.setImageResource(R.drawable.right_answer_icon);
                     imgC.setVisibility(View.VISIBLE);
@@ -584,13 +588,13 @@ public class QbankTestActivity extends AppCompatActivity {
             }
 
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                dTV.setTextColor(Color.GREEN);
+                dTV.setTextColor(getColor(R.color.green));
                // dTVPer.setTextColor(Color.GREEN);
                 imgD.setImageResource(R.drawable.right_answer_icon);
                 imgD.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                    dTV.setTextColor(Color.GREEN);
+                    dTV.setTextColor(getColor(R.color.green));
                    // dTVPer.setTextColor(Color.GREEN);
                     imgD.setImageResource(R.drawable.right_answer_icon);
                     imgD.setVisibility(View.VISIBLE);

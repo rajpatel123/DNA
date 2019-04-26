@@ -100,8 +100,6 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
                             if (directors != null && directors.getFaculty().size() > 0) {
                                 Log.d("Api Response :", "Got Success from Api");
                                 KnowMoreAdapter knowMoreAdapter = new KnowMoreAdapter(getApplicationContext());
-
-
                                 knowMoreAdapter.setFacultyDetailList(directors.getFaculty());
 
                                 LinearLayoutManager layoutManager
