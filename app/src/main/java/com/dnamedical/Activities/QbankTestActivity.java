@@ -635,7 +635,7 @@ public class QbankTestActivity extends AppCompatActivity {
 
             }*/
             rTV.setText(body.getDetails().get(0).getRefrence());
-            barChart.setText(body.getDetails().get(0).getGotrightperc() + "of the people got this right");
+         //   barChart.setText(body.getDetails().get(0).getGotrightperc() + "of the people got this right");
             try {
                 initComponent(body.getDetails().get(0).getDescriptionUrl());
             } catch (Exception e) {

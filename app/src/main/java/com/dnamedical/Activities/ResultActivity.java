@@ -38,7 +38,7 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, totalUser,totalQuestion,userRank;
+    TextView dateTv, percentValue, testNameTv, totalUser,totalQuestion,userRank,userNumber;
     CircularSeekBar correct,wrong,skipped;
     TextView correctTXT,wrongTXT,skippedTXT;
 
@@ -56,6 +56,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        userNumber=findViewById(R.id.user_number);
         // dateTv = findViewById(R.id.date);
         userRank=findViewById(R.id.user_rank);
         percentValue = findViewById(R.id.percentageValue);
@@ -162,11 +163,13 @@ public class ResultActivity extends AppCompatActivity {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
                             totalUser.setText(userResults.get(0).getTotalUsersTest());
-                            totalQuestion.setText(userResults.get(0).getTotalQuestion());
+                            totalQuestion.setText("Total score out of "+userResults.get(0).getUserTotalScore());
                             correct.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             skipped.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             wrong.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             skipped.setProgress(Float.parseFloat(userResults.get(0).getSkipQuestion()));
+                            userNumber.setText(""+userResults.get(0).getUserScore());
+
 
 
                             correct.setEnabled(false);
@@ -207,7 +210,7 @@ public class ResultActivity extends AppCompatActivity {
 
                             }
                             totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
-                            percentValue.setText(""+userResults.get(0).getPercentile());
+                            percentValue.setText(""+userResults.get(0).getPercentile()+"  Percentile");
                             userRank.setText(""+userResults.get(0).getUserRank());
 
                             allReults = response.body().getAllReult();

@@ -55,7 +55,7 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
         holder.ques3.setText("C." + detail.getOptionC() );
         holder.ques4.setText("D." + detail.getOptionD() );
         holder.refrences.setText("Refrences By: " + detail.getRefrence());
-        holder.percentage.setText("" + detail.getGotrightperc() + "  of the people got this write answer");
+        //holder.percentage.setText("" + detail.getGotrightperc() + "  of the people got this write answer");
 
         if (detail.getAnswer().equalsIgnoreCase(detail.getOptionA())) {
             holder.ques1.setTextColor(Color.GREEN);

@@ -8,6 +8,9 @@ public class AllReult {
     @SerializedName("rank")
     @Expose
     private String rank;
+    @SerializedName("score")
+    @Expose
+    private String score;
     @SerializedName("url")
     @Expose
     private String url;
@@ -36,6 +39,14 @@ public class AllReult {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public String getUrl() {

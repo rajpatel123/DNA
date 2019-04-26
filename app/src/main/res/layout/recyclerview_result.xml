@@ -86,17 +86,17 @@
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1.8"
+                            android:layout_weight="1"
                             android:text="Malavika T R"
                             android:textColor="@color/colorAccent"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/question"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/number_user"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+
                             android:background="@drawable/result_text"
                             android:gravity="center"
                             android:text="40"
