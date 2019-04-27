@@ -57,7 +57,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
 
         }
 
-        Picasso.with(applicationContext).load(allReult.getUrl()).error(R.drawable.dr2).into(holder.userImage);
+        Picasso.with(applicationContext).load(allReult.getUrl()).error(R.drawable.profile_pictures).into(holder.userImage);
     }
 
     @Override

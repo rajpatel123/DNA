@@ -52,7 +52,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegistrationActivity extends AppCompatActivity implements
-        View.OnClickListener, AdapterView.OnItemSelectedListener {
+        View.OnClickListener {
 
 
     @BindView(R.id.edit_name)
@@ -87,7 +87,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     Spinner selectState;
 
     String edit_name, edit_username, edit_email, edit_password;
-    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Uttar Pradesh", "Bihar","Tamilnadu","Telangana","Bangalore","New Delhi"};
+    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Uttar Pradesh", "Bihar", "Tamilnadu", "Telangana", "Bangalore", "New Delhi"};
     String[] collegeNames = {"Narayana Medical College,Nellore", "NRI Medical College,Guntur", "Santhiram Medical College,Kakinada"
             , "S V Mediacal College,Tirupati", "Katihar Medical College, Katihar",
             "Nalanda Medical College,Patna"};
@@ -160,7 +160,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         spinState = (Spinner) findViewById(R.id.selectState);
         spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
-         //spinState.setOnItemSelectedListener(this);
+        //spinState.setOnItemSelectedListener(this);
 
     /*  CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
       spinnerCollege.setAdapter(collegeCustomAdapter);*/
@@ -190,16 +190,23 @@ public class RegistrationActivity extends AppCompatActivity implements
                                 }
                             }
                             spinState.setAdapter(stateListAdapter);
-                            spinState.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            spinState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    collegeList=stateListResponse.getDetails().get(position).getCollege();
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    collegeList = stateListResponse.getDetails().get(position).getCollege();
                                     StateText = stateListResponse.getDetails().get(position).getStateName();
 
+                                    Log.d("StateName", StateText);
                                     sendCollegeListData();
                                 }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
                             });
-                           // spinnerCollege.setAdapter(collegeCustomAdapter);
+
+                            // spinnerCollege.setAdapter(collegeCustomAdapter);
 
                         }
 
@@ -220,19 +227,30 @@ public class RegistrationActivity extends AppCompatActivity implements
     }
 
     private void sendCollegeListData() {
-        if(collegeList!=null && collegeList.size()>0)
-        {
-            CollegeListAdapter collegeListAdapter=new CollegeListAdapter(getApplicationContext());
+        if (collegeList != null && collegeList.size() > 0) {
+            CollegeListAdapter collegeListAdapter = new CollegeListAdapter(getApplicationContext());
             collegeListAdapter.setCollegeList(collegeList);
-            collegeListAdapter.setSelectedListener(new CollegeListAdapter.CollegeSelectedListener() {
+           /* collegeListAdapter.setSelectedListener(new CollegeListAdapter.CollegeSelectedListener() {
                 @Override
                 public void selected(String collegeName) {
                     Log.d("string ",collegeName);
 
                 }
-            });
+            });*/
             spinnerCollege.setAdapter(collegeListAdapter);
+            spinnerCollege.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    collegetext = collegeList.get(position).getName();
+                    Log.d("CollegeTxt", collegetext);
 
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
 
 
         }
@@ -361,7 +379,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
-        if (TextUtils.isEmpty(statetxt)) {
+        if (TextUtils.isEmpty(StateText)) {
             Utils.displayToast(getApplicationContext(), "Please select state");
             return;
 
@@ -391,38 +409,46 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
-        Utils.showProgressDialog(this);
-        RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
-            /* private Call<CommonResponse> call;
-             private Response<CommonResponse> response;
- */
-            @Override
-            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
+                /* private Call<CommonResponse> call;
+                 private Response<CommonResponse> response;
+     */
+                @Override
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                /* this.call = call;
                 this.response = response;*/
-                Utils.dismissProgressDialog();
-                if (response.body() != null) {
-                    if (response.body().getStatus().equalsIgnoreCase("1")) {
-                        Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        intent.putExtra("mobile", "");
-                        intent.putExtra("user_id", response.body().getUser_id());
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Utils.displayToast(getApplicationContext(), response.body().getMessage());
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equalsIgnoreCase("1")) {
+                            Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            intent.putExtra("mobile", "");
+                            intent.putExtra("user_id", response.body().getUser_id());
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Utils.displayToast(getApplicationContext(), response.body().getMessage());
 
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<CommonResponse> call, Throwable t) {
-                Utils.dismissProgressDialog();
-                Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
+                @Override
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
 
-            }
-        });
+                }
+            });
+
+        } else {
+            Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Internet Connections Failed", Toast.LENGTH_SHORT).show();
+
+        }
 
 
     }
@@ -451,18 +477,4 @@ public class RegistrationActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        statetxt = statesName[position];
-
-
-        //collegetext=collegeListResponse.getName().get(position).getName();
-
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }

@@ -54,7 +54,7 @@ public class StateListAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.spinner_item_college, null);
         TextView names = (TextView) view.findViewById(R.id.textView1);
         names.setText("" + stateList.get(position).getStateName());
-        names.setOnClickListener(new View.OnClickListener() {
+       /* names.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onStateSelect != null) {
@@ -62,7 +62,7 @@ public class StateListAdapter extends BaseAdapter {
 
                 }
             }
-        });
+        });*/
 
         return view;
     }
