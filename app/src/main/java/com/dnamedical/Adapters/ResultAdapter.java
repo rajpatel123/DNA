@@ -43,6 +43,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
                                                     +(Integer.parseInt(allReult.getSkipQuestion());*/
         holder.textUserNumber.setText(allReult.getScore());
         holder.textName.setText(allReult.getUser());
+        holder.textRank.setText(allReult.getRank());
         if (allReult.getRank().equalsIgnoreCase("1")) {
             holder.textRank.setText(Html.fromHtml(allReult.getRank() + "<sup><small>st</small></sup>"));
 
