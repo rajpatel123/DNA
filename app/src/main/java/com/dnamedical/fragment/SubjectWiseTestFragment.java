@@ -18,9 +18,14 @@ import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.test.AllTest;
+import com.dnamedical.Models.test.SubjectTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
+
+import java.util.Collections;
+import java.util.List;
 
 public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnCategoryClick{
 
@@ -29,6 +34,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     RecyclerView recyclerView;
     private TestQuestionData testQuestionData;
     private String subTest;
+    private List<SubjectTest> subjectTest;
 
     public SubjectWiseTestFragment() {
 
@@ -42,6 +48,8 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             testQuestionData = DNAApplication.getTestQuestionData();
             if (testQuestionData != null) {
                 Utils.dismissProgressDialog();
+                subjectTest = testQuestionData.getSubjectTest();
+                updateDate(subjectTest);
                 showTest();
 
             } else
@@ -60,12 +68,17 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
 
     }
 
-
+    private void updateDate(List<SubjectTest> testQuestionData) {
+        for (SubjectTest allTest : testQuestionData){
+            allTest.setTime(Utils.getMillies(allTest.getTestDate()));
+        }
+    }
     private void showTest() {
         if (testQuestionData != null && testQuestionData.getSubjectTest() != null && testQuestionData.getSubjectTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter subjectWiseAdapter = new TestAdapter(getActivity());
-            subjectWiseAdapter.setSubjectTestsData(testQuestionData.getSubjectTest());
+            Collections.sort(subjectTest);
+            subjectWiseAdapter.setSubjectTestsData(subjectTest);
             subjectWiseAdapter.setListener(this);
             recyclerView.setAdapter(subjectWiseAdapter);
             recyclerView.setVisibility(View.VISIBLE);

@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -120,12 +121,34 @@ public class Utils {
 
 
     public static String dateFormat(long timeStamp) {
+
+
         if (timeStamp <= 0) {
             return null;
         }
-        SimpleDateFormat tripDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+
+        Log.d("date", ""+timeStamp);
+        SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
         Date dNow = new Date(timeStamp);
         return tripDateFormat.format(dNow);
     }
 
+    public static long getMillies(String testDate) {
+
+        Calendar calendar = Calendar.getInstance();
+        String dates[] = testDate.split("/");
+        int dt=Integer.parseInt(dates[0]);
+        int mm=Integer.parseInt(dates[1]);
+        int yy=Integer.parseInt(dates[2]);
+
+        calendar.set(yy,mm,dt);
+
+        try {
+            Date date = calendar.getTime();
+            return date.getTime();
+        } catch (Exception e) {
+            // Log.e("Tag", "Wrong date Format");
+        }
+        return -1;
+    }
 }

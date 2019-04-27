@@ -2,6 +2,7 @@ package com.dnamedical.Models.test;
 
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -19,6 +20,16 @@ public class TestQuestionData {
     @SerializedName("Grand_Test")
     @Expose
     private List<GrandTest> grandTest = null;
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    private long time;
     @SerializedName("Mini_Test")
     @Expose
     private List<MiniTest> miniTest = null;

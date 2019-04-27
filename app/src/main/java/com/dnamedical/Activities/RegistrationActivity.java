@@ -78,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     Spinner selectState;
 
     String edit_name, edit_username, edit_email, edit_password;
-    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Utter Pradesh", "Bihar"};
+    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Uttar Pradesh", "Bihar","Tamilnadu","Telangana","Bangalore","New Delhi"};
     String[] collegeNames = {"Narayana Medical College,Nellore", "NRI Medical College,Guntur", "Santhiram Medical College,Kakinada"
             , "S V Mediacal College,Tirupati", "Katihar Medical College, Katihar",
             "Nalanda Medical College,Patna"};

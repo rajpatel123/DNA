@@ -55,7 +55,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(grandTests.get(holder.getAdapterPosition()).getTestDate());
+            holder.textDate.setText(Utils.dateFormat(grandTests.get(holder.getAdapterPosition()).getTime()));
+
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
             if (holder.getAdapterPosition() > 0) {
@@ -90,7 +91,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(miniTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((miniTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(miniTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(miniTests.get(holder.getAdapterPosition()).getTestDate());
+            holder.textDate.setText(Utils.dateFormat(miniTests.get(holder.getAdapterPosition()).getTime()));
+
             if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
@@ -125,14 +127,14 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(allTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(allTests.get(holder.getAdapterPosition()).getTestDate());
-            Log.d("time",""+allTests.get(holder.getAdapterPosition()).getTestDate());
+            holder.textDate.setText(Utils.dateFormat(allTests.get(holder.getAdapterPosition()).getTime()));
+            Log.d("time",""+Utils.dateFormat(allTests.get(holder.getAdapterPosition()).getTime()));
             if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
 
-          /*  if (holder.getAdapterPosition() > 0) {
+            if (holder.getAdapterPosition() > 0) {
                 if (!allTests.get(holder.getAdapterPosition())
                         .getTestDate().equalsIgnoreCase(allTests.get(holder.getAdapterPosition() - 1)
                         .getTestDate())) {
@@ -140,7 +142,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 } else {
                     holder.textDate.setVisibility(GONE);
                 }
-            }*/
+            }
 
 
            /* if (holder.getAdapterPosition() > 0) {
@@ -170,8 +172,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTestName());
             holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
             holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getTestDuration());
-           holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate());
-        //  holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate()   );
+            holder.textDate.setText(Utils.dateFormat(subjectTests.get(holder.getAdapterPosition()).getTime()));
+            //  holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate()   );
             if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }

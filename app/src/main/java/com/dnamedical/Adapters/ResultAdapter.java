@@ -2,6 +2,7 @@ package com.dnamedical.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,20 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
                                                     +(Integer.parseInt(allReult.getSkipQuestion());*/
         holder.textUserNumber.setText(allReult.getScore());
         holder.textName.setText(allReult.getUser());
-        holder.textRank.setText(allReult.getRank() + "th");
+        if (allReult.getRank().equalsIgnoreCase("1")) {
+            holder.textRank.setText(Html.fromHtml(allReult.getRank() + "<sup><small>st</small></sup>"));
+
+        } else if (allReult.getRank().equalsIgnoreCase("2")) {
+            holder.textRank.setText(Html.fromHtml(allReult.getRank() + "<sup><small>nd</small></sup>"));
+
+        } else if (allReult.getRank().equalsIgnoreCase("3")) {
+            holder.textRank.setText(Html.fromHtml(allReult.getRank() + "<sup><small>rd</small></sup>"));
+
+        } else {
+            holder.textRank.setText(Html.fromHtml(allReult.getRank() + "<sup><small>th</small></sup>"));
+
+        }
+
         Picasso.with(applicationContext).load(allReult.getUrl()).error(R.drawable.dr2).into(holder.userImage);
     }
 

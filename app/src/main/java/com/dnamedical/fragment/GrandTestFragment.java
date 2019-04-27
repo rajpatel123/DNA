@@ -18,9 +18,14 @@ import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.test.GrandTest;
+import com.dnamedical.Models.test.MiniTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
+
+import java.util.Collections;
+import java.util.List;
 
 public class GrandTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
@@ -32,6 +37,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     RecyclerView recyclerView;
     private TestQuestionData testQuestionData;
     private String subTest;
+    private List<GrandTest> grandTest;
 
     public GrandTestFragment() {
 
@@ -45,7 +51,10 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
             testQuestionData = DNAApplication.getTestQuestionData();
             if (testQuestionData != null)
             {
+
                 Utils.dismissProgressDialog();
+                grandTest = testQuestionData.getGrandTest();
+                updateDate(grandTest);
                 showTest();
             }
             else {
@@ -61,7 +70,11 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
         }
     }
 
-
+    private void updateDate(List<GrandTest> testQuestionData) {
+        for (GrandTest allTest : testQuestionData){
+            allTest.setTime(Utils.getMillies(allTest.getTestDate()));
+        }
+    }
     @Override
     public boolean getUserVisibleHint() {
         return super.getUserVisibleHint();
@@ -71,7 +84,8 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
         if (testQuestionData != null && testQuestionData.getGrandTest() != null && testQuestionData.getGrandTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter testAdapter = new TestAdapter(getActivity());
-            testAdapter.setGrandData(testQuestionData.getGrandTest());
+            Collections.sort(grandTest);
+            testAdapter.setGrandData(grandTest);
             testAdapter.setListener(this);
             //videoListAdapter.setListener(FreeFragment.this);
             recyclerView.setAdapter(testAdapter);

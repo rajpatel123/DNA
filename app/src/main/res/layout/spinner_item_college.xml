@@ -2,23 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:orientation="horizontal">
 
     <!--Make sure image is present in Drawable folder-->
 
-    <TextView
-        android:layout_weight="1"
-        android:id="@+id/textView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="Demo"
-        android:textColor="#000" />
-    <ImageView
-        android:id="@+id/spinner_icon"
-        android:layout_gravity="center"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/open_spinner_arrow"/>
+    <LinearLayout
+        android:id="@+id/linear_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="Demo"
+            android:textColor="#000" />
+        <ImageView
+            android:id="@+id/spinner_icon"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/open_spinner_arrow"/>
+    </LinearLayout>
+
 </LinearLayout>

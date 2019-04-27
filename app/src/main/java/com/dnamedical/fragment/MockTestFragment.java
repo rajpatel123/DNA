@@ -18,9 +18,14 @@ import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.test.MiniTest;
+import com.dnamedical.Models.test.SubjectTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
+
+import java.util.Collections;
+import java.util.List;
 
 public class MockTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
@@ -29,6 +34,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     RecyclerView recyclerView;
     private TestQuestionData testQuestionData;
     private String subTest;
+    private List<MiniTest> miniTest;
 
     public MockTestFragment() {
 
@@ -42,6 +48,8 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
             testQuestionData = DNAApplication.getTestQuestionData();
             if (testQuestionData != null) {
                 Utils.dismissProgressDialog();
+                miniTest = testQuestionData.getMiniTest();
+                updateDate(miniTest);
                 showTest();
             } else {
                 Utils.dismissProgressDialog();
@@ -54,7 +62,11 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
         }
 
     }
-
+    private void updateDate(List<MiniTest> testQuestionData) {
+        for (MiniTest allTest : testQuestionData){
+            allTest.setTime(Utils.getMillies(allTest.getTestDate()));
+        }
+    }
 
     private void showTest() {
 
@@ -62,7 +74,8 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
             Log.d("Api Response :", "Got Success from Api");
 
             TestAdapter miniTestAdapter = new TestAdapter(getActivity());
-            miniTestAdapter.setMiniData(testQuestionData.getMiniTest());
+            Collections.sort(miniTest);
+            miniTestAdapter.setMiniData(miniTest);
             miniTestAdapter.setListener(this);
 
             recyclerView.setAdapter(miniTestAdapter);

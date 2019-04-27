@@ -19,11 +19,15 @@ import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.test.AllTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import java.util.Collections;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -36,7 +40,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
+    List<AllTest> allTest;
 
     TextView notext;
     private TestQuestionData testQuestionData;
@@ -86,6 +90,10 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                             testQuestionData = null;
                         }
                         testQuestionData = response.body();
+
+                        allTest= testQuestionData.getAllTest();
+                        updateDate(allTest);
+
                         DNAApplication.setTestQuestionData(testQuestionData);
                         showTest();
                     }
@@ -107,13 +115,20 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
 
     }
 
+    private void updateDate(List<AllTest> testQuestionData) {
+        for (AllTest allTest : testQuestionData){
+            allTest.setTime(Utils.getMillies(allTest.getTestDate()));
+        }
+    }
+
 
     private void showTest() {
         if (testQuestionData != null && testQuestionData.getAllTest()
                 != null && testQuestionData.getAllTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter testAdapter = new TestAdapter(getActivity());
-            testAdapter.setAllData(testQuestionData.getAllTest());
+            Collections.sort(allTest);
+            testAdapter.setAllData(allTest);
             testAdapter.setListener(this);
 
             //videoListAdapter.setListener(FreeFragment.this);
