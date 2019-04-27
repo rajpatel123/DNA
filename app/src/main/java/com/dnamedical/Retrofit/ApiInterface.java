@@ -7,6 +7,7 @@ import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
+import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
@@ -121,6 +122,10 @@ public interface ApiInterface {
 
     @POST("api/api.php?req=collegelist")
     Call<CollegeListResponse> collegeData();
+
+
+    @POST("api/api.php?req=state")
+    Call<StateListResponse> stateData();
 
     @Multipart
     @POST("api/api.php?req=qbank_cate")
