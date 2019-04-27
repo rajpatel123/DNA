@@ -1,5 +1,6 @@
 package com.dnamedical.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.dnamedical.utils.DnaPrefs;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHolder> {
 
+    private Context applicationContext;
     private List<AllReult> allReults;
 
     public ResultAdapter(List<AllReult> allReults) {
@@ -38,9 +40,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
         holder.textCorrect.setText(allReult.getCurrectQuestion());
       /* String num=Integer.parseInt(allReult.getTotalQuestion())-(Integer.parseInt(allReult.getCurrentQuestion())
                                                     +(Integer.parseInt(allReult.getSkipQuestion());*/
-        holder.textQuestion.setText(allReult.getTotalQuestion());
+        holder.textUserNumber.setText(allReult.getScore());
         holder.textName.setText(allReult.getUser());
         holder.textRank.setText(allReult.getRank() + "th");
+        Picasso.with(applicationContext).load(allReult.getUrl()).error(R.drawable.dr2).into(holder.userImage);
     }
 
     @Override
@@ -53,14 +56,14 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView textRank, textName, textQuestion, textCorrect, textWrong, textSkipped;
+        public TextView textRank, textName, textUserNumber, textCorrect, textWrong, textSkipped;
         public ImageView userImage;
 
         public MyViewHolder(View view) {
             super(view);
             textRank = view.findViewById(R.id.rank);
             textName = view.findViewById(R.id.name);
-            textQuestion = view.findViewById(R.id.question);
+            textUserNumber = view.findViewById(R.id.number_user);
             textCorrect = view.findViewById(R.id.correct_answer);
             textWrong = view.findViewById(R.id.wrong_answer);
             textSkipped = view.findViewById(R.id.skipped_answer);

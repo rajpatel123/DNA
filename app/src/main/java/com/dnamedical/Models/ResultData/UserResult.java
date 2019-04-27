@@ -5,22 +5,33 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserResult {
-
     @SerializedName("total_question")
     @Expose
     private String totalQuestion;
-    @SerializedName("current_question")
+    @SerializedName("currect_question")
     @Expose
-    private String currentQuestion;
+    private String currectQuestion;
     @SerializedName("wrong_question")
     @Expose
     private String wrongQuestion;
     @SerializedName("skip_question")
     @Expose
     private String skipQuestion;
-    @SerializedName("average")
+    @SerializedName("user_rank")
     @Expose
-    private String average;
+    private String userRank;
+    @SerializedName("user_score")
+    @Expose
+    private String userScore;
+    @SerializedName("percentile")
+    @Expose
+    private String percentile;
+    @SerializedName("user_total_score")
+    @Expose
+    private Integer userTotalScore;
+    @SerializedName("total_users_test")
+    @Expose
+    private String totalUsersTest;
 
     public String getTotalQuestion() {
         return totalQuestion;
@@ -30,12 +41,12 @@ public class UserResult {
         this.totalQuestion = totalQuestion;
     }
 
-    public String getCurrentQuestion() {
-        return currentQuestion;
+    public String getCurrectQuestion() {
+        return currectQuestion;
     }
 
-    public void setCurrentQuestion(String currentQuestion) {
-        this.currentQuestion = currentQuestion;
+    public void setCurrectQuestion(String currectQuestion) {
+        this.currectQuestion = currectQuestion;
     }
 
     public String getWrongQuestion() {
@@ -54,12 +65,43 @@ public class UserResult {
         this.skipQuestion = skipQuestion;
     }
 
-    public String getAverage() {
-        return average;
+    public String getUserRank() {
+        return userRank;
     }
 
-    public void setAverage(String average) {
-        this.average = average;
+    public void setUserRank(String userRank) {
+        this.userRank = userRank;
     }
 
+    public String getUserScore() {
+        return userScore;
+    }
+
+    public void setUserScore(String userScore) {
+        this.userScore = userScore;
+    }
+
+    public String getPercentile() {
+        return percentile;
+    }
+
+    public void setPercentile(String percentile) {
+        this.percentile = percentile;
+    }
+
+    public Integer getUserTotalScore() {
+        return userTotalScore;
+    }
+
+    public void setUserTotalScore(Integer userTotalScore) {
+        this.userTotalScore = userTotalScore;
+    }
+
+    public String getTotalUsersTest() {
+        return totalUsersTest;
+    }
+
+    public void setTotalUsersTest(String totalUsersTest) {
+        this.totalUsersTest = totalUsersTest;
+    }
 }

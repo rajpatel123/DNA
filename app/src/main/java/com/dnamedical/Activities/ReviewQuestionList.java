@@ -103,7 +103,7 @@ public class ReviewQuestionList extends AppCompatActivity {
 
                         }
                     }
-                    Toast.makeText(ReviewQuestionList.this, "Successfully", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ReviewQuestionList.this, "Successfully", Toast.LENGTH_SHORT).show();
 
                 }
 

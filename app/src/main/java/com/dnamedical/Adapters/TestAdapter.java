@@ -68,11 +68,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
-            if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (grandTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
+
 
 
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -99,11 +95,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
-            if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (miniTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
+
 
 
             if (holder.getAdapterPosition() > 0) {
@@ -139,13 +131,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
-
-            if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (allTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
 
           /*  if (holder.getAdapterPosition() > 0) {
                 if (!allTests.get(holder.getAdapterPosition())
@@ -190,11 +175,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
-            if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("No")) {
-                if (subjectTests.get(holder.getAdapterPosition()).getTestStatus().equals("1")) {
-                    holder.imageLock.setImageResource(R.drawable.submitresult);
-                }
-            }
+
 
 
             if (holder.getAdapterPosition() > 0) {

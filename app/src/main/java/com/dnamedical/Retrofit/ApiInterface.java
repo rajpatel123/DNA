@@ -95,7 +95,8 @@ public interface ApiInterface {
                                   @Query("wanswer") String wanswer,
                                   @Query("wwanswer") String wwanswer,
                                   @Query("sanswer") String sanswer,
-                                  @Query("ssanswer") String ssanswer);
+                                  @Query("ssanswer") String ssanswer,
+                                  @Query("test_finish_duration") String test_finish_duration);
 
     @Multipart
     @POST("api/api.php?req=result")

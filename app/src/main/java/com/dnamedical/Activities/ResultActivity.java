@@ -1,11 +1,14 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
 import hiennguyen.me.circleseekbar.CircleSeekBar;
+import me.tankery.lib.circularseekbar.CircularSeekBar;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -34,7 +38,9 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, total, skipped, wrong, correct;
+    TextView dateTv, percentValue, testNameTv, totalUser,totalQuestion,userRank,userNumber;
+    CircularSeekBar correct,wrong,skipped;
+    TextView correctTXT,wrongTXT,skippedTXT;
 
     private List<UserResult> userResults;
     private List<ResultList> resultLists;
@@ -50,12 +56,22 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        userNumber=findViewById(R.id.user_number);
         // dateTv = findViewById(R.id.date);
+        userRank=findViewById(R.id.user_rank);
         percentValue = findViewById(R.id.percentageValue);
+        totalUser=findViewById(R.id.total_user);
         //  testNameTv = findViewById(R.id.testName);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         reviewButton = findViewById(R.id.review);
-        circleSeekBar = findViewById(R.id.circular);
+        correct = findViewById(R.id.correct);
+        wrong = findViewById(R.id.wrong);
+        skipped = findViewById(R.id.skipped);
+
+        correctTXT = findViewById(R.id.correctText);
+        wrongTXT = findViewById(R.id.wrongText);
+        skippedTXT = findViewById(R.id.skippedText);
+
         shareButton = findViewById(R.id.btn_share);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +87,10 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        total = findViewById(R.id.total_question);
-        skipped = findViewById(R.id.skipped);
-        wrong = findViewById(R.id.wrong);
-        correct = findViewById(R.id.correct);
+        totalQuestion= findViewById(R.id.total_question);
+//        skipped = findViewById(R.id.skipped);
+//        wrong = findViewById(R.id.wrong);
+//        correct = findViewById(R.id.correct);
 
         showRankResult();
 
@@ -138,6 +154,7 @@ public class ResultActivity extends AppCompatActivity {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RestClient.resultList(userId, testId, new Callback<ResultList>() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onResponse(Call<ResultList> call, Response<ResultList> response) {
                     Utils.dismissProgressDialog();
@@ -145,13 +162,58 @@ public class ResultActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
-                            total.setText(userResults.get(0).getTotalQuestion());
-                            skipped.setText(userResults.get(0).getSkipQuestion());
-                            correct.setText(userResults.get(0).getCurrentQuestion());
-                            wrong.setText(userResults.get(0).getWrongQuestion());
-                            percentValue.setText(userResults.get(0).getAverage());
-                            allReults = response.body().getAllReult();
+                            totalUser.setText(userResults.get(0).getTotalUsersTest());
+                            totalQuestion.setText("Total score out of "+userResults.get(0).getUserTotalScore());
+                            correct.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
+                            skipped.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
+                            wrong.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
+                            skipped.setProgress(Float.parseFloat(userResults.get(0).getSkipQuestion()));
+                            userNumber.setText(""+userResults.get(0).getUserScore());
 
+
+
+                            correct.setEnabled(false);
+                            skipped.setEnabled(false);
+                            wrong.setEnabled(false);
+
+
+                            if (!(userResults.get(0).getCurrectQuestion() != null)
+                                    && TextUtils.isEmpty(userResults.get(0).getCurrectQuestion())) {
+                                correct.setProgress(0);
+                                correctTXT.setText(0+"");
+
+                            } else {
+                                correct.setProgress(Integer.parseInt(userResults.get(0).getCurrectQuestion()));
+                                correctTXT.setText(userResults.get(0).getCurrectQuestion());
+                            }
+
+                            if (!(userResults.get(0).getWrongQuestion() != null)
+                                    && TextUtils.isEmpty(userResults.get(0).getWrongQuestion())) {
+                                wrong.setProgress(0);
+                                wrongTXT.setText(""+0);
+
+                            } else {
+                                wrong.setProgress(Integer.parseInt(userResults.get(0).getWrongQuestion()));
+                                wrongTXT.setText(""+userResults.get(0).getWrongQuestion());
+
+                            }
+
+                            if (!(userResults.get(0).getSkipQuestion() != null)
+                                    && TextUtils.isEmpty(userResults.get(0).getSkipQuestion())) {
+                                skipped.setProgress(0);
+                                skippedTXT.setText(""+0);
+
+
+                            } else {
+                                skipped.setProgress(Integer.parseInt(userResults.get(0).getSkipQuestion()));
+                                skippedTXT.setText(""+userResults.get(0).getSkipQuestion());
+
+                            }
+                            totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
+                            percentValue.setText(""+userResults.get(0).getPercentile()+"  Percentile");
+                            userRank.setText(""+userResults.get(0).getUserRank());
+
+                            allReults = response.body().getAllReult();
                             resultAdapter = new ResultAdapter(allReults);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(mLayoutManager);

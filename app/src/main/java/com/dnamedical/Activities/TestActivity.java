@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,6 +68,7 @@ public class TestActivity extends FragmentActivity {
     private ImageView guessImage;
     private Button button, menuButton;
     private Button skip;
+    long testCompleteTime=0;
 
     String user_id;
 
@@ -81,12 +83,15 @@ public class TestActivity extends FragmentActivity {
     private String wwanswerIds;
     private String ttQuestion;
     private String ccAnswerIds;
+    long testDuration = 0;
     private RelativeLayout relative;
+    private LinearLayout linearLayoutNext,linearLayoutPrevious;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
+        skip = findViewById(R.id.btn_skip);
 
         imgPrevious = findViewById(R.id.image_previous);
         imgNest = findViewById(R.id.image_next);
@@ -116,28 +121,28 @@ public class TestActivity extends FragmentActivity {
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
 
-        long testDuration = 0;
+
         if (!TextUtils.isEmpty(duration)) {
             switch (duration) {
                 case "15m":
-                    testDuration = 15;
+                    testDuration = 15 * 60 * 1000;
                 case "30m":
-                    testDuration = 30;
+                    testDuration = 30 * 60 * 1000;
                     break;
                 case "45m":
-                    testDuration = 45;
+                    testDuration = 45 * 60 * 1000;
                     break;
                 case "1h":
-                    testDuration = 60;
+                    testDuration = 60 * 60 * 1000;
                     break;
                 case "2h":
-                    testDuration = 120;
+                    testDuration = 120 * 60 * 1000;
                     break;
                 case "3h":
-                    testDuration = 180;
+                    testDuration = 180 * 60 * 1000;
                     break;
                 case "3 hour":
-                    testDuration = 180;
+                    testDuration = 180 * 60 * 1000;
                     break;
 
 
@@ -145,47 +150,42 @@ public class TestActivity extends FragmentActivity {
         }
 
 
-        skip = findViewById(R.id.btn_skip);
+
         skip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getDetail().size());
-                mPager.setCurrentItem(currentPosition + 1);
+
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
-                    skip.setEnabled(true);
                     submitAlertDiolog();
-                } else {
-                    skip.setText("SKIP");
                 }
-                if (!skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
+              /*  if (!skippedAnswerIdList.contains(qustionDetails.getDetail().get(currentPosition).getQid())) {
                     skippedAnswerIdList.add(qustionDetails.getDetail().get(currentPosition).getQid());
-                }
+                }*/
             }
         });
 
-
+        linearLayoutPrevious=findViewById(R.id.linear_previous);
         previousText = findViewById(R.id.text_previous);
-        previousText.setOnClickListener(new OnClickListener() {
+        linearLayoutPrevious.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 previousText.setTextColor(getResources().getColor(R.color.colorAccent));
                 nextText.setTextColor(getResources().getColor(R.color.darkwhite));
                 imgPrevious.setImageResource(R.drawable.previou_red);
                 imgNest.setImageResource(R.drawable.next_white);
-
-
+                  skip.setVisibility(View.GONE);
                 if (currentPosition > 0) {
                     quesionCounter.setText((currentPosition - 1) + " of " + qustionDetails.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
                 }
-                skip.setText("SKIP");
+                //skip.setText("SKIP");
             }
         });
 
-
+        linearLayoutNext=findViewById(R.id.linear_next);
         nextText = findViewById(R.id.next);
-        nextText.setOnClickListener(new OnClickListener() {
+        linearLayoutNext.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 //                hideShowSkip(false);
                 nextText.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -196,8 +196,10 @@ public class TestActivity extends FragmentActivity {
                 mPager.setCurrentItem(currentPosition + 1);
                 if ((currentPosition + 1) == qustionDetails.getDetail().size()) {
                     skip.setText("COMPLETE");
-                    skip.setEnabled(true);
+                    skip.setVisibility(View.VISIBLE);
+
                 } else {
+                    skip.setVisibility(View.GONE);
                     skip.setText("SKIP");
                 }
 
@@ -214,13 +216,14 @@ public class TestActivity extends FragmentActivity {
         });*/
 
 
-        countDownTimer = new CountDownTimer(testDuration * 60 * 1000, 1000) {
+        countDownTimer = new CountDownTimer(testDuration, 1000) {
 
             public void onTick(long millis) {
                 String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                         TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 timer.setText(hms);
+                testCompleteTime = TimeUnit.MILLISECONDS.toMinutes(testDuration-millis);
             }
 
             public void onFinish() {
@@ -270,14 +273,8 @@ public class TestActivity extends FragmentActivity {
 
             }
         });
-
-
         dialog.show();
-
-
     }
-
-
     @SuppressLint("RestrictedApi")
     private void OpenMenuOption() {
         PopupMenu popupMenu = new PopupMenu(TestActivity.this, imageMenu);
@@ -285,16 +282,13 @@ public class TestActivity extends FragmentActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 switch (item.getItemId()) {
                     case R.id.review:
                         showAnswerDetails(qustionDetails, currentPosition);
                         break;
-
                     case R.id.submit:
                         submitAlertDiolog();
                         break;
-
                     case R.id.discard:
                         discardAlertDialog();
                         break;
@@ -488,6 +482,7 @@ public class TestActivity extends FragmentActivity {
             StringBuilder builder = new StringBuilder();
             for (Detail detail : qustionDetails.getDetail()) {
                 builder.append(detail.getQid() + ",");
+
             }
 
             if (!TextUtils.isEmpty(builder))
@@ -514,17 +509,19 @@ public class TestActivity extends FragmentActivity {
             for (Detail ss : qustionDetails.getDetail()) {
                if (!correctAnswerList.containsKey(ss.getQid())&& !wrongAnswerList.containsKey(ss.getQid())){
                    skiped.append(ss.getQid() + ",");
+                   sanswer++;
+
                }
             }
             if (!TextUtils.isEmpty(skiped))
                 ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
 
 
-            Log.d("TEstData", " userid->" + user_id + " testid->" + test_id + " tquestion->"
+            Log.d("TEstData", "  Duration  "+testCompleteTime +" userid->" + user_id + " testid->" + test_id + " tquestion->"
                     + tquestion + " ttQuestion" + ttQuestion +
-                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer);
+                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer   );
 
-            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer, new Callback<ResponseBody>() {
+            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer,""+testCompleteTime, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
@@ -543,7 +540,6 @@ public class TestActivity extends FragmentActivity {
                                 intent.putExtra("tquestion", tquestion);
                                 intent.putExtra("canswer", canswer);
                                 intent.putExtra("wanswer", wanswer);
-                                intent.putExtra("sanswer", sanswer);
                                 intent.putExtra("testName", testName);
                                 startActivity(intent);
                                 finish();

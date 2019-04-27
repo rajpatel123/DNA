@@ -90,8 +90,8 @@ public class RestClient {
 
 
     public static void submitTest(String user_id, String test_id,
-                                  String tquestion, String ttquestion, String canswer, String ccanswer, String wanswer, String wwanswer, String sanswer, String ssanswer, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, ttquestion, canswer, ccanswer, wanswer, wwanswer, sanswer, ssanswer).enqueue(callback);
+                                  String tquestion, String ttquestion, String canswer, String ccanswer, String wanswer, String wwanswer, String sanswer, String ssanswer,String test_finish_duration, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, ttquestion, canswer, ccanswer, wanswer, wwanswer, sanswer, ssanswer,test_finish_duration).enqueue(callback);
 
     }
 
