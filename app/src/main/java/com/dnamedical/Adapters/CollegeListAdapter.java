@@ -13,7 +13,7 @@ import com.dnamedical.R;
 import java.util.List;
 
 public class CollegeListAdapter extends BaseAdapter {
-
+    CollegeSelectedListener collegeSelectedListener;
 
     private Context applicationContext;
     List<College> collegeList;
@@ -54,17 +54,27 @@ public class CollegeListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         view = layoutInflater.inflate(R.layout.spinner_item_college, null);
-        TextView names = (TextView) view.findViewById(R.id.textView1);
-        names.setText("" + collegeList.get(0).getName());
-        /*names.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onCollegeSelect != null) {
-                    onCollegeSelect.onSelect(names.getText().toString());
-                }
-            }
-        });*/
+        TextView name = (TextView) view.findViewById(R.id.textView1);
+        name.setText("" + collegeList.get(position).getName());
+
+//        name.setOnClickListener(new View.OnClickListener() {
+//////            @Override
+//////            public void onClick(View v) {
+//////                if ( collegeSelectedListener != null) {
+//////                    collegeSelectedListener.selected(name.getText().toString());
+//////                }
+//////            }
+//////        });
         //imageView.setVisibility(View.GONE);
         return view;
+    }
+
+    public void setSelectedListener(CollegeSelectedListener collegeSelectedListener) {
+        this.collegeSelectedListener=collegeSelectedListener;
+    }
+
+
+    public interface CollegeSelectedListener {
+        public void selected(String collegeName);
     }
 }

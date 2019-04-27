@@ -185,18 +185,20 @@ public class RegistrationActivity extends AppCompatActivity implements
                                     StateText = stateListResponse.getDetails().get(0).getStateName();
                                     stateListAdapter = new StateListAdapter(getApplicationContext());
                                     stateListAdapter.setStateList(stateListResponse.getDetails());
-                                    stateListAdapter.setOnStateSelect(new StateListAdapter.onStateSelect() {
-                                        @Override
-                                        public void onSelect(String name, int Position) {
-                                            collegeList=stateListResponse.getDetails().get(0).getCollege();
-                                        }
-                                    });
-                                   // sendCollegeListData();
-                                   // StateText=stateListResponse.getDetails().get(0).getStateName();
-                                    //collegeList=stateListResponse.getDetails().get(0).getCollege();
+
+
                                 }
                             }
                             spinState.setAdapter(stateListAdapter);
+                            spinState.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    collegeList=stateListResponse.getDetails().get(position).getCollege();
+                                    StateText = stateListResponse.getDetails().get(position).getStateName();
+
+                                    sendCollegeListData();
+                                }
+                            });
                            // spinnerCollege.setAdapter(collegeCustomAdapter);
 
                         }
@@ -222,6 +224,13 @@ public class RegistrationActivity extends AppCompatActivity implements
         {
             CollegeListAdapter collegeListAdapter=new CollegeListAdapter(getApplicationContext());
             collegeListAdapter.setCollegeList(collegeList);
+            collegeListAdapter.setSelectedListener(new CollegeListAdapter.CollegeSelectedListener() {
+                @Override
+                public void selected(String collegeName) {
+                    Log.d("string ",collegeName);
+
+                }
+            });
             spinnerCollege.setAdapter(collegeListAdapter);
 
 
