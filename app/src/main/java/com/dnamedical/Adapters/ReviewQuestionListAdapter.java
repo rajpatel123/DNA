@@ -57,10 +57,10 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
 
 
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
-            holder.ques1.setTextColor(Color.GREEN);
+            holder.ques1.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView1.setImageResource(R.drawable.right_answer_icon);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
-                holder.ques1.setTextColor(Color.GREEN);
+                holder.ques1.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView1.setImageResource(R.drawable.right_answer_icon);
             }
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
@@ -79,10 +79,10 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
         }
 
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
-            holder.ques2.setTextColor(Color.GREEN);
+            holder.ques2.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView2.setImageResource(R.drawable.right_answer_icon);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
-                holder.ques2.setTextColor(Color.GREEN);
+                holder.ques2.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView2.setImageResource(R.drawable.right_answer_icon);
             }
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
@@ -100,10 +100,10 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
         }
 
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
-            holder.ques3.setTextColor(Color.GREEN);
+            holder.ques3.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView3.setImageResource(R.drawable.right_answer_icon);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
-                holder.ques3.setTextColor(Color.GREEN);
+                holder.ques3.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView3.setImageResource(R.drawable.right_answer_icon);
             } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
                 holder.ques1.setTextColor(Color.RED);
@@ -117,10 +117,10 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
             }
         }
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
-            holder.ques4.setTextColor(Color.GREEN);
+            holder.ques4.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView4.setImageResource(R.drawable.right_answer_icon);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
-                holder.ques4.setTextColor(Color.GREEN);
+                holder.ques4.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView4.setImageResource(R.drawable.right_answer_icon);
             } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
                 holder.ques1.setTextColor(Color.RED);

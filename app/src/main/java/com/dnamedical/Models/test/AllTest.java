@@ -1,12 +1,15 @@
 package com.dnamedical.Models.test;
 
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
 import java.util.Date;
 
-public class AllTest implements Comparable<AllTest> {
+public class AllTest implements Comparable<AllTest>{
 
     @SerializedName("test_id")
     @Expose
@@ -17,6 +20,9 @@ public class AllTest implements Comparable<AllTest> {
     @SerializedName("test_date")
     @Expose
     private String testDate;
+
+
+    private long time;
     @SerializedName("test_duration")
     @Expose
     private String testDuration;
@@ -37,6 +43,14 @@ public class AllTest implements Comparable<AllTest> {
     @SerializedName("test_status")
     @Expose
     private String testStatus;
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 
     public String getTestId() {
         return testId;
@@ -110,9 +124,14 @@ public class AllTest implements Comparable<AllTest> {
         this.testStatus = testStatus;
     }
 
+
+
     @Override
-    public int compareTo(AllTest o) {
-        return new Date(getTestDate()).compareTo(new Date(o.getTestDate()));
+    public int compareTo(AllTest u) {
+        if (getTime() == 0 || u.getTime() == 0) {
+            return 0;
+        }
+        return new Date(getTime()).compareTo(new Date(u.getTime()));
     }
 }
 

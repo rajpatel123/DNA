@@ -53,6 +53,7 @@
                 android:visibility="gone" />
 
             <TextView
+                android:layout_marginTop="200dp"
                 android:id="@+id/noInternet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +62,7 @@
                 android:gravity="center"
                 android:text="@string/no_internet"
                 android:textSize="20dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible" />
         </LinearLayout>
 

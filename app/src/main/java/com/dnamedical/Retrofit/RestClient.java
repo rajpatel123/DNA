@@ -8,6 +8,7 @@ import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
+import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
@@ -65,6 +66,10 @@ public class RestClient {
         RetrofitClient.getClient().collegeData().enqueue(callback);
     }
 
+    public static void getState(Callback<StateListResponse> callback) {
+        RetrofitClient.getClient().stateData().enqueue(callback);
+    }
+
 
     public static void submitAnswer(String q_id, String u_id, String is_completed, String userAnswer, Callback<SubmitAnswer> callback) {
         RetrofitClient.getClient().submitAnswer(q_id, u_id, is_completed, userAnswer).enqueue(callback);
@@ -84,14 +89,14 @@ public class RestClient {
     }
 
 
-    public static void getTest(RequestBody user_id,Callback<TestQuestionData> callback) {
+    public static void getTest(RequestBody user_id, Callback<TestQuestionData> callback) {
         RetrofitClient.getClient().getTest(user_id).enqueue(callback);
     }
 
 
     public static void submitTest(String user_id, String test_id,
-                                  String tquestion, String ttquestion, String canswer, String ccanswer, String wanswer, String wwanswer, String sanswer, String ssanswer,String test_finish_duration, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, ttquestion, canswer, ccanswer, wanswer, wwanswer, sanswer, ssanswer,test_finish_duration).enqueue(callback);
+                                  String tquestion, String ttquestion, String canswer, String ccanswer, String wanswer, String wwanswer, String sanswer, String ssanswer, String test_finish_duration, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, ttquestion, canswer, ccanswer, wanswer, wwanswer, sanswer, ssanswer, test_finish_duration).enqueue(callback);
 
     }
 

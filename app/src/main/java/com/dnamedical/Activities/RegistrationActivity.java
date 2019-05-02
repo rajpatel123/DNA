@@ -12,6 +12,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,18 +24,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.dnamedical.Adapters.CollegeCustomAdapter;
+import com.dnamedical.Adapters.CollegeListAdapter;
 import com.dnamedical.Adapters.CustomAdapter;
+import com.dnamedical.Adapters.StateListAdapter;
+import com.dnamedical.Models.StateList.College;
+import com.dnamedical.Models.StateList.Detail;
+import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.Utils;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -43,7 +52,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegistrationActivity extends AppCompatActivity implements
-        View.OnClickListener, AdapterView.OnItemSelectedListener {
+        View.OnClickListener {
 
 
     @BindView(R.id.edit_name)
@@ -78,25 +87,33 @@ public class RegistrationActivity extends AppCompatActivity implements
     Spinner selectState;
 
     String edit_name, edit_username, edit_email, edit_password;
-    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Utter Pradesh", "Bihar"};
+    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Uttar Pradesh", "Bihar", "Tamilnadu", "Telangana", "Bangalore", "New Delhi"};
     String[] collegeNames = {"Narayana Medical College,Nellore", "NRI Medical College,Guntur", "Santhiram Medical College,Kakinada"
             , "S V Mediacal College,Tirupati", "Katihar Medical College, Katihar",
             "Nalanda Medical College,Patna"};
+
+    private StateListAdapter stateListAdapter;
     private String imagePath;
     private String statetxt;
     private String collegetext;
+    private String StateText;
     private String edit_phonetxt;
     Spinner spinnerCollege;
     CollegeCustomAdapter collegeCustomAdapter;
+    StateListResponse stateListResponse;
     CollegeListResponse collegeListResponse;
     private String collegeName;
+    private List<College> collegeList;
+    private Spinner spinState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
-        getCollegeList();
+        //getCollegeList();
+        sendCollegeListData();
+        getStateList();
         btnSignUp.setOnClickListener(this);
         textLogin.setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -141,15 +158,102 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         //state spinner
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
-        Spinner spin = (Spinner) findViewById(R.id.selectState);
+        spinState = (Spinner) findViewById(R.id.selectState);
         spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
-        spin.setOnItemSelectedListener(this);
+        //spinState.setOnItemSelectedListener(this);
 
     /*  CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
       spinnerCollege.setAdapter(collegeCustomAdapter);*/
 
-        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), statesName);
-        spin.setAdapter(customAdapter);
+        /*CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), statesName);
+        spin.setAdapter(customAdapter);*/
+
+    }
+
+    private void getStateList() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            {
+                RestClient.getState(new Callback<StateListResponse>() {
+                    @Override
+                    public void onResponse(Call<StateListResponse> call, Response<StateListResponse> response) {
+                        Utils.dismissProgressDialog();
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                stateListResponse = response.body();
+                                if (stateListResponse != null && stateListResponse.getDetails().size() > 0) {
+                                    StateText = stateListResponse.getDetails().get(0).getStateName();
+                                    stateListAdapter = new StateListAdapter(getApplicationContext());
+                                    stateListAdapter.setStateList(stateListResponse.getDetails());
+
+
+                                }
+                            }
+                            spinState.setAdapter(stateListAdapter);
+                            spinState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    collegeList = stateListResponse.getDetails().get(position).getCollege();
+                                    StateText = stateListResponse.getDetails().get(position).getStateName();
+
+                                    Log.d("StateName", StateText);
+                                    sendCollegeListData();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
+                            // spinnerCollege.setAdapter(collegeCustomAdapter);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<StateListResponse> call, Throwable t) {
+
+                        Utils.dismissProgressDialog();
+                        Toast.makeText(RegistrationActivity.this, "Response Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        } else {
+            Toast.makeText(this, "Internet Connection Failed", Toast.LENGTH_SHORT).show();
+            Utils.dismissProgressDialog();
+        }
+    }
+
+    private void sendCollegeListData() {
+        if (collegeList != null && collegeList.size() > 0) {
+            CollegeListAdapter collegeListAdapter = new CollegeListAdapter(getApplicationContext());
+            collegeListAdapter.setCollegeList(collegeList);
+           /* collegeListAdapter.setSelectedListener(new CollegeListAdapter.CollegeSelectedListener() {
+                @Override
+                public void selected(String collegeName) {
+                    Log.d("string ",collegeName);
+
+                }
+            });*/
+            spinnerCollege.setAdapter(collegeListAdapter);
+            spinnerCollege.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    collegetext = collegeList.get(position).getName();
+                    Log.d("CollegeTxt", collegetext);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+
+        }
 
     }
 
@@ -171,7 +275,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                                 collegeCustomAdapter.setOnCollegeSecect(new CollegeCustomAdapter.OnCollegeSelect() {
                                     @Override
                                     public void onSelect(String college) {
-                                        collegetext=college;
+                                        collegetext = college;
                                     }
                                 });
                                 spinnerCollege.setAdapter(collegeCustomAdapter);
@@ -275,17 +379,17 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
-        if (TextUtils.isEmpty(statetxt)) {
+        if (TextUtils.isEmpty(StateText)) {
             Utils.displayToast(getApplicationContext(), "Please select state");
             return;
 
         }
 
-       if (TextUtils.isEmpty(collegetext)) {
-           Utils.displayToast(getApplicationContext(), "Please select College");
-           return;
+        if (TextUtils.isEmpty(collegetext)) {
+            Utils.displayToast(getApplicationContext(), "Please select College");
+            return;
 
-       }
+        }
 
         Uri uri = Uri.parse("android.resource://com.dnamedical/drawable/dna_log_new");
         File videoFile = new File(getRealPath(uri));
@@ -299,44 +403,52 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), edit_name);
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
-        RequestBody states = RequestBody.create(MediaType.parse("text/plain"), statetxt);
-        RequestBody college = RequestBody.create(MediaType.parse("text/plain"),collegetext);
+        RequestBody states = RequestBody.create(MediaType.parse("text/plain"), StateText);
+        RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
-        Utils.showProgressDialog(this);
-        RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
-            /* private Call<CommonResponse> call;
-             private Response<CommonResponse> response;
- */
-            @Override
-            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
+                /* private Call<CommonResponse> call;
+                 private Response<CommonResponse> response;
+     */
+                @Override
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                /* this.call = call;
                 this.response = response;*/
-                Utils.dismissProgressDialog();
-                if (response.body() != null) {
-                    if (response.body().getStatus().equalsIgnoreCase("1")) {
-                        Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        intent.putExtra("mobile", "");
-                        intent.putExtra("user_id", response.body().getUser_id());
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Utils.displayToast(getApplicationContext(), response.body().getMessage());
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equalsIgnoreCase("1")) {
+                            Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            intent.putExtra("mobile", "");
+                            intent.putExtra("user_id", response.body().getUser_id());
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Utils.displayToast(getApplicationContext(), response.body().getMessage());
 
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<CommonResponse> call, Throwable t) {
-                Utils.dismissProgressDialog();
-                Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
+                @Override
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
 
-            }
-        });
+                }
+            });
+
+        } else {
+            Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Internet Connections Failed", Toast.LENGTH_SHORT).show();
+
+        }
 
 
     }
@@ -365,18 +477,4 @@ public class RegistrationActivity extends AppCompatActivity implements
     }
 
 
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        statetxt = statesName[position];
-
-        //collegetext=collegeListResponse.getName().get(position).getName();
-
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }

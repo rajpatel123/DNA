@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class CollegeCustomAdapter extends BaseAdapter {
 
     Context applicationContext;
     String collegeName[];
+    LinearLayout linearItem;
     Name nameList;
     OnCollegeSelect onCollegeSelect;
     List<Name> collegeListResponse;
@@ -52,9 +54,10 @@ public class CollegeCustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         view = layoutInflater.inflate(R.layout.spinner_item_college, null);
+        linearItem=view.findViewById(R.id.linear_item);
         TextView names = (TextView) view.findViewById(R.id.textView1);
         names.setText("" + collegeListResponse.get(position).getName());
-        names.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onCollegeSelect != null) {

@@ -183,7 +183,6 @@ public class TestActivity extends FragmentActivity {
             }
         });
 
-
         linearLayoutNext=findViewById(R.id.linear_next);
         nextText = findViewById(R.id.next);
         linearLayoutNext.setOnClickListener(new OnClickListener() {
@@ -274,14 +273,8 @@ public class TestActivity extends FragmentActivity {
 
             }
         });
-
-
         dialog.show();
-
-
     }
-
-
     @SuppressLint("RestrictedApi")
     private void OpenMenuOption() {
         PopupMenu popupMenu = new PopupMenu(TestActivity.this, imageMenu);
@@ -289,16 +282,13 @@ public class TestActivity extends FragmentActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 switch (item.getItemId()) {
                     case R.id.review:
                         showAnswerDetails(qustionDetails, currentPosition);
                         break;
-
                     case R.id.submit:
                         submitAlertDiolog();
                         break;
-
                     case R.id.discard:
                         discardAlertDialog();
                         break;
@@ -529,7 +519,7 @@ public class TestActivity extends FragmentActivity {
 
             Log.d("TEstData", "  Duration  "+testCompleteTime +" userid->" + user_id + " testid->" + test_id + " tquestion->"
                     + tquestion + " ttQuestion" + ttQuestion +
-                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer);
+                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer   );
 
             RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer,""+testCompleteTime, new Callback<ResponseBody>() {
                 @Override

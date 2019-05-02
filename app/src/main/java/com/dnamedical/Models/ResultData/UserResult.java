@@ -17,9 +17,18 @@ public class UserResult {
     @SerializedName("skip_question")
     @Expose
     private String skipQuestion;
+    @SerializedName("user_rank")
+    @Expose
+    private String userRank;
+    @SerializedName("user_score")
+    @Expose
+    private String userScore;
     @SerializedName("percentile")
     @Expose
     private String percentile;
+    @SerializedName("user_total_score")
+    @Expose
+    private Integer userTotalScore;
     @SerializedName("total_users_test")
     @Expose
     private String totalUsersTest;
@@ -56,12 +65,36 @@ public class UserResult {
         this.skipQuestion = skipQuestion;
     }
 
+    public String getUserRank() {
+        return userRank;
+    }
+
+    public void setUserRank(String userRank) {
+        this.userRank = userRank;
+    }
+
+    public String getUserScore() {
+        return userScore;
+    }
+
+    public void setUserScore(String userScore) {
+        this.userScore = userScore;
+    }
+
     public String getPercentile() {
         return percentile;
     }
 
     public void setPercentile(String percentile) {
         this.percentile = percentile;
+    }
+
+    public Integer getUserTotalScore() {
+        return userTotalScore;
+    }
+
+    public void setUserTotalScore(Integer userTotalScore) {
+        this.userTotalScore = userTotalScore;
     }
 
     public String getTotalUsersTest() {
@@ -71,5 +104,4 @@ public class UserResult {
     public void setTotalUsersTest(String totalUsersTest) {
         this.totalUsersTest = totalUsersTest;
     }
-
 }
