@@ -182,12 +182,25 @@
                     <ImageView
                         android:layout_width="20sp"
                         android:layout_height="20sp"
-                        android:src="@drawable/ic_star" />
+                        app:srcCompat="@drawable/ic_star" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:text="(5.0)"
+                        android:textSize="@dimen/evp_text_size_small"
+                        android:textColor="@color/vedio_text_color" />
+
+
+                    <TextView
+                        android:id="@+id/ratingandtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
                         android:layout_marginLeft="7dp"
                         android:layout_weight="1"
                         android:text="(5.0)"

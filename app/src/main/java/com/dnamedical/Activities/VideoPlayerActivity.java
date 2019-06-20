@@ -30,6 +30,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -77,8 +78,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     RelativeLayout toolbar;
 
-    @BindView(R.id.playerClick)
-    View playerClick;
 
     @BindView(R.id.md_replay)
     ImageView md_replay;
@@ -131,7 +130,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     TextView textHeading;
 
 
-    @BindView(R.id.emailId)
+    @BindView(R.id.email)
     TextView textViewEmail;
 
     @BindView(R.id.techer_name)
@@ -140,6 +139,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private Unbinder unbinder;
     private String title;
     private Handler handler = new Handler();
+    private Handler handler1 = new Handler();
     private String TAG = getClass().getSimpleName();
     private int seekBarProgress = 0;
     private boolean seekFromUser = false;
@@ -152,6 +152,19 @@ public class VideoPlayerActivity extends AppCompatActivity {
     String url = "";
     String email_id;
 
+Runnable emailPresenter= new Runnable() {
+    @Override
+    public void run() {
+        if (textViewEmail.getVisibility()== View.VISIBLE){
+            textViewEmail.setVisibility(GONE);
+        }else {
+            textViewEmail.setVisibility(View.VISIBLE);
+
+        }
+
+        handler1.postDelayed(emailPresenter,5*1000);
+    }
+};
 
     private Runnable mediaProgressRunnable = new Runnable() {
         @Override
@@ -201,7 +214,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-           handler.postDelayed(new Runnable() {
+            llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+
+            handler.postDelayed(emailPresenter,5*1000);
+
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // This method will be executed once the timer is over
@@ -233,6 +250,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         }
 
+
         @Override
         public void onBuffering(int percent) {
             if (seekbarVideo != null) {
@@ -244,6 +262,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 String totalDuration = getTimeDurationFormat(upper_exoplayer.getDuration());
                 videoDuration.setText(currentTime + " / " + totalDuration);
             }
+        }
+
+        @Override
+        public void onTouch(@Nullable boolean touched) {
+            llControllerWrapperFlexible.setVisibility(View.VISIBLE);
         }
 
 
@@ -279,14 +302,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         @Override
         public void onSeekChange(EasyExoVideoPlayer player, boolean isSeeking) {
-            //String currentTime = getTimeDurationFormat(player.getCurrentPosition());
+            String currentTime = getTimeDurationFormat(player.getCurrentPosition());
             String totalDuration = getTimeDurationFormat(player.getDuration());
 
 
-           /* String time = DnaPrefs.getString(getApplicationContext(), "curSec");
-            currentTime = String.valueOf(time);*/
-            int time = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
-            String currentTime = getTimeDurationFormat(time);
+           // String time = DnaPrefs.getString(getApplicationContext(), "curSec");
+            //currentTime = String.valueOf(time);
+//            int time = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
+           //String currentTime = getTimeDurationFormat(time);
             videoDuration.setText(currentTime + " / " + totalDuration);
             upper_progress.setVisibility(GONE);
 
@@ -345,22 +368,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
             textViewEmail.setText(email_id);
         }
 
-
-
-        playerClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(VideoPlayerActivity.this,"Hi",Toast.LENGTH_LONG).show();
-
-                llControllerWrapperFlexible.setVisibility(View.VISIBLE);
-            }
-        });
-        top_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(VideoPlayerActivity.this,"Hi",Toast.LENGTH_LONG).show();
-            }
-        });
 
         Intent intent = getIntent();
 

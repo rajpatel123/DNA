@@ -45,25 +45,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
+        android:clickable="true"
         android:background="@color/black_titles"
         android:orientation="vertical">
+
 
         <RelativeLayout
             android:id="@+id/top_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:clickable="true"
             android:background="@color/transparent"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:visibility="gone" />
+
 
 
             <ImageView
@@ -78,11 +74,6 @@
                 tools:visibility="visible" />
 
 
-            <View
-                android:id="@+id/playerClick"
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:background="@color/transparent"/>
             <com.dnamedical.player.EasyExoVideoPlayer
                 android:id="@+id/upper_exoplayer"
                 android:layout_width="match_parent"
@@ -96,10 +87,9 @@
                 app:evp_leftAction="none"
                 app:evp_loop="false"
                 app:evp_rightAction="none"
-                tools:visibility="visible">
+                tools:visibility="visible" />
 
 
-            </com.dnamedical.player.EasyExoVideoPlayer>
 
 
             <ProgressBar
@@ -112,7 +102,17 @@
                 tools:visibility="visible" />
 
         </RelativeLayout>
-
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="left"
+            android:layout_below="@+id/upper_progress"
+            android:textSize="18sp"
+            android:text="sadsadadad a"
+            android:elevation="2dp"
+            android:visibility="gone" />
         <RelativeLayout
             android:id="@+id/videoPlayerControlsPortraitMode"
             android:layout_width="match_parent"
@@ -123,18 +123,6 @@
             android:visibility="visible"
             tools:visibility="visible">
 
-            <View
-                android:layout_width="16dp"
-                android:layout_height="3dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/white" />
-
-            <View
-                android:layout_width="16dp"
-                android:layout_height="3dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorPrimary" />
 
             <LinearLayout
                 android:id="@+id/llControllerWrapperFlexible"
@@ -142,7 +130,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/black"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/md_play"
@@ -242,39 +231,27 @@
 
     </LinearLayout>
 
+
     <TextView
         android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/md_parentview"
         android:background="@color/white"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/md_parentview"
         android:padding="10dp"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/emailId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/heading"
-        android:background="@color/white"
-        android:padding="@dimen/margin_10"
-        android:text="sbhu@gmail.com"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8pt"
-        android:layout_below="@id/emailId"
-        android:background="@color/black" />
+
 
     <ScrollView
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/emailId"
-        android:background="#efeded">
+        android:layout_below="@+id/heading"
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"

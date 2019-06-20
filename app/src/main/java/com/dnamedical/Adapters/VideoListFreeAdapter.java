@@ -43,6 +43,12 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
     @Override
     public void onBindViewHolder(final VideoListFreeAdapter.ViewHolder holder, final int position) {
         holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
+        if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration())>0){
+            holder.ratingandtime.setText(freeList.get(holder.getAdapterPosition()).getDuration()+" min video");
+        }else{
+            holder.ratingandtime.setText("N/A");
+
+        }
         holder.index.setText("" + (holder.getAdapterPosition() + 1));
         Picasso.with(applicationContext)
                 .load(freeList.get(holder.getAdapterPosition()).getDr_img())
@@ -94,6 +100,10 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         LinearLayout row_view;
         @BindView(R.id.vid_title)
         TextView title;
+
+
+        @BindView(R.id.ratingandtime)
+        TextView ratingandtime;
         @BindView(R.id.vid_doctor_name)
         TextView doctorName;
 

@@ -1,8 +1,8 @@
 package com.dnamedical.Models.video;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.dnamedical.Models.video.SourceTime;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,6 +25,7 @@ public class Free implements  Parcelable {
         title = in.readString();
         subTitle = in.readString();
         dr_img = in.readString();
+        duration = in.readString();
         description = in.readString();
         sourceTime = in.createTypedArrayList(SourceTime.CREATOR);
         url = in.readString();
@@ -35,6 +36,7 @@ public class Free implements  Parcelable {
         dest.writeString(id);
         dest.writeString(title);
         dest.writeString(subTitle);
+        dest.writeString(duration);
         dest.writeString(dr_img);
         dest.writeString(description);
         dest.writeTypedList(sourceTime);
@@ -69,6 +71,18 @@ public class Free implements  Parcelable {
     @SerializedName("dr_img")
     @Expose
     private String dr_img;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    @SerializedName("duration")
+    @Expose
+    private String duration;
     @SerializedName("description")
     @Expose
     private String description;

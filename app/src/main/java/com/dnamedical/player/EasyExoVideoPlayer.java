@@ -1568,6 +1568,9 @@ public class EasyExoVideoPlayer extends FrameLayout
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (mCallback != null) {
+            mCallback.onTouch(true);
+        }
         return super.onInterceptTouchEvent(ev);
     }
 

@@ -40,6 +40,7 @@ interface IExoUserMethods {
 
     void setRetryText(@Nullable CharSequence text);
 
+
     void setRetryTextRes(@StringRes int res);
 
     void setSubmitText(@Nullable CharSequence text);

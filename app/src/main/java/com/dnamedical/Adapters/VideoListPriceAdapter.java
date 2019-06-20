@@ -5,29 +5,24 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import com.dnamedical.Models.paidvideo.PaidVideoResponse;
+import com.dnamedical.Models.paidvideo.Price;
+import com.dnamedical.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import com.dnamedical.Activities.TestActivity;
-import com.dnamedical.Models.paidvideo.PaidVideoResponse;
-import com.dnamedical.Models.paidvideo.Price;
-import com.dnamedical.R;
-import com.squareup.picasso.Picasso;
 
 public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAdapter.ViewHolder> {
 
@@ -92,6 +87,13 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.doctarName.setText("" + price.getSubTitle());
         }
         holder.index.setText("" + (holder.getAdapterPosition() + 1));
+        if (Integer.parseInt(price.getDuration())>0){
+            holder.ratingandtime.setText(price.getDuration()+" min video");
+        }else{
+            holder.ratingandtime.setText("N/A");
+
+        }
+        holder.ratingandtime.setText(price.getDuration() + " min video");
         //Log.i("Thumb",  price.getUrl());
         Picasso.with(applicationContext).load(price.getDrImg())
                 .error(R.drawable.profile_image_know_more)
@@ -210,6 +212,10 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         @BindView(R.id.vid_doctor_name)
         TextView doctarName;
+
+
+        @BindView(R.id.ratingandtime)
+        TextView ratingandtime;
 
 
         @BindView(R.id.image_doctor)

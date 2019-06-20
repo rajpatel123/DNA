@@ -5,60 +5,72 @@ import com.google.gson.annotations.SerializedName;
 
 public class Price {
 
-@SerializedName("id")
-@Expose
-private String id;
-@SerializedName("title")
-@Expose
-private String title;
-@SerializedName("sub_title")
-@Expose
-private String subTitle;
-@SerializedName("description")
-@Expose
-private String description;
-@SerializedName("url")
-@Expose
-private String url;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("title")
+    @Expose
+    private String title;
 
-public String getId() {
-return id;
-}
+    public String getDuration() {
+        return duration;
+    }
 
-public void setId(String id) {
-this.id = id;
-}
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
-public String getTitle() {
-return title;
-}
+    @SerializedName("duration")
+    @Expose
+    private String duration;
+    @SerializedName("sub_title")
+    @Expose
+    private String subTitle;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("url")
+    @Expose
+    private String url;
 
-public void setTitle(String title) {
-this.title = title;
-}
+    public String getId() {
+        return id;
+    }
 
-public String getSubTitle() {
-return subTitle;
-}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-public void setSubTitle(String subTitle) {
-this.subTitle = subTitle;
-}
+    public String getTitle() {
+        return title;
+    }
 
-public String getDescription() {
-return description;
-}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-public void setDescription(String description) {
-this.description = description;
-}
+    public String getSubTitle() {
+        return subTitle;
+    }
 
-public String getUrl() {
-return url;
-}
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
 
-public void setUrl(String url) {
-this.url = url;
-}
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
 }

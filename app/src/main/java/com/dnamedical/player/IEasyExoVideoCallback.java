@@ -1,6 +1,7 @@
 package com.dnamedical.player;
 
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 public interface IEasyExoVideoCallback {
 
@@ -13,6 +14,8 @@ public interface IEasyExoVideoCallback {
   void onPrepared(EasyExoVideoPlayer player);
 
   void onBuffering(int percent);
+  
+  void onTouch(@Nullable boolean touched);
 
   void onError(EasyExoVideoPlayer player, Exception e);
 

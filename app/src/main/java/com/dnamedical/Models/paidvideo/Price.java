@@ -37,6 +37,18 @@ public class Price implements Parcelable {
     @SerializedName("price")
     @Expose
     private String price;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    @SerializedName("duration")
+    @Expose
+    private String duration;
     @SerializedName("discount")
     @Expose
     private String discount;
