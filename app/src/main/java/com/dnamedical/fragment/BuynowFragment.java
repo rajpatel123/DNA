@@ -153,9 +153,10 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             paidVideoResponseList = response.body();
-                            showVideos();
+
                             loadedOnce = true;
                         }
+                        showVideos();
                     }
                 }
 
