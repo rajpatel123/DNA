@@ -1,9 +1,12 @@
 package com.dnamedical;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.util.Base64;
 import android.util.Log;
 
@@ -13,7 +16,7 @@ import com.dnamedical.fragment.AllTestFragment;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class DNAApplication extends Application {
+public class DNAApplication extends MultiDexApplication {
 
     static DNAApplication dnaApplication=null;
     public static TestQuestionData getTestQuestionData() {
@@ -26,6 +29,12 @@ public class DNAApplication extends Application {
 
     public static TestQuestionData testQuestionData;
 
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();

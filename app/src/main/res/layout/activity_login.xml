@@ -18,23 +18,23 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/margin_left_20"
+            android:layout_marginLeft="@dimen/margin_left_20"
             android:src="@drawable/ic_left_arrow"
             android:tint="@color/colorPrimary" />
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="10dp"
+            android:layout_marginEnd="@dimen/margin_left_15"
+            android:layout_marginRight="@dimen/margin_right_15"
+            android:padding="@dimen/padding_10"
             android:src="@drawable/dnalogo"
             android:visibility="invisible" />
 
@@ -45,9 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25sp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="@dimen/margin_left_25"
+        android:layout_marginTop="@dimen/margin_top_30"
+        android:layout_marginRight="@dimen/margin_right_25"
 
         >
 
@@ -62,13 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
+                android:padding="@dimen/padding_5"
                 android:text="LOGIN"
                 android:textColor="@color/black_titles"
-                android:textSize="20dp"
+                android:textSize="@dimen/size_20"
                 android:textStyle="bold"
 
                 />
@@ -77,12 +74,12 @@
                 android:id="@+id/edit_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/margin_top_15"
                 android:background="@drawable/edittextstyle"
                 android:hint="Email ID"
                 android:inputType="textEmailAddress"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:paddingLeft="@dimen/padding_left_10"
+                android:paddingRight="@dimen/padding_right_10"
                 android:textColor="@color/Black" />
 
             <EditText
@@ -94,16 +91,16 @@
                 android:background="@drawable/edittextstyle"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:paddingBottom="5dp"
-                android:paddingLeft="8dp"
+                android:paddingLeft="@dimen/margin_7"
+                android:paddingTop="@dimen/padding_5"
                 android:paddingRight="8dp"
-                android:paddingTop="5dp"
+                android:paddingBottom="@dimen/margin_6"
                 android:textColor="@color/Black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/margin_8"
                 android:orientation="horizontal">
 
 
@@ -112,23 +109,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
+                    android:padding="@dimen/padding_5"
                     android:text="Remember me"
                     android:textColor="@color/Black" />
 
 
                 <TextView
+                    android:id="@+id/txt_forget"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
+                    android:padding="@dimen/padding_5"
                     android:text="Forgot Password?"
                     android:textColor="@color/Black"
 
@@ -142,16 +133,13 @@
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="@dimen/margin_top_20"
                 android:background="@drawable/buttonlogin"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
+                android:padding="@dimen/padding_5"
                 android:text="Log in"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="@dimen/size_20" />
 
 
             <Button
@@ -160,14 +148,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/buttonblue"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
+                android:padding="@dimen/padding_5"
                 android:text="Sign in with facebook"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="@dimen/size_20" />
 
             <!--
                         <com.facebook.login.widget.LoginButton

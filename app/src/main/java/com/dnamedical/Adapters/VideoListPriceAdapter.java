@@ -1,65 +1,195 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.dnamedical.Models.video.Price;
+
+import com.dnamedical.Activities.TestActivity;
+import com.dnamedical.Models.paidvideo.PaidVideoResponse;
+import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.R;
+import com.squareup.picasso.Picasso;
 
 public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAdapter.ViewHolder> {
 
+
     private Context applicationContext;
     private List<Price> priceList;
+    ArrayList<Price> priceArrayList;
+
+    PaidVideoResponse paidVideoResponse;
+
+
     VideoListPriceAdapter.OnCategoryClick onUserClickCallback;
+    VideoListPriceAdapter.OnBuyNowClick onUserBuyNowClick;
+    VideoListPriceAdapter.OnDataClick onDataClick;
 
-     public VideoListPriceAdapter(Context applicationContext)
-     {
-         this.applicationContext=applicationContext;
-     }
+    public VideoListPriceAdapter(Context applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
+    public void setPaidVideoResponse(PaidVideoResponse paidVideoResponse) {
+        this.paidVideoResponse = paidVideoResponse;
+    }
 
+    public void setOnDataClick(OnDataClick onDataClick) {
+        this.onDataClick = onDataClick;
+    }
+
+    public void setOnUserClickCallback(OnCategoryClick onUserClickCallback) {
+        this.onUserClickCallback = onUserClickCallback;
+    }
+
+    public void setOnBuyNowClick(OnBuyNowClick onBuyNowClick) {
+        this.onUserBuyNowClick = onBuyNowClick;
+    }
 
     @NonNull
     @Override
     public VideoListPriceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.video_items, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.paid_video_item, viewGroup, false);
         return new VideoListPriceAdapter.ViewHolder(view);
 
+    }
+
+    public void setPriceList(List<Price> priceList) {
+        this.priceList = priceList;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final VideoListPriceAdapter.ViewHolder holder, int i) {
 
-        holder.title.setText(priceList.get(holder.getAdapterPosition()).getTitle());
-        holder.index.setText(""+(holder.getAdapterPosition()+1));
+
+        Price price = priceList.get(i);
+        if (price.getTitle() != null) {
+            holder.title.setText("" + price.getTitle());
+            holder.title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+            holder.title.setSingleLine(true);
+            holder.title.setMarqueeRepeatLimit(5);
+            holder.title.setSelected(true);
+        }
+        if (price.getSubTitle() != null) {
+            holder.doctarName.setText("" + price.getSubTitle());
+        }
+        holder.index.setText("" + (holder.getAdapterPosition() + 1));
+        //Log.i("Thumb",  price.getUrl());
+        Picasso.with(applicationContext).load(price.getDrImg())
+                .error(R.drawable.profile_image_know_more)
+                .into(holder.imageViewDoctor);
+
+        if (price.getPrice() != null) {
+            String num = String.valueOf(Integer.parseInt(price.getPrice()) - Integer.parseInt(price.getCoupanValue()));
+            holder.txtActualPrice.setText("" + "INR " + "" + price.getPrice());
+            holder.txtActualPrice.setPaintFlags(holder.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        }
+        if (price.getCoupanValue() != null) {
+            String num = String.valueOf(Integer.parseInt(price.getPrice()) - ((Integer.parseInt(price.getPrice()) * Integer.parseInt(price.getCoupanValue())) / 100));
+            holder.txtTotalPrice.setText("" + "INR " + "" + num);
+
+        }
+
+        if (price.getPaymentStatus().equalsIgnoreCase("1")) {
+            holder.buyNow.setVisibility(View.GONE);
+            holder.txtActualPrice.setVisibility(View.GONE);
+            holder.txtTotalPrice.setVisibility(View.GONE);
+        } else {
+            holder.buyNow.setVisibility(View.VISIBLE);
+            holder.txtActualPrice.setVisibility(View.VISIBLE);
+            holder.txtTotalPrice.setVisibility(View.VISIBLE);
+        }
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onUserClickCallback != null) {
-                    onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()).getUrl());
+                if (price.getPaymentStatus().equalsIgnoreCase("1")) {
+                    if (onUserClickCallback != null) {
+                        onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
+                    }
                 }
-
             }
         });
 
+        holder.buyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(applicationContext);
+                // ...Irrelevant code for customizing the buttons and titl
+                LayoutInflater inflater = LayoutInflater.from(applicationContext);
+                View dialogView = inflater.inflate(R.layout.buy_now_alert_dialog, null);
+                dialogBuilder.setView(dialogView);
+
+                final android.app.AlertDialog dialog = dialogBuilder.create();
+                Button btn_yes = dialogView.findViewById(R.id.btn_done);
+                Button btn_yes_all = dialogView.findViewById(R.id.btn_done_all);
+                Button btn_cancel = dialogView.findViewById(R.id.btn_cancel);
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+
+                    }
+                });
+
+                btn_yes_all.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onDataClick != null) {
+
+                            onDataClick.onNextActivityDataClick();
+                        }
+                        dialog.dismiss();
+                    }
+                });
+
+                btn_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onUserBuyNowClick != null) {
+                            onUserBuyNowClick.onBuyNowCLick(priceList.get(holder.getAdapterPosition()).getCoupanCode(),
+                                    priceList.get(holder.getAdapterPosition()).getId(),
+                                    priceList.get(holder.getAdapterPosition()).getTitle(),
+                                    priceList.get(holder.getAdapterPosition()).getCoupanValue(),
+                                    priceList.get(holder.getAdapterPosition()).getSubTitle(),
+                                    priceList.get(holder.getAdapterPosition()).getDiscount(),
+                                    priceList.get(holder.getAdapterPosition()).getPrice(),
+                                    priceList.get(holder.getAdapterPosition()).getShippingCharge());
+                        }
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+
+
+        });
     }
 
     @Override
     public int getItemCount() {
-        if (priceList != null) {
+        if (priceList != null && priceList.size() > 0) {
             return priceList.size();
         } else {
             return 0;
@@ -68,24 +198,34 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     }
 
 
-    public void setData(List<Price> CourseLists) {
-        this.priceList = CourseLists;
-    }
-
-    public void setListener(VideoListPriceAdapter.OnCategoryClick onUserClickCallback) {
-        this.onUserClickCallback = onUserClickCallback;
-    }
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.row_view)
-         LinearLayout row_view;
+        LinearLayout row_view;
 
         @BindView(R.id.vid_title)
         TextView title;
         @BindView(R.id.index)
         TextView index;
+
+        @BindView(R.id.vid_doctor_name)
+        TextView doctarName;
+
+
+        @BindView(R.id.image_doctor)
+        ImageView imageViewDoctor;
+
+        @BindView(R.id.buy_now)
+        TextView buyNow;
+
+
+        @BindView(R.id.txt_actual_price)
+        TextView txtActualPrice;
+
+
+        @BindView(R.id.txt_total_price)
+        TextView txtTotalPrice;
+
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -93,7 +233,18 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     }
 
     public interface OnCategoryClick {
-        public void onCateClick(String url);
+        public void onCateClick(Price price);
+        //public void onNextActivityDataClick();
+    }
+
+    public interface OnDataClick {
+        // public void ondataClick(PaidVideoResponse price);
+        public void onNextActivityDataClick();
+    }
+
+    public interface OnBuyNowClick {
+        public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge);
+
     }
 
 

@@ -7,12 +7,14 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.TestActivity;
 import com.dnamedical.Models.Detail;
 import com.dnamedical.R;
+import com.squareup.picasso.Picasso;
 
 public class TruitonListFragment extends Fragment {
     int fragNum;
@@ -21,6 +23,7 @@ public class TruitonListFragment extends Fragment {
     LinearLayout answerList;
     TestActivity activity;
     CardView cardView1, cardView2, cardView3, cardView4;
+    ImageView imageQuestion;
 
     public static TruitonListFragment init(Detail question, int position) {
         TruitonListFragment truitonList = new TruitonListFragment();
@@ -62,6 +65,11 @@ public class TruitonListFragment extends Fragment {
                 container, false);
         answerList = layoutView.findViewById(R.id.answerList);
         questionTxt = layoutView.findViewById(R.id.questionTxt);
+        imageQuestion = layoutView.findViewById(R.id.question_image);
+        if (question.getQuestionImage() != null) {
+            imageQuestion.setVisibility(View.VISIBLE);
+            Picasso.with(getContext()).load(question.getQuestionImage()).into(imageQuestion);
+        }
         questionTxt.setText("Q" + (fragNum + 1) + ". " + question.getQuestion());
         for (int i = 0; i < 4; i++) {
             switch (i) {
@@ -71,7 +79,7 @@ public class TruitonListFragment extends Fragment {
                     TextView answer1 = answerView.findViewById(R.id.answer);
                     cardView1 = answerView.findViewById(R.id.cardView);
                     answer1.setText(question.getAnswer1());
-                    updatePreviousSelection(question.getQid(),cardView1);
+                    updatePreviousSelection(question.getQid(), cardView1);
                     answerList.addView(answerView);
                     answer1.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -103,7 +111,7 @@ public class TruitonListFragment extends Fragment {
                     cardView2 = answerView1.findViewById(R.id.cardView);
                     answer2.setText(question.getAnswer2());
                     answerList.addView(answerView1);
-                    updatePreviousSelection(question.getQid(),cardView2);
+                    updatePreviousSelection(question.getQid(), cardView2);
 
                     answer2.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -135,14 +143,14 @@ public class TruitonListFragment extends Fragment {
                     TextView answer3 = answerView2.findViewById(R.id.answer);
                     cardView3 = answerView2.findViewById(R.id.cardView);
                     answer3.setText(question.getAnswer3());
-                    updatePreviousSelection(question.getQid(),cardView3);
+                    updatePreviousSelection(question.getQid(), cardView3);
 
                     answerList.addView(answerView2);
                     answer3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if (activity != null) {
-                               // activity.hideShowSkip(true);
+                                // activity.hideShowSkip(true);
                             }
                             answer3.setText(question.getAnswer3());
                             if (answer3.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
@@ -168,7 +176,7 @@ public class TruitonListFragment extends Fragment {
                     cardView4 = answerView4.findViewById(R.id.cardView);
                     answer4.setText(question.getAnswer4());
                     answerList.addView(answerView4);
-                    updatePreviousSelection(question.getQid(),cardView4);
+                    updatePreviousSelection(question.getQid(), cardView4);
 
                     answer4.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -200,10 +208,10 @@ public class TruitonListFragment extends Fragment {
 
     private void updatePreviousSelection(String qid, CardView cardView1) {
 
-        if (activity.correctAnswerList.keySet().contains(qid) || activity.wrongAnswerList.keySet().contains(qid)){
+        if (activity.correctAnswerList.keySet().contains(qid) || activity.wrongAnswerList.keySet().contains(qid)) {
             //activity.hideShowSkip(true);
             updateAnswer(cardView1);
-        }else{
+        } else {
             //activity.hideShowSkip(false);
 
         }
@@ -216,6 +224,8 @@ public class TruitonListFragment extends Fragment {
         cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
     }
+
+
 
 
     @Override

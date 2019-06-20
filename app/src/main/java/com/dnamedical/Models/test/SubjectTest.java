@@ -14,6 +14,9 @@ public class SubjectTest implements Comparable<SubjectTest> {
     @SerializedName("test_name")
     @Expose
     private String testName;
+    @SerializedName("start_time")
+    @Expose
+    private String startTime;
     @SerializedName("test_date")
     @Expose
     private String testDate;
@@ -36,6 +39,18 @@ public class SubjectTest implements Comparable<SubjectTest> {
     @SerializedName("test_status")
     @Expose
     private String testStatus;
+
+
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+
 
     public long getTime() {
         return time;

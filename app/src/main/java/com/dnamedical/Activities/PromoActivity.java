@@ -6,6 +6,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 import com.dnamedical.Models.PromoVideo;
@@ -23,12 +25,13 @@ import retrofit2.Response;
 public class PromoActivity extends AppCompatActivity {
 
     VideoView videoView;
-
+    ProgressBar pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promo);
         videoView = findViewById(R.id.promoVideo);
+        pd = findViewById(R.id.pd);
         if (Utils.isInternetConnected(this)) {
             getVideo();
         } else {
@@ -98,9 +101,7 @@ public class PromoActivity extends AppCompatActivity {
     }
 
     private void playVideo(String url) {
-        ProgressDialog pd = new ProgressDialog(PromoActivity.this);
-        pd.setMessage("Buffering video please wait...");
-        pd.show();
+       pd.setVisibility(View.VISIBLE);
 
         Uri uri = Uri.parse(url);
         videoView.setVideoURI(uri);
@@ -110,7 +111,8 @@ public class PromoActivity extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 //close the progress dialog when buffering is done
-                pd.dismiss();
+                pd.setVisibility(View.GONE);
+
             }
         });
 

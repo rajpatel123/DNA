@@ -49,6 +49,7 @@ import android.widget.TextView;
 
 import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.afollestad.easyvideoplayer.ISeekChange;
+import com.dnamedical.utils.DnaPrefs;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;

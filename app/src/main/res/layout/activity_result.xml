@@ -41,9 +41,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="40sp"
+                        android:layout_marginTop="25sp"
                         android:gravity="center"
-                        android:text="6300"
+                        android:text=""
                         android:id="@+id/user_rank"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
@@ -121,7 +121,9 @@
                        android:paddingTop="10dp"
                        android:textColor="#939598"
                        android:textSize="20sp"
-                       android:textStyle="bold" />
+                       android:text="85"
+                       android:textStyle="normal
+" />
 
 
                    <LinearLayout
@@ -146,10 +148,10 @@
                                android:id="@+id/total_question"
                                android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
-                               android:text=""
+                               android:text="uu"
                                android:textColor="#939598"
                                android:textSize="20sp"
-                               android:textStyle="bold" />
+                               android:textStyle="normal" />
                        </LinearLayout>
 
 
@@ -169,7 +171,8 @@
                                android:textColor="#939598"
                                android:paddingLeft="10dp"
                                android:textSize="20sp"
-                               android:textStyle="bold" />
+                               android:text="lfl,f,dldl"
+                               android:textStyle="normal" />
                        </LinearLayout>
 
 

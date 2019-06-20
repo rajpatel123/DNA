@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 
@@ -171,6 +172,8 @@ public class VerifyOTPActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<CommonResponse> call, Throwable t) {
 
+
+                    Toast.makeText(VerifyOTPActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
         }

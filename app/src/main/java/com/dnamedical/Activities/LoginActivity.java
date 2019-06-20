@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -63,11 +64,14 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.login_checkbox)
     CheckBox loginCheck;
-/*
+    /*
 
-    @BindView(R.id.login_button)
-    LoginButton loginBtn;
-*/
+        @BindView(R.id.login_button)
+        LoginButton loginBtn;
+    */
+   @BindView(R.id.txt_forget)
+    TextView textViewForget;
+
 
     private Button customFacebook;
     CallbackManager callbackManager;
@@ -86,6 +90,14 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginwithFb();
 
+        textViewForget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Intent intent=new Intent(LoginActivity.this,ForgetPasswordSendEmailActiivty.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     //Login Validation
     @RequiresApi(api = Build.VERSION_CODES.FROYO)

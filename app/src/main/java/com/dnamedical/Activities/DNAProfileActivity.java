@@ -22,6 +22,7 @@ import org.w3c.dom.Text;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.dnamedical.R;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
@@ -30,6 +31,7 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
 
     @BindView(R.id.profile_image)
     CircleImageView circleImageView;
+
     @BindView(R.id.profile_name)
     TextView tvName;
 
@@ -59,6 +61,10 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
     @BindView(R.id.change_phone)
     TextView textViewChangePhone;
 
+    String state,college,name,image ,email;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,12 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setprofiledata();
     }
 
     private void userlogout() {
@@ -112,17 +124,16 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
 
     private void setprofiledata() {
         Intent intent = getIntent();
-        String state=DnaPrefs.getString(getApplicationContext(),"STATE");
-        String college=DnaPrefs.getString(getApplicationContext(),"COLLEGE");
-        String name = DnaPrefs.getString(getApplicationContext(), "NAME");
-        String image = DnaPrefs.getString(getApplicationContext(), "URL");
-        String email = DnaPrefs.getString(getApplicationContext(), "EMAIL");
+         state = DnaPrefs.getString(getApplicationContext(), "STATE");
+         college = DnaPrefs.getString(getApplicationContext(), "COLLEGE");
+         name = DnaPrefs.getString(getApplicationContext(), "NAME");
+         image = DnaPrefs.getString(getApplicationContext(), "URL");
+         email = DnaPrefs.getString(getApplicationContext(), "EMAIL");
 
-        tvName.setText(""+name);
-        tvEmail.setText(""+email);
-        tvState.setText(""+state);
-        tvCollege.setText(""+college);
-
+        tvName.setText("" + name);
+        tvEmail.setText("" + email);
+        tvState.setText("" + state);
+        tvCollege.setText("" + college);
 
 
         if (!TextUtils.isEmpty(image)) {
@@ -155,8 +166,9 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile_edit:
-                //your code here
-                return true;
+                Intent intent = new Intent(DNAProfileActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+           return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -171,6 +183,8 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
 
 
             case R.id.id__verification:
+                Intent intent = new Intent(DNAProfileActivity.this, IdVerificationActivitty.class);
+                startActivity(intent);
                 Toast.makeText(this, "Verification link sent to your email id", Toast.LENGTH_SHORT).show();
                 break;
         }

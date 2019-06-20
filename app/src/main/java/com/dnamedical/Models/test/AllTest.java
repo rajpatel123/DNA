@@ -21,6 +21,9 @@ public class AllTest implements Comparable<AllTest>{
     @Expose
     private String testDate;
 
+    @SerializedName("start_time")
+    @Expose
+    private String startTime;
 
     private long time;
     @SerializedName("test_duration")
@@ -43,6 +46,17 @@ public class AllTest implements Comparable<AllTest>{
     @SerializedName("test_status")
     @Expose
     private String testStatus;
+
+
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
 
     public long getTime() {
         return time;

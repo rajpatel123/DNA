@@ -27,6 +27,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -61,6 +62,7 @@ import static android.media.MediaPlayer.SEEK_CLOSEST;
 /**
  * @author Aidan Follestad (afollestad)
  */
+@RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class EasyVideoPlayer extends FrameLayout
         implements IUserMethods,
         TextureView.SurfaceTextureListener,

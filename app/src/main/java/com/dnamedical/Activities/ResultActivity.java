@@ -35,6 +35,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Starting new repository
+ */
 public class ResultActivity extends AppCompatActivity {
 
 
@@ -163,12 +166,12 @@ public class ResultActivity extends AppCompatActivity {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
                             totalUser.setText(userResults.get(0).getTotalUsersTest());
-                            totalQuestion.setText("Total score out of "+userResults.get(0).getUserTotalScore());
+                            totalQuestion.setText("Maximum marks : "+userResults.get(0).getUserTotalScore());
                             correct.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             skipped.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             wrong.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             skipped.setProgress(Float.parseFloat(userResults.get(0).getSkipQuestion()));
-                            userNumber.setText(""+userResults.get(0).getUserScore());
+                            userNumber.setText("Total Score : "+userResults.get(0).getUserScore());
 
 
 
@@ -210,8 +213,8 @@ public class ResultActivity extends AppCompatActivity {
 
                             }
                             totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
-                            percentValue.setText(""+userResults.get(0).getPercentile()+"  Percentile");
-                            userRank.setText(""+userResults.get(0).getUserRank());
+                            percentValue.setText("Percentile : "+userResults.get(0).getPercentile());
+                            userRank.setText("RANK\n"+userResults.get(0).getUserRank());
 
                             allReults = response.body().getAllReult();
                             resultAdapter = new ResultAdapter(allReults);

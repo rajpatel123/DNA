@@ -3,6 +3,7 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,25 +15,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dnamedical.Activities.PaymentCoupenActivity;
 import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Activities.VideoPlayerActivity;
 import com.dnamedical.Adapters.VideoListPriceAdapter;
+import com.dnamedical.Models.paidvideo.PaidVideoResponse;
+import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoActivity.DisplayDataInterface {
+import static com.facebook.FacebookSdk.getApplicationContext;
+
+public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoListPriceAdapter.OnBuyNowClick, VideoActivity.DisplayDataInterface {
 
 
     RecyclerView recyclerView;
     TextView noVid;
     VideoActivity activity;
-    private VideoList videoList;
+    private PaidVideoResponse paidVideoResponseList;
+
+    private String type = "video";
+
+    String userId;
+    String subcatid;
+    private boolean loadedOnce;
 
     public BuynowFragment() {
 
@@ -77,51 +97,102 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     @Override
     public void onStart() {
         super.onStart();
-        showVideos();
+
     }
 
     @Override
-    public void onCateClick(String url) {
+    public void onCateClick(Price price) {
         Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-        intent.putExtra("url", url);
+        intent.putExtra("price", price);
         startActivity(intent);
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && !loadedOnce) {
+            getVideos();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        loadedOnce = false;
+    }
+
     private void getVideos() {
-        if (Utils.isInternetConnected(activity)) {
-            Utils.showProgressDialog(activity);
-            RestClient.getVideos(activity.subCatId, "Video", new Callback<VideoList>() {
+
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
+
+        subcatid = activity.subCatId;
+
+
+        RequestBody file_type = RequestBody.create(MediaType.parse("text/plain"), type);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"), subcatid);
+
+
+        if (Utils.isInternetConnected(getActivity())) {
+            Utils.showProgressDialog(getActivity());
+            RestClient.getPaidvedio(sub_child_cat, user_id, file_type, new Callback<PaidVideoResponse>() {
                 @Override
-                public void onResponse(Call<VideoList> call, Response<VideoList> response) {
-                    if (response.code() == 200) {
-                        Utils.dismissProgressDialog();
-                        videoList = response.body();
-                        showVideos();
+                public void onResponse(Call<PaidVideoResponse> call, Response<PaidVideoResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equalsIgnoreCase("1")) {
+                            paidVideoResponseList = response.body();
+                            showVideos();
+                            loadedOnce = true;
+                        }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<VideoList> call, Throwable t) {
+                public void onFailure(Call<PaidVideoResponse> call, Throwable t) {
                     Utils.dismissProgressDialog();
-
                 }
             });
+        } else {
+            Utils.dismissProgressDialog();
+            recyclerView.setVisibility(View.GONE);
+            noVid.setVisibility(View.VISIBLE);
+            noVid.setText("No Internet Connections Failed!!!");
+            Toast.makeText(activity, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
         }
     }
 
-
     public void showVideos() {
-        if (videoList != null && videoList.getFree() != null && videoList.getFree().size() > 0) {
+        if (paidVideoResponseList != null && paidVideoResponseList.getPrice() != null && paidVideoResponseList.getPrice().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-
             VideoListPriceAdapter videoListAdapter = new VideoListPriceAdapter(getActivity());
-            videoListAdapter.setData(videoList.getPrice());
-            videoListAdapter.setListener(BuynowFragment.this);
+            //videoListAdapter.setPaidVideoResponse(paidVideoResponseList);
+            videoListAdapter.setPriceList(paidVideoResponseList.getPrice());
+            videoListAdapter.setOnUserClickCallback(BuynowFragment.this);
+            videoListAdapter.setOnBuyNowClick(BuynowFragment.this);
+            videoListAdapter.setOnDataClick(new VideoListPriceAdapter.OnDataClick() {
+                @Override
+                public void onNextActivityDataClick() {
+                    Intent intent = new Intent(getActivity(), PaymentCoupenActivity.class);
+                    intent.putExtra("PRICE", paidVideoResponseList);
+                    startActivity(intent);
+
+                }
+            });
             recyclerView.setAdapter(videoListAdapter);
             recyclerView.setVisibility(View.VISIBLE);
             noVid.setVisibility(View.GONE);
-
             Log.d("Api Response :", "Got Success from Api");
             // noInternet.setVisibility(View.GONE);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()) {
@@ -129,7 +200,6 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                 public boolean canScrollVertically() {
                     return true;
                 }
-
             };
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setVisibility(View.VISIBLE);
@@ -143,4 +213,22 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
         }
 
     }
+
+
+    @Override
+    public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge) {
+        Intent intent = new Intent(getActivity(), PaymentCoupenActivity.class);
+        intent.putExtra("vedioId", id);
+        intent.putExtra("coupon_code", couponCode);
+        intent.putExtra("coupon_value", couponValue);
+        intent.putExtra("sub_title", subTitle);
+        intent.putExtra("title", title);
+        intent.putExtra("discount", discount);
+        intent.putExtra("price", price);
+        intent.putExtra("SHIPPING_CHARGE", shippingCharge);
+        startActivity(intent);
+
+    }
+
+
 }

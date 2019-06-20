@@ -187,12 +187,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:padding="@dimen/padding_10"
                     android:text="@string/know_more_data"
                     android:textColor="@color/black_titles"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/size_14" />
 
             </LinearLayout>
 
@@ -200,17 +198,17 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
+                android:layout_marginLeft="@dimen/margin_left_15"
+                android:layout_marginTop="@dimen/margin_top_10"
+                android:layout_marginRight="@dimen/margin_right_15"
                 app:cardElevation="10sp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp">
+                    android:paddingTop="@dimen/padding_top_20"
+                    android:paddingBottom="@dimen/padding_bottom_20">
 
                     <LinearLayout
                         android:layout_weight="1"
@@ -220,19 +218,19 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
+                            android:layout_width="@dimen/margin_width_30"
+                            android:layout_height="@dimen/margin_width_30"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="15sp"
+                            android:layout_marginLeft="@dimen/margin_left_15"
                             android:background="@drawable/ic_description_black_24dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:text="Question Bank"
                             android:textColor="@color/colorAccent"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/size_20"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -243,15 +241,15 @@
                             <Button
                                 android:layout_gravity="end"
                                 android:gravity="end"
-                                android:layout_width="120dp"
+                                android:layout_width="@dimen/margin_width_120"
                                 android:layout_height="35dp"
-                                android:layout_marginLeft="10dp"
+                                android:layout_marginLeft="@dimen/margin_left_10"
                                 android:background="@drawable/rounded_shape"
-                                android:padding="8dp"
-                                android:layout_marginRight="15dp"
+                                android:padding="@dimen/padding_8"
+                                android:layout_marginRight="@dimen/margin_right_15"
                                 android:text="Edition 2019"
                                 android:textColor="@color/white"
-                                android:textSize="14dp" />
+                                android:textSize="@dimen/size_14" />
 
                         </LinearLayout>
 
@@ -259,7 +257,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:layout_marginTop="5dp"
                         android:background="@color/darkwhite" />
 
@@ -283,19 +281,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
                             android:text="MCQs arranged in Topic Wise, Chapter Wise &amp; Subject Wise" />
                     </LinearLayout>
 
@@ -308,21 +306,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:text="MCQs Framed by Experienced Faculties Team.
-" />
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
+                            android:text="MCQs Framed by Experienced Faculties Team." />
                     </LinearLayout>
 
                     <View
@@ -335,76 +332,76 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
                             android:text="Recent Updated MCQs as per Latest Pattern of Exam" />
                     </LinearLayout>
 
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:background="@color/darkwhite" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
                             android:text="All MCQs With Fully Explained answer" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:background="@color/darkwhite" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
                             android:text="75 % strike rate in recent Exams" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:background="@color/darkwhite" />
 
 
@@ -412,19 +409,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_left_10"
                             android:text="More than 20,000 MCQs" />
                     </LinearLayout>
                 </LinearLayout>
@@ -435,17 +432,17 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="15sp"
+                android:layout_marginLeft="@dimen/margin_left_10"
+                android:layout_marginTop="@dimen/margin_top_20"
+                android:layout_marginRight="@dimen/margin_right_15"
                 app:cardElevation="10sp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp">
+                    android:paddingTop="@dimen/padding_top_20"
+                    android:paddingBottom="@dimen/padding_bottom_20">
 
                     <LinearLayout
                         android:layout_weight="1"
@@ -454,21 +451,21 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
+                            android:layout_width="@dimen/margin_width_30"
+                            android:layout_height="@dimen/margin_width_30"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="15sp"
+                            android:layout_marginLeft="@dimen/margin_left_15"
                             android:background="@drawable/ic_description_black_24dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_15"
+                            android:layout_marginTop="@dimen/margin_top_5"
+                            android:layout_marginRight="@dimen/margin_right_15"
                             android:text="Test Series"
                             android:textColor="@color/colorAccent"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/size_20"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -479,15 +476,15 @@
                             <Button
                                 android:layout_gravity="end"
                                 android:gravity="end"
-                                android:layout_width="120dp"
+                                android:layout_width="@dimen/margin_width_120"
                                 android:layout_height="35dp"
-                                android:layout_marginLeft="10dp"
+                                android:layout_marginLeft="@dimen/margin_left_10"
                                 android:background="@drawable/rounded_shape"
-                                android:padding="8dp"
-                                android:layout_marginRight="15dp"
+                                android:padding="@dimen/margin_top_8"
+                                android:layout_marginRight="@dimen/margin_right_15"
                                 android:text="Edition 2019"
                                 android:textColor="@color/white"
-                                android:textSize="14dp" />
+                                android:textSize="@dimen/size_14" />
 
                         </LinearLayout>
 
@@ -495,7 +492,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:layout_marginTop="5dp"
                         android:background="@color/darkwhite" />
 
@@ -516,69 +513,69 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
                             android:text="MCQs as per latest Exam pattern" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:background="@color/darkwhite" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
                             android:text="Exam is on Latest Software with All India Ranking ( AIR )" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:background="@color/darkwhite" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginRight="@dimen/margin_right_10"
                             android:text="No. of Questions in Each Exam as per Guideline Framed by Examination Body." />
                     </LinearLayout>
 
@@ -591,18 +588,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="@dimen/margin_left_5"
                             android:text="Questions Similar with Real Exams" />
                     </LinearLayout>
 
@@ -615,18 +612,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="@dimen/margin_left_5"
                             android:text="Grand Test ( GT ) / Major Test  &amp; Subject Wise Test ( SWT ) / Minor Test" />
                     </LinearLayout>
 
@@ -640,18 +637,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_10"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="@dimen/margin_left_5"
                             android:text="Special Mock Test Before AIIMS / JIPMER / NEET – PG " />
                     </LinearLayout>
 
@@ -664,17 +661,17 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="15sp"
+                android:layout_marginLeft="@dimen/margin_left_15"
+                android:layout_marginTop="@dimen/margin_top_20"
+                android:layout_marginRight="@dimen/margin_right_15"
                 app:cardElevation="10sp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp">
+                    android:paddingTop="@dimen/padding_top_20"
+                    android:paddingBottom="@dimen/padding_bottom_20">
 
                     <LinearLayout
                         android:layout_weight="1"
@@ -683,20 +680,20 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
+                            android:layout_width="@dimen/margin_width_30"
+                            android:layout_height="@dimen/margin_width_30"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="15sp"
+                            android:layout_marginLeft="@dimen/margin_left_15"
                             android:background="@drawable/ic_switch_video_black_24dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="@dimen/margin_left_15"
+                            android:layout_marginTop="@dimen/margin_5"
                             android:text="Video Lessons"
                             android:textColor="@color/colorAccent"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/size_20"
                             android:textStyle="bold" />
                         <LinearLayout
                             android:gravity="end"
@@ -706,24 +703,22 @@
                             <Button
                                 android:layout_gravity="end"
                                 android:gravity="end"
-                                android:layout_width="120dp"
+                                android:layout_width="@dimen/margin_width_120"
                                 android:layout_height="35dp"
-                                android:layout_marginLeft="10dp"
+                                android:layout_marginLeft="@dimen/margin_left_15"
                                 android:background="@drawable/rounded_shape"
-                                android:padding="8dp"
-                                android:layout_marginRight="15dp"
+                                android:padding="@dimen/padding_8"
+                                android:layout_marginRight="@dimen/margin_right_15"
                                 android:text="Edition 2019"
                                 android:textColor="@color/white"
-                                android:textSize="14dp" />
+                                android:textSize="@dimen/size_14" />
 
                         </LinearLayout>
-
-
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="1px"
                         android:layout_marginTop="5dp"
                         android:background="@color/darkwhite" />
 
@@ -745,19 +740,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10sp">
+                        android:paddingTop="@dimen/padding_top_10">
 
                         <ImageView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginLeft="@dimen/margin_left_15"
                             android:src="@drawable/tick" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="@dimen/margin_left_5"
                             android:text="Video Lecture Recorded after NEET-PG 2019" />
                     </LinearLayout>
 

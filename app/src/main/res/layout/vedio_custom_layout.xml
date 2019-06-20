@@ -5,5 +5,6 @@
     android:id="@+id/tab"
     android:textSize="12dp"
     android:textStyle="bold"
+    android:gravity="center"
     android:textColor="@color/orange1"
     android:fontFamily="@string/font_fontFamily_medium"/>

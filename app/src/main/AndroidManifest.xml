@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dnamedical">
-
+    <!-- hi -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.Camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -14,18 +20,74 @@
         android:label="DNA"
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Activities.FranchiActivity"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Activities.UpdateAddressActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5"/>
+
+        <service
+            android:name=".Activities.MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".Activities.ForgetPasswordSendEmailActiivty"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.ForgetPasswordEmailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.AddressListActivity"
+            android:label="Shipping Address"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.PaymentCoupenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme6" />
+        <activity
+            android:name=".Activities.PaymentDetailActivity"
+            android:label="Detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.PaymentAddressSaveActivity"
+            android:label="Address"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.IdVerificationActivitty"
+            android:label="Verification "
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.EditProfileActivity"
+            android:label="Edit Profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity android:name=".Activities.AboutUsActivit" />
+        <activity
+            android:name=".Activities.FranchiActivity"
             android:label="Query"
-            android:theme="@style/AppTheme5"></activity>
-        <activity android:name=".Activities.QbankResultListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.PromoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme6"/>
-        <activity android:name=".Activities.QbankReviewResult"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme5" />
+        <activity
+            android:name=".Activities.QbankResultListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.PromoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme6" />
+        <activity
+            android:name=".Activities.QbankReviewResult"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"
             android:screenOrientation="portrait" />
@@ -63,6 +125,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme6">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -106,9 +169,15 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".Activities.NeetPgActivity" />
-        <activity android:name=".Activities.ShoppingActivty" />
-        <activity android:name=".Activities.LiveActivity" />
+        <activity
+            android:name=".Activities.NeetPgActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ShoppingActivty"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.LiveActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.DNAFacultyActivity"
             android:label="Faculty"
@@ -165,6 +234,27 @@
         <activity
             android:name=".Activities.ResultActivity"
             android:screenOrientation="portrait" />
+
+        <service android:name=".Activities.MyMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_JOf6PMOuChis9e" />
     </application>
 
 </manifest>

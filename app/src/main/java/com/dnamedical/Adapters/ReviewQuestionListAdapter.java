@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dnamedical.Models.ReviewResult.ReviewDetail;
@@ -22,6 +23,8 @@ import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static android.view.View.GONE;
 
 public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuestionListAdapter.ViewHolder> {
 
@@ -48,6 +51,16 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+
+        holder.imageView1.setVisibility(GONE);
+        holder.imageView2.setVisibility(GONE);
+        holder.imageView3.setVisibility(GONE);
+        holder.imageView4.setVisibility(GONE);
+        holder.ques1.setTextColor(Color.parseColor("#000000"));
+        holder.ques2.setTextColor(Color.parseColor("#000000"));
+        holder.ques3.setTextColor(Color.parseColor("#000000"));
+        holder.ques4.setTextColor(Color.parseColor("#000000"));
+
         Detail detailList = testReviewList.get(i);
         holder.questionText.setText((i + 1) + ". " + detailList.getQuestion());
         holder.ques1.setText("A. " + detailList.getAnswer1());
@@ -55,83 +68,118 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
         holder.ques3.setText("C. " + detailList.getAnswer3());
         holder.ques4.setText("D. " + detailList.getAnswer4());
 
-
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
             holder.ques1.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+            holder.imageView1.setVisibility(View.VISIBLE);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
                 holder.ques1.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView1.setImageResource(R.drawable.right_answer_icon);
+                holder.imageView1.setVisibility(View.VISIBLE);
+            } else {
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+                    holder.ques2.setTextColor(Color.RED);
+                    holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView2.setVisibility(View.VISIBLE);
+                }
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+                    holder.ques3.setTextColor(Color.RED);
+                    holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView3.setVisibility(View.VISIBLE);
+                }
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
+                    holder.ques4.setTextColor(Color.RED);
+                    holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView4.setVisibility(View.VISIBLE);
+                }
             }
-            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
-                holder.ques2.setTextColor(Color.RED);
-                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
-            }
-            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
-                holder.ques3.setTextColor(Color.RED);
-                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
-            }
-            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
-                holder.ques4.setTextColor(Color.RED);
-                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
-            }
+
 
         }
 
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
             holder.ques2.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+            holder.imageView2.setVisibility(View.VISIBLE);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
                 holder.ques2.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView2.setImageResource(R.drawable.right_answer_icon);
+                holder.imageView2.setVisibility(View.VISIBLE);
+            } else {
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+                    holder.ques1.setTextColor(Color.RED);
+                    holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView1.setVisibility(View.VISIBLE);
+                }
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+                    holder.ques3.setTextColor(Color.RED);
+                    holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView3.setVisibility(View.VISIBLE);
+                }
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
+                    holder.ques4.setTextColor(Color.RED);
+                    holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView4.setVisibility(View.VISIBLE);
+                }
             }
-            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
-                holder.ques1.setTextColor(Color.RED);
-                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
-            }
-            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
-                holder.ques3.setTextColor(Color.RED);
-                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
-            }
-            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
-                holder.ques4.setTextColor(Color.RED);
-                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
-            }
+
         }
 
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
             holder.ques3.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView3.setImageResource(R.drawable.right_answer_icon);
+            holder.imageView3.setVisibility(View.VISIBLE);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
                 holder.ques3.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView3.setImageResource(R.drawable.right_answer_icon);
-            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
-                holder.ques1.setTextColor(Color.RED);
-                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
-            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+                holder.imageView3.setVisibility(View.VISIBLE);
+            } else {
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+                    holder.ques1.setTextColor(Color.RED);
+                    holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView1.setVisibility(View.VISIBLE);
+                }
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
                 holder.ques2.setTextColor(Color.RED);
                 holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
-            }if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())){
+                holder.imageView2.setVisibility(View.VISIBLE);
+            }
+            if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
                 holder.ques4.setTextColor(Color.RED);
                 holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
+                holder.imageView4.setVisibility(View.VISIBLE);
             }
+
         }
+
         if (detailList.getCurrectAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
             holder.ques4.setTextColor(Color.parseColor("#FF59B449"));
             holder.imageView4.setImageResource(R.drawable.right_answer_icon);
+            holder.imageView4.setVisibility(View.VISIBLE);
             if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
                 holder.ques4.setTextColor(Color.parseColor("#FF59B449"));
                 holder.imageView4.setImageResource(R.drawable.right_answer_icon);
-            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
-                holder.ques1.setTextColor(Color.RED);
-                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
-            }  if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
-                holder.ques2.setTextColor(Color.RED);
-                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
-            } if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
-                holder.ques3.setTextColor(Color.RED);
-                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                holder.imageView4.setVisibility(View.VISIBLE);
             }
+            else {
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
+                    holder.ques1.setTextColor(Color.RED);
+                    holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView1.setVisibility(View.VISIBLE);
+                }
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
+                    holder.ques2.setTextColor(Color.RED);
+                    holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView2.setVisibility(View.VISIBLE);
+                }
+                if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
+                    holder.ques3.setTextColor(Color.RED);
+                    holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
+                    holder.imageView3.setVisibility(View.VISIBLE);
+                }
+            }
+
         }
 
 
@@ -194,33 +242,7 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
 */
 
 
-        /*if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer1())) {
-            if (!detailList.getUserAnswer().equalsIgnoreCase(detailList.getCurrectAnswer())) {
-                holder.ques1.setTextColor(Color.RED);
-                holder.imageView1.setImageResource(R.drawable.wrong_answer_icon);
-            }
-        }
 
-        if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer2())) {
-            if (!detailList.getUserAnswer().equalsIgnoreCase(detailList.getCurrectAnswer())) {
-                holder.ques2.setTextColor(Color.RED);
-                holder.imageView2.setImageResource(R.drawable.wrong_answer_icon);
-            }
-        }
-
-        if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer3())) {
-            if (!detailList.getUserAnswer().equalsIgnoreCase(detailList.getCurrectAnswer())) {
-                holder.ques3.setTextColor(Color.RED);
-                holder.imageView3.setImageResource(R.drawable.wrong_answer_icon);
-            }
-        }
-
-        if (detailList.getUserAnswer().equalsIgnoreCase(detailList.getAnswer4())) {
-            if (!detailList.getUserAnswer().equalsIgnoreCase(detailList.getCurrectAnswer())) {
-                holder.ques4.setTextColor(Color.RED);
-                holder.imageView4.setImageResource(R.drawable.wrong_answer_icon);
-            }
-        }*/
 
         holder.webView.getSettings().setJavaScriptEnabled(true);
         Utils.showProgressDialog(applicationContext);
@@ -263,10 +285,13 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
         TextView questionText, ques1, ques2, ques3, ques4, percentage, refrences;
         ImageView imageView1, imageView2, imageView3, imageView4;
         CardView cardElement;
+        LinearLayout linearLayout1,linearLayout2,linearLayout3,linearLayout4;
         WebView webView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+
 
             questionText = itemView.findViewById(R.id.question_one_test);
             ques1 = itemView.findViewById(R.id.txt_question_one_test);
@@ -281,6 +306,8 @@ public class ReviewQuestionListAdapter extends RecyclerView.Adapter<ReviewQuesti
             imageView3 = itemView.findViewById(R.id.image_three_test);
             imageView4 = itemView.findViewById(R.id.image_four_test);
             webView = itemView.findViewById(R.id.webview_result_test);
+
+            linearLayout1=itemView.findViewById(R.id.linear_txt);
 
 
         }

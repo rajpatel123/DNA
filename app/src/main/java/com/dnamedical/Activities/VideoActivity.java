@@ -30,7 +30,7 @@ public class VideoActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView subcategory;
-    public String subCatId;
+    public static String subCatId;
     DisplayDataInterface displayDataInterface;
 
     @Override
@@ -81,18 +81,18 @@ public class VideoActivity extends AppCompatActivity {
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
         tabTwo.setText("Buy Now");
         tabLayout.getTabAt(1).setCustomView(tabTwo);
-
+/*
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
         tabThree.setText("Unattempted");
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
         tabFour.setText("Completed");
-        tabLayout.getTabAt(3).setCustomView(tabFour);
+        tabLayout.getTabAt(3).setCustomView(tabFour);*/
 
         TextView tabFive = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
         tabFive.setText("Paused");
-        tabLayout.getTabAt(4).setCustomView(tabFive);
+        tabLayout.getTabAt(2).setCustomView(tabFive);
 
     }
 
@@ -100,8 +100,8 @@ public class VideoActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new FreeFragment(), "Free");
         adapter.addFrag(new BuynowFragment(), "Buy Now");
-        adapter.addFrag(new UnattemptedFragment(), "Unattempted");
-        adapter.addFrag(new CompleteFragment(), "Completed");
+  /*      adapter.addFrag(new UnattemptedFragment(), "Unattempted");
+        adapter.addFrag(new CompleteFragment(), "Completed");*/
         adapter.addFrag(new PausedFragment(), "Paused");
         viewPager.setAdapter(adapter);
     }

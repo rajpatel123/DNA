@@ -5,7 +5,6 @@
     android:gravity="center"
     >
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -13,16 +12,18 @@
 
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/facultyprofile"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/dr1" />
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/profile_image_know_more" />
 
                 <ProgressBar
+                    android:visibility="gone"
                     android:id="@+id/imageloader"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -38,10 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Dr.Narayan Singh"
+                android:textSize="12sp"
+                android:text="Dr.Mohammad Azam "
                 android:textColor="@color/colorAccent"
-
-
                 />
 
             <TextView

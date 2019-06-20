@@ -6,194 +6,199 @@
     android:layout_height="match_parent"
     android:background="@color/profile_background_color"
     tools:context=".Activities.DNAProfileActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-   <LinearLayout
-       android:layout_marginBottom="20dp"
-       android:id="@+id/linear_top"
-       android:gravity="center"
-       android:background="@color/colorPrimary"
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-       <de.hdodenhof.circleimageview.CircleImageView
-           android:layout_margin="25dp"
-           android:layout_marginTop="20dp"
-           xmlns:app="http://schemas.android.com/apk/res-auto"
-           android:id="@+id/profile_image"
-           android:layout_width="120dp"
-           android:layout_height="120dp"
-           android:src="@drawable/dr1"
-           app:civ_border_width="2dp"
-           app:civ_border_color="#FFFF"/>
-       <TextView
-           android:id="@+id/profile_name"
-           android:textSize="16sp"
-           android:padding="8sp"
-           android:gravity="center"
-           android:textStyle="bold"
-           android:textColor="@color/white"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Rishabh Bihari"/>
-       <TextView
-           android:id="@+id/profile_email"
-           android:layout_marginBottom="10dp"
-           android:textSize="16sp"
-           android:gravity="center"
-           android:textColor="@color/white"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="rbhu00@gmail.com"/>
-
-       <TextView
-           android:id="@+id/profile_state"
-           android:layout_marginBottom="10dp"
-           android:textSize="16sp"
-           android:gravity="center"
-           android:textColor="@color/white"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="America"/>
-
-       <TextView
-           android:id="@+id/profile_College"
-           android:layout_marginBottom="10dp"
-           android:textSize="16sp"
-           android:gravity="center"
-           android:textColor="@color/white"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="AIIMS,New Delhi"/>
-   </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_top">
-    <android.support.v7.widget.CardView
-       android:layout_marginTop="15dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/linear_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/subscription"
-                android:layout_margin="10sp"
-                android:padding="12sp"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/profile_arrow"
-                android:textColor="@color/colorAccent"
-                android:text="Subscription"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/profile_cardview">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_20"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            </View>
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
 
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/margin_width_120"
+                android:layout_height="@dimen/margin_width_120"
+                android:layout_margin="@dimen/margin_top_20"
+                android:src="@drawable/dr1"
+                app:civ_border_color="#FFFF"
+                app:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/course_neet"
-                android:textSize="16sp"
-                android:layout_margin="10sp"
-                android:padding="12sp"
-                android:textStyle="bold"
+                android:id="@+id/profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:drawableRight="@drawable/profile_arrow"
-                android:text="Course:NEET PG"/>
+                android:gravity="center"
+                android:padding="@dimen/padding_8"
+                android:text="Rishabh Bihari"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16"
+                android:textStyle="bold" />
 
-
-            <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="3dp"-->
-                <!--android:background="@color/profile_cardview">-->
-
-            <!--</View>-->
-
-            <!--<TextView-->
-                <!--android:textSize="16sp"-->
-                <!--android:layout_margin="10sp"-->
-                <!--android:padding="12sp"-->
-                <!--android:textStyle="bold"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textColor="@color/colorAccent"-->
-                <!--android:drawableRight="@drawable/profile_arrow"-->
-                <!--android:text="Reset"/>-->
-            <View
-                android:background="@color/profile_cardview"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-              >
-            </View>
             <TextView
-                android:id="@+id/change_password"
-                android:textSize="16sp"
-                android:layout_margin="10sp"
-                android:padding="12sp"
-                android:textStyle="bold"
+                android:id="@+id/profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:drawableRight="@drawable/profile_arrow"
-                android:text="Change Password"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/profile_cardview"
-                >
-            </View>
+                android:layout_marginBottom="@dimen/margin_bottom_10"
+                android:gravity="center"
+                android:text="rbhu00@gmail.com"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16" />
+
             <TextView
-                android:id="@+id/change_phone"
-                android:textSize="16sp"
-                android:layout_margin="10sp"
-                android:padding="12sp"
-                android:textStyle="bold"
+                android:id="@+id/profile_state"
                 android:layout_width="match_parent"
-                android:textColor="@color/colorAccent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/profile_arrow"
-                android:text="Change Phone Number"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/profile_cardview">
-            </View>
+                android:layout_marginBottom="@dimen/margin_bottom_10"
+                android:gravity="center"
+                android:text="America"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16" />
+
             <TextView
-                android:id="@+id/id__verification"
-                android:textSize="16sp"
-                android:layout_margin="10sp"
-                android:padding="12sp"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
+                android:id="@+id/profile_College"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/profile_arrow"
-                android:text="ID Verification"/>
-            <View
+                android:layout_marginBottom="@dimen/margin_bottom_10"
+                android:gravity="center"
+                android:text="AIIMS,New Delhi"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_top"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/profile_cardview">
-            </View>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_15"
+                android:layout_marginTop="@dimen/margin_top_15"
+                android:layout_marginRight="@dimen/margin_right_15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/subscription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_left_10"
+                        android:drawableRight="@drawable/profile_arrow"
+                        android:padding="12sp"
+                        android:text="Subscription"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/size_16"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3px"
+                        android:background="@color/profile_cardview">
+
+                    </View>
 
 
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-                <!--<TextView-->
+                    <TextView
+                        android:id="@+id/course_neet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_left_10"
+                        android:drawableRight="@drawable/profile_arrow"
+                        android:padding="12sp"
+                        android:text="Course:NEET PG"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/size_16"
+                        android:textStyle="bold" />
+
+
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="3dp"-->
+                    <!--android:background="@color/profile_cardview">-->
+
+                    <!--</View>-->
+
+                    <!--<TextView-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:layout_margin="10sp"-->
+                    <!--android:padding="12sp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:drawableRight="@drawable/profile_arrow"-->
+                    <!--android:text="Reset"/>-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3px"
+                        android:background="@color/profile_cardview"></View>
+
+                    <TextView
+                        android:id="@+id/change_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_left_10"
+                        android:drawableRight="@drawable/profile_arrow"
+                        android:padding="12sp"
+                        android:text="Change Password"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/size_16"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3px"
+                        android:background="@color/profile_cardview"></View>
+
+                    <TextView
+                        android:id="@+id/change_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_left_10"
+                        android:drawableRight="@drawable/profile_arrow"
+                        android:padding="12sp"
+                        android:text="Change Phone Number"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/size_16"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3px"
+                        android:background="@color/profile_cardview"></View>
+
+                    <TextView
+                        android:id="@+id/id__verification"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_left_10"
+                        android:drawableRight="@drawable/profile_arrow"
+                        android:padding="12sp"
+                        android:text="ID Verification"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/size_16"
+                        android:textStyle="bold" />
+
+
+
+                    <!--<LinearLayout-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
                     <!--android:layout_weight="2"-->
                     <!--android:textSize="16sp"-->
                     <!--android:layout_margin="10sp"-->
@@ -203,32 +208,32 @@
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
                     <!--android:text="MCQ: Dark theme"/>-->
-                <!--<Switch-->
+                    <!--<Switch-->
                     <!--android:layout_weight="1"-->
                     <!--android:layout_margin="10sp"-->
                     <!--android:padding="12sp"-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
                     <!--/>-->
-            <!--</LinearLayout>-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/profile_cardview">
-            </View>
+                    <!--</LinearLayout>-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3px"
+                        android:background="@color/profile_cardview"></View>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/profile_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_left_40"
+                android:gravity="center"
+                android:paddingTop="@dimen/margin_top_20"
+                android:text="Log Out"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/size_16" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-        <TextView
-            android:id="@+id/profile_logout"
-            android:layout_margin="40sp"
-            android:paddingTop="20dp"
-            android:textSize="16sp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:gravity="center"
-            android:text="Log Out"/>
-    </LinearLayout>
     </RelativeLayout>
 </ScrollView>

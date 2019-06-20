@@ -141,11 +141,6 @@ public class TestActivity extends FragmentActivity {
                 case "3h":
                     testDuration = 180 * 60 * 1000;
                     break;
-                case "3 hour":
-                    testDuration = 180 * 60 * 1000;
-                    break;
-
-
             }
         }
 
@@ -344,6 +339,7 @@ public class TestActivity extends FragmentActivity {
         intent.putExtra("User_Id", user_id);
         intent.putExtra("Test_Id", test_id);
         startActivity(intent);
+        finish();
 
     }
 

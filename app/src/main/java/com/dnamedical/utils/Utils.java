@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -119,6 +120,23 @@ public class Utils {
         return 0;
     }
 
+    public static String getCurrentTime() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
+        String strTime = mdformat.format(calendar.getTime());
+       return strTime;
+    }
+
+    public static String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd / MM / yyyy ");
+        String strDate = "Current Date : " + mdformat.format(calendar.getTime());
+        return strDate;
+
+    }
+
+
+
 
     public static String dateFormat(long timeStamp) {
 
@@ -141,7 +159,7 @@ public class Utils {
         int mm=Integer.parseInt(dates[1]);
         int yy=Integer.parseInt(dates[2]);
 
-        calendar.set(yy,mm,dt);
+        calendar.set(yy,mm-1,dt);
 
         try {
             Date date = calendar.getTime();
@@ -150,5 +168,34 @@ public class Utils {
             // Log.e("Tag", "Wrong date Format");
         }
         return -1;
+    }
+
+    public static long getMilliesFromTime(String testDate) {
+
+        Calendar calendar = Calendar.getInstance();
+        String dates[] = testDate.split(":");
+        int hh=Integer.parseInt(dates[0]);
+        int mm=Integer.parseInt(dates[1]);
+        int ss=Integer.parseInt(dates[2]);
+
+        calendar.set(hh,mm,ss);
+
+        try {
+            Date date = calendar.getTime();
+            return date.getTime();
+        } catch (Exception e) {
+            // Log.e("Tag", "Wrong date Format");
+        }
+        return -1;
+    }
+
+    public static long getMilliesOfTestTime(String time) {
+
+        String source = "00:10:17";
+        String[] tokens = source.split(":");
+        int secondsToMs = Integer.parseInt(tokens[2]) * 1000;
+        int minutesToMs = Integer.parseInt(tokens[1]) * 60000;
+        int hoursToMs = Integer.parseInt(tokens[0]) * 3600000;
+        return secondsToMs + minutesToMs + hoursToMs;
     }
 }

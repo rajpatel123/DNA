@@ -30,39 +30,41 @@ import java.util.List;
 public class GrandTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
 
-
-
     TextView notext;
 
     RecyclerView recyclerView;
     private TestQuestionData testQuestionData;
     private String subTest;
     private List<GrandTest> grandTest;
+    private boolean loadedOnce;
 
     public GrandTestFragment() {
 
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        loadedOnce=false;
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(Utils.isInternetConnected(getContext())) {
+        if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getContext());
             testQuestionData = DNAApplication.getTestQuestionData();
-            if (testQuestionData != null)
-            {
-
+            if (testQuestionData != null) {
                 Utils.dismissProgressDialog();
                 grandTest = testQuestionData.getGrandTest();
                 updateDate(grandTest);
                 showTest();
-            }
-            else {
+                loadedOnce=true;
+            } else {
                 Utils.dismissProgressDialog();
             }
 
-        }
-        else {
+        } else {
             Utils.dismissProgressDialog();
             notext.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
@@ -70,11 +72,21 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
         }
     }
 
+
     private void updateDate(List<GrandTest> testQuestionData) {
-        for (GrandTest allTest : testQuestionData){
+        for (GrandTest allTest : testQuestionData) {
             allTest.setTime(Utils.getMillies(allTest.getTestDate()));
         }
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && !loadedOnce) {
+            showTest();
+        }
+    }
+
     @Override
     public boolean getUserVisibleHint() {
         return super.getUserVisibleHint();
@@ -118,12 +130,12 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grandtest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
-        notext=view.findViewById(R.id.noTest);
+        notext = view.findViewById(R.id.noTest);
         return view;
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid,String TestStatus) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String TestStatus, String type) {
         if (testPaid.equalsIgnoreCase("Yes")) {
             Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
             startActivity(intent);
@@ -132,8 +144,10 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
             intent.putExtra("id", id);
             intent.putExtra("duration", time);
             intent.putExtra("testName", testName);
+            intent.putExtra("type", type);
             intent.putExtra("testQuestion", testQuestion);
-            intent.putExtra("testStatus",TestStatus);
+            intent.putExtra("testStatus", TestStatus);
+            intent.putExtra("testPaid", testPaid);
             startActivity(intent);
 
         }

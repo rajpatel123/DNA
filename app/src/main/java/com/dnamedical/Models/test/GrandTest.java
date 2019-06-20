@@ -11,6 +11,11 @@ public class GrandTest implements Comparable<GrandTest> {
     @SerializedName("test_id")
     @Expose
     private String testId;
+
+    @SerializedName("start_time")
+    @Expose
+    private String startTime;
+
     @SerializedName("test_name")
     @Expose
     private String testName;
@@ -38,6 +43,15 @@ public class GrandTest implements Comparable<GrandTest> {
     @SerializedName("test_status")
     @Expose
     private String testStatus;
+
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 
     public long getTime() {
         return time;

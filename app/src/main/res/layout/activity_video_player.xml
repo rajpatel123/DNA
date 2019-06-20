@@ -56,6 +56,16 @@
             android:background="@color/transparent"
             android:gravity="center">
 
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+
             <ImageView
                 android:id="@+id/play_btn"
                 android:layout_width="44dp"
@@ -67,6 +77,12 @@
                 app:srcCompat="@drawable/video_player"
                 tools:visibility="visible" />
 
+
+            <View
+                android:id="@+id/playerClick"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:background="@color/transparent"/>
             <com.dnamedical.player.EasyExoVideoPlayer
                 android:id="@+id/upper_exoplayer"
                 android:layout_width="match_parent"
@@ -80,7 +96,10 @@
                 app:evp_leftAction="none"
                 app:evp_loop="false"
                 app:evp_rightAction="none"
-                tools:visibility="visible" />
+                tools:visibility="visible">
+
+
+            </com.dnamedical.player.EasyExoVideoPlayer>
 
 
             <ProgressBar
@@ -138,10 +157,11 @@
                     android:id="@+id/videoDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00:00 / 00:00"
+                    android:layout_weight="1"
                     android:padding="4dp"
-                    android:textColor="@color/white"
-                    android:layout_weight="1"/>
+                    android:text="00:00 / 00:00"
+                    android:textColor="@color/white" />
+
                 <ImageView
                     android:id="@+id/md_replay"
                     android:layout_width="wrap_content"
@@ -228,30 +248,40 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/md_parentview"
         android:background="@color/white"
-        android:gravity="center_vertical"
-        android:minHeight="?attr/actionBarSize"
-        android:paddingLeft="15dp"
-        android:text="Cell Membrene"
+        android:padding="10dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/emailId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading"
+        android:background="@color/white"
+        android:padding="@dimen/margin_10"
+        android:text="sbhu@gmail.com"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="8pt"
-        android:layout_below="@id/heading"
+        android:layout_below="@id/emailId"
         android:background="@color/black" />
 
     <ScrollView
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heading"
+        android:layout_below="@+id/emailId"
         android:background="#efeded">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -263,7 +293,7 @@
                     android:layout_marginTop="15dp"
                     android:paddingLeft="15dp"
                     android:paddingBottom="10dp"
-                    android:text="DR RAJEEV RANJAN"
+
                     android:textAllCaps="true"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/text_large" />
@@ -274,9 +304,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
-                    android:text="Spermatogenesis | Human Reproduction | Dr Rajeev Ranjan"
-                    android:textSize="@dimen/evp_text_size_medium"
-                    android:visibility="gone" />
+                    android:textSize="@dimen/evp_text_size_medium" />
 
                 <TextView
                     android:id="@+id/video_title"
@@ -288,6 +316,7 @@
                     android:visibility="gone" />
 
                 <TextView
+
                     android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -295,15 +324,14 @@
                     android:paddingLeft="15dp"
                     android:text="@string/vedio_text"
                     android:textColor="@color/Black"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/timeslot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="50dp"
-                    >
+                    android:layout_marginBottom="50dp">
 
                 </android.support.v7.widget.RecyclerView>
 

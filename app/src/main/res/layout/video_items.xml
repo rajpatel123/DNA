@@ -29,6 +29,8 @@
         android:orientation="horizontal">
 
         <LinearLayout
+
+            android:visibility="gone"
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_weight=".5"
@@ -82,8 +84,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10sp"
             android:layout_weight="4"
-            android:background="@color/vediobackgroundColor"
+            android:background="@drawable/payment_txt_design"
             android:orientation="horizontal">
 
 
@@ -118,7 +121,6 @@
                     android:layout_height="wrap_content">
                     <TextView
 
-                        android:textStyle="bold"
                         android:layout_weight="1"
                         android:maxLines="2"
                         android:id="@+id/vid_title"
@@ -129,23 +131,46 @@
                         android:textSize="@dimen/evp_text_size_medium" />
 
                     <ImageView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/lock" />
+                        app:srcCompat="@drawable/lock" />
 
                 </LinearLayout>
-                <TextView
-                    android:layout_weight="1"
-                    android:textAllCaps="false"
-                    android:id="@+id/vid_doctor_name"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Introduction to Anotomy"
-                    android:textColor="#313133"
-                    android:textSize="@dimen/evp_text_size_small" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:textAllCaps="false"
+                        android:id="@+id/vid_doctor_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DR. Ayush Tyagi"
+                        android:maxLines="1"
+                        android:textColor="#313133"
+                        android:textSize="@dimen/evp_text_size_small" />
+                    <TextView
+                        android:gravity="end"
+                        android:visibility="gone"
+                        android:paddingRight="@dimen/padding_5"
+                        android:layout_gravity="end"
+                        android:layout_weight="1.7"
+                        android:textAllCaps="false"
+                        android:id="@+id/buy_now"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Buy Now"
+                        android:textColor="#313133"
+                        android:textSize="@dimen/evp_text_size_small" />
+
+
+
+                </LinearLayout>
+
 
 
                 <LinearLayout

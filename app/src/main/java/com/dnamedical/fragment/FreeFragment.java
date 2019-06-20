@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Activities.VideoPlayerActivity;
@@ -101,6 +102,13 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
 
                 }
             });
+        }
+        else {
+            Utils.dismissProgressDialog();
+            recyclerView.setVisibility(View.GONE);
+            noVid.setVisibility(View.VISIBLE);
+            noVid.setText("No Internet Connections Failed!!!");
+            Toast.makeText(activity, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
         }
     }
 
