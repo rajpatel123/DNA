@@ -214,7 +214,8 @@ Runnable emailPresenter= new Runnable() {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-            llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+            if (llControllerWrapperFlexible!=null)
+                llControllerWrapperFlexible.setVisibility(View.VISIBLE);
 
             handler.postDelayed(emailPresenter,5*1000);
 
@@ -223,6 +224,7 @@ Runnable emailPresenter= new Runnable() {
                 public void run() {
                     // This method will be executed once the timer is over
 
+                    if (llControllerWrapperFlexible!=null)
                     llControllerWrapperFlexible.setVisibility(GONE);
                     handler.postDelayed(this, SPLASH_TIME_OUT);
                     //finish();
