@@ -26,6 +26,7 @@ public class Free implements  Parcelable {
         subTitle = in.readString();
         dr_img = in.readString();
         duration = in.readString();
+        chapter = in.readString();
         description = in.readString();
         sourceTime = in.createTypedArrayList(SourceTime.CREATOR);
         url = in.readString();
@@ -37,6 +38,7 @@ public class Free implements  Parcelable {
         dest.writeString(title);
         dest.writeString(subTitle);
         dest.writeString(duration);
+        dest.writeString(chapter);
         dest.writeString(dr_img);
         dest.writeString(description);
         dest.writeTypedList(sourceTime);
@@ -71,6 +73,18 @@ public class Free implements  Parcelable {
     @SerializedName("dr_img")
     @Expose
     private String dr_img;
+
+    public String getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(String chapter) {
+        this.chapter = chapter;
+    }
+
+    @SerializedName("chapter")
+    @Expose
+    private String chapter;
 
     public String getDuration() {
         return duration;

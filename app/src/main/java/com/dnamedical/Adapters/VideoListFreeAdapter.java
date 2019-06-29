@@ -14,12 +14,15 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.R;
+
+import static android.view.View.GONE;
 
 public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdapter.ViewHolder> {
     /**
@@ -43,9 +46,9 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
     @Override
     public void onBindViewHolder(final VideoListFreeAdapter.ViewHolder holder, final int position) {
         holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
-        if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration())>0){
-            holder.ratingandtime.setText(freeList.get(holder.getAdapterPosition()).getDuration()+" min video");
-        }else{
+        if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration()) > 0) {
+            holder.ratingandtime.setText(freeList.get(holder.getAdapterPosition()).getDuration() + " min video");
+        } else {
             holder.ratingandtime.setText("N/A");
 
         }
@@ -55,7 +58,15 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
                 .error(R.drawable.profile_image_know_more)
                 .into(holder.imageDoctor);
         holder.doctorName.setText(freeList.get(holder.getAdapterPosition()).getSubTitle());
+        if (holder.getAdapterPosition() > 0) {
+            if (!Objects.requireNonNull(freeList.get(holder.getAdapterPosition()).getChapter()).equals(freeList.get(holder.getAdapterPosition() - 1).getChapter())) {
+                holder.chapter.setVisibility(View.VISIBLE);
+                holder.chapter.setText(freeList.get(holder.getAdapterPosition()).getChapter());
 
+            } else {
+                holder.chapter.setVisibility(GONE);
+            }
+        }
 
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +117,11 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         TextView ratingandtime;
         @BindView(R.id.vid_doctor_name)
         TextView doctorName;
+
+        @BindView(R.id.chapter)
+        TextView chapter;
+        @BindView(R.id.number)
+        TextView number;
 
         @BindView(R.id.image_doctor)
         ImageView imageDoctor;
