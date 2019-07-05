@@ -5,6 +5,7 @@
     android:id="@+id/row_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,15 +15,13 @@
         android:layout_marginLeft="45dp"
         android:orientation="vertical"
         android:paddingRight="40dp"
-
-        android:background="@color/gradStart"
+        android:background="@color/color_video"
         android:visibility="visible">
 
         <TextView
             android:id="@+id/chapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GENERAL ANATOMY"
             android:paddingLeft="15dp"
             android:padding="4dp"
             android:textColor="@color/white"
@@ -34,54 +33,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
-
-            android:visibility="gone"
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/space" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/space" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/space" />
-
-
-            <TextView
-                android:id="@+id/index"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/bage_shape"
-                android:gravity="center"
-                android:text="1"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/space" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/space" />
-
-        </LinearLayout>
 
        <LinearLayout
            android:layout_width="match_parent"
@@ -92,12 +43,12 @@
                android:layout_height="wrap_content"
                android:layout_weight=".5">
                <View
-                   android:layout_width="5dp"
-                   android:layout_height="wrap_content"
+                   android:layout_width="2dp"
+                   android:layout_height="100dp"
                    android:layout_gravity="center_horizontal"
                    android:layout_marginTop="10dp"
 
-                   android:background="@color/gradStart"/>
+                   android:background="@color/dark_gray"/>
                <TextView
                    android:id="@+id/number"
                    android:layout_width="wrap_content"
@@ -121,11 +72,12 @@
                android:orientation="horizontal">
 
 
-               <LinearLayout
+               <FrameLayout
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_margin="15dp"
                    >
+
 
                    <ImageView
                        android:id="@+id/image_doctor"
@@ -136,7 +88,7 @@
 
                        android:src="@drawable/doctor" />
 
-               </LinearLayout>
+               </FrameLayout>
 
 
                <LinearLayout
@@ -220,11 +172,16 @@
                            android:layout_height="wrap_content"
                            android:layout_gravity="center"
                            android:layout_marginLeft="7dp"
-                           android:layout_weight="1"
+                           android:layout_weight=".3"
                            android:text="(5.0)"
                            android:textSize="@dimen/evp_text_size_small"
                            android:textColor="@color/vedio_text_color" />
-
+                       <View
+                           android:layout_width="3dp"
+                           android:layout_height="15dp"
+                           android:background="@color/colorAccent"
+                           android:layout_gravity="center"
+                           />
 
                        <TextView
                            android:id="@+id/ratingandtime"

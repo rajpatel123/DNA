@@ -4,6 +4,7 @@ package com.dnamedical.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,21 +53,28 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
             holder.ratingandtime.setText("N/A");
 
         }
-        holder.index.setText("" + (holder.getAdapterPosition() + 1));
+        if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getChapter())) {
+            holder.chapter.setText("" + freeList.get(holder.getAdapterPosition()).getChapter());
+        } else {
+            holder.chapter.setText("Not Assigned Chapter");
+        }
+        if (holder.getAdapterPosition() > 0) {
+            if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getChapter())) {
+                if (!freeList.get(holder.getAdapterPosition()).getChapter().equalsIgnoreCase(freeList.get(holder.getAdapterPosition() - 1).getChapter())) {
+                    holder.chapter.setVisibility(View.VISIBLE);
+                } else {
+                    holder.chapter.setVisibility(GONE);
+                }
+            }
+
+        }
+        holder.number.setText("" + (holder.getAdapterPosition() + 1));
         Picasso.with(applicationContext)
                 .load(freeList.get(holder.getAdapterPosition()).getDr_img())
                 .error(R.drawable.profile_image_know_more)
                 .into(holder.imageDoctor);
         holder.doctorName.setText(freeList.get(holder.getAdapterPosition()).getSubTitle());
-        if (holder.getAdapterPosition() > 0) {
-            if (!Objects.requireNonNull(freeList.get(holder.getAdapterPosition()).getChapter()).equals(freeList.get(holder.getAdapterPosition() - 1).getChapter())) {
-                holder.chapter.setVisibility(View.VISIBLE);
-                holder.chapter.setText(freeList.get(holder.getAdapterPosition()).getChapter());
 
-            } else {
-                holder.chapter.setVisibility(GONE);
-            }
-        }
 
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,8 +113,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.index)
-        TextView index;
+
         @BindView(R.id.row_view)
         LinearLayout row_view;
         @BindView(R.id.vid_title)

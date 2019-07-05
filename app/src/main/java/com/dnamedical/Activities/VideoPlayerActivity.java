@@ -48,6 +48,7 @@ import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.fragment.FreeFragment;
 import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.views.TypeWriter;
 import com.warkiz.widget.DotIndicatorSeekBar;
 import com.warkiz.widget.DotOnSeekChangeListener;
 import com.warkiz.widget.DotSeekParams;
@@ -131,7 +132,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
     @BindView(R.id.email)
-    TextView textViewEmail;
+    TypeWriter textViewEmail;
 
     @BindView(R.id.techer_name)
     TextView textTeacher;
@@ -155,14 +156,21 @@ public class VideoPlayerActivity extends AppCompatActivity {
 Runnable emailPresenter= new Runnable() {
     @Override
     public void run() {
-        if (textViewEmail.getVisibility()== View.VISIBLE){
-            textViewEmail.setVisibility(GONE);
-        }else {
-            textViewEmail.setVisibility(View.VISIBLE);
+        if (textViewEmail!=null){
+//            if (textViewEmail.getVisibility()== View.VISIBLE){
+//                textViewEmail.setVisibility(GONE);
+//            }else {
+//                textViewEmail.setText("");
+                //textViewEmail.setCharacterDelay(150);
+                textViewEmail.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(email_id))
+                    textViewEmail.setText(email_id);
 
+            //}
+
+           // handler1.postDelayed(emailPresenter,5*1000);
         }
 
-        handler1.postDelayed(emailPresenter,5*1000);
     }
 };
 
