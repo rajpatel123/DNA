@@ -38,6 +38,7 @@
             android:background="@drawable/dnalogo"
             android:padding="10dp"
             android:visibility="visible" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -74,20 +75,36 @@
                 tools:visibility="visible" />
 
 
-            <com.dnamedical.player.EasyExoVideoPlayer
-                android:id="@+id/upper_exoplayer"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:visibility="visible"
-                app:evp_autoFullscreen="false"
-                app:evp_autoPlay="true"
-                app:evp_disableControls="true"
-                app:evp_hideControlsOnPlay="true"
-                app:evp_leftAction="none"
-                app:evp_loop="false"
-                app:evp_rightAction="none"
-                tools:visibility="visible" />
+               <com.dnamedical.player.EasyExoVideoPlayer
+                   android:id="@+id/upper_exoplayer"
+                   android:layout_width="match_parent"
+                   android:layout_height="200dp"
+                   android:layout_gravity="center"
+                   android:visibility="visible"
+                   app:evp_autoFullscreen="false"
+                   app:evp_autoPlay="true"
+                   app:evp_disableControls="true"
+                   app:evp_hideControlsOnPlay="true"
+                   app:evp_leftAction="none"
+                   app:evp_loop="false"
+                   app:evp_rightAction="none"
+                   tools:visibility="visible" />
+
+               <com.dnamedical.views.TypeWriter
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/email"
+                   android:paddingRight="10dp"
+                   android:textColor="@color/dark_gray"
+                   android:gravity="end"
+                   android:layout_gravity="top"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="10dp"
+                   android:layout_marginLeft="10dp"
+                   android:textSize="14sp"
+                   android:text="sadsadadad a"
+                   android:elevation="2dp"
+                   android:visibility="gone" />
 
 
 
@@ -102,17 +119,7 @@
                 tools:visibility="visible" />
 
         </RelativeLayout>
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:gravity="left"
-            android:layout_below="@+id/upper_progress"
-            android:textSize="18sp"
-            android:text="sadsadadad a"
-            android:elevation="2dp"
-            android:visibility="gone" />
+
         <RelativeLayout
             android:id="@+id/videoPlayerControlsPortraitMode"
             android:layout_width="match_parent"
@@ -237,11 +244,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/md_parentview"
-        android:padding="10dp"
+        android:padding="8dp"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 
 
@@ -254,7 +262,7 @@
         >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -267,8 +275,8 @@
                     android:id="@+id/techer_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:paddingLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
                     android:paddingBottom="10dp"
 
                     android:textAllCaps="true"
@@ -287,7 +295,7 @@
                     android:id="@+id/video_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:paddingLeft="15dp"
                     android:text="-NEET AIIMS prepration videos"
                     android:visibility="gone" />
@@ -297,7 +305,6 @@
                     android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
                     android:text="@string/vedio_text"
                     android:textColor="@color/Black"

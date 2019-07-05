@@ -24,6 +24,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
+
 public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAdapter.ViewHolder> {
 
 
@@ -79,20 +81,36 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         if (price.getTitle() != null) {
             holder.title.setText("" + price.getTitle());
             holder.title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            holder.title.setSingleLine(true);
             holder.title.setMarqueeRepeatLimit(5);
             holder.title.setSelected(true);
+        }
+
+        if (!TextUtils.isEmpty(price.getCh_name())) {
+            holder.chapter.setText("" + price.getCh_name());
+        } else {
+            holder.chapter.setText("Not Assigned Chapter");
+        }
+        if (holder.getAdapterPosition() > 0) {
+            if (!TextUtils.isEmpty(price.getCh_name())) {
+                if (!price.getCh_name().equalsIgnoreCase(priceList.get(holder.getAdapterPosition() - 1).getCh_name())) {
+                    holder.chapter.setVisibility(View.VISIBLE);
+                } else {
+                    holder.chapter.setVisibility(GONE);
+                }
+            }
+
         }
         if (price.getSubTitle() != null) {
             holder.doctarName.setText("" + price.getSubTitle());
         }
-        holder.index.setText("" + (holder.getAdapterPosition() + 1));
         if (Integer.parseInt(price.getDuration())>0){
             holder.ratingandtime.setText(price.getDuration()+" min video");
         }else{
             holder.ratingandtime.setText("N/A");
 
         }
+        holder.number.setText("" + (holder.getAdapterPosition() + 1));
+
         holder.ratingandtime.setText(price.getDuration() + " min video");
         //Log.i("Thumb",  price.getUrl());
         Picasso.with(applicationContext).load(price.getDrImg())
@@ -204,15 +222,17 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         @BindView(R.id.row_view)
         LinearLayout row_view;
+        @BindView(R.id.number)
+        TextView number;
 
         @BindView(R.id.vid_title)
         TextView title;
-        @BindView(R.id.index)
-        TextView index;
+
 
         @BindView(R.id.vid_doctor_name)
         TextView doctarName;
-
+        @BindView(R.id.chapter)
+        TextView chapter;
 
         @BindView(R.id.ratingandtime)
         TextView ratingandtime;
