@@ -649,6 +649,8 @@ Runnable emailPresenter= new Runnable() {
             case R.id.play_btn:
                 onSingle();
                 break;
+
+
             case R.id.back:
                 onBackClick();
                 break;

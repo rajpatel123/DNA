@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
@@ -39,6 +41,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     VideoListPriceAdapter.OnCategoryClick onUserClickCallback;
     VideoListPriceAdapter.OnBuyNowClick onUserBuyNowClick;
     VideoListPriceAdapter.OnDataClick onDataClick;
+    private int visible;
 
     public VideoListPriceAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -94,7 +97,9 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             if (!TextUtils.isEmpty(price.getCh_name())) {
                 if (!price.getCh_name().equalsIgnoreCase(priceList.get(holder.getAdapterPosition() - 1).getCh_name())) {
                     holder.chapter.setVisibility(View.VISIBLE);
+                  //  holder.lineView.setLayoutParams(getLayoutParams(true));
                 } else {
+                    //holder.lineView.setLayoutParams(getLayoutParams(false));
                     holder.chapter.setVisibility(GONE);
                 }
             }
@@ -103,9 +108,9 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         if (price.getSubTitle() != null) {
             holder.doctarName.setText("" + price.getSubTitle());
         }
-        if (Integer.parseInt(price.getDuration())>0){
-            holder.ratingandtime.setText(price.getDuration()+" min video");
-        }else{
+        if (Integer.parseInt(price.getDuration()) > 0) {
+            holder.ratingandtime.setText(price.getDuration() + " min video");
+        } else {
             holder.ratingandtime.setText("N/A");
 
         }
@@ -133,15 +138,28 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.buyNow.setVisibility(View.GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
+            if (! TextUtils.isEmpty(price.getUrl())) {
+                visible = View.VISIBLE;
+                holder.commingSoon.setVisibility(View.VISIBLE);
+
+            }
+
+
         } else {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
+
+            if (! TextUtils.isEmpty(price.getUrl())) {
+                holder.lockNew.setVisibility(View.VISIBLE);
+
+            }
+
         }
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (price.getPaymentStatus().equalsIgnoreCase("1")) {
+                if (price.getPaymentStatus().equalsIgnoreCase("1") && !TextUtils.isEmpty(price.getUrl())) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     }
@@ -194,6 +212,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                                     priceList.get(holder.getAdapterPosition()).getSubTitle(),
                                     priceList.get(holder.getAdapterPosition()).getDiscount(),
                                     priceList.get(holder.getAdapterPosition()).getPrice(),
+
                                     priceList.get(holder.getAdapterPosition()).getShippingCharge());
                         }
                         dialog.dismiss();
@@ -205,6 +224,19 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
 
         });
+    }
+
+    private ViewGroup.LayoutParams getLayoutParams(boolean marginTop) {
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+               ViewGroup.LayoutParams.WRAP_CONTENT,
+               ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        if (marginTop) {
+            layoutParams.setMargins(0, 50, 0, 0);
+        } else {
+            layoutParams.setMargins(0, 0, 0, 0);
+        }
+        return layoutParams;
     }
 
     @Override
@@ -244,6 +276,12 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.buy_now)
         TextView buyNow;
 
+        @BindView(R.id.commingsoon)
+        TextView commingSoon;
+
+        @BindView(R.id.lock)
+        ImageView lockNew;
+
 
         @BindView(R.id.txt_actual_price)
         TextView txtActualPrice;
@@ -251,6 +289,9 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         @BindView(R.id.txt_total_price)
         TextView txtTotalPrice;
+
+        @BindView(R.id.lineView)
+        View lineView;
 
         public ViewHolder(View view) {
             super(view);
