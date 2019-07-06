@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -192,6 +193,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                 }
             });
             recyclerView.setAdapter(videoListAdapter);
+            recyclerView.addItemDecoration(new DividerItemDecoration(activity, 0));
             recyclerView.setVisibility(View.VISIBLE);
             noVid.setVisibility(View.GONE);
             Log.d("Api Response :", "Got Success from Api");

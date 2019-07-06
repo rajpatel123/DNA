@@ -13,6 +13,7 @@
     <color name="knowmorebck">#ebeaef</color>
     <color name="black">#000000</color>
     <color name="dark_gray">#aaa</color>
+    <color name="email_gray">#43AAAAAA</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="mdtp_transparent_black">#7f000000</color>
     <color name="orange1">#ed854f</color>
