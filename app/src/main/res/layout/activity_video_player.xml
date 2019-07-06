@@ -38,6 +38,7 @@
             android:background="@drawable/dnalogo"
             android:padding="10dp"
             android:visibility="visible" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -243,11 +244,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/md_parentview"
-        android:padding="10dp"
+        android:padding="8dp"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 
 
@@ -273,8 +275,8 @@
                     android:id="@+id/techer_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:paddingLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
                     android:paddingBottom="10dp"
 
                     android:textAllCaps="true"
@@ -293,7 +295,7 @@
                     android:id="@+id/video_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:paddingLeft="15dp"
                     android:text="-NEET AIIMS prepration videos"
                     android:visibility="gone" />
@@ -303,7 +305,6 @@
                     android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
                     android:text="@string/vedio_text"
                     android:textColor="@color/Black"
