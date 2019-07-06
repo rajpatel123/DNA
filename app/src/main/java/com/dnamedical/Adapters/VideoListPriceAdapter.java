@@ -133,15 +133,23 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.buyNow.setVisibility(View.GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
+            if (TextUtils.isEmpty(price.getUrl())){
+                //comming soon
+            }
+
         } else {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
+
+            if (TextUtils.isEmpty(price.getUrl())){
+                //comming soon + lock
+            }
         }
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (price.getPaymentStatus().equalsIgnoreCase("1")) {
+                if (price.getPaymentStatus().equalsIgnoreCase("1") && !TextUtils.isEmpty(price.getUrl())) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     }
