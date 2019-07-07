@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
@@ -40,6 +41,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     VideoListPriceAdapter.OnCategoryClick onUserClickCallback;
     VideoListPriceAdapter.OnBuyNowClick onUserBuyNowClick;
     VideoListPriceAdapter.OnDataClick onDataClick;
+    private int visible;
 
     public VideoListPriceAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -136,18 +138,23 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.buyNow.setVisibility(View.GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
-            if (TextUtils.isEmpty(price.getUrl())) {
-                //comming soon
+            if (! TextUtils.isEmpty(price.getUrl())) {
+                visible = View.VISIBLE;
+                holder.commingSoon.setVisibility(View.VISIBLE);
+
             }
+
 
         } else {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
 
-            if (TextUtils.isEmpty(price.getUrl())) {
-                //comming soon + lock
+            if (! TextUtils.isEmpty(price.getUrl())) {
+                holder.lockNew.setVisibility(View.VISIBLE);
+
             }
+
         }
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,6 +212,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                                     priceList.get(holder.getAdapterPosition()).getSubTitle(),
                                     priceList.get(holder.getAdapterPosition()).getDiscount(),
                                     priceList.get(holder.getAdapterPosition()).getPrice(),
+
                                     priceList.get(holder.getAdapterPosition()).getShippingCharge());
                         }
                         dialog.dismiss();
@@ -267,6 +275,12 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         @BindView(R.id.buy_now)
         TextView buyNow;
+
+        @BindView(R.id.commingsoon)
+        TextView commingSoon;
+
+        @BindView(R.id.lock)
+        ImageView lockNew;
 
 
         @BindView(R.id.txt_actual_price)
