@@ -225,7 +225,7 @@ Runnable emailPresenter= new Runnable() {
             if (llControllerWrapperFlexible!=null)
                 llControllerWrapperFlexible.setVisibility(View.VISIBLE);
 
-            handler.postDelayed(emailPresenter,5*1000);
+            handler.postDelayed(emailPresenter,10*1000);
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -641,10 +641,13 @@ Runnable emailPresenter= new Runnable() {
                 break;
             case R.id.md_replay:
                 onReplay();
-                onReplay();
                 break;
             case R.id.md_play:
-                onPlayPause();
+                if (upper_exoplayer!=null && upper_exoplayer.isPrepared()){
+                    onPlayPause();
+                }else{
+                    onSingle();
+                }
                 break;
             case R.id.play_btn:
                 onSingle();
