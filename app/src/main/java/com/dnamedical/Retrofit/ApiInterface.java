@@ -118,6 +118,11 @@ public interface ApiInterface {
     @POST("api/api.php?req=get_address")
     Call<GetDataAddressResponse> getAddressData(@Part("user_id") RequestBody user_id);
 
+
+
+    @GET("api/api.php?req=add_discount")
+    Call<ResponseBody> getAdditionalDiscount();
+
     @Multipart
     @POST("api/api.php?req=update_user")
     Call<EditProfileResponse> editProfile(@Part("id") RequestBody id,

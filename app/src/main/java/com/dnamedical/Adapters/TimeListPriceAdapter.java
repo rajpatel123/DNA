@@ -52,7 +52,6 @@ public class TimeListPriceAdapter extends RecyclerView.Adapter<TimeListPriceAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
 
-
         holder.time.setText(sourceTimes.get(holder.getAdapterPosition()).getSourceTime());
         holder.title.setText(sourceTimes.get(holder.getAdapterPosition()).getTopicName());
 

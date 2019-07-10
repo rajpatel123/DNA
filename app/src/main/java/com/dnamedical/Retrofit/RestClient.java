@@ -59,6 +59,10 @@ public class RestClient {
         RetrofitClient.getClient().loginUser(email, password).enqueue(callback);
     }
 
+    public static void getAdditionalDiscount(Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().getAdditionalDiscount().enqueue(callback);
+    }
+
     public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
         RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password, college).enqueue(callback);
     }

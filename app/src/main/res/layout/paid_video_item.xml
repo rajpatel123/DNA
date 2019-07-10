@@ -88,7 +88,7 @@
                     <ImageView
                         android:id="@+id/image_doctor"
                         android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:layout_margin="2dp"
 
@@ -101,21 +101,23 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:tint="@color/white"
+                        android:layout_marginBottom="10dp"
                         app:srcCompat="@drawable/lock" />
 
                     <TextView
                         android:visibility="gone"
                        android:id="@+id/commingsoon"
-                        android:layout_width="match_parent"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:ellipsize="marquee"
-                       android:layout_marginTop="50dp"
-                        android:singleLine="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="commingsoon"
-                        android:textColor="#313133"
-                        android:textSize="8sp" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="2"
+                        android:gravity="center"
+                        android:text="Comming \nSoon"
+                        android:elevation="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
                 </FrameLayout>
 

@@ -424,7 +424,7 @@ Runnable emailPresenter= new Runnable() {
                 };
                 recyclerView.setLayoutManager(layoutManager);
             } else {
-                Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
 
             }
 

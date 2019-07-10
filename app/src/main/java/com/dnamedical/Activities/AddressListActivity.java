@@ -37,7 +37,7 @@ public class AddressListActivity extends AppCompatActivity {
     @BindView(R.id.noData)
     TextView textViewNoData;
 
-    String userId, amount, vedioId, shippingCharge, couponValue, totalValue, subchildcat;
+    String userId, amount, vedioId, shippingCharge, couponValue,couponValueAdd, totalValue, subchildcat;
     GetDataAddressResponse getDataAddressList;
 
     @Override
@@ -57,6 +57,7 @@ public class AddressListActivity extends AppCompatActivity {
             }
             shippingCharge = getIntent().getStringExtra("SHIPPING_CHARGE");
             couponValue = getIntent().getStringExtra("COUPON_VALUE");
+            couponValueAdd = getIntent().getStringExtra("COUPON_VALUE_ADD");
             totalValue = getIntent().getStringExtra("TOTAL_VALUE");
         } else {
             amount = DnaPrefs.getString(AddressListActivity.this, "AMOUNT");
@@ -153,6 +154,7 @@ public class AddressListActivity extends AppCompatActivity {
                                         }
                                         intent.putExtra("SHIPPING_CHARGE", shippingCharge);
                                         intent.putExtra("COUPON_VALUE", couponValue);
+                                        intent.putExtra("COUPON_VALUE_ADD", couponValueAdd);
                                         intent.putExtra("TOTAL_VALUE", totalValue);
 
                                         startActivity(intent);

@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,25 +135,22 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         }
 
+        Log.d("VideoUrl",price.getUrl());
         if (price.getPaymentStatus().equalsIgnoreCase("1")) {
             holder.buyNow.setVisibility(View.GONE);
+            holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
-            if (! TextUtils.isEmpty(price.getUrl())) {
-                visible = View.VISIBLE;
+            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
-
             }
-
-
         } else {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
-
-            if (! TextUtils.isEmpty(price.getUrl())) {
-                holder.lockNew.setVisibility(View.VISIBLE);
-
+            holder.lockNew.setVisibility(View.VISIBLE);
+            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+                holder.commingSoon.setVisibility(View.VISIBLE);
             }
 
         }
