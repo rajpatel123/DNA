@@ -12,16 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dnamedical.Models.video.Free;
+import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import com.dnamedical.Models.video.Free;
-import com.dnamedical.R;
 
 import static android.view.View.GONE;
 
@@ -62,8 +60,13 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
             if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getChapter())) {
                 if (!freeList.get(holder.getAdapterPosition()).getChapter().equalsIgnoreCase(freeList.get(holder.getAdapterPosition() - 1).getChapter())) {
                     holder.chapter.setVisibility(View.VISIBLE);
+
+                    holder.lineView.setVisibility(GONE);
+                    holder.lineViewWithMargin.setVisibility(View.VISIBLE);
                 } else {
                     holder.chapter.setVisibility(GONE);
+                    holder.lineView.setVisibility(View.VISIBLE);
+                    holder.lineViewWithMargin.setVisibility(GONE);
                 }
             }
 
@@ -132,6 +135,10 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         @BindView(R.id.image_doctor)
         ImageView imageDoctor;
+        @BindView(R.id.lineView)
+        View lineView;
+        @BindView(R.id.lineViewWithMargin)
+        View lineViewWithMargin;
 
         public ViewHolder(View view) {
             super(view);

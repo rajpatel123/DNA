@@ -21,7 +21,17 @@
             <View
                 android:id="@+id/lineView"
                 android:layout_width="2dp"
-                android:layout_height="145dp"
+                android:layout_height="108dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/dark_gray"
+                android:elevation="2dp"
+                android:visibility="gone"/>
+
+            <View
+                android:id="@+id/lineViewWithMargin"
+                android:layout_width="2dp"
+                android:layout_height="108dp"
+                android:layout_marginTop="34dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/dark_gray"
                 android:elevation="2dp" />
@@ -96,7 +106,7 @@
 
                     <ImageView
                         android:id="@+id/lock"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -104,7 +114,7 @@
                         app:srcCompat="@drawable/lock" />
 
                     <TextView
-                        android:visibility="visible"
+                        android:visibility="gone"
                        android:id="@+id/commingsoon"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
