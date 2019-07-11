@@ -1,10 +1,9 @@
 package com.dnamedical.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -91,7 +90,6 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -121,16 +119,15 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(edit_phonetxt)) {
-
             edit_phone.setError(getString(R.string.invalid_email));
-
             return;
-        } else {
-            if (edit_phonetxt.length() < 10) {
-                edit_phone.setError(getString(R.string.valid_phone));
-                return;
-            }
         }
+
+        if (edit_phonetxt.length() < 10) {
+            edit_phone.setError(getString(R.string.valid_phone));
+            return;
+        }
+
 
         if (TextUtils.isEmpty(StateText)) {
             Utils.displayToast(getApplicationContext(), "Please select state");
@@ -164,13 +161,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                             DnaPrefs.putString(getApplicationContext(), "STATE", StateText);
+                            DnaPrefs.putString(getApplicationContext(), "mobile", edit_phonetxt);
                             DnaPrefs.putString(getApplicationContext(), "COLLEGE", collegetext);
 
                             DnaPrefs.putString(getApplicationContext(), "NAME", update_edit_name);
+                            Toast.makeText(EditProfileActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
 
                             editTextUpdateName.setText("");
                             edit_phone.setText("");
-
+                            finish();
 
                         }
                     }
@@ -211,7 +210,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                     spinState.setAdapter(stateListAdapter);
                                     spinState.setSelection(position);
                                 }
-                                }
+                            }
                             spinState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -247,14 +246,14 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    private int getSttePositio(List<Detail> details,String stateText) {
-        for (int i =0;i<details.size();i++){
+    private int getSttePositio(List<Detail> details, String stateText) {
+        for (int i = 0; i < details.size(); i++) {
             Detail detail = details.get(i);
-            if (detail.getStateName().equalsIgnoreCase(stateText)){
+            if (detail.getStateName().equalsIgnoreCase(stateText)) {
                 return i;
             }
         }
-      return 0;
+        return 0;
     }
 
     private void sendCollegeListData() {
@@ -273,7 +272,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     collegetext = collegeList.get(position).getName();
-                    DnaPrefs.putInt(getApplicationContext(),"collegePosition",position);
+                    DnaPrefs.putInt(getApplicationContext(), "collegePosition", position);
                     Log.d("CollegeTxt", collegetext);
 
                 }
