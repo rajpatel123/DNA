@@ -124,16 +124,11 @@
     <string name="dialog_title">kbkbc</string>
     <string name="update_txt">Update into Play Store</string>
     <string name="payment_alert_text">The Module is available only for pro users. Would you like to learn more about Pro Plans?</string>
-
+    <string name="com_facebook_loginview_logged_in_using_facebook_f1gender">Test</string>
 
     <string name="billing_txt">Enter Billing/Shipping</string>
     <string name="billing_txt_one">Information</string>
 
-    *
-
-    *
-
-    *
     <string name="coupen_txt">I Have already watched the FREE contents like Video | Test | Q-Bank | Notes and other things of this App and I am fully satisfied.</string>
     <string name="coupen_txt_one">I am agree that my purchase is final and I will not ask for refund under any circumstances.</string>
     <string name="coupen_txt_two">I am agree to All Terms &amp; Conditions Of this App &amp; will follow.</string>

@@ -31,6 +31,18 @@ public class Price implements Parcelable {
     @SerializedName("coupan_code")
     @Expose
     private String coupanCode;
+
+    public String getCh_name() {
+        return ch_name;
+    }
+
+    public void setCh_name(String ch_name) {
+        this.ch_name = ch_name;
+    }
+
+    @SerializedName("ch_name")
+    @Expose
+    private String ch_name;
     @SerializedName("coupan_value")
     @Expose
     private String coupanValue;

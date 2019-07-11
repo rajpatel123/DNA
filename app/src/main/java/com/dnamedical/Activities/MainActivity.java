@@ -31,15 +31,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import com.dnamedical.R;
 import com.dnamedical.fragment.HomeFragment;
@@ -50,6 +58,9 @@ import com.dnamedical.fragment.videoFragment;
 import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.ImageUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static android.os.Build.VERSION_CODES.M;
 
@@ -90,9 +101,7 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = findViewById(R.id.nav_view);
 
-
-
-
+        getAdditionalDiscount();
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
@@ -283,7 +292,7 @@ public class MainActivity extends AppCompatActivity
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } else if (id == R.id.about) {
-           Intent intent = new Intent(MainActivity.this, AboutUsActivit.class);
+            Intent intent = new Intent(MainActivity.this, AboutUsActivit.class);
             intent.putExtra("title", "About Us");
             startActivity(intent);
         } else if (id == R.id.contact_us) {
@@ -392,6 +401,37 @@ public class MainActivity extends AppCompatActivity
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void getAdditionalDiscount() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.getAdditionalDiscount(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        try {
+                            String rawData = response.body().string();
+                            JSONObject jsonObject = new JSONObject(rawData);
+                            if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                                DnaPrefs.putString(MainActivity.this, Constants.ADD_DISCOUNT, jsonObject.getString("Discount"));
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
         }
     }
 }

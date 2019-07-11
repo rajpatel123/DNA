@@ -4,6 +4,7 @@ package com.dnamedical.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,15 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.R;
+
+import static android.view.View.GONE;
 
 public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdapter.ViewHolder> {
     /**
@@ -43,13 +47,28 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
     @Override
     public void onBindViewHolder(final VideoListFreeAdapter.ViewHolder holder, final int position) {
         holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
-        if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration())>0){
-            holder.ratingandtime.setText(freeList.get(holder.getAdapterPosition()).getDuration()+" min video");
-        }else{
+        if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration()) > 0) {
+            holder.ratingandtime.setText(freeList.get(holder.getAdapterPosition()).getDuration() + " min video");
+        } else {
             holder.ratingandtime.setText("N/A");
 
         }
-        holder.index.setText("" + (holder.getAdapterPosition() + 1));
+        if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getChapter())) {
+            holder.chapter.setText("" + freeList.get(holder.getAdapterPosition()).getChapter());
+        } else {
+            holder.chapter.setText("Not Assigned Chapter");
+        }
+        if (holder.getAdapterPosition() > 0) {
+            if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getChapter())) {
+                if (!freeList.get(holder.getAdapterPosition()).getChapter().equalsIgnoreCase(freeList.get(holder.getAdapterPosition() - 1).getChapter())) {
+                    holder.chapter.setVisibility(View.VISIBLE);
+                } else {
+                    holder.chapter.setVisibility(GONE);
+                }
+            }
+
+        }
+        holder.number.setText("" + (holder.getAdapterPosition() + 1));
         Picasso.with(applicationContext)
                 .load(freeList.get(holder.getAdapterPosition()).getDr_img())
                 .error(R.drawable.profile_image_know_more)
@@ -94,8 +113,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.index)
-        TextView index;
+
         @BindView(R.id.row_view)
         LinearLayout row_view;
         @BindView(R.id.vid_title)
@@ -106,6 +124,11 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         TextView ratingandtime;
         @BindView(R.id.vid_doctor_name)
         TextView doctorName;
+
+        @BindView(R.id.chapter)
+        TextView chapter;
+        @BindView(R.id.number)
+        TextView number;
 
         @BindView(R.id.image_doctor)
         ImageView imageDoctor;

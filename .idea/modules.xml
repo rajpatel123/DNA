@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DNA.iml" filepath="$PROJECT_DIR$/.idea/DNA.iml" />
       <module fileurl="file://$PROJECT_DIR$/DNA.iml" filepath="$PROJECT_DIR$/DNA.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/easy-player/easy-player.iml" filepath="$PROJECT_DIR$/easy-player/easy-player.iml" />

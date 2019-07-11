@@ -48,6 +48,7 @@ import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.fragment.FreeFragment;
 import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.views.TypeWriter;
 import com.warkiz.widget.DotIndicatorSeekBar;
 import com.warkiz.widget.DotOnSeekChangeListener;
 import com.warkiz.widget.DotSeekParams;
@@ -131,7 +132,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
     @BindView(R.id.email)
-    TextView textViewEmail;
+    TypeWriter textViewEmail;
 
     @BindView(R.id.techer_name)
     TextView textTeacher;
@@ -155,14 +156,21 @@ public class VideoPlayerActivity extends AppCompatActivity {
 Runnable emailPresenter= new Runnable() {
     @Override
     public void run() {
-        if (textViewEmail.getVisibility()== View.VISIBLE){
-            textViewEmail.setVisibility(GONE);
-        }else {
-            textViewEmail.setVisibility(View.VISIBLE);
+        if (textViewEmail!=null){
+//            if (textViewEmail.getVisibility()== View.VISIBLE){
+//                textViewEmail.setVisibility(GONE);
+//            }else {
+//                textViewEmail.setText("");
+                //textViewEmail.setCharacterDelay(150);
+                textViewEmail.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(email_id))
+                    textViewEmail.setText(email_id);
 
+            //}
+
+           // handler1.postDelayed(emailPresenter,5*1000);
         }
 
-        handler1.postDelayed(emailPresenter,5*1000);
     }
 };
 
@@ -214,15 +222,17 @@ Runnable emailPresenter= new Runnable() {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-            llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+            if (llControllerWrapperFlexible!=null)
+                llControllerWrapperFlexible.setVisibility(View.VISIBLE);
 
-            handler.postDelayed(emailPresenter,5*1000);
+            handler.postDelayed(emailPresenter,10*1000);
 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // This method will be executed once the timer is over
 
+                    if (llControllerWrapperFlexible!=null)
                     llControllerWrapperFlexible.setVisibility(GONE);
                     handler.postDelayed(this, SPLASH_TIME_OUT);
                     //finish();
@@ -414,7 +424,7 @@ Runnable emailPresenter= new Runnable() {
                 };
                 recyclerView.setLayoutManager(layoutManager);
             } else {
-                Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -631,14 +641,19 @@ Runnable emailPresenter= new Runnable() {
                 break;
             case R.id.md_replay:
                 onReplay();
-                onReplay();
                 break;
             case R.id.md_play:
-                onPlayPause();
+                if (upper_exoplayer!=null && upper_exoplayer.isPrepared()){
+                    onPlayPause();
+                }else{
+                    onSingle();
+                }
                 break;
             case R.id.play_btn:
                 onSingle();
                 break;
+
+
             case R.id.back:
                 onBackClick();
                 break;

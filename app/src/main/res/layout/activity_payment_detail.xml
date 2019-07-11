@@ -83,6 +83,33 @@
 
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padding_5"
+                    android:text="Additional Discount:"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/txt_coupon_applied_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:padding="@dimen/padding_5"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
 
 
             <LinearLayout
