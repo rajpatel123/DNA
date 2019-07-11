@@ -122,7 +122,7 @@
                         android:layout_marginTop="20dp"
                         android:maxLines="2"
                         android:gravity="center"
-                        android:text="Comming \nSoon"
+                        android:text="Coming \nSoon"
                         android:elevation="5dp"
                         android:textStyle="bold"
                         android:textColor="@color/white"

@@ -21,11 +21,12 @@
         android:roundIcon="@drawable/dnalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.UpdateAddressActivity"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:label">
+        <activity
+            android:name=".Activities.UpdateAddressActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme5"/>
+            android:theme="@style/AppTheme5" />
 
         <service
             android:name=".Activities.MyService"
@@ -217,7 +218,9 @@
         <activity
             android:name=".Activities.WebViewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.VideoActivity" />
+        <activity
+            android:name=".Activities.VideoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.VideoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

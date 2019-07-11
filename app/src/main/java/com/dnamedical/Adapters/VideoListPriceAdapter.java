@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -169,6 +170,9 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                 if (price.getPaymentStatus().equalsIgnoreCase("1") && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
+                    }else{
+                        Utils.displayToast(applicationContext, "Coming Soon");
+
                     }
                 }
             }

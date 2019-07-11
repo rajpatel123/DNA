@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dnamedical.Activities.LoginActivity;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -51,6 +53,13 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
             holder.ratingandtime.setText("N/A");
 
         }
+
+        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+            holder.commingsoon.setVisibility(View.VISIBLE);
+        }else{
+            holder.commingsoon.setVisibility(GONE);
+
+        }
         if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getChapter())) {
             holder.chapter.setText("" + freeList.get(holder.getAdapterPosition()).getChapter());
         } else {
@@ -82,8 +91,10 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onUserClickCallback != null) {
+                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
                     onUserClickCallback.onCateClick(freeList.get(holder.getAdapterPosition()));
+                }else{
+                    Utils.displayToast(applicationContext, "Coming Soon");
                 }
 
             }
@@ -132,6 +143,9 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         TextView chapter;
         @BindView(R.id.number)
         TextView number;
+
+        @BindView(R.id.commingsoon)
+        TextView commingsoon;
 
         @BindView(R.id.image_doctor)
         ImageView imageDoctor;
