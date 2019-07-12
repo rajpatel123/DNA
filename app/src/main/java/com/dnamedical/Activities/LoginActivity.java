@@ -109,7 +109,20 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Validation();
+
+                DnaPrefs.putString(getApplicationContext(), "Login_Id", ""+721);
+                DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
+                DnaPrefs.putString(getApplicationContext(), "STATE", "SAS");
+                DnaPrefs.putString(getApplicationContext(), "COLLEGE", "Sasa");
+
+                DnaPrefs.putString(getApplicationContext(), "NAME", "sasa");
+                DnaPrefs.putString(getApplicationContext(), "URL", "");
+                DnaPrefs.putString(getApplicationContext(), "EMAIL", "drmanojmbarwad2557@gmail.com");
+
+
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                //Validation();
             }
         });
     }
