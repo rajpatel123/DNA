@@ -110,19 +110,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DnaPrefs.putString(getApplicationContext(), "Login_Id", ""+721);
-                DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
-                DnaPrefs.putString(getApplicationContext(), "STATE", "SAS");
-                DnaPrefs.putString(getApplicationContext(), "COLLEGE", "Sasa");
 
-                DnaPrefs.putString(getApplicationContext(), "NAME", "sasa");
-                DnaPrefs.putString(getApplicationContext(), "URL", "");
-                DnaPrefs.putString(getApplicationContext(), "EMAIL", "drmanojmbarwad2557@gmail.com");
-
-
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-                //Validation();
+                Validation();
             }
         });
     }
@@ -172,10 +161,8 @@ public class LoginActivity extends AppCompatActivity {
                             String state = loginResponse.getLoginDetails().get(0).getState();
                             String college = loginResponse.getLoginDetails().get(0).getCollege();
                             String username = loginResponse.getLoginDetails().get(0).getUsername();
-                            String mobile = loginResponse.getLoginDetails().get(0).getMobileNo();
 
                             DnaPrefs.putString(getApplicationContext(), "Login_Id", id);
-                            DnaPrefs.putString(getApplicationContext(), "mobile", mobile);
                             DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                             DnaPrefs.putString(getApplicationContext(), "STATE", state);
                             DnaPrefs.putString(getApplicationContext(), "COLLEGE", college);
