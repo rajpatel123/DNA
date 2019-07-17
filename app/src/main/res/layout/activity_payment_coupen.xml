@@ -329,8 +329,36 @@
                                     android:padding="@dimen/margin_2"
                                     android:text="Discount:" />
 
+
+
                                 <TextView
                                     android:id="@+id/totalDiscountOfVideos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/margin_2"
+                                    android:text="\u20B9 -2999"
+                                    android:textColor="@color/orange" />
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/linear_coupon_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_10"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="@dimen/margin_2"
+                                    android:text="Add. Discount:" />
+
+
+
+                                <TextView
+                                    android:id="@+id/totalAddDiscountOfVideos"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="@dimen/margin_2"

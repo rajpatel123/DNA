@@ -89,13 +89,16 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
     @BindView(R.id.txt_coupon_applied)
     TextView textViewCouponApplied;
 
+    @BindView(R.id.txt_coupon_applied_add)
+    TextView textViewCouponAppliedAdd;
+
     @BindView(R.id.txt_order_total)
     TextView textViewOrderTotal;
 
 
     @BindView(R.id.btn_pay_now)
     Button btnPaynow;
-    String name, mobile, email, address1, address2, state, city, pincode, amountAfterDiscount, vedioId, shippingCharge, totalDiscountGiven, totalValue, subchildCat;
+    String name, mobile, email, address1, address2, state, city, pincode, amountAfterDiscount, vedioId, shippingCharge, totalDiscountGiven,totalADDDiscountGiven, totalValue, subchildCat;
     String befortaxValue, taxValue;
     String userId;
     String videoId, subchildcat;
@@ -134,6 +137,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
             //
             shippingCharge = getIntent().getStringExtra("SHIPPING_CHARGE");
             totalDiscountGiven = getIntent().getStringExtra("COUPON_VALUE");
+            totalADDDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_ADD");
             totalValue = getIntent().getStringExtra("TOTAL_VALUE");
 
 
@@ -165,11 +169,15 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
             if (TextUtils.isEmpty(totalDiscountGiven)) {
                 totalDiscountGiven = "0";
             }
+            if (TextUtils.isEmpty(totalADDDiscountGiven)) {
+                totalADDDiscountGiven = "0";
+            }
             if (TextUtils.isEmpty(shippingCharge)) {
                 shippingCharge = "0";
             }
 //            } else {
             textViewCouponApplied.setText("" + "\u20B9 " + "" + totalDiscountGiven);
+            textViewCouponAppliedAdd.setText("" + "\u20B9 " + "" + totalADDDiscountGiven);
 
             // }
 

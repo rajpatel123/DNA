@@ -22,7 +22,6 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +29,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -43,11 +41,13 @@ import android.widget.Toast;
 
 import com.dnamedical.Adapters.TimeListFreeAdapter;
 import com.dnamedical.Adapters.TimeListPriceAdapter;
-import com.dnamedical.Adapters.VideoListFreeAdapter;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.Models.video.Free;
-import com.dnamedical.fragment.FreeFragment;
+import com.dnamedical.R;
+import com.dnamedical.player.EasyExoVideoPlayer;
+import com.dnamedical.player.IEasyExoVideoCallback;
 import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.ImageUtils;
 import com.dnamedical.views.TypeWriter;
 import com.warkiz.widget.DotIndicatorSeekBar;
 import com.warkiz.widget.DotOnSeekChangeListener;
@@ -60,11 +60,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import com.dnamedical.R;
-import com.dnamedical.player.EasyExoVideoPlayer;
-import com.dnamedical.player.IEasyExoVideoCallback;
-import com.dnamedical.utils.ImageUtils;
 
 import static android.view.View.GONE;
 
@@ -133,6 +128,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     @BindView(R.id.email)
     TypeWriter textViewEmail;
+    @BindView(R.id.mobile)
+    TypeWriter mobile;
 
     @BindView(R.id.techer_name)
     TextView textTeacher;
@@ -153,26 +150,27 @@ public class VideoPlayerActivity extends AppCompatActivity {
     String url = "";
     String email_id;
 
-Runnable emailPresenter= new Runnable() {
-    @Override
-    public void run() {
-        if (textViewEmail!=null){
+    Runnable emailPresenter = new Runnable() {
+        @Override
+        public void run() {
+            if (textViewEmail != null) {
 //            if (textViewEmail.getVisibility()== View.VISIBLE){
 //                textViewEmail.setVisibility(GONE);
 //            }else {
 //                textViewEmail.setText("");
                 //textViewEmail.setCharacterDelay(150);
                 textViewEmail.setVisibility(View.VISIBLE);
+                mobile.setVisibility(View.VISIBLE);
                 if (!TextUtils.isEmpty(email_id))
                     textViewEmail.setText(email_id);
 
-            //}
+                //}
 
-           // handler1.postDelayed(emailPresenter,5*1000);
+                // handler1.postDelayed(emailPresenter,5*1000);
+            }
+
         }
-
-    }
-};
+    };
 
     private Runnable mediaProgressRunnable = new Runnable() {
         @Override
@@ -190,6 +188,7 @@ Runnable emailPresenter= new Runnable() {
             }
         }
     };
+    private String mobileTxt;
 
 
     private void onSingle() {
@@ -222,18 +221,18 @@ Runnable emailPresenter= new Runnable() {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-            if (llControllerWrapperFlexible!=null)
+            if (llControllerWrapperFlexible != null)
                 llControllerWrapperFlexible.setVisibility(View.VISIBLE);
 
-            handler.postDelayed(emailPresenter,5*1000);
+            handler.postDelayed(emailPresenter, 10 * 1000);
 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // This method will be executed once the timer is over
 
-                    if (llControllerWrapperFlexible!=null)
-                    llControllerWrapperFlexible.setVisibility(GONE);
+                    if (llControllerWrapperFlexible != null)
+                        llControllerWrapperFlexible.setVisibility(GONE);
                     handler.postDelayed(this, SPLASH_TIME_OUT);
                     //finish();
                 }
@@ -316,10 +315,10 @@ Runnable emailPresenter= new Runnable() {
             String totalDuration = getTimeDurationFormat(player.getDuration());
 
 
-           // String time = DnaPrefs.getString(getApplicationContext(), "curSec");
+            // String time = DnaPrefs.getString(getApplicationContext(), "curSec");
             //currentTime = String.valueOf(time);
 //            int time = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
-           //String currentTime = getTimeDurationFormat(time);
+            //String currentTime = getTimeDurationFormat(time);
             videoDuration.setText(currentTime + " / " + totalDuration);
             upper_progress.setVisibility(GONE);
 
@@ -378,6 +377,12 @@ Runnable emailPresenter= new Runnable() {
             textViewEmail.setText(email_id);
         }
 
+        if (DnaPrefs.getString(getApplicationContext(), "mobile") != null) {
+            mobileTxt = DnaPrefs.getString(getApplicationContext(), "mobile");
+            if (!TextUtils.isEmpty(mobileTxt))
+                mobile.setText(mobileTxt);
+        }
+
 
         Intent intent = getIntent();
 
@@ -424,7 +429,7 @@ Runnable emailPresenter= new Runnable() {
                 };
                 recyclerView.setLayoutManager(layoutManager);
             } else {
-                Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -641,14 +646,19 @@ Runnable emailPresenter= new Runnable() {
                 break;
             case R.id.md_replay:
                 onReplay();
-                onReplay();
                 break;
             case R.id.md_play:
-                onPlayPause();
+                if (upper_exoplayer != null && upper_exoplayer.isPrepared()) {
+                    onPlayPause();
+                } else {
+                    onSingle();
+                }
                 break;
             case R.id.play_btn:
                 onSingle();
                 break;
+
+
             case R.id.back:
                 onBackClick();
                 break;

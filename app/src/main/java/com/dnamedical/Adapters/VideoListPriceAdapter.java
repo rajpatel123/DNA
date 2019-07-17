@@ -5,17 +5,21 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,6 +43,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     VideoListPriceAdapter.OnCategoryClick onUserClickCallback;
     VideoListPriceAdapter.OnBuyNowClick onUserBuyNowClick;
     VideoListPriceAdapter.OnDataClick onDataClick;
+    private int visible;
 
     public VideoListPriceAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -94,8 +99,14 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             if (!TextUtils.isEmpty(price.getCh_name())) {
                 if (!price.getCh_name().equalsIgnoreCase(priceList.get(holder.getAdapterPosition() - 1).getCh_name())) {
                     holder.chapter.setVisibility(View.VISIBLE);
+                    holder.lineView.setVisibility(GONE);
+                    holder.lineViewWithMargin.setVisibility(View.VISIBLE);
+                  //  holder.lineView.setLayoutParams(getLayoutParams(true));
                 } else {
+                    //holder.lineView.setLayoutParams(getLayoutParams(false));
                     holder.chapter.setVisibility(GONE);
+                    holder.lineView.setVisibility(View.VISIBLE);
+                    holder.lineViewWithMargin.setVisibility(GONE);
                 }
             }
 
@@ -103,9 +114,9 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         if (price.getSubTitle() != null) {
             holder.doctarName.setText("" + price.getSubTitle());
         }
-        if (Integer.parseInt(price.getDuration())>0){
-            holder.ratingandtime.setText(price.getDuration()+" min video");
-        }else{
+        if (Integer.parseInt(price.getDuration()) > 0) {
+            holder.ratingandtime.setText(price.getDuration() + " min video");
+        } else {
             holder.ratingandtime.setText("N/A");
 
         }
@@ -129,21 +140,39 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         }
 
+        Log.d("VideoUrl",price.getUrl());
         if (price.getPaymentStatus().equalsIgnoreCase("1")) {
             holder.buyNow.setVisibility(View.GONE);
+            holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
+            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+                holder.commingSoon.setVisibility(View.VISIBLE);
+            }else{
+                holder.commingSoon.setVisibility(GONE);
+
+            }
         } else {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
+            holder.lockNew.setVisibility(View.VISIBLE);
+            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+                holder.commingSoon.setVisibility(View.VISIBLE);
+            }else{
+                holder.commingSoon.setVisibility(GONE);
+            }
+
         }
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (price.getPaymentStatus().equalsIgnoreCase("1")) {
+                if (price.getPaymentStatus().equalsIgnoreCase("1") && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
+                    }else{
+                        Utils.displayToast(applicationContext, "Coming Soon");
+
                     }
                 }
             }
@@ -194,6 +223,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                                     priceList.get(holder.getAdapterPosition()).getSubTitle(),
                                     priceList.get(holder.getAdapterPosition()).getDiscount(),
                                     priceList.get(holder.getAdapterPosition()).getPrice(),
+
                                     priceList.get(holder.getAdapterPosition()).getShippingCharge());
                         }
                         dialog.dismiss();
@@ -205,6 +235,19 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
 
         });
+    }
+
+    private ViewGroup.LayoutParams getLayoutParams(boolean marginTop) {
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+               ViewGroup.LayoutParams.WRAP_CONTENT,
+               ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        if (marginTop) {
+            layoutParams.setMargins(0, 50, 0, 0);
+        } else {
+            layoutParams.setMargins(0, 0, 0, 0);
+        }
+        return layoutParams;
     }
 
     @Override
@@ -244,6 +287,12 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.buy_now)
         TextView buyNow;
 
+        @BindView(R.id.commingsoon)
+        TextView commingSoon;
+
+        @BindView(R.id.lock)
+        ImageView lockNew;
+
 
         @BindView(R.id.txt_actual_price)
         TextView txtActualPrice;
@@ -251,6 +300,11 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         @BindView(R.id.txt_total_price)
         TextView txtTotalPrice;
+
+        @BindView(R.id.lineView)
+        View lineView;
+        @BindView(R.id.lineViewWithMargin)
+        View lineViewWithMargin;
 
         public ViewHolder(View view) {
             super(view);
