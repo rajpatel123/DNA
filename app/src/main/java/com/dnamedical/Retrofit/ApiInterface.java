@@ -2,6 +2,7 @@ package com.dnamedical.Retrofit;
 
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
+import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
@@ -20,6 +21,7 @@ import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
+import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
@@ -273,5 +275,13 @@ public interface ApiInterface {
                                         @Part("v_title") RequestBody v_title,
                                         @Part MultipartBody.Part body);
 
+
+    @POST("api/api.php?req=get_mobile")
+    Call<MobileResponse> MOBILE_RESPONSE_CALL(@Part("email_id") RequestBody email_id);
+
+
+    @POST("api/api.php?req=update_mobile")
+    Call<EnterMobileresponce> enterMobileNumber(@Part("id") RequestBody id,
+                                                @Part("mobile_no") RequestBody mobile_no);
 
 }
