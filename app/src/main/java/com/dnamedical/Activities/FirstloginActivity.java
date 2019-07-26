@@ -321,6 +321,7 @@ public class FirstloginActivity extends AppCompatActivity {
 
                     }
 
+
                 });
                 Bundle bundle = new Bundle();
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
