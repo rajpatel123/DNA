@@ -275,7 +275,7 @@ public interface ApiInterface {
                                         @Part("v_title") RequestBody v_title,
                                         @Part MultipartBody.Part body);
 
-
+    @Multipart
     @POST("api/api.php?req=get_mobile")
     Call<MobileResponse> MOBILE_RESPONSE_CALL(@Part("email_id") RequestBody email_id);
 

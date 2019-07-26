@@ -229,7 +229,6 @@ public class FirstloginActivity extends AppCompatActivity {
                             String email = data.optString("email");
                             String facebook_id = data.getString("id");
                             String pictureurl = data.getJSONObject("picture").getJSONObject("data").getString("url");
-                            DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck, true);
 
                             RequestBody Email = RequestBody.create(MediaType.parse("text/plain"), email);
                             RequestBody Name = RequestBody.create(MediaType.parse("text/plain"), name);
@@ -239,16 +238,15 @@ public class FirstloginActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<FacebookResponse> call, Response<FacebookResponse> response) {
                                     Utils.dismissProgressDialog();
-
-                                    int ids= response.body().getFacebookDetails().get(0).getId();
+                                    FacebookResponse facebookResponse = response.body();
+                                    int ids= facebookResponse.getFacebookDetails().get(0).getId();
                                     DnaPrefs.putInt(getApplicationContext(),"Login_Id",ids);
 
                                     if (response != null && response.body() != null) {
-                                        FacebookResponse facebookResponse = response.body();
+
 
                                         if (Integer.parseInt(facebookResponse.getStatus()) == 1) {
                                             Utils.displayToast(FirstloginActivity.this, facebookResponse.getMessage());
-
 
                                             RestClient.getMobile(Email, new Callback<MobileResponse>() {
                                                         @Override
@@ -258,7 +256,9 @@ public class FirstloginActivity extends AppCompatActivity {
                                                                 if (response.body().getMobile() != null) {
                                                                     Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
                                                                     int fb_id = facebookResponse.getFacebookDetails().get(0).getId();
+                                                                    DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck, true);
                                                                     DnaPrefs.putInt(getApplicationContext(), "fB_ID", fb_id);
+                                                                    DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, response.body().getMobile());
                                                                     DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", true);
                                                                     DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                                                     DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
