@@ -2,6 +2,7 @@ package com.dnamedical.Retrofit;
 
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
+import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
@@ -280,6 +281,12 @@ public interface ApiInterface {
     Call<MobileResponse> MOBILE_RESPONSE_CALL(@Part("email_id") RequestBody email_id);
 
 
+    @Multipart
+    @POST("api/api.php?req=get_email")
+    Call<EmailByFBResponse> getEmailByFBID(@Part("fb_id") RequestBody fb_id);
+
+
+    @Multipart
     @POST("api/api.php?req=update_mobile")
     Call<EnterMobileresponce> enterMobileNumber(@Part("id") RequestBody id,
                                                 @Part("mobile_no") RequestBody mobile_no);

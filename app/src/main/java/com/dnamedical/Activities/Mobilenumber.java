@@ -27,7 +27,7 @@ public class Mobilenumber extends AppCompatActivity {
     EditText ent_mobile;
     Button mob_submit;
     String mobileNum;
-    int ids;
+    String ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class Mobilenumber extends AppCompatActivity {
         mob_submit = findViewById(R.id.Mobile_submit_Button);
 
 
-        ids = DnaPrefs.getInt(getApplicationContext(),"Login_Id",0);
+        ids = DnaPrefs.getString(getApplicationContext(),"Login_Id");
 
         mob_submit.setOnClickListener(new View.OnClickListener() {
             @Override
