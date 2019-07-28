@@ -276,7 +276,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         @Override
         public void onTouch(@Nullable boolean touched) {
-            llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+            if(llControllerWrapperFlexible!=null) {
+                llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+            }
         }
 
 

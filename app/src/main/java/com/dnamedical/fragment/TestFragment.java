@@ -39,6 +39,12 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
         View view = inflater.inflate(R.layout.textfragment, container, false);
         subcategory = view.findViewById(R.id.subcategory_name);
+        viewPager = view.findViewById(R.id.viewPager);
+        setupViewPager(viewPager);
+        tabLayout = view.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+
         return view;
 
     }
@@ -104,11 +110,6 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
     @Override
     public void onResumeFragment() {
-        viewPager = getView().findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-        tabLayout = getView().findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
 
     }
 
