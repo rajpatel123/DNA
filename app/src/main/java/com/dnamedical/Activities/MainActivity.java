@@ -323,25 +323,28 @@ public class MainActivity extends AppCompatActivity
             fragmentToHide.onPauseFragment();
 
             FragmentLifecycle fragmentToShow = (FragmentLifecycle) adapter.getItem(newPosition);
-            fragmentToShow.onResumeFragment();
-            //invalidateOptionsMenu();
-            switch (newPosition) {
-                case 0:
-                    toolbar.setTitle("Home");
-                    break;
+            // shubham//
+            if(fragmentToShow!=null) {
+                fragmentToShow.onResumeFragment();
+                //invalidateOptionsMenu();
+                switch (newPosition) {
+                    case 0:
+                        toolbar.setTitle("Home");
+                        break;
               /*  case 1:
                     toolbar.setTitle("Video");
                     break;*/
-                case 1:
-                    toolbar.setTitle("Q Bank");
-                    break;
-                case 2:
-                    toolbar.setTitle("Test");
-                    break;
-                case 3:
-                    toolbar.setTitle("Online");
-                    break;
+                    case 1:
+                        toolbar.setTitle("Q Bank");
+                        break;
+                    case 2:
+                        toolbar.setTitle("Test");
+                        break;
+                    case 3:
+                        toolbar.setTitle("Online");
+                        break;
 
+                }
             }
             currentPosition = newPosition;
 
