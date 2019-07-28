@@ -15,18 +15,16 @@
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/dr1"
         app:civ_border_color="#FFFF"
         app:civ_border_width="2dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-
-
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -35,8 +33,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="@string/nav_header_title"
-
             android:textAllCaps="false"
+            android:textSize="14sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/white" />
 
@@ -45,6 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nav_header_subtitle"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
@@ -55,6 +55,7 @@
             android:drawableLeft="@drawable/setting"
             android:gravity="center_vertical"
             android:text="@string/action_settings"
+            android:layout_marginTop="5dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:tint="@color/white" />

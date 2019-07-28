@@ -2,6 +2,7 @@ package com.dnamedical.Retrofit;
 
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
+import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
@@ -21,6 +22,7 @@ import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
+import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
@@ -213,6 +215,17 @@ public class RestClient {
 
     public static void forgetPassword(RequestBody email_id, RequestBody token, RequestBody new_password, RequestBody retype_password, Callback<ForgetPasswordResponse> callback) {
         RetrofitClient.getClient().forgetPassword(email_id, token, new_password, retype_password).enqueue(callback);
+    }
+
+    public static void getMobile(RequestBody email_id, Callback<MobileResponse> callback){
+        RetrofitClient.getClient().MOBILE_RESPONSE_CALL(email_id).enqueue(callback);
+
+    }
+
+    public static void  enterMobileNumberToServer(RequestBody id,RequestBody mobile_no, Callback
+            <EnterMobileresponce> callback){
+        RetrofitClient.getClient().enterMobileNumber(id,mobile_no).enqueue(callback);
+
     }
 
 

@@ -172,7 +172,7 @@
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
-               >
+                >
 
             </android.support.v7.widget.RecyclerView>
 
@@ -213,45 +213,39 @@
                     <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/margin_width_30"
-                            android:layout_height="@dimen/margin_width_30"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/margin_left_15"
+                            android:layout_marginLeft="10dp"
                             android:background="@drawable/ic_description_black_24dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_left_10"
+                            android:layout_marginLeft="5dp"
                             android:text="Question Bank"
                             android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/size_20"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:gravity="end"
-                            android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <Button
-                                android:layout_gravity="end"
-                                android:gravity="end"
-                                android:layout_width="@dimen/margin_width_120"
-                                android:layout_height="35dp"
-                                android:layout_marginLeft="@dimen/margin_left_10"
-                                android:background="@drawable/rounded_shape"
-                                android:padding="@dimen/padding_8"
-                                android:layout_marginRight="@dimen/margin_right_15"
-                                android:text="Edition 2019"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/size_14" />
 
-                        </LinearLayout>
+                        <Button
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="5dp"
+                            android:background="@drawable/rounded_shape"
+                            android:padding="5sp"
+                            android:text="Edition 2019"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+
 
                     </LinearLayout>
 
@@ -432,8 +426,8 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_left_10"
-                android:layout_marginTop="@dimen/margin_top_20"
+                android:layout_marginLeft="@dimen/margin_left_15"
+                android:layout_marginTop="@dimen/margin_top_10"
                 android:layout_marginRight="@dimen/margin_right_15"
                 app:cardElevation="10sp">
 
@@ -451,42 +445,35 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/margin_width_30"
-                            android:layout_height="@dimen/margin_width_30"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/margin_left_15"
+                            android:layout_marginLeft="10dp"
                             android:background="@drawable/ic_description_black_24dp" />
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_left_15"
-                            android:layout_marginTop="@dimen/margin_top_5"
-                            android:layout_marginRight="@dimen/margin_right_15"
+                            android:layout_marginLeft="5dp"
                             android:text="Test Series"
                             android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/size_20"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:gravity="end"
-                            android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <Button
-                                android:layout_gravity="end"
-                                android:gravity="end"
-                                android:layout_width="@dimen/margin_width_120"
-                                android:layout_height="35dp"
-                                android:layout_marginLeft="@dimen/margin_left_10"
-                                android:background="@drawable/rounded_shape"
-                                android:padding="@dimen/margin_top_8"
-                                android:layout_marginRight="@dimen/margin_right_15"
-                                android:text="Edition 2019"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/size_14" />
 
-                        </LinearLayout>
+                        <Button
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="5dp"
+                            android:background="@drawable/rounded_shape"
+                            android:padding="5sp"
+                            android:text="Edition 2019"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+
 
                     </LinearLayout>
 
@@ -680,40 +667,29 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/margin_width_30"
-                            android:layout_height="@dimen/margin_width_30"
+                            android:layout_width="17dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/margin_left_15"
+                            android:layout_marginLeft="10dp"
                             android:background="@drawable/ic_switch_video_black_24dp" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_left_15"
-                            android:layout_marginTop="@dimen/margin_5"
+                            android:layout_marginLeft="5dp"
                             android:text="Video Lessons"
                             android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/size_20"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
-                        <LinearLayout
-                            android:gravity="end"
-                            android:layout_weight="1"
+                        <Button
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <Button
-                                android:layout_gravity="end"
-                                android:gravity="end"
-                                android:layout_width="@dimen/margin_width_120"
-                                android:layout_height="35dp"
-                                android:layout_marginLeft="@dimen/margin_left_15"
-                                android:background="@drawable/rounded_shape"
-                                android:padding="@dimen/padding_8"
-                                android:layout_marginRight="@dimen/margin_right_15"
-                                android:text="Edition 2019"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/size_14" />
-
-                        </LinearLayout>
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="5dp"
+                            android:background="@drawable/rounded_shape"
+                            android:padding="5sp"
+                            android:text="Edition 2019"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <View
@@ -777,8 +753,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:text="Concept Based Teaching on Latest Pattern
-" />
+                            android:text="Concept Based Teaching on Latest Pattern"/>
                     </LinearLayout>
 
                     <View
@@ -907,41 +882,32 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
+                            android:layout_width="17dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="15sp"
+                            android:layout_marginLeft="10dp"
                             android:background="@drawable/ic_switch_video_black_24dp" />
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10sp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
                             android:text="Live Online Sessions"
                             android:textColor="@color/colorAccent"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:gravity="end"
-                            android:layout_weight="1"
+                        <Button
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <Button
-                                android:layout_gravity="end"
-                                android:gravity="end"
-                                android:layout_width="120dp"
-                                android:layout_height="35dp"
-                                android:layout_marginLeft="10dp"
-                                android:background="@drawable/rounded_shape"
-                                android:padding="8dp"
-                                android:layout_marginRight="15dp"
-                                android:text="Edition 2019"
-                                android:textColor="@color/white"
-                                android:textSize="14dp" />
-
-                        </LinearLayout>
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="5dp"
+                            android:background="@drawable/rounded_shape"
+                            android:padding="0sp"
+                            android:text="Edition 2019"
+                            android:textColor="@color/white"
+                            android:textSize="8sp" />
 
                     </LinearLayout>
 
@@ -1586,6 +1552,7 @@
 
 
         </LinearLayout>
+
 
 
     </RelativeLayout>

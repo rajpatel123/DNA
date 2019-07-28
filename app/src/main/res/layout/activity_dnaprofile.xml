@@ -24,9 +24,9 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
 
                 android:id="@+id/profile_image"
-                android:layout_width="@dimen/margin_width_120"
-                android:layout_height="@dimen/margin_width_120"
-                android:layout_margin="@dimen/margin_top_20"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_margin="@dimen/margin_top_10"
                 android:src="@drawable/dr1"
                 app:civ_border_color="#FFFF"
                 app:civ_border_width="2dp" />
