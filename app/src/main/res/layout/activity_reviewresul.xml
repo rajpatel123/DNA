@@ -50,7 +50,7 @@
 
                     android:paddingRight="10dp"
                     android:paddingBottom="10dp"
-                    android:src="@drawable/open_arrow" />
+                    app:srcCompat="@drawable/open_arrow" />
             </LinearLayout>
 
 

@@ -76,8 +76,8 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
         }
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        if (Utils.isInternetConnected(getContext())) {
-            Utils.showProgressDialog(getContext());
+        if (Utils.isInternetConnected(getActivity())) {
+            Utils.showProgressDialog(getActivity());
 
             RestClient.getTest(user_id, new Callback<TestQuestionData>() {
                 @Override
@@ -103,14 +103,14 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 @Override
                 public void onFailure(Call<TestQuestionData> call, Throwable t) {
                     Utils.dismissProgressDialog();
-                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
 
                 }
             });
         } else {
             Utils.dismissProgressDialog();
             notext.setVisibility(View.VISIBLE);
-            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
         }
 
     }

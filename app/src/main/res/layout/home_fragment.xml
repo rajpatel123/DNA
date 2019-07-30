@@ -238,7 +238,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
-                android:text="Text Series"
+                android:text="Test Series"
                 android:textColor="@color/orange"
                 android:textSize="20sp"
                 android:textStyle="bold" />

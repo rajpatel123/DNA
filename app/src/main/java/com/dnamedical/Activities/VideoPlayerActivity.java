@@ -46,6 +46,7 @@ import com.dnamedical.Models.video.Free;
 import com.dnamedical.R;
 import com.dnamedical.player.EasyExoVideoPlayer;
 import com.dnamedical.player.IEasyExoVideoCallback;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.ImageUtils;
 import com.dnamedical.views.TypeWriter;
@@ -275,7 +276,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         @Override
         public void onTouch(@Nullable boolean touched) {
-            llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+            if(llControllerWrapperFlexible!=null) {
+                llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+            }
         }
 
 
@@ -377,8 +380,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
             textViewEmail.setText(email_id);
         }
 
-        if (DnaPrefs.getString(getApplicationContext(), "mobile") != null) {
-            mobileTxt = DnaPrefs.getString(getApplicationContext(), "mobile");
+        if (DnaPrefs.getString(getApplicationContext(), Constants.MOBILE) != null) {
+            mobileTxt = DnaPrefs.getString(getApplicationContext(), Constants.MOBILE);
             if (!TextUtils.isEmpty(mobileTxt))
                 mobile.setText(mobileTxt);
         }

@@ -22,7 +22,8 @@
 
         <item
             android:id="@+id/subscribe"
-            android:title="Subscribe" />
+            android:title="Subscribe"
+            android:visible="false"/>
     </group>
 
     <item android:title="Communicate">

@@ -24,7 +24,7 @@
                 android:id="@+id/back"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/review_back_button"
+                app:srcCompat="@drawable/review_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/review_icon_top"/>
+                app:srcCompat="@drawable/review_icon_top"/>
 
         </LinearLayout>
 

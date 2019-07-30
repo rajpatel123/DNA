@@ -98,7 +98,7 @@
                     android:layout_height="60dp"
                     android:layout_margin="2dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/dr1" />
+                    app:srcCompat="@drawable/dr1" />
 
             </LinearLayout>
 
@@ -151,7 +151,7 @@
                     <ImageView
                         android:layout_width="20sp"
                         android:layout_height="20sp"
-                        android:src="@drawable/ic_star" />
+                        app:srcCompat="@drawable/ic_star" />
 
                     <TextView
                         android:id="@+id/rating"

@@ -145,10 +145,15 @@ public class Utils {
             return null;
         }
 
-        Log.d("date", ""+timeStamp);
-        SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
-        Date dNow = new Date(timeStamp);
-        return tripDateFormat.format(dNow);
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
+            Date dNow = new Date(timeStamp);
+            return tripDateFormat.format(dNow);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public static long getMillies(String testDate) {

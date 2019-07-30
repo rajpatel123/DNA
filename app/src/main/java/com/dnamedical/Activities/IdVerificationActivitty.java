@@ -148,6 +148,9 @@ public class IdVerificationActivitty extends AppCompatActivity {
         }
 
 
+        if (TextUtils.isEmpty(imageStoragePath)){
+            return;
+        }
         File imageFile = new File(imageStoragePath);
         //RequestBody imagebody = RequestBody.create(MediaType.parse("image/*"), imageFile);
          RequestBody imagebody = RequestBody.create(okhttp3.MultipartBody.FORM, imageFile);
