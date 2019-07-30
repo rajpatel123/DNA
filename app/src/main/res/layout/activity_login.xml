@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_left_20"
             android:layout_marginLeft="@dimen/margin_left_20"
-            android:src="@drawable/ic_left_arrow"
+            app:srcCompat="@drawable/ic_left_arrow"
             android:tint="@color/colorPrimary" />
 
         <ImageView
@@ -35,7 +35,7 @@
             android:layout_marginEnd="@dimen/margin_left_15"
             android:layout_marginRight="@dimen/margin_right_15"
             android:padding="@dimen/padding_10"
-            android:src="@drawable/dnalogo"
+            app:srcCompat="@drawable/dnalogo"
             android:visibility="invisible" />
 
     </RelativeLayout>

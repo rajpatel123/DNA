@@ -49,31 +49,31 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/star" />
+            app:srcCompat="@drawable/star" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_marginLeft="10dp"
             android:layout_height="30dp"
-            android:src="@drawable/star" />
+            app:srcCompat="@drawable/star" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_marginLeft="10dp"
             android:layout_height="30dp"
-            android:src="@drawable/star" />
+            app:srcCompat="@drawable/star" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_marginLeft="10dp"
             android:layout_height="30dp"
-            android:src="@drawable/star" />
+            app:srcCompat="@drawable/star" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_marginLeft="10dp"
             android:layout_height="30dp"
-            android:src="@drawable/star" />
+            app:srcCompat="@drawable/star" />
 
 
     </LinearLayout>

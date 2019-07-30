@@ -2,6 +2,7 @@ package com.dnamedical.Retrofit;
 
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
+import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
@@ -219,6 +220,11 @@ public class RestClient {
 
     public static void getMobile(RequestBody email_id, Callback<MobileResponse> callback){
         RetrofitClient.getClient().MOBILE_RESPONSE_CALL(email_id).enqueue(callback);
+
+    }
+
+    public static void getEmail(RequestBody fb_id, Callback<EmailByFBResponse> callback){
+        RetrofitClient.getClient().getEmailByFBID(fb_id).enqueue(callback);
 
     }
 

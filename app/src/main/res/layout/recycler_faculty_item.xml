@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Activities.DNAFacultyActivity">
 
@@ -38,7 +39,7 @@
                             android:layout_height="90dp"
                             android:paddingLeft="10sp"
                             android:paddingTop="15sp"
-                            android:src="@drawable/profile_pictures" />
+                            app:srcCompat="@drawable/profile_pictures" />
 
                         <ProgressBar
                             android:visibility="gone"
@@ -104,7 +105,7 @@
                                             android:layout_height="15dp"
                                             android:backgroundTint="@color/white"
                                             android:foregroundTint="@color/white"
-                                            android:src="@drawable/faculty_icon"
+                                            app:srcCompat="@drawable/faculty_icon"
                                             />
 
 

@@ -235,13 +235,13 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
             options.put("currency", "INR");
-           options.put("amount", orderValue*100);
+           options.put("amount", 1*100);
             //options.put("amount", 100);
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", email);
             preFill.put("contact", mobile);
-
+//
 
             options.put("prefill", preFill);
 

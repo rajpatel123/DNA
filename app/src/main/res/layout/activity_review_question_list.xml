@@ -20,7 +20,7 @@
             android:id="@+id/back"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/review_back_button"
+            app:srcCompat="@drawable/review_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
