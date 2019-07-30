@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/dnalogo" />
+        app:srcCompat="@drawable/dnalogo" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

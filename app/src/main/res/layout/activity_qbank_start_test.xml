@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_left_arrow"
+            app:srcCompat="@drawable/ic_left_arrow"
             android:tint="@color/white" />
 
         <TextView
@@ -218,7 +218,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/review_result_question_icon" />
+                            app:srcCompat="@drawable/review_result_question_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -235,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/bookmark_arrow" />
+                        app:srcCompat="@drawable/bookmark_arrow" />
 
                 </LinearLayout>
 

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Activities.NeetPgActivity">
 
@@ -22,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:src="@drawable/ic_left_arrow"
+            app:srcCompat="@drawable/ic_left_arrow"
             android:tint="@color/white" />
 
         <ImageView
@@ -34,7 +35,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:padding="10dp"
-            android:src="@drawable/dnalogo" />
+            app:srcCompat="@drawable/dnalogo" />
 
     </RelativeLayout>
 

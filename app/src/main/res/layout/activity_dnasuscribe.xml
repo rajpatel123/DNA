@@ -146,13 +146,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@color/black_titles"
-                                android:src="@drawable/text" />
+                                app:srcCompat="@drawable/text" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="Text Series"
+                                android:text="Test Series"
                                 android:textColor="@color/black_titles"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -238,13 +238,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@color/black_titles"
-                                android:src="@drawable/text" />
+                                app:srcCompat="@drawable/text" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
-                                android:text="Text Series"
+                                android:text="Test Series"
                                 android:textColor="@color/black_titles"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -330,13 +330,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@color/black_titles"
-                                android:src="@drawable/text" />
+                                app:srcCompat="@drawable/text" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
-                                android:text="Text Series"
+                                android:text="Test Series"
                                 android:textColor="@color/black_titles"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -470,7 +470,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/black_titles"
-                                    android:src="@drawable/text" />
+                                    app:srcCompat="@drawable/text" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

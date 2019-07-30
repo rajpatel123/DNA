@@ -55,7 +55,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:backgroundTint="@color/orange"
-                        android:src="@drawable/test_icon"
+                        app:srcCompat="@drawable/test_icon"
                         android:tint="@color/orange" />
 
                     <View

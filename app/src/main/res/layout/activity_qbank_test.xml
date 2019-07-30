@@ -32,7 +32,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:src="@drawable/qbank_wrong_answer" />
+            app:srcCompat="@drawable/qbank_wrong_answer" />
 
 
     </LinearLayout>
@@ -395,7 +395,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/review_result_question_icon" />
+            app:srcCompat="@drawable/review_result_question_icon" />
 
         <Button
             android:id="@+id/nextBtn"

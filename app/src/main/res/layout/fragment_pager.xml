@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="4dip">
@@ -92,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingLeft="8dp"
-                    android:src="@drawable/guess_answer_icon" />
+                    app:srcCompat="@drawable/guess_answer_icon" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:src="@drawable/menu" />
+                    app:srcCompat="@drawable/menu" />
 
                 <ImageView
                     android:visibility="gone"
@@ -143,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:src="@drawable/test_star" />
+                    app:srcCompat="@drawable/test_star" />
 
             </LinearLayout>
 
@@ -167,7 +168,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:src="@drawable/previou_red" />
+                        app:srcCompat="@drawable/previou_red" />
 
                     <TextView
                         android:id="@+id/text_previous"
@@ -208,7 +209,7 @@
 
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:src="@drawable/next_red" />
+                        app:srcCompat="@drawable/next_red" />
 
 
                 </LinearLayout>
