@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.R;
@@ -28,33 +27,37 @@ public class EnterMobileAndEmailActivity extends AppCompatActivity {
 
         int  mobileNo;
         EditText enter_email;
-        Button mob_submit;
+        Button email_submit;
         String email;
         String ids;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_enter_mobile_and_email);
+            setContentView(R.layout.activity_email);
 
             enter_email = findViewById(R.id.enter_email);
-            mob_submit = findViewById(R.id.Mobile_submit_Button);
+            email_submit = findViewById(R.id.Email_submit_Button);
 
 
             ids = DnaPrefs.getString(getApplicationContext(),"Login_Id");
 
-            mob_submit.setOnClickListener(new View.OnClickListener() {
+            email_submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    enetMobileNumber();
+                    enterEmailAddress();
                 }
             });
         }
-        public  void enetMobileNumber(){
+        public  void enterEmailAddress(){
+
             email = enter_email.getText().toString().trim();
 
-            if (!TextUtils.isEmpty(email)){
+            if(validEmai(email)) {
+
+          /*  if (!TextUtils.isEmpty(email))*/
+
                 Utils.showProgressDialog(this);
 
                 String name =getIntent().getStringExtra("name");
@@ -142,14 +145,27 @@ public class EnterMobileAndEmailActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<FacebookResponse> call, Throwable t) {
                         Utils.dismissProgressDialog();
-                        Utils.displayToast(EnterMobileAndEmailActivity.this, "Invalid login detail");
+                        Utils.displayToast(EnterMobileAndEmailActivity.this, "Invalid login Detail");
 
                     }
                 });
             }else{
-                Toast.makeText(EnterMobileAndEmailActivity.this,"Please enter mobile number",Toast.LENGTH_LONG).show();
+                Toast.makeText(EnterMobileAndEmailActivity.this,"Please Enter Email Address",Toast.LENGTH_LONG).show();
             }
-
-
         }
+
+
+    private boolean validEmai(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+// onClick of button perform this simplest code.
+        if (email.matches(emailPattern))
+        {
+            return  true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     }

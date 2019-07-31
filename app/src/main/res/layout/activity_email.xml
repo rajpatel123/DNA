@@ -6,60 +6,55 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Activities.Mobilenumber">
+    tools:context=".Activities.EnterMobileAndEmailActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:padding="@dimen/padding_5"
-            android:text="Enter your Mobile Number"
+            android:text="Enter your Email Adress"
             android:textColor="@color/black_titles"
             android:textSize="@dimen/size_20"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/enter_email"
-            android:layout_width="match_parent"
+            android:layout_width="346dp"
             android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="@dimen/margin_top_15"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             android:background="@drawable/edittextstyle"
-            android:hint="Enter Your Email"
+            android:gravity="center"
+            android:hint="Enter Your Email Address"
             android:inputType="textEmailAddress"
-            android:paddingLeft="@dimen/padding_left_10"
             android:paddingRight="@dimen/padding_right_10"
             android:textColor="@color/Black" />
 
         <Button
-            android:id="@+id/Mobile_submit_Button"
+            android:id="@+id/Email_submit_Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="@dimen/margin_top_20"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
             android:background="@drawable/buttonlogin"
             android:padding="@dimen/padding_5"
             android:text="Submit"
-            android:textStyle="bold"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_20" />
-
-
-
+            android:textSize="@dimen/size_20"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
