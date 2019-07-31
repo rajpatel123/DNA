@@ -85,7 +85,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
                     android:background="@drawable/vedio_image_background"
-                    android:src="@drawable/doctor" />
+                    app:srcCompat="@drawable/doctor" />
 
             </LinearLayout>
 
@@ -118,7 +118,7 @@
                         android:layout_gravity="end"
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
-                        android:src="@drawable/lock" />
+                        app:srcCompat="@drawable/lock" />
 
                 </LinearLayout>
 
@@ -139,7 +139,7 @@
                     <ImageView
                         android:layout_width="20sp"
                         android:layout_height="20sp"
-                        android:src="@drawable/ic_star" />
+                        app:srcCompat="@drawable/ic_star" />
 
                     <TextView
                         android:layout_width="wrap_content"

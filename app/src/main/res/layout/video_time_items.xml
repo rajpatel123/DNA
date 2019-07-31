@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/margin_5"
     android:background="@drawable/payment_txt_design"
     android:id="@+id/row_view">
@@ -17,7 +18,7 @@
         <ImageView
             android:layout_width="20sp"
             android:layout_height="20sp"
-            android:src="@drawable/video_player" />
+            app:srcCompat="@drawable/video_player" />
 
         <TextView
             android:id="@+id/time"

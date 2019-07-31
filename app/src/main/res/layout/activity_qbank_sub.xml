@@ -21,7 +21,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/ic_left_arrow"
+            app:srcCompat="@drawable/ic_left_arrow"
             android:tint="@color/white" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:padding="10dp"
-            android:src="@drawable/dnalogo"
+            app:srcCompat="@drawable/dnalogo"
             android:visibility="visible" />
     </android.support.v7.widget.Toolbar>
 

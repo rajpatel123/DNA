@@ -368,7 +368,7 @@ public class LoginActivity extends AppCompatActivity {
                             /**
                              * If user login with facebook with userid as mobile number
                              * in that case email id and mobile number will not recieved from facebook
-                             * so check email by facebook id and if email exist on server then 
+                             * so check email by facebook id and if email exist on server then
                              */
                             if (TextUtils.isEmpty(email)) {
                                 RequestBody Facebook_id = RequestBody.create(MediaType.parse("text/plain"), facebook_id);

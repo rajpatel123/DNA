@@ -146,7 +146,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@color/black_titles"
-                                android:src="@drawable/text" />
+                                app:srcCompat="@drawable/text" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -238,7 +238,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@color/black_titles"
-                                android:src="@drawable/text" />
+                                app:srcCompat="@drawable/text" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -330,7 +330,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@color/black_titles"
-                                android:src="@drawable/text" />
+                                app:srcCompat="@drawable/text" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -470,7 +470,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/black_titles"
-                                    android:src="@drawable/text" />
+                                    app:srcCompat="@drawable/text" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
