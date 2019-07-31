@@ -235,11 +235,11 @@
         <activity
             android:name=".Activities.TestActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.Mobilenumber"
-            android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".Activities.TestQuestionExamActivity"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ResultActivity"
