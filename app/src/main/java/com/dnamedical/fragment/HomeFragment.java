@@ -160,7 +160,5 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         intent.putExtra("catId",id);
         getActivity().startActivity(intent);
 
-
-
     }
 }

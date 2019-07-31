@@ -114,6 +114,8 @@ public class SplashActivity extends AppCompatActivity {
             } catch (android.content.ActivityNotFoundException anfe) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+ BuildConfig.APPLICATION_ID)));
             }
+
+            DnaPrefs.putBoolean(this,Constants.LoginCheck,false);
             dialog.dismiss();
         });
 

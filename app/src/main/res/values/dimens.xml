@@ -133,6 +133,7 @@
     <dimen name="size_16">16sp</dimen>
     <dimen name="margin_left_40">40sp</dimen>
     <dimen name="margin_width_80">80dp</dimen>
+    <dimen name="padding_25dp">23dp</dimen>
 
 
 </resources>
