@@ -1,6 +1,5 @@
 package com.dnamedical;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,14 +10,14 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.dnamedical.Models.test.TestQuestionData;
-import com.dnamedical.fragment.AllTestFragment;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class DNAApplication extends MultiDexApplication {
 
-    static DNAApplication dnaApplication=null;
+    static DNAApplication dnaApplication = null;
+
     public static TestQuestionData getTestQuestionData() {
         return testQuestionData;
     }
@@ -35,12 +34,14 @@ public class DNAApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
-printHashKey();
+        printHashKey();
 
     }
+
     public void printHashKey() {
         Exception exception = null;
         // Add code to print out the key hash
@@ -68,8 +69,8 @@ printHashKey();
     }
 
     public static DNAApplication getInstance() {
-        if (dnaApplication==null){
-            dnaApplication= new DNAApplication();
+        if (dnaApplication == null) {
+            dnaApplication = new DNAApplication();
         }
         return dnaApplication;
     }
