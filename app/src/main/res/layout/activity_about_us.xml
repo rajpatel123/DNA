@@ -31,10 +31,11 @@
         android:layout_below="@id/appBarLayout"
         android:padding="16dp"
         android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/Black"
         android:text="DNA is the One-Stop solution for all the educational needs of young budding doctors.
 It prepares you for the challenges in your chosen field right from the beginning.
 Online Video lectures , Questions Bank and Test Series for NEET-PG |NEET-SS ( superspeciality ) | FMGE along with MBBS Professional University Exams in a single App.
-
 DNA IS THE ESSENCE OF LIFE.
 Especially for Medicos😉" />
 
