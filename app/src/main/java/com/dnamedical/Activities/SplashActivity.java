@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -33,6 +35,7 @@ import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.facebook.login.LoginManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -116,6 +119,10 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             DnaPrefs.putBoolean(this,Constants.LoginCheck,false);
+            clearApplicationData();
+            LoginManager.getInstance().logOut();
+
+
             dialog.dismiss();
         });
 
@@ -133,7 +140,31 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    public void clearApplicationData() {
+            try {
+                // clearing app data
+                String packageName = getApplicationContext().getPackageName();
+                Runtime runtime = Runtime.getRuntime();
+                runtime.exec("pm clear "+packageName);
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+
+        return dir.delete();
+    }
 
 
     private void splashCall() {

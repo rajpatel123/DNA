@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.dnamedical.Models.test.TestQuestionData;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -39,8 +40,9 @@ public class DNAApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         printHashKey();
-
     }
+
+
 
     public void printHashKey() {
         Exception exception = null;
