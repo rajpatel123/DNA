@@ -38,6 +38,7 @@ import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.registration.CommonResponse;
 
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -91,6 +92,21 @@ public interface ApiInterface {
                                              @Part("city") RequestBody city,
                                              @Part("pin_code") RequestBody pin_code);
 
+
+
+
+
+
+    @Multipart
+    @POST("api/api.php?req=invoice_mail")
+    Call<SaveOrderResponse> invoiceOrderDetail(@Part("user_id") RequestBody user_id,
+                                            @Part("pramotoin") RequestBody pramotoin,
+                                            @Part("addDiscount") RequestBody addDiscount,
+                                            @Part("totalAmountBeforeTax") RequestBody totalAmountBeforeTax,
+                                            @Part("tax") RequestBody tax,
+                                            @Part("shippingCharges") RequestBody shippingCharges,
+                                            @Part("grandTotal") RequestBody grandTotal,
+                                             @Part("totalAmount") RequestBody totalAmount);
 
     @Multipart
     @POST("api/api.php?req=save_order")

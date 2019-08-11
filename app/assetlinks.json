@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.dnamedical",
+    "sha256_cert_fingerprints":
+    ["32:8E:12:CB:FF:29:26:EE:B0:ED:1B:8E:3D:06:4B:AF:2F:E7:14:B3:27:4C:0D:B3:C0:72:AE:89:D9:28:AD:09"]
+  }
+}]

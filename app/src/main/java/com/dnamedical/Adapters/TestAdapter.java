@@ -78,8 +78,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    if (grandTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                        if (Utils.getMilliesOfTestTime(grandTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
+                    //if (grandTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
+                    //    if (Utils.getMilliesOfTestTime(grandTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
                             if (onUserClickCallback != null) {
                                 onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId()
                                         , grandTests.get(holder.getAdapterPosition()).getTestDuration()
@@ -90,11 +90,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                         grandTests.get(holder.getAdapterPosition()).getTestCategory()
                                 );
                             }
-                        } else {
-                            Toast.makeText(applicationContext, "This test will start on " + grandTests.get(holder.getAdapterPosition()).getTestDate() + " at " + grandTests.get(holder.getAdapterPosition()).getStartTime(), Toast.LENGTH_LONG).show();
-                        }
+                       // } else {
+                       //     Toast.makeText(applicationContext, "This test will start on " + grandTests.get(holder.getAdapterPosition()).getTestDate() + " at " + grandTests.get(holder.getAdapterPosition()).getStartTime(), Toast.LENGTH_LONG).show();
+                       // }
 
-                    }
+                    //}
 
                 }
             });
@@ -122,8 +122,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (miniTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                        if (Utils.getMilliesOfTestTime(miniTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
+                  //  if (miniTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
+                     //   if (Utils.getMilliesOfTestTime(miniTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
                             if (onUserClickCallback != null) {
                                 onUserClickCallback.onCateClick(miniTests.get(holder.getAdapterPosition()).getTestId(),
                                         miniTests.get(holder.getAdapterPosition()).getTestDuration(),
@@ -135,8 +135,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                 );
                             }
                         }
-                    }
-                }
+                 //   }
+               // }
             });
 
 
@@ -175,8 +175,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    if (allTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                        if (Utils.getMilliesOfTestTime(allTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
+                    //if (allTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
+                      //  if (Utils.getMilliesOfTestTime(allTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
                             if (onUserClickCallback != null) {
                                 onUserClickCallback.onCateClick(allTests.get(holder.getAdapterPosition()).getTestId(),
                                         allTests.get(holder.getAdapterPosition()).getTestDuration(),
@@ -188,8 +188,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                 );
                             }
                         }
-                    }
-                }
+                   // }
+                //}
             });
 
         } else if (subjectTests != null) {
@@ -221,8 +221,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (subjectTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                        if (Utils.getMilliesOfTestTime(subjectTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
+                   // if (subjectTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
+                    //    if (Utils.getMilliesOfTestTime(subjectTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
                             if (onUserClickCallback != null) {
                                 onUserClickCallback.onCateClick(subjectTests.get(holder.getAdapterPosition()).getTestId(),
                                         subjectTests.get(holder.getAdapterPosition()).getTestDuration(),
@@ -234,8 +234,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                                 );
                             }
                         }
-                    }
-                }
+                   // }
+                //}
             });
         }
 

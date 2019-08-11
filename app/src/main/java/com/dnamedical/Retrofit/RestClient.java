@@ -214,6 +214,11 @@ public class RestClient {
     }
 
 
+    public static void invoiceOrderDetail(RequestBody user_id,RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal,RequestBody totalAmount, Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().invoiceOrderDetail(user_id, pramotion, additional, totalAmountBeforeTax, tax, shippingCharges,grandTotal,totalAmount).enqueue(callback);
+    }
+
+
     public static void forgetPassword(RequestBody email_id, RequestBody token, RequestBody new_password, RequestBody retype_password, Callback<ForgetPasswordResponse> callback) {
         RetrofitClient.getClient().forgetPassword(email_id, token, new_password, retype_password).enqueue(callback);
     }
