@@ -28,7 +28,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     private ViewPager viewPager;
     private TextView subcategory;
 
-    MainActivity mainActivity;
+    public MainActivity mainActivity;
     public String subCatId;
     VideoActivity.DisplayDataInterface displayDataInterface;
 
@@ -68,6 +68,8 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        mainActivity = (MainActivity) getActivity();
     }
 
     private void setupTabIcons() {

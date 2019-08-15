@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,6 +42,13 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     List<AllTest> allTest;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
 
     TextView notext;
     private TestQuestionData testQuestionData;
@@ -103,14 +111,14 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 @Override
                 public void onFailure(Call<TestQuestionData> call, Throwable t) {
                     Utils.dismissProgressDialog();
-                    Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
 
                 }
             });
         } else {
             Utils.dismissProgressDialog();
             notext.setVisibility(View.VISIBLE);
-            Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
         }
 
     }

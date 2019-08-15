@@ -35,8 +35,8 @@
             android:layout_marginEnd="@dimen/margin_left_15"
             android:layout_marginRight="@dimen/margin_right_15"
             android:padding="@dimen/padding_10"
-            app:srcCompat="@drawable/dnalogo"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            app:srcCompat="@drawable/dnalogo" />
 
     </RelativeLayout>
 

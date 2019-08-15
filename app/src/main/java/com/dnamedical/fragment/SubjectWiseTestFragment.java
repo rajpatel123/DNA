@@ -62,7 +62,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
         } else {
             Utils.dismissProgressDialog();
             notext.setVisibility(View.VISIBLE);
-            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
         }
 

@@ -137,8 +137,6 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                                             intent.putExtra("cat_id", id);
                                             intent.putExtra("cat_name", name);
                                             startActivity(intent);
-                                        }else{
-                                            Toast.makeText(getActivity(),"No module found",Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
@@ -159,7 +157,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                 @Override
                 public void onFailure(Call<QbankResponse> call, Throwable t) {
                     Utils.dismissProgressDialog();
-                    Toast.makeText(getActivity(), "Data Failed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Data Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -167,7 +165,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
         else {
             textInternet.setVisibility(View.VISIBLE);
             Utils.dismissProgressDialog();
-            Toast.makeText(getActivity(), "Internet Connection Failed", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Internet Connection Failed", Toast.LENGTH_SHORT).show();
         }
 
 

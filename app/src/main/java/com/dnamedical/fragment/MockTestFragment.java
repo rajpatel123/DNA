@@ -57,7 +57,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
         } else {
             Utils.dismissProgressDialog();
             notext.setVisibility(View.VISIBLE);
-            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
         }
 

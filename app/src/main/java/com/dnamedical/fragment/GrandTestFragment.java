@@ -67,7 +67,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
         } else {
             Utils.dismissProgressDialog();
             notext.setVisibility(View.VISIBLE);
-            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
         }
     }
