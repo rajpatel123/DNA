@@ -274,9 +274,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+
+
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_JOf6PMOuChis9e" />
+            android:value="rzp_live_GPmJIkGzNlDISO" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dfe8483de641ade0780acac1920014763432dd86" />

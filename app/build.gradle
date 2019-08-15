@@ -52,12 +52,12 @@ android {
     }
     buildTypes {
         release {
-            debuggable false
+            debuggable true
             def uatSigningKey = signingConfigs.dna
             signingConfig uatSigningKey
             multiDexEnabled true
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"http://dnamedicalapp.com/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://13.234.161.7/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
