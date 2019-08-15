@@ -87,15 +87,10 @@ public class RegistrationActivity extends AppCompatActivity implements
     @BindView(R.id.selectState)
     Spinner selectState;
 
-    String edit_name, edit_username, edit_email, edit_password;
-    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Uttar Pradesh", "Bihar", "Tamilnadu", "Telangana", "Bangalore", "New Delhi"};
-    String[] collegeNames = {"Narayana Medical College,Nellore", "NRI Medical College,Guntur", "Santhiram Medical College,Kakinada"
-            , "S V Mediacal College,Tirupati", "Katihar Medical College, Katihar",
-            "Nalanda Medical College,Patna"};
+    String fb_id,edit_name, edit_username, edit_email, edit_password;
+
 
     private StateListAdapter stateListAdapter;
-    private String imagePath;
-    private String statetxt;
     private String collegetext;
     private String StateText;
     private String edit_phonetxt;
@@ -103,7 +98,6 @@ public class RegistrationActivity extends AppCompatActivity implements
     CollegeCustomAdapter collegeCustomAdapter;
     StateListResponse stateListResponse;
     CollegeListResponse collegeListResponse;
-    private String collegeName;
     private List<College> collegeList;
     private Spinner spinState;
 
@@ -168,6 +162,13 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         /*CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), statesName);
         spin.setAdapter(customAdapter);*/
+   if (getIntent().hasExtra("fb_id")){
+
+   }
+
+
+
+
 
     }
 
@@ -402,6 +403,10 @@ public class RegistrationActivity extends AppCompatActivity implements
         MultipartBody.Part vFile = MultipartBody.Part.createFormData("file", videoFile.getName(), videoBody);
 
 
+
+        if (!TextUtils.isEmpty(DnaPrefs.getString(this,"fb_id"))){
+
+        }
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), edit_name);
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
