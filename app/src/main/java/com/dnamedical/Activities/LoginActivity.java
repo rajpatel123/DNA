@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                             DnaPrefs.putString(getApplicationContext(), "URL", "");
                             DnaPrefs.putString(getApplicationContext(), "EMAIL", email_str);
 
-
+                            DnaPrefs.putBoolean(LoginActivity.this, Constants.LoginCheck, true);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         } else {

@@ -17,11 +17,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="345dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:gravity="center"
             android:padding="@dimen/padding_5"
+            android:paddingLeft="@dimen/margin_23"
+            android:paddingStart="@dimen/margin_23"
             android:text="Enter your Email Adress"
             android:textColor="@color/black_titles"
             android:textSize="@dimen/size_20"
@@ -29,13 +30,15 @@
 
         <EditText
             android:id="@+id/enter_email"
-            android:layout_width="346dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="@dimen/margin_top_15"
             android:layout_marginRight="20dp"
             android:background="@drawable/edittextstyle"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
+            android:paddingStart="10dp"
             android:hint="Enter Your Email Address"
             android:inputType="textEmailAddress"
             android:paddingRight="@dimen/padding_right_10"

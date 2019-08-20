@@ -44,6 +44,7 @@ import com.dnamedical.Adapters.TimeListPriceAdapter;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.R;
+import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.player.EasyExoVideoPlayer;
 import com.dnamedical.player.IEasyExoVideoCallback;
 import com.dnamedical.utils.Constants;
@@ -61,6 +62,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.view.View.GONE;
 
@@ -147,6 +154,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     private Free free;
     private Price price;
+    private String videoId;
 
     String url = "";
     String email_id;
@@ -190,6 +198,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
     };
     private String mobileTxt;
+    private String userId;
 
 
     private void onSingle() {
@@ -380,6 +389,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
             textViewEmail.setText(email_id);
         }
 
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
+
+
         if (DnaPrefs.getString(getApplicationContext(), Constants.MOBILE) != null) {
             mobileTxt = DnaPrefs.getString(getApplicationContext(), Constants.MOBILE);
             if (!TextUtils.isEmpty(mobileTxt))
@@ -392,6 +408,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         if (intent.hasExtra("price")) {
             price = intent.getParcelableExtra("price");
             url = price.getUrl();
+            videoId = price.getId();
             title = price.getTitle();
             textHeading.setText(price.getTitle());
             textTeacher.setText(price.getSubTitle());
@@ -674,8 +691,26 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void onBackClick() {
         if (upper_exoplayer != null) {
             upper_exoplayer.stop();
-            finish();
         }
+
+
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
+        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+upper_exoplayer.getCurrentPosition());
+
+        RestClient.updateVideoPlayTime(user_id, video_id, video_playTime, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+              Log.d("Resonse",""+response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("Error","");
+            }
+        });
+
+
 
     }
 

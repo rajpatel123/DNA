@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -31,6 +32,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Part;
 
 public class PaymentDetailActivity extends AppCompatActivity implements PaymentResultListener {
 
@@ -213,14 +215,14 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         btnPaynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPayment();
+                createOrder();
             }
         });
 
     }
 
 
-    public void startPayment() {
+    public void startPayment(String orderId) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -235,7 +237,9 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
             options.put("currency", "INR");
-           options.put("amount", 1*100);
+            options.put("amount", orderValue*100);
+             //options.put("amount", 1*100);
+           options.put("order_id", orderId);
             //options.put("amount", 100);
 
             JSONObject preFill = new JSONObject();
@@ -253,6 +257,71 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         }
     }
 
+    private void createOrder() {
+
+
+        String productId = "0";
+        if (vedioId != null) {
+            videoId = vedioId;
+            subchildcat = "0";
+        }
+        if (subchildCat != null) {
+            subchildcat = subchildCat;
+            videoId = "0";
+        }
+
+        String testId = "0";
+        String payment_status = "1";
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
+
+
+
+
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), ""+orderValue*100);
+        RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
+        RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), videoId);
+        RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "video");
+
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+
+            RestClient.createOrderDetail(user_id, amount, currency, videoids, product_type, new Callback<CreateOrderResponse>() {
+                @Override
+                public void onResponse(Call<CreateOrderResponse> call, Response<CreateOrderResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                       CreateOrderResponse createOrderResponse = response.body();
+                       if (createOrderResponse.getData()!=null && createOrderResponse.getData().getOrderDetails()!=null){
+                           if ((orderValue*100+"").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())){
+                               startPayment(createOrderResponse.getData().getOrderId());
+                           }
+                       }
+
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CreateOrderResponse> call, Throwable t) {
+
+                    Utils.dismissProgressDialog();
+                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
     private void uploadPaymentData(String orderId) {
 
 
@@ -273,7 +342,12 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
         }
+
+
+
+
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+
         RequestBody sub_child_cat_id = RequestBody.create(MediaType.parse("text/plain"), subchildcat);
         RequestBody order_id = RequestBody.create(MediaType.parse("text/plain"), orderId);
         RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), productId);
@@ -284,7 +358,75 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
+
             RestClient.saveOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status, new Callback<SaveOrderResponse>() {
+                @Override
+                public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equalsIgnoreCase("true")) {
+                           finish();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<SaveOrderResponse> call, Throwable t) {
+
+                    Utils.dismissProgressDialog();
+                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+            uploadPaymentDetailForInvoices();
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    private void uploadPaymentDetailForInvoices() {
+
+
+        String productId = "0";
+        if (vedioId != null) {
+            videoId = vedioId;
+            subchildcat = "0";
+        }
+        if (subchildCat != null) {
+            subchildcat = subchildCat;
+            videoId = "0";
+        }
+
+        String testId = "0";
+        String payment_status = "1";
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
+
+
+
+
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+        RequestBody pramotoin = RequestBody.create(MediaType.parse("text/plain"), totalDiscountGiven);
+        RequestBody addDiscount = RequestBody.create(MediaType.parse("text/plain"), totalADDDiscountGiven);
+        RequestBody totalAmountBeforeTax = RequestBody.create(MediaType.parse("text/plain"), befortaxValue);
+        RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), ""+totalValue);
+        RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
+        RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"),shippingCharge );
+        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), ""+orderValue);
+
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges,grandTotal,totalAmount, new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();
@@ -324,7 +466,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
     @Override
     public void onPaymentSuccess(String paymentID) {
         uploadPaymentData(paymentID);
-        finish();
+        //finish();
     }
 
     @Override

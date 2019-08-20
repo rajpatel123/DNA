@@ -26,6 +26,7 @@ import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
+import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
@@ -135,6 +136,10 @@ public class RestClient {
         RetrofitClient.getClient().getTest(user_id).enqueue(callback);
     }
 
+    public static void updateVideoPlayTime(RequestBody user_id,RequestBody video_id,RequestBody time, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().updateVideoPlayTime(user_id,video_id,time).enqueue(callback);
+    }
+
     public static void sentMail(RequestBody email_id, Callback<ForgetMailSentResponse> callback) {
         RetrofitClient.getClient().sentMail(email_id).enqueue(callback);
     }
@@ -211,6 +216,16 @@ public class RestClient {
 
     public static void saveOrderDetail(RequestBody order_id,RequestBody sub_child_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
         RetrofitClient.getClient().saveOrderDetail(order_id, sub_child_cat_id,user_id, product_id, video_id, test_id, status).enqueue(callback);
+    }
+
+
+ public static void createOrderDetail(RequestBody user_id,RequestBody amount, RequestBody currency, RequestBody video_id, RequestBody product_type, Callback<CreateOrderResponse> callback) {
+        RetrofitClient.getClient().createOrderDetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
+    }
+
+
+    public static void invoiceOrderDetail(RequestBody user_id,RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal,RequestBody totalAmount, Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().invoiceOrderDetail(user_id, pramotion, additional, totalAmountBeforeTax, tax, shippingCharges,grandTotal,totalAmount).enqueue(callback);
     }
 
 

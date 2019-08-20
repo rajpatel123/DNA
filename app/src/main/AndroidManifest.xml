@@ -15,6 +15,7 @@
         android:required="false" />
 
     <application
+        android:name=".DNAApplication"
         android:allowBackup="true"
         android:icon="@drawable/dnalogo"
         android:label="DNA"
@@ -135,6 +136,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="www.dnamedicalapp.com"
+                    android:pathPattern="/dna" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.FirstloginActivity"
@@ -235,8 +247,11 @@
         <activity
             android:name=".Activities.TestActivity"
             android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".Activities.TestQuestionExamActivity"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ResultActivity"
@@ -259,9 +274,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+
+
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_JOf6PMOuChis9e" />
+            android:value="rzp_live_GPmJIkGzNlDISO" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dfe8483de641ade0780acac1920014763432dd86" />

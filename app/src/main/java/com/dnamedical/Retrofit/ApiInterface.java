@@ -25,6 +25,7 @@ import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
+import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
@@ -38,6 +39,7 @@ import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.registration.CommonResponse;
 
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -93,6 +95,17 @@ public interface ApiInterface {
 
 
     @Multipart
+    @POST("api/api.php?req=invoice_mail")
+    Call<SaveOrderResponse> invoiceOrderDetail(@Part("user_id") RequestBody user_id,
+                                               @Part("pramotoin") RequestBody pramotoin,
+                                               @Part("addDiscount") RequestBody addDiscount,
+                                               @Part("totalAmountBeforeTax") RequestBody totalAmountBeforeTax,
+                                               @Part("tax") RequestBody tax,
+                                               @Part("shippingCharges") RequestBody shippingCharges,
+                                               @Part("grandTotal") RequestBody grandTotal,
+                                               @Part("totalAmount") RequestBody totalAmount);
+
+    @Multipart
     @POST("api/api.php?req=save_order")
     Call<SaveOrderResponse> saveOrderDetail(@Part("order_id") RequestBody order_id,
                                             @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
@@ -101,6 +114,15 @@ public interface ApiInterface {
                                             @Part("video_id") RequestBody video_id,
                                             @Part("test_id") RequestBody test_id,
                                             @Part("status") RequestBody status);
+
+    @Multipart
+    @POST("/v1/index.php/api/ordersdetails/saveorder")
+    Call<CreateOrderResponse> createOrderDetail(@Part("user_id") RequestBody user_id,
+                                                @Part("amount") RequestBody amount,
+                                                @Part("currency") RequestBody currency,
+                                                @Part("product_id") RequestBody product_id,
+                                                @Part("product_type") RequestBody product_type
+    );
 
     @Multipart
     @POST("api/api.php?req=token_verify")
@@ -120,7 +142,6 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=get_address")
     Call<GetDataAddressResponse> getAddressData(@Part("user_id") RequestBody user_id);
-
 
 
     @GET("api/api.php?req=add_discount")
@@ -163,6 +184,14 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=test")
     Call<TestQuestionData> getTest(@Part("user_id") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=demo_time")
+    Call<ResponseBody> updateVideoPlayTime(@Part("user_id") RequestBody user_id,
+                                               @Part("video_id") RequestBody video_id,
+                                               @Part("time") RequestBody time
+                                               );
 
 
     @Multipart

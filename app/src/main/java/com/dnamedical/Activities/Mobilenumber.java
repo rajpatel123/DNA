@@ -51,7 +51,7 @@ public class Mobilenumber extends AppCompatActivity {
     public  void enetMobileNumber(){
         mobileNum = ent_mobile.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(mobileNum)){
+        if (!TextUtils.isEmpty(mobileNum) && mobileNum.length()>9){
             Utils.showProgressDialog(this);
             RequestBody  user_id = RequestBody.create(MediaType.parse("text/plain"), ""+ids);
             RequestBody mobileNumber = RequestBody.create(MediaType.parse("text/plain"),mobileNum );
@@ -75,7 +75,7 @@ public class Mobilenumber extends AppCompatActivity {
                 }
             });
         }else{
-            Toast.makeText(Mobilenumber.this,"Please enter mobile number",Toast.LENGTH_LONG).show();
+            Toast.makeText(Mobilenumber.this,"Please enter valid mobile number",Toast.LENGTH_LONG).show();
         }
 
 
