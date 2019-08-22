@@ -37,6 +37,7 @@ import com.dnamedical.Adapters.StateListAdapter;
 import com.dnamedical.Models.StateList.College;
 import com.dnamedical.Models.StateList.Detail;
 import com.dnamedical.Models.StateList.StateListResponse;
+import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.R;
@@ -100,13 +101,14 @@ public class RegistrationActivity extends AppCompatActivity implements
     CollegeListResponse collegeListResponse;
     private List<College> collegeList;
     private Spinner spinState;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
-        //getCollegeList();
+        getCollegeList();
         sendCollegeListData();
         getStateList();
         btnSignUp.setOnClickListener(this);
@@ -156,19 +158,13 @@ public class RegistrationActivity extends AppCompatActivity implements
         spinState = (Spinner) findViewById(R.id.selectState);
         spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
         //spinState.setOnItemSelectedListener(this);
-
-    /*  CollegeCustomAdapter collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse);
-      spinnerCollege.setAdapter(collegeCustomAdapter);*/
-
-        /*CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), statesName);
-        spin.setAdapter(customAdapter);*/
-   if (getIntent().hasExtra("fb_id")){
-
-   }
-
-
-
-
+        if (getIntent().hasExtra("user_id")){
+          editEmailId.setText(getIntent().getStringExtra("email_id"));
+          edit_phone.setText(getIntent().getStringExtra("mobile"));
+          editEmailId.setEnabled(false);
+          edit_phone.setEnabled(false);
+          userId = getIntent().getStringExtra("user_id");
+        }
 
     }
 
@@ -418,37 +414,74 @@ public class RegistrationActivity extends AppCompatActivity implements
         //showProgressDialog(this);
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
-                /* private Call<CommonResponse> call;
-                 private Response<CommonResponse> response;
-     */
-                @Override
-                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+            if (TextUtils.isEmpty(userId)){
+                RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
+                    /* private Call<CommonResponse> call;
+                     private Response<CommonResponse> response;
+         */
+                    @Override
+                    public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                /* this.call = call;
                 this.response = response;*/
-                    Utils.dismissProgressDialog();
-                    if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("1")) {
-                            Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                            intent.putExtra("mobile", "");
-                            intent.putExtra("user_id", response.body().getUser_id());
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Utils.displayToast(getApplicationContext(), response.body().getMessage());
+                        Utils.dismissProgressDialog();
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.putExtra("mobile", "");
+                                intent.putExtra("user_id", response.body().getUser_id());
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Utils.displayToast(getApplicationContext(), response.body().getMessage());
 
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<CommonResponse> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                    Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
+                    @Override
+                    public void onFailure(Call<CommonResponse> call, Throwable t) {
+                        Utils.dismissProgressDialog();
+                        Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
 
-                }
-            });
+                    }
+                });
+            }else{
+                RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+                RestClient.updateUser(name,user_id, username, email, phone, states, password, college, vFile, new Callback<UserUpdateResponse>() {
+                    /* private Call<CommonResponse> call;
+                     private Response<CommonResponse> response;
+         */
+                    @Override
+                    public void onResponse(Call<UserUpdateResponse> call, Response<UserUpdateResponse> response) {
+               /* this.call = call;
+                this.response = response;*/
+                        Utils.dismissProgressDialog();
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("true")) {
+                                Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.putExtra("mobile", "");
+                                intent.putExtra("user_id", response.body().getUpdateDetail().get(0).getId());
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Utils.displayToast(getApplicationContext(), response.body().getMessage());
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserUpdateResponse> call, Throwable t) {
+                        Utils.dismissProgressDialog();
+                        Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
+
+                    }
+                });
+
+            }
 
         } else {
             Utils.dismissProgressDialog();

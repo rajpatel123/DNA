@@ -100,7 +100,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
     @BindView(R.id.btn_pay_now)
     Button btnPaynow;
-    String name, mobile, email, address1, address2, state, city, pincode, amountAfterDiscount, vedioId, shippingCharge, totalDiscountGiven,totalADDDiscountGiven, totalValue, subchildCat;
+    String name, mobile, email, address1, address2, state, city, pincode, amountAfterDiscount, vedioId, shippingCharge, totalDiscountGiven, totalADDDiscountGiven, totalValue, subchildCat;
     String befortaxValue, taxValue;
     String userId;
     String videoId, subchildcat;
@@ -190,6 +190,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
             textViewShipping.setText("\u20B9 " + shippingCharge);
             taxValue = String.valueOf((Integer.parseInt(befortaxValue) * 18) / 100);
             textViewTax.setText("" + "\u20B9 " + taxValue);
+//            orderValue = 1;//((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
             orderValue = ((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
             textViewOrderTotal.setText("" + "\u20B9 " + " " + orderValue);
 
@@ -237,9 +238,9 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
             options.put("currency", "INR");
-            options.put("amount", orderValue*100);
-             //options.put("amount", 1*100);
-           options.put("order_id", orderId);
+            options.put("amount", orderValue * 100);
+            //options.put("amount", 1*100);
+            options.put("order_id", orderId);
             //options.put("amount", 100);
 
             JSONObject preFill = new JSONObject();
@@ -279,12 +280,10 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         }
 
 
-
-
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), ""+orderValue*100);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
-        RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), videoId);
+        RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), "" + 123);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "video");
 
 
@@ -296,12 +295,12 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
                 public void onResponse(Call<CreateOrderResponse> call, Response<CreateOrderResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
-                       CreateOrderResponse createOrderResponse = response.body();
-                       if (createOrderResponse.getData()!=null && createOrderResponse.getData().getOrderDetails()!=null){
-                           if ((orderValue*100+"").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())){
-                               startPayment(createOrderResponse.getData().getOrderId());
-                           }
-                       }
+                        CreateOrderResponse createOrderResponse = response.body();
+                        if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
+                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                                startPayment(createOrderResponse.getData().getOrderId());
+                            }
+                        }
 
 
                     }
@@ -322,6 +321,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         }
 
     }
+
     private void uploadPaymentData(String orderId) {
 
 
@@ -344,8 +344,6 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         }
 
 
-
-
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
         RequestBody sub_child_cat_id = RequestBody.create(MediaType.parse("text/plain"), subchildcat);
@@ -359,13 +357,13 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.saveOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status, new Callback<SaveOrderResponse>() {
+            RestClient.addOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status, new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("true")) {
-                           finish();
+                            finish();
                         }
                     }
 
@@ -411,22 +409,20 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         }
 
 
-
-
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
         RequestBody pramotoin = RequestBody.create(MediaType.parse("text/plain"), totalDiscountGiven);
         RequestBody addDiscount = RequestBody.create(MediaType.parse("text/plain"), totalADDDiscountGiven);
         RequestBody totalAmountBeforeTax = RequestBody.create(MediaType.parse("text/plain"), befortaxValue);
-        RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), ""+totalValue);
+        RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), "" + totalValue);
         RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
-        RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"),shippingCharge );
-        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), ""+orderValue);
+        RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"), shippingCharge);
+        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges,grandTotal,totalAmount, new Callback<SaveOrderResponse>() {
+            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount, new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();

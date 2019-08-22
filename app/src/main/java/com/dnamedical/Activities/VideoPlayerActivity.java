@@ -50,6 +50,7 @@ import com.dnamedical.player.IEasyExoVideoCallback;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.ImageUtils;
+import com.dnamedical.utils.Utils;
 import com.dnamedical.views.TypeWriter;
 import com.warkiz.widget.DotIndicatorSeekBar;
 import com.warkiz.widget.DotOnSeekChangeListener;
@@ -693,23 +694,37 @@ public class VideoPlayerActivity extends AppCompatActivity {
             upper_exoplayer.stop();
         }
 
+        if (TextUtils.isEmpty(videoId)){
+            return;
+        }
+
+        if (upper_exoplayer.getCurrentPosition()<1){
+            return;
+        }
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
-        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+upper_exoplayer.getCurrentPosition());
+        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+TimeUnit.MILLISECONDS.toMinutes(upper_exoplayer.getCurrentPosition()));
+        //RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+100);
 
-        RestClient.updateVideoPlayTime(user_id, video_id, video_playTime, new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-              Log.d("Resonse",""+response.body());
-            }
+        if (Utils.isInternetConnected(this)){
+            Utils.showProgressDialog(this);
+            RestClient.updateVideoPlayTime(user_id, video_id, video_playTime, new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Utils.dismissProgressDialog();
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("Error","");
-            }
-        });
+                    Log.d("Resonse",""+response.body());
+                    finish();
+                }
 
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    Log.d("Error","");
+                }
+            });
+        }
 
 
     }

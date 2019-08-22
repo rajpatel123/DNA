@@ -4,6 +4,7 @@ import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
+import com.dnamedical.Models.LoginDetailForDemo;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
@@ -12,6 +13,7 @@ import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
+import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
@@ -69,6 +71,18 @@ public interface ApiInterface {
 
 
     @Multipart
+    @POST("api/api.php?req=update_customer")
+    Call<UserUpdateResponse> updateUser(@Part("name") RequestBody name,
+                                        @Part("id") RequestBody user_id,
+                                        @Part("username") RequestBody username,
+                                        @Part("email_id") RequestBody email,
+                                        @Part("mobile_no") RequestBody phone,
+                                        @Part("state") RequestBody state,
+                                        @Part("password") RequestBody password,
+                                        @Part("college") RequestBody college);
+
+
+    @Multipart
     @POST("api/api.php?req=add_address")
     Call<AddressDetailResponse> addressDetail(@Part("user_id") RequestBody user_id,
                                               @Part("name") RequestBody name,
@@ -108,6 +122,16 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=save_order")
     Call<SaveOrderResponse> saveOrderDetail(@Part("order_id") RequestBody order_id,
+                                            @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
+                                            @Part("user_id") RequestBody user_id,
+                                            @Part("product_id") RequestBody product_id,
+                                            @Part("video_id") RequestBody video_id,
+                                            @Part("test_id") RequestBody test_id,
+                                            @Part("status") RequestBody status);
+
+    @Multipart
+    @POST("api/api.php?req=add_order")
+    Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
                                             @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
                                             @Part("user_id") RequestBody user_id,
                                             @Part("product_id") RequestBody product_id,
@@ -314,10 +338,20 @@ public interface ApiInterface {
     @POST("api/api.php?req=get_email")
     Call<EmailByFBResponse> getEmailByFBID(@Part("fb_id") RequestBody fb_id);
 
+    @Multipart
+    @POST("/api/api.php?req=email_login")
+    Call<LoginDetailForDemo> getUserByEmail(@Part("email_id") RequestBody email_id);
+
 
     @Multipart
     @POST("api/api.php?req=update_mobile")
     Call<EnterMobileresponce> enterMobileNumber(@Part("id") RequestBody id,
                                                 @Part("mobile_no") RequestBody mobile_no);
+
+
+    @Multipart
+    @POST("api/api.php?req=is_real")
+    Call<ResponseBody> updateLogin(@Part("id") RequestBody id,
+                                                @Part("isreal") RequestBody isreal);
 
 }

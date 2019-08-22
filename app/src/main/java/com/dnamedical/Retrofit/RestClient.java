@@ -4,6 +4,7 @@ import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
+import com.dnamedical.Models.LoginDetailForDemo;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
@@ -13,6 +14,7 @@ import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
+import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
@@ -69,6 +71,10 @@ public class RestClient {
 
     public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
         RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password, college).enqueue(callback);
+    }
+
+    public static void updateUser(RequestBody name,RequestBody user_id, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<UserUpdateResponse> callback) {
+        RetrofitClient.getClient().updateUser(name, user_id,username,email_id, phone, statetxt, password, college).enqueue(callback);
     }
 
     public static void addressDetail(RequestBody user_id, RequestBody name, RequestBody mobile, RequestBody email, RequestBody address_line1, RequestBody address_line2, RequestBody state, RequestBody city, RequestBody pin_code, Callback<AddressDetailResponse> callback) {
@@ -218,6 +224,10 @@ public class RestClient {
         RetrofitClient.getClient().saveOrderDetail(order_id, sub_child_cat_id,user_id, product_id, video_id, test_id, status).enqueue(callback);
     }
 
+  public static void addOrderDetail(RequestBody order_id,RequestBody sub_child_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id,user_id, product_id, video_id, test_id, status).enqueue(callback);
+    }
+
 
  public static void createOrderDetail(RequestBody user_id,RequestBody amount, RequestBody currency, RequestBody video_id, RequestBody product_type, Callback<CreateOrderResponse> callback) {
         RetrofitClient.getClient().createOrderDetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
@@ -243,9 +253,20 @@ public class RestClient {
 
     }
 
+ public static void getUserByEmail(RequestBody email_id, Callback<LoginDetailForDemo> callback){
+        RetrofitClient.getClient().getUserByEmail(email_id).enqueue(callback);
+
+    }
+
     public static void  enterMobileNumberToServer(RequestBody id,RequestBody mobile_no, Callback
             <EnterMobileresponce> callback){
         RetrofitClient.getClient().enterMobileNumber(id,mobile_no).enqueue(callback);
+
+    }
+
+    public static void  updateLogin(RequestBody id,RequestBody isReal, Callback
+            <ResponseBody> callback){
+        RetrofitClient.getClient().updateLogin(id,isReal).enqueue(callback);
 
     }
 

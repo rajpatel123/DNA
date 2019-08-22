@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+
 import io.fabric.sdk.android.Fabric;
 
 import java.io.File;
@@ -29,6 +31,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.dnamedical.BuildConfig;
+import com.dnamedical.Models.LoginDetail;
+import com.dnamedical.Models.LoginDetailForDemo;
+import com.dnamedical.Models.LoginDetails;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -37,6 +42,8 @@ import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.facebook.login.LoginManager;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,18 +61,66 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         printHashKey();
         // splashCall();
-        UpdateApiCall();
 
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
         String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
+        if (appLinkIntent != null && appLinkIntent.getData() != null) {
+            String appLinkData = appLinkIntent.getData().toString();
+            if (!TextUtils.isEmpty(appLinkData)) {
+                String data[] = appLinkData.split("/");
+
+                RequestBody email = RequestBody.create(MediaType.parse("text/plain"), data[4]);
+
+                RestClient.getUserByEmail(email, new Callback<LoginDetailForDemo>() {
+                    @Override
+                    public void onResponse(Call<LoginDetailForDemo> call, Response<LoginDetailForDemo> response) {
+                        if (response.body() != null) {
+                            LoginDetailForDemo loginDetailForDemo = response.body();
+                            if (loginDetailForDemo != null && loginDetailForDemo.getLoginDetails() != null) {
+                                LoginDetails loginDetails = loginDetailForDemo.getLoginDetails().get(0);
+                                if (TextUtils.isEmpty(loginDetails.getName())) {
+                                    Intent intent = new Intent(SplashActivity.this, RegistrationActivity.class);
+                                    intent.putExtra("user_id",data[3]);
+                                    intent.putExtra("email_id",data[4]);
+                                    intent.putExtra("mobile",data[5]);
+                                    startActivity(intent);
+                                    finish();
+
+
+                                } else {
+                                    DnaPrefs.putString(getApplicationContext(), "Login_Id", data[3]);
+                                    DnaPrefs.putString(getApplicationContext(), "EMAIL", data[4]);
+                                    DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, data[5]);
+                                    DnaPrefs.putBoolean(SplashActivity.this, Constants.LoginCheck, true);
+                                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                    finish();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginDetailForDemo> call, Throwable t) {
+                        Log.d("Demo", "Unable to get details");
+                    }
+                });
+
+
+//Api call lagegi yha
+
+            }
+        }else{
+            UpdateApiCall();
+        }
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-       // UpdateApiCall();
+        // UpdateApiCall();
     }
 
     private void UpdateApiCall() {
@@ -81,13 +136,13 @@ public class SplashActivity extends AppCompatActivity {
                             if (playstoreUpdateResponse != null &&
                                     playstoreUpdateResponse.getDetail().size() > 0) {
                                 if (Integer.parseInt(playstoreUpdateResponse
-                                        .getDetail().get(0).getAppVersion())>BuildConfig.VERSION_CODE &&playstoreUpdateResponse
+                                        .getDetail().get(0).getAppVersion()) > BuildConfig.VERSION_CODE && playstoreUpdateResponse
                                         .getDetail().get(0).getForceUpgrade().equalsIgnoreCase("true")) {
-                                  forceToUpgradeDialog(true);
-                                   // Toast.makeText(SplashActivity.this, "First", Toast.LENGTH_SHORT).show();
+                                    forceToUpgradeDialog(true);
+                                    // Toast.makeText(SplashActivity.this, "First", Toast.LENGTH_SHORT).show();
                                 } else {
                                     splashCall();
-                                   // Toast.makeText(SplashActivity.this, "Second", Toast.LENGTH_SHORT).show();
+                                    // Toast.makeText(SplashActivity.this, "Second", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -119,10 +174,10 @@ public class SplashActivity extends AppCompatActivity {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID)));
             } catch (android.content.ActivityNotFoundException anfe) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+ BuildConfig.APPLICATION_ID)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)));
             }
 
-            DnaPrefs.putBoolean(this,Constants.LoginCheck,false);
+            DnaPrefs.putBoolean(this, Constants.LoginCheck, false);
             clearApplicationData();
             LoginManager.getInstance().logOut();
 
@@ -145,15 +200,15 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void clearApplicationData() {
-            try {
-                // clearing app data
-                String packageName = getApplicationContext().getPackageName();
-                Runtime runtime = Runtime.getRuntime();
-                runtime.exec("pm clear "+packageName);
+        try {
+            // clearing app data
+            String packageName = getApplicationContext().getPackageName();
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear " + packageName);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static boolean deleteDir(File dir) {

@@ -44,6 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,6 +132,30 @@ public class MainActivity extends AppCompatActivity
         });
         setUpFragments();
         updateNavViewHeader();
+
+        updateLogin();
+
+
+
+
+    }
+
+    private void updateLogin() {
+
+        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), "Login_Id"));
+        RequestBody isReal = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), "true"));
+
+        RestClient.updateLogin(id, isReal, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
 
