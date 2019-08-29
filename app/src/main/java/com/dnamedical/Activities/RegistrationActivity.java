@@ -55,7 +55,6 @@ import retrofit2.Response;
 public class RegistrationActivity extends AppCompatActivity implements
         View.OnClickListener {
 
-
     @BindView(R.id.edit_name)
     EditText editName;
 
@@ -73,8 +72,10 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     @BindView(R.id.text_login)
     TextView textLogin;
+
     @BindView(R.id.terms)
     TextView termsTV;
+
     @BindView(R.id.privacy)
     TextView privacy;
 
@@ -88,7 +89,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     Spinner selectState;
 
     String edit_name, edit_username, edit_email, edit_password;
-    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Uttar Pradesh", "Bihar", "Tamilnadu", "Telangana", "Bangalore", "New Delhi"};
+    String[] statesName = {"Andhra Pradesh", "Arunachal Pradesh", "Gujarat", "Karnataka", "Maharashtra", "Uttar Pradesh", "Bihar", "Tamilnadu", "Telangana", "Bangalore", "New Delhi","Other"};
     String[] collegeNames = {"Narayana Medical College,Nellore", "NRI Medical College,Guntur", "Santhiram Medical College,Kakinada"
             , "S V Mediacal College,Tirupati", "Katihar Medical College, Katihar",
             "Nalanda Medical College,Patna"};
@@ -134,15 +135,12 @@ public class RegistrationActivity extends AppCompatActivity implements
                 Intent intent = new Intent(RegistrationActivity.this, WebViewActivity.class);
                 intent.putExtra("title", "Terms & Conditions");
                 startActivity(intent);
-
             }
         });
-
 
         SpannableString spannableString1 = new SpannableString(getString(R.string.already_member));
         spannableString1.setSpan(new UnderlineSpan(), 16, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textLogin.setText(spannableString1);
-
 
         SpannableString privacytxt = new SpannableString(getString(R.string.privacy));
         privacytxt.setSpan(new UnderlineSpan(), 4, privacytxt.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -186,8 +184,6 @@ public class RegistrationActivity extends AppCompatActivity implements
                                     StateText = stateListResponse.getDetails().get(5).getStateName();
                                     stateListAdapter = new StateListAdapter(getApplicationContext());
                                     stateListAdapter.setStateList(stateListResponse.getDetails());
-
-
                                 }
                             }
                             spinState.setAdapter(stateListAdapter);
@@ -259,7 +255,6 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     }
 
-
     private void getCollegeList() {
 
         if (Utils.isInternetConnected(this)) {
@@ -291,14 +286,10 @@ public class RegistrationActivity extends AppCompatActivity implements
                 public void onFailure(Call<CollegeListResponse> call, Throwable t) {
                     Toast.makeText(RegistrationActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     Utils.dismissProgressDialog();
-
                 }
             });
         }
-
     }
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -364,7 +355,6 @@ public class RegistrationActivity extends AppCompatActivity implements
         }
 
         if (TextUtils.isEmpty(edit_phonetxt)) {
-
             edit_phone.setError(getString(R.string.invalid_email));
 
             return;
