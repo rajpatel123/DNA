@@ -104,8 +104,6 @@ public class SplashActivity extends AppCompatActivity {
             Utils.dismissProgressDialog();
             Toast.makeText(this, "Internet Connection Failed", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
 

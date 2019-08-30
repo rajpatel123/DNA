@@ -93,7 +93,6 @@ public class DNAFacultyActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

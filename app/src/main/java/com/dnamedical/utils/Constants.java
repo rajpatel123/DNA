@@ -8,7 +8,6 @@ public class Constants {
     public static final String EMAILID ="emailid" ;
     public static final String LoginCheck ="logincheck" ;
     public static final String Resultsubmit ="resultsubmit" ;
-
     public static final String UN_ATTEMPTED ="UnAttempted" ;
     public static final String ATTEMPTED ="Attempted" ;
     public static final String FREE ="Free" ;
@@ -21,4 +20,5 @@ public class Constants {
     public static final String SOFT_UPGRADE_SKIP = "soft_upgrade_skip";
     public static final String ADD_DISCOUNT = "additionalDiscount";
     public static final String MOBILE = "mobile";
+    public static final String LOGIN_ID = "id";
 }

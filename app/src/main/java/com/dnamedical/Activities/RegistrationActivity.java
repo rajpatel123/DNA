@@ -107,13 +107,29 @@ public class RegistrationActivity extends AppCompatActivity implements
     private String collegeName;
     private List<College> collegeList;
     private Spinner spinState;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
-        //getCollegeList();
+
+
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(Constants.LOGIN_ID)){
+          editName.setText(intent.getStringExtra(Constants.NAME));
+          editEmailId.setText(intent.getStringExtra(Constants.EMAILID));
+          editEmailId.setEnabled(false);
+          edit_phone.setText(intent.getStringExtra(Constants.MOBILE));
+            userId = intent.getStringExtra(Constants.LOGIN_ID);
+            editPassword.setVisibility(View.GONE);
+
+
+        }
+
+        getCollegeList();
         sendCollegeListData();
         getStateList();
         btnSignUp.setOnClickListener(this);
@@ -314,10 +330,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                 finish();
                 break;
         }
-
     }
-
-
     private void validation() {
 
         edit_name = editName.getText().toString();
@@ -390,8 +403,6 @@ public class RegistrationActivity extends AppCompatActivity implements
 
 
         MultipartBody.Part vFile = MultipartBody.Part.createFormData("file", videoFile.getName(), videoBody);
-
-
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), edit_name);
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
@@ -400,40 +411,46 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
         Utils.showProgressDialog(this);
+
         //showProgressDialog(this);
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
-                /* private Call<CommonResponse> call;
-                 private Response<CommonResponse> response;
-     */
-                @Override
-                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+            if (TextUtils.isEmpty(userId)){
+                RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
+                    /* private Call<CommonResponse> call;
+                     private Response<CommonResponse> response;
+         */
+                    @Override
+                    public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                /* this.call = call;
                 this.response = response;*/
-                    Utils.dismissProgressDialog();
-                    if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("1")) {
-                            Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                            intent.putExtra("mobile", "");
-                            intent.putExtra("user_id", response.body().getUser_id());
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Utils.displayToast(getApplicationContext(), response.body().getMessage());
+                        Utils.dismissProgressDialog();
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.putExtra("mobile", "");
+                                intent.putExtra("user_id", response.body().getUser_id());
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Utils.displayToast(getApplicationContext(), response.body().getMessage());
 
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<CommonResponse> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                    Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
+                    @Override
+                    public void onFailure(Call<CommonResponse> call, Throwable t) {
+                        Utils.dismissProgressDialog();
+                        Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
 
-                }
-            });
+                    }
+                });
+
+            }else{
+              //update Api
+            }
 
         } else {
             Utils.dismissProgressDialog();
@@ -455,8 +472,6 @@ public class RegistrationActivity extends AppCompatActivity implements
             return cursor.getString(idx);
         }
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

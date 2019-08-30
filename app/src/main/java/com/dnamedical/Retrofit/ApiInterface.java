@@ -18,6 +18,7 @@ import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
+import com.dnamedical.Models.fblogin.FacebookLoginResponse;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
@@ -310,6 +311,11 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=get_email")
     Call<EmailByFBResponse> getEmailByFBID(@Part("fb_id") RequestBody fb_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=facebook_login")
+    Call<FacebookLoginResponse> loginWithFacebook(@Part("fb_id") RequestBody fb_id);
 
 
     @Multipart
