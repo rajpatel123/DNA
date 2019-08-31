@@ -449,7 +449,38 @@ public class RegistrationActivity extends AppCompatActivity implements
                 });
 
             }else{
-              //update Api
+                RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
+                    /* private Call<CommonResponse> call;
+                     private Response<CommonResponse> response;
+         */
+                    @Override
+                    public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+               /* this.call = call;
+                this.response = response;*/
+                        Utils.dismissProgressDialog();
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.putExtra("mobile", "");
+                                intent.putExtra("user_id", response.body().getUser_id());
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Utils.displayToast(getApplicationContext(), response.body().getMessage());
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommonResponse> call, Throwable t) {
+                        Utils.dismissProgressDialog();
+                        Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
+
+                    }
+                });
+
             }
 
         } else {

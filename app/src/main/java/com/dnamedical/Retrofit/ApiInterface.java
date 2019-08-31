@@ -69,6 +69,18 @@ public interface ApiInterface {
                                       @Part("college") RequestBody college);
 
 
+
+    @Multipart
+    @POST("api/api.php?req=update_user")
+    Call<CommonResponse> updateUser(@Part("name") RequestBody name,
+                                      @Part("username") RequestBody username,
+                                      @Part("email_id") RequestBody email,
+                                      @Part("mobile") RequestBody phone,
+                                      @Part("state") RequestBody state,
+                                      @Part("password") RequestBody password,
+                                      @Part("college") RequestBody college);
+
+
     @Multipart
     @POST("api/api.php?req=add_address")
     Call<AddressDetailResponse> addressDetail(@Part("user_id") RequestBody user_id,

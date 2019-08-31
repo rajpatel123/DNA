@@ -72,6 +72,11 @@ public class RestClient {
         RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password, college).enqueue(callback);
     }
 
+
+    public static void updateUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().updateUser(name, username, email_id, phone, statetxt, password, college).enqueue(callback);
+    }
+
     public static void addressDetail(RequestBody user_id, RequestBody name, RequestBody mobile, RequestBody email, RequestBody address_line1, RequestBody address_line2, RequestBody state, RequestBody city, RequestBody pin_code, Callback<AddressDetailResponse> callback) {
         RetrofitClient.getClient().addressDetail(user_id, name, mobile, email, address_line1, address_line2, state, city, pin_code).enqueue(callback);
     }
