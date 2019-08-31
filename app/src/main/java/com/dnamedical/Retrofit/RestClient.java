@@ -21,6 +21,7 @@ import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
+import com.dnamedical.Models.fblogin.FacebookLoginResponse;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
@@ -255,6 +256,11 @@ public class RestClient {
 
  public static void getUserByEmail(RequestBody email_id, Callback<LoginDetailForDemo> callback){
         RetrofitClient.getClient().getUserByEmail(email_id).enqueue(callback);
+
+    }
+
+    public static void loginWithFacebook(RequestBody fb_id, Callback<FacebookLoginResponse> callback){
+        RetrofitClient.getClient().loginWithFacebook(fb_id).enqueue(callback);
 
     }
 

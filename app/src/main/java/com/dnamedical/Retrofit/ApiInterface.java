@@ -13,13 +13,13 @@ import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
-import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
+import com.dnamedical.Models.fblogin.FacebookLoginResponse;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
@@ -71,15 +71,14 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("api/api.php?req=update_customer")
-    Call<UserUpdateResponse> updateUser(@Part("name") RequestBody name,
-                                        @Part("id") RequestBody user_id,
-                                        @Part("username") RequestBody username,
-                                        @Part("email_id") RequestBody email,
-                                        @Part("mobile_no") RequestBody phone,
-                                        @Part("state") RequestBody state,
-                                        @Part("password") RequestBody password,
-                                        @Part("college") RequestBody college);
+    @POST("api/api.php?req=update_user")
+    Call<CommonResponse> updateUser(@Part("name") RequestBody name,
+                                      @Part("username") RequestBody username,
+                                      @Part("email_id") RequestBody email,
+                                      @Part("mobile") RequestBody phone,
+                                      @Part("state") RequestBody state,
+                                      @Part("password") RequestBody password,
+                                      @Part("college") RequestBody college);
 
 
     @Multipart
@@ -108,16 +107,20 @@ public interface ApiInterface {
                                              @Part("pin_code") RequestBody pin_code);
 
 
+
+
+
+
     @Multipart
     @POST("api/api.php?req=invoice_mail")
     Call<SaveOrderResponse> invoiceOrderDetail(@Part("user_id") RequestBody user_id,
-                                               @Part("pramotoin") RequestBody pramotoin,
-                                               @Part("addDiscount") RequestBody addDiscount,
-                                               @Part("totalAmountBeforeTax") RequestBody totalAmountBeforeTax,
-                                               @Part("tax") RequestBody tax,
-                                               @Part("shippingCharges") RequestBody shippingCharges,
-                                               @Part("grandTotal") RequestBody grandTotal,
-                                               @Part("totalAmount") RequestBody totalAmount);
+                                            @Part("pramotoin") RequestBody pramotoin,
+                                            @Part("addDiscount") RequestBody addDiscount,
+                                            @Part("totalAmountBeforeTax") RequestBody totalAmountBeforeTax,
+                                            @Part("tax") RequestBody tax,
+                                            @Part("shippingCharges") RequestBody shippingCharges,
+                                            @Part("grandTotal") RequestBody grandTotal,
+                                             @Part("totalAmount") RequestBody totalAmount);
 
     @Multipart
     @POST("api/api.php?req=save_order")
@@ -146,7 +149,7 @@ public interface ApiInterface {
                                                 @Part("currency") RequestBody currency,
                                                 @Part("product_id") RequestBody product_id,
                                                 @Part("product_type") RequestBody product_type
-    );
+                                            );
 
     @Multipart
     @POST("api/api.php?req=token_verify")
@@ -166,6 +169,7 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=get_address")
     Call<GetDataAddressResponse> getAddressData(@Part("user_id") RequestBody user_id);
+
 
 
     @GET("api/api.php?req=add_discount")
@@ -337,6 +341,12 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=get_email")
     Call<EmailByFBResponse> getEmailByFBID(@Part("fb_id") RequestBody fb_id);
+
+    @Multipart
+    @POST("api/api.php?req=facebook_login")
+    Call<FacebookLoginResponse> loginWithFacebook(@Part("fb_id") RequestBody fb_id);
+
+
 
     @Multipart
     @POST("/api/api.php?req=email_login")
