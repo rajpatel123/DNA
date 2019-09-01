@@ -167,9 +167,9 @@ public class FirstloginActivity extends AppCompatActivity {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         JSONObject data = response.getJSONObject();
                         try {
-                            String name = data.getString("name");
+                            String name = data.optString("name");
                             String email = data.optString("email");
-                            String facebook_id = data.getString("id");
+                            String facebook_id = data.optString("id");
                             String pictureurl = data.getJSONObject("picture").getJSONObject("data").getString("url");
 
                             RequestBody facebookRequestBody = RequestBody.create(MediaType.parse("text/plain"), facebook_id);
