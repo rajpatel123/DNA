@@ -105,6 +105,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
     String userId;
     String videoId, subchildcat;
     private int orderValue;
+    private String orderId;
 
 
     @Override
@@ -227,6 +228,8 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
+
+        this.orderId = orderId;
         final Activity activity = this;
 
         final Checkout co = new Checkout();
@@ -410,6 +413,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+//        RequestBody orderId_forInvoice = RequestBody.create(MediaType.parse("text/plain"), orderId);
 
         RequestBody pramotoin = RequestBody.create(MediaType.parse("text/plain"), totalDiscountGiven);
         RequestBody addDiscount = RequestBody.create(MediaType.parse("text/plain"), totalADDDiscountGiven);

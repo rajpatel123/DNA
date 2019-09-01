@@ -20,8 +20,8 @@ import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
+import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
-import com.dnamedical.Models.fblogin.FacebookLoginResponse;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
@@ -70,12 +70,12 @@ public class RestClient {
         RetrofitClient.getClient().getAdditionalDiscount().enqueue(callback);
     }
 
-    public static void registerUser(RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(name, username, email_id, phone, statetxt, password, college).enqueue(callback);
+    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(fb_id,name, username, email_id, phone, statetxt, password, college,addressBody,cityBody).enqueue(callback);
     }
 
-    public static void updateUser(RequestBody name,RequestBody user_id, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, MultipartBody.Part vFile, Callback<UserUpdateResponse> callback) {
-        RetrofitClient.getClient().updateUser(name, user_id,username,email_id, phone, statetxt, password, college).enqueue(callback);
+    public static void updateUser(RequestBody name,RequestBody user_id, RequestBody username,  RequestBody phone, RequestBody statetxt, RequestBody college,RequestBody address,RequestBody city, Callback<UserUpdateResponse> callback) {
+        RetrofitClient.getClient().updateUser(name, user_id,username, phone, statetxt, college,address,city).enqueue(callback);
     }
 
     public static void addressDetail(RequestBody user_id, RequestBody name, RequestBody mobile, RequestBody email, RequestBody address_line1, RequestBody address_line2, RequestBody state, RequestBody city, RequestBody pin_code, Callback<AddressDetailResponse> callback) {

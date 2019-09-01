@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
@@ -32,6 +33,13 @@ public class PromoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_promo);
         videoView = findViewById(R.id.promoVideo);
         pd = findViewById(R.id.pd);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (Utils.isInternetConnected(this)) {
             getVideo();
         } else {
@@ -48,41 +56,25 @@ public class PromoActivity extends AppCompatActivity {
             }
 
         }
-
     }
 
     private void getVideo() {
-        RestClient.getVideo(new Callback<PromoVideo>() {
+        VideoView promoVideo=findViewById(R.id.promoVideo);
+        promoVideo.setVideoURI(Uri.parse("android.resource://" +getPackageName()+ "/"+R.raw.promotionvideo));
+        promoVideo.setMediaController(new MediaController(this));
+        promoVideo.requestFocus();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public void onResponse(Call<PromoVideo> call, Response<PromoVideo> response) {
-                Utils.dismissProgressDialog();
-                if (response != null && response.body() != null) {
-                    PromoVideo promoVideo = response.body();
-                    if (promoVideo.getVideoModels() != null && promoVideo.getVideoModels().size() > 0) {
-                        playVideo(promoVideo.getVideoModels().get(0).getVName());
-                    }
+            public void onPrepared(MediaPlayer mp) {
+                //close the progress dialog when buffering is done
+                pd.setVisibility(View.GONE);
 
-
-                } else {
-                    if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
-                        Intent i = new Intent(PromoActivity.this, MainActivity.class);
-                        startActivity(i);
-                        // close this activity
-                        finish();
-                    } else {
-                        Intent i = new Intent(PromoActivity.this, FirstloginActivity.class);
-                        startActivity(i);
-                        // close this activity
-                        finish();
-                    }
-
-                }
             }
+        });
 
-
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onFailure(Call<PromoVideo> call, Throwable t) {
-                Utils.dismissProgressDialog();
+            public void onCompletion(MediaPlayer mp) {
                 if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
                     Intent i = new Intent(PromoActivity.this, MainActivity.class);
                     startActivity(i);
@@ -94,9 +86,56 @@ public class PromoActivity extends AppCompatActivity {
                     // close this activity
                     finish();
                 }
-
             }
         });
+
+
+        promoVideo.start();
+//        RestClient.getVideo(new Callback<PromoVideo>() {
+//            @Override
+//            public void onResponse(Call<PromoVideo> call, Response<PromoVideo> response) {
+//                Utils.dismissProgressDialog();
+//                if (response != null && response.body() != null) {
+//                    PromoVideo promoVideo = response.body();
+//                    if (promoVideo.getVideoModels() != null && promoVideo.getVideoModels().size() > 0) {
+//                        playVideo(promoVideo.getVideoModels().get(0).getVName());
+//                    }
+//
+//
+//                } else {
+//                    if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
+//                        Intent i = new Intent(PromoActivity.this, MainActivity.class);
+//                        startActivity(i);
+//                        // close this activity
+//                        finish();
+//                    } else {
+//                        Intent i = new Intent(PromoActivity.this, FirstloginActivity.class);
+//                        startActivity(i);
+//                        // close this activity
+//                        finish();
+//                    }
+//
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<PromoVideo> call, Throwable t) {
+//                Utils.dismissProgressDialog();
+//                if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
+//                    Intent i = new Intent(PromoActivity.this, MainActivity.class);
+//                    startActivity(i);
+//                    // close this activity
+//                    finish();
+//                } else {
+//                    Intent i = new Intent(PromoActivity.this, FirstloginActivity.class);
+//                    startActivity(i);
+//                    // close this activity
+//                    finish();
+//                }
+//
+//            }
+//        });
 
     }
 

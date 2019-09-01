@@ -1,12 +1,20 @@
 package com.dnamedical.Activities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -34,6 +42,8 @@ import com.dnamedical.Adapters.CollegeCustomAdapter;
 import com.dnamedical.Adapters.CollegeListAdapter;
 import com.dnamedical.Adapters.CustomAdapter;
 import com.dnamedical.Adapters.StateListAdapter;
+import com.dnamedical.BuildConfig;
+import com.dnamedical.FetchAddressIntentService;
 import com.dnamedical.Models.StateList.College;
 import com.dnamedical.Models.StateList.Detail;
 import com.dnamedical.Models.StateList.StateListResponse;
@@ -45,6 +55,10 @@ import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -55,6 +69,39 @@ import retrofit2.Response;
 
 public class RegistrationActivity extends AppCompatActivity implements
         View.OnClickListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+
+    private static final String ADDRESS_REQUESTED_KEY = "address-request-pending";
+    private static final String LOCATION_ADDRESS_KEY = "location-address";
+
+    /**
+     * Provides access to the Fused Location Provider API.
+     */
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    /**
+     * Represents a geographical location.
+     */
+    private Location mLastLocation;
+
+    /**
+     * Tracks whether the user has requested an address. Becomes true when the user requests an
+     * address and false when the address (or an error message) is delivered.
+     */
+    private boolean mAddressRequested;
+
+    /**
+     * The formatted location address.
+     */
+    private String mAddressOutput;
+
+    /**
+     * Receiver registered with this activity to get the response from FetchAddressIntentService.
+     */
+    private AddressResultReceiver mResultReceiver;
+
 
 
     @BindView(R.id.edit_name)
@@ -68,6 +115,11 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     @BindView(R.id.edit_Passwword)
     EditText editPassword;
+
+    @BindView(R.id.otherState)
+    EditText otherState;
+    @BindView(R.id.otherCollege)
+    EditText otherCollege;
 
     @BindView(R.id.btn_signUp)
     Button btnSignUp;
@@ -87,8 +139,8 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     @BindView(R.id.selectState)
     Spinner selectState;
-
-    String fb_id,edit_name, edit_username, edit_email, edit_password;
+    String address = "Noida", city = "Noida";
+    String fb_id = "dummyID", edit_name, edit_username, edit_email, edit_password = "dummy";
 
 
     private StateListAdapter stateListAdapter;
@@ -108,7 +160,21 @@ public class RegistrationActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
-        getCollegeList();
+        //getCollegeList();
+
+
+        mResultReceiver = new AddressResultReceiver(new Handler());
+        mAddressRequested = false;
+        mAddressOutput = "";
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchAddressButtonHandler();
+        if (!checkPermissions()) {
+            requestPermissions();
+        } else {
+            getAddress();
+        }
+
         sendCollegeListData();
         getStateList();
         btnSignUp.setOnClickListener(this);
@@ -158,14 +224,35 @@ public class RegistrationActivity extends AppCompatActivity implements
         spinState = (Spinner) findViewById(R.id.selectState);
         spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
         //spinState.setOnItemSelectedListener(this);
-        if (getIntent().hasExtra("user_id")){
-          editEmailId.setText(getIntent().getStringExtra("email_id"));
-          edit_phone.setText(getIntent().getStringExtra("mobile"));
-          editEmailId.setEnabled(false);
-          edit_phone.setEnabled(false);
-          userId = getIntent().getStringExtra("user_id");
+        if (getIntent().hasExtra(Constants.LOGIN_ID)) {
+
+            editEmailId.setText(getIntent().getStringExtra(Constants.EMAILID));
+            edit_phone.setText(getIntent().getStringExtra(Constants.MOBILE));
+            editName.setText(getIntent().getStringExtra(Constants.NAME));
+            if (TextUtils.isEmpty(getIntent().getStringExtra(Constants.EMAILID))) {
+                editEmailId.setEnabled(true);
+            } else {
+                editEmailId.setEnabled(false);
+            }
+
+            btnSignUp.setText("Update");
+            editPassword.setVisibility(View.GONE);
+            if (TextUtils.isEmpty(getIntent().getStringExtra(Constants.MOBILE))) {
+                edit_phone.setEnabled(true);
+            } else {
+                edit_phone.setEnabled(false);
+            }
+            userId = getIntent().getStringExtra(Constants.LOGIN_ID);
+            fb_id = getIntent().getStringExtra(Constants.FB_ID);
         }
 
+    }
+
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
     private void getStateList() {
@@ -192,9 +279,16 @@ public class RegistrationActivity extends AppCompatActivity implements
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     collegeList = stateListResponse.getDetails().get(position).getCollege();
+                                    collegeList.add(new College("Others"));
                                     StateText = stateListResponse.getDetails().get(position).getStateName();
-                                    DnaPrefs.putInt(getApplicationContext(),"statePosition",position);
+                                    DnaPrefs.putInt(getApplicationContext(), "statePosition", position);
                                     Log.d("StateName", StateText);
+
+                                    if (StateText.equalsIgnoreCase("Others")) {
+                                        otherState.setVisibility(View.VISIBLE);
+                                    } else {
+                                        otherState.setVisibility(View.GONE);
+                                    }
                                     sendCollegeListData();
                                 }
 
@@ -228,19 +322,19 @@ public class RegistrationActivity extends AppCompatActivity implements
         if (collegeList != null && collegeList.size() > 0) {
             CollegeListAdapter collegeListAdapter = new CollegeListAdapter(getApplicationContext());
             collegeListAdapter.setCollegeList(collegeList);
-           /* collegeListAdapter.setSelectedListener(new CollegeListAdapter.CollegeSelectedListener() {
-                @Override
-                public void selected(String collegeName) {
-                    Log.d("string ",collegeName);
 
-                }
-            });*/
             spinnerCollege.setAdapter(collegeListAdapter);
             spinnerCollege.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     collegetext = collegeList.get(position).getName();
-                    DnaPrefs.putInt(getApplicationContext(),"stateCollege",position);
+                    if (collegetext.equalsIgnoreCase("Others")) {
+                        otherCollege.setVisibility(View.VISIBLE);
+                    } else {
+                        otherCollege.setVisibility(View.GONE);
+
+                    }
+                    DnaPrefs.putInt(getApplicationContext(), "stateCollege", position);
                     Log.d("CollegeTxt", collegetext);
 
                 }
@@ -257,45 +351,6 @@ public class RegistrationActivity extends AppCompatActivity implements
     }
 
 
-    private void getCollegeList() {
-
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-            RestClient.getCollege(new Callback<CollegeListResponse>() {
-                @Override
-                public void onResponse(Call<CollegeListResponse> call, Response<CollegeListResponse> response) {
-                    Utils.dismissProgressDialog();
-                    if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("1")) {
-                            collegeListResponse = response.body();
-                            if (collegeListResponse != null && collegeListResponse.getName().size() > 0) {
-                                collegetext = collegeListResponse.getName().get(0).getName();
-                                collegeCustomAdapter = new CollegeCustomAdapter(getApplicationContext(), collegeListResponse.getName());
-                                collegeCustomAdapter.setOnCollegeSecect(new CollegeCustomAdapter.OnCollegeSelect() {
-                                    @Override
-                                    public void onSelect(String college) {
-                                        collegetext = college;
-                                    }
-                                });
-                                spinnerCollege.setAdapter(collegeCustomAdapter);
-
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<CollegeListResponse> call, Throwable t) {
-                    Toast.makeText(RegistrationActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                    Utils.dismissProgressDialog();
-
-                }
-            });
-        }
-
-    }
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -305,8 +360,71 @@ public class RegistrationActivity extends AppCompatActivity implements
                 startActivityForResult(cameraIntent, Constants.CAPTURE_IMAGE);
             }
         }
-    }
 
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                // If user interaction was interrupted, the permission request is cancelled and you
+                // receive empty arrays.
+                Log.i(TAG, "User interaction was cancelled.");
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted.
+                getAddress();
+            } else {
+                // Permission denied.
+
+                // Notify the user via a SnackBar that they have rejected a core permission for the
+                // app, which makes the Activity useless. In a real app, core permissions would
+                // typically be best requested during a welcome-screen flow.
+
+                // Additionally, it is important to remember that a permission might have been
+                // rejected without asking the user for permission (device policy or "Never ask
+                // again" prompts). Therefore, a user interface affordance is typically implemented
+                // when permissions are denied. Otherwise, your app could appear unresponsive to
+                // touches or interactions which have required permissions.
+                showSnackbar(R.string.permission_denied_explanation, R.string.settings,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Build intent that displays the App settings screen.
+                                Intent intent = new Intent();
+                                intent.setAction(
+                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package",
+                                        BuildConfig.APPLICATION_ID, null);
+                                intent.setData(uri);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        }
+
+    }
+    /**
+     * Shows a {@link Snackbar} using {@code text}.
+     *
+     * @param text The Snackbar text.
+     */
+    private void showSnackbar(final String text) {
+        View container = findViewById(android.R.id.content);
+        if (container != null) {
+            Snackbar.make(container, text, Snackbar.LENGTH_LONG).show();
+        }
+    }
+    /**
+     * Shows a {@link Snackbar}.
+     *
+     * @param mainTextStringId The id for the string resource for the Snackbar text.
+     * @param actionStringId   The text of the action item.
+     * @param listener         The listener associated with the Snackbar action.
+     */
+    private void showSnackbar(final int mainTextStringId, final int actionStringId,
+                              View.OnClickListener listener) {
+        Snackbar.make(findViewById(android.R.id.content),
+                getString(mainTextStringId),
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(actionStringId), listener).show();
+    }
     @Override
     public void onClick(View view) {
 
@@ -348,12 +466,21 @@ public class RegistrationActivity extends AppCompatActivity implements
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
             return;
         }
-        if (TextUtils.isEmpty(edit_password.trim()) || edit_password.length() == 0) {
-            editPassword.setError(getString(R.string.invalid_password));
-            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_password));
-            return;
-        }
 
+        if (editPassword.getVisibility() == View.VISIBLE) {
+            if (TextUtils.isEmpty(edit_password.trim()) || edit_password.length() == 0) {
+                editPassword.setError(getString(R.string.invalid_password));
+                Utils.displayToast(getApplicationContext(), getString(R.string.invalid_password));
+                return;
+            }
+
+            if (edit_password.length() < 6) {
+                editPassword.setError(getString(R.string.invalid_too_short));
+                Utils.displayToast(getApplicationContext(), getString(R.string.invalid_too_short));
+                return;
+
+            }
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(edit_email).matches()) {
             editEmailId.setError(getString(R.string.invalid_email));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
@@ -371,12 +498,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                 return;
             }
         }
-        if (edit_password.length() < 6) {
-            editPassword.setError(getString(R.string.invalid_too_short));
-            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_too_short));
-            return;
 
-        }
 
         if (TextUtils.isEmpty(StateText)) {
             Utils.displayToast(getApplicationContext(), "Please select state");
@@ -390,6 +512,48 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
+        if (StateText.equalsIgnoreCase("Others")) {
+            if (TextUtils.isEmpty(otherState.getText().toString().trim())) {
+                Utils.displayToast(getApplicationContext(), "Please enter state name");
+                return;
+
+            } else {
+                StateText = otherState.getText().toString().trim();
+            }
+
+        }
+
+        if (collegetext.equalsIgnoreCase("Others")) {
+            if (TextUtils.isEmpty(otherCollege.getText().toString().trim())) {
+                Utils.displayToast(getApplicationContext(), "Please enter college name");
+                return;
+
+            } else {
+                collegetext = otherCollege.getText().toString().trim();
+            }
+
+        }
+
+        if (TextUtils.isEmpty(mAddressOutput)) {
+            showSnackbar(R.string.permission_denied_explanation, R.string.settings,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Build intent that displays the App settings screen.
+                            Intent intent = new Intent();
+                            intent.setAction(
+                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package",
+                                    BuildConfig.APPLICATION_ID, null);
+                            intent.setData(uri);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    });
+            return;
+
+        }
+
         Uri uri = Uri.parse("android.resource://com.dnamedical/drawable/dna_log_new");
         File videoFile = new File(getRealPath(uri));
         RequestBody videoBody = RequestBody.create(
@@ -399,10 +563,8 @@ public class RegistrationActivity extends AppCompatActivity implements
         MultipartBody.Part vFile = MultipartBody.Part.createFormData("file", videoFile.getName(), videoBody);
 
 
+        RequestBody faceBookID = RequestBody.create(MediaType.parse("text/plain"), fb_id);
 
-        if (!TextUtils.isEmpty(DnaPrefs.getString(this,"fb_id"))){
-
-        }
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), edit_name);
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
@@ -410,12 +572,15 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
+        RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), mAddressOutput);
+        RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), mAddressOutput);
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            if (TextUtils.isEmpty(userId)){
-                RestClient.registerUser(name, username, email, phone, states, password, college, vFile, new Callback<CommonResponse>() {
+            if (TextUtils.isEmpty(userId)) {
+
+                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college,addressBody,cityBody, vFile, new Callback<CommonResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -446,10 +611,10 @@ public class RegistrationActivity extends AppCompatActivity implements
 
                     }
                 });
-            }else{
+            } else {
                 RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
-                RestClient.updateUser(name,user_id, username, email, phone, states, password, college, vFile, new Callback<UserUpdateResponse>() {
+                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody,cityBody,new Callback<UserUpdateResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -516,5 +681,120 @@ public class RegistrationActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Creates an intent, adds location data to it as an extra, and starts the intent service for
+     * fetching an address.
+     */
+    private void startIntentService() {
+        // Create an intent for passing to the intent service responsible for fetching the address.
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
 
+        // Pass the result receiver as an extra to the service.
+        intent.putExtra(Constants.RECEIVER, mResultReceiver);
+
+        // Pass the location data as an extra to the service.
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
+
+        // Start the service. If the service isn't already running, it is instantiated and started
+        // (creating a process for it if needed); if it is running then it remains running. The
+        // service kills itself automatically once all intents are processed.
+        startService(intent);
+    }
+
+    /**
+     * Gets the address for the last known location.
+     */
+    @SuppressWarnings("MissingPermission")
+    private void getAddress() {
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location == null) {
+                            Log.w(TAG, "onSuccess:null");
+                            return;
+                        }
+
+                        mLastLocation = location;
+
+                        // Determine whether a Geocoder is available.
+                        // Determine whether a Geocoder is available.
+                        if (!Geocoder.isPresent()) {
+                            showSnackbar(getString(R.string.no_geocoder_available));
+                            return;
+                        }
+                        // If the user pressed the fetch address button before we had the location,
+                        // this will be set to true indicating that we should kick off the intent
+                        // service after fetching the location.
+                        if (mAddressRequested) {
+                            startIntentService();
+                        }
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "getLastLocation:onFailure", e);
+                    }
+                });
+    }
+
+
+    /**
+     * Receiver for data sent from FetchAddressIntentService.
+     */
+    private class AddressResultReceiver extends ResultReceiver {
+        AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        /**
+         *  Receives data sent from FetchAddressIntentService and updates the UI in MainActivity.
+         */
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            // Display the address string or an error message sent from the intent service.
+            mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+
+            Log.d("Address", mAddressOutput);
+            // Reset. Enable the Fetch Address button and stop showing the progress bar.
+            mAddressRequested = false;
+
+        }
+    }
+    private void requestPermissions() {
+        boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+
+        // Provide an additional rationale to the user. This would happen if the user denied the
+        // request previously, but didn't check the "Don't ask again" checkbox.
+        if (shouldProvideRationale) {
+            Log.i(TAG, "Displaying permission rationale to provide additional context.");
+            ActivityCompat.requestPermissions(RegistrationActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+
+        } else {
+            Log.i(TAG, "Requesting permission");
+            // Request permission. It's possible this can be auto answered if device policy
+            // sets the permission in a given state or the user denied the permission
+            // previously and checked "Never ask again".
+            ActivityCompat.requestPermissions(RegistrationActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+    public void fetchAddressButtonHandler() {
+        if (mLastLocation != null) {
+            startIntentService();
+            return;
+        }
+
+        // If we have not yet retrieved the user location, we process the user's request by setting
+        // mAddressRequested to true. As far as the user is concerned, pressing the Fetch Address button
+        // immediately kicks off the process of getting the address.
+        mAddressRequested = true;
+    }
 }

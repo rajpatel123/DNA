@@ -13,13 +13,14 @@ import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
+import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
+import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
-import com.dnamedical.Models.fblogin.FacebookLoginResponse;
 import com.dnamedical.Models.feedback.QbankfeedbackResponse;
 import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
@@ -60,25 +61,30 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("api/api.php?req=registration")
-    Call<CommonResponse> registerUser(@Part("name") RequestBody name,
+    @POST("api/api.php?req=registrationnew")
+    Call<CommonResponse> registerUser(@Part("fb_id") RequestBody fb_id,
+                                      @Part("name") RequestBody name,
                                       @Part("username") RequestBody username,
                                       @Part("email_id") RequestBody email,
                                       @Part("mobile") RequestBody phone,
                                       @Part("state") RequestBody state,
                                       @Part("password") RequestBody password,
-                                      @Part("college") RequestBody college);
+                                      @Part("college") RequestBody college,
+                                      @Part("address") RequestBody addressBody,
+                                      @Part("city") RequestBody cityBody);
 
 
     @Multipart
     @POST("api/api.php?req=update_user")
-    Call<CommonResponse> updateUser(@Part("name") RequestBody name,
-                                      @Part("username") RequestBody username,
-                                      @Part("email_id") RequestBody email,
-                                      @Part("mobile") RequestBody phone,
-                                      @Part("state") RequestBody state,
-                                      @Part("password") RequestBody password,
-                                      @Part("college") RequestBody college);
+    Call<UserUpdateResponse> updateUser(@Part("name") RequestBody name,
+                                        @Part("id") RequestBody user_id,
+                                        @Part("username") RequestBody username,
+                                        @Part("mobile_no") RequestBody phone,
+                                        @Part("state") RequestBody state,
+                                        @Part("college") RequestBody college,
+                                        @Part("address") RequestBody addressBody,
+                                        @Part("city") RequestBody cityBody);
+
 
 
     @Multipart

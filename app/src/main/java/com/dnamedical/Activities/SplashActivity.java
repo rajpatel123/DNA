@@ -120,16 +120,16 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // UpdateApiCall();
+
     }
 
     private void UpdateApiCall() {
         if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
+           // Utils.showProgressDialog(this);
             RestClient.playstoreUpdate(new Callback<PlaystoreUpdateResponse>() {
                 @Override
                 public void onResponse(Call<PlaystoreUpdateResponse> call, Response<PlaystoreUpdateResponse> response) {
-                    Utils.dismissProgressDialog();
+                    //Utils.dismissProgressDialog();
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             playstoreUpdateResponse = response.body();
@@ -151,7 +151,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<PlaystoreUpdateResponse> call, Throwable t) {
-                    Utils.dismissProgressDialog();
+                   // Utils.dismissProgressDialog();
                     Toast.makeText(SplashActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });

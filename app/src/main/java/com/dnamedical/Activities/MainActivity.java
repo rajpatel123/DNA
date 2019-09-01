@@ -136,24 +136,22 @@ public class MainActivity extends AppCompatActivity
         updateLogin();
 
 
-
-
     }
 
     private void updateLogin() {
 
-        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), "Login_Id"));
-        RequestBody isReal = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), "true"));
+        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID));
+        RequestBody isReal = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), "1"));
 
         RestClient.updateLogin(id, isReal, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                Log.d("data", "");
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Log.d("data", "");
             }
         });
     }
@@ -351,7 +349,7 @@ public class MainActivity extends AppCompatActivity
 
             FragmentLifecycle fragmentToShow = (FragmentLifecycle) adapter.getItem(newPosition);
             // shubham//
-            if(fragmentToShow!=null) {
+            if (fragmentToShow != null) {
                 fragmentToShow.onResumeFragment();
                 //invalidateOptionsMenu();
                 switch (newPosition) {
