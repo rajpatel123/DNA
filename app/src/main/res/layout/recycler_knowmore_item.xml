@@ -3,22 +3,29 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center">
+    android:gravity="top">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        >
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:gravity="center"
             android:orientation="vertical">
 
 
             <FrameLayout
-                android:layout_width="130dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/facultyprofile"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="108dp"
+                    android:scaleType="fitXY"
                     android:layout_gravity="center_horizontal"
                     app:srcCompat="@drawable/profile_image_know_more" />
 
@@ -46,14 +53,15 @@
 
             <TextView
                 android:id="@+id/medicine"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="MD, Internal Medicine"
+                android:gravity="center"
+                android:text="MD, Internal Medicine,MD, Internal Medicine"
                 android:textColor="@color/black_titles"
                 android:textSize="8sp" />
 
         </LinearLayout>
-
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

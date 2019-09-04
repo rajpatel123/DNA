@@ -114,7 +114,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             case "FAQ":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://reddyenterprise.com/education/dnafaq.php");
+                mWebView.loadUrl("http://13.234.161.7/dnafaq.php");
                 break;
             case "Report":
                 progressBar.setVisibility(View.VISIBLE);
