@@ -95,12 +95,12 @@ public class WebViewActivity extends AppCompatActivity {
         switch (title) {
             case "Terms & Conditions":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
+                mWebView.loadUrl("http://13.234.161.7/termsncondition.php");
                 break;
 
             case "Privacy Policy":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://reddyenterprise.com/education/privacy-policy.php");
+                mWebView.loadUrl("http://13.234.161.7/privacy-policy.php");
                 break;
 
             case "Read More":
