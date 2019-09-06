@@ -103,7 +103,6 @@ public class RegistrationActivity extends AppCompatActivity implements
     private AddressResultReceiver mResultReceiver;
 
 
-
     @BindView(R.id.edit_name)
     EditText editName;
 
@@ -400,6 +399,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         }
 
     }
+
     /**
      * Shows a {@link Snackbar} using {@code text}.
      *
@@ -411,6 +411,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             Snackbar.make(container, text, Snackbar.LENGTH_LONG).show();
         }
     }
+
     /**
      * Shows a {@link Snackbar}.
      *
@@ -425,6 +426,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(actionStringId), listener).show();
     }
+
     @Override
     public void onClick(View view) {
 
@@ -561,9 +563,12 @@ public class RegistrationActivity extends AppCompatActivity implements
 
 
         MultipartBody.Part vFile = MultipartBody.Part.createFormData("file", videoFile.getName(), videoBody);
-
-
-        RequestBody faceBookID = RequestBody.create(MediaType.parse("text/plain"), fb_id);
+        RequestBody faceBookID=null;
+        if (TextUtils.isEmpty(fb_id)){
+            faceBookID = RequestBody.create(MediaType.parse("text/plain"), "email_registered");
+        }else{
+            faceBookID = RequestBody.create(MediaType.parse("text/plain"), fb_id);
+        }
 
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), edit_name);
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), edit_email);
@@ -580,7 +585,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             Utils.showProgressDialog(this);
             if (TextUtils.isEmpty(userId)) {
 
-                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college,addressBody,cityBody, vFile, new Callback<CommonResponse>() {
+                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, vFile, new Callback<CommonResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -614,7 +619,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             } else {
                 RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
-                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody,cityBody,new Callback<UserUpdateResponse>() {
+                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody, cityBody, new Callback<UserUpdateResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -749,7 +754,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         }
 
         /**
-         *  Receives data sent from FetchAddressIntentService and updates the UI in MainActivity.
+         * Receives data sent from FetchAddressIntentService and updates the UI in MainActivity.
          */
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
@@ -763,6 +768,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
     }
+
     private void requestPermissions() {
         boolean shouldProvideRationale =
                 ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -786,6 +792,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
     }
+
     public void fetchAddressButtonHandler() {
         if (mLastLocation != null) {
             startIntentService();
