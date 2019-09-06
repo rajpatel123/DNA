@@ -114,10 +114,8 @@
                     android:drawableLeft="@drawable/email"
                     android:drawableStart="@drawable/email"
                     android:drawablePadding="8dp"
-
                     android:hint="Email ID"
                     android:inputType="textEmailAddress"
-
                     android:minHeight="44dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
@@ -144,6 +142,7 @@
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
                     android:textColor="@color/Black" />
+
                 <EditText
                     android:id="@+id/edit_Passwword"
                     android:layout_width="match_parent"
@@ -241,7 +240,6 @@
                     android:id="@+id/text_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="20dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"

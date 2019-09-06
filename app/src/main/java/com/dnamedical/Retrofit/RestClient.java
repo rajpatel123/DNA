@@ -240,6 +240,16 @@ public class RestClient {
     }
 
 
+ public static void createOrderDetail(RequestBody user_id,RequestBody amount, RequestBody currency, RequestBody video_id, RequestBody product_type, Callback<CreateOrderResponse> callback) {
+        RetrofitClient.getClient().createOrderDetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
+    }
+
+
+    public static void invoiceOrderDetail(RequestBody user_id,RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal,RequestBody totalAmount, Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().invoiceOrderDetail(user_id, pramotion, additional, totalAmountBeforeTax, tax, shippingCharges,grandTotal,totalAmount).enqueue(callback);
+    }
+
+
     public static void forgetPassword(RequestBody email_id, RequestBody token, RequestBody new_password, RequestBody retype_password, Callback<ForgetPasswordResponse> callback) {
         RetrofitClient.getClient().forgetPassword(email_id, token, new_password, retype_password).enqueue(callback);
     }
@@ -256,6 +266,11 @@ public class RestClient {
 
  public static void getUserByEmail(RequestBody email_id, Callback<LoginDetailForDemo> callback){
         RetrofitClient.getClient().getUserByEmail(email_id).enqueue(callback);
+
+    }
+
+    public static void loginWithFacebook(RequestBody fb_id, Callback<FacebookLoginResponse> callback){
+        RetrofitClient.getClient().loginWithFacebook(fb_id).enqueue(callback);
 
     }
 
