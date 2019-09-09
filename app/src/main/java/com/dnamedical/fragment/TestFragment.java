@@ -30,7 +30,6 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
     public MainActivity mainActivity;
     public String subCatId;
-    VideoActivity.DisplayDataInterface displayDataInterface;
 
 
     @Nullable
@@ -40,10 +39,10 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         View view = inflater.inflate(R.layout.textfragment, container, false);
         subcategory = view.findViewById(R.id.subcategory_name);
         viewPager = view.findViewById(R.id.viewPager);
-        setupViewPager(viewPager);
+
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+
 
         return view;
 
@@ -101,18 +100,24 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         viewPager.setOffscreenPageLimit(0);
     }
 
-    public void setListener(VideoActivity.DisplayDataInterface displayDataInterface) {
-        this.displayDataInterface = displayDataInterface;
-    }
 
     @Override
     public void onPauseFragment() {
 
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewPager!=null) {
+            setupViewPager(viewPager);
+            setupTabIcons();
+        }
+    }
+
     @Override
     public void onResumeFragment() {
-
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

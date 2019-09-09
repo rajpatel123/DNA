@@ -31,6 +31,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.test.AllTest;
+import com.dnamedical.Models.test.GrandTest;
+import com.dnamedical.Models.test.MiniTest;
+import com.dnamedical.Models.test.SubjectTest;
+import com.dnamedical.Models.test.TestQuestionData;
+import com.dnamedical.Models.test.testp.Test;
+import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.Utils;
@@ -65,6 +73,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.os.Build.VERSION_CODES.M;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -92,6 +101,13 @@ public class MainActivity extends AppCompatActivity
     private TextView tvName, tvEmail, tvSetting;
     private CircleImageView circleImageView;
     String name, image, email;
+    TestDataResponse testDataResponse;
+
+
+    private List<Test> grandTests = new ArrayList<>();
+    private List<Test> miniTests = new ArrayList<>();
+    private List<Test> subjectTests = new ArrayList<>();
+    private List<Test> allTests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = findViewById(R.id.nav_view);
-
+        getTest();
         getAdditionalDiscount();
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         tvName = headerView.findViewById(R.id.tv_name);
@@ -135,6 +151,85 @@ public class MainActivity extends AppCompatActivity
 
         updateLogin();
 
+
+    }
+
+
+    private void getTest() {
+
+        String userId;
+
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+
+            RestClient.getAllTestData(userId, new Callback<TestDataResponse>() {
+                @Override
+                public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
+                    if (response.code() == 200) {
+                        Utils.dismissProgressDialog();
+
+
+                        if (testDataResponse != null) {
+                            testDataResponse = null;
+                        }
+                        testDataResponse = response.body();
+
+                        if (testDataResponse.getData() != null
+                                && testDataResponse.getData().getTestList() != null
+                                && testDataResponse.getData().getTestList().size() > 0
+                                && testDataResponse.getData().getTestList().get(0).getList().size() > 0) {
+                            grandTests = testDataResponse.getData().getTestList().get(0).getList();
+
+                        }
+
+                        if (testDataResponse.getData() != null
+                                && testDataResponse.getData().getTestList() != null
+                                && testDataResponse.getData().getTestList().size() > 0
+                                && testDataResponse.getData().getTestList().get(1).getList().size() > 0) {
+                            miniTests = testDataResponse.getData().getTestList().get(1).getList();
+
+                        }
+
+                        if (testDataResponse.getData() != null
+                                && testDataResponse.getData().getTestList() != null
+                                && testDataResponse.getData().getTestList().size() > 0
+                                && testDataResponse.getData().getTestList().get(2).getList().size() > 0) {
+                            subjectTests = testDataResponse.getData().getTestList().get(2).getList();
+
+                        }
+
+
+                        if (grandTests.size() > 0) {
+                            allTests.addAll(grandTests);
+                        }
+                        if (miniTests.size() > 0) {
+                            allTests.addAll(miniTests);
+                        }
+                        if (subjectTests.size() > 0) {
+                            allTests.addAll(subjectTests);
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<TestDataResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    //Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            // Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -465,5 +560,37 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    public List<Test> getGrandTests() {
+        return grandTests;
+    }
+
+    public void setGrandTests(List<Test> grandTests) {
+        this.grandTests = grandTests;
+    }
+
+    public List<Test> getMiniTests() {
+        return miniTests;
+    }
+
+    public void setMiniTests(List<Test> miniTests) {
+        this.miniTests = miniTests;
+    }
+
+    public List<Test> getSubjectTests() {
+        return subjectTests;
+    }
+
+    public void setSubjectTests(List<Test> subjectTests) {
+        this.subjectTests = subjectTests;
+    }
+
+    public List<Test> getAllTests() {
+        return allTests;
+    }
+
+    public void setAllTests(List<Test> allTests) {
+        this.allTests = allTests;
     }
 }

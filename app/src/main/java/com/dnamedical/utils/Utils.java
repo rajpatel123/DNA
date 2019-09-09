@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class Utils {
 
@@ -202,5 +203,13 @@ public class Utils {
         int minutesToMs = Integer.parseInt(tokens[1]) * 60000;
         int hoursToMs = Integer.parseInt(tokens[0]) * 3600000;
         return secondsToMs + minutesToMs + hoursToMs;
+    }
+
+    public  static String secondsToHHMM(String duration) {
+        long sec = Long.parseLong(duration);//
+        Date d = new Date(sec * 1000L);
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); // HH for 0-23
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return  df.format(d);
     }
 }

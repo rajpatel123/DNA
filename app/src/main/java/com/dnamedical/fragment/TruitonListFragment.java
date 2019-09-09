@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +14,20 @@ import android.widget.TextView;
 
 import com.dnamedical.Activities.TestActivity;
 import com.dnamedical.Models.Detail;
+import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
 
 public class TruitonListFragment extends Fragment {
     int fragNum;
-    Detail question;
+    Question question;
     private TextView questionTxt;
     LinearLayout answerList;
     TestActivity activity;
     CardView cardView1, cardView2, cardView3, cardView4;
     ImageView imageQuestion;
 
-    public static TruitonListFragment init(Detail question, int position) {
+    public static TruitonListFragment init(Question question, int position) {
         TruitonListFragment truitonList = new TruitonListFragment();
 
         // Supply val input as an argument.
@@ -66,11 +68,11 @@ public class TruitonListFragment extends Fragment {
         answerList = layoutView.findViewById(R.id.answerList);
         questionTxt = layoutView.findViewById(R.id.questionTxt);
         imageQuestion = layoutView.findViewById(R.id.question_image);
-        if (question.getQuestionImage() != null) {
+        if (!TextUtils.isEmpty(question.getTitle_image())) {
             imageQuestion.setVisibility(View.VISIBLE);
-            Picasso.with(getContext()).load(question.getQuestionImage()).into(imageQuestion);
+            Picasso.with(getContext()).load(question.getTitle_image()).into(imageQuestion);
         }
-        questionTxt.setText("Q" + (fragNum + 1) + ". " + question.getQuestion());
+        questionTxt.setText("Q" + (fragNum + 1) + ". " + question.getTitle());
         for (int i = 0; i < 4; i++) {
             switch (i) {
                 case 0:
@@ -78,28 +80,11 @@ public class TruitonListFragment extends Fragment {
                             container, false);
                     TextView answer1 = answerView.findViewById(R.id.answer);
                     cardView1 = answerView.findViewById(R.id.cardView);
-                    answer1.setText(question.getAnswer1());
-                    updatePreviousSelection(question.getQid(), cardView1);
+                    answer1.setText(question.getOption1());
                     answerList.addView(answerView);
                     answer1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (activity != null) {
-                                //activity.hideShowSkip(true);
-                            }
-                            answer1.setText(question.getAnswer1());
-                            if (answer1.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
-                                activity.correctAnswerList.put(question.getQid(), answer1.getText().toString());
-                                if (activity.wrongAnswerList.containsKey(question.getQid()))
-                                    activity.wrongAnswerList.remove(question.getQid());
-
-                            } else {
-                                activity.wrongAnswerList.put(question.getQid(), "a");
-                                if (activity.correctAnswerList.containsKey(question.getQid())) {
-                                    activity.correctAnswerList.remove(question.getQid());
-                                }
-
-                            }
                             updateAnswer(cardView1);
                         }
                     });
@@ -109,30 +94,13 @@ public class TruitonListFragment extends Fragment {
                             container, false);
                     TextView answer2 = answerView1.findViewById(R.id.answer);
                     cardView2 = answerView1.findViewById(R.id.cardView);
-                    answer2.setText(question.getAnswer2());
+                    answer2.setText(question.getOption2());
                     answerList.addView(answerView1);
-                    updatePreviousSelection(question.getQid(), cardView2);
 
                     answer2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (activity != null) {
-                                //activity.hideShowSkip(true);
-                            }
-                            answer2.setText(question.getAnswer2());
-                            if (answer2.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
-                                activity.correctAnswerList.put(question.getQid(), answer2.getText().toString());
-                                if (activity.wrongAnswerList.containsKey(question.getQid()))
-                                    activity.wrongAnswerList.remove(question.getQid());
 
-
-                            } else {
-                                activity.wrongAnswerList.put(question.getQid(), "b");
-                                if (activity.correctAnswerList.containsKey(question.getQid())) {
-                                    activity.correctAnswerList.remove(question.getQid());
-                                }
-
-                            }
                             updateAnswer(cardView2);
                         }
                     });
@@ -142,29 +110,12 @@ public class TruitonListFragment extends Fragment {
                             container, false);
                     TextView answer3 = answerView2.findViewById(R.id.answer);
                     cardView3 = answerView2.findViewById(R.id.cardView);
-                    answer3.setText(question.getAnswer3());
-                    updatePreviousSelection(question.getQid(), cardView3);
+                    answer3.setText(question.getOption3());
 
                     answerList.addView(answerView2);
                     answer3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (activity != null) {
-                                // activity.hideShowSkip(true);
-                            }
-                            answer3.setText(question.getAnswer3());
-                            if (answer3.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
-                                activity.correctAnswerList.put(question.getQid(), answer3.getText().toString());
-                                if (activity.wrongAnswerList.containsKey(question.getQid()))
-                                    activity.wrongAnswerList.remove(question.getQid());
-
-                            } else {
-                                activity.wrongAnswerList.put(question.getQid(), "c");
-                                if (activity.correctAnswerList.containsKey(question.getQid())) {
-                                    activity.correctAnswerList.remove(question.getQid());
-                                }
-
-                            }
                             updateAnswer(cardView3);
                         }
                     });
@@ -174,29 +125,12 @@ public class TruitonListFragment extends Fragment {
                             container, false);
                     TextView answer4 = answerView4.findViewById(R.id.answer);
                     cardView4 = answerView4.findViewById(R.id.cardView);
-                    answer4.setText(question.getAnswer4());
+                    answer4.setText(question.getOption4());
                     answerList.addView(answerView4);
-                    updatePreviousSelection(question.getQid(), cardView4);
 
                     answer4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (activity != null) {
-                                //activity.hideShowSkip(true);
-                            }
-                            answer4.setText(question.getAnswer4());
-                            if (answer4.getText().toString().equalsIgnoreCase(question.getCurrectAnswer())) {
-                                activity.correctAnswerList.put(question.getQid(), answer4.getText().toString());
-                                if (activity.wrongAnswerList.containsKey(question.getQid()))
-                                    activity.wrongAnswerList.remove(question.getQid());
-
-                            } else {
-                                activity.wrongAnswerList.put(question.getQid(), "d");
-                                if (activity.correctAnswerList.containsKey(question.getQid())) {
-                                    activity.correctAnswerList.remove(question.getQid());
-                                }
-
-                            }
                             updateAnswer(cardView4);
                         }
                     });
@@ -206,16 +140,6 @@ public class TruitonListFragment extends Fragment {
         return layoutView;
     }
 
-    private void updatePreviousSelection(String qid, CardView cardView1) {
-
-        if (activity.correctAnswerList.keySet().contains(qid) || activity.wrongAnswerList.keySet().contains(qid)) {
-            //activity.hideShowSkip(true);
-            updateAnswer(cardView1);
-        } else {
-            //activity.hideShowSkip(false);
-
-        }
-    }
 
     private void updateAnswer(CardView cardView) {
         cardView1.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));

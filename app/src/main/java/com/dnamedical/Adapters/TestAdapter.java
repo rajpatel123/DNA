@@ -24,6 +24,7 @@ import com.dnamedical.Models.test.AllTest;
 import com.dnamedical.Models.test.GrandTest;
 import com.dnamedical.Models.test.MiniTest;
 import com.dnamedical.Models.test.SubjectTest;
+import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
@@ -32,10 +33,10 @@ import static android.view.View.GONE;
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     private Context applicationContext;
-    private List<GrandTest> grandTests;
-    private List<MiniTest> miniTests;
-    private List<SubjectTest> subjectTests;
-    private List<AllTest> allTests;
+    private List<Test> grandTests;
+    private List<Test> miniTests;
+    private List<Test> subjectTests;
+    private List<Test> allTests;
     TestAdapter.OnCategoryClick onUserClickCallback;
 
     public TestAdapter(Context applicationContext) {
@@ -53,108 +54,78 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final TestAdapter.ViewHolder holder, int i) {
 
         if (grandTests != null) {
-            holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTestName());
+            holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTitle());
+            Test test = grandTests.get(holder.getAdapterPosition());
 
-
-            holder.questionTotal.setText((grandTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
-            holder.timeTotal.setText(grandTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.dateFormat(grandTests.get(holder.getAdapterPosition()).getTime()));
+            holder.questionTotal.setText(test.getQuestion_count() + "Q's");
+            holder.timeTotal.setText(Utils.secondsToHHMM(test.getDuration()));
+            holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
 
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(grandTests.get(holder.getAdapterPosition()).getTestDate()).equals(grandTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
+                if (!Objects.requireNonNull(test.getStartDate()).equals(test.getStartDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
                 }
             }
-            if (grandTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
+            if (test.getIsPaid().equalsIgnoreCase("1")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
-
-            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            holder.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    //if (grandTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                    //    if (Utils.getMilliesOfTestTime(grandTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
-                            if (onUserClickCallback != null) {
-                                onUserClickCallback.onCateClick(grandTests.get(holder.getAdapterPosition()).getTestId()
-                                        , grandTests.get(holder.getAdapterPosition()).getTestDuration()
-                                        , grandTests.get(holder.getAdapterPosition()).getTestName(),
-                                        grandTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                        grandTests.get(holder.getAdapterPosition()).getTestPaid(),
-                                        grandTests.get(holder.getAdapterPosition()).getTestStatus(),
-                                        grandTests.get(holder.getAdapterPosition()).getTestCategory()
-                                );
-                            }
-                       // } else {
-                       //     Toast.makeText(applicationContext, "This test will start on " + grandTests.get(holder.getAdapterPosition()).getTestDate() + " at " + grandTests.get(holder.getAdapterPosition()).getStartTime(), Toast.LENGTH_LONG).show();
-                       // }
-
-                    //}
-
+                    if (onUserClickCallback != null) {
+                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                    }
                 }
             });
 
 
         } else if (miniTests != null) {
-            holder.title.setText(miniTests.get(holder.getAdapterPosition()).getTestName());
-            holder.questionTotal.setText((miniTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
-            holder.timeTotal.setText(miniTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.dateFormat(miniTests.get(holder.getAdapterPosition()).getTime()));
+            holder.title.setText(miniTests.get(holder.getAdapterPosition()).getTitle());
+            holder.questionTotal.setText((miniTests.get(holder.getAdapterPosition()).getQuestion_count()) + "Q's");
+            holder.timeTotal.setText(miniTests.get(holder.getAdapterPosition()).getDuration());
+            holder.textDate.setText(Utils.dateFormat(Long.parseLong(miniTests.get(holder.getAdapterPosition()).getStartDate())));
 
-            if (miniTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
+            if (miniTests.get(holder.getAdapterPosition()).getIsPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
 
             if (holder.getAdapterPosition() > 0) {
                 if (!Objects.requireNonNull(miniTests.get(holder.getAdapterPosition())
-                        .getTestDate()).equals(miniTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
+                        .getStartDate()).equals(miniTests.get(holder.getAdapterPosition() - 1).getStartDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
                 }
             }
-            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                  //  if (miniTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                     //   if (Utils.getMilliesOfTestTime(miniTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
-                            if (onUserClickCallback != null) {
-                                onUserClickCallback.onCateClick(miniTests.get(holder.getAdapterPosition()).getTestId(),
-                                        miniTests.get(holder.getAdapterPosition()).getTestDuration(),
-                                        miniTests.get(holder.getAdapterPosition()).getTestName(),
-                                        miniTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                        miniTests.get(holder.getAdapterPosition()).getTestPaid(),
-                                        miniTests.get(holder.getAdapterPosition()).getTestStatus(),
-                                        miniTests.get(holder.getAdapterPosition()).getTestCategory()
-                                );
-                            }
-                        }
-                 //   }
-               // }
-            });
 
 
         } else if (allTests != null) {
-            holder.title.setText(allTests.get(holder.getAdapterPosition()).getTestName());
-            holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
-            holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.dateFormat(allTests.get(holder.getAdapterPosition()).getTime()));
-            Log.d("time", "" + Utils.dateFormat(allTests.get(holder.getAdapterPosition()).getTime()));
-            if (allTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
+            holder.title.setText(allTests.get(holder.getAdapterPosition()).getTitle());
+            holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getQuestion_count()) + "Q's");
+            holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getDuration());
+            holder.textDate.setText(Utils.dateFormat(Long.parseLong(allTests.get(holder.getAdapterPosition()).getStartDate())));
+            Log.d("time", "" + Utils.dateFormat(Long.parseLong(allTests.get(holder.getAdapterPosition()).getStartDate())));
+            if (allTests.get(holder.getAdapterPosition()).getIsPaid().equals("0")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
+            if (allTests.get(holder.getAdapterPosition()).getType().equalsIgnoreCase("grand_test")) {
+                holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
+            } else {
+                holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.white));
+            }
 
             if (holder.getAdapterPosition() > 0) {
                 if (!allTests.get(holder.getAdapterPosition())
-                        .getTestDate().equalsIgnoreCase(allTests.get(holder.getAdapterPosition() - 1)
-                                .getTestDate())) {
+                        .getStartDate().equalsIgnoreCase(allTests.get(holder.getAdapterPosition() - 1)
+                                .getStartDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
@@ -162,81 +133,32 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             }
 
 
-           /* if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(allTests.get(holder.getAdapterPosition())
-                        .getTestDate()).equals(allTests.get(holder.getAdapterPosition() - 1)
-                        .getTestDate())) {
-                    holder.textDate.setVisibility(View.VISIBLE);
-                } else {
-                    holder.textDate.setVisibility(GONE);
-                }
-            }*/
-            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //if (allTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                      //  if (Utils.getMilliesOfTestTime(allTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
-                            if (onUserClickCallback != null) {
-                                onUserClickCallback.onCateClick(allTests.get(holder.getAdapterPosition()).getTestId(),
-                                        allTests.get(holder.getAdapterPosition()).getTestDuration(),
-                                        allTests.get(holder.getAdapterPosition()).getTestName(),
-                                        allTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                        allTests.get(holder.getAdapterPosition()).getTestPaid(),
-                                        allTests.get(holder.getAdapterPosition()).getTestStatus(),
-                                        allTests.get(holder.getAdapterPosition()).getTestCategory()
-                                );
-                            }
-                        }
-                   // }
-                //}
-            });
-
         } else if (subjectTests != null) {
-            holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTestName());
+            holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTitle());
 
 
-            if (subjectTests.get(holder.getAdapterPosition()).getTestQueation() != null) {
-                holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getTestQueation()) + "Q's");
+            if (subjectTests.get(holder.getAdapterPosition()).getDuration() != null) {
+                holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getQuestion_count()) + "Q's");
             } else {
                 holder.questionTotal.setText("No Q's");
 
             }
-            holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getTestDuration());
-            holder.textDate.setText(Utils.dateFormat(subjectTests.get(holder.getAdapterPosition()).getTime()));
+            holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getDuration());
+            holder.textDate.setText(Utils.dateFormat(Long.parseLong(subjectTests.get(holder.getAdapterPosition()).getStartDate())));
             //  holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate()   );
-            if (subjectTests.get(holder.getAdapterPosition()).getTestPaid().equals("Yes")) {
+            if (subjectTests.get(holder.getAdapterPosition()).getIsPaid().equals("1")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
 
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(subjectTests.get(holder.getAdapterPosition()).getTestDate())
-                        .equals(subjectTests.get(holder.getAdapterPosition() - 1).getTestDate())) {
+                if (!Objects.requireNonNull(subjectTests.get(holder.getAdapterPosition()).getStartDate())
+                        .equals(subjectTests.get(holder.getAdapterPosition() - 1).getStartDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
                 }
             }
-            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   // if (subjectTests.get(holder.getAdapterPosition()).getTestDate().equalsIgnoreCase(Utils.getCurrentDate())) {
-                    //    if (Utils.getMilliesOfTestTime(subjectTests.get(holder.getAdapterPosition()).getStartTime()) < System.currentTimeMillis()) {
-                            if (onUserClickCallback != null) {
-                                onUserClickCallback.onCateClick(subjectTests.get(holder.getAdapterPosition()).getTestId(),
-                                        subjectTests.get(holder.getAdapterPosition()).getTestDuration(),
-                                        subjectTests.get(holder.getAdapterPosition()).getTestName(),
-                                        subjectTests.get(holder.getAdapterPosition()).getTestQueation(),
-                                        subjectTests.get(holder.getAdapterPosition()).getTestPaid(),
-                                        subjectTests.get(holder.getAdapterPosition()).getTestStatus(),
-                                        subjectTests.get(holder.getAdapterPosition()).getTestCategory()
-                                );
-                            }
-                        }
-                   // }
-                //}
-            });
         }
 
     }
@@ -257,23 +179,23 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     }
 
 
-    public void setGrandData(List<GrandTest> testList) {
+    public void setGrandData(List<Test> testList) {
         // Collections.sort(testList);
         this.grandTests = testList;
     }
 
-    public void setMiniData(List<MiniTest> testList) {
+    public void setMiniData(List<Test> testList) {
         //Collections.sort(testList);
         this.miniTests = testList;
     }
 
-    public void setAllData(List<AllTest> testList) {
+    public void setAllData(List<Test> testList) {
         //Collections.sort(testList);
         this.allTests = testList;
         ;
     }
 
-    public void setSubjectTestsData(List<SubjectTest> testList) {
+    public void setSubjectTestsData(List<Test> testList) {
         // Collections.sort(testList);
         this.subjectTests = testList;
     }

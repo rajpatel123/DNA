@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
+import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.test.MiniTest;
 import com.dnamedical.Models.test.SubjectTest;
 import com.dnamedical.Models.test.TestQuestionData;
+import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
@@ -34,9 +37,19 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     RecyclerView recyclerView;
     private TestQuestionData testQuestionData;
     private String subTest;
-    private List<MiniTest> miniTest;
+    private List<Test> miniTest;
 
     public MockTestFragment() {
+
+    }
+
+    MainActivity mainActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) getActivity();
+        ;
 
     }
 
@@ -47,10 +60,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
             Utils.showProgressDialog(getContext());
             testQuestionData = DNAApplication.getTestQuestionData();
             if (testQuestionData != null) {
-                Utils.dismissProgressDialog();
-                miniTest = testQuestionData.getMiniTest();
-                updateDate(miniTest);
-                showTest();
+
             } else {
                 Utils.dismissProgressDialog();
             }
@@ -62,17 +72,49 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
         }
 
     }
+
     private void updateDate(List<MiniTest> testQuestionData) {
-        for (MiniTest allTest : testQuestionData){
+        for (MiniTest allTest : testQuestionData) {
             allTest.setTime(Utils.getMillies(allTest.getTestDate()));
+        }
+    }
+
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_minitest, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView1);
+        notext = view.findViewById(R.id.noTest);
+        showTest();
+        return view;
+    }
+
+    @Override
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String TestStatus, String type) {
+        if (testPaid.equalsIgnoreCase("Yes")) {
+            Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), TestStartActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("duration", time);
+            intent.putExtra("testName", testName);
+            intent.putExtra("type", type);
+            intent.putExtra("testQuestion", testQuestion);
+            intent.putExtra("testStatus", TestStatus);
+            intent.putExtra("testPaid", testPaid);
+            startActivity(intent);
+
         }
     }
 
     private void showTest() {
 
-        if (testQuestionData != null && testQuestionData.getMiniTest() != null && testQuestionData.getMiniTest().size() > 0) {
+        if (mainActivity != null && mainActivity.getMiniTests() != null && mainActivity.getMiniTests().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-
+            miniTest = mainActivity.getMiniTests();
             TestAdapter miniTestAdapter = new TestAdapter(getActivity());
             Collections.sort(miniTest);
             miniTestAdapter.setMiniData(miniTest);
@@ -100,32 +142,4 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
 
     }
 
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_minitest, container, false);
-        recyclerView = view.findViewById(R.id.recyclerView1);
-        notext=view.findViewById(R.id.noTest);
-        return view;
-    }
-
-    @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid,String TestStatus,String type) {
-        if (testPaid.equalsIgnoreCase("Yes")) {
-            Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getActivity(), TestStartActivity.class);
-            intent.putExtra("id", id);
-            intent.putExtra("duration", time);
-            intent.putExtra("testName", testName);
-            intent.putExtra("type", type);
-            intent.putExtra("testQuestion", testQuestion);
-            intent.putExtra("testStatus",TestStatus);
-            intent.putExtra("testPaid",testPaid);
-            startActivity(intent);
-
-        }
-    }
 }

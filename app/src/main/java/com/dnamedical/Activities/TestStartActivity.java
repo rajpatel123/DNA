@@ -35,7 +35,7 @@ public class TestStartActivity extends AppCompatActivity {
     CardView cardView;
 
     String id, duration, testName, testQuestion, testPaid;
-    int check_status;
+    String check_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +49,18 @@ public class TestStartActivity extends AppCompatActivity {
             testName = getIntent().getStringExtra("testName");
             String type = getIntent().getStringExtra("type");
             testQuestion = getIntent().getStringExtra("testQuestion");
-            check_status = Integer.parseInt(getIntent().getStringExtra("testStatus"));
+            check_status = getIntent().getStringExtra("testStatus");
             testPaid = getIntent().getStringExtra("testPaid");
 
-            if (check_status == 0) {
+            //if (check_status == 0) {
                 testTopic.setText(testName);
                 updateTestTypeText(type);
                 btnStart.setText("Start The Test");
-            } else {
-                testTopic.setText(testName);
-                updateTestTypeText(type);
-                btnStart.setText("Review The Test");
-            }
+//            } else {
+//                testTopic.setText(testName);
+//                updateTestTypeText(type);
+//                btnStart.setText("Review The Test");
+//            }
 
         }
 
@@ -79,15 +79,15 @@ public class TestStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (check_status == 0) {
+               // if (check_status == 0) {
                     StartTest();
-                } else {
-                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
-                    intent.putExtra("Test_Id", id);
-                    startActivity(intent);
-                    finish();
-
-                }
+//                } else {
+//                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
+//                    intent.putExtra("Test_Id", id);
+//                    startActivity(intent);
+//                    finish();
+//
+//                }
             }
         });
     }

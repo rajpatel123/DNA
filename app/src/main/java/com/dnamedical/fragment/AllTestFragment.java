@@ -17,11 +17,13 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import com.dnamedical.Activities.DNAKnowmoreActivity;
+import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.test.AllTest;
 import com.dnamedical.Models.test.TestQuestionData;
+import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.DnaPrefs;
@@ -41,12 +43,14 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    List<AllTest> allTest;
+    List<Test> allTest;
 
+    MainActivity mainActivity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mainActivity = (MainActivity) getActivity();;
 
     }
 
@@ -58,12 +62,20 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public boolean getUserVisibleHint() {
+        showTest();
+        return super.getUserVisibleHint();
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_alltext, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         notext = view.findViewById(R.id.noTest);
+        showTest();
         return view;
     }
 
@@ -71,68 +83,15 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getTest();
     }
 
-    private void getTest() {
 
-        String userId;
-
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
-        }
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        if (Utils.isInternetConnected(getActivity())) {
-            Utils.showProgressDialog(getActivity());
-
-            RestClient.getTest(user_id, new Callback<TestQuestionData>() {
-                @Override
-                public void onResponse(Call<TestQuestionData> call, Response<TestQuestionData> response) {
-                    if (response.code() == 200) {
-                        Utils.dismissProgressDialog();
-
-
-                        if (testQuestionData != null) {
-                            testQuestionData = null;
-                        }
-                        testQuestionData = response.body();
-
-                        allTest= testQuestionData.getAllTest();
-                        updateDate(allTest);
-
-                        DNAApplication.setTestQuestionData(testQuestionData);
-                        showTest();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<TestQuestionData> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                    //Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
-
-                }
-            });
-        } else {
-            Utils.dismissProgressDialog();
-            notext.setVisibility(View.VISIBLE);
-           // Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void updateDate(List<AllTest> testQuestionData) {
-        for (AllTest allTest : testQuestionData){
-            allTest.setTime(Utils.getMillies(allTest.getTestDate()));
-        }
-    }
 
 
     private void showTest() {
-        if (testQuestionData != null && testQuestionData.getAllTest()
-                != null && testQuestionData.getAllTest().size() > 0) {
+        if (mainActivity != null && mainActivity.getAllTests()
+                != null &&  mainActivity.getAllTests().size() > 0) {
+            allTest = mainActivity.getAllTests();
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter testAdapter = new TestAdapter(getActivity());
             Collections.sort(allTest);

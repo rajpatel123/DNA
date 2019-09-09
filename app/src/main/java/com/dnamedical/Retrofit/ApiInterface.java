@@ -9,7 +9,6 @@ import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
-import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
@@ -33,6 +32,8 @@ import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.test.TestQuestionData;
+import com.dnamedical.Models.test.testp.QustionDetails;
+import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -233,8 +234,8 @@ public interface ApiInterface {
     Call<ForgetMailSentResponse> sentMail(@Part("email_id") RequestBody email_id);
 
 
-    @GET("api/api.php?req=question")
-    Call<QustionDetails> getQuestion(@Query("test_id") String test_id);
+    @GET("v1/index.php/api/test/testquestions")
+    Call<QustionDetails> getQuestion(@Query("user_id") String user_id, @Query("test_id") String test_id);
 
     @POST("api/api.php?req=final_test")
     Call<ResponseBody> submitTest(@Query("user_id") String user_id,
@@ -369,5 +370,9 @@ public interface ApiInterface {
     @POST("api/api.php?req=is_real")
     Call<ResponseBody> updateLogin(@Part("id") RequestBody id,
                                                 @Part("isreal") RequestBody isreal);
+
+    @GET("v1/index.php/api/test/list")
+    Call<TestDataResponse> getAllTestData(@Query("user_id") String id);
+
 
 }

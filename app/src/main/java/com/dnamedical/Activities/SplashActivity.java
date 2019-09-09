@@ -151,8 +151,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<PlaystoreUpdateResponse> call, Throwable t) {
-                   // Utils.dismissProgressDialog();
-                    Toast.makeText(SplashActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                    splashCall();
                 }
             });
         } else {

@@ -63,7 +63,7 @@ android {
         debug {
             minifyEnabled false
             multiDexEnabled true
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.234.161.7/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://13.234.161.7:80/\""
 
 //            buildConfigField "String", "API_SERVER_IP", "\"http://vrok.in/dna/\""
             //buildConfigField "String", "API_SERVER_IP", "\"http://13.234.161.7/\""

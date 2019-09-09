@@ -9,7 +9,6 @@ import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
-import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
 import com.dnamedical.Models.StateList.StateListResponse;
@@ -34,6 +33,8 @@ import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.test.TestQuestionData;
+import com.dnamedical.Models.test.testp.QustionDetails;
+import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -131,8 +132,8 @@ public class RestClient {
         RetrofitClient.getClient().getPaidVedio(sub_child_cat, user_id, file_type).enqueue(callback);
     }
 
-    public static void getQuestion(String test_id, Callback<QustionDetails> callback) {
-        RetrofitClient.getClient().getQuestion(test_id).enqueue(callback);
+    public static void getQuestion(String user_id,String test_id, Callback<QustionDetails> callback) {
+        RetrofitClient.getClient().getQuestion(user_id,test_id).enqueue(callback);
     }
 
     public static void qbankReview(RequestBody user_id, RequestBody qmodule_id, Callback<ReviewListResponse> callback) {
@@ -275,6 +276,12 @@ public class RestClient {
     public static void updateLogin(RequestBody id, RequestBody isReal, Callback
             <ResponseBody> callback) {
         RetrofitClient.getClient().updateLogin(id, isReal).enqueue(callback);
+
+    }
+
+    public static void getAllTestData(String id, Callback
+            <TestDataResponse> callback) {
+        RetrofitClient.getClient().getAllTestData(""+1).enqueue(callback);
 
     }
 
