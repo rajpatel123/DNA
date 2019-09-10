@@ -695,10 +695,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(videoId)){
+            finish();
             return;
         }
 
         if (upper_exoplayer.getCurrentPosition()<1){
+            finish();
             return;
         }
 
