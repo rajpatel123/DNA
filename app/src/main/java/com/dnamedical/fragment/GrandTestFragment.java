@@ -89,7 +89,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String TestStatus, String type) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String description, String type) {
         if (testPaid.equalsIgnoreCase("Yes")) {
             Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
             startActivity(intent);
@@ -100,14 +100,14 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);
             intent.putExtra("testQuestion", testQuestion);
-            intent.putExtra("testStatus", TestStatus);
+            intent.putExtra("testStatus", description);
             intent.putExtra("testPaid", testPaid);
             startActivity(intent);
 
         }
     }
 
-    private void showTest() {
+    public void showTest() {
         if (mainActivity != null && mainActivity.getGrandTests() != null && mainActivity.getAllTests().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             grandTest= mainActivity.getGrandTests();
@@ -118,6 +118,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
             //videoListAdapter.setListener(FreeFragment.this);
             recyclerView.setAdapter(testAdapter);
             recyclerView.setVisibility(View.VISIBLE);
+            notext.setVisibility(View.GONE);
 
 
             // noInternet.setVisibility(View.GONE);

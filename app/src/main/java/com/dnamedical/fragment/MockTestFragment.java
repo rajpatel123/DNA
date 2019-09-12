@@ -110,7 +110,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
         }
     }
 
-    private void showTest() {
+    public void showTest() {
 
         if (mainActivity != null && mainActivity.getMiniTests() != null && mainActivity.getMiniTests().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
@@ -134,6 +134,8 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
             };
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setVisibility(View.VISIBLE);
+            notext.setVisibility(View.GONE);
+
         } else {
             Log.d("Api Response :", "Got Success from Api");
             recyclerView.setVisibility(View.GONE);

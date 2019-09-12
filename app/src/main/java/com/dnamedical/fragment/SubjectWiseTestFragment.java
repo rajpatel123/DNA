@@ -87,7 +87,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
 
         }
     }
-    private void showTest() {
+    public void showTest() {
         if (mainActivity != null && mainActivity.getSubjectTests() != null && mainActivity.getSubjectTests().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             subjectTest = mainActivity.getSubjectTests();
@@ -107,6 +107,8 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             };
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setVisibility(View.VISIBLE);
+            notext.setVisibility(View.GONE);
+
         } else {
             Log.d("Api Response :", "Got Success from Api");
             recyclerView.setVisibility(View.GONE);

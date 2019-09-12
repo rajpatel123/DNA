@@ -58,7 +58,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             Test test = grandTests.get(holder.getAdapterPosition());
 
             holder.questionTotal.setText(test.getQuestion_count() + "Q's");
-            holder.timeTotal.setText(Utils.secondsToHHMM(test.getDuration()));
+            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(test.getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
 
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
@@ -86,10 +86,12 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
         } else if (miniTests != null) {
-            holder.title.setText(miniTests.get(holder.getAdapterPosition()).getTitle());
-            holder.questionTotal.setText((miniTests.get(holder.getAdapterPosition()).getQuestion_count()) + "Q's");
-            holder.timeTotal.setText(miniTests.get(holder.getAdapterPosition()).getDuration());
-            holder.textDate.setText(Utils.dateFormat(Long.parseLong(miniTests.get(holder.getAdapterPosition()).getStartDate())));
+            Test test = miniTests.get(holder.getAdapterPosition());
+            holder.title.setText(test.getTitle());
+            holder.questionTotal.setText((test.getQuestion_count()) + "Q's");
+            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(test.getDuration())));
+
+            holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
 
             if (miniTests.get(holder.getAdapterPosition()).getIsPaid().equals("Yes")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
@@ -104,14 +106,23 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     holder.textDate.setVisibility(GONE);
                 }
             }
-
+            holder.cardview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onUserClickCallback != null) {
+                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                    }
+                }
+            });
 
         } else if (allTests != null) {
-            holder.title.setText(allTests.get(holder.getAdapterPosition()).getTitle());
-            holder.questionTotal.setText((allTests.get(holder.getAdapterPosition()).getQuestion_count()) + "Q's");
-            holder.timeTotal.setText(allTests.get(holder.getAdapterPosition()).getDuration());
-            holder.textDate.setText(Utils.dateFormat(Long.parseLong(allTests.get(holder.getAdapterPosition()).getStartDate())));
-            Log.d("time", "" + Utils.dateFormat(Long.parseLong(allTests.get(holder.getAdapterPosition()).getStartDate())));
+            Test test = allTests.get(holder.getAdapterPosition());
+            holder.title.setText(test.getTitle());
+            holder.questionTotal.setText((test.getQuestion_count()) + "Q's");
+            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(test.getDuration())));
+            holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
+            Log.d("time", "" + Utils.dateFormat(Long.parseLong(test.getStartDate())));
             if (allTests.get(holder.getAdapterPosition()).getIsPaid().equals("0")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
             }
@@ -131,19 +142,29 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     holder.textDate.setVisibility(GONE);
                 }
             }
+            holder.cardview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onUserClickCallback != null) {
+                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                    }
+                }
+            });
 
 
         } else if (subjectTests != null) {
-            holder.title.setText(subjectTests.get(holder.getAdapterPosition()).getTitle());
+            Test test = subjectTests.get(holder.getAdapterPosition());
+            holder.title.setText(test.getTitle());
 
 
             if (subjectTests.get(holder.getAdapterPosition()).getDuration() != null) {
-                holder.questionTotal.setText((subjectTests.get(holder.getAdapterPosition()).getQuestion_count()) + "Q's");
+                holder.questionTotal.setText((test.getQuestion_count()) + "Q's");
             } else {
                 holder.questionTotal.setText("No Q's");
 
             }
-            holder.timeTotal.setText(subjectTests.get(holder.getAdapterPosition()).getDuration());
+            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(subjectTests.get(holder.getAdapterPosition()).getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(subjectTests.get(holder.getAdapterPosition()).getStartDate())));
             //  holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate()   );
             if (subjectTests.get(holder.getAdapterPosition()).getIsPaid().equals("1")) {
@@ -159,6 +180,16 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     holder.textDate.setVisibility(GONE);
                 }
             }
+
+            holder.cardview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onUserClickCallback != null) {
+                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                    }
+                }
+            });
         }
 
     }

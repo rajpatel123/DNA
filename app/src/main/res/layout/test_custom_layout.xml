@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/tab"
-    android:paddingLeft="8sp"
-    android:textSize="14dp"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    android:text="Tabbba"
+    android:gravity="center"
     android:textColor="@color/orange1"
     android:fontFamily="@string/font_fontFamily_medium"/>

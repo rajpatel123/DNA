@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = findViewById(R.id.nav_view);
-        getTest();
         getAdditionalDiscount();
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         tvName = headerView.findViewById(R.id.tv_name);
@@ -150,6 +149,7 @@ public class MainActivity extends AppCompatActivity
         updateNavViewHeader();
 
         updateLogin();
+        //getTest();
 
 
     }
@@ -212,6 +212,11 @@ public class MainActivity extends AppCompatActivity
                         }
                         if (subjectTests.size() > 0) {
                             allTests.addAll(subjectTests);
+                        }
+
+
+                        if (dashboardTestFragment!=null){
+                            dashboardTestFragment.updateAllTest();
                         }
 
 
@@ -303,8 +308,8 @@ public class MainActivity extends AppCompatActivity
 
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(pageChangeListener);
-        int limit = (adapter.getCount() > 1 ? adapter.getCount() - 1 : 1);
-        pager.setOffscreenPageLimit(limit);
+       // int limit = (adapter.getCount() > 1 ? adapter.getCount() - 1 : 1);
+        pager.setOffscreenPageLimit(4);
     }
 
     private void setupTabIcons() {

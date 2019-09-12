@@ -35,7 +35,7 @@ public class TestStartActivity extends AppCompatActivity {
     CardView cardView;
 
     String id, duration, testName, testQuestion, testPaid;
-    String check_status;
+    String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class TestStartActivity extends AppCompatActivity {
             testName = getIntent().getStringExtra("testName");
             String type = getIntent().getStringExtra("type");
             testQuestion = getIntent().getStringExtra("testQuestion");
-            check_status = getIntent().getStringExtra("testStatus");
+            description = getIntent().getStringExtra("testStatus");
             testPaid = getIntent().getStringExtra("testPaid");
 
             //if (check_status == 0) {

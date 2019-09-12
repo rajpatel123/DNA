@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
@@ -125,7 +125,7 @@ public class Utils {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
         String strTime = mdformat.format(calendar.getTime());
-       return strTime;
+        return strTime;
     }
 
     public static String getCurrentDate() {
@@ -135,8 +135,6 @@ public class Utils {
         return strDate;
 
     }
-
-
 
 
     public static String dateFormat(long timeStamp) {
@@ -151,7 +149,7 @@ public class Utils {
             SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
             Date dNow = new Date(timeStamp);
             return tripDateFormat.format(dNow);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
@@ -161,11 +159,11 @@ public class Utils {
 
         Calendar calendar = Calendar.getInstance();
         String dates[] = testDate.split("/");
-        int dt=Integer.parseInt(dates[0]);
-        int mm=Integer.parseInt(dates[1]);
-        int yy=Integer.parseInt(dates[2]);
+        int dt = Integer.parseInt(dates[0]);
+        int mm = Integer.parseInt(dates[1]);
+        int yy = Integer.parseInt(dates[2]);
 
-        calendar.set(yy,mm-1,dt);
+        calendar.set(yy, mm - 1, dt);
 
         try {
             Date date = calendar.getTime();
@@ -180,11 +178,11 @@ public class Utils {
 
         Calendar calendar = Calendar.getInstance();
         String dates[] = testDate.split(":");
-        int hh=Integer.parseInt(dates[0]);
-        int mm=Integer.parseInt(dates[1]);
-        int ss=Integer.parseInt(dates[2]);
+        int hh = Integer.parseInt(dates[0]);
+        int mm = Integer.parseInt(dates[1]);
+        int ss = Integer.parseInt(dates[2]);
 
-        calendar.set(hh,mm,ss);
+        calendar.set(hh, mm, ss);
 
         try {
             Date date = calendar.getTime();
@@ -205,11 +203,13 @@ public class Utils {
         return secondsToMs + minutesToMs + hoursToMs;
     }
 
-    public  static String secondsToHHMM(String duration) {
-        long sec = Long.parseLong(duration);//
-        Date d = new Date(sec * 1000L);
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); // HH for 0-23
-        df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        return  df.format(d);
+    public static String getDuration(long millis) {
+        if (millis<1){
+            return "";
+        }
+        return String.format("%dh ,%dm",
+                TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis)
+        );
     }
 }

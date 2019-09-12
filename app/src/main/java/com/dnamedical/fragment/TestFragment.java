@@ -19,8 +19,19 @@ import java.util.List;
 
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.VideoActivity;
+import com.dnamedical.Models.test.testp.Test;
+import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
+import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.Utils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class TestFragment extends Fragment implements FragmentLifecycle {
 
@@ -28,8 +39,20 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     private ViewPager viewPager;
     private TextView subcategory;
 
+    TestDataResponse testDataResponse;
+
+
+    private List<Test> grandTests = new ArrayList<>();
+    private List<Test> miniTests = new ArrayList<>();
+    private List<Test> subjectTests = new ArrayList<>();
+    private List<Test> allTests = new ArrayList<>();
+
     public MainActivity mainActivity;
     public String subCatId;
+    AllTestFragment allTestFragment;
+    MockTestFragment mockTestFragment;
+    GrandTestFragment grandTestFragment;
+    SubjectWiseTestFragment subjectWiseTestFragment;
 
 
     @Nullable
@@ -39,11 +62,11 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         View view = inflater.inflate(R.layout.textfragment, container, false);
         subcategory = view.findViewById(R.id.subcategory_name);
         viewPager = view.findViewById(R.id.viewPager);
-
+        setupViewPager(viewPager);
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-
+        setupTabIcons();
+        getTest();
         return view;
 
     }
@@ -90,14 +113,20 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        allTestFragment = new AllTestFragment();
+        grandTestFragment = new GrandTestFragment();
+        mockTestFragment = new MockTestFragment();
+        subjectWiseTestFragment = new SubjectWiseTestFragment();
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFrag(new AllTestFragment(), "All Test");
-        adapter.addFrag(new GrandTestFragment(), "Grand Test");
-        adapter.addFrag(new MockTestFragment(), "Mock Test");
-        adapter.addFrag(new SubjectWiseTestFragment(), "SWT");
+        adapter.addFrag(allTestFragment, "All Test");
+        adapter.addFrag(grandTestFragment, "Grand Test");
+        adapter.addFrag(mockTestFragment, "Mock Test");
+        adapter.addFrag(subjectWiseTestFragment, "SWT");
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(0);
+        viewPager.setOffscreenPageLimit(4);
+
+
     }
 
 
@@ -106,18 +135,18 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (viewPager!=null) {
-            setupViewPager(viewPager);
-            setupTabIcons();
-        }
-    }
-
     @Override
     public void onResumeFragment() {
+        updateAllTest();
+
+    }
+
+    public void updateAllTest() {
+        allTestFragment.showTest();
+        mockTestFragment.showTest();
+        grandTestFragment.showTest();
+        subjectWiseTestFragment.showTest();
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -137,6 +166,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         public int getCount() {
             return mFragmentList.size();
         }
+
         public void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
@@ -147,8 +177,91 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
             return mFragmentTitleList.get(position);
         }
     }
+
     public interface DisplayDataInterface {
         public void showVideos();
+    }
+
+    private void getTest() {
+
+        String userId;
+
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        }
+        if (Utils.isInternetConnected(getActivity())) {
+            Utils.showProgressDialog(getActivity());
+
+            RestClient.getAllTestData(userId, new Callback<TestDataResponse>() {
+                @Override
+                public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
+                    if (response.code() == 200) {
+                        Utils.dismissProgressDialog();
+
+
+                        if (testDataResponse != null) {
+                            testDataResponse = null;
+                        }
+                        testDataResponse = response.body();
+
+                        if (testDataResponse.getData() != null
+                                && testDataResponse.getData().getTestList() != null
+                                && testDataResponse.getData().getTestList().size() > 0
+                                && testDataResponse.getData().getTestList().get(0).getList().size() > 0) {
+                            grandTests = testDataResponse.getData().getTestList().get(0).getList();
+                            mainActivity.setGrandTests(grandTests);
+
+                        }
+
+                        if (testDataResponse.getData() != null
+                                && testDataResponse.getData().getTestList() != null
+                                && testDataResponse.getData().getTestList().size() > 0
+                                && testDataResponse.getData().getTestList().get(1).getList().size() > 0) {
+                          miniTests = testDataResponse.getData().getTestList().get(1).getList();
+                            mainActivity.setMiniTests(miniTests);
+
+                        }
+
+                        if (testDataResponse.getData() != null
+                                && testDataResponse.getData().getTestList() != null
+                                && testDataResponse.getData().getTestList().size() > 0
+                                && testDataResponse.getData().getTestList().get(2).getList().size() > 0) {
+                            subjectTests = testDataResponse.getData().getTestList().get(2).getList();
+                            mainActivity.setSubjectTests(subjectTests);
+                        }
+
+
+                        if (grandTests.size() > 0) {
+                            allTests.addAll(grandTests);
+                        }
+                        if (miniTests.size() > 0) {
+                            allTests.addAll(miniTests);
+                        }
+                        if (subjectTests.size() > 0) {
+                            allTests.addAll(subjectTests);
+                        }
+
+                        mainActivity.setAllTests(allTests);
+                        updateAllTest();
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<TestDataResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    //Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            // Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

@@ -88,7 +88,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
 
 
 
-    private void showTest() {
+    public void showTest() {
         if (mainActivity != null && mainActivity.getAllTests()
                 != null &&  mainActivity.getAllTests().size() > 0) {
             allTest = mainActivity.getAllTests();
@@ -113,6 +113,8 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
             };
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setVisibility(View.VISIBLE);
+            notext.setVisibility(View.GONE);
+
         } else {
             Log.d("Api Response :", "Got Success from Api");
             recyclerView.setVisibility(View.GONE);
