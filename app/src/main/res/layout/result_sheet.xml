@@ -15,7 +15,7 @@
         android:layout_height="50dp"
         android:background="@drawable/cross_icn"
         android:gravity="center"
-        
+
         android:layout_alignParentEnd="true"
         android:textColor="@android:color/black" />
 
