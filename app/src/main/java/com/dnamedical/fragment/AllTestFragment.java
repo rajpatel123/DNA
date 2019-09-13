@@ -13,32 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
-import com.dnamedical.DNAApplication;
-import com.dnamedical.Models.test.AllTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
-import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.utils.DnaPrefs;
-import com.dnamedical.utils.Utils;
 
 import java.util.Collections;
 import java.util.List;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
     @BindView(R.id.recyclerView)
@@ -126,7 +112,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid,String TestStatus,String type) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate) {
 
 
             if (testPaid.equalsIgnoreCase("Yes")) {
@@ -136,11 +122,13 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 Intent intent = new Intent(getActivity(), TestStartActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("duration", time);
+                intent.putExtra("startDate", startDate);
+                intent.putExtra("resultDate", resultDate);
 
                 intent.putExtra("testName", testName);
                 intent.putExtra("type", type);
                 intent.putExtra("testQuestion", testQuestion);
-                intent.putExtra("testStatus",TestStatus);
+                intent.putExtra("testStatus",testStatus);
                 intent.putExtra("testPaid",testPaid);
                 startActivity(intent);
 

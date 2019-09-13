@@ -11,19 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import com.dnamedical.Models.test.AllTest;
-import com.dnamedical.Models.test.GrandTest;
-import com.dnamedical.Models.test.MiniTest;
-import com.dnamedical.Models.test.SubjectTest;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
@@ -78,8 +72,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(),test.getStartDate(),test.getResultDate());
                     }
                 }
             });
@@ -111,7 +105,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });
@@ -147,7 +141,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });
@@ -186,7 +180,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType());
+                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });
@@ -238,7 +232,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     public interface OnCategoryClick {
 
-        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid, String TestStatus, String type);
+        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid, String TestStatus, String type, String startDate, String resultDate);
 
     }
 

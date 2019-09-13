@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import com.dnamedical.R;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.Utils;
 
 public class TestStartActivity extends AppCompatActivity {
 
@@ -27,6 +28,12 @@ public class TestStartActivity extends AppCompatActivity {
     @BindView(R.id.test_information)
     TextView testInformation;
 
+    @BindView(R.id.start_desc)
+    TextView start_desc;
+
+    @BindView(R.id.start_date)
+    TextView start_date;
+
     @BindView(R.id.btn_Start)
     Button btnStart;
 
@@ -36,6 +43,8 @@ public class TestStartActivity extends AppCompatActivity {
 
     String id, duration, testName, testQuestion, testPaid;
     String description;
+    private long startDate;
+    private long resultDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,21 +55,54 @@ public class TestStartActivity extends AppCompatActivity {
         if (getIntent() != null) {
             id = getIntent().getStringExtra("id");
             duration = getIntent().getStringExtra("duration");
+            startDate = Long.parseLong(getIntent().getStringExtra("startDate"));
+            resultDate = Long.parseLong(getIntent().getStringExtra("resultDate"));
+
             testName = getIntent().getStringExtra("testName");
             String type = getIntent().getStringExtra("type");
             testQuestion = getIntent().getStringExtra("testQuestion");
-            description = getIntent().getStringExtra("testStatus");
+            description = getIntent().getStringExtra("desc");
             testPaid = getIntent().getStringExtra("testPaid");
 
-            //if (check_status == 0) {
+            if (DnaPrefs.getBoolean(getApplicationContext(),""+id)){
                 testTopic.setText(testName);
                 updateTestTypeText(type);
-                btnStart.setText("Start The Test");
-//            } else {
-//                testTopic.setText(testName);
-//                updateTestTypeText(type);
-//                btnStart.setText("Review The Test");
-//            }
+                testTopic.setText(testName);
+                updateTestTypeText(type);
+                btnStart.setText("Review Test");
+                btnStart.setVisibility(View.VISIBLE);
+                start_date.setVisibility(View.GONE);
+                start_desc.setVisibility(View.GONE);
+
+            }else{
+                if ((System.currentTimeMillis()-(startDate*1000)>=0)){
+                    if (resultDate*1000<System.currentTimeMillis()){
+                        btnStart.setText("Test result declared want to start the test");
+                    }else{
+                        btnStart.setText("Start The Test");
+                    }
+
+                    testTopic.setText(testName);
+                    updateTestTypeText(type);
+                    testTopic.setText(testName);
+                    updateTestTypeText(type);
+                    btnStart.setText("Start The Test");
+                    btnStart.setVisibility(View.VISIBLE);
+                    start_date.setVisibility(View.GONE);
+                    start_desc.setVisibility(View.GONE);
+
+                }else{
+                    testTopic.setText(testName);
+                    updateTestTypeText(type);
+                    btnStart.setText("Start The Test");
+                    btnStart.setVisibility(View.GONE);
+                    start_date.setText(Utils.dateFormat(startDate*1000));
+                    start_date.setVisibility(View.VISIBLE);
+                    start_desc.setVisibility(View.VISIBLE);
+                }
+
+            }
+
 
         }
 
@@ -79,8 +121,8 @@ public class TestStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               // if (check_status == 0) {
-                    StartTest();
+                // if (check_status == 0) {
+                StartTest();
 //                } else {
 //                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
 //                    intent.putExtra("Test_Id", id);
@@ -113,7 +155,7 @@ public class TestStartActivity extends AppCompatActivity {
             }
         });
 
-       btn_learnmore.setOnClickListener(new View.OnClickListener() {
+        btn_learnmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -126,17 +168,17 @@ public class TestStartActivity extends AppCompatActivity {
             }
         });
 
-       btn_view_plans.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        btn_view_plans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-               Intent intent = new Intent(TestStartActivity.this, DNASuscribeActivity.class);
-               startActivity(intent);
-               finish();
-               dialog.dismiss();
+                Intent intent = new Intent(TestStartActivity.this, DNASuscribeActivity.class);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
 
-           }
-       });
+            }
+        });
 
         dialog.show();
 
@@ -147,15 +189,15 @@ public class TestStartActivity extends AppCompatActivity {
 
     private void updateTestTypeText(String type) {
         switch (type) {
-            case "Grand Test":
+            case "grand_test":
                 testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + duration);
                 break;
 
-            case "Mini Test":
+            case "mini_test":
                 testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + duration);
                 break;
 
-            case "Subject Wise Test":
+            case "subject_test":
                 testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + duration);
                 break;
 

@@ -13,19 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
-import com.dnamedical.DNAApplication;
-import com.dnamedical.Models.test.GrandTest;
-import com.dnamedical.Models.test.MiniTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
-import com.dnamedical.utils.Utils;
 
 import java.util.Collections;
 import java.util.List;
@@ -89,7 +84,9 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String description, String type) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate) {
+
+
         if (testPaid.equalsIgnoreCase("Yes")) {
             Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
             startActivity(intent);
@@ -97,14 +94,20 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
             Intent intent = new Intent(getActivity(), TestStartActivity.class);
             intent.putExtra("id", id);
             intent.putExtra("duration", time);
+            intent.putExtra("startDate", startDate);
+            intent.putExtra("resultDate", resultDate);
+
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);
             intent.putExtra("testQuestion", testQuestion);
-            intent.putExtra("testStatus", description);
-            intent.putExtra("testPaid", testPaid);
+            intent.putExtra("testStatus",testStatus);
+            intent.putExtra("testPaid",testPaid);
             startActivity(intent);
 
+
+
         }
+
     }
 
     public void showTest() {

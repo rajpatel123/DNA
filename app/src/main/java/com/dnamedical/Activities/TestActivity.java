@@ -3,10 +3,13 @@ package com.dnamedical.Activities;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +27,7 @@ import android.widget.Toast;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.fragment.ReviewAnswerSheetFreagment;
 import com.dnamedical.fragment.TruitonListFragment;
 import com.dnamedical.utils.Utils;
 
@@ -56,9 +61,15 @@ public class TestActivity extends FragmentActivity {
     Button nextBtn;
     static int currentPosition;
     boolean timeUp;
-    private ImageView imageMenu;
+    private Button imageMenu;
     private String testName;
+    private BottomSheetBehavior sheetBehavior, sheetBehaviorStealthModeTimeChooser;
+    private String ssanswer;
+    private String wwanswerIds;
+    private String ttQuestion;
+    private String ccAnswerIds;
     long testDuration = 0;
+    Button item_star;
     private RelativeLayout relative;
 
     @Override
@@ -68,6 +79,7 @@ public class TestActivity extends FragmentActivity {
         guessImage = findViewById(R.id.image_guess);
         imageMenu = findViewById(R.id.menu_item);
         relative = findViewById(R.id.relative);
+        item_star = findViewById(R.id.item_star);
 
 
         guessImage.setOnClickListener(new OnClickListener() {
@@ -154,7 +166,7 @@ public class TestActivity extends FragmentActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.review:
-                      //  showAnswerDetails(qustionDetails, currentPosition);
+                       showAnswerDetails(currentPosition);
                         break;
                     case R.id.submit:
                         submitAlertDiolog();
@@ -448,19 +460,35 @@ public class TestActivity extends FragmentActivity {
         dialog.show();
     }
 
-//    public void showAnswerDetails(final QustionDetails quesQustionDetails, int position) {
-//        if (sheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            ReviewAnswerSheetFreagment fragment = new ReviewAnswerSheetFreagment();
-//            Bundle args = new Bundle();
-//            args.putParcelable("questionDetail", qustionDetails.getData().);
-//            args.putInt("position", position);
-//            fragment.setArguments(args);
-//            fragmentTransaction.add(R.id.fragmentAnswerSheet, fragment);
-//            fragmentTransaction.commit();
-//            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//        }
-//    }
+    public void showAnswerDetails(int position) {
+        RelativeLayout llBottomSheet =  findViewById(R.id.bottom_sheet);
+
+// init the bottom sheet behavior
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
+
+// change the state of the bottom sheet
+       if (bottomSheetBehavior.getState()!=BottomSheetBehavior.STATE_EXPANDED){
+           bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+       }
+
+// set the peek height
+        bottomSheetBehavior.setPeekHeight(840);
+
+// set hideable or not
+        bottomSheetBehavior.setHideable(false);
+
+// set callback for changes
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
 }
 

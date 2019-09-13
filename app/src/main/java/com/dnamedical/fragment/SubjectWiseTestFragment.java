@@ -13,24 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
-import com.dnamedical.DNAApplication;
-import com.dnamedical.Models.test.AllTest;
-import com.dnamedical.Models.test.SubjectTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
-import com.dnamedical.utils.Utils;
 
 import java.util.Collections;
 import java.util.List;
 
-public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnCategoryClick{
+public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
 
 
     TextView notext;
@@ -44,9 +39,11 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity) getActivity();;
+        mainActivity = (MainActivity) getActivity();
+        ;
 
     }
+
     public SubjectWiseTestFragment() {
 
     }
@@ -58,19 +55,20 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sybjectwisetest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView2);
-        notext=view.findViewById(R.id.noTest);
+        notext = view.findViewById(R.id.noTest);
         showTest();
         return view;
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid,String TestStatus,String type) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate) {
+
+
         if (testPaid.equalsIgnoreCase("Yes")) {
             Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
             startActivity(intent);
@@ -78,15 +76,21 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             Intent intent = new Intent(getActivity(), TestStartActivity.class);
             intent.putExtra("id", id);
             intent.putExtra("duration", time);
+            intent.putExtra("startDate", startDate);
+            intent.putExtra("resultDate", resultDate);
+
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);
             intent.putExtra("testQuestion", testQuestion);
-            intent.putExtra("testStatus",TestStatus);
-            intent.putExtra("testPaid",testPaid);
+            intent.putExtra("testStatus", testStatus);
+            intent.putExtra("testPaid", testPaid);
             startActivity(intent);
 
+
         }
+
     }
+
     public void showTest() {
         if (mainActivity != null && mainActivity.getSubjectTests() != null && mainActivity.getSubjectTests().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");

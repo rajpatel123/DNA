@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -15,44 +22,32 @@
         android:text="Tetsmfkfnldnv,  fjefwfnfuyfw"
         android:textSize="@dimen/text_large"
         android:textStyle="bold" />
-
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <ImageView
+            android:id="@+id/question_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/image"
+            android:maxHeight="130dp"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/answerList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        </LinearLayout>
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/question_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:minHeight="200dp"
-                    android:visibility="visible"
-                    />
 
-                <LinearLayout
-                    android:id="@+id/answerList"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-            </LinearLayout>
-
-        </ScrollView>
-    </FrameLayout>
 
 </LinearLayout>
+</ScrollView>

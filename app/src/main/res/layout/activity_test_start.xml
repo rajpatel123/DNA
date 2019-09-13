@@ -50,7 +50,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height=".5pt"
+                    android:layout_height="1px"
                     android:background="@color/darkwhite" />
 
                 <TextView
@@ -63,15 +63,42 @@
                     android:textColor="@color/black_titles"
                     android:text="@string/test_start" />
 
+                <TextView
+                    android:layout_margin="10dp"
+                    android:id="@+id/start_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:visibility="gone"
+
+                    android:textColor="@color/black_titles"
+                    android:text="@string/test_start" />
+
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:id="@+id/start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:visibility="gone"
+
+                    android:textStyle="bold"
+                    android:textColor="@color/black_titles"
+                    android:text="@string/test_start" />
+
                 <Button
                     android:id="@+id/btn_Start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
-                    android:background="@color/orange"
+                    android:background="@drawable/rounded_shape"
                     android:paddingBottom="3dp"
                     android:paddingLeft="15sp"
                     android:paddingRight="15dp"
+                    android:visibility="gone"
                     android:paddingTop="3dp"
                     android:text="START THE TEST"
                     android:textColor="@color/white" />
