@@ -28,6 +28,9 @@ import android.util.Log;
 
 import com.dnamedical.utils.Constants;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,12 +147,22 @@ public class FetchAddressIntentService extends IntentService {
             // getPostalCode() ("94043", for example)
             // getCountryCode() ("US", for example)
             // getCountryName() ("United States", for example)
-            for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
-                addressFragments.add(address.getAddressLine(i));
+//            for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+//                addressFragments.add(address.getAddressLine(i));
+//            }
+           // Log.d("Address",address.getAddressLine(0).toString());
+            //Log.d("Address",address.getSubAdminArea().toString());
+           // Log.d("Address",address.getCountryName().toString());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put(Constants.ADDRESS,address.getAddressLine(0).toString());
+                jsonObject.put(Constants.CITY,address.getSubAdminArea().toString());
+                jsonObject.put(Constants.COUNTRY,address.getCountryName().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            Log.i(TAG, getString(R.string.address_found));
             deliverResultToReceiver(Constants.SUCCESS_RESULT,
-                    TextUtils.join(System.getProperty("line.separator"), addressFragments));
+                    jsonObject.toString());
         }
     }
 
