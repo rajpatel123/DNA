@@ -163,12 +163,13 @@ public class LoginActivity extends AppCompatActivity {
                             String id = loginResponse.getLoginDetails().get(0).getId();
                             String state = loginResponse.getLoginDetails().get(0).getState();
                             String college = loginResponse.getLoginDetails().get(0).getCollege();
-                            String username = loginResponse.getLoginDetails().get(0).getUsername();
+                            String username = loginResponse.getLoginDetails().get(0).getName();
 
                             DnaPrefs.putString(getApplicationContext(), "Login_Id", id);
                             DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                             DnaPrefs.putString(getApplicationContext(), "STATE", state);
                             DnaPrefs.putString(getApplicationContext(), "COLLEGE", college);
+                            DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, loginResponse.getLoginDetails().get(0).getMobileNo());
 
                             DnaPrefs.putString(getApplicationContext(), "NAME", username);
                             DnaPrefs.putString(getApplicationContext(), "URL", "");

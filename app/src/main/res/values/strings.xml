@@ -144,8 +144,7 @@
 
 
     <string name="permission_rationale">Location permission is needed for core functionality</string>
-    <string name="permission_denied_explanation">Permission was denied, but is needed for core
-        functionality.</string>
+    <string name="permission_denied_explanation">Location permission required, enable from settings. You can off after sign up.</string>
     <string name="no_geocoder_available">No geocoder available</string>
 
     <string name="settings">Settings</string>
