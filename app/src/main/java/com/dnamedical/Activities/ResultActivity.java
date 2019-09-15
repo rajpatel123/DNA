@@ -59,21 +59,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        userNumber=findViewById(R.id.user_number);
-        // dateTv = findViewById(R.id.date);
-        userRank=findViewById(R.id.user_rank);
-        percentValue = findViewById(R.id.percentageValue);
-        totalUser=findViewById(R.id.total_user);
-        //  testNameTv = findViewById(R.id.testName);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        reviewButton = findViewById(R.id.review);
-        correct = findViewById(R.id.correct);
-        wrong = findViewById(R.id.wrong);
-        skipped = findViewById(R.id.skipped);
 
-        correctTXT = findViewById(R.id.correctText);
-        wrongTXT = findViewById(R.id.wrongText);
-        skippedTXT = findViewById(R.id.skippedText);
 
         shareButton = findViewById(R.id.btn_share);
         shareButton.setOnClickListener(new View.OnClickListener() {
