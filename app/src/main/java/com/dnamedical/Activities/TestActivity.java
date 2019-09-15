@@ -1,15 +1,13 @@
 package com.dnamedical.Activities;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -17,8 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,8 +25,7 @@ import android.widget.Toast;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.fragment.ReviewAnswerSheetFreagment;
-import com.dnamedical.fragment.TruitonListFragment;
+import com.dnamedical.fragment.QuestionFragment;
 import com.dnamedical.utils.Utils;
 
 import java.util.HashMap;
@@ -39,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TestActivity extends FragmentActivity {
+public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuItemClickListener {
     MyAdapter mAdapter;
     ViewPager mPager;
     TextView quesionCounter;
@@ -58,28 +55,21 @@ public class TestActivity extends FragmentActivity {
 
     String user_id;
 
-    Button nextBtn;
+    public Button nextBtn;
     static int currentPosition;
     boolean timeUp;
-    private Button imageMenu;
     private String testName;
-    private BottomSheetBehavior sheetBehavior, sheetBehaviorStealthModeTimeChooser;
-    private String ssanswer;
-    private String wwanswerIds;
-    private String ttQuestion;
-    private String ccAnswerIds;
     long testDuration = 0;
     Button item_star;
     private RelativeLayout relative;
+    private ImageButton iv_popupMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pager);
         guessImage = findViewById(R.id.image_guess);
-        imageMenu = findViewById(R.id.menu_item);
         relative = findViewById(R.id.relative);
-        item_star = findViewById(R.id.item_star);
 
 
         guessImage.setOnClickListener(new OnClickListener() {
@@ -89,15 +79,7 @@ public class TestActivity extends FragmentActivity {
             }
         });
 
-        // menuButton = findViewById(R.id.nex1);
-        imageMenu.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                OpenMenuOption();
-
-            }
-        });
         quesionCounter = findViewById(R.id.counter);
         timer = findViewById(R.id.timer);
         String duration = getIntent().getStringExtra("duration");
@@ -105,13 +87,11 @@ public class TestActivity extends FragmentActivity {
 
         testDuration = 15 * 60 * 1000;
 
-        nextBtn = findViewById(R.id.nextBtn);
+        nextBtn = findViewById(R.id.skip_button);
         nextBtn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                nextBtn.setTextColor(getResources().getColor(R.color.colorAccent));
-                quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getData().getQuestionList().size());
-                mPager.setCurrentItem(currentPosition + 1);
-                }
+               updateQuestionsFragment();
+            }
         });
 
 
@@ -133,6 +113,24 @@ public class TestActivity extends FragmentActivity {
 
         };
         countDownTimer.start();
+        iv_popupMenu = findViewById(R.id.context_Menu);
+
+        iv_popupMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMenu(view);
+            }
+        });
+    }
+
+    private void updateQuestionsFragment() {
+        quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getData().getQuestionList().size());
+        mPager.setCurrentItem(currentPosition + 1);
+        if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
+            nextBtn.setText("SUBMIT");
+        } else {
+            nextBtn.setText("SKIP");
+        }
     }
 
 
@@ -157,30 +155,29 @@ public class TestActivity extends FragmentActivity {
         dialog.show();
     }
 
-    @SuppressLint("RestrictedApi")
-    private void OpenMenuOption() {
-        PopupMenu popupMenu = new PopupMenu(TestActivity.this, imageMenu);
-        popupMenu.getMenuInflater().inflate(R.menu.poupup_menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.review:
-                       showAnswerDetails(currentPosition);
-                        break;
-                    case R.id.submit:
-                        submitAlertDiolog();
-                        break;
-                    case R.id.discard:
-                        discardAlertDialog();
-                        break;
-                }
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(TestActivity.this);
+        popup.inflate(R.menu.pop_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reviewTest:
+                Intent intent = new Intent(TestActivity.this, AttemptingQuestionActivity.class);
+                startActivity(intent);
                 return true;
-            }
-        });
-        popupMenu.show();
-
-
+            case R.id.submitTest:
+                submitAlertDiolog();
+                return true;
+            case R.id.discardTest:
+                discardAlertDialog();
+                return true;
+            default:
+                return false;
+        }
     }
 
     private void submitAlertDiolog() {
@@ -241,7 +238,7 @@ public class TestActivity extends FragmentActivity {
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dialog.dismiss();
                 Toast.makeText(TestActivity.this, "Open", Toast.LENGTH_SHORT).show();
             }
         });
@@ -278,7 +275,7 @@ public class TestActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
             quesionCounter.setText((position) + " of " + qustionDetails.getData().getQuestionList().size());
-            return TruitonListFragment.init(qustionDetails.getData().getQuestionList().get(position), position);
+            return QuestionFragment.init(qustionDetails.getData().getQuestionList().get(position), position,qustionDetails.getData().getQuestionList().size());
         }
     }
 
@@ -326,7 +323,6 @@ public class TestActivity extends FragmentActivity {
         public void onPageSelected(int newPosition) {
             currentPosition = newPosition;
             quesionCounter.setText((newPosition + 1) + " of " + qustionDetails.getData().getQuestionList().size());
-
         }
 
         @Override
@@ -334,6 +330,7 @@ public class TestActivity extends FragmentActivity {
         }
 
         public void onPageScrollStateChanged(int arg0) {
+
         }
     };
 
@@ -460,35 +457,5 @@ public class TestActivity extends FragmentActivity {
         dialog.show();
     }
 
-    public void showAnswerDetails(int position) {
-        RelativeLayout llBottomSheet =  findViewById(R.id.bottom_sheet);
-
-// init the bottom sheet behavior
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
-
-// change the state of the bottom sheet
-       if (bottomSheetBehavior.getState()!=BottomSheetBehavior.STATE_EXPANDED){
-           bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-       }
-
-// set the peek height
-        bottomSheetBehavior.setPeekHeight(840);
-
-// set hideable or not
-        bottomSheetBehavior.setHideable(false);
-
-// set callback for changes
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-            }
-        });
-    }
 }
 

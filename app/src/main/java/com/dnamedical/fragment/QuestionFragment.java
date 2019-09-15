@@ -13,12 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.TestActivity;
-import com.dnamedical.Models.Detail;
 import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
 
-public class TruitonListFragment extends Fragment {
+public class QuestionFragment extends Fragment {
     int fragNum;
     Question question;
     private TextView questionTxt;
@@ -26,13 +25,15 @@ public class TruitonListFragment extends Fragment {
     TestActivity activity;
     CardView cardView1, cardView2, cardView3, cardView4;
     ImageView imageQuestion;
+    private int totalQuestions;
 
-    public static TruitonListFragment init(Question question, int position) {
-        TruitonListFragment truitonList = new TruitonListFragment();
+    public static QuestionFragment init(Question question, int position, int size) {
+        QuestionFragment truitonList = new QuestionFragment();
 
         // Supply val input as an argument.
         Bundle args = new Bundle();
         args.putInt("val", position);
+        args.putInt("totalQuestions", size);
         args.putParcelable("question", question);
         truitonList.setArguments(args);
 
@@ -52,6 +53,7 @@ public class TruitonListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragNum = getArguments() != null ? getArguments().getInt("val") : 1;
+        totalQuestions = getArguments() != null ? getArguments().getInt("totalQuestions") : 1;
         question = getArguments() != null ? getArguments().getParcelable("question") : null;
 
     }
@@ -100,7 +102,6 @@ public class TruitonListFragment extends Fragment {
                     answer2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
                             updateAnswer(cardView2);
                         }
                     });
@@ -146,6 +147,12 @@ public class TruitonListFragment extends Fragment {
         cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
+        if ((fragNum+1)==totalQuestions){
+            activity.nextBtn.setText("SUBMIT");
+        }else{
+            activity.nextBtn.setText("NEXT");
+
+        }
         cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
     }
 

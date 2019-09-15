@@ -150,4 +150,7 @@
 
     <string name="settings">Settings</string>
     <string name="course">NEET- PG | NEET- SS | MBBS PROF | NEXT</string>
+    <string name="review_testsheet">Review test sheet</string>
+    <string name="summit_test">Submit Test</string>
+    <string name="discard_text">Discard Test</string>
 </resources>

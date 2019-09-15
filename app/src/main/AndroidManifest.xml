@@ -86,6 +86,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
+            android:name=".Activities.AttemptingQuestionActivity"
+            android:label="Query"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+        <activity
             android:name=".Activities.QbankResultListActivity"
             android:screenOrientation="portrait" />
         <activity

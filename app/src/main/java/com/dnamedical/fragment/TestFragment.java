@@ -142,6 +142,9 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     }
 
     public void updateAllTest() {
+        if (allTestFragment==null){
+            return;
+        }
         allTestFragment.showTest();
         mockTestFragment.showTest();
         grandTestFragment.showTest();
