@@ -61,7 +61,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
 
-        shareButton = findViewById(R.id.btn_share);
+        
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
