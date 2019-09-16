@@ -264,6 +264,7 @@ public class PaymentCoupenActivity extends AppCompatActivity {
                 DnaPrefs.putString(PaymentCoupenActivity.this, "COUPON_VALUE", totalDiscountFinalValue);
                 DnaPrefs.putString(PaymentCoupenActivity.this, "COUPON_VALUE_ADD", totalAddDiscountFinalValue);
                 DnaPrefs.putString(PaymentCoupenActivity.this, "TOTAL_VALUE", totalPriceValue);
+                DnaPrefs.putString(PaymentCoupenActivity.this, "Coupan", couponValue);
 
                 intent.putExtra("AMOUNT", finalPriceValue);
                 if (vedioId != null) {

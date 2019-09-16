@@ -313,7 +313,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
                 public void onFailure(Call<CreateOrderResponse> call, Throwable t) {
 
                     Utils.dismissProgressDialog();
-                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -376,7 +376,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
                 public void onFailure(Call<SaveOrderResponse> call, Throwable t) {
 
                     Utils.dismissProgressDialog();
-                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -443,7 +443,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
                 public void onFailure(Call<SaveOrderResponse> call, Throwable t) {
 
                     Utils.dismissProgressDialog();
-                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
