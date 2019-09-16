@@ -9,6 +9,7 @@ import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
+import com.dnamedical.Models.QustionDetails;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
 import com.dnamedical.Models.StateList.StateListResponse;
@@ -268,7 +269,7 @@ public class RestClient {
         RetrofitClient.getClient().loginWithFacebook(fb_id).enqueue(callback);
 
     }
-    
+
 
     public static void enterMobileNumberToServer(RequestBody id, RequestBody mobile_no, Callback
             <EnterMobileresponce> callback) {

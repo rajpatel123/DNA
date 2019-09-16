@@ -76,6 +76,9 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -116,6 +119,9 @@ public class RegistrationActivity extends AppCompatActivity implements
      * The formatted location address.
      */
     private String mAddressOutput;
+    private String address;
+    private String mCountry;
+    private String mCity;
 
     /**
      * Receiver registered with this activity to get the response from FetchAddressIntentService.
@@ -158,7 +164,6 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     @BindView(R.id.selectState)
     Spinner selectState;
-    String address = "Noida", city = "Noida";
     String fb_id = "dummyID", edit_name, edit_username, edit_email, edit_password = "dummy";
 
 
@@ -173,6 +178,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     private List<College> collegeList;
     private Spinner spinState;
     private String userId;
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -496,11 +502,11 @@ public class RegistrationActivity extends AppCompatActivity implements
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_name));
             return;
         }
-        if (TextUtils.isEmpty(edit_username.trim()) || edit_username.length() == 0) {
+       /* if (TextUtils.isEmpty(edit_username.trim()) || edit_username.length() == 0) {
             editUsername.setError(getString(R.string.invalid_username));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_username));
             return;
-        }
+        }*/
         if (TextUtils.isEmpty(edit_email.trim()) || edit_email.length() == 0) {
             editEmailId.setError(getString(R.string.invalid_email));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
@@ -614,16 +620,19 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody states = RequestBody.create(MediaType.parse("text/plain"), StateText);
         RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
-        RequestBody username = RequestBody.create(MediaType.parse("text/plain"), edit_username);
-        RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), mAddressOutput);
-        RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), mAddressOutput);
+        RequestBody username = RequestBody.create(MediaType.parse("text/plain"), "xyz");
+        RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), address);
+        RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), city);
+        RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), mCountry);
+
+
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             if (TextUtils.isEmpty(userId)) {
 
-                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, vFile, new Callback<CommonResponse>() {
+                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody,vFile, new Callback<CommonResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -657,7 +666,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             } else {
                 RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
-                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody, cityBody, new Callback<UserUpdateResponse>() {
+                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody, cityBody,countryBody, new Callback<UserUpdateResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -799,6 +808,17 @@ public class RegistrationActivity extends AppCompatActivity implements
 
             // Display the address string or an error message sent from the intent service.
             mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+
+            try {
+                JSONObject jsonObject = new JSONObject(mAddressOutput);
+                address = jsonObject.optString(Constants.ADDRESS);
+                city = jsonObject.optString(Constants.CITY);
+                mCountry = jsonObject.optString(Constants.COUNTRY);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
 
             Log.d("Address", mAddressOutput);
             // Reset. Enable the Fetch Address button and stop showing the progress bar.

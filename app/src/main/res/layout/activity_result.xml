@@ -4,353 +4,772 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:scrollbars="none"
     tools:context=".Activities.ResultActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="450dp"
+            android:background="#f37636"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/linar"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:background="@color/orange"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <LinearLayout
 
-                    android:layout_width="130dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="70dp"
-                    android:background="@drawable/result_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="25sp"
-                        android:gravity="center"
-                        android:text=""
-                        android:id="@+id/user_rank"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
 
+                        android:text="Date"
+                        android:textColor="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="04/07/2019"
+                        android:textColor="#FFFFFF"
+
+
+                        />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="72dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/result_logo">
 
-                <TextView
-                    android:id="@+id/total_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="Out of 72900"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Rank"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="25dp"
+                        android:gravity="center"
+                        android:text="20"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="30sp"
-                    android:layout_marginRight="20sp"
-                    android:layout_marginBottom="40dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/review"
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="50dp"
-                        android:background="@color/white"
-                        android:padding="2dp"
-                        android:text="REVIEW"
-                        android:textColor="#f37636" />
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="Time and Test"
+                        android:textColor="#FFFFFF"
+                        />
 
-                    <Button
-                        android:id="@+id/btn_share"
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="50dp"
-                        android:background="@color/white"
-                        android:padding="5dp"
-                        android:text="SHARE"
-                        android:textColor="#f37636" />
+                        android:layout_height="wrap_content"
+                        android:text="Start Time"
+                        android:textColor="#FFFFFF" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="End Time"
+                        android:textColor="#FFFFFF"/>
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
-           <RelativeLayout
-               android:layout_marginTop="350dp"
-               android:gravity="bottom|end"
-               android:layout_marginLeft="30sp"
-               android:layout_marginRight="30sp"
-               android:orientation="vertical"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-
-               <LinearLayout
-                   android:id="@+id/top"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="bottom"
-                   android:background="@color/white"
-                   android:orientation="vertical"
-                   android:visibility="visible">
-
-                   <TextView
-                       android:id="@+id/user_number"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:paddingTop="10dp"
-                       android:textColor="#939598"
-                       android:textSize="20sp"
-                       android:text="85"
-                       android:textStyle="normal
-" />
-
-
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:gravity="center"
-                       android:orientation="vertical">
-
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginLeft="0sp"
-                           android:layout_marginTop="10dp"
-                           android:orientation="vertical">
-
-
-
-                           <TextView
-                               android:layout_gravity="center"
-                               android:gravity="center"
-                               android:id="@+id/total_question"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="uu"
-                               android:textColor="#939598"
-                               android:textSize="20sp"
-                               android:textStyle="normal" />
-                       </LinearLayout>
-
-
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginLeft="0sp"
-                           android:layout_marginTop="10dp"
-                           android:orientation="vertical">
-
-                           <TextView
-                               android:layout_gravity="center"
-                               android:gravity="center"
-                               android:id="@+id/percentageValue"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textColor="#939598"
-                               android:paddingLeft="10dp"
-                               android:textSize="20sp"
-                               android:text="lfl,f,dldl"
-                               android:textStyle="normal" />
-                       </LinearLayout>
-
-
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginLeft="30sp"
-                           android:layout_marginTop="20dp"
-                           android:layout_marginRight="30sp"
-                           android:orientation="horizontal">
-
-                           <LinearLayout
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:layout_margin="5sp"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-
-                               <FrameLayout
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content">
-                                   <me.tankery.lib.circularseekbar.CircularSeekBar
-                                       android:id="@+id/correct"
-                                       android:layout_width="65dp"
-                                       app:cs_progress = "0"
-                                       android:layout_height="wrap_content"
-                                       android:layout_gravity="center_horizontal"
-                                       app:cs_circle_color = "@color/app_bg"
-                                       app:cs_circle_progress_color = "@color/green"
-                                       app:cs_pointer_color = "@color/green"
-                                       app:cs_negative_enabled="true"
-                                       app:cs_circle_style="butt"
-                                       app:cs_circle_stroke_width="6dp"
-                                       app:cs_pointer_stroke_width="4dp"
-                                      />
-
-
-                                   <TextView
-                                       android:id="@+id/correctText"
-                                       android:layout_width="wrap_content"
-                                       android:layout_height="wrap_content"
-                                       android:layout_gravity="center"
-                                       android:textSize="15sp"
-                                       android:textColor="@color/orange"
-                                       android:text=""/>
-
-                               </FrameLayout>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:layout_gravity="center"
-                                   android:paddingTop="5dp"
-                                   android:gravity="center"
-                                   android:text="Correct" />
-
-                           </LinearLayout>
-
-                           <LinearLayout
-                               android:layout_width="wrap_content"
-
-                               android:layout_height="wrap_content"
-                               android:layout_margin="5sp"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-                               <FrameLayout
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content">
-                                   <me.tankery.lib.circularseekbar.CircularSeekBar
-                                       android:id="@+id/wrong"
-                                       android:layout_width="65dp"
-                                       android:layout_height="wrap_content"
-                                       android:layout_gravity="center_horizontal"
-                                       app:cs_circle_color = "@color/app_bg"
-                                       app:cs_circle_progress_color = "@color/red"
-                                       app:cs_pointer_color = "@color/red"
-                                       app:cs_negative_enabled="true"
-                                       app:cs_circle_style="butt"
-                                       app:cs_circle_stroke_width="6dp"
-                                       app:cs_pointer_stroke_width="4dp"
-                                       />
-
-
-                                   <TextView
-                                       android:id="@+id/wrongText"
-                                       android:layout_width="wrap_content"
-                                       android:layout_height="wrap_content"
-                                       android:layout_gravity="center"
-                                       android:textSize="15sp"
-                                       android:textColor="@color/orange"
-                                       android:text=""/>
-
-                               </FrameLayout>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:layout_gravity="center"
-                                   android:paddingTop="5dp"
-                                   android:text="Wrong" />
-
-                           </LinearLayout>
-
-                           <LinearLayout
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:layout_margin="5sp"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-                               <FrameLayout
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content">
-                                   <me.tankery.lib.circularseekbar.CircularSeekBar
-                                       android:id="@+id/skipped"
-                                       android:layout_width="65dp"
-                                       android:layout_height="wrap_content"
-                                       android:layout_gravity="center_horizontal"
-                                       app:cs_circle_color = "@color/app_bg"
-                                       app:cs_circle_progress_color = "@color/vedio_text_color"
-                                       app:cs_pointer_color = "@color/vedio_text_color"
-                                       app:cs_negative_enabled="true"
-                                       app:cs_circle_style="butt"
-                                       app:cs_circle_stroke_width="6dp"
-                                       app:cs_pointer_stroke_width="4dp"
-                                     />
-
-
-                                   <TextView
-                                       android:id="@+id/skippedText"
-                                       android:layout_width="wrap_content"
-                                       android:layout_height="wrap_content"
-                                       android:layout_gravity="center"
-                                       android:textSize="15sp"
-                                       android:textColor="@color/orange"
-                                       android:text=""/>
-                               </FrameLayout>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:layout_gravity="center"
-                                   android:paddingTop="5dp"
-                                   android:text="Skipped" />
-
-                           </LinearLayout>
-                       </LinearLayout>
-
-
-                   </LinearLayout>
 
 
 
 
-               </LinearLayout>
-
-               <LinearLayout
-                   android:layout_below="@id/top"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:orientation="vertical">
-
-                   <android.support.v7.widget.RecyclerView
-                       android:id="@+id/recycler"
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent">
-
-                   </android.support.v7.widget.RecyclerView>
 
 
-               </LinearLayout>
-           </RelativeLayout>
 
 
-        </FrameLayout>
+        </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="350dp">
+
+            <LinearLayout
+                android:id="@+id/top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:padding="15dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Score :"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="@string/app_name"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Marks :"
+
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="@string/app_name"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Percentage :"
+
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="@string/app_name"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Percentile :"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="@string/app_name"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:layout_below="@+id/top"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="(A) Score Analysis:"
+                        android:textStyle="bold" />
+
+
+                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp">
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:background="@drawable/border"
+                                android:paddingLeft="2dp"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/ic_check"
+
+                                android:paddingLeft="2dp"
+                                android:text="(++)" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+
+                                android:background="@drawable/border"
+                                android:drawableLeft="@drawable/ic_close"
+                                android:paddingLeft="2dp"
+                                android:text="(-1)" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/border"
+                                android:gravity="center"
+                                android:text="Not Attempted" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+
+                                android:gravity="center"
+                                android:text="Score" />
+                        </TableRow>
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:background="@drawable/colom_border"
+                                android:paddingLeft="2dp"
+                                android:text="ANA to my" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="5" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="18" />
+                        </TableRow>
+
+                        <TableRow android:background="#DAE8FC">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:background="@drawable/colom_border"
+                                android:paddingLeft="2dp"
+                                android:text="Psychology" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="6" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="15" />
+                        </TableRow>
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:background="@drawable/colom_border"
+                                android:paddingLeft="2dp"
+                                android:text="Biochemistry" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="9" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="5" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="31" />
+                        </TableRow>
+                    </TableLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="(B) Dificulty Label Analysis:"
+                        android:textStyle="bold" />
+
+
+                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp">
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:background="@drawable/border"
+                                android:paddingLeft="2dp"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/border"
+                                android:drawableRight="@drawable/ic_check"
+                                android:gravity="center"
+                                android:paddingLeft="2dp"
+                                android:text="Currect" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/border"
+                                android:drawableRight="@drawable/ic_close"
+                                android:gravity="center"
+                                android:text="Wrong" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+
+                                android:gravity="center"
+                                android:text="Skipped" />
+                        </TableRow>
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:background="@drawable/colom_border"
+                                android:paddingLeft="2dp"
+                                android:text="Easy" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="18" />
+                        </TableRow>
+
+                        <TableRow android:background="#DAE8FC">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:background="@drawable/colom_border"
+                                android:paddingLeft="2dp"
+                                android:text="Medium" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="15" />
+                        </TableRow>
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:background="@drawable/colom_border"
+                                android:paddingLeft="2dp"
+                                android:text="Hard" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="5" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="31" />
+                        </TableRow>
+                    </TableLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="(C) Guess Analysis:"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Switched from currect to wrong-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Switched from wrong to currect-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Switched from wrong to wrong-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Total switched Question-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="(B) Dificulty Label Analysis:"
+                        android:textStyle="bold" />
+
+
+                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp">
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/border"
+                                android:gravity="center"
+                                android:paddingLeft="2dp"
+                                android:text="Time taken to\n marked question" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/border"
+                                android:gravity="center"
+                                android:paddingLeft="2dp"
+                                android:text="Time taken to\n skipped question" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Total tine" />
+                        </TableRow>
+
+                        <TableRow android:background="@drawable/border">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="00:00:00" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="00:00:00" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="00:00:00" />
+                        </TableRow>
+
+                        <TableRow android:background="#DAE8FC">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="Hrs:mm:sec" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="Hrs:mm:sec" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="Hrs:mm:sec" />
+                        </TableRow>
+
+                    </TableLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
