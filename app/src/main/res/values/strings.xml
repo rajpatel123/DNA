@@ -113,7 +113,7 @@
     <string name="discard_text1">Are you sure you want to discard the test?</string>
     <string name="submit_text1">Your Test timed out! Submit the test?</string>
     <string name="guess_heading">New Feature to help you with negative marking!</string>
-    <string name="guess_sub_heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum diam id mauris dignissim, vel placerat nisl blandit. Vestibulam ante ipsum primis in faucibus orciluctus et ultrices posuere cubilia Curae.</string>
+    <string name="guess_sub_heading">While taking test, now you can mark questions you are just guessing. You can review them later in the rank screen to know your net score and performance from guessing. </string>
     <string name="valid_phone">Please enter valid phone</string>
     <string name="enter_otp">Enter otp</string>
     <string name="enter_otp_on_email">Enter otp sent on your phone</string>

@@ -87,7 +87,6 @@ public interface ApiInterface {
                                         @Part("city") RequestBody cityBody);
 
 
-
     @Multipart
     @POST("api/api.php?req=add_address")
     Call<AddressDetailResponse> addressDetail(@Part("user_id") RequestBody user_id,
@@ -114,20 +113,16 @@ public interface ApiInterface {
                                              @Part("pin_code") RequestBody pin_code);
 
 
-
-
-
-
     @Multipart
     @POST("api/api.php?req=invoice_mail")
     Call<SaveOrderResponse> invoiceOrderDetail(@Part("user_id") RequestBody user_id,
-                                            @Part("pramotoin") RequestBody pramotoin,
-                                            @Part("addDiscount") RequestBody addDiscount,
-                                            @Part("totalAmountBeforeTax") RequestBody totalAmountBeforeTax,
-                                            @Part("tax") RequestBody tax,
-                                            @Part("shippingCharges") RequestBody shippingCharges,
-                                            @Part("grandTotal") RequestBody grandTotal,
-                                             @Part("totalAmount") RequestBody totalAmount);
+                                               @Part("pramotoin") RequestBody pramotoin,
+                                               @Part("addDiscount") RequestBody addDiscount,
+                                               @Part("totalAmountBeforeTax") RequestBody totalAmountBeforeTax,
+                                               @Part("tax") RequestBody tax,
+                                               @Part("shippingCharges") RequestBody shippingCharges,
+                                               @Part("grandTotal") RequestBody grandTotal,
+                                               @Part("totalAmount") RequestBody totalAmount);
 
     @Multipart
     @POST("api/api.php?req=save_order")
@@ -142,12 +137,12 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=add_order")
     Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
-                                            @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
-                                            @Part("user_id") RequestBody user_id,
-                                            @Part("product_id") RequestBody product_id,
-                                            @Part("video_id") RequestBody video_id,
-                                            @Part("test_id") RequestBody test_id,
-                                            @Part("status") RequestBody status);
+                                           @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
+                                           @Part("user_id") RequestBody user_id,
+                                           @Part("product_id") RequestBody product_id,
+                                           @Part("video_id") RequestBody video_id,
+                                           @Part("test_id") RequestBody test_id,
+                                           @Part("status") RequestBody status);
 
     @Multipart
     @POST("/v1/index.php/api/ordersdetails/saveorder")
@@ -156,7 +151,7 @@ public interface ApiInterface {
                                                 @Part("currency") RequestBody currency,
                                                 @Part("product_id") RequestBody product_id,
                                                 @Part("product_type") RequestBody product_type
-                                            );
+    );
 
     @Multipart
     @POST("api/api.php?req=token_verify")
@@ -176,7 +171,6 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=get_address")
     Call<GetDataAddressResponse> getAddressData(@Part("user_id") RequestBody user_id);
-
 
 
     @GET("api/api.php?req=add_discount")
@@ -224,9 +218,9 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=demo_time")
     Call<ResponseBody> updateVideoPlayTime(@Part("user_id") RequestBody user_id,
-                                               @Part("video_id") RequestBody video_id,
-                                               @Part("time") RequestBody time
-                                               );
+                                           @Part("video_id") RequestBody video_id,
+                                           @Part("time") RequestBody time
+    );
 
 
     @Multipart
@@ -237,18 +231,10 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/testquestions")
     Call<QustionDetails> getQuestion(@Query("user_id") String user_id, @Query("test_id") String test_id);
 
-    @POST("api/api.php?req=final_test")
-    Call<ResponseBody> submitTest(@Query("user_id") String user_id,
-                                  @Query("test_id") String test_id,
-                                  @Query("tquestion") String tquestion,
-                                  @Query("ttquestion") String ttquestion,
-                                  @Query("canswer") String canswer,
-                                  @Query("ccanswer") String ccanswer,
-                                  @Query("wanswer") String wanswer,
-                                  @Query("wwanswer") String wwanswer,
-                                  @Query("sanswer") String sanswer,
-                                  @Query("ssanswer") String ssanswer,
-                                  @Query("test_finish_duration") String test_finish_duration);
+    @POST("v1/index.php/api/test/testresult")
+    Call<ResponseBody> submitTest(@Query("user_id") RequestBody userId,
+                                  @Query("test_id") RequestBody testID,
+                                  @Query("is_submit") RequestBody isSubmit);
 
     @Multipart
     @POST("api/api.php?req=result")
@@ -319,6 +305,14 @@ public interface ApiInterface {
                                     @Query("user_answer") String user_answer);
 
 
+    @POST("v1/index.php/api/test/submitanswer")
+    Call<ResponseBody> submitTestAnswer(@Query("user_id") RequestBody userId,
+                                        @Query("test_id") RequestBody testID,
+                                        @Query("question_id") RequestBody qID,
+                                        @Query("answer") RequestBody answerID,
+                                        @Query("is_guess") RequestBody guesStatus);
+
+
     @Multipart
     @POST("api/api.php?req=qbank_mcq")
     Call<QbankTestResponse> qbanksubTestData(@Part("qmodule_id") RequestBody qmodule_id);
@@ -354,7 +348,6 @@ public interface ApiInterface {
     Call<FacebookLoginResponse> loginWithFacebook(@Part("fb_id") RequestBody fb_id);
 
 
-
     @Multipart
     @POST("/api/api.php?req=email_login")
     Call<LoginDetailForDemo> getUserByEmail(@Part("email_id") RequestBody email_id);
@@ -369,7 +362,7 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=is_real")
     Call<ResponseBody> updateLogin(@Part("id") RequestBody id,
-                                                @Part("isreal") RequestBody isreal);
+                                   @Part("isreal") RequestBody isreal);
 
     @GET("v1/index.php/api/test/list")
     Call<TestDataResponse> getAllTestData(@Query("user_id") String id);

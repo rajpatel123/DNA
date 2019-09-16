@@ -44,6 +44,7 @@ public class QuestionFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (TestActivity) getActivity();
+        activity.tempTime = System.currentTimeMillis();
     }
 
     /**
@@ -55,6 +56,8 @@ public class QuestionFragment extends Fragment {
         fragNum = getArguments() != null ? getArguments().getInt("val") : 1;
         totalQuestions = getArguments() != null ? getArguments().getInt("totalQuestions") : 1;
         question = getArguments() != null ? getArguments().getParcelable("question") : null;
+
+        activity.question_id = question.getId();
 
     }
 
@@ -84,10 +87,16 @@ public class QuestionFragment extends Fragment {
                     cardView1 = answerView.findViewById(R.id.cardView);
                     answer1.setText(question.getOption1());
                     answerList.addView(answerView);
+
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption1().equalsIgnoreCase(question.getSelectedOption())){
+                     updateAnswer(cardView1);
+                    }
                     answer1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             updateAnswer(cardView1);
+                            activity.answer = "1";
+                            question.setSelectedOption(question.getOption1());
                         }
                     });
                     break;
@@ -98,11 +107,16 @@ public class QuestionFragment extends Fragment {
                     cardView2 = answerView1.findViewById(R.id.cardView);
                     answer2.setText(question.getOption2());
                     answerList.addView(answerView1);
-
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())){
+                        updateAnswer(cardView2);
+                    }
                     answer2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             updateAnswer(cardView2);
+                            activity.answer = "2";
+                            question.setSelectedOption(question.getOption2());
+
                         }
                     });
                     break;
@@ -114,9 +128,14 @@ public class QuestionFragment extends Fragment {
                     answer3.setText(question.getOption3());
 
                     answerList.addView(answerView2);
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())){
+                        updateAnswer(cardView3);
+                    }
                     answer3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            activity.answer = "3";
+                            question.setSelectedOption(question.getOption3());
                             updateAnswer(cardView3);
                         }
                     });
@@ -128,10 +147,14 @@ public class QuestionFragment extends Fragment {
                     cardView4 = answerView4.findViewById(R.id.cardView);
                     answer4.setText(question.getOption4());
                     answerList.addView(answerView4);
-
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())){
+                        updateAnswer(cardView4);
+                    }
                     answer4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            activity.answer = "4";
+                            question.setSelectedOption(question.getOption4());
                             updateAnswer(cardView4);
                         }
                     });
@@ -147,16 +170,14 @@ public class QuestionFragment extends Fragment {
         cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
-        if ((fragNum+1)==totalQuestions){
+        if ((fragNum + 1) == totalQuestions) {
             activity.nextBtn.setText("SUBMIT");
-        }else{
+        } else {
             activity.nextBtn.setText("NEXT");
 
         }
         cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.test_fragment_card_bacckground));
     }
-
-
 
 
     @Override

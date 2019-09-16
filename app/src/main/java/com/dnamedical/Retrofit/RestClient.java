@@ -122,6 +122,10 @@ public class RestClient {
         RetrofitClient.getClient().submitAnswer(q_id, u_id, is_completed, userAnswer).enqueue(callback);
     }
 
+    public static void submitTestAnswer(RequestBody userId, RequestBody testID, RequestBody qID, RequestBody answerID, RequestBody guesStatus, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitTestAnswer(userId, testID, qID, answerID,guesStatus).enqueue(callback);
+    }
+
 
     public static void getVideos(String sub_child_cat, String fileType, Callback<VideoList> callback) {
         RetrofitClient.getClient().getVideos(sub_child_cat, fileType).enqueue(callback);
@@ -154,9 +158,8 @@ public class RestClient {
     }
 
 
-    public static void submitTest(String user_id, String test_id,
-                                  String tquestion, String ttquestion, String canswer, String ccanswer, String wanswer, String wwanswer, String sanswer, String ssanswer, String test_finish_duration, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().submitTest(user_id, test_id, tquestion, ttquestion, canswer, ccanswer, wanswer, wwanswer, sanswer, ssanswer, test_finish_duration).enqueue(callback);
+    public static void submitTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitTest(userId,testID,isSubmit).enqueue(callback);
 
     }
 

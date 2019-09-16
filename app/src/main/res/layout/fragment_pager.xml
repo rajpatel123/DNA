@@ -42,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/guess_answer_icon" />
+            android:layout_marginStart="@dimen/margin_5"
+            android:background="@drawable/guess_answer_icon" />
 
 
     </LinearLayout>

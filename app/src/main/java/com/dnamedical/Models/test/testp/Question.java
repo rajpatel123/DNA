@@ -30,6 +30,17 @@ public class Question implements Parcelable {
     @Expose
     private String explanation;
 
+    public String getSelectedOption() {
+        return selectedOption;
+    }
+
+    public void setSelectedOption(String selectedOption) {
+        this.selectedOption = selectedOption;
+    }
+
+
+    private String selectedOption;
+
     @SerializedName("option_1_image")
     @Expose
     private String option_1_image;
