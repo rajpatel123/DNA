@@ -71,7 +71,8 @@ public interface ApiInterface {
                                       @Part("password") RequestBody password,
                                       @Part("college") RequestBody college,
                                       @Part("address") RequestBody addressBody,
-                                      @Part("city") RequestBody cityBody);
+                                      @Part("city") RequestBody cityBody,
+                                      @Part("country") RequestBody countryBody);
 
 
     @Multipart
@@ -83,7 +84,9 @@ public interface ApiInterface {
                                         @Part("state") RequestBody state,
                                         @Part("college") RequestBody college,
                                         @Part("address") RequestBody addressBody,
-                                        @Part("city") RequestBody cityBody);
+                                        @Part("city") RequestBody cityBody,
+                                        @Part("country") RequestBody countryBody);
+
 
 
 
