@@ -60,8 +60,6 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-
-        
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +80,6 @@ public class ResultActivity extends AppCompatActivity {
 //        correct = findViewById(R.id.correct);
 
         showRankResult();
-
 
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
