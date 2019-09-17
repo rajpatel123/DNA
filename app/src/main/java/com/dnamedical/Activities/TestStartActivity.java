@@ -75,23 +75,23 @@ public class TestStartActivity extends AppCompatActivity {
                 start_desc.setVisibility(View.GONE);
 
             }else{
-                if ((System.currentTimeMillis()-(startDate*1000)>=0)){
-                    if (resultDate*1000<System.currentTimeMillis()){
-                        btnStart.setText("Test result declared want to start the test");
-                    }else{
-                        btnStart.setText("Start The Test");
-                    }
-
-                    testTopic.setText(testName);
-                    updateTestTypeText(type);
-                    testTopic.setText(testName);
-                    updateTestTypeText(type);
-                    btnStart.setText("Start The Test");
-                    btnStart.setVisibility(View.VISIBLE);
-                    start_date.setVisibility(View.GONE);
-                    start_desc.setVisibility(View.GONE);
-
-                }else{
+//                if ((System.currentTimeMillis()-(startDate*1000)>=0)){
+//                    if (resultDate*1000<System.currentTimeMillis()){
+//                        btnStart.setText("Test result declared want to start the test");
+//                    }else{
+//                        btnStart.setText("Start The Test");
+//                    }
+//
+//                    testTopic.setText(testName);
+//                    updateTestTypeText(type);
+//                    testTopic.setText(testName);
+//                    updateTestTypeText(type);
+//                    btnStart.setText("Start The Test");
+//                    btnStart.setVisibility(View.VISIBLE);
+//                    start_date.setVisibility(View.GONE);
+//                    start_desc.setVisibility(View.GONE);
+//
+//                }else{
                     testTopic.setText(testName);
                     updateTestTypeText(type);
                     btnStart.setText("Start The Test");
@@ -99,7 +99,7 @@ public class TestStartActivity extends AppCompatActivity {
                     start_date.setText(Utils.dateFormat(startDate*1000));
                     start_date.setVisibility(View.VISIBLE);
                     start_desc.setVisibility(View.VISIBLE);
-                }
+               // }
 
             }
 
