@@ -1,9 +1,12 @@
 package com.dnamedical.Models.test.testresult;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DiffcultyLevelAnalysis {
+public class DiffcultyLevelAnalysis implements Parcelable {
 
 @SerializedName("easy")
 @Expose
@@ -15,7 +18,22 @@ private Medium medium;
 @Expose
 private Hard hard;
 
-public Easy getEasy() {
+    protected DiffcultyLevelAnalysis(Parcel in) {
+    }
+
+    public static final Creator<DiffcultyLevelAnalysis> CREATOR = new Creator<DiffcultyLevelAnalysis>() {
+        @Override
+        public DiffcultyLevelAnalysis createFromParcel(Parcel in) {
+            return new DiffcultyLevelAnalysis(in);
+        }
+
+        @Override
+        public DiffcultyLevelAnalysis[] newArray(int size) {
+            return new DiffcultyLevelAnalysis[size];
+        }
+    };
+
+    public Easy getEasy() {
 return easy;
 }
 
@@ -39,4 +57,12 @@ public void setHard(Hard hard) {
 this.hard = hard;
 }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+    }
 }

@@ -1,9 +1,14 @@
 package com.dnamedical.Models.test.testresult;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+import java.util.List;
+
+public class Data implements Parcelable {
 
 @SerializedName("rank")
 @Expose
@@ -42,7 +47,54 @@ private GuessAnalysis guessAnalysis;
 @Expose
 private TimeAnalysis timeAnalysis;
 
-public Integer getRank() {
+    protected Data(Parcel in) {
+        if (in.readByte() == 0) {
+            rank = null;
+        } else {
+            rank = in.readInt();
+        }
+        startTime = in.readString();
+        endTime = in.readString();
+        if (in.readByte() == 0) {
+            lowestRank = null;
+        } else {
+            lowestRank = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            yourScore = null;
+        } else {
+            yourScore = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            totalMarks = null;
+        } else {
+            totalMarks = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            percenatge = null;
+        } else {
+            percenatge = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            percentile = null;
+        } else {
+            percentile = in.readInt();
+        }
+    }
+
+    public static final Creator<Data> CREATOR = new Creator<Data>() {
+        @Override
+        public Data createFromParcel(Parcel in) {
+            return new Data(in);
+        }
+
+        @Override
+        public Data[] newArray(int size) {
+            return new Data[size];
+        }
+    };
+
+    public Integer getRank() {
 return rank;
 }
 
@@ -138,4 +190,50 @@ public void setTimeAnalysis(TimeAnalysis timeAnalysis) {
 this.timeAnalysis = timeAnalysis;
 }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (rank == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(rank);
+        }
+        dest.writeString(startTime);
+        dest.writeString(endTime);
+        if (lowestRank == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(lowestRank);
+        }
+        if (yourScore == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(yourScore);
+        }
+        if (totalMarks == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(totalMarks);
+        }
+        if (percenatge == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(percenatge);
+        }
+        if (percentile == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(percentile);
+        }
+    }
 }
