@@ -26,9 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Models.test.testp.QustionDetails;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.fragment.QuestionFragment;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
@@ -127,7 +129,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                     Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
                     pauseTimer();
                 } else {
-                    if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")){
+                    if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
                         submitQuestionAnswer();
                     }
 
@@ -175,18 +177,26 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
-        RestClient.submitTest(userId, testID, isSubmit, new Callback<ResponseBody>() {
+        Utils.showProgressDialog(TestActivity.this);
+        RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
-
-
+            public void onResponse(Call<TestResult> call, Response<TestResult> response) {
+                TestResult testResult = response.body();
+                Utils.dismissProgressDialog();
+                if (testResult != null) {
+                    Intent intent = new Intent(TestActivity.this, ResultActivity.class);
+                    intent.putExtra(Constants.RESULT, testResult);
+                    startActivity(intent);
+                    Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    finish();
+                }
 
 
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<TestResult> call, Throwable t) {
+                Utils.dismissProgressDialog();
                 Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
         });
@@ -199,7 +209,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         RequestBody testEvent = RequestBody.create(MediaType.parse("text/plain"), "event");
         RequestBody subEvent = RequestBody.create(MediaType.parse("text/plain"), type);
         RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        RestClient.submit_timeLog(userId, timeSpendBody, testEvent, subEvent, product_id,new Callback<ResponseBody>() {
+        RestClient.submit_timeLog(userId, timeSpendBody, testEvent, subEvent, product_id, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d("Time Log -==>  " + type, "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
@@ -372,6 +382,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                finish();
                 Toast.makeText(TestActivity.this, "Open", Toast.LENGTH_SHORT).show();
             }
         });

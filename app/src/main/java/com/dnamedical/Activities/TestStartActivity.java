@@ -95,7 +95,8 @@ public class TestStartActivity extends AppCompatActivity {
                     updateTestTypeText(type);
                     btnStart.setText("Start The Test");
                     btnStart.setVisibility(View.GONE);
-                    start_date.setText(Utils.dateFormat(startDate));
+                    start_date.setText(Utils.startTimeFormat(startDate));
+                    start_desc.setText("This test will start on: ");
                     start_date.setVisibility(View.VISIBLE);
                     start_desc.setVisibility(View.VISIBLE);
                 }

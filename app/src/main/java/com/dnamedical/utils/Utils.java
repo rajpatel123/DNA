@@ -155,6 +155,26 @@ public class Utils {
         }
     }
 
+    public static String startTimeFormat(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY HH:MM");
+            Date dNow = new Date(timeStamp);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
+
     public static long getMillies(String testDate) {
 
         Calendar calendar = Calendar.getInstance();
@@ -207,9 +227,9 @@ public class Utils {
         if (millis<1){
             return "";
         }
-        return String.format("%dh ,%dm",
-                TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis)
+        return String.format("%d h ,%d m",
+                TimeUnit.MILLISECONDS.toHours(millis/1000),
+                TimeUnit.MILLISECONDS.toMinutes(millis/1000)
         );
     }
 }

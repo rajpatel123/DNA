@@ -71,13 +71,11 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:visibility="gone"
-
                     android:textColor="@color/black_titles"
                     android:text="@string/test_start" />
 
 
                 <TextView
-                    android:layout_margin="10dp"
                     android:id="@+id/start_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

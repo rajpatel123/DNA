@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,8 +23,10 @@ import com.dnamedical.Adapters.result;
 import com.dnamedical.Models.ResultData.AllReult;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ResultData.UserResult;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
@@ -41,9 +44,9 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, totalUser,totalQuestion,userRank,userNumber;
-    CircularSeekBar correct,wrong,skipped;
-    TextView correctTXT,wrongTXT,skippedTXT;
+    TextView dateTv, percentValue, testNameTv, totalUser, totalQuestion, userRank, userNumber;
+    CircularSeekBar correct, wrong, skipped;
+    TextView correctTXT, wrongTXT, skippedTXT;
 
     private List<UserResult> userResults;
     private List<ResultList> resultLists;
@@ -54,11 +57,85 @@ public class ResultActivity extends AppCompatActivity {
     private CircleSeekBar circleSeekBar;
     String user_id;
     String tquestion, average, canswer, wanswer, sanswer;
+    TestResult testResult;
+    TextView rankTV,dateTV,startTimeTV,endTimeTv,yourScoreTV,totalMarksTv,
+            percentageTV,percentaileTV;
+    TextView guessCtoWtv,guessWtoCtv,guessWtoWtv,guessTotalSwitchedtv;
+    TextView diffEasyCurrectTV,diffMediumCurrectTV,diffHardCurrectTV,
+             diffEasyWrongTV,diffMediumWrongTV,diffHardWrongTV,diffEasySkipTV,diffMediumSkipTV,diffHardSkipTV;
+    TextView timeTakenMarkedTV,timeTakenSkipTV,totalTimeTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        rankTV=findViewById(R.id.resultRank);
+        dateTV=findViewById(R.id.resultDate);
+        startTimeTV=findViewById(R.id.resultStratTime);
+        endTimeTv=findViewById(R.id.resultEndTime);
+        yourScoreTV=findViewById(R.id.yourScore);
+        totalMarksTv=findViewById(R.id.totalMarks);
+        percentageTV=findViewById(R.id.percentage);
+        percentaileTV=findViewById(R.id.percentaile);
+
+        guessCtoWtv=findViewById(R.id.cToW);
+        guessWtoCtv=findViewById(R.id.wToc);
+        guessWtoWtv=findViewById(R.id.wTow);
+        guessTotalSwitchedtv=findViewById(R.id.totalSwitched);
+
+        diffEasyCurrectTV=findViewById(R.id.diffEasyCurrect);
+        diffMediumCurrectTV=findViewById(R.id.diffMediumCurrect);
+        diffHardCurrectTV=findViewById(R.id.diffHardCurrect);
+
+        diffEasyWrongTV=findViewById(R.id.diffEasyWrong);
+        diffMediumWrongTV=findViewById(R.id.diffMediumWrong);
+        diffHardWrongTV=findViewById(R.id.diffHardWrong);
+
+        diffEasySkipTV=findViewById(R.id.diffEasySkip);
+        diffMediumSkipTV=findViewById(R.id.diffMediumSkip);
+        diffHardSkipTV=findViewById(R.id.diffHardSkip);
+        timeTakenMarkedTV=findViewById(R.id.timeTakenMarkedQus);
+        timeTakenSkipTV=findViewById(R.id.timeTakenSkipQus);
+        totalTimeTV=findViewById(R.id.total_Time_Qus);
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(Constants.RESULT)) {
+            testResult = intent.getParcelableExtra(Constants.RESULT);
+        }
+        //Profile Rank
+
+        rankTV.setText(testResult.getData().getRank());
+        startTimeTV.setText(testResult.getData().getStartTime());
+        endTimeTv.setText(testResult.getData().getEndTime());
+        yourScoreTV.setText(testResult.getData().getYourScore());
+        totalMarksTv.setText(testResult.getData().getTotalMarks());
+        percentageTV.setText(testResult.getData().getPercenatge());
+        percentaileTV.setText(testResult.getData().getPercentile());
+
+        //Guess Analysis
+        guessCtoWtv.setText(testResult.getData().getGuessAnalysis().getCorrectToWrong());
+        guessWtoCtv.setText(testResult.getData().getGuessAnalysis().getWrongToCorrect());
+        guessWtoWtv.setText(testResult.getData().getGuessAnalysis().getWrongToWrong());
+        guessTotalSwitchedtv.setText(testResult.getData().getGuessAnalysis().getTotalSwitch());
+
+        //DifficultyLabel
+        diffEasyCurrectTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getEasy().getCorrect());
+        diffMediumCurrectTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getMedium().getCorrect());
+        diffHardCurrectTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getHard().getCorrect());
+
+        diffEasyWrongTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getEasy().getWrong());
+        diffMediumWrongTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getMedium().getWrong());
+        diffHardWrongTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getHard().getWrong());
+
+        diffEasySkipTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getEasy().getSkip());
+        diffMediumSkipTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getMedium().getSkip());
+        diffHardSkipTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getHard().getSkip());
+
+        //Time Analysis
+        timeTakenMarkedTV.setText(testResult.getData().getTimeAnalysis().getChangeOption());
+        timeTakenSkipTV.setText(testResult.getData().getTimeAnalysis().getChangeQuestion());
+        totalTimeTV.setText(testResult.getData().getTimeAnalysis().getTotalTime());
 
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +151,7 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        totalQuestion= findViewById(R.id.total_question);
+        totalQuestion = findViewById(R.id.total_question);
 //        skipped = findViewById(R.id.skipped);
 //        wrong = findViewById(R.id.wrong);
 //        correct = findViewById(R.id.correct);
@@ -149,14 +226,12 @@ public class ResultActivity extends AppCompatActivity {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             userResults = response.body().getUserResult();
                             totalUser.setText(userResults.get(0).getTotalUsersTest());
-                            totalQuestion.setText("Maximum marks : "+userResults.get(0).getUserTotalScore());
+                            totalQuestion.setText("Maximum marks : " + userResults.get(0).getUserTotalScore());
                             correct.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             skipped.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             wrong.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
                             skipped.setProgress(Float.parseFloat(userResults.get(0).getSkipQuestion()));
-                            userNumber.setText("Total Score : "+userResults.get(0).getUserScore());
-
-
+                            userNumber.setText("Total Score : " + userResults.get(0).getUserScore());
 
                             correct.setEnabled(false);
                             skipped.setEnabled(false);
@@ -166,7 +241,7 @@ public class ResultActivity extends AppCompatActivity {
                             if (!(userResults.get(0).getCurrectQuestion() != null)
                                     && TextUtils.isEmpty(userResults.get(0).getCurrectQuestion())) {
                                 correct.setProgress(0);
-                                correctTXT.setText(0+"");
+                                correctTXT.setText(0 + "");
 
                             } else {
                                 correct.setProgress(Integer.parseInt(userResults.get(0).getCurrectQuestion()));
@@ -176,28 +251,28 @@ public class ResultActivity extends AppCompatActivity {
                             if (!(userResults.get(0).getWrongQuestion() != null)
                                     && TextUtils.isEmpty(userResults.get(0).getWrongQuestion())) {
                                 wrong.setProgress(0);
-                                wrongTXT.setText(""+0);
+                                wrongTXT.setText("" + 0);
 
                             } else {
                                 wrong.setProgress(Integer.parseInt(userResults.get(0).getWrongQuestion()));
-                                wrongTXT.setText(""+userResults.get(0).getWrongQuestion());
+                                wrongTXT.setText("" + userResults.get(0).getWrongQuestion());
 
                             }
 
                             if (!(userResults.get(0).getSkipQuestion() != null)
                                     && TextUtils.isEmpty(userResults.get(0).getSkipQuestion())) {
                                 skipped.setProgress(0);
-                                skippedTXT.setText(""+0);
+                                skippedTXT.setText("" + 0);
 
 
                             } else {
                                 skipped.setProgress(Integer.parseInt(userResults.get(0).getSkipQuestion()));
-                                skippedTXT.setText(""+userResults.get(0).getSkipQuestion());
+                                skippedTXT.setText("" + userResults.get(0).getSkipQuestion());
 
                             }
-                            totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
-                            percentValue.setText("Percentile : "+userResults.get(0).getPercentile());
-                            userRank.setText("RANK\n"+userResults.get(0).getUserRank());
+                            totalUser.setText("Out of " + userResults.get(0).getTotalUsersTest());
+                            percentValue.setText("Percentile : " + userResults.get(0).getPercentile());
+                            userRank.setText("RANK\n" + userResults.get(0).getUserRank());
 
                             allReults = response.body().getAllReult();
                             resultAdapter = new ResultAdapter(allReults);

@@ -104,7 +104,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
                                 , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
@@ -140,7 +140,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
                                 , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
@@ -179,7 +179,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
                                 , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }

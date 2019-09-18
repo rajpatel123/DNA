@@ -37,6 +37,7 @@ import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -158,7 +159,7 @@ public class RestClient {
     }
 
 
-    public static void submitTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<ResponseBody> callback) {
+    public static void submitTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<TestResult> callback) {
         RetrofitClient.getClient().submitTest(userId, testID, isSubmit).enqueue(callback);
 
     }
