@@ -6,38 +6,37 @@ import com.google.gson.annotations.SerializedName;
 
 public class SubmitAnswer {
 
-@SerializedName("status")
-@Expose
-private String status;
-@SerializedName("message")
-@Expose
-private String message;
-@SerializedName("details")
-@Expose
-private List<Detail> details = null;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("details")
+    @Expose
+    private List<Detail> details = null;
 
-public String getStatus() {
-return status;
-}
+    public String getStatus() {
+        return status;
+    }
 
-public void setStatus(String status) {
-this.status = status;
-}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-public String getMessage() {
-return message;
-}
+    public String getMessage() {
+        return message;
+    }
 
-public void setMessage(String message) {
-this.message = message;
-}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-public List<Detail> getDetails() {
-return details;
-}
+    public List<Detail> getDetails() {
+        return details;
+    }
 
-public void setDetails(List<Detail> details) {
-this.details = details;
-}
-
+    public void setDetails(List<Detail> details) {
+        this.details = details;
+    }
 }

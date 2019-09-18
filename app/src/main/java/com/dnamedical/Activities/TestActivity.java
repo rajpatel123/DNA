@@ -31,6 +31,10 @@ import com.dnamedical.fragment.QuestionFragment;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -51,10 +55,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     TextView timer;
     public long tempTime;
     public Map<String, String> correctAnswerList = new HashMap<>();
-
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
-
 
     CheckBox guessCheck;
     private ImageView guessImage;
@@ -86,7 +88,6 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         guessCheck = findViewById(R.id.guessCheck);
         relative = findViewById(R.id.relative);
 
-
         guessImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +117,9 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
                 if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
                     submitTest();
+
                 } else {
+
                     submitAnswer();
                 }
                 updateQuestionsFragment();
@@ -127,6 +130,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         countDownTimer = new CountDownTimer(testDuration, 1000) {
 
             public void onTick(long millis) {
+
                 String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                         TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
@@ -152,24 +156,23 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         });
     }
 
-
     private void submitTest() {
-        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
-        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
+        RequestBody userId= RequestBody.create(MediaType.parse("text/plain"),user_id);
+        RequestBody testID=RequestBody.create(MediaType.parse("text/plain"),test_id);
+        RequestBody isSubmit=RequestBody.create(MediaType.parse("tex/plain"),"1");
+
         RestClient.submitTest(userId, testID, isSubmit, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+
+
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
 
             }
         });
-
     }
 
     private void submitAnswer() {
@@ -181,6 +184,10 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         RestClient.submitTestAnswer(userId, testID, qID, answerID, guesStatus, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                response.toString();
+
+
                 Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
 
@@ -198,6 +205,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         mPager.setCurrentItem(currentPosition + 1);
         if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
             nextBtn.setText("SUBMIT");
+
         } else {
             nextBtn.setText("SKIP");
         }
