@@ -105,37 +105,37 @@ public class ResultActivity extends AppCompatActivity {
         }
         //Profile Rank
 
-        rankTV.setText(testResult.getData().getRank());
-        startTimeTV.setText(testResult.getData().getStartTime());
-        endTimeTv.setText(testResult.getData().getEndTime());
-        yourScoreTV.setText(testResult.getData().getYourScore());
-        totalMarksTv.setText(testResult.getData().getTotalMarks());
-        percentageTV.setText(testResult.getData().getPercenatge());
-        percentaileTV.setText(testResult.getData().getPercentile());
+        rankTV.setText(""+testResult.getData().getRank());
+        startTimeTV.setText(""+testResult.getData().getStartTime());
+        endTimeTv.setText(""+testResult.getData().getEndTime());
+        yourScoreTV.setText(""+testResult.getData().getYourScore());
+        totalMarksTv.setText(""+testResult.getData().getTotalMarks());
+        percentageTV.setText(""+testResult.getData().getPercenatge());
+        percentaileTV.setText(""+testResult.getData().getPercentile());
 
         //Guess Analysis
-        guessCtoWtv.setText(testResult.getData().getGuessAnalysis().getCorrectToWrong());
-        guessWtoCtv.setText(testResult.getData().getGuessAnalysis().getWrongToCorrect());
-        guessWtoWtv.setText(testResult.getData().getGuessAnalysis().getWrongToWrong());
-        guessTotalSwitchedtv.setText(testResult.getData().getGuessAnalysis().getTotalSwitch());
+        guessCtoWtv.setText(""+testResult.getData().getGuessAnalysis().getCorrectToWrong());
+        guessWtoCtv.setText(""+testResult.getData().getGuessAnalysis().getWrongToCorrect());
+        guessWtoWtv.setText(""+testResult.getData().getGuessAnalysis().getWrongToWrong());
+        guessTotalSwitchedtv.setText(""+testResult.getData().getGuessAnalysis().getTotalSwitch());
 
         //DifficultyLabel
-        diffEasyCurrectTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getEasy().getCorrect());
-        diffMediumCurrectTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getMedium().getCorrect());
-        diffHardCurrectTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getHard().getCorrect());
+        diffEasyCurrectTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getEasy().getCorrect());
+        diffMediumCurrectTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getMedium().getCorrect());
+        diffHardCurrectTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getHard().getCorrect());
 
-        diffEasyWrongTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getEasy().getWrong());
-        diffMediumWrongTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getMedium().getWrong());
-        diffHardWrongTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getHard().getWrong());
+        diffEasyWrongTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getEasy().getWrong());
+        diffMediumWrongTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getMedium().getWrong());
+        diffHardWrongTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getHard().getWrong());
 
-        diffEasySkipTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getEasy().getSkip());
-        diffMediumSkipTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getMedium().getSkip());
-        diffHardSkipTV.setText(testResult.getData().getDiffcultyLevelAnalysis().getHard().getSkip());
+        diffEasySkipTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getEasy().getSkip());
+        diffMediumSkipTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getMedium().getSkip());
+        diffHardSkipTV.setText(""+testResult.getData().getDiffcultyLevelAnalysis().getHard().getSkip());
 
         //Time Analysis
-        timeTakenMarkedTV.setText(testResult.getData().getTimeAnalysis().getChangeOption());
-        timeTakenSkipTV.setText(testResult.getData().getTimeAnalysis().getChangeQuestion());
-        totalTimeTV.setText(testResult.getData().getTimeAnalysis().getTotalTime());
+        timeTakenMarkedTV.setText(""+testResult.getData().getTimeAnalysis().getChangeOption());
+        timeTakenSkipTV.setText(""+testResult.getData().getTimeAnalysis().getChangeQuestion());
+        totalTimeTV.setText(""+testResult.getData().getTimeAnalysis().getTotalTime());
 
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override

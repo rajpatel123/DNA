@@ -10,42 +10,36 @@ public class ScoreAnalysi implements Parcelable {
 
 @SerializedName("wrong")
 @Expose
-private Integer wrong;
+private int wrong;
 @SerializedName("correct")
 @Expose
-private Integer correct;
+private int correct;
 @SerializedName("category_name")
 @Expose
 private String categoryName;
 @SerializedName("skip")
 @Expose
-private Integer skip;
+private int skip;
 @SerializedName("score")
 @Expose
-private Integer score;
+private int score;
+
 
     protected ScoreAnalysi(Parcel in) {
-        if (in.readByte() == 0) {
-            wrong = null;
-        } else {
-            wrong = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            correct = null;
-        } else {
-            correct = in.readInt();
-        }
+        wrong = in.readInt();
+        correct = in.readInt();
         categoryName = in.readString();
-        if (in.readByte() == 0) {
-            skip = null;
-        } else {
-            skip = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            score = null;
-        } else {
-            score = in.readInt();
-        }
+        skip = in.readInt();
+        score = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(wrong);
+        dest.writeInt(correct);
+        dest.writeString(categoryName);
+        dest.writeInt(skip);
+        dest.writeInt(score);
     }
 
     public static final Creator<ScoreAnalysi> CREATOR = new Creator<ScoreAnalysi>() {
@@ -60,19 +54,19 @@ private Integer score;
         }
     };
 
-    public Integer getWrong() {
+    public int getWrong() {
 return wrong;
 }
 
-public void setWrong(Integer wrong) {
+public void setWrong(int wrong) {
 this.wrong = wrong;
 }
 
-public Integer getCorrect() {
+public int getCorrect() {
 return correct;
 }
 
-public void setCorrect(Integer correct) {
+public void setCorrect(int correct) {
 this.correct = correct;
 }
 
@@ -84,19 +78,19 @@ public void setCategoryName(String categoryName) {
 this.categoryName = categoryName;
 }
 
-public Integer getSkip() {
+public int getSkip() {
 return skip;
 }
 
-public void setSkip(Integer skip) {
+public void setSkip(int skip) {
 this.skip = skip;
 }
 
-public Integer getScore() {
+public int getScore() {
 return score;
 }
 
-public void setScore(Integer score) {
+public void setScore(int score) {
 this.score = score;
 }
 
@@ -105,32 +99,4 @@ this.score = score;
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if (wrong == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(wrong);
-        }
-        if (correct == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(correct);
-        }
-        dest.writeString(categoryName);
-        if (skip == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(skip);
-        }
-        if (score == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(score);
-        }
-    }
 }

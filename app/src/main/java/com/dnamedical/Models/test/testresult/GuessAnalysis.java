@@ -10,38 +10,23 @@ public class GuessAnalysis  implements Parcelable {
 
 @SerializedName("correctToWrong")
 @Expose
-private Integer correctToWrong;
+private int correctToWrong;
 @SerializedName("wrongToCorrect")
 @Expose
-private Integer wrongToCorrect;
+private int wrongToCorrect;
 @SerializedName("wrongToWrong")
 @Expose
-private Integer wrongToWrong;
+private int wrongToWrong;
 @SerializedName("totalSwitch")
 @Expose
-private Integer totalSwitch;
+private int totalSwitch;
+
 
     protected GuessAnalysis(Parcel in) {
-        if (in.readByte() == 0) {
-            correctToWrong = null;
-        } else {
-            correctToWrong = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            wrongToCorrect = null;
-        } else {
-            wrongToCorrect = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            wrongToWrong = null;
-        } else {
-            wrongToWrong = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            totalSwitch = null;
-        } else {
-            totalSwitch = in.readInt();
-        }
+        correctToWrong = in.readInt();
+        wrongToCorrect = in.readInt();
+        wrongToWrong = in.readInt();
+        totalSwitch = in.readInt();
     }
 
     public static final Creator<GuessAnalysis> CREATOR = new Creator<GuessAnalysis>() {
@@ -56,35 +41,35 @@ private Integer totalSwitch;
         }
     };
 
-    public Integer getCorrectToWrong() {
+    public int getCorrectToWrong() {
 return correctToWrong;
 }
 
-public void setCorrectToWrong(Integer correctToWrong) {
+public void setCorrectToWrong(int correctToWrong) {
 this.correctToWrong = correctToWrong;
 }
 
-public Integer getWrongToCorrect() {
+public int getWrongToCorrect() {
 return wrongToCorrect;
 }
 
-public void setWrongToCorrect(Integer wrongToCorrect) {
+public void setWrongToCorrect(int wrongToCorrect) {
 this.wrongToCorrect = wrongToCorrect;
 }
 
-public Integer getWrongToWrong() {
+public int getWrongToWrong() {
 return wrongToWrong;
 }
 
-public void setWrongToWrong(Integer wrongToWrong) {
+public void setWrongToWrong(int wrongToWrong) {
 this.wrongToWrong = wrongToWrong;
 }
 
-public Integer getTotalSwitch() {
+public int getTotalSwitch() {
 return totalSwitch;
 }
 
-public void setTotalSwitch(Integer totalSwitch) {
+public void setTotalSwitch(int totalSwitch) {
 this.totalSwitch = totalSwitch;
 }
 
@@ -95,29 +80,11 @@ this.totalSwitch = totalSwitch;
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        if (correctToWrong == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(correctToWrong);
-        }
-        if (wrongToCorrect == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(wrongToCorrect);
-        }
-        if (wrongToWrong == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(wrongToWrong);
-        }
-        if (totalSwitch == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(totalSwitch);
-        }
+
+        dest.writeInt(correctToWrong);
+        dest.writeInt(wrongToCorrect);
+        dest.writeInt(wrongToWrong);
+        dest.writeInt(totalSwitch);
     }
+
 }

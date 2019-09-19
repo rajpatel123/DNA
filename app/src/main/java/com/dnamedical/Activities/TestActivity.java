@@ -206,7 +206,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     public void submitTimeLogTest(String type, String time) {
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody timeSpendBody = RequestBody.create(MediaType.parse("text/plain"), "" + time);
-        RequestBody testEvent = RequestBody.create(MediaType.parse("text/plain"), "event");
+        RequestBody testEvent = RequestBody.create(MediaType.parse("text/plain"), "test");
         RequestBody subEvent = RequestBody.create(MediaType.parse("text/plain"), type);
         RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RestClient.submit_timeLog(userId, timeSpendBody, testEvent, subEvent, product_id, new Callback<ResponseBody>() {

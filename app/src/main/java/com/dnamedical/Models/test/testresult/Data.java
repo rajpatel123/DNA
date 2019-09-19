@@ -12,7 +12,7 @@ public class Data implements Parcelable {
 
 @SerializedName("rank")
 @Expose
-private Integer rank;
+private int rank;
 @SerializedName("start_time")
 @Expose
 private String startTime;
@@ -21,19 +21,19 @@ private String startTime;
 private String endTime;
 @SerializedName("lowest_rank")
 @Expose
-private Integer lowestRank;
+private int lowestRank;
 @SerializedName("your_score")
 @Expose
-private Integer yourScore;
+private double yourScore;
 @SerializedName("total_marks")
 @Expose
-private Integer totalMarks;
+private int totalMarks;
 @SerializedName("percenatge")
 @Expose
-private Integer percenatge;
+private int percenatge;
 @SerializedName("percentile")
 @Expose
-private Integer percentile;
+private int percentile;
 @SerializedName("score_analysis")
 @Expose
 private List<ScoreAnalysi> scoreAnalysis = null;
@@ -47,39 +47,36 @@ private GuessAnalysis guessAnalysis;
 @Expose
 private TimeAnalysis timeAnalysis;
 
+
     protected Data(Parcel in) {
-        if (in.readByte() == 0) {
-            rank = null;
-        } else {
-            rank = in.readInt();
-        }
+        rank = in.readInt();
         startTime = in.readString();
         endTime = in.readString();
-        if (in.readByte() == 0) {
-            lowestRank = null;
-        } else {
-            lowestRank = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            yourScore = null;
-        } else {
-            yourScore = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            totalMarks = null;
-        } else {
-            totalMarks = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            percenatge = null;
-        } else {
-            percenatge = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            percentile = null;
-        } else {
-            percentile = in.readInt();
-        }
+        lowestRank = in.readInt();
+        yourScore = in.readFloat();
+        totalMarks = in.readInt();
+        percenatge = in.readInt();
+        percentile = in.readInt();
+        scoreAnalysis = in.createTypedArrayList(ScoreAnalysi.CREATOR);
+        diffcultyLevelAnalysis = in.readParcelable(DiffcultyLevelAnalysis.class.getClassLoader());
+        guessAnalysis = in.readParcelable(GuessAnalysis.class.getClassLoader());
+        timeAnalysis = in.readParcelable(TimeAnalysis.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(rank);
+        dest.writeString(startTime);
+        dest.writeString(endTime);
+        dest.writeInt(lowestRank);
+        dest.writeDouble(yourScore);
+        dest.writeInt(totalMarks);
+        dest.writeInt(percenatge);
+        dest.writeInt(percentile);
+        dest.writeTypedList(scoreAnalysis);
+        dest.writeParcelable(diffcultyLevelAnalysis, flags);
+        dest.writeParcelable(guessAnalysis, flags);
+        dest.writeParcelable(timeAnalysis, flags);
     }
 
     public static final Creator<Data> CREATOR = new Creator<Data>() {
@@ -94,11 +91,11 @@ private TimeAnalysis timeAnalysis;
         }
     };
 
-    public Integer getRank() {
+    public int getRank() {
 return rank;
 }
 
-public void setRank(Integer rank) {
+public void setRank(int rank) {
 this.rank = rank;
 }
 
@@ -118,43 +115,43 @@ public void setEndTime(String endTime) {
 this.endTime = endTime;
 }
 
-public Integer getLowestRank() {
+public int getLowestRank() {
 return lowestRank;
 }
 
-public void setLowestRank(Integer lowestRank) {
+public void setLowestRank(int lowestRank) {
 this.lowestRank = lowestRank;
 }
 
-public Integer getYourScore() {
+public double getYourScore() {
 return yourScore;
 }
 
-public void setYourScore(Integer yourScore) {
+public void setYourScore(Float yourScore) {
 this.yourScore = yourScore;
 }
 
-public Integer getTotalMarks() {
+public int getTotalMarks() {
 return totalMarks;
 }
 
-public void setTotalMarks(Integer totalMarks) {
+public void setTotalMarks(int totalMarks) {
 this.totalMarks = totalMarks;
 }
 
-public Integer getPercenatge() {
+public int getPercenatge() {
 return percenatge;
 }
 
-public void setPercenatge(Integer percenatge) {
+public void setPercenatge(int percenatge) {
 this.percenatge = percenatge;
 }
 
-public Integer getPercentile() {
+public int getPercentile() {
 return percentile;
 }
 
-public void setPercentile(Integer percentile) {
+public void setPercentile(int percentile) {
 this.percentile = percentile;
 }
 
@@ -195,45 +192,4 @@ this.timeAnalysis = timeAnalysis;
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if (rank == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(rank);
-        }
-        dest.writeString(startTime);
-        dest.writeString(endTime);
-        if (lowestRank == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(lowestRank);
-        }
-        if (yourScore == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(yourScore);
-        }
-        if (totalMarks == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(totalMarks);
-        }
-        if (percenatge == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(percenatge);
-        }
-        if (percentile == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(percentile);
-        }
-    }
 }

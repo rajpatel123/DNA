@@ -10,30 +10,19 @@ public class Easy implements Parcelable {
 
 @SerializedName("correct")
 @Expose
-private Integer correct;
+private int correct;
 @SerializedName("wrong")
 @Expose
-private Integer wrong;
+private int wrong;
 @SerializedName("skip")
 @Expose
-private Integer skip;
+private int skip;
+
 
     protected Easy(Parcel in) {
-        if (in.readByte() == 0) {
-            correct = null;
-        } else {
-            correct = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            wrong = null;
-        } else {
-            wrong = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            skip = null;
-        } else {
-            skip = in.readInt();
-        }
+        correct = in.readInt();
+        wrong = in.readInt();
+        skip = in.readInt();
     }
 
     public static final Creator<Easy> CREATOR = new Creator<Easy>() {
@@ -48,27 +37,27 @@ private Integer skip;
         }
     };
 
-    public Integer getCorrect() {
+    public int getCorrect() {
 return correct;
 }
 
-public void setCorrect(Integer correct) {
+public void setCorrect(int correct) {
 this.correct = correct;
 }
 
-public Integer getWrong() {
+public int getWrong() {
 return wrong;
 }
 
-public void setWrong(Integer wrong) {
+public void setWrong(int wrong) {
 this.wrong = wrong;
 }
 
-public Integer getSkip() {
+public int getSkip() {
 return skip;
 }
 
-public void setSkip(Integer skip) {
+public void setSkip(int skip) {
 this.skip = skip;
 }
 
@@ -79,23 +68,10 @@ this.skip = skip;
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        if (correct == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(correct);
-        }
-        if (wrong == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(wrong);
-        }
-        if (skip == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(skip);
-        }
+
+        dest.writeInt(correct);
+        dest.writeInt(wrong);
+        dest.writeInt(skip);
     }
+
 }
