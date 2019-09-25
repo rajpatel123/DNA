@@ -624,6 +624,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), address);
         RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), city);
         RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), mCountry);
+        RequestBody androidBody = RequestBody.create(MediaType.parse("text/plain"), "Android");
 
 
         Utils.showProgressDialog(this);
@@ -632,7 +633,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             Utils.showProgressDialog(this);
             if (TextUtils.isEmpty(userId)) {
 
-                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody,vFile, new Callback<CommonResponse>() {
+                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody,androidBody,vFile, new Callback<CommonResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */

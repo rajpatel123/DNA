@@ -10,19 +10,39 @@ public class TimeAnalysis implements Parcelable {
 
     @SerializedName("change_question")
     @Expose
-    private int changeQuestion;
+    private String changeQuestion;
     @SerializedName("change_option")
     @Expose
-    private int changeOption;
+    private String changeOption;
     @SerializedName("total_time")
     @Expose
-    private int totalTime;
-
+    private Integer totalTime;
 
     protected TimeAnalysis(Parcel in) {
-        changeQuestion = in.readInt();
-        changeOption = in.readInt();
-        totalTime = in.readInt();
+        changeQuestion = in.readString();
+        changeOption = in.readString();
+        if (in.readByte() == 0) {
+            totalTime = null;
+        } else {
+            totalTime = in.readInt();
+        }
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(changeQuestion);
+        dest.writeString(changeOption);
+        if (totalTime == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(totalTime);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<TimeAnalysis> CREATOR = new Creator<TimeAnalysis>() {
@@ -37,41 +57,28 @@ public class TimeAnalysis implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeInt(changeQuestion);
-        dest.writeInt(changeOption);
-        dest.writeInt(totalTime);
-    }
-
-
-    public int getChangeQuestion() {
+    public String getChangeQuestion() {
         return changeQuestion;
     }
 
-    public void setChangeQuestion(int changeQuestion) {
+    public void setChangeQuestion(String changeQuestion) {
         this.changeQuestion = changeQuestion;
     }
 
-    public int getChangeOption() {
+    public String getChangeOption() {
         return changeOption;
     }
 
-    public void setChangeOption(int changeOption) {
+    public void setChangeOption(String changeOption) {
         this.changeOption = changeOption;
     }
 
-    public int getTotalTime() {
+    public Integer getTotalTime() {
         return totalTime;
     }
 
-    public void setTotalTime(int totalTime) {
+    public void setTotalTime(Integer totalTime) {
         this.totalTime = totalTime;
     }
+
 }

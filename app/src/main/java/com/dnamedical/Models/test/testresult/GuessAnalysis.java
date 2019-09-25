@@ -7,26 +7,40 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GuessAnalysis  implements Parcelable {
-
-@SerializedName("correctToWrong")
-@Expose
-private int correctToWrong;
-@SerializedName("wrongToCorrect")
-@Expose
-private int wrongToCorrect;
-@SerializedName("wrongToWrong")
-@Expose
-private int wrongToWrong;
-@SerializedName("totalSwitch")
-@Expose
-private int totalSwitch;
-
+    @SerializedName("correctToWrong")
+    @Expose
+    private Integer correctToWrong;
+    @SerializedName("wrongToCorrect")
+    @Expose
+    private Integer wrongToCorrect;
+    @SerializedName("wrongToWrong")
+    @Expose
+    private Integer wrongToWrong;
+    @SerializedName("totalSwitch")
+    @Expose
+    private Integer totalSwitch;
 
     protected GuessAnalysis(Parcel in) {
-        correctToWrong = in.readInt();
-        wrongToCorrect = in.readInt();
-        wrongToWrong = in.readInt();
-        totalSwitch = in.readInt();
+        if (in.readByte() == 0) {
+            correctToWrong = null;
+        } else {
+            correctToWrong = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            wrongToCorrect = null;
+        } else {
+            wrongToCorrect = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            wrongToWrong = null;
+        } else {
+            wrongToWrong = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            totalSwitch = null;
+        } else {
+            totalSwitch = in.readInt();
+        }
     }
 
     public static final Creator<GuessAnalysis> CREATOR = new Creator<GuessAnalysis>() {
@@ -41,37 +55,37 @@ private int totalSwitch;
         }
     };
 
-    public int getCorrectToWrong() {
-return correctToWrong;
-}
+    public Integer getCorrectToWrong() {
+        return correctToWrong;
+    }
 
-public void setCorrectToWrong(int correctToWrong) {
-this.correctToWrong = correctToWrong;
-}
+    public void setCorrectToWrong(Integer correctToWrong) {
+        this.correctToWrong = correctToWrong;
+    }
 
-public int getWrongToCorrect() {
-return wrongToCorrect;
-}
+    public Integer getWrongToCorrect() {
+        return wrongToCorrect;
+    }
 
-public void setWrongToCorrect(int wrongToCorrect) {
-this.wrongToCorrect = wrongToCorrect;
-}
+    public void setWrongToCorrect(Integer wrongToCorrect) {
+        this.wrongToCorrect = wrongToCorrect;
+    }
 
-public int getWrongToWrong() {
-return wrongToWrong;
-}
+    public Integer getWrongToWrong() {
+        return wrongToWrong;
+    }
 
-public void setWrongToWrong(int wrongToWrong) {
-this.wrongToWrong = wrongToWrong;
-}
+    public void setWrongToWrong(Integer wrongToWrong) {
+        this.wrongToWrong = wrongToWrong;
+    }
 
-public int getTotalSwitch() {
-return totalSwitch;
-}
+    public Integer getTotalSwitch() {
+        return totalSwitch;
+    }
 
-public void setTotalSwitch(int totalSwitch) {
-this.totalSwitch = totalSwitch;
-}
+    public void setTotalSwitch(Integer totalSwitch) {
+        this.totalSwitch = totalSwitch;
+    }
 
     @Override
     public int describeContents() {
@@ -80,11 +94,29 @@ this.totalSwitch = totalSwitch;
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeInt(correctToWrong);
-        dest.writeInt(wrongToCorrect);
-        dest.writeInt(wrongToWrong);
-        dest.writeInt(totalSwitch);
+        if (correctToWrong == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(correctToWrong);
+        }
+        if (wrongToCorrect == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(wrongToCorrect);
+        }
+        if (wrongToWrong == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(wrongToWrong);
+        }
+        if (totalSwitch == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(totalSwitch);
+        }
     }
-
 }

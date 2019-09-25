@@ -1,10 +1,12 @@
 package com.dnamedical.Activities;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +46,7 @@ public class TestStartActivity extends AppCompatActivity {
     String description;
     private long startDate;
     private long resultDate;
+    private String testStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +63,11 @@ public class TestStartActivity extends AppCompatActivity {
             testName = getIntent().getStringExtra("testName");
             String type = getIntent().getStringExtra("type");
             testQuestion = getIntent().getStringExtra("testQuestion");
+            testStatus = getIntent().getStringExtra("testStatus");
             description = getIntent().getStringExtra("desc");
             testPaid = getIntent().getStringExtra("testPaid");
 
-            if (DnaPrefs.getBoolean(getApplicationContext(),""+id)){
+            if (!testStatus.equalsIgnoreCase("open")) {
                 testTopic.setText(testName);
                 updateTestTypeText(type);
                 testTopic.setText(testName);
@@ -73,11 +77,11 @@ public class TestStartActivity extends AppCompatActivity {
                 start_date.setVisibility(View.GONE);
                 start_desc.setVisibility(View.GONE);
 
-            }else{
-                if ((System.currentTimeMillis()-(startDate)>=0)){
-                    if (resultDate<System.currentTimeMillis()){
+            } else {
+                if ((System.currentTimeMillis() - (startDate) >= 0)) {
+                    if (resultDate < System.currentTimeMillis()) {
                         btnStart.setText("Test result declared want to start the test");
-                    }else{
+                    } else {
                         btnStart.setText("Start The Test");
                     }
 
@@ -90,7 +94,7 @@ public class TestStartActivity extends AppCompatActivity {
                     start_date.setVisibility(View.GONE);
                     start_desc.setVisibility(View.GONE);
 
-                }else{
+                } else {
                     testTopic.setText(testName);
                     updateTestTypeText(type);
                     btnStart.setText("Start The Test");
@@ -121,15 +125,15 @@ public class TestStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // if (check_status == 0) {
-                StartTest();
-//                } else {
-//                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
-//                    intent.putExtra("Test_Id", id);
-//                    startActivity(intent);
-//                    finish();
-//
-//                }
+                if (testStatus.equalsIgnoreCase("open")) {
+                    StartTest();
+                } else {
+                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
+                    intent.putExtra("Test_Id", id);
+                    startActivity(intent);
+                    finish();
+
+                }
             }
         });
     }
@@ -185,8 +189,6 @@ public class TestStartActivity extends AppCompatActivity {
     }
 
 
-
-
     private void updateTestTypeText(String type) {
         switch (type) {
             case "grand_test":
@@ -198,7 +200,7 @@ public class TestStartActivity extends AppCompatActivity {
                 break;
 
             case "subject_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " +  Utils.getDuration(Long.parseLong(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getDuration(Long.parseLong(duration)));
                 break;
 
         }

@@ -45,6 +45,18 @@ public class Test implements Comparable<Test>{
     @Expose
     private String type;
 
+    public String getTest_status() {
+        return test_status;
+    }
+
+    public void setTest_status(String test_status) {
+        this.test_status = test_status;
+    }
+
+    @SerializedName("test_status")
+    @Expose
+    private String test_status;
+
     public String getQuestion_count() {
         return question_count;
     }

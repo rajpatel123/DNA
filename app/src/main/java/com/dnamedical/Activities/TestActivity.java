@@ -176,7 +176,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     private void submitTest() {
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
+        RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "0");
         Utils.showProgressDialog(TestActivity.this);
         RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
@@ -190,7 +190,6 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                     Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
                     finish();
                 }
-
 
             }
 

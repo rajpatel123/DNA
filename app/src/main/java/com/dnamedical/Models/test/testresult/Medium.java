@@ -7,29 +7,50 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Medium implements Parcelable {
-
-@SerializedName("correct")
-@Expose
-private int correct;
-@SerializedName("wrong")
-@Expose
-private int wrong;
-@SerializedName("skip")
-@Expose
-private int skip;
-
+    @SerializedName("correct")
+    @Expose
+    private Integer correct;
+    @SerializedName("wrong")
+    @Expose
+    private Integer wrong;
+    @SerializedName("skip")
+    @Expose
+    private String skip;
 
     protected Medium(Parcel in) {
-        correct = in.readInt();
-        wrong = in.readInt();
-        skip = in.readInt();
+        if (in.readByte() == 0) {
+            correct = null;
+        } else {
+            correct = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            wrong = null;
+        } else {
+            wrong = in.readInt();
+        }
+        skip = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(correct);
-        dest.writeInt(wrong);
-        dest.writeInt(skip);
+        if (correct == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(correct);
+        }
+        if (wrong == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(wrong);
+        }
+        dest.writeString(skip);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Medium> CREATOR = new Creator<Medium>() {
@@ -44,33 +65,28 @@ private int skip;
         }
     };
 
-    public int getCorrect() {
-return correct;
-}
+    public Integer getCorrect() {
+        return correct;
+    }
 
-public void setCorrect(int correct) {
-this.correct = correct;
-}
+    public void setCorrect(Integer correct) {
+        this.correct = correct;
+    }
 
-public int getWrong() {
-return wrong;
-}
+    public Integer getWrong() {
+        return wrong;
+    }
 
-public void setWrong(int wrong) {
-this.wrong = wrong;
-}
+    public void setWrong(Integer wrong) {
+        this.wrong = wrong;
+    }
 
-public int getSkip() {
-return skip;
-}
+    public String getSkip() {
+        return skip;
+    }
 
-public void setSkip(int skip) {
-this.skip = skip;
-}
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setSkip(String skip) {
+        this.skip = skip;
     }
 
 }

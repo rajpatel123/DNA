@@ -7,16 +7,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Hard implements Parcelable {
-
-@SerializedName("correct")
-@Expose
-private Integer correct;
-@SerializedName("wrong")
-@Expose
-private Integer wrong;
-@SerializedName("skip")
-@Expose
-private Integer skip;
+    @SerializedName("correct")
+    @Expose
+    private Integer correct;
+    @SerializedName("wrong")
+    @Expose
+    private Integer wrong;
+    @SerializedName("skip")
+    @Expose
+    private Integer skip;
 
     protected Hard(Parcel in) {
         if (in.readByte() == 0) {
@@ -49,28 +48,28 @@ private Integer skip;
     };
 
     public Integer getCorrect() {
-return correct;
-}
+        return correct;
+    }
 
-public void setCorrect(Integer correct) {
-this.correct = correct;
-}
+    public void setCorrect(Integer correct) {
+        this.correct = correct;
+    }
 
-public Integer getWrong() {
-return wrong;
-}
+    public Integer getWrong() {
+        return wrong;
+    }
 
-public void setWrong(Integer wrong) {
-this.wrong = wrong;
-}
+    public void setWrong(Integer wrong) {
+        this.wrong = wrong;
+    }
 
-public Integer getSkip() {
-return skip;
-}
+    public Integer getSkip() {
+        return skip;
+    }
 
-public void setSkip(Integer skip) {
-this.skip = skip;
-}
+    public void setSkip(Integer skip) {
+        this.skip = skip;
+    }
 
     @Override
     public int describeContents() {

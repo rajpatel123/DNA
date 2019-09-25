@@ -74,6 +74,7 @@ public interface ApiInterface {
                                       @Part("college") RequestBody college,
                                       @Part("address") RequestBody addressBody,
                                       @Part("city") RequestBody cityBody,
+                                      @Part("platform") RequestBody plateform,
                                       @Part("country") RequestBody countryBody);
 
 

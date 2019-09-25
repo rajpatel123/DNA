@@ -112,7 +112,10 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate) {
+    public void onCateClick(String id, String time, String testName,
+                            String testQuestion, String testPaid,
+                            String testStatus, String type, String startDate,
+                            String resultDate) {
 
 
             if (testPaid.equalsIgnoreCase("Yes")) {

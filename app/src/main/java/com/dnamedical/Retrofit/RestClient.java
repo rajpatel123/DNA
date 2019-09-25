@@ -67,8 +67,8 @@ public class RestClient {
         RetrofitClient.getClient().getAdditionalDiscount().enqueue(callback);
     }
 
-    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody).enqueue(callback);
+    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody,RequestBody platform, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody,platform).enqueue(callback);
     }
 
     public static void updateUser(RequestBody name, RequestBody user_id, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, Callback<UserUpdateResponse> callback) {
