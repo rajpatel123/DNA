@@ -1,6 +1,11 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -10,8 +15,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +31,7 @@ import com.dnamedical.Adapters.result;
 import com.dnamedical.Models.ResultData.AllReult;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ResultData.UserResult;
+import com.dnamedical.Models.test.testresult.ScoreAnalysi;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -140,9 +149,11 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void updateResult(TestResult testResult) {
+
+        init(testResult.getData().getScoreAnalysis());
         rankTV.setText("" + testResult.getData().getRank());
-        startTimeTV.setText("" + testResult.getData().getStartTime());
-        endTimeTv.setText("" + testResult.getData().getEndTime());
+        startTimeTV.setText("" + Utils.startTimeFormat((testResult.getData().getStartTime() * 1000)));
+        endTimeTv.setText("" + Utils.startTimeFormat((testResult.getData().getEndTime() * 1000)));
         yourScoreTV.setText("" + testResult.getData().getYourScore());
         totalMarksTv.setText("" + testResult.getData().getTotalMarks());
         percentageTV.setText("" + testResult.getData().getPercenatge());
@@ -199,6 +210,114 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void init(List<ScoreAnalysi> scoreAnalysi) {
+        TableLayout ll = findViewById(R.id.subjectTable);
+        TableRow rowHead = new TableRow(this);
+        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        rowHead.setLayoutParams(lp1);
+        rowHead.setBackgroundResource(R.drawable.border);
+
+
+        TextView subject = new TextView(this);
+        TextView rightAnswer = new TextView(this);
+        TextView wrongAnswer = new TextView(this);
+        TextView skipped = new TextView(this);
+        TextView score = new TextView(this);
+        subject.setTypeface(Typeface.DEFAULT_BOLD);
+        rightAnswer.setTypeface(Typeface.DEFAULT_BOLD);
+        wrongAnswer.setTypeface(Typeface.DEFAULT_BOLD);
+        skipped.setTypeface(Typeface.DEFAULT_BOLD);
+        score.setTypeface(Typeface.DEFAULT_BOLD);
+
+        setBorder(subject);
+        setBorder(rightAnswer);
+        setBorder(wrongAnswer);
+        setBorder(skipped);
+        setBorder(score);
+
+        subject.setPadding(10, 5, 5, 5);
+        subject.setGravity(Gravity.CENTER);
+        rightAnswer.setPadding(10, 5, 5, 5);
+        rightAnswer.setGravity(Gravity.CENTER);
+        skipped.setPadding(10, 5, 5, 5);
+        skipped.setGravity(Gravity.CENTER);
+        rightAnswer.setPadding(10, 5, 5, 5);
+        rightAnswer.setGravity(Gravity.CENTER);
+        score.setPadding(10, 5, 5, 5);
+        score.setGravity(Gravity.CENTER);
+
+
+        subject.setText("Subject");
+        rightAnswer.setText("(++)");
+        rightAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0);
+
+        wrongAnswer.setText("(--)");
+        wrongAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_close, 0, 0, 0);
+
+        skipped.setText("Not Attempted");
+        score.setText("Score");
+        rowHead.addView(subject);
+        rowHead.addView(rightAnswer);
+        rowHead.addView(wrongAnswer);
+        rowHead.addView(skipped);
+        rowHead.addView(score);
+        ll.addView(rowHead, 0);
+
+        for (int i = 0; i < scoreAnalysi.size(); i++) {
+
+            TableRow row = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            row.setLayoutParams(lp);
+            row.setBackgroundResource(R.drawable.border);
+
+            TextView subjectTv = new TextView(this);
+            TextView rightAnswerTv = new TextView(this);
+            TextView wrongAnswerTv = new TextView(this);
+            TextView skippedTv = new TextView(this);
+            TextView scoreTv = new TextView(this);
+            subjectTv.setGravity(Gravity.CENTER);
+            rightAnswerTv.setGravity(Gravity.CENTER);
+            wrongAnswerTv.setGravity(Gravity.CENTER);
+            skippedTv.setGravity(Gravity.CENTER);
+            scoreTv.setGravity(Gravity.CENTER);
+
+
+            setBorder(subjectTv);
+            setBorder(rightAnswerTv);
+            setBorder(wrongAnswerTv);
+            setBorder(skippedTv);
+            setBorder(scoreTv);
+
+
+            subjectTv.setPadding(15, 5, 15, 5);
+            rightAnswerTv.setPadding(10, 5, 5, 5);
+            skippedTv.setPadding(10, 5, 5, 5);
+            rightAnswerTv.setPadding(10, 5, 5, 5);
+            scoreTv.setPadding(10, 5, 5, 5);
+
+
+            subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
+            rightAnswerTv.setText("" + scoreAnalysi.get(i).getCorrect());
+            wrongAnswerTv.setText("" + scoreAnalysi.get(i).getWrong());
+            skippedTv.setText("" + scoreAnalysi.get(i).getSkip());
+            scoreTv.setText("" + scoreAnalysi.get(i).getScore());
+            row.addView(subjectTv);
+            row.addView(rightAnswerTv);
+            row.addView(wrongAnswerTv);
+            row.addView(skippedTv);
+            row.addView(scoreTv);
+            ll.addView(row, i + 1);
+        }
+    }
+
+    private void setBorder(TextView tv) {
+        ShapeDrawable border = new ShapeDrawable(new RectShape());
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        border.getPaint().setColor(Color.BLACK);
+
+        tv.setBackground(border);
     }
 
 

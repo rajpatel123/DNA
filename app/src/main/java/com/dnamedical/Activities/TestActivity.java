@@ -176,7 +176,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     private void submitTest() {
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "0");
+        RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
         Utils.showProgressDialog(TestActivity.this);
         RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
@@ -206,8 +206,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody timeSpendBody = RequestBody.create(MediaType.parse("text/plain"), "" + time);
         RequestBody testEvent = RequestBody.create(MediaType.parse("text/plain"), "test");
-        RequestBody subEvent = RequestBody.create(MediaType.parse("text/plain"), type);
-        RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RequestBody subEvent = RequestBody.create(MediaType.parse("text/plain"), ""+type);
+        RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), ""+test_id);
         RestClient.submit_timeLog(userId, timeSpendBody, testEvent, subEvent, product_id, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -352,6 +352,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
             }
         });
 
+        if (!isFinishing() && !dialog.isShowing())
         dialog.show();
 
 

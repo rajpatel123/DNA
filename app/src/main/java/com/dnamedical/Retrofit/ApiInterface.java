@@ -385,7 +385,7 @@ public interface ApiInterface {
     Call<ResponseBody> submit_timeLog(@Part("user_id") RequestBody user_id,
                                       @Part("timespend") RequestBody timespend,
                                       @Part("event") RequestBody event,
-                                      @Part("product_id") RequestBody test_id,
-                                      @Part("subevent") RequestBody subevent);
+                                      @Part("subevent") RequestBody subevent,
+                                      @Part("product_id") RequestBody test_id);
 }
 

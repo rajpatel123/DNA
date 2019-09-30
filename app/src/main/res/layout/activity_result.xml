@@ -27,11 +27,11 @@
                 android:gravity="center_horizontal">
 
                 <LinearLayout
-
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="25dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center"
                     android:orientation="vertical">
 
                     <TextView
@@ -44,7 +44,7 @@
                         android:id="@+id/resultDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="04/07/2019"
+                        android:text=""
                         android:textColor="#FFFFFF"
 
 
@@ -54,38 +54,39 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_marginLeft="35dp"
-                    android:layout_width="72dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
                     android:layout_height="100dp"
+
+                    android:layout_gravity="center_horizontal|center"
                     android:background="@drawable/result_logo">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:paddingLeft="15dp"
+                        android:layout_marginTop="9dp"
                         android:text="Rank"
+                        android:gravity="center"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/resultRank"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="28dp"
                         android:gravity="center"
-                        android:text="20"
+                        android:text="1001"
                         android:textColor="#FFFFFF"
                         android:textSize="16dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
                     android:layout_gravity="center_vertical"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <TextView
@@ -109,7 +110,7 @@
                             android:id="@+id/resultStratTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="00:00:00"
+                            android:text=""
                             android:textColor="#FFFFFF"
 
                             />
@@ -130,7 +131,7 @@
                             android:id="@+id/resultEndTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="00:00:00"
+                            android:text=""
                             android:textColor="#FFFFFF"
                             />
                     </LinearLayout>
@@ -194,6 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Your Score  :"
+                        android:textStyle="bold"
                         android:layout_gravity="center"
                         />
                     <TextView
@@ -201,7 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="17"
+                        android:text=""
                         android:textStyle="bold"
                         />
 
@@ -216,6 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Marks :"
+                        android:textStyle="bold"
 
                         />
                     <TextView
@@ -223,7 +226,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="20"
+                        android:text=""
                         android:textStyle="bold"
                         />
 
@@ -238,6 +241,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Percentage :"
+                        android:textStyle="bold"
 
                         />
                     <TextView
@@ -245,7 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="45"
+                        android:text=""
                         android:textStyle="bold"
                         />
 
@@ -260,6 +264,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Percentile    :"
+                        android:textStyle="bold"
+
                         android:layout_gravity="center"
                         />
                     <TextView
@@ -267,7 +273,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="64"
+                        android:text=""
                         android:textStyle="bold"
                         />
 
@@ -286,6 +292,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -296,168 +303,170 @@
                         android:textStyle="bold" />
 
 
-                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    <TableLayout
+                        android:id="@+id/subjectTable"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp">
 
-                        <TableRow android:background="@drawable/border">
+<!--                        <TableRow android:background="@drawable/border">-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/border"
-                                android:padding="3dp"
-                                android:text="" />
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:background="@drawable/border"-->
+<!--                                android:padding="3dp"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:drawableLeft="@drawable/ic_check"
-                                android:padding="3dp"
-                                android:text="(++)" />
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:drawableLeft="@drawable/ic_check"-->
+<!--                                android:padding="3dp"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:text="(++)" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/border"
-                                android:drawableLeft="@drawable/ic_close"
-                                android:padding="3dp"
-                                android:text="(-1)" />
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:background="@drawable/border"-->
+<!--                                android:drawableLeft="@drawable/ic_close"-->
+<!--                                android:padding="3dp"-->
+<!--                                android:text="(-1)" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/border"
-                                android:textSize="14dp"
-                                android:padding="3dp"
-                                android:gravity="center"
-                                android:text="Not Attempted" />
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:background="@drawable/border"-->
+<!--                                android:textSize="14dp"-->
+<!--                                android:padding="3dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Not Attempted" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5"
-                                android:gravity="center"
-                                android:text="Score" />
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_weight="0.5"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Score" />-->
 
-                        </TableRow>
+<!--                        </TableRow>-->
 
-                        <TableRow android:background="@drawable/border">
+<!--                        <TableRow android:background="@drawable/border">-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:paddingLeft="2dp"
-                                android:text="ANA to my" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:paddingLeft="2dp"-->
+<!--                                android:text="ANATOMY" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="5" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="2" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:text="" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="18" />
-                        </TableRow>
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="29dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
+<!--                        </TableRow>-->
 
-                        <TableRow android:background="#DAE8FC">
+<!--                        <TableRow android:background="#DAE8FC">-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
 
-                                android:background="@drawable/colom_border"
-                                android:paddingLeft="2dp"
-                                android:text="Psychology" />
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:paddingLeft="2dp"-->
+<!--                                android:text="Psychology" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="6" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
 
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="3" />
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:text="" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="15" />
-                        </TableRow>
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
+<!--                        </TableRow>-->
 
-                        <TableRow android:background="@drawable/border">
+<!--                        <TableRow android:background="@drawable/border">-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:paddingLeft="2dp"
-                                android:text="Biochemistry" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:paddingLeft="2dp"-->
+<!--                                android:text="Biochemistry" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="9" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="5" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:text="" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:text="" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="31" />
-                        </TableRow>
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:background="@drawable/colom_border"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="" />-->
+<!--                        </TableRow>-->
                     </TableLayout>
 
                 </LinearLayout>
@@ -490,7 +499,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:text="08"
+                            android:text=""
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -511,7 +520,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:text="15"
+                            android:text=""
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -532,7 +541,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:text="05"
+                            android:text=""
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -553,7 +562,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:text="12"
+                            android:text=""
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -637,13 +646,14 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="2" />
+                                android:text="" />
 
                             <TextView
                                 android:id="@+id/diffEasyWrong"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:gravity="center"
                                 android:background="@drawable/colom_border"
                                 android:text="" />
 
@@ -654,7 +664,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="18" />
+                                android:text="" />
                         </TableRow>
 
                         <TableRow android:background="#DAE8FC">
@@ -675,13 +685,15 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="3" />
+                                android:text="" />
 
                             <TextView
                                 android:id="@+id/diffMediumWrong"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:gravity="center"
+
                                 android:background="@drawable/colom_border"
                                 android:text="" />
 
@@ -692,7 +704,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="15" />
+                                android:text="" />
                         </TableRow>
 
                         <TableRow android:background="@drawable/border">
@@ -720,6 +732,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:gravity="center"
+
                                 android:background="@drawable/colom_border"
                                 android:text="" />
 
@@ -730,7 +744,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="31" />
+                                android:text="" />
                         </TableRow>
                     </TableLayout>
 
@@ -792,7 +806,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="00:00:00" />
+                                android:text="" />
 
 
                             <TextView
@@ -801,7 +815,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="00:00:00" />
+                                android:text="" />
 
                             <TextView
                                 android:id="@+id/total_Time_Qus"
@@ -810,7 +824,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="00:00:00" />
+                                android:text="" />
                         </TableRow>
 
                         <TableRow android:background="#DAE8FC">
