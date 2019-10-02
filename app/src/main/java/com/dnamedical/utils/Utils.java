@@ -121,10 +121,10 @@ public class Utils {
         return 0;
     }
 
-    public static String getCurrentTime() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
-        String strTime = mdformat.format(calendar.getTime());
+    public static String getTimeInHHMMSS(long millies) {
+
+        SimpleDateFormat mdformat = new SimpleDateFormat("H:mm:ss");
+        String strTime = mdformat.format(millies*1000);
         return strTime;
     }
 
@@ -164,8 +164,27 @@ public class Utils {
 
         try {
             Log.d("date", "" + timeStamp);
-            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY HH:MM");
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
             Date dNow = new Date(timeStamp);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
+    public static String startTimeForTestFormat(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd : mm : YYYY");
+            Date dNow = new Date(timeStamp*1000);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
             e.printStackTrace();

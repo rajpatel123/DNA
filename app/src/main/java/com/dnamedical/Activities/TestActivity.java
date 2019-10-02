@@ -50,6 +50,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     ViewPager mPager;
     TextView quesionCounter;
     TextView timer;
+    RelativeLayout questionpannel, answerSheet;
+    Button closeSheet;
     public long tempTime;
     public Map<String, String> correctAnswerList = new HashMap<>();
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
@@ -103,6 +105,10 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
         user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
 
+        quesionCounter = findViewById(R.id.counter);
+        questionpannel = findViewById(R.id.questionpannel);
+        answerSheet = findViewById(R.id.answerSheet);
+        closeSheet = findViewById(R.id.closeSheet);
         quesionCounter = findViewById(R.id.counter);
         timer = findViewById(R.id.timer);
         String duration = getIntent().getStringExtra("duration");
@@ -170,6 +176,18 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 showMenu(view);
             }
         });
+
+        questionpannel.setVisibility(View.VISIBLE);
+        answerSheet.setVisibility(View.GONE);
+        closeSheet.setVisibility(View.GONE);
+
+
+        closeSheet.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
 
@@ -206,8 +224,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody timeSpendBody = RequestBody.create(MediaType.parse("text/plain"), "" + time);
         RequestBody testEvent = RequestBody.create(MediaType.parse("text/plain"), "test");
-        RequestBody subEvent = RequestBody.create(MediaType.parse("text/plain"), ""+type);
-        RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), ""+test_id);
+        RequestBody subEvent = RequestBody.create(MediaType.parse("text/plain"), "" + type);
+        RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), "" + test_id);
         RestClient.submit_timeLog(userId, timeSpendBody, testEvent, subEvent, product_id, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -308,11 +326,17 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.reviewTest:
-                Intent intent = new Intent(TestActivity.this, AttemptingQuestionActivity.class);
-                startActivity(intent);
+                questionpannel.setVisibility(View.GONE);
+                answerSheet.setVisibility(View.VISIBLE);
+                closeSheet.setVisibility(View.VISIBLE);
                 return true;
             case R.id.submitTest:
                 submitAlertDiolog();
+                return true;
+            case R.id.closeSheet:
+                questionpannel.setVisibility(View.VISIBLE);
+                answerSheet.setVisibility(View.GONE);
+                closeSheet.setVisibility(View.GONE);
                 return true;
             case R.id.discardTest:
                 discardAlertDialog();
@@ -353,7 +377,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         });
 
         if (!isFinishing() && !dialog.isShowing())
-        dialog.show();
+            dialog.show();
 
 
     }
@@ -646,7 +670,15 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
     };
 
+    @Override
+    public void onBackPressed() {
+        if (answerSheet.getVisibility() == View.VISIBLE) {
+            questionpannel.setVisibility(View.VISIBLE);
+            answerSheet.setVisibility(View.GONE);
+            closeSheet.setVisibility(View.GONE);
+            return;
+        }
+        super.onBackPressed();
 
+    }
 }
-
-

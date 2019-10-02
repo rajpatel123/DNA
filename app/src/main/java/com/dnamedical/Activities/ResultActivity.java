@@ -82,9 +82,9 @@ public class ResultActivity extends AppCompatActivity {
 
         }
         rankTV = findViewById(R.id.resultRank);
-        dateTV = findViewById(R.id.resultDate);
-        startTimeTV = findViewById(R.id.resultStratTime);
-        endTimeTv = findViewById(R.id.resultEndTime);
+        dateTV = findViewById(R.id.testDate);
+        startTimeTV = findViewById(R.id.testStartTime);
+        endTimeTv = findViewById(R.id.testEndTime);
         yourScoreTV = findViewById(R.id.yourScore);
         totalMarksTv = findViewById(R.id.totalMarks);
         percentageTV = findViewById(R.id.percentage);
@@ -152,8 +152,10 @@ public class ResultActivity extends AppCompatActivity {
 
         init(testResult.getData().getScoreAnalysis());
         rankTV.setText("" + testResult.getData().getRank());
-        startTimeTV.setText("" + Utils.startTimeFormat((testResult.getData().getStartTime() * 1000)));
-        endTimeTv.setText("" + Utils.startTimeFormat((testResult.getData().getEndTime() * 1000)));
+        startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
+        endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
+        dateTV.setText(""+Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
+
         yourScoreTV.setText("" + testResult.getData().getYourScore());
         totalMarksTv.setText("" + testResult.getData().getTotalMarks());
         percentageTV.setText("" + testResult.getData().getPercenatge());
