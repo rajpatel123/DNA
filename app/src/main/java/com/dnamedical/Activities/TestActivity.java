@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Adapters.AnswerListAdapter;
+import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
@@ -45,7 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuItemClickListener {
+public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuItemClickListener, AnswerListAdapter.onQuesttionClick {
     MyAdapter mAdapter;
     ViewPager mPager;
     TextView quesionCounter;
@@ -69,6 +74,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     private ImageView guessImage;
     private Button button, menuButton;
     private Button skip;
+    private Button submit;
+    public ImageView star;
     long testCompleteTime = 0;
 
     String user_id;
@@ -83,9 +90,12 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     private String testName;
     long testDuration = 0;
     Button item_star;
+
+    public boolean isBookmarkedRemoved;
     private RelativeLayout relative;
     private ImageButton iv_popupMenu;
     private long timeSpend;
+    private RecyclerView answersheetRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +104,67 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         guessImage = findViewById(R.id.image_guess);
         guessCheck = findViewById(R.id.guessCheck);
         relative = findViewById(R.id.relative);
+        submit = findViewById(R.id.submit);
+        star = findViewById(R.id.star);
+        answersheetRecyclerView = findViewById(R.id.answersheetRecycler);
         handler = new Handler();
 
         guessImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 GuessOpen();
+            }
+        });
+        submit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitAlertDiolog();
+            }
+        });
+
+        star.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(test_id)
+                        && !TextUtils.isEmpty(question_id)) {
+                    RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+                    RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+                    RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), question_id);
+                    RequestBody remove_bookmark = null;
+                    if (qustionDetails.getData().getQuestionList().get(currentPosition).isBookMarked()) {
+                        remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
+                        isBookmarkedRemoved = true;
+                    } else {
+                        isBookmarkedRemoved = false;
+                        remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
+                    }
+
+                    Utils.showProgressDialog(TestActivity.this);
+                    RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Utils.dismissProgressDialog();
+                            if (response != null && response.code() == 200) {
+                                if (isBookmarkedRemoved) {
+                                    // DrawableCompat.setTint(star.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                                    qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(false);
+
+                                } else {
+                                    //DrawableCompat.setTint(star.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                                    qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(true);
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Utils.dismissProgressDialog();
+                        }
+                    });
+                }
+
             }
         });
 
@@ -114,38 +179,14 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
         test_id = getIntent().getStringExtra("id");
-        testDuration = 15 * 60 * 1000;
+        testDuration = Integer.parseInt(duration)*1000;
         resettimer();
         startTimer();
         nextBtn = findViewById(R.id.skip_button);
         nextBtn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
-                timeSpend = System.currentTimeMillis() - tempTime;
-                if (guessCheck.isChecked()) {
-                    isGuess = "true";
-                } else {
-                    isGuess = "false";
-                }
-
-                pauseTimer();
-
-                if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
-                    submitTest();
-                    Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
-                    pauseTimer();
-                } else {
-                    if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
-                        submitQuestionAnswer();
-                    }
-
-                }
-
-                submitTimeLogTest("switch_question", "" + Seconds);
-                Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
-
-
-                updateQuestionsFragment();
+                onNextQuestion();
             }
         });
 
@@ -190,8 +231,42 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         });
     }
 
+    private void onNextQuestion() {
+        timeSpend = System.currentTimeMillis() - tempTime;
+        if (guessCheck.isChecked()) {
+            isGuess = "true";
+            qustionDetails.getData().getQuestionList().get(currentPosition).setGues(true);
+        } else {
+            qustionDetails.getData().getQuestionList().get(currentPosition).setGues(false);
+            isGuess = "false";
+        }
+
+        pauseTimer();
+
+        if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
+            submitTest();
+            Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
+            pauseTimer();
+        } else {
+            if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
+                submitQuestionAnswer();
+            }
+
+        }
+
+        submitTimeLogTest("switch_question", "" + Seconds);
+        Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
+
+
+        updateQuestionsFragment();
+    }
+
 
     private void submitTest() {
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
@@ -221,6 +296,11 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     }
 
     public void submitTimeLogTest(String type, String time) {
+
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody timeSpendBody = RequestBody.create(MediaType.parse("text/plain"), "" + time);
         RequestBody testEvent = RequestBody.create(MediaType.parse("text/plain"), "test");
@@ -242,43 +322,66 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     }
 
     private void submitQuestionAnswer() {
-        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
-        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
-        RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
-        RequestBody guesStatus = RequestBody.create(MediaType.parse("text/plain"), isGuess);
-        RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!TextUtils.isEmpty(user_id)
+                && !TextUtils.isEmpty(test_id)
+                && !TextUtils.isEmpty(question_id)
+                && !TextUtils.isEmpty(answer)) {
 
-            }
-        });
+            RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+            RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+            RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
+            RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
+            RequestBody guesStatus = RequestBody.create(MediaType.parse("text/plain"), isGuess);
+            RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+
+                }
+            });
+        }
+
 
     }
 
     public void submitAnswer() {
-        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
-        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
-        RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
-        RestClient.submitTestAnswer(userId, testID, qID, answerID, new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
-            }
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+        if (!TextUtils.isEmpty(user_id)
+                && !TextUtils.isEmpty(test_id)
+                && !TextUtils.isEmpty(question_id)
+                && !TextUtils.isEmpty(answer)) {
+            RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+            RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+            RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
+            RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
+            RestClient.submitTestAnswer(userId, testID, qID, answerID, new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                }
 
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+
+                }
+            });
+        }
+
 
     }
 
@@ -329,6 +432,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 questionpannel.setVisibility(View.GONE);
                 answerSheet.setVisibility(View.VISIBLE);
                 closeSheet.setVisibility(View.VISIBLE);
+                loadSheet();
+
                 return true;
             case R.id.submitTest:
                 submitAlertDiolog();
@@ -346,7 +451,28 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         }
     }
 
+    private void loadSheet() {
+
+        AnswerListAdapter answerListAdapter = new AnswerListAdapter(this);
+        answerListAdapter.setData(qustionDetails.getData().getQuestionList());
+        answerListAdapter.setListener(this);
+        answersheetRecyclerView.setAdapter(answerListAdapter);
+        Log.d("Api Response :", "Got Success from Api");
+        // noInternet.setVisibility(View.GONE);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 3) {
+            @Override
+            public boolean canScrollVertically() {
+                return true;
+            }
+        };
+        answersheetRecyclerView.setLayoutManager(layoutManager);
+        answersheetRecyclerView.setVisibility(View.VISIBLE);
+
+
+    }
+
     private void submitAlertDiolog() {
+        int count = getUnAttemptedCount();
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
         LayoutInflater inflater = this.getLayoutInflater();
@@ -355,6 +481,11 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
         final android.app.AlertDialog dialog = dialogBuilder.create();
         Button btn_yes = dialogView.findViewById(R.id.btn_done);
+        if (count > 0) {
+            TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
+            unuttempted.setText("You have " + count + " unattempted questions");
+            unuttempted.setVisibility(View.VISIBLE);
+        }
         TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
         text_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -371,6 +502,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 if (countDownTimer != null)
                     countDownTimer.cancel();
                 submitTest();
+                onBackPressed();
                 dialog.dismiss();
 
             }
@@ -398,7 +530,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-
+                finish();
             }
         });
 
@@ -406,8 +538,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                finish();
-                Toast.makeText(TestActivity.this, "Open", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -418,6 +549,13 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     protected void onResume() {
         super.onResume();
         getTest();
+    }
+
+    @Override
+    public void onQuesClick(int currentPosition) {
+        this.currentPosition = currentPosition;
+        onNextQuestion();
+        onBackPressed();
     }
 
     public static class MyAdapter extends FragmentPagerAdapter {
@@ -480,7 +618,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         } else {
             Utils.dismissProgressDialog();
 
-            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -502,107 +640,6 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         }
     };
 
-//    private void submitTest() {
-//        if (Utils.isInternetConnected(this)) {
-//            Utils.showProgressDialog(this);
-//            if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-//                user_id = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-//            } else {
-//                user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
-//            }
-//
-//            String test_id = getIntent().getStringExtra("id");
-//            String tquestion = "" + qustionDetails.getDetail().size();
-//            String canswer = "" + correctAnswerList.keySet().size();
-//            String wanswer = "" + wrongAnswerList.keySet().size();
-//            int sanswer =0;
-//
-//            StringBuilder builder = new StringBuilder();
-//            for (Detail detail : qustionDetails.getDetail()) {
-//                builder.append(detail.getQid() + ",");
-//
-//            }
-//
-//            if (!TextUtils.isEmpty(builder))
-//                    ttQuestion = builder.substring(0, builder.toString().length() - 1).toString();
-//
-//            StringBuilder ccAnswer = new StringBuilder();
-//
-//            for (String ss : correctAnswerList.keySet()) {
-//                ccAnswer.append(ss + ",");
-//            }
-//            if (!TextUtils.isEmpty(ccAnswer))
-//                ccAnswerIds = ccAnswer.substring(0, ccAnswer.toString().length() - 1).toString();
-//
-//            StringBuilder wwanswer = new StringBuilder();
-//            for (String ss : wrongAnswerList.keySet()) {
-//                wwanswer.append(ss + ":" + wrongAnswerList.get(ss) + ",");
-//            }
-//
-//            if (!TextUtils.isEmpty(wwanswer))
-//                wwanswerIds = wwanswer.substring(0, wwanswer.toString().length() - 1).toString();
-//
-//
-//            StringBuilder skiped = new StringBuilder();
-//            for (Detail ss : qustionDetails.getDetail()) {
-//               if (!correctAnswerList.containsKey(ss.getQid())&& !wrongAnswerList.containsKey(ss.getQid())){
-//                   skiped.append(ss.getQid() + ",");
-//                   sanswer++;
-//
-//               }
-//            }
-//            if (!TextUtils.isEmpty(skiped))
-//                ssanswer = skiped.substring(0, skiped.toString().length() - 1).toString();
-//
-//
-//            Log.d("TEstData", "  Duration  "+testCompleteTime +" userid->" + user_id + " testid->" + test_id + " tquestion->"
-//                    + tquestion + " ttQuestion" + ttQuestion +
-//                    " canswer->" + canswer + " ccAnswerIds->" + ccAnswerIds + " wanswer->" + wanswer + " wwanswerIds->" + wwanswerIds + " ssanswer->" + ssanswer   );
-//
-//            RestClient.submitTest(user_id, test_id, tquestion, ttQuestion, canswer, ccAnswerIds, wanswer, wwanswerIds, ""+sanswer, ssanswer,""+testCompleteTime, new Callback<ResponseBody>() {
-//                @Override
-//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                    Utils.dismissProgressDialog();
-//
-//                    if (response.code() == 200) {
-//                        ResponseBody responseBody = response.body();
-//                        try {
-//                            String raw = responseBody.string();
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(raw);
-//                                Toast.makeText(TestActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-//                                Intent intent = new Intent(TestActivity.this, ResultActivity.class);
-//                                intent.putExtra("average", jsonObject.getString("average"));
-//                                intent.putExtra("User_Id", user_id);
-//                                intent.putExtra("Test_Id", test_id);
-//                                intent.putExtra("tquestion", tquestion);
-//                                intent.putExtra("canswer", canswer);
-//                                intent.putExtra("wanswer", wanswer);
-//                                intent.putExtra("testName", testName);
-//                                startActivity(intent);
-//                                finish();
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                    Utils.dismissProgressDialog();
-//                }
-//            });
-//        } else {
-//            Utils.dismissProgressDialog();
-//
-//            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
 
     private void showDialog() {
 
@@ -680,5 +717,23 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         }
         super.onBackPressed();
 
+    }
+
+
+    private int getUnAttemptedCount() {
+        int count = 0;
+        if (qustionDetails != null && qustionDetails.getData() != null
+                && qustionDetails.getData().getQuestionList() != null && qustionDetails.getData().getQuestionList().size() > 0) {
+            for (Question question : qustionDetails.getData().getQuestionList()) {
+                if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                    count++;
+                }
+            }
+        }
+
+        if (count > 0 && count != qustionDetails.getData().getQuestionList().size()) {
+            return qustionDetails.getData().getQuestionList().size() - count;
+        }
+        return count;
     }
 }

@@ -246,11 +246,11 @@ public class MainActivity extends AppCompatActivity
         RestClient.updateLogin(id, isReal, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.d("data", response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    //Log.d("data", response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override

@@ -243,14 +243,16 @@ public class Utils {
         return secondsToMs + minutesToMs + hoursToMs;
     }
 
-    public static String getDuration(long millis) {
-        if (millis<1){
-            return "";
-        }
-        return String.format("%d h ,%d m",
-                TimeUnit.MILLISECONDS.toHours(millis/1000),
-                TimeUnit.MILLISECONDS.toMinutes(millis/1000)
-        );
+    public static String getTestDurationDuration(int seconds) {
+        int p1 = seconds % 60;
+        int p2 = seconds / 60;
+        int p3 = p2 % 60;
+        p2 = p2 / 60;
+        System.out.print( p2 + ":" + p3 + ":" + p1);
+        System.out.print("\n");
+
+        return  p2+"h "+p3+"m";
+
     }
 
 

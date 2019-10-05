@@ -192,15 +192,15 @@ public class TestStartActivity extends AppCompatActivity {
     private void updateTestTypeText(String type) {
         switch (type) {
             case "grand_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getDuration(Long.parseLong(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "mini_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getDuration(Long.parseLong(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "subject_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getDuration(Long.parseLong(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
         }

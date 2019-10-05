@@ -39,12 +39,15 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <Button
             android:id="@+id/closeSheet"
-            android:layout_width="140dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             app:srcCompat="@drawable/ic_close"
             android:layout_alignParentEnd="true"
             android:visibility="visible"
-            android:elevation="5dp"
+            android:text="X"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:background="@color/transparent"
             android:layout_centerVertical="true"
             />
 
@@ -133,9 +136,8 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin_20dp"
                     android:layout_toEndOf="@+id/context_Menu"
-                    android:background="@drawable/test_star"
                     android:paddingRight="40dp"
-                    android:tint="@color/card_gray" />
+                     />
 
             </RelativeLayout>
 
@@ -160,8 +162,10 @@
         >
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/answersheetRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_20dp">
 
         </android.support.v7.widget.RecyclerView>
         <Button

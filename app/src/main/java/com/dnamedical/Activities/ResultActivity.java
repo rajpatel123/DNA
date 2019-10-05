@@ -81,7 +81,7 @@ public class ResultActivity extends AppCompatActivity {
             test_id = getIntent().getStringExtra("Test_Id");
 
         }
-        rankTV = findViewById(R.id.resultRank);
+      //  rankTV = findViewById(R.id.resultRank);
         dateTV = findViewById(R.id.testDate);
         startTimeTV = findViewById(R.id.testStartTime);
         endTimeTv = findViewById(R.id.testEndTime);
@@ -107,9 +107,9 @@ public class ResultActivity extends AppCompatActivity {
         diffEasySkipTV = findViewById(R.id.diffEasySkip);
         diffMediumSkipTV = findViewById(R.id.diffMediumSkip);
         diffHardSkipTV = findViewById(R.id.diffHardSkip);
-        timeTakenMarkedTV = findViewById(R.id.timeTakenMarkedQus);
-        timeTakenSkipTV = findViewById(R.id.timeTakenSkipQus);
-        totalTimeTV = findViewById(R.id.total_Time_Qus);
+//        timeTakenMarkedTV = findViewById(R.id.timeTakenMarkedQus);
+//        timeTakenSkipTV = findViewById(R.id.timeTakenSkipQus);
+//        totalTimeTV = findViewById(R.id.total_Time_Qus);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(Constants.RESULT)) {

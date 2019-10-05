@@ -296,4 +296,10 @@ public class RestClient {
     }
 
 
+    public static void bookMarkQuestion(RequestBody user_id, RequestBody test_id,RequestBody question_id,RequestBody bookmark, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().bookMarkQuestion(user_id,test_id,question_id,bookmark).enqueue(callback);
+
+    }
+
+
 }

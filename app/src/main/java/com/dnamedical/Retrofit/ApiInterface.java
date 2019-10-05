@@ -91,7 +91,6 @@ public interface ApiInterface {
                                         @Part("country") RequestBody countryBody);
 
 
-
     @Multipart
     @POST("api/api.php?req=add_address")
     Call<AddressDetailResponse> addressDetail(@Part("user_id") RequestBody user_id,
@@ -236,6 +235,7 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/testquestions")
     Call<QustionDetails> getQuestion(@Query("user_id") String user_id,
                                      @Query("test_id") String test_id);
+
     @Multipart
     @POST("v1/index.php/api/test/testresult")
     Call<TestResult> submitTest(@Part("user_id") RequestBody userId,
@@ -379,6 +379,13 @@ public interface ApiInterface {
 
     @GET("v1/index.php/api/test/list")
     Call<TestDataResponse> getAllTestData(@Query("user_id") String id);
+
+    @Multipart
+    @POST("v1/index.php/api/test/bookmark")
+    Call<ResponseBody> bookMarkQuestion(@Part("user_id") RequestBody user_id,
+                                        @Part("test_id") RequestBody timespend,
+                                        @Part("question_id") RequestBody event,
+                                        @Part("remove_bookmark") RequestBody remove_bookmark);
 
     @Multipart
     @POST("v1/index.php/api/test/timelogs")
