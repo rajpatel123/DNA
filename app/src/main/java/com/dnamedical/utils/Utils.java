@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
@@ -250,5 +251,51 @@ public class Utils {
                 TimeUnit.MILLISECONDS.toHours(millis/1000),
                 TimeUnit.MILLISECONDS.toMinutes(millis/1000)
         );
+    }
+
+
+    private static void getDateInddmmYYYY(long time) {
+        // TODO Auto-generated method stub
+        // Calendar calendar = new
+        // GregorianCalendar(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd:MM:yyyy");
+
+        // Here you say to java the initial timezone. This is the secret
+        sdf.setTimeZone(TimeZone.getDefault());//getTimeZone("UTC"));
+        // Will print in UTC
+        System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
+
+    }
+
+    private static void getDateIndMonthYYYY(long time) {
+        // TODO Auto-generated method stub
+        // Calendar calendar = new
+        // GregorianCalendar(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM,yyyy");
+
+        // Here you say to java the initial timezone. This is the secret
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        // Will print in UTC
+        System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
+
+    }
+
+    private static void getDateIndateMonthYYYY(long time) {
+        // TODO Auto-generated method stub
+        // Calendar calendar = new
+        // GregorianCalendar(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM,yyyy");
+
+        // Here you say to java the initial timezone. This is the secret
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        // Will print in UTC
+        System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
+
     }
 }
