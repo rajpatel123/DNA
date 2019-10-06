@@ -71,6 +71,8 @@ public class ResultActivity extends AppCompatActivity {
             diffEasyWrongTV, diffMediumWrongTV, diffHardWrongTV, diffEasySkipTV, diffMediumSkipTV, diffHardSkipTV;
     TextView timeTakenMarkedTV, timeTakenSkipTV, totalTimeTV;
     private String test_id;
+    private TextView testName;
+    private TextView rankValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,9 @@ public class ResultActivity extends AppCompatActivity {
 //        timeTakenMarkedTV = findViewById(R.id.timeTakenMarkedQus);
 //        timeTakenSkipTV = findViewById(R.id.timeTakenSkipQus);
 //        totalTimeTV = findViewById(R.id.total_Time_Qus);
+
+        testName = findViewById(R.id.testName);
+        rankValue = findViewById(R.id.rankValue);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(Constants.RESULT)) {
@@ -184,6 +189,12 @@ public class ResultActivity extends AppCompatActivity {
         timeTakenMarkedTV.setText("" + testResult.getData().getTimeAnalysis().getChangeOption());
         timeTakenSkipTV.setText("" + testResult.getData().getTimeAnalysis().getChangeQuestion());
         totalTimeTV.setText("" + testResult.getData().getTimeAnalysis().getTotalTime());
+
+
+        testName.setText("" + testResult.getData().getTestName());
+        rankValue.setText("" + testResult.getData().getLowestRank());
+
+
     }
 
 

@@ -47,6 +47,11 @@ public class Data implements Parcelable {
     @Expose
     private TimeAnalysis timeAnalysis;
 
+    @SerializedName("test_name")
+    @Expose
+    private String testName;
+
+
     protected Data(Parcel in) {
         if (in.readByte() == 0) {
             rank = null;
@@ -80,6 +85,7 @@ public class Data implements Parcelable {
         diffcultyLevelAnalysis = in.readParcelable(DiffcultyLevelAnalysis.class.getClassLoader());
         guessAnalysis = in.readParcelable(GuessAnalysis.class.getClassLoader());
         timeAnalysis = in.readParcelable(TimeAnalysis.class.getClassLoader());
+        testName = in.readString();
     }
 
     public static final Creator<Data> CREATOR = new Creator<Data>() {
@@ -190,49 +196,59 @@ public class Data implements Parcelable {
         this.timeAnalysis = timeAnalysis;
     }
 
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(Parcel parcel, int i) {
         if (rank == null) {
-            dest.writeByte((byte) 0);
+            parcel.writeByte((byte) 0);
         } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(rank);
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(rank);
         }
         if (startTime == null) {
-            dest.writeByte((byte) 0);
+            parcel.writeByte((byte) 0);
         } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(startTime);
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(startTime);
         }
         if (endTime == null) {
-            dest.writeByte((byte) 0);
+            parcel.writeByte((byte) 0);
         } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(endTime);
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(endTime);
         }
         if (lowestRank == null) {
-            dest.writeByte((byte) 0);
+            parcel.writeByte((byte) 0);
         } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(lowestRank);
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(lowestRank);
         }
-        dest.writeString(yourScore);
-        dest.writeString(totalMarks);
-        dest.writeString(percenatge);
+        parcel.writeString(yourScore);
+        parcel.writeString(totalMarks);
+        parcel.writeString(percenatge);
         if (percentile == null) {
-            dest.writeByte((byte) 0);
+            parcel.writeByte((byte) 0);
         } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(percentile);
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(percentile);
         }
-        dest.writeTypedList(scoreAnalysis);
-        dest.writeParcelable(diffcultyLevelAnalysis, flags);
-        dest.writeParcelable(guessAnalysis, flags);
-        dest.writeParcelable(timeAnalysis, flags);
+        parcel.writeTypedList(scoreAnalysis);
+        parcel.writeParcelable(diffcultyLevelAnalysis, i);
+        parcel.writeParcelable(guessAnalysis, i);
+        parcel.writeParcelable(timeAnalysis, i);
+        parcel.writeString(testName);
     }
 }
