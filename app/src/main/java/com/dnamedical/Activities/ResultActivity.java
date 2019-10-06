@@ -18,6 +18,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -254,7 +255,7 @@ public class ResultActivity extends AppCompatActivity {
     public void init(List<ScoreAnalysi> scoreAnalysi) {
         TableLayout ll = findViewById(R.id.subjectTable);
         TableRow rowHead = new TableRow(this);
-        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
         rowHead.setLayoutParams(lp1);
         rowHead.setBackgroundResource(R.drawable.border);
 
@@ -270,11 +271,11 @@ public class ResultActivity extends AppCompatActivity {
         skipped.setTypeface(Typeface.DEFAULT_BOLD);
         score.setTypeface(Typeface.DEFAULT_BOLD);
 
-        setBorder(subject);
-        setBorder(rightAnswer);
-        setBorder(wrongAnswer);
-        setBorder(skipped);
-        setBorder(score);
+        setHeadBorder(subject);
+        setHeadBorder(rightAnswer);
+        setHeadBorder(wrongAnswer);
+        setHeadBorder(skipped);
+        //setBorder(score);
 
         subject.setPadding(10, 5, 5, 5);
         subject.setGravity(Gravity.CENTER);
@@ -288,15 +289,13 @@ public class ResultActivity extends AppCompatActivity {
         score.setGravity(Gravity.CENTER);
 
 
-        subject.setText("Subject");
-        rightAnswer.setText("(++)");
-        rightAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0);
+        subject.setText(" SUBJECT ");
+        rightAnswer.setText(" Correct(+4) ");
 
-        wrongAnswer.setText("(--)");
-        wrongAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_close, 0, 0, 0);
+        wrongAnswer.setText(" Incorrect(-1) ");
 
-        skipped.setText("Not Attempted");
-        score.setText("Score");
+        skipped.setText(" Skipped ");
+        score.setText(" Score ");
         rowHead.addView(subject);
         rowHead.addView(rightAnswer);
         rowHead.addView(wrongAnswer);
@@ -316,7 +315,7 @@ public class ResultActivity extends AppCompatActivity {
             TextView wrongAnswerTv = new TextView(this);
             TextView skippedTv = new TextView(this);
             TextView scoreTv = new TextView(this);
-            subjectTv.setGravity(Gravity.CENTER);
+            subjectTv.setGravity(Gravity.START);
             rightAnswerTv.setGravity(Gravity.CENTER);
             wrongAnswerTv.setGravity(Gravity.CENTER);
             skippedTv.setGravity(Gravity.CENTER);
@@ -327,7 +326,7 @@ public class ResultActivity extends AppCompatActivity {
             setBorder(rightAnswerTv);
             setBorder(wrongAnswerTv);
             setBorder(skippedTv);
-            setBorder(scoreTv);
+            //setBorder(scoreTv);
 
 
             subjectTv.setPadding(15, 5, 15, 5);
@@ -356,6 +355,17 @@ public class ResultActivity extends AppCompatActivity {
         border.getPaint().setStyle(Paint.Style.STROKE);
         border.getPaint().setColor(Color.BLACK);
 
+
+        tv.setBackground(border);
+    }
+
+    private void setHeadBorder(TextView tv) {
+        ShapeDrawable border = new ShapeDrawable(new RectShape());
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        border.getPaint().setColor(Color.BLACK);
+
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.size_12));
         tv.setBackground(border);
     }
 
