@@ -1,5 +1,4 @@
 package com.dnamedical.Activities;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,8 +74,8 @@ public class TestStartActivity extends AppCompatActivity {
                 start_desc.setVisibility(View.GONE);
 
             }else{
-                if ((System.currentTimeMillis()-(startDate*1000)>=0)){
-                    if (resultDate*1000<System.currentTimeMillis()){
+                if ((System.currentTimeMillis()-(startDate)>=0)){
+                    if (resultDate<System.currentTimeMillis()){
                         btnStart.setText("Test result declared want to start the test");
                     }else{
                         btnStart.setText("Start The Test");
@@ -96,7 +95,7 @@ public class TestStartActivity extends AppCompatActivity {
                     updateTestTypeText(type);
                     btnStart.setText("Start The Test");
                     btnStart.setVisibility(View.GONE);
-                    start_date.setText(Utils.dateFormat(startDate*1000));
+                    start_date.setText(Utils.dateFormat(startDate));
                     start_date.setVisibility(View.VISIBLE);
                     start_desc.setVisibility(View.VISIBLE);
                 }
@@ -190,15 +189,15 @@ public class TestStartActivity extends AppCompatActivity {
     private void updateTestTypeText(String type) {
         switch (type) {
             case "grand_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + duration);
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getDuration(Long.parseLong(duration)));
                 break;
 
             case "mini_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + duration);
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getDuration(Long.parseLong(duration)));
                 break;
 
             case "subject_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + duration);
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " +  Utils.getDuration(Long.parseLong(duration)));
                 break;
 
         }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Activities.TestActivity;
 import com.dnamedical.Models.test.testp.Question;
@@ -56,7 +57,8 @@ public class QuestionFragment extends Fragment {
         fragNum = getArguments() != null ? getArguments().getInt("val") : 1;
         totalQuestions = getArguments() != null ? getArguments().getInt("totalQuestions") : 1;
         question = getArguments() != null ? getArguments().getParcelable("question") : null;
-
+        activity.isGuess = "false";
+        activity.guessCheck.setChecked(false);
         activity.question_id = question.getId();
 
     }
@@ -88,15 +90,19 @@ public class QuestionFragment extends Fragment {
                     answer1.setText(question.getOption1());
                     answerList.addView(answerView);
 
-                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption1().equalsIgnoreCase(question.getSelectedOption())){
-                     updateAnswer(cardView1);
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption1().equalsIgnoreCase(question.getSelectedOption())) {
+                        updateAnswer(cardView1);
                     }
                     answer1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            updateAnswer(cardView1);
+
                             activity.answer = "1";
+                            updateAnswer(cardView1);
+
                             question.setSelectedOption(question.getOption1());
+                            updateToServerAnswerSelection();
+
                         }
                     });
                     break;
@@ -107,15 +113,18 @@ public class QuestionFragment extends Fragment {
                     cardView2 = answerView1.findViewById(R.id.cardView);
                     answer2.setText(question.getOption2());
                     answerList.addView(answerView1);
-                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())){
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView2);
                     }
                     answer2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            updateAnswer(cardView2);
+
                             activity.answer = "2";
+
+                            updateAnswer(cardView2);
                             question.setSelectedOption(question.getOption2());
+                            updateToServerAnswerSelection();
 
                         }
                     });
@@ -128,15 +137,18 @@ public class QuestionFragment extends Fragment {
                     answer3.setText(question.getOption3());
 
                     answerList.addView(answerView2);
-                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())){
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView3);
                     }
                     answer3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
                             activity.answer = "3";
                             question.setSelectedOption(question.getOption3());
                             updateAnswer(cardView3);
+                            updateToServerAnswerSelection();
+
                         }
                     });
                     break;
@@ -147,7 +159,7 @@ public class QuestionFragment extends Fragment {
                     cardView4 = answerView4.findViewById(R.id.cardView);
                     answer4.setText(question.getOption4());
                     answerList.addView(answerView4);
-                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())){
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView4);
                     }
                     answer4.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +168,8 @@ public class QuestionFragment extends Fragment {
                             activity.answer = "4";
                             question.setSelectedOption(question.getOption4());
                             updateAnswer(cardView4);
+                            updateToServerAnswerSelection();
+
                         }
                     });
                     break;
@@ -164,12 +178,23 @@ public class QuestionFragment extends Fragment {
         return layoutView;
     }
 
+    private void updateToServerAnswerSelection() {
+        activity.pauseTimer();
+        activity.submitTimeLogTest("selecting_option", "" + activity.Seconds);
+        Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
+
+        activity.submitAnswer();
+        activity.resettimer();
+        activity.startTimer();
+    }
+
 
     private void updateAnswer(CardView cardView) {
         cardView1.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView2.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView3.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
         cardView4.setCardBackgroundColor(getContext().getResources().getColor(R.color.white));
+
         if ((fragNum + 1) == totalQuestions) {
             activity.nextBtn.setText("SUBMIT");
         } else {

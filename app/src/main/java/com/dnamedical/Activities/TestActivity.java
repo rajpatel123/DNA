@@ -3,7 +3,8 @@ package com.dnamedical.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.design.widget.BottomSheetBehavior;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -31,10 +32,6 @@ import com.dnamedical.fragment.QuestionFragment;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -46,8 +43,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuItemClickListener {
     MyAdapter mAdapter;
     ViewPager mPager;
@@ -55,10 +50,18 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     TextView timer;
     public long tempTime;
     public Map<String, String> correctAnswerList = new HashMap<>();
+    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
+
+    Handler handler;
+
+    public int Seconds, Minutes, MilliSeconds;
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
 
-    CheckBox guessCheck;
+    boolean isSwitching;
+
+
+    public CheckBox guessCheck;
     private ImageView guessImage;
     private Button button, menuButton;
     private Button skip;
@@ -68,7 +71,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     String test_id;
     public String question_id;
     public String answer;
-    String isGuess;
+    public String isGuess;
 
     public Button nextBtn;
     static int currentPosition;
@@ -87,6 +90,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         guessImage = findViewById(R.id.image_guess);
         guessCheck = findViewById(R.id.guessCheck);
         relative = findViewById(R.id.relative);
+        handler = new Handler();
 
         guessImage.setOnClickListener(new OnClickListener() {
             @Override
@@ -103,25 +107,36 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         testName = getIntent().getStringExtra("testName");
         test_id = getIntent().getStringExtra("id");
         testDuration = 15 * 60 * 1000;
-
+        resettimer();
+        startTimer();
         nextBtn = findViewById(R.id.skip_button);
         nextBtn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
-                timeSpend = System.currentTimeMillis()-tempTime;
+                timeSpend = System.currentTimeMillis() - tempTime;
                 if (guessCheck.isChecked()) {
                     isGuess = "true";
                 } else {
                     isGuess = "false";
                 }
 
+                pauseTimer();
+
                 if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
                     submitTest();
-
+                    Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
+                    pauseTimer();
                 } else {
+                    if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")){
+                        submitQuestionAnswer();
+                    }
 
-                    submitAnswer();
                 }
+
+                submitTimeLogTest("switch_question", "" + Seconds);
+                Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
+
+
                 updateQuestionsFragment();
             }
         });
@@ -130,7 +145,6 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         countDownTimer = new CountDownTimer(testDuration, 1000) {
 
             public void onTick(long millis) {
-
                 String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                         TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
@@ -156,38 +170,79 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         });
     }
 
-    private void submitTest() {
-        RequestBody userId= RequestBody.create(MediaType.parse("text/plain"),user_id);
-        RequestBody testID=RequestBody.create(MediaType.parse("text/plain"),test_id);
-        RequestBody isSubmit=RequestBody.create(MediaType.parse("tex/plain"),"1");
 
+    private void submitTest() {
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
         RestClient.submitTest(userId, testID, isSubmit, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+
+
 
 
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+            }
+        });
+
+    }
+
+    public void submitTimeLogTest(String type, String time) {
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody timeSpendBody = RequestBody.create(MediaType.parse("text/plain"), "" + time);
+        RequestBody testEvent = RequestBody.create(MediaType.parse("text/plain"), "event");
+        RequestBody subEvent = RequestBody.create(MediaType.parse("text/plain"), type);
+        RequestBody product_id = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RestClient.submit_timeLog(userId, timeSpendBody, testEvent, subEvent, product_id,new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d("Time Log -==>  " + type, "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
 
             }
         });
+
     }
 
-    private void submitAnswer() {
+    private void submitQuestionAnswer() {
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
         RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
         RequestBody guesStatus = RequestBody.create(MediaType.parse("text/plain"), isGuess);
-        RestClient.submitTestAnswer(userId, testID, qID, answerID, guesStatus, new Callback<ResponseBody>() {
+        RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+            }
 
-                response.toString();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
 
+            }
+        });
 
+    }
+
+    public void submitAnswer() {
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
+        RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
+        RestClient.submitTestAnswer(userId, testID, qID, answerID, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
 
@@ -205,10 +260,12 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         mPager.setCurrentItem(currentPosition + 1);
         if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
             nextBtn.setText("SUBMIT");
-
         } else {
             nextBtn.setText("SKIP");
         }
+
+        resettimer();
+        startTimer();
     }
 
 
@@ -280,9 +337,9 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
                 if (countDownTimer != null)
                     countDownTimer.cancel();
-//                submitTest();
+                submitTest();
                 dialog.dismiss();
-                //submitTest2();
+
             }
         });
 
@@ -358,7 +415,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     private void getTest() {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getQuestion("" + 1, getIntent().getStringExtra("id"), new Callback<QustionDetails>() {
+            RestClient.getQuestion(user_id, getIntent().getStringExtra("id"), new Callback<QustionDetails>() {
                 @Override
                 public void onResponse(Call<QustionDetails> call, Response<QustionDetails> response) {
                     Utils.dismissProgressDialog();
@@ -533,5 +590,52 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         dialog.show();
     }
 
+
+    public void startTimer() {
+
+        StartTime = SystemClock.uptimeMillis();
+        handler.postDelayed(runnable, 0);
+
+    }
+
+
+    public void resettimer() {
+        MillisecondTime = 0L;
+        StartTime = 0L;
+        TimeBuff = 0L;
+        UpdateTime = 0L;
+        Seconds = 0;
+        Minutes = 0;
+        MilliSeconds = 0;
+        Seconds = 0;
+    }
+
+
+    public void pauseTimer() {
+        TimeBuff += MillisecondTime;
+        handler.removeCallbacks(runnable);
+
+
+    }
+
+
+    public Runnable runnable = new Runnable() {
+
+        public void run() {
+
+            MillisecondTime = SystemClock.uptimeMillis() - StartTime;
+
+            UpdateTime = TimeBuff + MillisecondTime;
+
+            Seconds = (int) (UpdateTime / 1000);
+
+
+            handler.postDelayed(this, 0);
+        }
+
+    };
+
+
 }
+
 

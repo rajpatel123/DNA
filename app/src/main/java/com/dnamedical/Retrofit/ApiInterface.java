@@ -232,12 +232,13 @@ public interface ApiInterface {
 
 
     @GET("v1/index.php/api/test/testquestions")
-    Call<QustionDetails> getQuestion(@Query("user_id") String user_id, @Query("test_id") String test_id);
-
+    Call<QustionDetails> getQuestion(@Query("user_id") String user_id,
+                                     @Query("test_id") String test_id);
+    @Multipart
     @POST("v1/index.php/api/test/testresult")
-    Call<ResponseBody> submitTest(@Query("user_id") RequestBody userId,
-                                  @Query("test_id") RequestBody testID,
-                                  @Query("is_submit") RequestBody isSubmit);
+    Call<ResponseBody> submitTest(@Part("user_id") RequestBody userId,
+                                  @Part("test_id") RequestBody testID,
+                                  @Part("is_submit") RequestBody isSubmit);
 
     @Multipart
     @POST("api/api.php?req=result")
@@ -307,13 +308,20 @@ public interface ApiInterface {
                                     @Query("is_completed") String is_completed,
                                     @Query("user_answer") String user_answer);
 
-
+    @Multipart
     @POST("v1/index.php/api/test/submitanswer")
-    Call<ResponseBody> submitTestAnswer(@Query("user_id") RequestBody userId,
-                                        @Query("test_id") RequestBody testID,
-                                        @Query("question_id") RequestBody qID,
-                                        @Query("answer") RequestBody answerID,
-                                        @Query("is_guess") RequestBody guesStatus);
+    Call<ResponseBody> submitTestQuestionAnswer(@Part("user_id") RequestBody userId,
+                                                @Part("test_id") RequestBody testID,
+                                                @Part("question_id") RequestBody qID,
+                                                @Part("answer") RequestBody answerID,
+                                                @Part("is_guess") RequestBody guesStatus);
+
+    @Multipart
+    @POST("v1/index.php/api/test/submitselectedoption")
+    Call<ResponseBody> submitTestAnswer(@Part("user_id") RequestBody userId,
+                                        @Part("test_id") RequestBody testID,
+                                        @Part("question_id") RequestBody qID,
+                                        @Part("answer") RequestBody answerID);
 
 
     @Multipart
@@ -370,5 +378,12 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/list")
     Call<TestDataResponse> getAllTestData(@Query("user_id") String id);
 
-
+    @Multipart
+    @POST("v1/index.php/api/test/timelogs")
+    Call<ResponseBody> submit_timeLog(@Part("user_id") RequestBody user_id,
+                                      @Part("timespend") RequestBody timespend,
+                                      @Part("event") RequestBody event,
+                                      @Part("product_id") RequestBody test_id,
+                                      @Part("subevent") RequestBody subevent);
 }
+
