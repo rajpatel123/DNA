@@ -399,8 +399,9 @@ public interface ApiInterface {
 
     // New Api's Integrate
     @GET("v1/index.php/api/test/reviewquestionlist")
-    Call<TestReviewListResponse> getTestReviewListData(@Query("user_id") String user_id,
-                                                       @Query("test_id") String test_id);
+    Call<TestReviewListResponse> getTestReviewListData(
+                                                       @Query("test_id") String test_id,
+                                                       @Query("user_id") String user_id);
 
 }
 

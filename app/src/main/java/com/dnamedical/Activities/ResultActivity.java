@@ -66,6 +66,7 @@ public class ResultActivity extends AppCompatActivity {
     private List<AllReult> allReults;
     private RecyclerView recyclerView;
     private Button reviewButton, shareButton;
+
     String user_id;
     TestResult testResult;
     TextView rankTV, dateTV, startTimeTV, endTimeTv, yourScoreTV, totalMarksTv,
@@ -80,7 +81,7 @@ public class ResultActivity extends AppCompatActivity {
     private TextView rankValue;
     private TextView totalstudent;
 
-    TextView testTimeHead,examNameHead;
+    TextView testTimeHead, examNameHead;
 
 
     @Override
@@ -88,13 +89,12 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        reviewButton = findViewById(R.id.reviewBtn);
+
         if (getIntent().hasExtra("Test_Id")) {
             test_id = getIntent().getStringExtra("Test_Id");
 
         }
-
-
-
 
 
         testTimeHead = findViewById(R.id.testTimeHead);
@@ -175,10 +175,10 @@ public class ResultActivity extends AppCompatActivity {
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Intent intent1=new Intent(ResultActivity.this,ReviewresulActivity.class);
-
-              startActivity(intent1);
-              finish();
+                Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
+                intent1.putExtra("testid", test_id);
+                startActivity(intent1);
+                finish();
             }
         });
     }
@@ -189,7 +189,7 @@ public class ResultActivity extends AppCompatActivity {
         rankTV.setText("" + testResult.getData().getRank());
         startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
         endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
-        dateTV.setText(""+Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
+        dateTV.setText("" + Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
 
         yourScoreTV.setText("" + testResult.getData().getYourScore());
         totalMarksTv.setText("" + testResult.getData().getTotalMarks());

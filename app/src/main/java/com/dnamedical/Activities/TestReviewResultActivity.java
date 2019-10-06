@@ -51,6 +51,12 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getReviewData();
+
+    }
 
     private void getReviewData() {
 //        if (getIntent().hasExtra("userId")) {
@@ -65,8 +71,12 @@ public class TestReviewResultActivity extends AppCompatActivity {
         } else {
             user_Id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
         }
-        user_Id = "2";
-        test_Id = "2";
+        if (getIntent().hasExtra("testid")) {
+            test_Id = getIntent().getStringExtra("testid");
+
+        }
+
+
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
@@ -87,14 +97,19 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             testReviewListAdapter.setTestClickListener(new TestReviewListAdapter.TestClickListener() {
                                 @Override
                                 public void onTestClicklist(int postion) {
-                                    Intent intent=new Intent(TestReviewResultActivity.this,ReviewresulActivity.class);
-                                    intent.putExtra("position",postion);
-                                   // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData())
+                                    Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
+                                    intent.putExtra("position", postion);
+                                   // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData());
+                                    // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData())
                                     startActivity(intent);
-                                    Toast.makeText(TestReviewResultActivity.this, ""+postion, Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
                                 }
                             });
                             Log.d("Api Response :", "Got Success from send");
+                        }
+                        else {
+                            Toast.makeText(TestReviewResultActivity.this, "No Test", Toast.LENGTH_SHORT).show();
                         }
 
                     }
