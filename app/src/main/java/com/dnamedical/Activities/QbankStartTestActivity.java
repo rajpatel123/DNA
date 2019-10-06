@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Models.qbankstart.Detail;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -77,7 +76,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
     @Override
     protected void onResume() {
         super.onResume();
-        getStartData();
+        //getStartData();
     }
 
     private void getStartData() {
@@ -152,9 +151,14 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (qbankstartResponse.getDetails().get(0).getTotalmcq()
+
+                Intent intent = new Intent(QbankStartTestActivity.this, TestReviewResultActivity.class);
+                    intent.putExtra("qmodule_id", qbank_module_id);
+                    intent.putExtra("userId", userId);
+                    startActivity(intent);
+               /* if (qbankstartResponse.getDetails().get(0).getTotalmcq()
                         .equalsIgnoreCase(qbankstartResponse.getDetails().get(0).getTotalattempedmcq())) {
-                    Intent intent = new Intent(QbankStartTestActivity.this, QbankResultListActivity.class);
+                    Intent intent = new Intent(QbankStartTestActivity.this, TestReviewResultActivity.class);
                     intent.putExtra("qmodule_id", qbank_module_id);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
@@ -167,7 +171,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                     intent.putExtra("questionStartId", qbankstartResponse.getDetails().get(0).getTotalattempedmcq());
                     startActivity(intent);
                     finish();
-                }
+                }*/
             }
         });
     }

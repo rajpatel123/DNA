@@ -38,6 +38,8 @@ import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
+import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -46,6 +48,7 @@ import com.dnamedical.Models.video.VideoList;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Callback;
 
 public class RestClient {
@@ -293,6 +296,11 @@ public class RestClient {
     public static void submit_timeLog(RequestBody user_id, RequestBody timespend, RequestBody event, RequestBody subevent,RequestBody test_id, Callback<ResponseBody> callback) {
         RetrofitClient.getClient().submit_timeLog(user_id,timespend,event,subevent,test_id).enqueue(callback);
 
+    }
+    // new Api changes Here
+
+    public static void getTestReviewListData(String test_id, String user_id, Callback<TestReviewListResponse> callback) {
+        RetrofitClient.getClient().getTestReviewListData(test_id, user_id).enqueue(callback);
     }
 
 

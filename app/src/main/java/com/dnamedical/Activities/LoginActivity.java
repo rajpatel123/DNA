@@ -124,7 +124,6 @@ public class LoginActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     private void Validation() {
 
-
         email_str = editEmail.getText().toString();
         pass_str = editPassword.getText().toString();
         if (loginCheck.isChecked()) {

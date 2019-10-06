@@ -152,4 +152,5 @@
     <string name="review_testsheet">Review test sheet</string>
     <string name="summit_test">Submit Test</string>
     <string name="discard_text">Discard Test</string>
+    <string name="filter">Filter</string>
 </resources>

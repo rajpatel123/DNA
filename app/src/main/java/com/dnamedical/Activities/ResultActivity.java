@@ -142,6 +142,7 @@ public class ResultActivity extends AppCompatActivity {
         testName = findViewById(R.id.testName);
         rankValue = findViewById(R.id.rankValue);
         totalstudent = findViewById(R.id.totalstudent);
+        reviewButton = findViewById(R.id.reviewBtn);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(Constants.RESULT)) {
@@ -172,12 +173,15 @@ public class ResultActivity extends AppCompatActivity {
 
         //  showRankResult();
 
-//        reviewButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               // ReviewSheet();
-//            }
-//        });
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Intent intent1=new Intent(ResultActivity.this, TestReviewResultActivity.class);
+
+              startActivity(intent1);
+              finish();
+            }
+        });
     }
 
     private void updateResult(TestResult testResult) {
