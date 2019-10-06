@@ -172,12 +172,15 @@ public class ResultActivity extends AppCompatActivity {
 
         //  showRankResult();
 
-//        reviewButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               // ReviewSheet();
-//            }
-//        });
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Intent intent1=new Intent(ResultActivity.this,ReviewresulActivity.class);
+
+              startActivity(intent1);
+              finish();
+            }
+        });
     }
 
     private void updateResult(TestResult testResult) {
