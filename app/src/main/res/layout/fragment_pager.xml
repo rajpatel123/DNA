@@ -135,6 +135,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin_20dp"
+                    app:srcCompat="@drawable/test_star"
                     android:layout_toEndOf="@+id/context_Menu"
                     android:paddingRight="40dp"
                      />
