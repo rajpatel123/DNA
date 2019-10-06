@@ -133,9 +133,6 @@
             android:name=".Activities.ReviewresulActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.ReviewResultActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme6">

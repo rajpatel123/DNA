@@ -21,23 +21,10 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1.8"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/questionTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Review: All"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
 
                 <ImageView
 
@@ -47,10 +34,20 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:paddingTop="10dp"
-
                     android:paddingRight="10dp"
                     android:paddingBottom="10dp"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/open_arrow" />
+
+                <TextView
+                    android:id="@+id/questionTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="Review: All"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
             </LinearLayout>
 
 
@@ -58,8 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/left_arrow"
@@ -67,7 +64,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/left_arrow"
-                    android:textSize="18sp" />
+                    android:minWidth="30dp"
+                    android:minHeight="30dp"
+                    android:textSize="28sp" />
 
                 <TextView
                     android:id="@+id/question_number"
@@ -75,9 +74,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:minWidth="30dp"
+                    android:minHeight="30dp"
                     android:text="9"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="28sp" />
 
                 <TextView
                     android:id="@+id/right_arrow"
@@ -85,19 +87,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/close_arrow"
-                    android:textSize="18sp" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/review_icon_top"
-                    android:paddingRight="10dp" />
+                    android:minWidth="30dp"
+                    android:minHeight="30dp"
+                    android:textSize="28sp" />
             </LinearLayout>
-
-
         </LinearLayout>
     </LinearLayout>
 
