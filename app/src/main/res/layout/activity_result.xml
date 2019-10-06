@@ -58,6 +58,7 @@
                         android:textSize="10sp" />
 
                     <TextView
+                        android:id="@+id/examDateHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -182,13 +183,15 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/testTimeHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Test Time"
                         android:textColor="@color/text_name_color"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="italic" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -208,6 +211,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textSize="10sp"
                             android:text="Hrs  Min  Sec"
                             android:textColor="#FFFFFF" />
                     </LinearLayout>
@@ -231,6 +235,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
                             android:text="01 : 10 : 23"
                             android:textColor="#FFFFFF" />
                     </LinearLayout>
@@ -254,6 +261,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
                             android:text="01 : 10 : 23"
                             android:textColor="#FFFFFF" />
                     </LinearLayout>
@@ -277,9 +287,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
                             android:text="01 : 10 : 23"
                             android:textColor="#FFFFFF" />
                     </LinearLayout>
+
 
 
                 </LinearLayout>
@@ -289,7 +302,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_40"
                 android:orientation="horizontal">
 
                 <Button
@@ -302,18 +314,6 @@
                     android:text="Review"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/shareBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/result_button_border"
-                    android:text="Share"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -394,6 +394,18 @@
 
                 </RelativeLayout>
 
+                <Button
+                    android:id="@+id/shareBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/result_button_border"
+                    android:text="Share"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
 
             </LinearLayout>
 
@@ -401,11 +413,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="65dp"
                 android:layout_marginEnd="50dp"
                 android:background="@color/white"
                 android:gravity="center_horizontal|bottom"
-                android:minHeight="50dp"
+                android:minHeight="45dp"
                 android:paddingBottom="5dp"
                 android:text="A. SCORE ANALYSIS"
                 android:textColor="@color/color_noticeboard"
@@ -446,11 +458,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="B. GUESS ANALYSIS:"
+                        android:textColor="@color/color_noticeboard"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginTop="@dimen/margin_10"
                         android:orientation="horizontal">
 
 
@@ -582,6 +601,15 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:text="C. TIME ANALYSIS:"
+                        android:textColor="@color/color_noticeboard"
+
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -772,15 +800,7 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10dp"
-                        android:text="C. TIME ANALYSIS:"
-                        android:textColor="@color/color_noticeboard"
 
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
 
 
                     <TextView
@@ -973,14 +993,6 @@
 
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B. GUESS ANALYSIS:"
-                    android:textColor="@color/color_noticeboard"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
 
             </LinearLayout>

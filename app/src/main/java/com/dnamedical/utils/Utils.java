@@ -124,7 +124,7 @@ public class Utils {
 
     public static String getTimeInHHMMSS(long millies) {
 
-        SimpleDateFormat mdformat = new SimpleDateFormat("H:mm:ss");
+        SimpleDateFormat mdformat = new SimpleDateFormat("H  : mm  :  ss");
         String strTime = mdformat.format(millies*1000);
         return strTime;
     }
