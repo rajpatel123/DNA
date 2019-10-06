@@ -20,7 +20,7 @@
     <color name="orange1">#ed854f</color>
     <color name="orange">#f37636</color>
     <color name="saffron">#f37636</color>
-    <color name="star_color">#f3b136</color>
+    <color name="star_color">#FFC107</color>
     <color name="green">#FF59B449</color>
     <color name="scrollview_noriceboard">#ebcaef</color>
     <color name="profile_background">#425b60</color>
@@ -43,6 +43,7 @@
     <color name="normalwhite">#ede9e7</color>
     <color name="button_color">#2ba2af</color>
     <color name="color_noticeboard">#62c8df</color>
+    <color name="color_blue">#0D90F8</color>
     <color name="button_color_noticeboard">#1f8a9e</color>
     <color name="text_color_noticeboard">#292929</color>
     <color name="text_color_noticeboard_normal">#282828</color>
@@ -57,6 +58,7 @@
 
     <color name="black_disabled">#9E9E9E</color>
     <color name="black_titles">#2b2b2b</color>
+    <color name="text_name_color">#0f0f8a</color>
 
 
 </resources>

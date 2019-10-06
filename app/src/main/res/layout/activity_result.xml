@@ -1,278 +1,442 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/border_outlone"
     android:scrollbars="none"
     tools:context=".Activities.ResultActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_15">
 
 
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
             android:background="#f37636"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginTop="35dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                android:layout_marginTop="35dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
 
                 <LinearLayout
-
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="25dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/testDate"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:textColor="#FFFFFF" />
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="01 : 05 : 2019"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/testDateHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Date  Month  Year"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/examDateHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="04/07/2019"
+                        android:layout_marginTop="20dp"
+                        android:text="Exam Name"
+                        android:textColor="@color/text_name_color"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/testName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Grand Test"
                         android:textColor="#FFFFFF"
 
 
                         />
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginLeft="35dp"
-                    android:layout_width="72dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/result_logo">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:paddingLeft="15dp"
-                        android:text="Rank"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="28dp"
-                        android:gravity="center"
-                        android:text="20"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-
-                    android:layout_width="wrap_content"
+                <FrameLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:layout_weight=".8"
+                    android:minHeight="180dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@drawable/prize_cup"
+                        android:minHeight="150dp">
+
+                        <ImageView
+                            android:id="@+id/logo"
+                            android:layout_width="48dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/margin_8"
+                            android:background="@drawable/logo_with_title" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="bottom"
+                            android:gravity="bottom">
+
+                            <LinearLayout
+                                android:id="@+id/outOfStudents"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/color_blue"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/margin_2"
+                                    android:text="Out of"
+                                    android:textColor="@color/white"
+                                    android:textSize="8sp" />
+
+                                <TextView
+                                    android:id="@+id/totalstudent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:padding="@dimen/margin_2"
+                                    android:paddingStart="@dimen/margin_15"
+                                    android:text="257"
+                                    android:textColor="@color/star_color"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/margin_2"
+                                    android:text="Students"
+                                    android:textColor="@color/white"
+                                    android:textSize="8sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/rankText"
+                                android:layout_width="40dp"
+                                android:layout_height="20dp"
+                                android:layout_below="@+id/outOfStudents"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="@dimen/margin_10dp"
+                                android:background="@drawable/rounded_rank"
+                                android:gravity="center"
+                                android:text="Rank"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/rankValue"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/rounded_rank"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/red"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/testTimeHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time and Test"
-                        android:textColor="#FFFFFF" />
+                        android:layout_marginTop="20dp"
+                        android:text="Test Time"
+                        android:textColor="@color/text_name_color"
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Start Time:"
+                            android:layout_weight=".5"
+                            android:gravity="center"
+                            android:text="     "
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/testtimeHint"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="10sp"
+                            android:text="Hrs  Min  Sec"
                             android:textColor="#FFFFFF" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="00:00:00"
-                            android:textColor="#FFFFFF"
-
-                            />
-
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="End Time  :"
-                            android:textColor="#FFFFFF"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="00:00:00"
-                            android:textColor="#FFFFFF"
-                            />
+                            android:layout_weight=".5"
+                            android:text="Start"
+                            android:textColor="@color/text_name_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/testStartTime"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            android:text="01 : 10 : 23"
+                            android:textColor="#FFFFFF" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:text="End"
+                            android:textColor="@color/text_name_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/testEndTime"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            android:text="01 : 10 : 23"
+                            android:textColor="#FFFFFF" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:text="Total"
+                            android:textColor="@color/text_name_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/totalTestTime"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:text="01 : 10 : 23"
+                            android:textColor="#FFFFFF" />
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_margin="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/reviewBtn"
-                    android:text="Review"
-                    android:textColor="#f37636"
-                    android:background="@drawable/resul_button_border"
-                    android:layout_weight="0.3"
-                    android:layout_margin="15dp"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/result_button_border"
+                    android:text="Review"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/scoreTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Your Score  :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/yourScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/scoreTitle"
+                        android:paddingLeft="15dp"
+                        android:text="10"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/totalTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/scoreTitle"
+                        android:text="Total Marks  :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/totalMarks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/yourScore"
+                        android:layout_toEndOf="@+id/totalTitle"
+                        android:paddingLeft="15dp"
+                        android:text="23"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentageTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/totalTitle"
+                        android:text="Total Marks  :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/totalMarks"
+                        android:layout_toEndOf="@+id/percentageTitle"
+                        android:paddingLeft="15dp"
+                        android:text="43"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentileTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/percentageTitle"
+                        android:layout_gravity="center"
+                        android:text="Percentile    :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentaile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/percentage"
+                        android:layout_toEndOf="@+id/percentileTitle"
+                        android:paddingLeft="15dp"
+                        android:text="32"
+                        android:textStyle="italic" />
+
+                </RelativeLayout>
+
                 <Button
                     android:id="@+id/shareBtn"
-                    android:text="Share"
-                    android:textColor="#f37636"
-                    android:background="@drawable/resul_button_border"
-                    android:layout_weight="0.3"
-                    android:layout_margin="15dp"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/result_button_border"
+                    android:text="Share"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="65dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/white"
+                android:gravity="center_horizontal|bottom"
+                android:minHeight="45dp"
+                android:paddingBottom="5dp"
+                android:text="A. SCORE ANALYSIS"
+                android:textColor="@color/color_noticeboard"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="250dp">
+            android:layout_below="@+id/header"
+            android:visibility="visible">
 
-            <LinearLayout
-                android:id="@+id/top"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:padding="15dp"
-                android:background="#FFFFFF"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Your Score  :"
-                        android:layout_gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:text="17"
-                        android:textStyle="bold"
-                        />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Marks :"
-
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:text="20"
-                        android:textStyle="bold"
-                        />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Percentage :"
-
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:text="45"
-                        android:textStyle="bold"
-                        />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Percentile    :"
-                        android:layout_gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:text="64"
-                        android:textStyle="bold"
-                        />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
-                android:layout_below="@+id/top"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -280,208 +444,60 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:text="(A) Score Analysis:"
-                        android:textStyle="bold" />
 
-
-                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    <TableLayout
+                        android:id="@+id/subjectTable"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp" />
 
-                        <TableRow android:background="@drawable/border">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/border"
-                                android:padding="3dp"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:drawableLeft="@drawable/ic_check"
-                                android:padding="3dp"
-                                android:text="(++)" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/border"
-                                android:drawableLeft="@drawable/ic_close"
-                                android:padding="3dp"
-                                android:text="(-1)" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/border"
-                                android:textSize="14dp"
-                                android:padding="3dp"
-                                android:gravity="center"
-                                android:text="Not Attempted" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5"
-                                android:gravity="center"
-                                android:text="Score" />
-
-                        </TableRow>
-
-                        <TableRow android:background="@drawable/border">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:paddingLeft="2dp"
-                                android:text="ANA to my" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="5" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="18" />
-                        </TableRow>
-
-                        <TableRow android:background="#DAE8FC">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:background="@drawable/colom_border"
-                                android:paddingLeft="2dp"
-                                android:text="Psychology" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="6" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="3" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="15" />
-                        </TableRow>
-
-                        <TableRow android:background="@drawable/border">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:paddingLeft="2dp"
-                                android:text="Biochemistry" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="9" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="5" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="31" />
-                        </TableRow>
-                    </TableLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:text="(C) Guess Analysis:"
+                        android:text="B. GUESS ANALYSIS:"
+                        android:textColor="@color/color_noticeboard"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:text="Switched from currect to wrong-" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
-                            android:text="08"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+                            android:minHeight="30dp"
+                            android:paddingLeft="25dp"
+                            android:text="Switched from currect to wrong-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/cToW"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1"
+                            android:background="@drawable/border"
+                            android:gravity="center"
+                            android:minHeight="30dp"
+
+                            android:text="10"
+
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -492,59 +508,311 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+                            android:minHeight="30dp"
                             android:paddingLeft="25dp"
-                            android:text="Switched from wrong to currect-" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
-                            android:text="15"
+                            android:text="Switched from wrong to currect-"
+                            android:textColor="@color/black"
+
                             android:textStyle="bold" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/wToc"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:text="Switched from wrong to wrong-" />
+                            android:layout_weight=".1"
+                            android:background="@drawable/border"
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
-                            android:text="05"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:text="Total switched Question-" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
+                            android:gravity="center"
+                            android:minHeight="30dp"
                             android:text="12"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+                            android:minHeight="30dp"
+                            android:paddingLeft="25dp"
+
+                            android:text="Switched from wrong to wrong-"
+                            android:textColor="@color/black"
+
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/wTow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1"
+                            android:background="@drawable/border"
+                            android:gravity="center"
+                            android:minHeight="30dp"
+
+                            android:text="3"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="80dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+
+                            android:minHeight="30dp"
+                            android:text="  Total switched Options-"
+                            android:textColor="@color/red"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/totalSwitched"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".124"
+                            android:background="@drawable/border"
+                            android:gravity="center"
+                            android:minHeight="30dp"
+
+                            android:text="25"
+                            android:textColor="@color/red"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:text="C. TIME ANALYSIS:"
+                        android:textColor="@color/color_noticeboard"
+
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Time taken to\n marked question"
+                            android:textColor="@color/red"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:gravity="center"
+                            android:paddingLeft="2dp"
+                            android:text="Time taken to\n skipped question"
+                            android:textColor="@color/red"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:gravity="center"
+                            android:text="Total Time"
+                            android:textColor="@color/red"
+                            android:textStyle="bold" />
+
+
+                        <!--                            <TableRow android:background="@drawable/border">-->
+
+                        <!--                                <TextView-->
+                        <!--                                    android:id="@+id/timeTakenMarkedQus"-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_weight="1"-->
+                        <!--                                    android:background="@drawable/colom_border"-->
+                        <!--                                    android:gravity="center"-->
+                        <!--                                    android:text="" />-->
+
+
+                        <!--                                <TextView-->
+                        <!--                                    android:id="@+id/timeTakenSkipQus"-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:background="@drawable/colom_border"-->
+                        <!--                                    android:gravity="center"-->
+                        <!--                                    android:text="" />-->
+
+                        <!--                                <TextView-->
+                        <!--                                    android:id="@+id/total_Time_Qus"-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_weight="1"-->
+                        <!--                                    android:background="@drawable/colom_border"-->
+                        <!--                                    android:gravity="center"-->
+                        <!--                                    android:text="" />-->
+                        <!--                            </TableRow>-->
+
+                        <!--                            <TableRow android:background="#DAE8FC">-->
+
+                        <!--                                <TextView-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_weight="1"-->
+                        <!--                                    android:background="@drawable/colom_border"-->
+                        <!--                                    android:gravity="center"-->
+                        <!--                                    android:text="Hrs Min Sec" />-->
+
+
+                        <!--                                <TextView-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:background="@drawable/colom_border"-->
+                        <!--                                    android:gravity="center"-->
+                        <!--                                    android:text="Hrs:mm:sec" />-->
+
+
+                        <!--                                <TextView-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_weight="1"-->
+                        <!--                                    android:background="@drawable/colom_border"-->
+                        <!--                                    android:gravity="center"-->
+                        <!--                                    android:text="Hrs:mm:sec" />-->
+                        <!--                            </TableRow>-->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:orientation="vertical"
+
+                            android:padding="4dp">
+
+                            <TextView
+                                android:id="@+id/timeTakenMarkedQus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="04 : 23 : 39"
+
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Hrs    Min    Sec"
+                                android:textSize="10sp"
+                                android:textColor="@android:color/black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:orientation="vertical"
+
+                            android:padding="4dp">
+
+                            <TextView
+                                android:id="@+id/timeTakenSkipQus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="04 : 23 : 39"
+
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Hrs    Min    Sec"
+                                android:textSize="10sp"
+                                android:textColor="@android:color/black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:orientation="vertical"
+                            android:padding="4dp">
+
+                            <TextView
+                                android:id="@+id/total_Time_Qus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="04 : 23 : 39"
+
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Hrs    Min    Sec"
+                                android:textSize="10sp"
+                                android:textColor="@android:color/black"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:text="D. Dificulty Label Analysis:"
+                        android:textColor="@color/color_noticeboard"
+                        android:textSize="16sp"
+
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
@@ -554,16 +822,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:paddingLeft="15dp"
-                        android:text="(B) Dificulty Label Analysis:"
-                        android:textStyle="bold" />
-
-
-                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp">
@@ -575,36 +834,42 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
                                 android:background="@drawable/border"
+                                android:gravity="center"
                                 android:paddingLeft="2dp"
-                                android:text="" />
+                                android:text="LEVEL"
+                                android:textColor="@color/red"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/border"
-                                android:drawableRight="@drawable/ic_check"
                                 android:gravity="center"
                                 android:paddingLeft="2dp"
-                                android:text="Currect" />
+                                android:text="Currect(%)"
+                                android:textColor="@color/red"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/border"
-                                android:drawableRight="@drawable/ic_close"
                                 android:gravity="center"
-                                android:text="Wrong" />
+                                android:text="Wrong(%)"
+                                android:textColor="@color/red"
+                                android:textStyle="bold" />
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-
                                 android:gravity="center"
-                                android:text="Skipped" />
+                                android:text="Skipped(%)"
+                                android:textColor="@color/red"
+                                android:textStyle="bold" />
                         </TableRow>
 
                         <TableRow android:background="@drawable/border">
@@ -619,27 +884,31 @@
 
 
                             <TextView
+                                android:id="@+id/diffEasyCurrect"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/diffEasyWrong"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="18" />
+                                android:text="" />
+
+                            <TextView
+                                android:id="@+id/diffEasySkip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+                                android:gravity="center"
+                                android:text="" />
                         </TableRow>
 
                         <TableRow android:background="#DAE8FC">
@@ -654,27 +923,32 @@
 
 
                             <TextView
+                                android:id="@+id/diffMediumCurrect"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="3" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/diffMediumWrong"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/colom_border"
+
+                                android:gravity="center"
+                                android:text="" />
+
+                            <TextView
+                                android:id="@+id/diffMediumSkip"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="15" />
+                                android:text="" />
                         </TableRow>
 
                         <TableRow android:background="@drawable/border">
@@ -689,6 +963,7 @@
 
 
                             <TextView
+                                android:id="@+id/diffHardCurrect"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -697,127 +972,26 @@
                                 android:text="5" />
 
                             <TextView
+                                android:id="@+id/diffHardWrong"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
+
+                                android:gravity="center"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/diffHardSkip"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/colom_border"
                                 android:gravity="center"
-                                android:text="31" />
+                                android:text="" />
                         </TableRow>
                     </TableLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:paddingLeft="15dp"
-                        android:text="(B) Dificulty Label Analysis:"
-                        android:textStyle="bold" />
-
-
-                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp">
-
-                        <TableRow android:background="@drawable/border">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:background="@drawable/border"
-                                android:gravity="center"
-                                android:paddingLeft="2dp"
-                                android:text="Time taken to\n marked question" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/border"
-                                android:gravity="center"
-                                android:paddingLeft="2dp"
-                                android:text="Time taken to\n skipped question" />
-
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Total Time" />
-                        </TableRow>
-
-                        <TableRow android:background="@drawable/border">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="00:00:00" />
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="00:00:00" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="00:00:00" />
-                        </TableRow>
-
-                        <TableRow android:background="#DAE8FC">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="Hrs:mm:sec" />
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="Hrs:mm:sec" />
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/colom_border"
-                                android:gravity="center"
-                                android:text="Hrs:mm:sec" />
-                        </TableRow>
-
-                    </TableLayout>
 
                 </LinearLayout>
 

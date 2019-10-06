@@ -1,16 +1,29 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +35,11 @@ import com.dnamedical.Adapters.result;
 import com.dnamedical.Models.ResultData.AllReult;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ResultData.UserResult;
+import com.dnamedical.Models.test.testresult.ScoreAnalysi;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
@@ -41,188 +57,314 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, totalUser,totalQuestion,userRank,userNumber;
-    CircularSeekBar correct,wrong,skipped;
-    TextView correctTXT,wrongTXT,skippedTXT;
+    TextView dateTv, percentValue, testNameTv, totalUser, totalQuestion, userRank, userNumber;
+    CircularSeekBar correct, wrong, skipped;
+    TextView correctTXT, wrongTXT, skippedTXT;
 
     private List<UserResult> userResults;
     private List<ResultList> resultLists;
     private List<AllReult> allReults;
     private RecyclerView recyclerView;
-    private ResultAdapter resultAdapter;
     private Button reviewButton, shareButton;
-    private CircleSeekBar circleSeekBar;
     String user_id;
-    String tquestion, average, canswer, wanswer, sanswer;
+    TestResult testResult;
+    TextView rankTV, dateTV, startTimeTV, endTimeTv, yourScoreTV, totalMarksTv,
+            percentageTV, percentaileTV;
+    TextView guessCtoWtv, guessWtoCtv, guessWtoWtv, guessTotalSwitchedtv;
+    TextView diffEasyCurrectTV, diffMediumCurrectTV, diffHardCurrectTV,
+            diffEasyWrongTV, diffMediumWrongTV, diffHardWrongTV, diffEasySkipTV, diffMediumSkipTV, diffHardSkipTV;
+    TextView timeTakenMarkedTV, timeTakenSkipTV, totalTimeTV;
+    private String test_id;
+
+    private TextView testName;
+    private TextView rankValue;
+    private TextView totalstudent;
+
+    TextView testTimeHead,examNameHead;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        if (getIntent().hasExtra("Test_Id")) {
+            test_id = getIntent().getStringExtra("Test_Id");
+
+        }
+
+
+
+
+
+        testTimeHead = findViewById(R.id.testTimeHead);
+        examNameHead = findViewById(R.id.examDateHead);
+
+        SpannableString spannableString = new SpannableString("Exam Name");
+        spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        SpannableString spannableStringTest = new SpannableString("Test Time");
+        spannableStringTest.setSpan(new UnderlineSpan(), 0, spannableStringTest.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        examNameHead.setText(spannableString);
+        testTimeHead.setText(spannableStringTest);
+
+        rankTV = findViewById(R.id.rankValue);
+        dateTV = findViewById(R.id.testDate);
+        startTimeTV = findViewById(R.id.testStartTime);
+        endTimeTv = findViewById(R.id.testEndTime);
+        yourScoreTV = findViewById(R.id.yourScore);
+        totalMarksTv = findViewById(R.id.totalMarks);
+        percentageTV = findViewById(R.id.percentage);
+        percentaileTV = findViewById(R.id.percentaile);
+        shareButton = findViewById(R.id.shareBtn);
+
+        guessCtoWtv = findViewById(R.id.cToW);
+        guessWtoCtv = findViewById(R.id.wToc);
+        guessWtoWtv = findViewById(R.id.wTow);
+        guessTotalSwitchedtv = findViewById(R.id.totalSwitched);
+
+        diffEasyCurrectTV = findViewById(R.id.diffEasyCurrect);
+        diffMediumCurrectTV = findViewById(R.id.diffMediumCurrect);
+        diffHardCurrectTV = findViewById(R.id.diffHardCurrect);
+
+        diffEasyWrongTV = findViewById(R.id.diffEasyWrong);
+        diffMediumWrongTV = findViewById(R.id.diffMediumWrong);
+        diffHardWrongTV = findViewById(R.id.diffHardWrong);
+
+        diffEasySkipTV = findViewById(R.id.diffEasySkip);
+        diffMediumSkipTV = findViewById(R.id.diffMediumSkip);
+        diffHardSkipTV = findViewById(R.id.diffHardSkip);
+        timeTakenMarkedTV = findViewById(R.id.timeTakenMarkedQus);
+        timeTakenSkipTV = findViewById(R.id.timeTakenSkipQus);
+        totalTimeTV = findViewById(R.id.total_Time_Qus);
+
+        testName = findViewById(R.id.testName);
+        rankValue = findViewById(R.id.rankValue);
+        totalstudent = findViewById(R.id.totalstudent);
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(Constants.RESULT)) {
+            testResult = intent.getParcelableExtra(Constants.RESULT);
+            updateResult(testResult);
+        } else {
+            submitTest();
+        }
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent share = new Intent(android.content.Intent.ACTION_SEND);
-                share.setType("text/plain");
-                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                // Add data to the intent, the receiving app will decide
-                // what to do with it.
-                share.putExtra(Intent.EXTRA_SUBJECT, "DNA");
-                share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.dnamedical");
-                startActivity(Intent.createChooser(share, "Share link!"));
+                return;
+//                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+//                share.setType("text/plain");
+//                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+//                // Add data to the intent, the receiving app will decide
+//                // what to do with it.
+//                share.putExtra(Intent.EXTRA_SUBJECT, "DNA");
+//                share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.dnamedical");
+//                startActivity(Intent.createChooser(share, "Share link!"));
             }
         });
 
-        totalQuestion= findViewById(R.id.total_question);
+        totalQuestion = findViewById(R.id.total_question);
 //        skipped = findViewById(R.id.skipped);
 //        wrong = findViewById(R.id.wrong);
 //        correct = findViewById(R.id.correct);
 
-        showRankResult();
+        //  showRankResult();
 
-        reviewButton.setOnClickListener(new View.OnClickListener() {
+//        reviewButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               // ReviewSheet();
+//            }
+//        });
+    }
+
+    private void updateResult(TestResult testResult) {
+
+        init(testResult.getData().getScoreAnalysis());
+        rankTV.setText("" + testResult.getData().getRank());
+        startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
+        endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
+        dateTV.setText(""+Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
+
+        yourScoreTV.setText("" + testResult.getData().getYourScore());
+        totalMarksTv.setText("" + testResult.getData().getTotalMarks());
+        percentageTV.setText("" + testResult.getData().getPercenatge());
+        percentaileTV.setText("" + testResult.getData().getPercentile());
+
+        //Guess Analysis
+        guessCtoWtv.setText("" + testResult.getData().getGuessAnalysis().getCorrectToWrong());
+        guessWtoCtv.setText("" + testResult.getData().getGuessAnalysis().getWrongToCorrect());
+        guessWtoWtv.setText("" + testResult.getData().getGuessAnalysis().getWrongToWrong());
+        guessTotalSwitchedtv.setText("" + testResult.getData().getGuessAnalysis().getTotalSwitch());
+
+        //DifficultyLabel
+        diffEasyCurrectTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getEasy().getCorrect());
+        diffMediumCurrectTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getMedium().getCorrect());
+        diffHardCurrectTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getHard().getCorrect());
+
+        diffEasyWrongTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getEasy().getWrong());
+        diffMediumWrongTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getMedium().getWrong());
+        diffHardWrongTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getHard().getWrong());
+
+        diffEasySkipTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getEasy().getSkip());
+        diffMediumSkipTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getMedium().getSkip());
+        diffHardSkipTV.setText("" + testResult.getData().getDiffcultyLevelAnalysis().getHard().getSkip());
+
+        //Time Analysis
+
+        timeTakenMarkedTV.setText("" + Utils.getTimeTakenInTestFormat(Integer.parseInt(testResult.getData().getTimeAnalysis().getChangeOption())));
+        timeTakenSkipTV.setText("" + Utils.getTimeTakenInTestFormat(Integer.parseInt(testResult.getData().getTimeAnalysis().getChangeQuestion())));
+        totalTimeTV.setText("" + Utils.getTimeTakenInTestFormat(testResult.getData().getTimeAnalysis().getTotalTime()));
+
+
+        testName.setText("" + testResult.getData().getTestName());
+        totalstudent.setText("" + testResult.getData().getLowestRank().toString());
+
+    }
+
+
+    private void submitTest() {
+        user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "0");
+        Utils.showProgressDialog(ResultActivity.this);
+        RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
-            public void onClick(View v) {
-                ReviewSheet();
+            public void onResponse(Call<TestResult> call, Response<TestResult> response) {
+                TestResult testResult = response.body();
+                Utils.dismissProgressDialog();
+                if (testResult != null) {
+                    updateResult(testResult);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<TestResult> call, Throwable t) {
+                Utils.dismissProgressDialog();
+                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
             }
         });
 
-/*
-
-        if (getIntent().hasExtra("tquestion")) {
-            Intent intent = getIntent();
-            average = intent.getStringExtra("average");
-            String userid = intent.getStringExtra("user_Id");
-            tquestion = intent.getStringExtra("tquestion");
-            canswer = intent.getStringExtra("canswer");
-            wanswer = intent.getStringExtra("wanswer");
-            sanswer = intent.getStringExtra("sanswer");
-            String testName = intent.getStringExtra("testName");
-            percentValue.setText("  " + average);
-            circleSeekBar.setProgressDisplay(Integer.parseInt(canswer));
-            total.setText(tquestion);
-            correct.setText(canswer);
-            wrong.setText(wanswer);
-            skipped.setText(sanswer);
-
-        }
-
-*/
-
-        //dateTv.setText(Utils.tripDateFormat(System.currentTimeMillis()));
-
-        //testNameTv.setText("" + testName);
-
     }
 
-    private void ReviewSheet() {
-        String test_id = getIntent().getStringExtra("Test_Id");
-        Intent intent = new Intent(ResultActivity.this, ReviewQuestionList.class);
-        intent.putExtra("id", test_id);
-        startActivity(intent);
+    public void init(List<ScoreAnalysi> scoreAnalysi) {
+        TableLayout ll = findViewById(R.id.subjectTable);
+        TableRow rowHead = new TableRow(this);
+        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        rowHead.setLayoutParams(lp1);
+        rowHead.setBackgroundResource(R.drawable.border);
+
+
+        TextView subject = new TextView(this);
+        TextView rightAnswer = new TextView(this);
+        TextView wrongAnswer = new TextView(this);
+        TextView skipped = new TextView(this);
+        TextView score = new TextView(this);
+        subject.setTypeface(Typeface.DEFAULT_BOLD);
+        rightAnswer.setTypeface(Typeface.DEFAULT_BOLD);
+        wrongAnswer.setTypeface(Typeface.DEFAULT_BOLD);
+        skipped.setTypeface(Typeface.DEFAULT_BOLD);
+        score.setTypeface(Typeface.DEFAULT_BOLD);
+
+        setBorder(subject);
+        setBorder(rightAnswer);
+        setBorder(wrongAnswer);
+        setBorder(skipped);
+        setBorder(score);
+
+        subject.setPadding(10, 5, 5, 5);
+        subject.setGravity(Gravity.CENTER);
+        rightAnswer.setPadding(10, 5, 5, 5);
+        rightAnswer.setGravity(Gravity.CENTER);
+        skipped.setPadding(10, 5, 5, 5);
+        skipped.setGravity(Gravity.CENTER);
+        rightAnswer.setPadding(10, 5, 5, 5);
+        rightAnswer.setGravity(Gravity.CENTER);
+        score.setPadding(10, 5, 5, 5);
+        score.setGravity(Gravity.CENTER);
+
+
+        subject.setText("Subject");
+        rightAnswer.setText("(++)");
+        rightAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0);
+
+        wrongAnswer.setText("(--)");
+        wrongAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_close, 0, 0, 0);
+
+        skipped.setText("Not Attempted");
+        score.setText("Score");
+
+        subject.setTextColor(ContextCompat.getColor(this, R.color.red));
+        rightAnswer.setTextColor(ContextCompat.getColor(this, R.color.red));
+        wrongAnswer.setTextColor(ContextCompat.getColor(this, R.color.red));
+        skipped.setTextColor(ContextCompat.getColor(this, R.color.red));
+        score.setTextColor(ContextCompat.getColor(this, R.color.red));
+
+        rowHead.addView(subject);
+        rowHead.addView(rightAnswer);
+        rowHead.addView(wrongAnswer);
+        rowHead.addView(skipped);
+        rowHead.addView(score);
+        ll.addView(rowHead, 0);
+
+        for (int i = 0; i < scoreAnalysi.size(); i++) {
+
+            TableRow row = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            row.setLayoutParams(lp);
+            row.setBackgroundResource(R.drawable.border);
+
+            TextView subjectTv = new TextView(this);
+            TextView rightAnswerTv = new TextView(this);
+            TextView wrongAnswerTv = new TextView(this);
+            TextView skippedTv = new TextView(this);
+            TextView scoreTv = new TextView(this);
+            subjectTv.setGravity(Gravity.CENTER);
+            rightAnswerTv.setGravity(Gravity.CENTER);
+            wrongAnswerTv.setGravity(Gravity.CENTER);
+            skippedTv.setGravity(Gravity.CENTER);
+            scoreTv.setGravity(Gravity.CENTER);
+
+
+            setBorder(subjectTv);
+            setBorder(rightAnswerTv);
+            setBorder(wrongAnswerTv);
+            setBorder(skippedTv);
+            setBorder(scoreTv);
+
+
+            subjectTv.setPadding(15, 5, 15, 5);
+            rightAnswerTv.setPadding(10, 5, 5, 5);
+            skippedTv.setPadding(10, 5, 5, 5);
+            rightAnswerTv.setPadding(10, 5, 5, 5);
+            scoreTv.setPadding(10, 5, 5, 5);
+
+
+            subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
+            rightAnswerTv.setText("" + scoreAnalysi.get(i).getCorrect());
+            wrongAnswerTv.setText("" + scoreAnalysi.get(i).getWrong());
+            skippedTv.setText("" + scoreAnalysi.get(i).getSkip());
+            scoreTv.setText("" + scoreAnalysi.get(i).getScore());
+            row.addView(subjectTv);
+            row.addView(rightAnswerTv);
+            row.addView(wrongAnswerTv);
+            row.addView(skippedTv);
+            row.addView(scoreTv);
+            ll.addView(row, i + 1);
+        }
     }
 
-    private void showRankResult() {
-        String user_id;
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            user_id = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
-        }
+    private void setBorder(TextView tv) {
+        ShapeDrawable border = new ShapeDrawable(new RectShape());
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        border.getPaint().setColor(Color.BLACK);
 
-        String testid = getIntent().getStringExtra("Test_Id");
-
-
-        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
-        RequestBody testId = RequestBody.create(MediaType.parse("text/plain"), testid);
-
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-            RestClient.resultList(userId, testId, new Callback<ResultList>() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
-                @Override
-                public void onResponse(Call<ResultList> call, Response<ResultList> response) {
-                    Utils.dismissProgressDialog();
-
-                    if (response.isSuccessful()) {
-                        if (response.body().getStatus().equalsIgnoreCase("1")) {
-                            userResults = response.body().getUserResult();
-                            totalUser.setText(userResults.get(0).getTotalUsersTest());
-                            totalQuestion.setText("Maximum marks : "+userResults.get(0).getUserTotalScore());
-                            correct.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
-                            skipped.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
-                            wrong.setMax(Integer.parseInt(userResults.get(0).getTotalQuestion()));
-                            skipped.setProgress(Float.parseFloat(userResults.get(0).getSkipQuestion()));
-                            userNumber.setText("Total Score : "+userResults.get(0).getUserScore());
-
-
-
-                            correct.setEnabled(false);
-                            skipped.setEnabled(false);
-                            wrong.setEnabled(false);
-
-
-                            if (!(userResults.get(0).getCurrectQuestion() != null)
-                                    && TextUtils.isEmpty(userResults.get(0).getCurrectQuestion())) {
-                                correct.setProgress(0);
-                                correctTXT.setText(0+"");
-
-                            } else {
-                                correct.setProgress(Integer.parseInt(userResults.get(0).getCurrectQuestion()));
-                                correctTXT.setText(userResults.get(0).getCurrectQuestion());
-                            }
-
-                            if (!(userResults.get(0).getWrongQuestion() != null)
-                                    && TextUtils.isEmpty(userResults.get(0).getWrongQuestion())) {
-                                wrong.setProgress(0);
-                                wrongTXT.setText(""+0);
-
-                            } else {
-                                wrong.setProgress(Integer.parseInt(userResults.get(0).getWrongQuestion()));
-                                wrongTXT.setText(""+userResults.get(0).getWrongQuestion());
-
-                            }
-
-                            if (!(userResults.get(0).getSkipQuestion() != null)
-                                    && TextUtils.isEmpty(userResults.get(0).getSkipQuestion())) {
-                                skipped.setProgress(0);
-                                skippedTXT.setText(""+0);
-
-
-                            } else {
-                                skipped.setProgress(Integer.parseInt(userResults.get(0).getSkipQuestion()));
-                                skippedTXT.setText(""+userResults.get(0).getSkipQuestion());
-
-                            }
-                            totalUser.setText("Out of "+userResults.get(0).getTotalUsersTest());
-                            percentValue.setText("Percentile : "+userResults.get(0).getPercentile());
-                            userRank.setText("RANK\n"+userResults.get(0).getUserRank());
-
-                            allReults = response.body().getAllReult();
-                            resultAdapter = new ResultAdapter(allReults);
-                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                            recyclerView.setLayoutManager(mLayoutManager);
-                            recyclerView.setAdapter(resultAdapter);
-
-                        } else {
-                            Toast.makeText(ResultActivity.this, "Invalid Status", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(ResultActivity.this, "Response is Invalid", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResultList> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                    Toast.makeText(ResultActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-        }
-
+        tv.setBackground(border);
     }
 
 

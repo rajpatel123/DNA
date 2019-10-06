@@ -41,4 +41,5 @@ public class Constants {
     public static final String ADDRESS ="address" ;
     public static final String CITY ="city" ;
     public static final String COUNTRY ="country" ;
+    public static final String RESULT = "result";
 }

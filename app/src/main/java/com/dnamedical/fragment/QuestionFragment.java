@@ -3,6 +3,8 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -58,6 +60,7 @@ public class QuestionFragment extends Fragment {
         totalQuestions = getArguments() != null ? getArguments().getInt("totalQuestions") : 1;
         question = getArguments() != null ? getArguments().getParcelable("question") : null;
         activity.isGuess = "false";
+        activity.isBookmarkedRemoved = false;
         activity.guessCheck.setChecked(false);
         activity.question_id = question.getId();
 
@@ -75,6 +78,15 @@ public class QuestionFragment extends Fragment {
         answerList = layoutView.findViewById(R.id.answerList);
         questionTxt = layoutView.findViewById(R.id.questionTxt);
         imageQuestion = layoutView.findViewById(R.id.question_image);
+
+
+//        if (question.isBookMarked()) {
+//            DrawableCompat.setTint(activity.star.getDrawable(), ContextCompat.getColor(activity, R.color.colorAccent));
+//        } else {
+//            DrawableCompat.setTint(activity.star.getDrawable(), ContextCompat.getColor(activity, R.color.card_gray));
+//        }
+
+        activity.guessCheck.setChecked(question.isGues());
         if (!TextUtils.isEmpty(question.getTitle_image())) {
             imageQuestion.setVisibility(View.VISIBLE);
             Picasso.with(getContext()).load(question.getTitle_image()).into(imageQuestion);

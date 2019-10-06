@@ -6,20 +6,19 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GuessAnalysis implements Parcelable {
-
-@SerializedName("correctToWrong")
-@Expose
-private Integer correctToWrong;
-@SerializedName("wrongToCorrect")
-@Expose
-private Integer wrongToCorrect;
-@SerializedName("wrongToWrong")
-@Expose
-private Integer wrongToWrong;
-@SerializedName("totalSwitch")
-@Expose
-private Integer totalSwitch;
+public class GuessAnalysis  implements Parcelable {
+    @SerializedName("correctToWrong")
+    @Expose
+    private Integer correctToWrong;
+    @SerializedName("wrongToCorrect")
+    @Expose
+    private Integer wrongToCorrect;
+    @SerializedName("wrongToWrong")
+    @Expose
+    private Integer wrongToWrong;
+    @SerializedName("totalSwitch")
+    @Expose
+    private Integer totalSwitch;
 
     protected GuessAnalysis(Parcel in) {
         if (in.readByte() == 0) {
@@ -57,36 +56,36 @@ private Integer totalSwitch;
     };
 
     public Integer getCorrectToWrong() {
-return correctToWrong;
-}
+        return correctToWrong;
+    }
 
-public void setCorrectToWrong(Integer correctToWrong) {
-this.correctToWrong = correctToWrong;
-}
+    public void setCorrectToWrong(Integer correctToWrong) {
+        this.correctToWrong = correctToWrong;
+    }
 
-public Integer getWrongToCorrect() {
-return wrongToCorrect;
-}
+    public Integer getWrongToCorrect() {
+        return wrongToCorrect;
+    }
 
-public void setWrongToCorrect(Integer wrongToCorrect) {
-this.wrongToCorrect = wrongToCorrect;
-}
+    public void setWrongToCorrect(Integer wrongToCorrect) {
+        this.wrongToCorrect = wrongToCorrect;
+    }
 
-public Integer getWrongToWrong() {
-return wrongToWrong;
-}
+    public Integer getWrongToWrong() {
+        return wrongToWrong;
+    }
 
-public void setWrongToWrong(Integer wrongToWrong) {
-this.wrongToWrong = wrongToWrong;
-}
+    public void setWrongToWrong(Integer wrongToWrong) {
+        this.wrongToWrong = wrongToWrong;
+    }
 
-public Integer getTotalSwitch() {
-return totalSwitch;
-}
+    public Integer getTotalSwitch() {
+        return totalSwitch;
+    }
 
-public void setTotalSwitch(Integer totalSwitch) {
-this.totalSwitch = totalSwitch;
-}
+    public void setTotalSwitch(Integer totalSwitch) {
+        this.totalSwitch = totalSwitch;
+    }
 
     @Override
     public int describeContents() {
@@ -94,30 +93,30 @@ this.totalSwitch = totalSwitch;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel dest, int flags) {
         if (correctToWrong == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(correctToWrong);
+            dest.writeByte((byte) 1);
+            dest.writeInt(correctToWrong);
         }
         if (wrongToCorrect == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(wrongToCorrect);
+            dest.writeByte((byte) 1);
+            dest.writeInt(wrongToCorrect);
         }
         if (wrongToWrong == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(wrongToWrong);
+            dest.writeByte((byte) 1);
+            dest.writeInt(wrongToWrong);
         }
         if (totalSwitch == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(totalSwitch);
+            dest.writeByte((byte) 1);
+            dest.writeInt(totalSwitch);
         }
     }
 }

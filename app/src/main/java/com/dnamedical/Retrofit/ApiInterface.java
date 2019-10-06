@@ -36,6 +36,7 @@ import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -75,6 +76,7 @@ public interface ApiInterface {
                                       @Part("college") RequestBody college,
                                       @Part("address") RequestBody addressBody,
                                       @Part("city") RequestBody cityBody,
+                                      @Part("platform") RequestBody plateform,
                                       @Part("country") RequestBody countryBody);
 
 
@@ -381,21 +383,24 @@ public interface ApiInterface {
     Call<TestDataResponse> getAllTestData(@Query("user_id") String id);
 
     @Multipart
+    @POST("v1/index.php/api/test/bookmark")
+    Call<ResponseBody> bookMarkQuestion(@Part("user_id") RequestBody user_id,
+                                        @Part("test_id") RequestBody timespend,
+                                        @Part("question_id") RequestBody event,
+                                        @Part("remove_bookmark") RequestBody remove_bookmark);
+
+    @Multipart
     @POST("v1/index.php/api/test/timelogs")
     Call<ResponseBody> submit_timeLog(@Part("user_id") RequestBody user_id,
                                       @Part("timespend") RequestBody timespend,
                                       @Part("event") RequestBody event,
-                                      @Part("product_id") RequestBody test_id,
-                                      @Part("subevent") RequestBody subevent);
-
-
-
+                                      @Part("subevent") RequestBody subevent,
+                                      @Part("product_id") RequestBody test_id);
 
     // New Api's Integrate
-
-
     @GET("v1/index.php/api/test/reviewquestionlist")
     Call<TestReviewListResponse> getTestReviewListData(@Query("user_id") String user_id,
                                                        @Query("test_id") String test_id);
+
 }
 

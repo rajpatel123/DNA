@@ -39,6 +39,7 @@ import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -69,8 +70,8 @@ public class RestClient {
         RetrofitClient.getClient().getAdditionalDiscount().enqueue(callback);
     }
 
-    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody).enqueue(callback);
+    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody,RequestBody platform, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody,platform).enqueue(callback);
     }
 
     public static void updateUser(RequestBody name, RequestBody user_id, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, Callback<UserUpdateResponse> callback) {
@@ -292,14 +293,20 @@ public class RestClient {
     }
 
 
-    public static void submit_timeLog(RequestBody user_id, RequestBody timespend, RequestBody event, RequestBody subevent, RequestBody test_id, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().submit_timeLog(user_id, timespend, event, subevent, test_id).enqueue(callback);
+    public static void submit_timeLog(RequestBody user_id, RequestBody timespend, RequestBody event, RequestBody subevent,RequestBody test_id, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submit_timeLog(user_id,timespend,event,subevent,test_id).enqueue(callback);
 
     }
     // new Api changes Here
 
     public static void getTestReviewListData(String test_id, String user_id, Callback<TestReviewListResponse> callback) {
         RetrofitClient.getClient().getTestReviewListData(test_id, user_id).enqueue(callback);
+    }
+
+
+    public static void bookMarkQuestion(RequestBody user_id, RequestBody test_id,RequestBody question_id,RequestBody bookmark, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().bookMarkQuestion(user_id,test_id,question_id,bookmark).enqueue(callback);
+
     }
 
 

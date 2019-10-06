@@ -51,8 +51,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTitle());
             Test test = grandTests.get(holder.getAdapterPosition());
 
-            holder.questionTotal.setText(test.getQuestion_count() + "Q's");
-            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(test.getDuration())));
+            holder.questionTotal.setText(test.getQuestion_count() + " Q's");
+            holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
 
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
@@ -73,7 +73,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(),test.getStartDate(),test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(),test.getStartDate(),test.getResultDate());
                     }
                 }
             });
@@ -82,8 +82,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         } else if (miniTests != null) {
             Test test = miniTests.get(holder.getAdapterPosition());
             holder.title.setText(test.getTitle());
-            holder.questionTotal.setText((test.getQuestion_count()) + "Q's");
-            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(test.getDuration())));
+            holder.questionTotal.setText((test.getQuestion_count()) + " Q's");
+            holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
 
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
 
@@ -104,8 +104,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });
@@ -113,8 +113,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         } else if (allTests != null) {
             Test test = allTests.get(holder.getAdapterPosition());
             holder.title.setText(test.getTitle());
-            holder.questionTotal.setText((test.getQuestion_count()) + "Q's");
-            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(test.getDuration())));
+            holder.questionTotal.setText((test.getQuestion_count()) + " Q's");
+            holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
             Log.d("time", "" + Utils.dateFormat(Long.parseLong(test.getStartDate())));
             if (allTests.get(holder.getAdapterPosition()).getIsPaid().equals("0")) {
@@ -140,8 +140,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });
@@ -153,12 +153,12 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
             if (subjectTests.get(holder.getAdapterPosition()).getDuration() != null) {
-                holder.questionTotal.setText((test.getQuestion_count()) + "Q's");
+                holder.questionTotal.setText((test.getQuestion_count()) + " Q's");
             } else {
                 holder.questionTotal.setText("No Q's");
 
             }
-            holder.timeTotal.setText(Utils.getDuration(Long.parseLong(subjectTests.get(holder.getAdapterPosition()).getDuration())));
+            holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(subjectTests.get(holder.getAdapterPosition()).getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(subjectTests.get(holder.getAdapterPosition()).getStartDate())));
             //  holder.textDate.setText(subjectTests.get(holder.getAdapterPosition()).getTestDate()   );
             if (subjectTests.get(holder.getAdapterPosition()).getIsPaid().equals("1")) {
@@ -179,8 +179,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        onUserClickCallback.onCateClick(test.getId(), test.getStartDate()
-                                , test.getTitle(), test.getId(), test.getIsPaid(), test.getDescription(), test.getType(), test.getStartDate(), test.getResultDate());
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });

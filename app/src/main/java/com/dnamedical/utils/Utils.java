@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
@@ -121,10 +122,10 @@ public class Utils {
         return 0;
     }
 
-    public static String getCurrentTime() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
-        String strTime = mdformat.format(calendar.getTime());
+    public static String getTimeInHHMMSS(long millies) {
+
+        SimpleDateFormat mdformat = new SimpleDateFormat("H  : mm  :  ss");
+        String strTime = mdformat.format(millies*1000);
         return strTime;
     }
 
@@ -154,6 +155,45 @@ public class Utils {
             return "";
         }
     }
+
+    public static String startTimeFormat(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
+            Date dNow = new Date(timeStamp);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
+    public static String startTimeForTestFormat(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd : mm : YYYY");
+            Date dNow = new Date(timeStamp*1000);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
 
     public static long getMillies(String testDate) {
 
@@ -203,13 +243,75 @@ public class Utils {
         return secondsToMs + minutesToMs + hoursToMs;
     }
 
-    public static String getDuration(long millis) {
-        if (millis<1){
-            return "";
-        }
-        return String.format("%dh ,%dm",
-                TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis)
-        );
+    public static String getTestDurationDuration(int seconds) {
+        int p1 = seconds % 60;
+        int p2 = seconds / 60;
+        int p3 = p2 % 60;
+        p2 = p2 / 60;
+        System.out.print( p2 + ":" + p3 + ":" + p1);
+        System.out.print("\n");
+
+        return  p2+"h "+p3+"m";
+
+    }
+
+    public static String getTimeTakenInTestFormat(int seconds) {
+        int p1 = seconds % 60;
+        int p2 = seconds / 60;
+        int p3 = p2 % 60;
+        p2 = p2 / 60;
+        System.out.print( p2 + ":" + p3 + ":" + p1);
+        System.out.print("\n");
+
+        return  p2+" : "+p3+" : "+p1 ;
+
+    }
+
+
+
+
+    private static void getDateInddmmYYYY(long time) {
+        // TODO Auto-generated method stub
+        // Calendar calendar = new
+        // GregorianCalendar(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd:MM:yyyy");
+
+        // Here you say to java the initial timezone. This is the secret
+        sdf.setTimeZone(TimeZone.getDefault());//getTimeZone("UTC"));
+        // Will print in UTC
+        System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
+
+    }
+
+    private static void getDateIndMonthYYYY(long time) {
+        // TODO Auto-generated method stub
+        // Calendar calendar = new
+        // GregorianCalendar(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM,yyyy");
+
+        // Here you say to java the initial timezone. This is the secret
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        // Will print in UTC
+        System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
+
+    }
+
+    private static void getDateIndateMonthYYYY(long time) {
+        // TODO Auto-generated method stub
+        // Calendar calendar = new
+        // GregorianCalendar(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM,yyyy");
+
+        // Here you say to java the initial timezone. This is the secret
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        // Will print in UTC
+        System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
+
     }
 }

@@ -7,16 +7,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Medium implements Parcelable {
-
-@SerializedName("correct")
-@Expose
-private Integer correct;
-@SerializedName("wrong")
-@Expose
-private Integer wrong;
-@SerializedName("skip")
-@Expose
-private Integer skip;
+    @SerializedName("correct")
+    @Expose
+    private Integer correct;
+    @SerializedName("wrong")
+    @Expose
+    private Integer wrong;
+    @SerializedName("skip")
+    @Expose
+    private String skip;
 
     protected Medium(Parcel in) {
         if (in.readByte() == 0) {
@@ -29,11 +28,29 @@ private Integer skip;
         } else {
             wrong = in.readInt();
         }
-        if (in.readByte() == 0) {
-            skip = null;
+        skip = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (correct == null) {
+            dest.writeByte((byte) 0);
         } else {
-            skip = in.readInt();
+            dest.writeByte((byte) 1);
+            dest.writeInt(correct);
         }
+        if (wrong == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(wrong);
+        }
+        dest.writeString(skip);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Medium> CREATOR = new Creator<Medium>() {
@@ -49,53 +66,27 @@ private Integer skip;
     };
 
     public Integer getCorrect() {
-return correct;
-}
-
-public void setCorrect(Integer correct) {
-this.correct = correct;
-}
-
-public Integer getWrong() {
-return wrong;
-}
-
-public void setWrong(Integer wrong) {
-this.wrong = wrong;
-}
-
-public Integer getSkip() {
-return skip;
-}
-
-public void setSkip(Integer skip) {
-this.skip = skip;
-}
-
-    @Override
-    public int describeContents() {
-        return 0;
+        return correct;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        if (correct == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(correct);
-        }
-        if (wrong == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(wrong);
-        }
-        if (skip == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(skip);
-        }
+    public void setCorrect(Integer correct) {
+        this.correct = correct;
     }
+
+    public Integer getWrong() {
+        return wrong;
+    }
+
+    public void setWrong(Integer wrong) {
+        this.wrong = wrong;
+    }
+
+    public String getSkip() {
+        return skip;
+    }
+
+    public void setSkip(String skip) {
+        this.skip = skip;
+    }
+
 }

@@ -41,6 +41,26 @@ public class Question implements Parcelable {
 
     private String selectedOption;
 
+    public boolean isBookMarked() {
+        return isBookMarked;
+    }
+
+    public void setBookMarked(boolean bookMarked) {
+        isBookMarked = bookMarked;
+    }
+
+    private boolean isBookMarked;
+
+    public boolean isGues() {
+        return isGues;
+    }
+
+    public void setGues(boolean gues) {
+        isGues = gues;
+    }
+
+    private boolean isGues;
+
     @SerializedName("option_1_image")
     @Expose
     private String option_1_image;

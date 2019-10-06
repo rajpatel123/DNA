@@ -10,30 +10,39 @@ public class TimeAnalysis implements Parcelable {
 
     @SerializedName("change_question")
     @Expose
-    private Integer changeQuestion;
+    private String changeQuestion;
     @SerializedName("change_option")
     @Expose
-    private Integer changeOption;
+    private String changeOption;
     @SerializedName("total_time")
     @Expose
     private Integer totalTime;
 
     protected TimeAnalysis(Parcel in) {
-        if (in.readByte() == 0) {
-            changeQuestion = null;
-        } else {
-            changeQuestion = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            changeOption = null;
-        } else {
-            changeOption = in.readInt();
-        }
+        changeQuestion = in.readString();
+        changeOption = in.readString();
         if (in.readByte() == 0) {
             totalTime = null;
         } else {
             totalTime = in.readInt();
         }
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(changeQuestion);
+        dest.writeString(changeOption);
+        if (totalTime == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(totalTime);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<TimeAnalysis> CREATOR = new Creator<TimeAnalysis>() {
@@ -48,19 +57,19 @@ public class TimeAnalysis implements Parcelable {
         }
     };
 
-    public Integer getChangeQuestion() {
+    public String getChangeQuestion() {
         return changeQuestion;
     }
 
-    public void setChangeQuestion(Integer changeQuestion) {
+    public void setChangeQuestion(String changeQuestion) {
         this.changeQuestion = changeQuestion;
     }
 
-    public Integer getChangeOption() {
+    public String getChangeOption() {
         return changeOption;
     }
 
-    public void setChangeOption(Integer changeOption) {
+    public void setChangeOption(String changeOption) {
         this.changeOption = changeOption;
     }
 
@@ -72,30 +81,4 @@ public class TimeAnalysis implements Parcelable {
         this.totalTime = totalTime;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        if (changeQuestion == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(changeQuestion);
-        }
-        if (changeOption == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(changeOption);
-        }
-        if (totalTime == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(totalTime);
-        }
-    }
 }

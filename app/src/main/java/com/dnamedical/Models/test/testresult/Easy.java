@@ -7,16 +7,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Easy implements Parcelable {
-
-@SerializedName("correct")
-@Expose
-private Integer correct;
-@SerializedName("wrong")
-@Expose
-private Integer wrong;
-@SerializedName("skip")
-@Expose
-private Integer skip;
+    @SerializedName("correct")
+    @Expose
+    private Integer correct;
+    @SerializedName("wrong")
+    @Expose
+    private Integer wrong;
+    @SerializedName("skip")
+    @Expose
+    private String skip;
 
     protected Easy(Parcel in) {
         if (in.readByte() == 0) {
@@ -29,11 +28,7 @@ private Integer skip;
         } else {
             wrong = in.readInt();
         }
-        if (in.readByte() == 0) {
-            skip = null;
-        } else {
-            skip = in.readInt();
-        }
+        skip = in.readString();
     }
 
     public static final Creator<Easy> CREATOR = new Creator<Easy>() {
@@ -49,28 +44,28 @@ private Integer skip;
     };
 
     public Integer getCorrect() {
-return correct;
-}
+        return correct;
+    }
 
-public void setCorrect(Integer correct) {
-this.correct = correct;
-}
+    public void setCorrect(Integer correct) {
+        this.correct = correct;
+    }
 
-public Integer getWrong() {
-return wrong;
-}
+    public Integer getWrong() {
+        return wrong;
+    }
 
-public void setWrong(Integer wrong) {
-this.wrong = wrong;
-}
+    public void setWrong(Integer wrong) {
+        this.wrong = wrong;
+    }
 
-public Integer getSkip() {
-return skip;
-}
+    public String getSkip() {
+        return skip;
+    }
 
-public void setSkip(Integer skip) {
-this.skip = skip;
-}
+    public void setSkip(String skip) {
+        this.skip = skip;
+    }
 
     @Override
     public int describeContents() {
@@ -78,24 +73,19 @@ this.skip = skip;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel dest, int flags) {
         if (correct == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(correct);
+            dest.writeByte((byte) 1);
+            dest.writeInt(correct);
         }
         if (wrong == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(wrong);
+            dest.writeByte((byte) 1);
+            dest.writeInt(wrong);
         }
-        if (skip == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(skip);
-        }
+        dest.writeString(skip);
     }
 }
