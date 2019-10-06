@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Models.test.testp.QustionDetails;
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.fragment.QuestionFragment;
@@ -175,18 +176,25 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
-        RestClient.submitTest(userId, testID, isSubmit, new Callback<ResponseBody>() {
+        RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<TestResult> call, Response<TestResult> response) {
+                TestResult testResult = response.body();
+
+                if (testResult!=null){
+
+                    Intent intent=new Intent(TestActivity.this,ResultActivity.class);
+                    intent.putExtra("TestResult",testResult);
+                    startActivity(intent);
+
+                }
                 Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
-
-
 
 
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<TestResult> call, Throwable t) {
                 Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
         });

@@ -15,28 +15,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="300dp"
             android:background="#f37636"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
+                android:layout_marginTop="35dp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center_horizontal">
 
                 <LinearLayout
 
                     android:layout_width="wrap_content"
+                    android:layout_marginRight="25dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:text="Date"
                         android:textColor="#FFFFFF" />
 
@@ -53,17 +53,16 @@
 
                 <LinearLayout
                     android:orientation="vertical"
+                    android:layout_marginLeft="35dp"
                     android:layout_width="72dp"
                     android:layout_height="100dp"
-                    android:layout_margin="30dp"
-                    android:layout_marginTop="30dp"
                     android:background="@drawable/result_logo">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="7dp"
+                        android:paddingLeft="15dp"
                         android:text="Rank"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp" />
@@ -71,7 +70,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="25dp"
+                        android:paddingLeft="28dp"
                         android:gravity="center"
                         android:text="20"
                         android:textColor="#FFFFFF"
@@ -80,50 +79,96 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_weight="1"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
                         android:text="Time and Test"
-                        android:textColor="#FFFFFF"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Start Time"
                         android:textColor="#FFFFFF" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="End Time"
-                        android:textColor="#FFFFFF"/>
 
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Start Time:"
+                            android:textColor="#FFFFFF" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00:00:00"
+                            android:textColor="#FFFFFF"
+
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End Time  :"
+                            android:textColor="#FFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00:00:00"
+                            android:textColor="#FFFFFF"
+                            />
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <Button
+                    android:id="@+id/reviewBtn"
+                    android:text="Review"
+                    android:textColor="#f37636"
+                    android:background="@drawable/resul_button_border"
+                    android:layout_weight="0.3"
+                    android:layout_margin="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/shareBtn"
+                    android:text="Share"
+                    android:textColor="#f37636"
+                    android:background="@drawable/resul_button_border"
+                    android:layout_weight="0.3"
+                    android:layout_margin="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
 
-
-
-
-
-
+            </LinearLayout>
 
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="350dp">
+            android:layout_marginTop="250dp">
 
             <LinearLayout
                 android:id="@+id/top"
@@ -144,14 +189,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Your Score :"
+                        android:text="Your Score  :"
                         android:layout_gravity="center"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="@string/app_name"
+                        android:text="17"
+                        android:textStyle="bold"
                         />
 
                 </LinearLayout>
@@ -171,7 +217,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="@string/app_name"
+                        android:text="20"
+                        android:textStyle="bold"
                         />
 
                 </LinearLayout>
@@ -191,7 +238,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="@string/app_name"
+                        android:text="45"
+                        android:textStyle="bold"
                         />
 
                 </LinearLayout>
@@ -204,14 +252,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Percentile :"
+                        android:text="Percentile    :"
                         android:layout_gravity="center"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="@string/app_name"
+                        android:text="64"
+                        android:textStyle="bold"
                         />
 
                 </LinearLayout>
@@ -249,43 +298,41 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="2"
                                 android:background="@drawable/border"
-                                android:paddingLeft="2dp"
+                                android:padding="3dp"
                                 android:text="" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawableLeft="@drawable/ic_check"
-
-                                android:paddingLeft="2dp"
+                                android:padding="3dp"
                                 android:text="(++)" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-
                                 android:background="@drawable/border"
                                 android:drawableLeft="@drawable/ic_close"
-                                android:paddingLeft="2dp"
+                                android:padding="3dp"
                                 android:text="(-1)" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/border"
+                                android:textSize="14dp"
+                                android:padding="3dp"
                                 android:gravity="center"
                                 android:text="Not Attempted" />
-
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
-
+                                android:layout_weight="0.5"
                                 android:gravity="center"
                                 android:text="Score" />
+
                         </TableRow>
 
                         <TableRow android:background="@drawable/border">
@@ -293,7 +340,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
                                 android:background="@drawable/colom_border"
                                 android:paddingLeft="2dp"
                                 android:text="ANA to my" />
@@ -332,7 +378,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+
                                 android:background="@drawable/colom_border"
                                 android:paddingLeft="2dp"
                                 android:text="Psychology" />
@@ -372,7 +418,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
                                 android:background="@drawable/colom_border"
                                 android:paddingLeft="2dp"
                                 android:text="Biochemistry" />
@@ -411,12 +456,108 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="(C) Guess Analysis:"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Switched from currect to wrong-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:text="08"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Switched from wrong to currect-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:text="15"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Switched from wrong to wrong-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:text="05"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:text="Total switched Question-" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:text="12"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:paddingLeft="15dp"
                         android:text="(B) Dificulty Label Analysis:"
                         android:textStyle="bold" />
@@ -582,93 +723,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:text="(C) Guess Analysis:"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:text="Switched from currect to wrong-" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/app_name" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:text="Switched from wrong to currect-" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/app_name" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:text="Switched from wrong to wrong-" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/app_name" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:text="Total switched Question-" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/app_name" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:paddingLeft="15dp"
                         android:text="(B) Dificulty Label Analysis:"
                         android:textStyle="bold" />
@@ -704,7 +759,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Total tine" />
+                                android:text="Total Time" />
                         </TableRow>
 
                         <TableRow android:background="@drawable/border">

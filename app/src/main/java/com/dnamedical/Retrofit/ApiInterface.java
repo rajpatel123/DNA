@@ -34,6 +34,8 @@ import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
+import com.dnamedical.Models.test.testresult.TestResult;
+import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -236,9 +238,9 @@ public interface ApiInterface {
                                      @Query("test_id") String test_id);
     @Multipart
     @POST("v1/index.php/api/test/testresult")
-    Call<ResponseBody> submitTest(@Part("user_id") RequestBody userId,
-                                  @Part("test_id") RequestBody testID,
-                                  @Part("is_submit") RequestBody isSubmit);
+    Call<TestResult> submitTest(@Part("user_id") RequestBody userId,
+                                @Part("test_id") RequestBody testID,
+                                @Part("is_submit") RequestBody isSubmit);
 
     @Multipart
     @POST("api/api.php?req=result")
@@ -385,5 +387,15 @@ public interface ApiInterface {
                                       @Part("event") RequestBody event,
                                       @Part("product_id") RequestBody test_id,
                                       @Part("subevent") RequestBody subevent);
+
+
+
+
+    // New Api's Integrate
+
+
+    @GET("v1/index.php/api/test/reviewquestionlist")
+    Call<TestReviewListResponse> getTestReviewListData(@Query("user_id") String user_id,
+                                                       @Query("test_id") String test_id);
 }
 

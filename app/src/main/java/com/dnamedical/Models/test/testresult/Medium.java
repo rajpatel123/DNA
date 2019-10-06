@@ -1,9 +1,12 @@
 package com.dnamedical.Models.test.testresult;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Medium {
+public class Medium implements Parcelable {
 
 @SerializedName("correct")
 @Expose
@@ -15,7 +18,37 @@ private Integer wrong;
 @Expose
 private Integer skip;
 
-public Integer getCorrect() {
+    protected Medium(Parcel in) {
+        if (in.readByte() == 0) {
+            correct = null;
+        } else {
+            correct = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            wrong = null;
+        } else {
+            wrong = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            skip = null;
+        } else {
+            skip = in.readInt();
+        }
+    }
+
+    public static final Creator<Medium> CREATOR = new Creator<Medium>() {
+        @Override
+        public Medium createFromParcel(Parcel in) {
+            return new Medium(in);
+        }
+
+        @Override
+        public Medium[] newArray(int size) {
+            return new Medium[size];
+        }
+    };
+
+    public Integer getCorrect() {
 return correct;
 }
 
@@ -39,4 +72,30 @@ public void setSkip(Integer skip) {
 this.skip = skip;
 }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (correct == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(correct);
+        }
+        if (wrong == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(wrong);
+        }
+        if (skip == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(skip);
+        }
+    }
 }

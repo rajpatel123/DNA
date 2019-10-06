@@ -91,7 +91,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
-            android:name=".Activities.QbankResultListActivity"
+            android:name=".Activities.TestReviewResultActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.PromoActivity"

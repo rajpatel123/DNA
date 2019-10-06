@@ -2,7 +2,6 @@ package com.dnamedical.Activities;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -50,6 +49,12 @@ public class TestStartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_start);
         ButterKnife.bind(this);
+
+
+
+
+
+
 
         if (getIntent() != null) {
             id = getIntent().getStringExtra("id");
@@ -119,9 +124,12 @@ public class TestStartActivity extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(TestStartActivity.this, TestReviewResultActivity.class);
 
+                startActivity(intent);
                 // if (check_status == 0) {
-                StartTest();
+                // change here by rishabh this code
+               // StartTest();
 //                } else {
 //                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
 //                    intent.putExtra("Test_Id", id);
@@ -131,6 +139,10 @@ public class TestStartActivity extends AppCompatActivity {
 //                }
             }
         });
+    }
+
+    private void calling() {
+
     }
 
     private void PaymentAlertDialog() {

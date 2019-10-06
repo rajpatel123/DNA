@@ -27,9 +27,6 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
     private Context applicationContext;
     List<Detail> detailList;
 
-    public void setDetailList(List<Detail> detailList) {
-        this.detailList = detailList;
-    }
 
 
     public QbankReviewListAdapter(Context applicationContext) {
