@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border"
+    android:background="@drawable/border_outlone"
     android:scrollbars="none"
     tools:context=".Activities.ResultActivity">
 
@@ -16,8 +16,9 @@
 
 
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="400dp"
             android:background="#f37636"
             android:orientation="vertical">
 
@@ -180,7 +181,14 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Test Time"
+                        android:textColor="@color/text_name_color"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -273,15 +281,6 @@
                             android:textColor="#FFFFFF" />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Test Time"
-                        android:textColor="@color/text_name_color"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
 
                 </LinearLayout>
 
@@ -303,85 +302,6 @@
                     android:text="Review"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.5"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/scoreTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Your Score  :"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/yourScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/scoreTitle"
-                        android:paddingLeft="15dp"
-                        android:text="10"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/totalTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/scoreTitle"
-                        android:text="Total Marks  :"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/totalMarks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/yourScore"
-                        android:layout_toEndOf="@+id/totalTitle"
-                        android:paddingLeft="15dp"
-                        android:text="23"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/percentageTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/totalTitle"
-                        android:text="Total Marks  :"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/percentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/totalMarks"
-                        android:layout_toEndOf="@+id/percentageTitle"
-                        android:paddingLeft="15dp"
-                        android:text="43"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/percentileTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/percentageTitle"
-                        android:layout_gravity="center"
-                        android:text="Percentile    :"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/percentaile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/percentage"
-                        android:layout_toEndOf="@+id/percentileTitle"
-                        android:paddingLeft="15dp"
-                        android:text="32"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
 
                 <Button
                     android:id="@+id/shareBtn"
@@ -394,6 +314,85 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/scoreTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Your Score  :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/yourScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/scoreTitle"
+                        android:paddingLeft="15dp"
+                        android:text="10"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/totalTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/scoreTitle"
+                        android:text="Total Marks  :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/totalMarks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/yourScore"
+                        android:layout_toEndOf="@+id/totalTitle"
+                        android:paddingLeft="15dp"
+                        android:text="23"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentageTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/totalTitle"
+                        android:text="Total Marks  :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/totalMarks"
+                        android:layout_toEndOf="@+id/percentageTitle"
+                        android:paddingLeft="15dp"
+                        android:text="43"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentileTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/percentageTitle"
+                        android:layout_gravity="center"
+                        android:text="Percentile    :"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/percentaile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/percentage"
+                        android:layout_toEndOf="@+id/percentileTitle"
+                        android:paddingLeft="15dp"
+                        android:text="32"
+                        android:textStyle="italic" />
+
+                </RelativeLayout>
 
 
             </LinearLayout>
@@ -402,21 +401,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="50dp"
-                android:minHeight="50dp"
                 android:background="@color/white"
                 android:gravity="center_horizontal|bottom"
-                android:textColor="@color/color_noticeboard"
-                android:text="A. SCORE ANALYSIS"
+                android:minHeight="50dp"
                 android:paddingBottom="5dp"
+                android:text="A. SCORE ANALYSIS"
+                android:textColor="@color/color_noticeboard"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_marginTop="300dp">
+            android:layout_below="@+id/header"
+            android:visibility="visible">
 
 
             <LinearLayout
@@ -438,14 +439,7 @@
                         android:layout_margin="10dp" />
 
 
-
                 </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B. GUESS ANALYSIS:"
-                    android:textColor="@color/color_noticeboard"
-                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -587,14 +581,6 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10dp"
-                        android:text="C. TIME ANALYSIS:"
-                        android:textColor="@color/color_noticeboard"
-                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -782,7 +768,15 @@
                         </LinearLayout>
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:text="C. TIME ANALYSIS:"
+                        android:textColor="@color/color_noticeboard"
 
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -791,6 +785,8 @@
                         android:layout_marginTop="@dimen/margin_10dp"
                         android:text="D. Dificulty Label Analysis:"
                         android:textColor="@color/color_noticeboard"
+                        android:textSize="16sp"
+
                         android:textStyle="bold" />
 
 
@@ -974,6 +970,13 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B. GUESS ANALYSIS:"
+                    android:textColor="@color/color_noticeboard"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>

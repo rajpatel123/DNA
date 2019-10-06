@@ -16,6 +16,7 @@ public class Data implements Parcelable {
     @SerializedName("start_time")
     @Expose
     private Integer startTime;
+
     @SerializedName("end_time")
     @Expose
     private Integer endTime;
