@@ -9,6 +9,7 @@ import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -296,6 +297,13 @@ public class ResultActivity extends AppCompatActivity {
 
         skipped.setText(" Skipped ");
         score.setText(" Score ");
+
+        subject.setTextColor(ContextCompat.getColor(this, R.color.red));
+        rightAnswer.setTextColor(ContextCompat.getColor(this, R.color.red));
+        wrongAnswer.setTextColor(ContextCompat.getColor(this, R.color.red));
+        skipped.setTextColor(ContextCompat.getColor(this, R.color.red));
+        score.setTextColor(ContextCompat.getColor(this, R.color.red));
+
         rowHead.addView(subject);
         rowHead.addView(rightAnswer);
         rowHead.addView(wrongAnswer);
