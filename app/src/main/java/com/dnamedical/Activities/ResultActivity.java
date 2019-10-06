@@ -67,6 +67,7 @@ public class ResultActivity extends AppCompatActivity {
     private List<AllReult> allReults;
     private RecyclerView recyclerView;
     private Button reviewButton, shareButton;
+
     String user_id;
     TestResult testResult;
     TextView rankTV, dateTV, startTimeTV, endTimeTv, yourScoreTV, totalMarksTv,
@@ -88,6 +89,8 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        reviewButton = findViewById(R.id.reviewBtn);
 
         if (getIntent().hasExtra("Test_Id")) {
             test_id = getIntent().getStringExtra("Test_Id");
@@ -170,12 +173,15 @@ public class ResultActivity extends AppCompatActivity {
 
         //  showRankResult();
 
-//        reviewButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               // ReviewSheet();
-//            }
-//        });
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
+                intent1.putExtra("testid", test_id);
+                startActivity(intent1);
+                finish();
+            }
+        });
     }
 
     private void updateResult(TestResult testResult) {

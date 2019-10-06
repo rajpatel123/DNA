@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="@dimen/margin_10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardviewlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_5"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:padding="@dimen/margin_5"
+                    android:gravity="start"
+                    android:id="@+id/txt_test_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="@dimen/margin_18"
+                    >
+
+                </TextView>
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:id="@+id/imgbookmark"
+                    android:padding="@dimen/margin_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/review_bookmark_icon"
+                 >
+                </ImageView>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:padding="@dimen/margin_5"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_test_categoryname"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="@dimen/text_large"
+                >
+
+            </TextView>
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
