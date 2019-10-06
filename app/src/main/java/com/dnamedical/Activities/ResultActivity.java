@@ -13,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -71,6 +74,7 @@ public class ResultActivity extends AppCompatActivity {
             diffEasyWrongTV, diffMediumWrongTV, diffHardWrongTV, diffEasySkipTV, diffMediumSkipTV, diffHardSkipTV;
     TextView timeTakenMarkedTV, timeTakenSkipTV, totalTimeTV;
     private String test_id;
+    TextView testTimeHead,examNameHead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,23 @@ public class ResultActivity extends AppCompatActivity {
             test_id = getIntent().getStringExtra("Test_Id");
 
         }
+
+
+
+
+
+        testTimeHead = findViewById(R.id.testTimeHead);
+        examNameHead = findViewById(R.id.examDateHead);
+
+        SpannableString spannableString = new SpannableString("Exam Name");
+        spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        SpannableString spannableStringTest = new SpannableString("Test Time");
+        spannableStringTest.setSpan(new UnderlineSpan(), 0, spannableStringTest.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        examNameHead.setText(spannableString);
+        testTimeHead.setText(spannableStringTest);
+
         rankTV = findViewById(R.id.rankValue);
         dateTV = findViewById(R.id.testDate);
         startTimeTV = findViewById(R.id.testStartTime);
