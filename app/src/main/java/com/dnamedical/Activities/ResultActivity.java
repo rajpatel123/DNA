@@ -333,11 +333,11 @@ public class ResultActivity extends AppCompatActivity {
             skippedTv.setGravity(Gravity.CENTER);
             scoreTv.setGravity(Gravity.CENTER);
 
-            subject.setTextColor(ContextCompat.getColor(this, R.color.black));
-            rightAnswer.setTextColor(ContextCompat.getColor(this, R.color.black));
-            wrongAnswer.setTextColor(ContextCompat.getColor(this, R.color.black));
-            skipped.setTextColor(ContextCompat.getColor(this, R.color.black));
-            score.setTextColor(ContextCompat.getColor(this, R.color.black));
+            subjectTv.setTextColor(ContextCompat.getColor(this, R.color.black));
+            rightAnswerTv.setTextColor(ContextCompat.getColor(this, R.color.black));
+            wrongAnswerTv.setTextColor(ContextCompat.getColor(this, R.color.black));
+            skippedTv.setTextColor(ContextCompat.getColor(this, R.color.black));
+            scoreTv.setTextColor(ContextCompat.getColor(this, R.color.black));
 
 
             setBorder(subjectTv);

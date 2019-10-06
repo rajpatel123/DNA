@@ -14,11 +14,12 @@
 
         <Button
             android:id="@+id/back_button"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
+            app:tintMode="@color/white"
             android:layout_marginStart="@dimen/margin_20"
-            android:background="@drawable/back_arrow" />
+            android:background="@drawable/ic_left_arrow" />
 
         <LinearLayout
             android:layout_width="wrap_content"
