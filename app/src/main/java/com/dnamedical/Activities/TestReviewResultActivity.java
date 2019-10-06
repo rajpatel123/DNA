@@ -1,6 +1,12 @@
 package com.dnamedical.Activities;
 
+
+
 import android.content.Intent;
+
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.ReviewQuestionListAdapter;
@@ -15,6 +22,7 @@ import com.dnamedical.Adapters.TestReviewListAdapter;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.dialog.FilterDialogFragment;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
@@ -34,6 +42,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private ImageView imageView;
     private TestReviewListResponse testReviewListResponse;
     private static String TAG = TestReviewResultActivity.class.getSimpleName();
+    private TextView tvFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +50,42 @@ public class TestReviewResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qbank_result_list);
         recyclerView = findViewById(R.id.recycler);
         imageView = findViewById(R.id.back);
+        tvFilter = findViewById(R.id.tvFilter);
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        tvFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFilterDialog();
+            }
+        });
         getReviewData();
 
     }
 
+    private void openFilterDialog() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        DialogFragment dialogFragment = new FilterDialogFragment();
+        dialogFragment.show(ft, "dialog");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getReviewData();
+
+    }
 
     private void getReviewData() {
 //        if (getIntent().hasExtra("userId")) {
@@ -65,8 +100,12 @@ public class TestReviewResultActivity extends AppCompatActivity {
         } else {
             user_Id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
         }
-        user_Id = "2";
-        test_Id = "2";
+        if (getIntent().hasExtra("testid")) {
+            test_Id = getIntent().getStringExtra("testid");
+
+        }
+
+
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
@@ -87,14 +126,19 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             testReviewListAdapter.setTestClickListener(new TestReviewListAdapter.TestClickListener() {
                                 @Override
                                 public void onTestClicklist(int postion) {
-                                    Intent intent=new Intent(TestReviewResultActivity.this,ReviewresulActivity.class);
-                                    intent.putExtra("position",postion);
-                                   // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData())
+                                    Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
+                                    intent.putExtra("position", postion);
+                                   // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData());
+                                    // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData())
                                     startActivity(intent);
-                                    Toast.makeText(TestReviewResultActivity.this, ""+postion, Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
                                 }
                             });
                             Log.d("Api Response :", "Got Success from send");
+                        }
+                        else {
+                            Toast.makeText(TestReviewResultActivity.this, "No Test", Toast.LENGTH_SHORT).show();
                         }
 
                     }

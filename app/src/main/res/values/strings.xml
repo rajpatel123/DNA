@@ -153,4 +153,5 @@
     <string name="summit_test">Submit Test</string>
     <string name="discard_text">Discard Test</string>
     <string name="filter">Filter</string>
+    <string name="apply">Apply</string>
 </resources>
