@@ -245,7 +245,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
         if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
             submitTest();
-            Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
+            //Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
             pauseTimer();
         } else {
             if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
@@ -255,7 +255,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         }
 
         submitTimeLogTest("switch_question", "" + Seconds);
-        Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
+        //Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
 
 
         updateQuestionsFragment();
