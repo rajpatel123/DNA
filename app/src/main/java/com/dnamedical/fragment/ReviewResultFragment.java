@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.squareup.picasso.Picasso;
 
 import com.dnamedical.Activities.ReviewresulActivity;
@@ -33,7 +34,7 @@ public class ReviewResultFragment extends Fragment {
     ReviewresulActivity activity;
     ImageView questionImage;
 
-    public static Fragment init(ReviewDetail question, int position) {
+    public static Fragment init(QuestionList question, int position) {
         ReviewResultFragment reviewResultFragment = new ReviewResultFragment();
         Bundle args = new Bundle();
         args.putInt("val", position);

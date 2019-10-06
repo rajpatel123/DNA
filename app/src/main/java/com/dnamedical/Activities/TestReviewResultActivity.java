@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.dnamedical.Adapters.ReviewQuestionListAdapter;
 import com.dnamedical.Adapters.TestReviewListAdapter;
+import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -99,8 +100,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                 public void onTestClicklist(int postion) {
                                     Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
                                     intent.putExtra("position", postion);
-                                   // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData());
-                                    // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData())
+                                     intent.putParcelableArrayListExtra("list",testReviewListResponse.getData().getQuestionList());
                                     startActivity(intent);
                                     finish();
                                     Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
