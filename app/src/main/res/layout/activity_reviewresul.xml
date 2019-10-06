@@ -6,82 +6,82 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ReviewresulActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:background="@color/colorPrimary">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:navigationIcon="@drawable/back_arrow"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Review"
-            app:titleTextColor="@color/white">
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_20"
+            android:background="@drawable/back_arrow" />
 
-            <RelativeLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/left_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:layout_marginLeft="150dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/left_arrow"
+                android:minWidth="30dp"
+                android:minHeight="30dp"
+                android:textSize="28sp" />
 
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+            <TextView
+                android:id="@+id/question_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:minWidth="30dp"
+                android:minHeight="30dp"
+                android:text="9"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
 
-                    <TextView
-                        android:id="@+id/left_arrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/left_arrow"
-                        android:minWidth="30dp"
-                        android:minHeight="30dp"
-                        android:textSize="28sp" />
+            <TextView
+                android:id="@+id/right_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/close_arrow"
+                android:minWidth="30dp"
+                android:minHeight="30dp"
+                android:textSize="28sp" />
 
-                    <TextView
-                        android:id="@+id/question_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:minWidth="30dp"
-                        android:minHeight="30dp"
-                        android:text="9"
-                        android:textColor="@color/white"
-                        android:textSize="28sp" />
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/right_arrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/close_arrow"
-                        android:minWidth="30dp"
-                        android:minHeight="30dp"
-                        android:textSize="28sp" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.Toolbar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/back_button"
+            android:layout_marginStart="@dimen/margin_20"
+            android:text="Review"
+            android:textSize="26sp"
+            android:textColor="@color/white" />
 
 
-    </android.support.design.widget.AppBarLayout>
-
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar"
+        android:layout_below="@id/toolbar"
         android:layout_weight="1">
 
     </android.support.v4.view.ViewPager>
