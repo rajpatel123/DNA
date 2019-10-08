@@ -193,7 +193,7 @@ public class QuestionFragment extends Fragment {
     private void updateToServerAnswerSelection() {
         activity.pauseTimer();
         activity.submitTimeLogTest("selecting_option", "" + activity.Seconds);
-        Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
+      //  Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
 
         activity.submitAnswer();
         activity.resettimer();
