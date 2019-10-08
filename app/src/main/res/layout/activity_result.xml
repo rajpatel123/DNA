@@ -361,7 +361,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/totalTitle"
-                        android:text="Total Marks  :"
+                        android:text="Percentage  :"
                         android:textStyle="italic" />
 
                     <TextView
@@ -809,7 +809,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_10dp"
-                        android:text="D. Dificulty Label Analysis:"
+                        android:text="D. DIFICULTY LABEL ANALYSIS:"
                         android:textColor="@color/color_noticeboard"
                         android:textSize="16sp"
 
@@ -849,7 +849,7 @@
                                 android:background="@drawable/border"
                                 android:gravity="center"
                                 android:paddingLeft="2dp"
-                                android:text="Currect(%)"
+                                android:text="Currect"
                                 android:textColor="@color/red"
                                 android:textStyle="bold" />
 
@@ -859,7 +859,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/border"
                                 android:gravity="center"
-                                android:text="Wrong(%)"
+                                android:text="Wrong"
                                 android:textColor="@color/red"
                                 android:textStyle="bold" />
 
@@ -869,7 +869,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Skipped(%)"
+                                android:text="Skipped"
                                 android:textColor="@color/red"
                                 android:textStyle="bold" />
                         </TableRow>

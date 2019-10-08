@@ -1,6 +1,7 @@
 package com.dnamedical.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,13 @@ import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.view.PieChartView;
 
 public class ReviewResultFragment extends Fragment {
     ImageView question_image;
@@ -88,13 +96,17 @@ public class ReviewResultFragment extends Fragment {
         percentage = view.findViewById(R.id.percentage);
         explannnation = view.findViewById(R.id.explannnation);
         refText = view.findViewById(R.id.refText);
-
+        PieChartView pieChartView = view.findViewById(R.id.chart);
         if (question != null) {
-            optionA.setText("A. "+question.getOption1() + "[" + question.getOption1Percenatge() + "%]");
-            optionB.setText("B. "+question.getOption2() + "[" + question.getOption2Percenatge() + "%]");
-            optionC.setText("C "+question.getOption3() + "[" + question.getOption3Percenatge() + "%]");
-            optionD.setText("D. "+question.getOption4() + "[" + question.getOption4Percenatge() + "%]");
-            questionTxt.setText("Q "+fragNum+". "+question.getTitle());
+            optionA.setText("A. "+question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
+            optionB.setText("B. "+question.getOption2() + " [" + question.getOption2Percenatge() + "%]");
+            optionC.setText("C. "+question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
+            optionD.setText("D. "+question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
+            questionTxt.setText("Q "+(fragNum+1)+". "+question.getTitle());
+            List<SliceValue> pieData = new ArrayList<>();
+            pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));
+            PieChartData pieChartData = new PieChartData(pieData);
+            pieChartView.setPieChartData(pieChartData);
 
 
             if (!question.getGivenAnswer().equalsIgnoreCase("0")) {

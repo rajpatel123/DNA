@@ -71,7 +71,7 @@ public class ResultActivity extends AppCompatActivity {
     String user_id;
     TestResult testResult;
     TextView rankTV, dateTV, startTimeTV, endTimeTv, yourScoreTV, totalMarksTv,
-            percentageTV, percentaileTV;
+            percentageTV, percentaileTV,totalTestTime;
     TextView guessCtoWtv, guessWtoCtv, guessWtoWtv, guessTotalSwitchedtv;
     TextView diffEasyCurrectTV, diffMediumCurrectTV, diffHardCurrectTV,
             diffEasyWrongTV, diffMediumWrongTV, diffHardWrongTV, diffEasySkipTV, diffMediumSkipTV, diffHardSkipTV;
@@ -114,6 +114,7 @@ public class ResultActivity extends AppCompatActivity {
         dateTV = findViewById(R.id.testDate);
         startTimeTV = findViewById(R.id.testStartTime);
         endTimeTv = findViewById(R.id.testEndTime);
+        totalTestTime = findViewById(R.id.totalTestTime);
         yourScoreTV = findViewById(R.id.yourScore);
         totalMarksTv = findViewById(R.id.totalMarks);
         percentageTV = findViewById(R.id.percentage);
@@ -190,6 +191,7 @@ public class ResultActivity extends AppCompatActivity {
         rankTV.setText("" + testResult.getData().getRank());
         startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
         endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
+        totalTestTime.setText("" + Utils.getTimeTakenInTestFormat((testResult.getData().getEndTime()-testResult.getData().getStartTime())));
         dateTV.setText("" + Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
 
         yourScoreTV.setText("" + testResult.getData().getYourScore());

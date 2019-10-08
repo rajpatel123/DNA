@@ -124,7 +124,7 @@ public class Utils {
 
     public static String getTimeInHHMMSS(long millies) {
 
-        SimpleDateFormat mdformat = new SimpleDateFormat("H  : mm  :  ss");
+        SimpleDateFormat mdformat = new SimpleDateFormat("hh  : m  :  ss");
         String strTime = mdformat.format(millies*1000);
         return strTime;
     }
@@ -184,7 +184,7 @@ public class Utils {
 
         try {
             Log.d("date", "" + timeStamp);
-            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd : mm : YYYY");
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd : MM : YYYY");
             Date dNow = new Date(timeStamp*1000);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
@@ -256,6 +256,7 @@ public class Utils {
     }
 
     public static String getTimeTakenInTestFormat(int seconds) {
+        StringBuilder time =new StringBuilder();
         int p1 = seconds % 60;
         int p2 = seconds / 60;
         int p3 = p2 % 60;
@@ -263,7 +264,27 @@ public class Utils {
         System.out.print( p2 + ":" + p3 + ":" + p1);
         System.out.print("\n");
 
-        return  p2+" : "+p3+" : "+p1 ;
+
+        if (String.valueOf(p2).length()==1){
+            time.append("0"+p2);
+        }else{
+            time.append(""+p2);
+        }
+        time.append("  :  ");
+
+        if (String.valueOf(p3).length()==1){
+            time.append("0"+p3);
+        }else{
+            time.append(""+p3);
+        }
+        time.append("  :  ");
+
+        if (String.valueOf(p1).length()==1){
+            time.append("0"+p1);
+        }else{
+            time.append(""+p1);
+        }
+        return  time.toString();
 
     }
 

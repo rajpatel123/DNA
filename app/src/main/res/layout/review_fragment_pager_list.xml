@@ -143,7 +143,10 @@
                 android:minHeight="60dp"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/margin_20">
-                <!--peichare-->
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/chart"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
                 <TextView
                     android:id="@+id/percentage"
                     android:layout_width="match_parent"
