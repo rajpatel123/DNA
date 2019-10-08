@@ -105,6 +105,7 @@ public class ReviewResultFragment extends Fragment {
             questionTxt.setText("Q "+(fragNum+1)+". "+question.getTitle());
             List<SliceValue> pieData = new ArrayList<>();
             pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));
+            pieData.add(new SliceValue(100-question.getPercentage(), R.color.colorPrimary));
             PieChartData pieChartData = new PieChartData(pieData);
             pieChartView.setPieChartData(pieChartData);
 

@@ -138,7 +138,11 @@
     <dimen name="margin_10dp">10dp</dimen>
     <dimen name="padding_25dp">23dp</dimen>
     <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="text_20">20sp</dimen>
+    <dimen name="margin_35">35dp</dimen>
     <dimen name="size_12">12sp</dimen>
+    <dimen name="margin_200">200dp</dimen>
+    >>>>>>> edef2fff66019c5dfb9c004e42bcbcd583e8f386
 
 
 </resources>
