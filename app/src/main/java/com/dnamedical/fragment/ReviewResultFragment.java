@@ -1,38 +1,47 @@
 package com.dnamedical.fragment;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
+import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
 
-import com.dnamedical.Activities.ReviewresulActivity;
-import com.dnamedical.Models.ReviewResult.ReviewDetail;
-import com.dnamedical.R;
-import com.dnamedical.utils.Utils;
-
 public class ReviewResultFragment extends Fragment {
+    ImageView question_image;
+    ImageView optionAImg;
+    ImageView optionBImg;
+    ImageView optionCImg;
+    ImageView optionDImg;
+    ImageView refImage;
+    ImageView explanation_image;
+
+
+    TextView optionA;
+    TextView optionB;
+    TextView optionC;
+    TextView optionD;
+    TextView percentage;
+    TextView explannnation;
+    TextView refText;
 
 
     LinearLayout answerList;
-    TextView questionList;
+    TextView questionTxt;
     int fragNum;
-    ReviewDetail question;
+    QuestionList question;
     ReviewresulActivity activity;
-    ImageView questionImage;
 
     public static Fragment init(QuestionList question, int position) {
         ReviewResultFragment reviewResultFragment = new ReviewResultFragment();
@@ -63,121 +72,120 @@ public class ReviewResultFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.review_fragment_pager_list, container, false);
+        question_image = view.findViewById(R.id.question_image);
+        questionTxt = view.findViewById(R.id.questionTxt);
+        optionAImg = view.findViewById(R.id.optionAImg);
+        optionBImg = view.findViewById(R.id.optionBImg);
+        optionCImg = view.findViewById(R.id.optionCImg);
+        optionDImg = view.findViewById(R.id.optionDImg);
+        refImage = view.findViewById(R.id.refImage);
+        explanation_image = view.findViewById(R.id.explanation_image);
 
-        answerList = view.findViewById(R.id.answerList1);
-        //questionList = view.findViewById(R.id.text_question);
-        //questionList.setText((fragNum + 1) + ". " + question.getQuestion());
-        for (int i = 0; i < 6; i++) {
-            switch (i) {
+        optionA = view.findViewById(R.id.optionA);
+        optionB = view.findViewById(R.id.optionB);
+        optionC = view.findViewById(R.id.optionC);
+        optionD = view.findViewById(R.id.optionD);
+        percentage = view.findViewById(R.id.percentage);
+        explannnation = view.findViewById(R.id.explannnation);
+        refText = view.findViewById(R.id.refText);
 
-                case 0:
-                    View answer = inflater.inflate(R.layout.review_question_list, container, false);
-                    questionList = answer.findViewById(R.id.text_question);
-                    questionList.setText((fragNum + 1) + ". " + question.getQuestion());
-                    answerList.addView(answer);
+        if (question != null) {
+            optionA.setText("A. "+question.getOption1() + "[" + question.getOption1Percenatge() + "%]");
+            optionB.setText("B. "+question.getOption2() + "[" + question.getOption2Percenatge() + "%]");
+            optionC.setText("C "+question.getOption3() + "[" + question.getOption3Percenatge() + "%]");
+            optionD.setText("D. "+question.getOption4() + "[" + question.getOption4Percenatge() + "%]");
+            questionTxt.setText("Q "+fragNum+". "+question.getTitle());
+
+
+            if (!question.getGivenAnswer().equalsIgnoreCase("0")) {
+                switch (question.getGivenAnswer()) {
+                    case "1":
+                        if (question.getCorrectAnswer().equalsIgnoreCase("1")) {
+                            optionA.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                            optionAImg.setImageResource(R.drawable.right_answer_icon);
+                        } else {
+                            optionA.setTextColor(ContextCompat.getColor(activity, R.color.black));
+                            optionAImg.setImageResource(R.drawable.wrong_answer_icon);
+
+                        }
+
+                        optionAImg.setVisibility(View.VISIBLE);
+                        break;
+                    case "2":
+                        if (question.getCorrectAnswer().equalsIgnoreCase("2")) {
+                            optionB.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                            optionBImg.setImageResource(R.drawable.right_answer_icon);
+                        } else {
+                            optionB.setTextColor(ContextCompat.getColor(activity, R.color.black));
+                            optionBImg.setImageResource(R.drawable.wrong_answer_icon);
+
+                        }
+                        optionBImg.setVisibility(View.VISIBLE);
+
+                        break;
+                    case "3":
+                        if (question.getCorrectAnswer().equalsIgnoreCase("3")) {
+                            optionC.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                            optionCImg.setImageResource(R.drawable.right_answer_icon);
+                        } else {
+                            optionC.setTextColor(ContextCompat.getColor(activity, R.color.black));
+                            optionCImg.setImageResource(R.drawable.wrong_answer_icon);
+
+                        }
+                        optionCImg.setVisibility(View.VISIBLE);
+
+                        break;
+                    case "4":
+                        if (question.getCorrectAnswer().equalsIgnoreCase("4")) {
+                            optionD.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                            optionDImg.setImageResource(R.drawable.right_answer_icon);
+                        } else {
+                            optionD.setTextColor(ContextCompat.getColor(activity, R.color.black));
+                            optionDImg.setImageResource(R.drawable.wrong_answer_icon);
+
+                        }
+
+                        optionDImg.setVisibility(View.VISIBLE);
+
+                        break;
+                }
+            }
+
+            explannnation.setText(question.getExplanation() );
+            percentage.setText(question.getPercentage()+"%     of the people got this right");
+
+            Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
+            refText.setText(question.getRefernce().getTitle());
+
+
+            switch (question.getCorrectAnswer()) {
+                case "1":
+                    optionA.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                    optionAImg.setImageResource(R.drawable.right_answer_icon);
+                    optionAImg.setVisibility(View.VISIBLE);
                     break;
+                case "2":
+                    optionB.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                    optionBImg.setImageResource(R.drawable.right_answer_icon);
+                    optionBImg.setVisibility(View.VISIBLE);
 
-                case 1:
-                    View answerView = inflater.inflate(R.layout.review_list_item,
-                            container, false);
-                    TextView answer1 = answerView.findViewById(R.id.answertext);
-                    ImageView imageType = answerView.findViewById(R.id.review_question_image);
-                    answer1.setText("A" + ". " + question.getAnswer1());
-                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer1())) {
-                        imageType.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
-                        answer1.setTextColor(getResources().getColor(R.color.green));
-                    }
-                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer1())) {
-                        if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer1.setTextColor(getResources().getColor(R.color.red));
-                        }
-                    }
-                    answerList.addView(answerView);
                     break;
-                case 2:
-                    View answerView1 = inflater.inflate(R.layout.review_list_item,
-                            container, false);
-                    ImageView imageType1 = answerView1.findViewById(R.id.review_question_image);
-                    TextView answer2 = answerView1.findViewById(R.id.answertext);
-                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer2())) {
-                        imageType1.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
-                        answer2.setTextColor(getResources().getColor(R.color.green));
-                    }
-                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer2())) {
-                        if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType1.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer2.setTextColor(getResources().getColor(R.color.red));
-                        }
-                    }
-                    answer2.setText("B" + ". " + question.getAnswer2());
-                    answerList.addView(answerView1);
+                case "3":
+                    optionC.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                    optionCImg.setImageResource(R.drawable.right_answer_icon);
+                    optionCImg.setVisibility(View.VISIBLE);
+
                     break;
-                case 3:
-                    View answerView2 = inflater.inflate(R.layout.review_list_item,
-                            container, false);
-                    ImageView imageType2 = answerView2.findViewById(R.id.review_question_image);
-                    TextView answer3 = answerView2.findViewById(R.id.answertext);
-                    answer3.setText("C" + ". " + question.getAnswer3());
-                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer3())) {
-                        imageType2.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
-                        answer3.setTextColor(getResources().getColor(R.color.green));
-                    }
+                case "4":
+                    optionD.setTextColor(ContextCompat.getColor(activity, R.color.green));
+                    optionDImg.setImageResource(R.drawable.right_answer_icon);
+                    optionDImg.setVisibility(View.VISIBLE);
 
-                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer3())) {
-                        if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType2.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer3.setTextColor(getResources().getColor(R.color.red));
-                        }
-                    }
-                    answerList.addView(answerView2);
-                    break;
-                case 4:
-                    View answerView3 = inflater.inflate(R.layout.review_list_item,
-                            container, false);
-                    TextView answer4 = answerView3.findViewById(R.id.answertext);
-                    ImageView imageType3 = answerView3.findViewById(R.id.review_question_image);
-                    if (question.getCurrectAnswer().equalsIgnoreCase(question.getAnswer4())) {
-                        imageType3.setImageDrawable(getResources().getDrawable(R.drawable.right_answer_icon));
-                        answer4.setTextColor(getResources().getColor(R.color.green));
-                    }
-                    if (question.getUserAnswer().equalsIgnoreCase(question.getAnswer3())) {
-                        if (!question.getUserAnswer().equalsIgnoreCase(question.getCurrectAnswer())) {
-                            imageType3.setImageDrawable(getResources().getDrawable(R.drawable.wrong_answer_icon));
-                            answer4.setTextColor(getResources().getColor(R.color.red));
-                        }
-                    }
-
-                    answer4.setText("D" + ". " + question.getAnswer4());
-                    answerList.addView(answerView3);
-                    break;
-                case 5:
-                    View answerView4 = inflater.inflate(R.layout.review_explanation_recycler_view,
-                            container, false);
-                    WebView webView = answerView4.findViewById(R.id.dataWebView);
-                    webView.getSettings().setJavaScriptEnabled(true);
-                    Utils.showProgressDialog(getContext());
-                    webView.setWebViewClient(new WebViewClient() {
-                        @Override
-                        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                            super.onPageStarted(view, url, favicon);
-
-                        }
-
-                        @Override
-                        public void onPageFinished(WebView view, String url) {
-                            super.onPageFinished(view, url);
-
-                            Utils.dismissProgressDialog();
-                            webView.setVisibility(View.VISIBLE);
-                            // Toast.makeText(MainActivity.this, "Page Loaded", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    webView.loadUrl("http://www.dnaftb.org/");
-                    answerList.addView(answerView4);
                     break;
             }
+
         }
+
         return view;
     }
 
@@ -188,4 +196,10 @@ public class ReviewResultFragment extends Fragment {
     }
 
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+    }
 }

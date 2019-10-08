@@ -145,7 +145,6 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                     intent.putExtra("position", postion);
                                      intent.putParcelableArrayListExtra("list",testReviewListResponse.getData().getQuestionList());
                                     startActivity(intent);
-                                    finish();
                                     Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
                                 }
                             });

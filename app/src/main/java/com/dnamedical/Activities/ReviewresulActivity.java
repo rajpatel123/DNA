@@ -2,17 +2,17 @@ package com.dnamedical.Activities;
 
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
-
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import com.dnamedical.Models.ReviewResult.ReviewResult;
+
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
 import com.dnamedical.fragment.ReviewResultFragment;
@@ -26,11 +26,12 @@ public class ReviewresulActivity extends FragmentActivity {
     ViewPager mPager;
     TextView quesionCounter;
     TextView timer;
+    Toolbar toolbar;
     static int currentPosition;
     String userId;
     TextView leftTest, rightTest;
     int itemPosition;
-
+Button back_button;
     private ArrayList<QuestionList> reviewResult;
 
 
@@ -39,13 +40,12 @@ public class ReviewresulActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviewresul);
 
-
         //  getReviewTest();
         quesionCounter = findViewById(R.id.question_number);
 
         Intent intent = getIntent();
         reviewResult = intent.getParcelableArrayListExtra("list");
-         itemPosition=intent.getIntExtra("position",0);
+        itemPosition = intent.getIntExtra("position", 0);
         if (reviewResult != null) {
             mAdapter = new MyAdapter(getSupportFragmentManager(), reviewResult, quesionCounter);
             mPager = findViewById(R.id.pager2);
@@ -61,7 +61,7 @@ public class ReviewresulActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 if (currentPosition > 0) {
-                    quesionCounter.setText(""+(currentPosition-1));
+                    quesionCounter.setText("" + (currentPosition - 1));
                     //quesionCounter.setText((currentPosition - 1) + " of " + reviewResult.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
                 }
@@ -69,13 +69,21 @@ public class ReviewresulActivity extends FragmentActivity {
             }
         });
         rightTest = findViewById(R.id.right_arrow);
+        back_button = findViewById(R.id.back_button);
         rightTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  quesionCounter.setText(""+(currentPosition+1));
-               // quesionCounter.setText((currentPosition + 1) + " of " + reviewResult.getDetail().size());
+                quesionCounter.setText("" + (currentPosition + 1));
+                // quesionCounter.setText((currentPosition + 1) + " of " + reviewResult.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
 
+            }
+        });
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -87,57 +95,14 @@ public class ReviewresulActivity extends FragmentActivity {
         //getReviewTest();
     }
 
-    /*  private void getReviewTest() {
-     *//*if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
-
-        }*//*
-        String userId = "1";
-        String testId = "6";
-
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody test_id = RequestBody.create(MediaType.parse("text/plain"), testId);
-
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-
-            RestClient.reviewQuestionResult(user_id, test_id, new Callback<ReviewResult>() {
-                @Override
-                public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
-
-                    Utils.dismissProgressDialog();
-                    if (response.code() == 200) {
-                        reviewResult = response.body();
-                        mAdapter = new MyAdapter(getSupportFragmentManager(), reviewResult, quesionCounter);
-                        mPager = (ViewPager) findViewById(R.id.pager2);
-                        mPager.addOnPageChangeListener(pageChangeListener);
-                        mPager.setAdapter(mAdapter);
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<ReviewResult> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                    Toast.makeText(ReviewresulActivity.this, "No Data", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else {
-            Utils.dismissProgressDialog();
-            Toast.makeText(this, "Internet Connection Failed!!", Toast.LENGTH_SHORT).show();
-        }
-    }*/
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int newPosition) {
             currentPosition = newPosition;
-            quesionCounter.setText(""+(newPosition+1));
-           // quesionCounter.setText(((newPosition + 1) + " of " + reviewResult.getDetail().size());
+            quesionCounter.setText("" + (newPosition + 1));
+            // quesionCounter.setText(((newPosition + 1) + " of " + reviewResult.getDetail().size());
 
         }
 
@@ -164,13 +129,13 @@ public class ReviewresulActivity extends FragmentActivity {
         @Override
         public int getCount() {
             if (reviewResult != null && reviewResult.size() > 0)
-                return reviewResult.size();
+                return 10;//reviewResult.size();
             return 0;
         }
 
         @Override
         public Fragment getItem(int position) {
-            quesionCounter.setText(""+(position));
+            quesionCounter.setText("" + (position));
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
             return ReviewResultFragment.init(reviewResult.get(position), position);
         }

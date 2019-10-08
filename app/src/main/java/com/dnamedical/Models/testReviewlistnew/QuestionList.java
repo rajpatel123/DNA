@@ -77,12 +77,10 @@ public class QuestionList implements Parcelable{
     @SerializedName("option_4_percenatge")
     @Expose
     private Integer option4Percenatge;
-    @SerializedName("explanation_image")
+
+    @SerializedName("percentage")
     @Expose
-    private List<Object> explanationImage = null;
-    @SerializedName("refernce")
-    @Expose
-    private Refernce refernce;
+    private Integer percentage;
 
     protected QuestionList(Parcel in) {
         id = in.readString();
@@ -122,6 +120,12 @@ public class QuestionList implements Parcelable{
         } else {
             option4Percenatge = in.readInt();
         }
+        if (in.readByte() == 0) {
+            percentage = null;
+        } else {
+            percentage = in.readInt();
+        }
+        refernce = in.readParcelable(Refernce.class.getClassLoader());
     }
 
     public static final Creator<QuestionList> CREATOR = new Creator<QuestionList>() {
@@ -135,6 +139,25 @@ public class QuestionList implements Parcelable{
             return new QuestionList[size];
         }
     };
+
+    public Integer getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Integer percentage) {
+        this.percentage = percentage;
+    }
+
+
+    @SerializedName("explanation_image")
+    @Expose
+    private List<Object> explanationImage = null;
+    @SerializedName("refernce")
+    @Expose
+    private Refernce refernce;
+
+
+
 
     public String getId() {
         return id;
@@ -335,6 +358,7 @@ public class QuestionList implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeString(id);
         dest.writeString(categoryId);
         dest.writeString(categoryName);
@@ -377,5 +401,12 @@ public class QuestionList implements Parcelable{
             dest.writeByte((byte) 1);
             dest.writeInt(option4Percenatge);
         }
+        if (percentage == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(percentage);
+        }
+        dest.writeParcelable(refernce, flags);
     }
 }
