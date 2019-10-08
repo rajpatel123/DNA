@@ -1,85 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-    <!-- complex menu item to set text style -->
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
     <item
-        android:id="@+id/text_style"
-        android:title="Text Style"
-        app:showAsAction="withText"
-        android:orderInCategory="1"
-        >
-        <!-- text style menu's sub menu start from here -->
-        <menu>
-            <!-- first group (text color) of text style sub menu -->
-            <group
-                android:id="@+id/text_color_group"
-                android:checkableBehavior="single"
-                >
-                <!-- text color group's items -->
-                <item
-                    android:title="Select Text Color"
-                    android:enabled="false"
-                    android:checkable="false"
-                    />
-                <item
-                    android:id="@+id/red"
-                    android:title="Red"
-                    android:onClick="onColorGroupItemClick"
-                    />
-                <item
-                    android:id="@+id/green"
-                    android:title="Green"
-                    android:onClick="onColorGroupItemClick"
-                    />
-                <item
-                    android:id="@+id/blue"
-                    android:title="Blue"
-                    android:onClick="onColorGroupItemClick"
-                    />
-            </group>
-            <!-- second group (text size) of text style sub menu -->
-            <group
-                android:id="@+id/text_size_group"
-                android:checkableBehavior="single"
-                >
-                <!-- text size group's items -->
-                <item
-                    android:title="Select Text Size"
-                    android:enabled="false"
-                    android:checkable="false"
-                    />
-                <item
-                    android:id="@+id/large_text"
-                    android:title="Large"
-                    android:onClick="onSizeGroupItemClick"
-                    />
-                <item
-                    android:id="@+id/medium_text"
-                    android:title="Medium"
-                    android:onClick="onSizeGroupItemClick"
-                    />
-                <item
-                    android:id="@+id/small_text"
-                    android:title="Small"
-                    android:onClick="onSizeGroupItemClick"
-                    />
-            </group>
-        </menu>
-    </item>
-    <!-- bold text menu item -->
-    <item
-        android:id="@+id/text_bold"
-        android:title="Bold Text"
-        app:showAsAction=""
-        android:orderInCategory="2"
-        />
-    <!-- normal text menu item -->
-    <item
-        android:id="@+id/text_normal"
-        android:title="Normal Text"
-        app:showAsAction="never|withText"
-        android:orderInCategory="3"
-        />
+        android:id="@+id/action_favorite"
+        android:orderInCategory="300"
+        android:title="User"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="ifRoom"></item>
+
 </menu>

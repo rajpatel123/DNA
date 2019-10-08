@@ -1,29 +1,23 @@
 package com.dnamedical.Activities;
 
 
-
 import android.content.Intent;
-
-import android.graphics.Color;
-import android.os.Build;
-import android.renderscript.FieldPacker;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Adapters.ReviewQuestionListAdapter;
 import com.dnamedical.Adapters.TestReviewListAdapter;
-import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.testReviewlistnew.Answer;
 import com.dnamedical.Models.testReviewlistnew.Filters;
 import com.dnamedical.Models.testReviewlistnew.Level;
@@ -31,15 +25,12 @@ import com.dnamedical.Models.testReviewlistnew.Subject;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.dialog.FilterDialogFragment;
+import com.dnamedical.dialog.FilterAdapter;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,8 +39,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
     String user_Id, test_Id;
 
-    private Toolbar mToolbar;
-    private RecyclerView recyclerView;
+    private Toolbar mTopToolbar;
+    ;
+    private RecyclerView recyclerView, filtersRV;
     private ImageView imageView;
     private TestReviewListResponse testReviewListResponse;
     private static String TAG = TestReviewResultActivity.class.getSimpleName();
@@ -58,6 +50,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private List<Answer> filterAnswersList;
     private List<Subject> filterSubjectList;
     private Filters filters;
+    private Button applyFilters;
+    String level, subject, answer;
+    CardView filterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,50 +60,49 @@ public class TestReviewResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qbank_result_list);
         recyclerView = findViewById(R.id.recycler);
         imageView = findViewById(R.id.back);
-        tvFilter = findViewById(R.id.tvFilter);
+        filtersRV = findViewById(R.id.filtersRV);
+        applyFilters = findViewById(R.id.applyFilter);
+        filterView = findViewById(R.id.filterView);
 
 
-        mToolbar =  findViewById(R.id.toolbar);
+        mTopToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mTopToolbar);
 
-        // Set a title for toolbar
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mToolbar.setTitle("Android Menu Group Example");
-            mToolbar.setTitleTextColor(Color.WHITE);
-            setSupportActionBar(mToolbar);
 
-        }
-
-        // Set support actionbar with toolbar
-        imageView.setOnClickListener(new View.OnClickListener() {
+        applyFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                getReviewData();
+                filterView.setVisibility(View.GONE);
             }
         });
-
-        tvFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openFilterDialog();
-            }
-        });
-        getReviewData();
-
     }
 
     private void openFilterDialog() {
-        if(filters != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.addToBackStack(null);
-            FilterDialogFragment filterDialogFragment = new FilterDialogFragment();
-            filterDialogFragment.setFiltersData(filters);
-            filterDialogFragment.show(ft, "dialog");
+        filterView.setVisibility(View.VISIBLE);
+        if (filters != null) {
+            filtersRV.setLayoutManager(new LinearLayoutManager(this));
+            FilterAdapter filterAdapter = new FilterAdapter(this, filters);
+            filterAdapter.setOnFilterSelectedListener(new FilterAdapter.onFilterClickListener() {
+                @Override
+                public void onLevelSelected(String text) {
+                    level = text;
+                }
+
+                @Override
+                public void onSubjectSelected(String text) {
+                    subject = text;
+                }
+
+                @Override
+                public void onAnswerSelected(String text) {
+                    answer = text;
+                }
+            });
+            filtersRV.setAdapter(filterAdapter);
         }
     }
+
 
     @Override
     protected void onResume() {
@@ -136,10 +130,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
         }
 
 
-
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getTestReviewListData(test_Id, user_Id, new Callback<TestReviewListResponse>() {
+            RestClient.getTestReviewListData(test_Id, user_Id,level,subject,answer, new Callback<TestReviewListResponse>() {
                 @Override
                 public void onResponse(Call<TestReviewListResponse> call, Response<TestReviewListResponse> response) {
                     Utils.dismissProgressDialog();
@@ -158,7 +151,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                 public void onTestClicklist(int postion) {
                                     Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
                                     intent.putExtra("position", postion);
-                                     intent.putParcelableArrayListExtra("list",testReviewListResponse.getData().getQuestionList());
+                                    intent.putParcelableArrayListExtra("list", testReviewListResponse.getData().getQuestionList());
                                     startActivity(intent);
                                     Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
                                 }
@@ -166,11 +159,10 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             Log.d("Api Response :", "Got Success from send");
 
                             Filters filters = testReviewListResponse.getData().getFilters();
-                            if(filters != null) {
+                            if (filters != null) {
                                 getFiltersData(filters);
                             }
-                        }
-                        else {
+                        } else {
                             Toast.makeText(TestReviewResultActivity.this, "No Test", Toast.LENGTH_SHORT).show();
                         }
 
@@ -181,9 +173,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<TestReviewListResponse> call, Throwable t) {
                     Utils.dismissProgressDialog();
-                    Toast.makeText(TestReviewResultActivity.this, "Something Went Wrong!!!", Toast.LENGTH_SHORT).show();
-
-
+                   // Toast.makeText(TestReviewResultActivity.this, "Something Went Wrong!!!", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -206,5 +196,34 @@ public class TestReviewResultActivity extends AppCompatActivity {
         filterAnswersList = filters.getAnswers();
         filterSubjectList = filters.getSubject();
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbarmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_favorite) {
+            level="";
+            subject="";
+            answer="";
+            openFilterDialog();
+            return true;
+        } else {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

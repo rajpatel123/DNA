@@ -128,8 +128,10 @@ Button back_button;
 
         @Override
         public int getCount() {
-            if (reviewResult != null && reviewResult.size() > 0)
-                return 10;//reviewResult.size();
+            if (reviewResult != null && reviewResult.size() > 0){
+                return reviewResult.size();
+
+            }
             return 0;
         }
 

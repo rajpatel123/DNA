@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,7 @@ public class ReviewResultFragment extends Fragment {
     int fragNum;
     QuestionList question;
     ReviewresulActivity activity;
+    CardView explanationCard;
 
     public static Fragment init(QuestionList question, int position) {
         ReviewResultFragment reviewResultFragment = new ReviewResultFragment();
@@ -82,6 +85,7 @@ public class ReviewResultFragment extends Fragment {
         View view = inflater.inflate(R.layout.review_fragment_pager_list, container, false);
         question_image = view.findViewById(R.id.question_image);
         questionTxt = view.findViewById(R.id.questionTxt);
+        explanationCard = view.findViewById(R.id.explanationCard);
         optionAImg = view.findViewById(R.id.optionAImg);
         optionBImg = view.findViewById(R.id.optionBImg);
         optionCImg = view.findViewById(R.id.optionCImg);
@@ -103,6 +107,10 @@ public class ReviewResultFragment extends Fragment {
             optionC.setText("C. "+question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
             optionD.setText("D. "+question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
             questionTxt.setText("Q "+(fragNum+1)+". "+question.getTitle());
+
+            if (!TextUtils.isEmpty(question.getTitleImage())){
+                Picasso.with(activity).load(question.getTitleImage()).into(question_image);
+            }
             List<SliceValue> pieData = new ArrayList<>();
             pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));
             pieData.add(new SliceValue(100-question.getPercentage(), R.color.colorPrimary));
@@ -164,7 +172,12 @@ public class ReviewResultFragment extends Fragment {
                 }
             }
 
-            explannnation.setText(question.getExplanation() );
+            if (!TextUtils.isEmpty(question.getExplanation())){
+                explannnation.setText(question.getExplanation() );
+                explanationCard.setVisibility(View.VISIBLE);
+            }else{
+                explanationCard.setVisibility(View.GONE);
+            }
             percentage.setText(question.getPercentage()+"%     of the people got this right");
 
             Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);

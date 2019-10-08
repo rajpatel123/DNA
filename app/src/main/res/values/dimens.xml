@@ -142,6 +142,8 @@
     <dimen name="margin_35">35dp</dimen>
     <dimen name="size_12">12sp</dimen>
     <dimen name="margin_200">200dp</dimen>
+    <dimen name="margin_400">400dp</dimen>
+    <dimen name="margin_300">300dp</dimen>
     >>>>>>> edef2fff66019c5dfb9c004e42bcbcd583e8f386
 
 

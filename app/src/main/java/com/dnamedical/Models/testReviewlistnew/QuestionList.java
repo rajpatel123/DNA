@@ -25,7 +25,7 @@ public class QuestionList implements Parcelable{
     private String title;
     @SerializedName("title_image")
     @Expose
-    private Object titleImage;
+    private String titleImage;
     @SerializedName("option_1")
     @Expose
     private String option1;
@@ -43,19 +43,19 @@ public class QuestionList implements Parcelable{
     private String explanation;
     @SerializedName("option_1_image")
     @Expose
-    private Object option1Image;
+    private String option1Image;
     @SerializedName("correct_answer")
     @Expose
     private String correctAnswer;
     @SerializedName("option_2_image")
     @Expose
-    private Object option2Image;
+    private String option2Image;
     @SerializedName("option_3_image")
     @Expose
-    private Object option3Image;
+    private String option3Image;
     @SerializedName("option_4_image")
     @Expose
-    private Object option4Image;
+    private String option4Image;
     @SerializedName("is_bookmark")
     @Expose
     private Integer isBookmark;
@@ -151,7 +151,7 @@ public class QuestionList implements Parcelable{
 
     @SerializedName("explanation_image")
     @Expose
-    private List<Object> explanationImage = null;
+    private List<String> explanationImage = null;
     @SerializedName("refernce")
     @Expose
     private Refernce refernce;
@@ -191,11 +191,11 @@ public class QuestionList implements Parcelable{
         this.title = title;
     }
 
-    public Object getTitleImage() {
+    public String getTitleImage() {
         return titleImage;
     }
 
-    public void setTitleImage(Object titleImage) {
+    public void setTitleImage(String titleImage) {
         this.titleImage = titleImage;
     }
 
@@ -239,11 +239,11 @@ public class QuestionList implements Parcelable{
         this.explanation = explanation;
     }
 
-    public Object getOption1Image() {
+    public String getOption1Image() {
         return option1Image;
     }
 
-    public void setOption1Image(Object option1Image) {
+    public void setOption1Image(String option1Image) {
         this.option1Image = option1Image;
     }
 
@@ -255,27 +255,27 @@ public class QuestionList implements Parcelable{
         this.correctAnswer = correctAnswer;
     }
 
-    public Object getOption2Image() {
+    public String getOption2Image() {
         return option2Image;
     }
 
-    public void setOption2Image(Object option2Image) {
+    public void setOption2Image(String option2Image) {
         this.option2Image = option2Image;
     }
 
-    public Object getOption3Image() {
+    public String getOption3Image() {
         return option3Image;
     }
 
-    public void setOption3Image(Object option3Image) {
+    public void setOption3Image(String option3Image) {
         this.option3Image = option3Image;
     }
 
-    public Object getOption4Image() {
+    public String getOption4Image() {
         return option4Image;
     }
 
-    public void setOption4Image(Object option4Image) {
+    public void setOption4Image(String option4Image) {
         this.option4Image = option4Image;
     }
 
@@ -335,11 +335,11 @@ public class QuestionList implements Parcelable{
         this.option4Percenatge = option4Percenatge;
     }
 
-    public List<Object> getExplanationImage() {
+    public List<String> getExplanationImage() {
         return explanationImage;
     }
 
-    public void setExplanationImage(List<Object> explanationImage) {
+    public void setExplanationImage(List<String> explanationImage) {
         this.explanationImage = explanationImage;
     }
 

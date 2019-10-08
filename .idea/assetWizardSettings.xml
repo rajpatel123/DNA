@@ -33,8 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="review_bookmark_icon" />
-                            <entry key="sourceFile" value="C:\Users\rbpatel\Downloads\icomoon\SVG\left-arrow.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_filter" />
+                            <entry key="sourceFile" value="C:\Users\Lenovo\Downloads\icomoon (1)\SVG\filter.svg" />
                           </map>
                         </option>
                       </PersistentState>

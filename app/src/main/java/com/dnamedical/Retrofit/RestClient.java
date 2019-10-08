@@ -299,8 +299,8 @@ public class RestClient {
     }
     // new Api changes Here
 
-    public static void getTestReviewListData(String test_id, String user_id, Callback<TestReviewListResponse> callback) {
-        RetrofitClient.getClient().getTestReviewListData(test_id, user_id).enqueue(callback);
+    public static void getTestReviewListData(String test_id, String user_id, String level, String subject, String answer, Callback<TestReviewListResponse> callback) {
+        RetrofitClient.getClient().getTestReviewListData(test_id, user_id,level,answer,subject).enqueue(callback);
     }
 
 

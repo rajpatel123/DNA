@@ -401,7 +401,17 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/reviewquestionlist")
     Call<TestReviewListResponse> getTestReviewListData(
                                                        @Query("test_id") String test_id,
-                                                       @Query("user_id") String user_id);
+                                                       @Query("user_id") String user_id,
+                                                       @Query("filter_level") String filter_level,
+                                                       @Query("filter_answer") String filter_answer,
+                                                       @Query("filter_category") String filter_category);
+
+
+//    // New Api's Integrate
+//    @GET("v1/index.php/api/test/reviewquestionlist")
+//    Call<TestReviewListResponse> getTestReviewListFilteredData(
+//                                                       @Query("test_id") String test_id,
+//                                                       @Query("user_id") String user_id);
 
 }
 
