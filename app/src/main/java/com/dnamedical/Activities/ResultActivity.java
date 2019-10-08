@@ -19,6 +19,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -241,7 +242,7 @@ public class ResultActivity extends AppCompatActivity {
         RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
             public void onResponse(Call<TestResult> call, Response<TestResult> response) {
-                TestResult testResult = response.body();
+                 testResult = response.body();
                 Utils.dismissProgressDialog();
                 if (testResult != null) {
                     updateResult(testResult);
@@ -261,7 +262,7 @@ public class ResultActivity extends AppCompatActivity {
     public void init(List<ScoreAnalysi> scoreAnalysi) {
         TableLayout ll = findViewById(R.id.subjectTable);
         TableRow rowHead = new TableRow(this);
-        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
         rowHead.setLayoutParams(lp1);
         rowHead.setBackgroundResource(R.drawable.border);
 
@@ -277,33 +278,31 @@ public class ResultActivity extends AppCompatActivity {
         skipped.setTypeface(Typeface.DEFAULT_BOLD);
         score.setTypeface(Typeface.DEFAULT_BOLD);
 
-        setBorder(subject);
-        setBorder(rightAnswer);
-        setBorder(wrongAnswer);
-        setBorder(skipped);
-        setBorder(score);
+        setHeadBorder(subject);
+        setHeadBorder(rightAnswer);
+        setHeadBorder(wrongAnswer);
+        setHeadBorder(skipped);
+        //setBorder(score);
 
-        subject.setPadding(10, 5, 5, 5);
+        subject.setPadding(10, 0, 5, 5);
         subject.setGravity(Gravity.CENTER);
-        rightAnswer.setPadding(10, 5, 5, 5);
+        rightAnswer.setPadding(10, 0, 5, 5);
         rightAnswer.setGravity(Gravity.CENTER);
-        skipped.setPadding(10, 5, 5, 5);
+        skipped.setPadding(10, 0, 5, 5);
         skipped.setGravity(Gravity.CENTER);
-        rightAnswer.setPadding(10, 5, 5, 5);
+        rightAnswer.setPadding(10, 0, 5, 5);
         rightAnswer.setGravity(Gravity.CENTER);
-        score.setPadding(10, 5, 5, 5);
+        score.setPadding(10, 0, 5, 5);
         score.setGravity(Gravity.CENTER);
 
 
-        subject.setText("Subject");
-        rightAnswer.setText("(++)");
-        rightAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0);
+        subject.setText(" SUBJECT ");
+        rightAnswer.setText(" Correct(+4) ");
 
-        wrongAnswer.setText("(--)");
-        wrongAnswer.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_close, 0, 0, 0);
+        wrongAnswer.setText(" Incorrect(-1) ");
 
-        skipped.setText("Not Attempted");
-        score.setText("Score");
+        skipped.setText(" Skipped ");
+        score.setText(" Score  ");
 
         subject.setTextColor(ContextCompat.getColor(this, R.color.red));
         rightAnswer.setTextColor(ContextCompat.getColor(this, R.color.red));
@@ -330,25 +329,32 @@ public class ResultActivity extends AppCompatActivity {
             TextView wrongAnswerTv = new TextView(this);
             TextView skippedTv = new TextView(this);
             TextView scoreTv = new TextView(this);
-            subjectTv.setGravity(Gravity.CENTER);
+
+            subjectTv.setGravity(Gravity.START);
             rightAnswerTv.setGravity(Gravity.CENTER);
             wrongAnswerTv.setGravity(Gravity.CENTER);
             skippedTv.setGravity(Gravity.CENTER);
             scoreTv.setGravity(Gravity.CENTER);
+
+            subject.setTextColor(ContextCompat.getColor(this, R.color.black));
+            rightAnswer.setTextColor(ContextCompat.getColor(this, R.color.black));
+            wrongAnswer.setTextColor(ContextCompat.getColor(this, R.color.black));
+            skipped.setTextColor(ContextCompat.getColor(this, R.color.black));
+            score.setTextColor(ContextCompat.getColor(this, R.color.black));
 
 
             setBorder(subjectTv);
             setBorder(rightAnswerTv);
             setBorder(wrongAnswerTv);
             setBorder(skippedTv);
-            setBorder(scoreTv);
+            //setBorder(scoreTv);
 
 
-            subjectTv.setPadding(15, 5, 15, 5);
-            rightAnswerTv.setPadding(10, 5, 5, 5);
-            skippedTv.setPadding(10, 5, 5, 5);
-            rightAnswerTv.setPadding(10, 5, 5, 5);
-            scoreTv.setPadding(10, 5, 5, 5);
+            subjectTv.setPadding(15, 0, 15, 5);
+            rightAnswerTv.setPadding(10, 0, 5, 5);
+            skippedTv.setPadding(10, 0, 5, 5);
+            rightAnswerTv.setPadding(10, 0, 5, 5);
+            scoreTv.setPadding(10, 0, 5, 5);
 
 
             subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
@@ -363,6 +369,46 @@ public class ResultActivity extends AppCompatActivity {
             row.addView(scoreTv);
             ll.addView(row, i + 1);
         }
+
+
+        TableRow rowBottom = new TableRow(this);
+        TableRow.LayoutParams lp2 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+        rowBottom.setLayoutParams(lp2);
+//        rowBottom.setBackgroundResource(R.drawable.border);
+
+        TextView subjectblank = new TextView(this);
+        TextView rightAnswerblank = new TextView(this);
+        TextView wrongAnswerblank = new TextView(this);
+        TextView totalmarks = new TextView(this);
+        TextView totalMarksValue = new TextView(this);
+
+        totalmarks.setTypeface(Typeface.DEFAULT_BOLD);
+        totalMarksValue.setTypeface(Typeface.DEFAULT_BOLD);
+
+        //setHeadBorder(subject);
+        // setHeadBorder(rightAnswer);
+        //setHeadBorder(wrongAnswer);
+        setBottomHeadBorder(totalmarks);
+        setBottomHeadBorder(totalMarksValue);
+
+
+        totalmarks.setPadding(10, 0, 5, 5);
+        totalmarks.setGravity(Gravity.CENTER);
+        totalMarksValue.setPadding(10, 0, 5, 5);
+        totalMarksValue.setGravity(Gravity.CENTER);
+
+        totalmarks.setText("  TOTAL MARKS  ");
+        totalMarksValue.setText(testResult.getData().getYourScore());
+
+        totalmarks.setTextColor(ContextCompat.getColor(this, R.color.red));
+        totalMarksValue.setTextColor(ContextCompat.getColor(this, R.color.red));
+
+        rowBottom.addView(subjectblank);
+        rowBottom.addView(rightAnswerblank);
+        rowBottom.addView(wrongAnswerblank);
+        rowBottom.addView(totalmarks);
+        rowBottom.addView(totalMarksValue);
+        ll.addView(rowBottom, scoreAnalysi.size()+1);
     }
 
     private void setBorder(TextView tv) {
@@ -370,6 +416,27 @@ public class ResultActivity extends AppCompatActivity {
         border.getPaint().setStyle(Paint.Style.STROKE);
         border.getPaint().setColor(Color.BLACK);
 
+
+        tv.setBackground(border);
+    }
+
+    private void setBottomHeadBorder(TextView tv) {
+        ShapeDrawable border = new ShapeDrawable(new RectShape());
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        border.getPaint().setStrokeWidth(2.2f);
+
+
+        tv.setBackground(border);
+    }
+
+    private void setHeadBorder(TextView tv) {
+        ShapeDrawable border = new ShapeDrawable(new RectShape());
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        border.getPaint().setColor(Color.BLACK);
+
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.size_12));
         tv.setBackground(border);
     }
 

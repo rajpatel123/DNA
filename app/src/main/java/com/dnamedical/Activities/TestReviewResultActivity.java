@@ -4,6 +4,7 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 
+import android.renderscript.FieldPacker;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,12 +20,19 @@ import android.widget.Toast;
 
 import com.dnamedical.Adapters.ReviewQuestionListAdapter;
 import com.dnamedical.Adapters.TestReviewListAdapter;
+import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.testReviewlistnew.Answer;
+import com.dnamedical.Models.testReviewlistnew.Filters;
+import com.dnamedical.Models.testReviewlistnew.Level;
+import com.dnamedical.Models.testReviewlistnew.Subject;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.dialog.FilterDialogFragment;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -43,6 +51,10 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private TestReviewListResponse testReviewListResponse;
     private static String TAG = TestReviewResultActivity.class.getSimpleName();
     private TextView tvFilter;
+    private List<Level> filterLevelsList;
+    private List<Answer> filterAnswersList;
+    private List<Subject> filterSubjectList;
+    private Filters filters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +82,17 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private void openFilterDialog() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
+        if(filters != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+            FilterDialogFragment filterDialogFragment = new FilterDialogFragment();
+            filterDialogFragment.setFiltersData(filters);
+            filterDialogFragment.show(ft, "dialog");
         }
-        ft.addToBackStack(null);
-        DialogFragment dialogFragment = new FilterDialogFragment();
-        dialogFragment.show(ft, "dialog");
     }
 
     @Override
@@ -128,14 +143,18 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                 public void onTestClicklist(int postion) {
                                     Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
                                     intent.putExtra("position", postion);
-                                   // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData());
-                                    // intent.putParcelableArrayListExtra("list",testReviewListResponse.getData())
+                                     intent.putParcelableArrayListExtra("list",testReviewListResponse.getData().getQuestionList());
                                     startActivity(intent);
                                     finish();
                                     Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
                                 }
                             });
                             Log.d("Api Response :", "Got Success from send");
+
+                            Filters filters = testReviewListResponse.getData().getFilters();
+                            if(filters != null) {
+                                getFiltersData(filters);
+                            }
                         }
                         else {
                             Toast.makeText(TestReviewResultActivity.this, "No Test", Toast.LENGTH_SHORT).show();
@@ -161,6 +180,17 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
         }
 
+
+    }
+
+    /**
+     * This method is used to get Filters Data
+     */
+    private void getFiltersData(Filters filters) {
+        this.filters = filters;
+        filterLevelsList = filters.getLevels();
+        filterAnswersList = filters.getAnswers();
+        filterSubjectList = filters.getSubject();
 
     }
 }

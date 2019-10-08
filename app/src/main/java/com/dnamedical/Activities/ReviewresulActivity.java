@@ -13,8 +13,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 import com.dnamedical.Models.ReviewResult.ReviewResult;
+import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
 import com.dnamedical.fragment.ReviewResultFragment;
+
+import java.util.ArrayList;
 
 
 public class ReviewresulActivity extends FragmentActivity {
@@ -28,7 +31,7 @@ public class ReviewresulActivity extends FragmentActivity {
     TextView leftTest, rightTest;
     int itemPosition;
 
-    private ReviewResult reviewResult;
+    private ArrayList<QuestionList> reviewResult;
 
 
     @Override
@@ -41,11 +44,11 @@ public class ReviewresulActivity extends FragmentActivity {
         quesionCounter = findViewById(R.id.question_number);
 
         Intent intent = getIntent();
-        reviewResult = intent.getParcelableExtra("list");
+        reviewResult = intent.getParcelableArrayListExtra("list");
          itemPosition=intent.getIntExtra("position",0);
         if (reviewResult != null) {
             mAdapter = new MyAdapter(getSupportFragmentManager(), reviewResult, quesionCounter);
-            mPager = (ViewPager) findViewById(R.id.pager2);
+            mPager = findViewById(R.id.pager2);
             mPager.addOnPageChangeListener(pageChangeListener);
             mPager.setAdapter(mAdapter);
             mPager.setCurrentItem(itemPosition);
@@ -148,10 +151,10 @@ public class ReviewresulActivity extends FragmentActivity {
     };
 
     public static class MyAdapter extends FragmentPagerAdapter {
-        ReviewResult reviewResult = null;
+        ArrayList<QuestionList> reviewResult = null;
         TextView quesionCounter;
 
-        public MyAdapter(FragmentManager fragmentManager, ReviewResult reviewResult, TextView quesionCounter) {
+        public MyAdapter(FragmentManager fragmentManager, ArrayList<QuestionList> reviewResult, TextView quesionCounter) {
             super(fragmentManager);
             this.reviewResult = reviewResult;
             this.quesionCounter = quesionCounter;
@@ -160,8 +163,8 @@ public class ReviewresulActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            if (reviewResult.getDetail() != null && reviewResult.getDetail().size() > 0)
-                return reviewResult.getDetail().size();
+            if (reviewResult != null && reviewResult.size() > 0)
+                return reviewResult.size();
             return 0;
         }
 
@@ -169,7 +172,7 @@ public class ReviewresulActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             quesionCounter.setText(""+(position));
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
-            return ReviewResultFragment.init(reviewResult.getDetail().get(position), position);
+            return ReviewResultFragment.init(reviewResult.get(position), position);
         }
     }
 }

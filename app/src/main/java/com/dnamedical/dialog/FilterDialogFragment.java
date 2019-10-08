@@ -1,5 +1,7 @@
 package com.dnamedical.dialog;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.dnamedical.Models.testReviewlistnew.Filters;
 import com.dnamedical.R;
 
 public class FilterDialogFragment extends DialogFragment {
 
     private RecyclerView rvFilterItem;
     private Button btnApply;
+    private Filters filters;
 
 
     @Override
@@ -37,9 +41,15 @@ public class FilterDialogFragment extends DialogFragment {
         return v;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
     private void setRecyclerView() {
         rvFilterItem.setLayoutManager(new LinearLayoutManager(getActivity()));
-        FilterAdapter filterAdapter = new FilterAdapter();
+        FilterAdapter filterAdapter = new FilterAdapter(getActivity(), filters);
         rvFilterItem.setAdapter(filterAdapter);
     }
 
@@ -53,6 +63,15 @@ public class FilterDialogFragment extends DialogFragment {
 
             }
         });
+    }
+
+    /**
+     * This method is used to set Filters
+     * @param filters
+     */
+    public void setFiltersData(Filters filters) {
+        this.filters = filters;
+
     }
 }
 

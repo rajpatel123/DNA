@@ -19,7 +19,29 @@
                 android:id="@+id/answerList1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/questionTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Tetsmfkfnldnv,  fjefwfnfuyfw"
+                    android:textSize="@dimen/text_large"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/question_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/image"
+                    android:visibility="visible" />
+
+
+
+
+
+            </LinearLayout>
         </ScrollView>
     </FrameLayout>
 
