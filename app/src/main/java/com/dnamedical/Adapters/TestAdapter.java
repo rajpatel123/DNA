@@ -27,6 +27,7 @@ import static android.view.View.GONE;
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     private Context applicationContext;
+    private List<Test> dailyTest;
     private List<Test> grandTests;
     private List<Test> miniTests;
     private List<Test> subjectTests;
@@ -47,7 +48,39 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final TestAdapter.ViewHolder holder, int i) {
 
-        if (grandTests != null) {
+        if (dailyTest != null) {
+            holder.title.setText(dailyTest.get(holder.getAdapterPosition()).getTitle());
+            Test test = dailyTest.get(holder.getAdapterPosition());
+
+            holder.questionTotal.setText(test.getQuestion_count() + " Q's");
+            holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
+            holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
+
+            //holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
+
+            if (holder.getAdapterPosition() > 0) {
+                if (!Objects.requireNonNull(test.getStartDate()).equals(test.getStartDate())) {
+                    holder.textDate.setVisibility(View.VISIBLE);
+                } else {
+                    holder.textDate.setVisibility(GONE);
+                }
+            }
+            if (test.getIsPaid().equalsIgnoreCase("1")) {
+                holder.imageLock.setImageResource(R.drawable.test_lock);
+            }
+
+            holder.cardview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onUserClickCallback != null) {
+                        onUserClickCallback.onCateClick(test.getId(), test.getDuration()
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(),test.getStartDate(),test.getResultDate());
+                    }
+                }
+            });
+
+
+        }else  if (grandTests != null) {
             holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTitle());
             Test test = grandTests.get(holder.getAdapterPosition());
 
@@ -190,7 +223,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (grandTests != null) {
+        if (dailyTest!=null){
+            return dailyTest.size();
+        }else if (grandTests != null) {
             return grandTests.size();
         } else if (allTests != null) {
             return allTests.size();
@@ -228,6 +263,10 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     public void setListener(TestAdapter.OnCategoryClick onUserClickCallback) {
         this.onUserClickCallback = onUserClickCallback;
+    }
+
+    public void setDailyTest(List<Test> dailyTest) {
+        this.dailyTest = dailyTest;
     }
 
     public interface OnCategoryClick {

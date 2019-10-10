@@ -113,13 +113,14 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !loadedOnce) {
-            getVideos();
+
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        getVideos();
     }
 
 

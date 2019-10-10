@@ -74,13 +74,15 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void setupTabIcons() {
+
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
-        tabOne.setText("Free");
+        tabOne.setText("Buy Now");
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
-        tabTwo.setText("Buy Now");
+        tabTwo.setText("Free");
         tabLayout.getTabAt(1).setCustomView(tabTwo);
+
 /*
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.vedio_custom_layout, null);
         tabThree.setText("Unattempted");
@@ -98,8 +100,9 @@ public class VideoActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new FreeFragment(), "Free");
         adapter.addFrag(new BuynowFragment(), "Buy Now");
+        adapter.addFrag(new FreeFragment(), "Free");
+
   /*      adapter.addFrag(new UnattemptedFragment(), "Unattempted");
         adapter.addFrag(new CompleteFragment(), "Completed");*/
         adapter.addFrag(new PausedFragment(), "Paused");

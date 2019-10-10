@@ -106,6 +106,16 @@ public class MainActivity extends AppCompatActivity
 
     private List<Test> grandTests = new ArrayList<>();
     private List<Test> miniTests = new ArrayList<>();
+
+    public List<Test> getDailyTest() {
+        return dailyTest;
+    }
+
+    public void setDailyTest(List<Test> dailyTest) {
+        this.dailyTest = dailyTest;
+    }
+
+    private List<Test> dailyTest = new ArrayList<>();
     private List<Test> subjectTests = new ArrayList<>();
     private List<Test> allTests = new ArrayList<>();
 

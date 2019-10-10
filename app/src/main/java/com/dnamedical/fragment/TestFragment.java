@@ -14,11 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.dnamedical.Activities.MainActivity;
-import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
@@ -26,6 +22,9 @@ import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +42,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
 
     private List<Test> grandTests = new ArrayList<>();
+    private List<Test> dailyTest = new ArrayList<>();
     private List<Test> miniTests = new ArrayList<>();
     private List<Test> subjectTests = new ArrayList<>();
     private List<Test> allTests = new ArrayList<>();
@@ -50,6 +50,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     public MainActivity mainActivity;
     public String subCatId;
     AllTestFragment allTestFragment;
+    DailyTestFragment dailyTestFragment;
     MockTestFragment mockTestFragment;
     GrandTestFragment grandTestFragment;
     SubjectWiseTestFragment subjectWiseTestFragment;
@@ -95,8 +96,13 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     }
 
     private void setupTabIcons() {
+//        TextView tabOne = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
+//        tabOne.setText("All Test");
+//        tabLayout.getTabAt(0).setCustomView(tabOne);
+
+
         TextView tabOne = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-        tabOne.setText("All Test");
+        tabOne.setText("Daily Test");
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
@@ -113,13 +119,15 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        dailyTestFragment = new DailyTestFragment();
         allTestFragment = new AllTestFragment();
         grandTestFragment = new GrandTestFragment();
         mockTestFragment = new MockTestFragment();
         subjectWiseTestFragment = new SubjectWiseTestFragment();
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFrag(allTestFragment, "All Test");
+        //adapter.addFrag(allTestFragment, "All Test");
+        adapter.addFrag(dailyTestFragment, "Daily Test");
         adapter.addFrag(grandTestFragment, "Grand Test");
         adapter.addFrag(mockTestFragment, "Mock Test");
         adapter.addFrag(subjectWiseTestFragment, "SWT");
@@ -142,10 +150,11 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     }
 
     public void updateAllTest() {
-        if (allTestFragment==null){
+        if (allTestFragment == null) {
             return;
         }
-        allTestFragment.showTest();
+        dailyTestFragment.showTest();
+        //allTestFragment.showTest();
         mockTestFragment.showTest();
         grandTestFragment.showTest();
         subjectWiseTestFragment.showTest();
@@ -213,8 +222,8 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
                                 && testDataResponse.getData().getTestList() != null
                                 && testDataResponse.getData().getTestList().size() > 0
                                 && testDataResponse.getData().getTestList().get(0).getList().size() > 0) {
-                            grandTests = testDataResponse.getData().getTestList().get(0).getList();
-                            mainActivity.setGrandTests(grandTests);
+                            dailyTest = testDataResponse.getData().getTestList().get(0).getList();
+                            mainActivity.setDailyTest(dailyTest);
 
                         }
 
@@ -222,8 +231,8 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
                                 && testDataResponse.getData().getTestList() != null
                                 && testDataResponse.getData().getTestList().size() > 0
                                 && testDataResponse.getData().getTestList().get(1).getList().size() > 0) {
-                          miniTests = testDataResponse.getData().getTestList().get(1).getList();
-                            mainActivity.setMiniTests(miniTests);
+                            grandTests = testDataResponse.getData().getTestList().get(1).getList();
+                            mainActivity.setGrandTests(grandTests);
 
                         }
 
@@ -231,7 +240,16 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
                                 && testDataResponse.getData().getTestList() != null
                                 && testDataResponse.getData().getTestList().size() > 0
                                 && testDataResponse.getData().getTestList().get(2).getList().size() > 0) {
-                            subjectTests = testDataResponse.getData().getTestList().get(2).getList();
+                            miniTests = testDataResponse.getData().getTestList().get(2).getList();
+                            mainActivity.setMiniTests(miniTests);
+
+                        }
+
+                        if (testDataResponse.getData() != null
+                                && testDataResponse.getData().getTestList() != null
+                                && testDataResponse.getData().getTestList().size() > 0
+                                && testDataResponse.getData().getTestList().get(3).getList().size() > 0) {
+                            subjectTests = testDataResponse.getData().getTestList().get(3).getList();
                             mainActivity.setSubjectTests(subjectTests);
                         }
 

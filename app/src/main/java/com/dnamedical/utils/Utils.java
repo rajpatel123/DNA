@@ -148,7 +148,7 @@ public class Utils {
         try {
             Log.d("date", "" + timeStamp);
             SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
-            Date dNow = new Date(timeStamp);
+            Date dNow = new Date(timeStamp*1000);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
             e.printStackTrace();

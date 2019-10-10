@@ -6,17 +6,12 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.TypedValue;
@@ -26,13 +21,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.dnamedical.Adapters.ResultAdapter;
-import com.dnamedical.Adapters.result;
 import com.dnamedical.Models.ResultData.AllReult;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.ResultData.UserResult;
@@ -44,7 +33,8 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
-import hiennguyen.me.circleseekbar.CircleSeekBar;
+import java.util.List;
+
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -71,7 +61,7 @@ public class ResultActivity extends AppCompatActivity {
     String user_id;
     TestResult testResult;
     TextView rankTV, dateTV, startTimeTV, endTimeTv, yourScoreTV, totalMarksTv,
-            percentageTV, percentaileTV,totalTestTime;
+            percentageTV, percentaileTV, totalTestTime;
     TextView guessCtoWtv, guessWtoCtv, guessWtoWtv, guessTotalSwitchedtv;
     TextView diffEasyCurrectTV, diffMediumCurrectTV, diffHardCurrectTV,
             diffEasyWrongTV, diffMediumWrongTV, diffHardWrongTV, diffEasySkipTV, diffMediumSkipTV, diffHardSkipTV;
@@ -182,7 +172,7 @@ public class ResultActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
                 intent1.putExtra("testid", test_id);
                 startActivity(intent1);
-               // finish();
+                // finish();
 
             }
         });
@@ -194,7 +184,7 @@ public class ResultActivity extends AppCompatActivity {
         rankTV.setText("" + testResult.getData().getRank());
         startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
         endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
-        totalTestTime.setText("" + Utils.getTimeTakenInTestFormat((testResult.getData().getEndTime()-testResult.getData().getStartTime())));
+        totalTestTime.setText("" + Utils.getTimeTakenInTestFormat((testResult.getData().getEndTime() - testResult.getData().getStartTime())));
         dateTV.setText("" + Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
 
         yourScoreTV.setText("" + testResult.getData().getYourScore());
@@ -244,7 +234,7 @@ public class ResultActivity extends AppCompatActivity {
         RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
             public void onResponse(Call<TestResult> call, Response<TestResult> response) {
-                 testResult = response.body();
+                testResult = response.body();
                 Utils.dismissProgressDialog();
                 if (testResult != null) {
                     updateResult(testResult);
@@ -286,15 +276,15 @@ public class ResultActivity extends AppCompatActivity {
         setHeadBorder(skipped);
         //setBorder(score);
 
-        subject.setPadding(10, 0, 5, 5);
+        subject.setPadding(5, 0, 5, 5);
         subject.setGravity(Gravity.CENTER);
-        rightAnswer.setPadding(10, 0, 5, 5);
+        rightAnswer.setPadding(5, 0, 5, 5);
         rightAnswer.setGravity(Gravity.CENTER);
-        skipped.setPadding(10, 0, 5, 5);
+        skipped.setPadding(0, 0, 0, 5);
         skipped.setGravity(Gravity.CENTER);
-        rightAnswer.setPadding(10, 0, 5, 5);
+        rightAnswer.setPadding(5, 0, 5, 5);
         rightAnswer.setGravity(Gravity.CENTER);
-        score.setPadding(10, 0, 5, 5);
+        score.setPadding(5, 0, 5, 5);
         score.setGravity(Gravity.CENTER);
 
 
@@ -303,7 +293,7 @@ public class ResultActivity extends AppCompatActivity {
 
         wrongAnswer.setText(" Incorrect(-1) ");
 
-        skipped.setText(" Skipped ");
+        skipped.setText("Skipped");
         score.setText(" Score  ");
 
         subject.setTextColor(ContextCompat.getColor(this, R.color.red));
@@ -346,6 +336,7 @@ public class ResultActivity extends AppCompatActivity {
 
 
             setBorder(subjectTv);
+
             setBorder(rightAnswerTv);
             setBorder(wrongAnswerTv);
             setBorder(skippedTv);
@@ -354,9 +345,9 @@ public class ResultActivity extends AppCompatActivity {
 
             subjectTv.setPadding(15, 0, 15, 5);
             rightAnswerTv.setPadding(10, 0, 5, 5);
-            skippedTv.setPadding(10, 0, 5, 5);
+            skippedTv.setPadding(0, 0, 5, 5);
             rightAnswerTv.setPadding(10, 0, 5, 5);
-            scoreTv.setPadding(10, 0, 5, 5);
+            scoreTv.setPadding(5, 0, 5, 5);
 
 
             subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
@@ -399,7 +390,8 @@ public class ResultActivity extends AppCompatActivity {
         totalMarksValue.setPadding(10, 0, 5, 5);
         totalMarksValue.setGravity(Gravity.CENTER);
 
-        totalmarks.setText("  TOTAL MARKS  ");
+        totalmarks.setText("  TOTAL ");
+
         totalMarksValue.setText(testResult.getData().getYourScore());
 
         totalmarks.setTextColor(ContextCompat.getColor(this, R.color.red));
@@ -410,7 +402,7 @@ public class ResultActivity extends AppCompatActivity {
         rowBottom.addView(wrongAnswerblank);
         rowBottom.addView(totalmarks);
         rowBottom.addView(totalMarksValue);
-        ll.addView(rowBottom, scoreAnalysi.size()+1);
+        ll.addView(rowBottom, scoreAnalysi.size() + 1);
     }
 
     private void setBorder(TextView tv) {
@@ -418,7 +410,7 @@ public class ResultActivity extends AppCompatActivity {
         border.getPaint().setStyle(Paint.Style.STROKE);
         border.getPaint().setColor(Color.BLACK);
 
-
+        //tv.setLines(2);
         tv.setBackground(border);
     }
 
