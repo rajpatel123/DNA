@@ -104,7 +104,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     public void showTest() {
-        if (mainActivity != null && mainActivity.getGrandTests() != null && mainActivity.getAllTests().size() > 0) {
+        if (mainActivity != null && mainActivity.getDailyTest() != null && mainActivity.getDailyTest().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             dailyTest= mainActivity.getDailyTest();
             TestAdapter testAdapter = new TestAdapter(getActivity());

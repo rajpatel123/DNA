@@ -121,8 +121,8 @@ public class RestClient {
         RetrofitClient.getClient().submitAnswer(q_id, u_id, is_completed, userAnswer).enqueue(callback);
     }
 
-    public static void submitQuestionTestAnswer(RequestBody userId, RequestBody testID, RequestBody qID, RequestBody answerID, RequestBody guesStatus, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().submitTestQuestionAnswer(userId, testID, qID, answerID, guesStatus).enqueue(callback);
+    public static void submitQuestionTestAnswer(RequestBody userId, RequestBody testID, RequestBody qID, RequestBody answerID, RequestBody guesStatus,RequestBody edit, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitTestQuestionAnswer(userId, testID, qID, answerID, guesStatus,edit).enqueue(callback);
     }
 
 

@@ -318,7 +318,8 @@ public interface ApiInterface {
                                                 @Part("test_id") RequestBody testID,
                                                 @Part("question_id") RequestBody qID,
                                                 @Part("answer") RequestBody answerID,
-                                                @Part("is_guess") RequestBody guesStatus);
+                                                @Part("is_guess") RequestBody guesStatus,
+                                                @Part("is_edit") RequestBody edit);
 
     @Multipart
     @POST("v1/index.php/api/test/submitselectedoption")

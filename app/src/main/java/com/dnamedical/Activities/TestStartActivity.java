@@ -129,7 +129,7 @@ public class TestStartActivity extends AppCompatActivity {
                     StartTest();
                 } else {
                     Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
-                    intent.putExtra("Test_Id", id);
+                    intent.putExtra("testid", id);
                     startActivity(intent);
                     finish();
 
@@ -191,6 +191,11 @@ public class TestStartActivity extends AppCompatActivity {
 
     private void updateTestTypeText(String type) {
         switch (type) {
+
+            case "daily_test":
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                break;
+
             case "grand_test":
                 testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;

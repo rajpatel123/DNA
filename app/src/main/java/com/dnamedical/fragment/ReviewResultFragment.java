@@ -1,13 +1,15 @@
 package com.dnamedical.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
+import com.dnamedical.utils.PicassoImageGetter;
+import com.dnamedical.utils.URLImageParser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -102,18 +106,18 @@ public class ReviewResultFragment extends Fragment {
         refText = view.findViewById(R.id.refText);
         PieChartView pieChartView = view.findViewById(R.id.chart);
         if (question != null) {
-            optionA.setText("A. "+question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
-            optionB.setText("B. "+question.getOption2() + " [" + question.getOption2Percenatge() + "%]");
-            optionC.setText("C. "+question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
-            optionD.setText("D. "+question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
-            questionTxt.setText("Q "+(fragNum+1)+". "+question.getTitle());
+            optionA.setText("A. " + question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
+            optionB.setText("B. " + question.getOption2() + " [" + question.getOption2Percenatge() + "%]");
+            optionC.setText("C. " + question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
+            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
+            questionTxt.setText("Q " + (fragNum + 1) + ". " + question.getTitle());
 
-            if (!TextUtils.isEmpty(question.getTitleImage())){
+            if (!TextUtils.isEmpty(question.getTitleImage())) {
                 Picasso.with(activity).load(question.getTitleImage()).into(question_image);
             }
             List<SliceValue> pieData = new ArrayList<>();
             pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));
-            pieData.add(new SliceValue(100-question.getPercentage(), R.color.colorPrimary));
+            pieData.add(new SliceValue(100 - question.getPercentage(), R.color.colorPrimary));
             PieChartData pieChartData = new PieChartData(pieData);
             pieChartView.setPieChartData(pieChartData);
 
@@ -172,13 +176,20 @@ public class ReviewResultFragment extends Fragment {
                 }
             }
 
-            if (!TextUtils.isEmpty(question.getExplanation())){
-                explannnation.setText(question.getExplanation() );
+            if (!TextUtils.isEmpty(question.getExplanation())) {
+                PicassoImageGetter imageGetter = new PicassoImageGetter(explannnation,activity);
+                Spannable html;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    html = (Spannable) Html.fromHtml(question.getExplanation(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                } else {
+                    html = (Spannable) Html.fromHtml(question.getExplanation(), imageGetter, null);
+                }
+                explannnation.setText(html);
                 explanationCard.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 explanationCard.setVisibility(View.GONE);
             }
-            percentage.setText(question.getPercentage()+"%     of the people got this right");
+            percentage.setText(question.getPercentage() + "%     of the people got this right");
 
             Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
             refText.setText(question.getRefernce().getTitle());

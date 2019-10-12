@@ -47,7 +47,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     public void onAttach(Context context) {
         super.onAttach(context);
         mainActivity = (MainActivity) getActivity();
-        ;
+
 
     }
 

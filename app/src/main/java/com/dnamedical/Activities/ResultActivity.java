@@ -82,8 +82,8 @@ public class ResultActivity extends AppCompatActivity {
 
         reviewButton = findViewById(R.id.reviewBtn);
 
-        if (getIntent().hasExtra("Test_Id")) {
-            test_id = getIntent().getStringExtra("Test_Id");
+        if (getIntent().hasExtra("testid")) {
+            test_id = getIntent().getStringExtra("testid");
 
         }
 

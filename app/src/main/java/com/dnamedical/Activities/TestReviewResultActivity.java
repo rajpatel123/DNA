@@ -79,9 +79,10 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private void openFilterDialog() {
-        filterView.setVisibility(View.VISIBLE);
         if (filters != null) {
             filtersRV.setLayoutManager(new LinearLayoutManager(this));
+            filterView.setVisibility(View.VISIBLE);
+
             FilterAdapter filterAdapter = new FilterAdapter(this, filters);
             filterAdapter.setOnFilterSelectedListener(new FilterAdapter.onFilterClickListener() {
                 @Override
@@ -107,7 +108,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getReviewData();
+        if (testReviewListResponse==null){
+            getReviewData();
+        }
 
     }
 

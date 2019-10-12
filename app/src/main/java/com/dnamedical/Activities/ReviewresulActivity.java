@@ -27,10 +27,10 @@ public class ReviewresulActivity extends FragmentActivity {
     TextView quesionCounter;
     TextView timer;
     Toolbar toolbar;
-    static int currentPosition;
+    int currentPosition;
     String userId;
     TextView leftTest, rightTest;
-    int itemPosition;
+     static int itemPosition;
 Button back_button;
     private ArrayList<QuestionList> reviewResult;
 
@@ -61,7 +61,11 @@ Button back_button;
             @Override
             public void onClick(View v) {
                 if (currentPosition > 0) {
-                    quesionCounter.setText("" + (currentPosition - 1));
+                    if (itemPosition<1){
+                        quesionCounter.setText("" + (itemPosition+1));
+                    }else{
+                        quesionCounter.setText("" + (currentPosition-1));
+                    }
                     //quesionCounter.setText((currentPosition - 1) + " of " + reviewResult.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
                 }
@@ -73,7 +77,11 @@ Button back_button;
         rightTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quesionCounter.setText("" + (currentPosition + 1));
+                if (itemPosition<1){
+                    quesionCounter.setText("" + (itemPosition+1));
+                }else{
+                    quesionCounter.setText("" + (currentPosition + 1));
+                }
                 // quesionCounter.setText((currentPosition + 1) + " of " + reviewResult.getDetail().size());
                 mPager.setCurrentItem(currentPosition + 1);
 
@@ -137,7 +145,11 @@ Button back_button;
 
         @Override
         public Fragment getItem(int position) {
-            quesionCounter.setText("" + (position));
+            if (itemPosition<1){
+                quesionCounter.setText("" + (itemPosition+1));
+            }else{
+                quesionCounter.setText("" + (position));
+            }
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
             return ReviewResultFragment.init(reviewResult.get(position), position);
         }

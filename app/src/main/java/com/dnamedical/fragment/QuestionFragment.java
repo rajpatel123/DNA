@@ -86,6 +86,7 @@ public class QuestionFragment extends Fragment {
 //            DrawableCompat.setTint(activity.star.getDrawable(), ContextCompat.getColor(activity, R.color.card_gray));
 //        }
 
+        activity.question_id =question.getId();
         activity.guessCheck.setChecked(question.isGues());
         if (!TextUtils.isEmpty(question.getTitle_image())) {
             imageQuestion.setVisibility(View.VISIBLE);
@@ -112,8 +113,10 @@ public class QuestionFragment extends Fragment {
                             activity.answer = "1";
                             updateAnswer(cardView1);
 
+                            if (!TextUtils.isEmpty(question.getSelectedOption())){
+                                updateToServerAnswerSelection();
+                            }
                             question.setSelectedOption(question.getOption1());
-                            updateToServerAnswerSelection();
 
                         }
                     });
@@ -133,10 +136,11 @@ public class QuestionFragment extends Fragment {
                         public void onClick(View view) {
 
                             activity.answer = "2";
-
+                            if (!TextUtils.isEmpty(question.getSelectedOption())){
+                                updateToServerAnswerSelection();
+                            }
                             updateAnswer(cardView2);
                             question.setSelectedOption(question.getOption2());
-                            updateToServerAnswerSelection();
 
                         }
                     });
@@ -157,9 +161,11 @@ public class QuestionFragment extends Fragment {
                         public void onClick(View view) {
 
                             activity.answer = "3";
+                            if (!TextUtils.isEmpty(question.getSelectedOption())){
+                                updateToServerAnswerSelection();
+                            }
                             question.setSelectedOption(question.getOption3());
                             updateAnswer(cardView3);
-                            updateToServerAnswerSelection();
 
                         }
                     });
@@ -178,9 +184,11 @@ public class QuestionFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             activity.answer = "4";
+                            if (!TextUtils.isEmpty(question.getSelectedOption())){
+                                updateToServerAnswerSelection();
+                            }
                             question.setSelectedOption(question.getOption4());
                             updateAnswer(cardView4);
-                            updateToServerAnswerSelection();
 
                         }
                     });

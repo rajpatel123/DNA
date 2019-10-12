@@ -258,7 +258,6 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         //Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
 
 
-        updateQuestionsFragment();
     }
 
 
@@ -279,6 +278,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 if (testResult != null) {
                     Intent intent = new Intent(TestActivity.this, ResultActivity.class);
                     intent.putExtra(Constants.RESULT, testResult);
+                    intent.putExtra("testid",test_id);
                     startActivity(intent);
                     Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
                     finish();
@@ -337,10 +337,13 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
             RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
             RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
             RequestBody guesStatus = RequestBody.create(MediaType.parse("text/plain"), isGuess);
-            RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, new Callback<ResponseBody>() {
+            RequestBody edit= RequestBody.create(MediaType.parse("text/plain"), "1");
+            RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus,edit, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    updateQuestionsFragment();
+
                 }
 
                 @Override
@@ -548,7 +551,9 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     @Override
     protected void onResume() {
         super.onResume();
-        getTest();
+        if (qustionDetails==null){
+            getTest();
+        }
     }
 
     @Override
@@ -629,6 +634,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         public void onPageSelected(int newPosition) {
             currentPosition = newPosition;
             quesionCounter.setText((newPosition + 1) + " of " + qustionDetails.getData().getQuestionList().size());
+            question_id = qustionDetails.getData().getQuestionList().get((newPosition)).getId();
         }
 
         @Override
