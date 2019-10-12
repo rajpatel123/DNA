@@ -165,13 +165,26 @@ public class Utils {
 
         try {
             Log.d("date", "" + timeStamp);
-            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY  hh : mm  a");
             Date dNow = new Date(timeStamp);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public static String startTestTimeFormat(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+        Date date = new Date(timeStamp);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a", Locale.ENGLISH);
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(date);
+       return formattedDate;// System.out.println(formattedDate);
     }
 
 

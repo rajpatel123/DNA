@@ -145,11 +145,9 @@ Button back_button;
 
         @Override
         public Fragment getItem(int position) {
-            if (itemPosition<1){
-                quesionCounter.setText("" + (itemPosition+1));
-            }else{
+
                 quesionCounter.setText("" + (position));
-            }
+
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
             return ReviewResultFragment.init(reviewResult.get(position), position);
         }

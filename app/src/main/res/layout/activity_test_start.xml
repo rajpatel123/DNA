@@ -54,12 +54,11 @@
                     android:background="@color/darkwhite" />
 
                 <TextView
-                    android:layout_margin="10dp"
                     android:id="@+id/test_information"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="8dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/black_titles"
                     android:text="@string/test_start" />
 

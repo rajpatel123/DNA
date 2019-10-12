@@ -164,35 +164,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:background="@color/card_gray"
                 app:cardUseCompatPadding="true">
 
 
 
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:padding="@dimen/margin_10dp">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/explannnation"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:text="Synonyms: Paraganglioma, Chemodectoma, Ganglia tympanica, Vascular tumors of middle ear.\nIt is 6 times more common in females when compared to males\n Presentation:-->
+<!--                    These tumors are slow growing, with very little symptoms. The diagnosis may easily be missed.-->
+<!--                    Infact the average delay between-->
+<!--                    the onset of symptoms and diagnosis varied from-->
+<!--                    6 years to 15 years. ******" />-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/explanation_image"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="bottom"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginTop="@dimen/margin_20"-->
+<!--                        android:layout_below="@+id/explannnation"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:background="@drawable/image"-->
+<!--                        android:visibility="gone" />-->
+<!--                </RelativeLayout>-->
+
                 <RelativeLayout
+                    android:id="@+id/rlWebView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/margin_10dp">
-                    <TextView
-                        android:id="@+id/explannnation"
+                    android:layout_below="@+id/appBarLayout"
+                    android:visibility="visible">
+
+                    <WebView
+                        android:id="@+id/dataWebView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:text="Synonyms: Paraganglioma, Chemodectoma, Ganglia tympanica, Vascular tumors of middle ear.\nIt is 6 times more common in females when compared to males\n Presentation:
-                    These tumors are slow growing, with very little symptoms. The diagnosis may easily be missed.
-                    Infact the average delay between
-                    the onset of symptoms and diagnosis varied from
-                    6 years to 15 years. ******" />
-                    <ImageView
-                        android:id="@+id/explanation_image"
-                        android:layout_width="match_parent"
+                        android:background="@color/app_bg" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleSmallInverse"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="@dimen/margin_20"
-                        android:layout_below="@+id/explannnation"
-                        android:layout_marginRight="20dp"
-                        android:background="@drawable/image"
-                        android:visibility="gone" />
+                        android:layout_centerInParent="true"
+                        android:visibility="visible" />
                 </RelativeLayout>
 
 

@@ -3,22 +3,21 @@ package com.dnamedical.Activities;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import android.widget.Toast;
 
 import com.dnamedical.R;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class TestStartActivity extends AppCompatActivity {
 
@@ -42,7 +41,7 @@ public class TestStartActivity extends AppCompatActivity {
     @BindView(R.id.card_view)
     CardView cardView;
 
-    String id, duration, testName, testQuestion, testPaid;
+    String id, duration, testName, testQuestion = "0", testPaid;
     String description;
     private long startDate;
     private long resultDate;
@@ -78,8 +77,8 @@ public class TestStartActivity extends AppCompatActivity {
                 start_desc.setVisibility(View.GONE);
 
             } else {
-                if ((System.currentTimeMillis() - (startDate) >= 0)) {
-                    if (resultDate < System.currentTimeMillis()) {
+                if ((System.currentTimeMillis() - (startDate*1000) >= 0)) {
+                    if (resultDate*1000 < System.currentTimeMillis()) {
                         btnStart.setText("Test result declared want to start the test");
                     } else {
                         btnStart.setText("Start The Test");
@@ -99,7 +98,7 @@ public class TestStartActivity extends AppCompatActivity {
                     updateTestTypeText(type);
                     btnStart.setText("Start The Test");
                     btnStart.setVisibility(View.GONE);
-                    start_date.setText(Utils.startTimeFormat(startDate));
+                    start_date.setText(Utils.startTimeFormat(startDate*1000));
                     start_desc.setText("This test will start on: ");
                     start_date.setVisibility(View.VISIBLE);
                     start_desc.setVisibility(View.VISIBLE);
@@ -126,6 +125,10 @@ public class TestStartActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (testStatus.equalsIgnoreCase("open")) {
+                    if (testQuestion.equalsIgnoreCase("0")) {
+                        Toast.makeText(TestStartActivity.this, "No questions in this test", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     StartTest();
                 } else {
                     Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);

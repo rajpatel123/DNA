@@ -15,6 +15,17 @@ public class Level {
     @Expose
     private String name;
 
+
+    public String isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(String selected) {
+        isSelected = selected;
+    }
+
+    private String isSelected="false";
+
     public String getId() {
         return id;
     }

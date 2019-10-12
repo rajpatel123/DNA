@@ -108,7 +108,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (testReviewListResponse==null){
+        if (testReviewListResponse == null) {
             getReviewData();
         }
 
@@ -135,7 +135,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getTestReviewListData(test_Id, user_Id,level,subject,answer, new Callback<TestReviewListResponse>() {
+            RestClient.getTestReviewListData(test_Id, user_Id, level, subject, answer, new Callback<TestReviewListResponse>() {
                 @Override
                 public void onResponse(Call<TestReviewListResponse> call, Response<TestReviewListResponse> response) {
                     Utils.dismissProgressDialog();
@@ -152,19 +152,26 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             testReviewListAdapter.setTestClickListener(new TestReviewListAdapter.TestClickListener() {
                                 @Override
                                 public void onTestClicklist(int postion) {
-                                    Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
-                                    intent.putExtra("position", postion);
-                                    intent.putParcelableArrayListExtra("list", testReviewListResponse.getData().getQuestionList());
-                                    startActivity(intent);
-                                    Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
+
+
+                                    if (filterView.getVisibility() != View.VISIBLE) {
+                                        Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
+                                        intent.putExtra("position", postion);
+                                        intent.putParcelableArrayListExtra("list", testReviewListResponse.getData().getQuestionList());
+                                        startActivity(intent);
+                                        Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
+
+                                    }
                                 }
                             });
                             Log.d("Api Response :", "Got Success from send");
-
-                            Filters filters = testReviewListResponse.getData().getFilters();
-                            if (filters != null) {
-                                getFiltersData(filters);
+                            if (filterAnswersList==null || filterAnswersList.size() ==0) {
+                                Filters filters = testReviewListResponse.getData().getFilters();
+                                if (filters != null) {
+                                    getFiltersData(filters);
+                                }
                             }
+
                         } else {
                             Toast.makeText(TestReviewResultActivity.this, "No Test", Toast.LENGTH_SHORT).show();
                         }
@@ -176,7 +183,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<TestReviewListResponse> call, Throwable t) {
                     Utils.dismissProgressDialog();
-                   // Toast.makeText(TestReviewResultActivity.this, "Something Went Wrong!!!", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(TestReviewResultActivity.this, "Something Went Wrong!!!", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -206,7 +213,20 @@ public class TestReviewResultActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbarmenu, menu);
+
+//        final MenuItem menuItem = menu.findItem(R.id.action_favorite);
+//        View actionView = menuItem.getActionView();
+//        TextView badge = actionView.findViewById(R.id.badge);
+//
+//        setVisibilityOfBedge(badge);
+
+
         return true;
+    }
+
+    private void setVisibilityOfBedge(TextView badge) {
+
+        // if (fi)
     }
 
     @Override
@@ -218,13 +238,17 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
-            level="";
-            subject="";
-            answer="";
+            level = "";
+            subject = "";
+            answer = "";
             openFilterDialog();
             return true;
         } else {
-            onBackPressed();
+            if (filterView.getVisibility() != View.VISIBLE) {
+                onBackPressed();
+            } else {
+                filterView.setVisibility(View.GONE);
+            }
         }
 
         return super.onOptionsItemSelected(item);

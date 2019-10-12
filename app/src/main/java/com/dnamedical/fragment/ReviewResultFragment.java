@@ -1,28 +1,28 @@
 package com.dnamedical.fragment;
 
 import android.content.Context;
-import android.os.Build;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
-import android.text.Html;
-import android.text.Spannable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
-import com.dnamedical.utils.PicassoImageGetter;
-import com.dnamedical.utils.URLImageParser;
+import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,6 +31,8 @@ import java.util.List;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
+
+import static android.view.View.GONE;
 
 public class ReviewResultFragment extends Fragment {
     ImageView question_image;
@@ -57,6 +59,8 @@ public class ReviewResultFragment extends Fragment {
     QuestionList question;
     ReviewresulActivity activity;
     CardView explanationCard;
+    WebView webView;
+    ProgressBar progressBar;
 
     public static Fragment init(QuestionList question, int position) {
         ReviewResultFragment reviewResultFragment = new ReviewResultFragment();
@@ -95,14 +99,16 @@ public class ReviewResultFragment extends Fragment {
         optionCImg = view.findViewById(R.id.optionCImg);
         optionDImg = view.findViewById(R.id.optionDImg);
         refImage = view.findViewById(R.id.refImage);
-        explanation_image = view.findViewById(R.id.explanation_image);
+        progressBar = view.findViewById(R.id.progressBar);
+        webView = view.findViewById(R.id.dataWebView);
+        //explanation_image = view.findViewById(R.id.explanation_image);
 
         optionA = view.findViewById(R.id.optionA);
         optionB = view.findViewById(R.id.optionB);
         optionC = view.findViewById(R.id.optionC);
         optionD = view.findViewById(R.id.optionD);
         percentage = view.findViewById(R.id.percentage);
-        explannnation = view.findViewById(R.id.explannnation);
+        //  explannnation = view.findViewById(R.id.explannnation);
         refText = view.findViewById(R.id.refText);
         PieChartView pieChartView = view.findViewById(R.id.chart);
         if (question != null) {
@@ -177,18 +183,38 @@ public class ReviewResultFragment extends Fragment {
             }
 
             if (!TextUtils.isEmpty(question.getExplanation())) {
-                PicassoImageGetter imageGetter = new PicassoImageGetter(explannnation,activity);
-                Spannable html;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                    html = (Spannable) Html.fromHtml(question.getExplanation(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+
+                if (Utils.isInternetConnected(activity)) {
+                    try {
+                        explanationCard.setVisibility(View.VISIBLE);
+
+                        loadView(question.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    html = (Spannable) Html.fromHtml(question.getExplanation(), imageGetter, null);
+                    explanationCard.setVisibility(GONE);
+
                 }
-                explannnation.setText(html);
-                explanationCard.setVisibility(View.VISIBLE);
+
             } else {
-                explanationCard.setVisibility(View.GONE);
+                explanationCard.setVisibility(GONE);
+
             }
+//                PicassoImageGetter imageGetter = new PicassoImageGetter(explannnation,activity);
+//                Spannable html;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+//                    html = (Spannable) Html.fromHtml(question.getExplanation(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+//                } else {
+//                    html = (Spannable) Html.fromHtml(question.getExplanation(), imageGetter, null);
+//                }
+//                explannnation.setText(html);
+//                explanationCard.setVisibility(View.VISIBLE);
+//            } else {
+//                explanationCard.setVisibility(View.GONE);
+//            }
+
+
             percentage.setText(question.getPercentage() + "%     of the people got this right");
 
             Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
@@ -238,5 +264,37 @@ public class ReviewResultFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+    }
+
+    private void loadView(String qID) throws Exception {
+
+        webView.setWebViewClient(new myWebClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+
+        progressBar.setVisibility(View.VISIBLE);
+        webView.loadUrl("http://13.234.161.7/review.php?id=" + qID);
+
+
+    }
+
+
+    public class myWebClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            progressBar.setVisibility(View.VISIBLE);
+            view.loadUrl(url);
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            progressBar.setVisibility(GONE);
+        }
     }
 }

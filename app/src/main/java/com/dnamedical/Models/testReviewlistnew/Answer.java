@@ -16,6 +16,17 @@ public class Answer {
     @Expose
     private String name;
 
+
+    public String getIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(String isSelected) {
+        this.isSelected = isSelected;
+    }
+
+    private String isSelected="false";
+
     public String getId() {
         return id;
     }

@@ -75,6 +75,12 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             if (position < filterAnswersList.size() + 1) {
                 ((ItemViewHolder) viewHolder).rbInfo.setText(filterAnswersList.get(position - 1).getName());
+                if (filterAnswersList.get(position - 1).getIsSelected().equalsIgnoreCase("true")){
+                    ((ItemViewHolder) viewHolder).rbInfo.setChecked(true);
+                }else {
+                    ((ItemViewHolder) viewHolder).rbInfo.setChecked(false);
+                    filterAnswersList.get(position - 1).setIsSelected("false");
+                }
                 ((ItemViewHolder) viewHolder).rbInfo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -85,6 +91,14 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 });
             } else if (position < filterAnswersList.size() + filterSubjectList.size() + 2) {
                 ((ItemViewHolder) viewHolder).rbInfo.setText(filterSubjectList.get(position - filterAnswersList.size() - 2).getName());
+
+                if (filterSubjectList.get(position - filterAnswersList.size() - 2).getIsSelected().equalsIgnoreCase("true")){
+                    ((ItemViewHolder) viewHolder).rbInfo.setChecked(true);
+                }else {
+                    ((ItemViewHolder) viewHolder).rbInfo.setChecked(false);
+                    filterSubjectList.get(position - filterAnswersList.size() - 2).setIsSelected("false");
+                }
+
                 ((ItemViewHolder) viewHolder).rbInfo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -96,6 +110,16 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             } else {
                 ((ItemViewHolder) viewHolder).rbInfo.setText(filterLevelsList.get(position - filterAnswersList.size()
                         - filterSubjectList.size() - 3).getName());
+                if (filterLevelsList.get(position - filterAnswersList.size()
+                        - filterSubjectList.size() - 3).isSelected().equalsIgnoreCase("true")){
+                    ((ItemViewHolder) viewHolder).rbInfo.setChecked(true);
+                }else {
+                    ((ItemViewHolder) viewHolder).rbInfo.setChecked(false);
+                    filterLevelsList.get(position - filterAnswersList.size()
+                            - filterSubjectList.size() - 3).setSelected("false");
+                }
+
+
 
                 ((ItemViewHolder) viewHolder).rbInfo.setOnClickListener(new View.OnClickListener() {
                     @Override
