@@ -439,12 +439,6 @@
                 android:background="#FFFFFF"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-
                     <TableLayout
                         android:id="@+id/subjectTable"
                         android:layout_width="match_parent"
@@ -452,8 +446,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="@dimen/margin_10"/>
 
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

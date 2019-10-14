@@ -272,7 +272,7 @@ public class ReviewResultFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
 
         progressBar.setVisibility(View.VISIBLE);
-        webView.loadUrl("http://13.234.161.7/review.php?id=" + qID);
+        webView.loadUrl("http://dnamedicalapp.com/review.php?id=" + qID);
 
 
     }

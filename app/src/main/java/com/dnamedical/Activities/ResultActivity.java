@@ -18,6 +18,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -259,6 +260,10 @@ public class ResultActivity extends AppCompatActivity {
         rowHead.setBackgroundResource(R.drawable.border);
 
 
+//        ScrollView sv = new ScrollView(this);
+//        sv.addView(ll);
+
+
         TextView subject = new TextView(this);
         TextView rightAnswer = new TextView(this);
         TextView wrongAnswer = new TextView(this);
@@ -312,7 +317,7 @@ public class ResultActivity extends AppCompatActivity {
         for (int i = 0; i < scoreAnalysi.size(); i++) {
 
             TableRow row = new TableRow(this);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
             row.setLayoutParams(lp);
             row.setBackgroundResource(R.drawable.border);
 
@@ -344,17 +349,40 @@ public class ResultActivity extends AppCompatActivity {
 
 
             subjectTv.setPadding(15, 0, 15, 5);
+            subjectTv.setMaxLines(3);
+            subjectTv.setTextSize(14f);
+            subjectTv.setMaxWidth(300);
             rightAnswerTv.setPadding(10, 0, 5, 5);
             skippedTv.setPadding(0, 0, 5, 5);
             rightAnswerTv.setPadding(10, 0, 5, 5);
             scoreTv.setPadding(5, 0, 5, 5);
 
 
+
             subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
-            rightAnswerTv.setText("" + scoreAnalysi.get(i).getCorrect());
-            wrongAnswerTv.setText("" + scoreAnalysi.get(i).getWrong());
-            skippedTv.setText("" + scoreAnalysi.get(i).getSkip());
-            scoreTv.setText("" + scoreAnalysi.get(i).getScore());
+            if (scoreAnalysi.get(i).getCorrect()!=null){
+                rightAnswerTv.setText("" + scoreAnalysi.get(i).getCorrect());
+            }else{
+                rightAnswerTv.setText("" + 0);
+            }
+
+            if (scoreAnalysi.get(i).getWrong()!=null){
+                wrongAnswerTv.setText("" + scoreAnalysi.get(i).getWrong());
+            }else{
+                wrongAnswerTv.setText("" + 0);
+            }
+
+            if (scoreAnalysi.get(i).getSkip()!=null){
+                skippedTv.setText("" + scoreAnalysi.get(i).getSkip());
+            }else{
+                skippedTv.setText("" + 0);
+            }
+
+            if (scoreAnalysi.get(i).getScore()!=null){
+                scoreTv.setText("" + scoreAnalysi.get(i).getScore());
+            }else{
+                scoreTv.setText("" +0);
+            }
             row.addView(subjectTv);
             row.addView(rightAnswerTv);
             row.addView(wrongAnswerTv);
@@ -391,6 +419,7 @@ public class ResultActivity extends AppCompatActivity {
         totalMarksValue.setGravity(Gravity.CENTER);
 
         totalmarks.setText("  TOTAL ");
+
 
         totalMarksValue.setText(testResult.getData().getYourScore());
 

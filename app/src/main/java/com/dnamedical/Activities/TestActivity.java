@@ -250,6 +250,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         } else {
             if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
                 submitQuestionAnswer();
+            }else {
+                updateQuestionsFragment();
             }
 
         }
