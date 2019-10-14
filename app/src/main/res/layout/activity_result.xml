@@ -318,7 +318,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
+                    android:layout_weight="2"
                     android:gravity="center">
 
                     <TextView
@@ -334,16 +334,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/scoreTitle"
-                        android:paddingLeft="15dp"
+                        android:paddingLeft="10dp"
                         android:text="10"
-                        android:textStyle="italic" />
+
+                        android:textColor="@color/white"
+
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/totalTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/scoreTitle"
-                        android:text="Total Marks  :"
+                        android:text="Total Exam Marks  :"
                         android:textStyle="italic" />
 
                     <TextView
@@ -352,16 +355,17 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/yourScore"
                         android:layout_toEndOf="@+id/totalTitle"
-                        android:paddingLeft="15dp"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/white"
                         android:text="23"
-                        android:textStyle="italic" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/percentageTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/totalTitle"
-                        android:text="Percentage  :"
+                        android:text="Your Percentage  :"
                         android:textStyle="italic" />
 
                     <TextView
@@ -370,9 +374,11 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/totalMarks"
                         android:layout_toEndOf="@+id/percentageTitle"
-                        android:paddingLeft="15dp"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/white"
+
                         android:text="43"
-                        android:textStyle="italic" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/percentileTitle"
@@ -380,6 +386,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/percentageTitle"
                         android:layout_gravity="center"
+                    android:visibility="gone"
                         android:text="Percentile    :"
                         android:textStyle="italic" />
 
@@ -390,6 +397,8 @@
                         android:layout_below="@+id/percentage"
                         android:layout_toEndOf="@+id/percentileTitle"
                         android:paddingLeft="15dp"
+                        android:visibility="gone"
+
                         android:text="32"
                         android:textStyle="italic" />
 
@@ -475,7 +484,7 @@
                             android:gravity="center_vertical"
                             android:minHeight="30dp"
                             android:paddingLeft="25dp"
-                            android:text="Switched from currect to wrong-"
+                            android:text="Switched from correct to wrong-"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -509,7 +518,7 @@
                             android:minHeight="30dp"
                             android:paddingLeft="25dp"
 
-                            android:text="Switched from wrong to currect-"
+                            android:text="Switched from wrong to correct-"
                             android:textColor="@color/black"
 
                             android:textStyle="bold" />
@@ -841,7 +850,7 @@
                                 android:background="@drawable/border"
                                 android:gravity="center"
                                 android:paddingLeft="2dp"
-                                android:text="Currect"
+                                android:text="Correct"
                                 android:textColor="@color/red"
                                 android:textStyle="bold" />
 

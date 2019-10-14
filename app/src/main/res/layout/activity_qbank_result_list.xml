@@ -20,28 +20,33 @@
         android:elevation="@dimen/margin_10dp"
         android:background="@color/white"
         android:padding="@dimen/margin_10dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
 
-            >
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/filtersRV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/applyFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/filtersRV"
-                android:maxHeight="20dp"
-                android:layout_marginTop="@dimen/margin_10dp"
-                android:textColor="@color/white"
-                android:background="@drawable/rounded_shape"
-                android:layout_marginBottom="10dp"
-                android:text="Apply"/>
-        </RelativeLayout>
+               >
+               <android.support.v7.widget.RecyclerView
+                   android:id="@+id/filtersRV"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"/>
+               <Button
+                   android:id="@+id/applyFilter"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_below="@+id/filtersRV"
+                   android:maxHeight="20dp"
+                   android:layout_marginTop="@dimen/margin_10dp"
+                   android:textColor="@color/white"
+                   android:background="@drawable/rounded_shape"
+                   android:layout_marginBottom="10dp"
+                   android:text="Apply"/>
+           </RelativeLayout>
+
+       </ScrollView>
     </android.support.v7.widget.CardView>
 
     <android.support.design.widget.AppBarLayout

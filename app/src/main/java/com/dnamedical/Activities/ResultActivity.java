@@ -359,7 +359,36 @@ public class ResultActivity extends AppCompatActivity {
 
 
 
-            subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
+
+            if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")){
+                subjectTv.setText("MICRO");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("FORENSIC MEDICINE & TOXICOLOGY ( F.M.T )")){
+                subjectTv.setText("F.M.T");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("OPHTHALMOLOGY(EYE)")){
+                subjectTv.setText("EYE");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("COMMUNITY MEDICINE")){
+                subjectTv.setText("P.S.M.");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("OBS & GYNE ( OBG )")){
+                subjectTv.setText("OBG");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")){
+                subjectTv.setText("PHARMA");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")){
+                subjectTv.setText("BIOCHEM");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")){
+                subjectTv.setText("ORTHO");
+
+            }else {
+                subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
+            }
+
+
             if (scoreAnalysi.get(i).getCorrect()!=null){
                 rightAnswerTv.setText("" + scoreAnalysi.get(i).getCorrect());
             }else{
@@ -415,13 +444,13 @@ public class ResultActivity extends AppCompatActivity {
 
         totalmarks.setPadding(10, 0, 5, 5);
         totalmarks.setGravity(Gravity.CENTER);
-        totalMarksValue.setPadding(10, 0, 5, 5);
+        totalMarksValue.setPadding(15, 0, 5, 5);
         totalMarksValue.setGravity(Gravity.CENTER);
 
         totalmarks.setText("  TOTAL ");
 
 
-        totalMarksValue.setText(testResult.getData().getYourScore());
+        totalMarksValue.setText(testResult.getData().getYourScore()+"  ");
 
         totalmarks.setTextColor(ContextCompat.getColor(this, R.color.red));
         totalMarksValue.setTextColor(ContextCompat.getColor(this, R.color.red));
