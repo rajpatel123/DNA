@@ -67,9 +67,16 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-        getTest();
+
         return view;
 
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getTest();
     }
 
     @Override
