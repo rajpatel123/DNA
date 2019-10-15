@@ -54,7 +54,7 @@ public class TestReviewListAdapter extends RecyclerView.Adapter<TestReviewListAd
                 if(testClickListener!=null)
                 {
                     testClickListener.onTestClicklist(position);
-                    Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
                 }
             }
         });
