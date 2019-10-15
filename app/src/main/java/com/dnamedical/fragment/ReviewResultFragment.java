@@ -112,10 +112,18 @@ public class ReviewResultFragment extends Fragment {
         refText = view.findViewById(R.id.refText);
         PieChartView pieChartView = view.findViewById(R.id.chart);
         if (question != null) {
-            optionA.setText("A. " + question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
-            optionB.setText("B. " + question.getOption2() + " [" + question.getOption2Percenatge() + "%]");
-            optionC.setText("C. " + question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
-            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
+//            optionA.setText("A. " + question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
+//            optionB.setText("B. " + question.getOption2() + " [" + question.getOption2Percenatge() + "%]");
+//            optionC.setText("C. " + question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
+//            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
+//
+
+            optionA.setText("A. " + question.getOption1());
+            optionB.setText("B. " + question.getOption2());
+            optionC.setText("C. " + question.getOption3());
+            optionD.setText("D. " + question.getOption4());
+
+
             questionTxt.setText("Q " + (fragNum + 1) + ". " + question.getTitle());
 
             if (!TextUtils.isEmpty(question.getTitleImage())) {
