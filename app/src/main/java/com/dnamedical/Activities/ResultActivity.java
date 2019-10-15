@@ -287,8 +287,8 @@ public class ResultActivity extends AppCompatActivity {
         rightAnswer.setGravity(Gravity.CENTER);
         skipped.setPadding(0, 0, 0, 5);
         skipped.setGravity(Gravity.CENTER);
-        rightAnswer.setPadding(5, 0, 5, 5);
-        rightAnswer.setGravity(Gravity.CENTER);
+        wrongAnswer.setPadding(5, 0, 5, 5);
+        wrongAnswer.setGravity(Gravity.CENTER);
         score.setPadding(5, 0, 5, 5);
         score.setGravity(Gravity.CENTER);
 
@@ -354,7 +354,7 @@ public class ResultActivity extends AppCompatActivity {
             subjectTv.setMaxWidth(300);
             rightAnswerTv.setPadding(10, 0, 5, 5);
             skippedTv.setPadding(0, 0, 5, 5);
-            rightAnswerTv.setPadding(10, 0, 5, 5);
+            wrongAnswerTv.setPadding(10, 0, 5, 5);
             scoreTv.setPadding(5, 0, 5, 5);
 
 
@@ -378,11 +378,20 @@ public class ResultActivity extends AppCompatActivity {
             }else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")){
                 subjectTv.setText("PHARMA");
 
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("BIO-CHEMISTRY")){
+                subjectTv.setText("BIOCHEM");
+
             }else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")){
                 subjectTv.setText("BIOCHEM");
 
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("ANATOMY (UG)")){
+                subjectTv.setText("ANATOMY");
+
             }else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")){
                 subjectTv.setText("ORTHO");
+
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")){
+                subjectTv.setText("DERMA");
 
             }else {
                 subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());

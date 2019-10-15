@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -23,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,11 +33,12 @@ import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.fragment.QuestionFragment;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -51,8 +51,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenuItemClickListener, AnswerListAdapter.onQuesttionClick {
-    MyAdapter mAdapter;
-    ViewPager mPager;
     TextView quesionCounter;
     TextView timer;
     RelativeLayout questionpannel, answerSheet;
@@ -60,9 +58,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     public long tempTime;
     public Map<String, String> correctAnswerList = new HashMap<>();
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
-
+    ArrayList<Question> questionArrayList = new ArrayList<>();
     Handler handler;
-
+    LayoutInflater inflater;
     public int Seconds, Minutes, MilliSeconds;
     CountDownTimer countDownTimer;
     private QustionDetails qustionDetails;
@@ -84,28 +82,37 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     public String answer;
     public String isGuess;
 
-    public Button nextBtn;
+    public Button nextBtn,prevBtn;
     static int currentPosition;
     boolean timeUp;
     private String testName;
     long testDuration = 0;
     Button item_star;
+    private TextView questionTxt;
+    LinearLayout answerList;
+    ImageView imageQuestion;
+    CardView cardView1, cardView2, cardView3, cardView4;
 
     public boolean isBookmarkedRemoved;
     private RelativeLayout relative;
     private ImageButton iv_popupMenu;
     private long timeSpend;
     private RecyclerView answersheetRecyclerView;
+    private int questionIndex=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_pager);
+        setContentView(R.layout.activity_test_v1);
         guessImage = findViewById(R.id.image_guess);
         guessCheck = findViewById(R.id.guessCheck);
         relative = findViewById(R.id.relative);
         submit = findViewById(R.id.submit);
         star = findViewById(R.id.star);
+        answerList = findViewById(R.id.answerList);
+        questionTxt = findViewById(R.id.questionTxt);
+        imageQuestion = findViewById(R.id.question_image);
+        inflater = LayoutInflater.from(this);
         answersheetRecyclerView = findViewById(R.id.answersheetRecycler);
         handler = new Handler();
 
@@ -140,7 +147,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
                     }
 
-                    Utils.showProgressDialog(TestActivity.this);
+                    Utils.showProgressDialog(TestV1Activity.this);
                     RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -179,12 +186,24 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
         test_id = getIntent().getStringExtra("id");
-        testDuration = Integer.parseInt(duration)*1000;
+        testDuration = Integer.parseInt(duration) * 1000;
         resettimer();
         startTimer();
         nextBtn = findViewById(R.id.skip_button);
+        prevBtn = findViewById(R.id.prevBtn);
         nextBtn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+                if (questionIndex < questionArrayList.size() - 1) {
+                    questionIndex++;
+                    onNextQuestion();
+                }
+            }
+        });
+
+        prevBtn.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (questionIndex > 0)
+                    questionIndex--;
 
                 onNextQuestion();
             }
@@ -235,29 +254,37 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         timeSpend = System.currentTimeMillis() - tempTime;
         if (guessCheck.isChecked()) {
             isGuess = "true";
-            qustionDetails.getData().getQuestionList().get(currentPosition).setGues(true);
+            questionArrayList.get(questionIndex).setGues(true);
         } else {
-            qustionDetails.getData().getQuestionList().get(currentPosition).setGues(false);
+            questionArrayList.get(questionIndex).setGues(false);
             isGuess = "false";
         }
 
         pauseTimer();
+        updateQuestionsFragment(questionIndex);
 
-        if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
+
+        if (questionIndex == (questionArrayList.size()-1)) {
+            nextBtn.setText("SUBMIT");
+        } else {
+            nextBtn.setText("SKIP");
+        }
+
+        Log.d("Question Number", "" + questionIndex);
+
+
+        if ((questionIndex + 1) == questionArrayList.size()) {
             submitTest();
-            //Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
             pauseTimer();
         } else {
-            if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
+            if (nextBtn.getText().toString().trim().equalsIgnoreCase("NEXT")) {
                 submitQuestionAnswer();
-            }else {
-                updateQuestionsFragment();
+            } else {
+                updateQuestionsFragment(questionIndex);
             }
-
         }
 
         submitTimeLogTest("switch_question", "" + Seconds);
-        //Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
 
 
     }
@@ -271,16 +298,16 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
-        Utils.showProgressDialog(TestActivity.this);
+        Utils.showProgressDialog(TestV1Activity.this);
         RestClient.submitTest(userId, testID, isSubmit, new Callback<TestResult>() {
             @Override
             public void onResponse(Call<TestResult> call, Response<TestResult> response) {
                 TestResult testResult = response.body();
                 Utils.dismissProgressDialog();
                 if (testResult != null) {
-                    Intent intent = new Intent(TestActivity.this, ResultActivity.class);
+                    Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
                     intent.putExtra(Constants.RESULT, testResult);
-                    intent.putExtra("testid",test_id);
+                    intent.putExtra("testid", test_id);
                     startActivity(intent);
                     Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
                     finish();
@@ -339,12 +366,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
             RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
             RequestBody guesStatus = RequestBody.create(MediaType.parse("text/plain"), isGuess);
-            RequestBody edit= RequestBody.create(MediaType.parse("text/plain"), "1");
-            RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus,edit, new Callback<ResponseBody>() {
+            RequestBody edit = RequestBody.create(MediaType.parse("text/plain"), "1");
+            RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, edit, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
-                    updateQuestionsFragment();
+                    updateQuestionsFragment(questionIndex);
 
                 }
 
@@ -390,13 +417,121 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     }
 
-    private void updateQuestionsFragment() {
-        quesionCounter.setText((currentPosition + 1) + " of " + qustionDetails.getData().getQuestionList().size());
-        mPager.setCurrentItem(currentPosition + 1);
-        if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
-            nextBtn.setText("SUBMIT");
-        } else {
-            nextBtn.setText("SKIP");
+    private void updateQuestionsFragment(int questionIndex) {
+
+        answerList.removeAllViews();
+        Question question = questionArrayList.get(questionIndex);
+        question_id = question.getId();
+        guessCheck.setChecked(question.isGues());
+        if (!TextUtils.isEmpty(question.getTitle_image())) {
+            imageQuestion.setVisibility(View.VISIBLE);
+            Picasso.with(this).load(question.getTitle_image()).into(imageQuestion);
+        }else{
+            imageQuestion.setVisibility(View.GONE);
+        }
+        questionTxt.setText("Q" + (questionIndex + 1) + ". " + question.getTitle());
+        for (int i = 0; i < 4; i++) {
+            switch (i) {
+                case 0:
+                    View answerView = inflater.inflate(R.layout.item_answer,null, false);
+                    TextView answer1 = answerView.findViewById(R.id.answer);
+                    cardView1 = answerView.findViewById(R.id.cardView);
+                    answer1.setText(question.getOption1());
+                    answerList.addView(answerView);
+
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption1().equalsIgnoreCase(question.getSelectedOption())) {
+                        updateAnswer(cardView1);
+                    }
+                    answer1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            answer = "1";
+                            updateAnswer(cardView1);
+
+                            if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                updateToServerAnswerSelection();
+                            }else{
+                                updateAnswer(cardView1);
+                            }
+                            question.setSelectedOption(question.getOption1());
+
+                        }
+                    });
+                    break;
+                case 1:
+                    View answerView1 = inflater.inflate(R.layout.item_answer,
+                            null, false);
+                    TextView answer2 = answerView1.findViewById(R.id.answer);
+                    cardView2 = answerView1.findViewById(R.id.cardView);
+                    answer2.setText(question.getOption2());
+                    answerList.addView(answerView1);
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())) {
+                        updateAnswer(cardView2);
+                    }
+                    answer2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            answer = "2";
+                            if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                updateToServerAnswerSelection();
+                            }
+                            updateAnswer(cardView2);
+                            question.setSelectedOption(question.getOption2());
+
+                        }
+                    });
+                    break;
+                case 2:
+                    View answerView2 = inflater.inflate(R.layout.item_answer,
+                            null, false);
+                    TextView answer3 = answerView2.findViewById(R.id.answer);
+                    cardView3 = answerView2.findViewById(R.id.cardView);
+                    answer3.setText(question.getOption3());
+
+                    answerList.addView(answerView2);
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())) {
+                        updateAnswer(cardView3);
+                    }
+                    answer3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            answer = "3";
+                            if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                updateToServerAnswerSelection();
+                            }
+                            question.setSelectedOption(question.getOption3());
+                            updateAnswer(cardView3);
+
+                        }
+                    });
+                    break;
+                case 3:
+                    View answerView4 = inflater.inflate(R.layout.item_answer,
+                            null, false);
+                    TextView answer4 = answerView4.findViewById(R.id.answer);
+                    cardView4 = answerView4.findViewById(R.id.cardView);
+                    answer4.setText(question.getOption4());
+                    answerList.addView(answerView4);
+                    if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())) {
+                        updateAnswer(cardView4);
+                    }
+                    answer4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            answer = "4";
+                            if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                updateToServerAnswerSelection();
+                            }
+                            question.setSelectedOption(question.getOption4());
+                            updateAnswer(cardView4);
+
+                        }
+                    });
+                    break;
+            }
         }
 
         resettimer();
@@ -553,14 +688,15 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     @Override
     protected void onResume() {
         super.onResume();
-        if (qustionDetails==null){
+        if (questionArrayList.size() > 0) {
+        } else {
             getTest();
         }
     }
 
     @Override
     public void onQuesClick(int currentPosition) {
-        this.currentPosition = currentPosition;
+        questionIndex=currentPosition;
         onNextQuestion();
         onBackPressed();
     }
@@ -577,7 +713,10 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     if (response.code() == 200) {
                         qustionDetails = response.body();
                         if (qustionDetails.getData() != null && qustionDetails.getData().getQuestionList().size() > 0) {
+                            questionArrayList.addAll(qustionDetails.getData().getQuestionList());
                             relative.setVisibility(View.VISIBLE);
+
+                            updateQuestionsFragment(questionIndex);
                         } else {
                             relative.setVisibility(View.GONE);
                             Toast.makeText(TestV1Activity.this, "No question here", Toast.LENGTH_LONG).show();
@@ -599,7 +738,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         }
 
     }
-
 
 
     private void showDialog() {
@@ -697,4 +835,30 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         }
         return count;
     }
+
+    private void updateToServerAnswerSelection() {
+        pauseTimer();
+        submitTimeLogTest("selecting_option", "" + Seconds);
+        //  Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
+
+        submitAnswer();
+        resettimer();
+        startTimer();
+    }
+
+
+    private void updateAnswer(CardView cardView) {
+        cardView1.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cardView2.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cardView3.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cardView4.setCardBackgroundColor(getResources().getColor(R.color.white));
+        if (questionIndex == (questionArrayList.size()-1)) {
+            nextBtn.setText("SUBMIT");
+        } else {
+            nextBtn.setText("NEXT");
+        }
+
+        cardView.setCardBackgroundColor(getResources().getColor(R.color.test_fragment_card_bacckground));
+    }
+
 }

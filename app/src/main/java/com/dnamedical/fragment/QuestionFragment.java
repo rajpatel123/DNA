@@ -25,9 +25,10 @@ public class QuestionFragment extends Fragment {
     Question question;
     private TextView questionTxt;
     LinearLayout answerList;
+    ImageView imageQuestion;
+
     TestActivity activity;
     CardView cardView1, cardView2, cardView3, cardView4;
-    ImageView imageQuestion;
     private int totalQuestions;
 
     public static QuestionFragment init(Question question, int position, int size) {
