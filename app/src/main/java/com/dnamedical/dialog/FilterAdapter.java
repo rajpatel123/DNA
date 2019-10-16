@@ -85,6 +85,9 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onClick(View v) {
                         if (onFilterClickListener!=null){
+                            if (((ItemViewHolder) viewHolder).rbInfo.isChecked())
+                            ((ItemViewHolder) viewHolder).rbInfo.setChecked(true);
+
                             onFilterClickListener.onAnswerSelected(filterAnswersList.get(position - 1).getId());
                         }
                     }
