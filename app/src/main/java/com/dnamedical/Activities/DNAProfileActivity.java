@@ -113,6 +113,10 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 DnaPrefs.putBoolean(DNAProfileActivity.this, Constants.LoginCheck, false);
+                /** on your logout method:**/
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                sendBroadcast(broadcastIntent);
                 startActivity(new Intent(DNAProfileActivity.this, FirstloginActivity.class));
                 finish();
             }

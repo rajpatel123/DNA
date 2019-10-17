@@ -6,7 +6,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -82,7 +81,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     public String answer;
     public String isGuess;
 
-    public Button nextBtn,prevBtn;
+    public Button nextBtn, prevBtn;
     static int currentPosition;
     boolean timeUp;
     private String testName;
@@ -98,7 +97,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private ImageButton iv_popupMenu;
     private long timeSpend;
     private RecyclerView answersheetRecyclerView;
-    private int questionIndex=0;
+    private int questionIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,6 +195,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 if (questionIndex < questionArrayList.size() - 1) {
                     questionIndex++;
                     onNextQuestion();
+                } else {
+                    pauseTimer();
+                    submitTest();
                 }
             }
         });
@@ -261,30 +263,26 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         }
 
         pauseTimer();
-        updateQuestionsFragment(questionIndex);
+        submitTimeLogTest("switch_question", "" + Seconds);
 
 
-        if (questionIndex == (questionArrayList.size()-1)) {
-            nextBtn.setText("SUBMIT");
-        } else {
-            nextBtn.setText("SKIP");
-        }
+
 
         Log.d("Question Number", "" + questionIndex);
 
 
-        if ((questionIndex + 1) == questionArrayList.size()) {
-            submitTest();
-            pauseTimer();
+        if (nextBtn.getText().toString().trim().equalsIgnoreCase("NEXT")) {
+            submitQuestionAnswer();
         } else {
-            if (nextBtn.getText().toString().trim().equalsIgnoreCase("NEXT")) {
-                submitQuestionAnswer();
-            } else {
-                updateQuestionsFragment(questionIndex);
-            }
+            updateQuestionsFragment(questionIndex);
         }
 
-        submitTimeLogTest("switch_question", "" + Seconds);
+
+        if (questionIndex == (questionArrayList.size() - 1)) {
+            nextBtn.setText("SUBMIT");
+        } else {
+            nextBtn.setText("SKIP");
+        }
 
 
     }
@@ -418,7 +416,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
     private void updateQuestionsFragment(int questionIndex) {
-
+        startTimer();
         answerList.removeAllViews();
         Question question = questionArrayList.get(questionIndex);
         question_id = question.getId();
@@ -426,14 +424,14 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         if (!TextUtils.isEmpty(question.getTitle_image())) {
             imageQuestion.setVisibility(View.VISIBLE);
             Picasso.with(this).load(question.getTitle_image()).into(imageQuestion);
-        }else{
+        } else {
             imageQuestion.setVisibility(View.GONE);
         }
         questionTxt.setText("Q" + (questionIndex + 1) + ". " + question.getTitle());
         for (int i = 0; i < 4; i++) {
             switch (i) {
                 case 0:
-                    View answerView = inflater.inflate(R.layout.item_answer,null, false);
+                    View answerView = inflater.inflate(R.layout.item_answer, null, false);
                     TextView answer1 = answerView.findViewById(R.id.answer);
                     cardView1 = answerView.findViewById(R.id.cardView);
                     answer1.setText(question.getOption1());
@@ -451,7 +449,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
-                            }else{
+                            } else {
                                 updateAnswer(cardView1);
                             }
                             question.setSelectedOption(question.getOption1());
@@ -696,7 +694,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     @Override
     public void onQuesClick(int currentPosition) {
-        questionIndex=currentPosition;
+        questionIndex = currentPosition;
         onNextQuestion();
         onBackPressed();
     }
@@ -852,7 +850,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         cardView2.setCardBackgroundColor(getResources().getColor(R.color.white));
         cardView3.setCardBackgroundColor(getResources().getColor(R.color.white));
         cardView4.setCardBackgroundColor(getResources().getColor(R.color.white));
-        if (questionIndex == (questionArrayList.size()-1)) {
+        if (questionIndex == (questionArrayList.size() - 1)) {
             nextBtn.setText("SUBMIT");
         } else {
             nextBtn.setText("NEXT");
