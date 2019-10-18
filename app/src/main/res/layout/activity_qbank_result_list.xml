@@ -12,41 +12,89 @@
         android:id="@+id/filterView"
         android:layout_width="@dimen/margin_200"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
-        android:visibility="gone"
-        tools:visibility="gone"
         android:layout_alignParentRight="true"
-        android:translationZ="@dimen/margin_5"
-        android:elevation="@dimen/margin_10dp"
         android:background="@color/white"
-        android:padding="@dimen/margin_10dp">
-       <ScrollView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
+        android:elevation="@dimen/margin_10dp"
+        android:padding="@dimen/margin_10dp"
+        android:translationZ="@dimen/margin_5"
+        android:visibility="gone"
+        app:cardUseCompatPadding="true"
+        tools:visibility="visible">
 
-               >
-               <android.support.v7.widget.RecyclerView
-                   android:id="@+id/filtersRV"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"/>
-               <Button
-                   android:id="@+id/applyFilter"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
-                   android:layout_below="@+id/filtersRV"
-                   android:maxHeight="20dp"
-                   android:layout_marginTop="@dimen/margin_10dp"
-                   android:textColor="@color/white"
-                   android:background="@drawable/rounded_shape"
-                   android:layout_marginBottom="10dp"
-                   android:text="Apply"/>
-           </RelativeLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-       </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_color_noticeboard"
+                    android:gravity="center"
+
+                    android:minHeight="30dp"
+                    android:text="Answers"
+                    android:textColor="@color/white" />
+
+                <RadioGroup
+                    android:id="@+id/answersGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:background="@color/button_color_noticeboard"
+
+                    android:gravity="center"
+                    android:minHeight="30dp"
+                    android:text="Subjects"
+                    android:textColor="@color/white" />
+
+                <RadioGroup
+                    android:id="@+id/subjectsGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:background="@color/button_color_noticeboard"
+                    android:gravity="center"
+                    android:minHeight="30dp"
+                    android:text="Levels"
+                    android:textColor="@color/white" />
+
+                <RadioGroup
+                    android:id="@+id/levelGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp" />
+
+                <Button
+                    android:id="@+id/applyFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_shape"
+                    android:maxHeight="20dp"
+                    android:text="Apply"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </ScrollView>
     </android.support.v7.widget.CardView>
 
     <android.support.design.widget.AppBarLayout
@@ -62,17 +110,18 @@
             android:background="?attr/colorPrimary"
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/back_arrow"
-            app:title="Review"
-            app:titleTextColor="@color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Review"
+            app:titleTextColor="@color/white" />
     </android.support.design.widget.AppBarLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/appBarLayout">
 
-        </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

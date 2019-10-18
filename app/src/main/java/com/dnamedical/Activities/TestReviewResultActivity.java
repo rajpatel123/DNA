@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +27,10 @@ import com.dnamedical.Models.testReviewlistnew.Subject;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.dialog.FilterAdapter;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,18 +42,21 @@ public class TestReviewResultActivity extends AppCompatActivity {
     String user_Id, test_Id;
 
     private Toolbar mTopToolbar;
-    ;
+    boolean isFilterAdded;
     private RecyclerView recyclerView, filtersRV;
     private ImageView imageView;
     private TestReviewListResponse testReviewListResponse;
     private static String TAG = TestReviewResultActivity.class.getSimpleName();
     private TextView tvFilter;
-    private List<Level> filterLevelsList;
-    private List<Answer> filterAnswersList;
-    private List<Subject> filterSubjectList;
+    private List<Level> filterLevelsList = new ArrayList<>();
+    private List<Answer> filterAnswersList= new ArrayList<>();
+    private List<Subject> filterSubjectList= new ArrayList<>();
     private Filters filters;
     private Button applyFilters;
     String level, subject, answer;
+    RadioGroup anRadioGroup;
+    RadioGroup subjectGroup;
+    RadioGroup levelGroup;
     CardView filterView;
 
     @Override
@@ -60,9 +65,11 @@ public class TestReviewResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qbank_result_list);
         recyclerView = findViewById(R.id.recycler);
         imageView = findViewById(R.id.back);
-        filtersRV = findViewById(R.id.filtersRV);
         applyFilters = findViewById(R.id.applyFilter);
         filterView = findViewById(R.id.filterView);
+        anRadioGroup = findViewById(R.id.answersGroup);
+        subjectGroup = findViewById(R.id.subjectsGroup);
+        levelGroup = findViewById(R.id.levelGroup);
 
 
         mTopToolbar = findViewById(R.id.toolbar);
@@ -72,35 +79,121 @@ public class TestReviewResultActivity extends AppCompatActivity {
         applyFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                getFilterSelection();
                 getReviewData();
                 filterView.setVisibility(View.GONE);
             }
         });
     }
 
+    private void getFilterSelection() {
+
+        anRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton answerSected = findViewById(checkedId);
+                answer = getAnswerId(answerSected.getText().toString());
+            }
+        });
+
+        subjectGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton subjectSected = findViewById(checkedId);
+                subject = getSubjectId(subjectSected.getText().toString());
+
+            }
+        });
+
+
+        levelGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton levelSected = findViewById(checkedId);
+
+                level = getLevelId(levelSected.getText().toString());
+
+            }
+        });
+
+
+
+
+
+
+    }
+
+    private String getLevelId(String levelSelected) {
+        if (filterLevelsList.size()>0){
+            for (Level level: filterLevelsList){
+                if (level.getName().equalsIgnoreCase(levelSelected)){
+                    return level.getId();
+                }
+            }
+        }
+        return "";
+    }
+
+    private String getSubjectId(String subjectSelected) {
+        if (filterLevelsList.size()>0){
+            for (Subject subject: filterSubjectList){
+                if (subject.getName().equalsIgnoreCase(subjectSelected)){
+                    return subject.getId();
+                }
+            }
+        }
+        return "";
+    }
+
+    private String getAnswerId(String anserSelected) {
+        if (filterAnswersList.size()>0){
+            for (Answer answer: filterAnswersList){
+                if (answer.getName().equalsIgnoreCase(anserSelected)){
+                    return answer.getId();
+                }
+            }
+        }
+        return "";
+    }
+
     private void openFilterDialog() {
+        if (isFilterAdded){
+            filterView.setVisibility(View.VISIBLE);
+            return;
+        }
         if (filters != null) {
-            filtersRV.setLayoutManager(new LinearLayoutManager(this));
             filterView.setVisibility(View.VISIBLE);
 
-            FilterAdapter filterAdapter = new FilterAdapter(this, filters);
-            filterAdapter.setOnFilterSelectedListener(new FilterAdapter.onFilterClickListener() {
-                @Override
-                public void onLevelSelected(String text) {
-                    level = text;
+            if (filterAnswersList.size()>0){
+                isFilterAdded=true;
+                for (Answer answer :filterAnswersList){
+                    RadioButton radioButton = new RadioButton(this);
+                    radioButton.setText(answer.getName());
+                    anRadioGroup.addView(radioButton);
+                    
                 }
 
-                @Override
-                public void onSubjectSelected(String text) {
-                    subject = text;
+            }
+
+            if (filterSubjectList.size()>0){
+                for (Subject subject :filterSubjectList){
+                    RadioButton radioButton = new RadioButton(this);
+                    radioButton.setText(subject.getName());
+                    subjectGroup.addView(radioButton);
                 }
 
-                @Override
-                public void onAnswerSelected(String text) {
-                    answer = text;
+            }
+
+            if (filterLevelsList.size()>0){
+                for (Level level :filterLevelsList){
+                    RadioButton radioButton = new RadioButton(this);
+                    radioButton.setText(level.getName());
+                    levelGroup.addView(radioButton);
                 }
-            });
-            filtersRV.setAdapter(filterAdapter);
+
+            }
+
         }
     }
 
@@ -159,13 +252,13 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                         intent.putExtra("position", postion);
                                         intent.putParcelableArrayListExtra("list", testReviewListResponse.getData().getQuestionList());
                                         startActivity(intent);
-                                       // Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
+                                        // Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
 
                                     }
                                 }
                             });
                             Log.d("Api Response :", "Got Success from send");
-                            if (filterAnswersList==null || filterAnswersList.size() ==0) {
+                            if (filterAnswersList == null || filterAnswersList.size() == 0) {
                                 Filters filters = testReviewListResponse.getData().getFilters();
                                 if (filters != null) {
                                     getFiltersData(filters);
