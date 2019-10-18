@@ -12,15 +12,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dnamedical.Models.test.testp.Test;
+import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
+
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import com.dnamedical.Models.test.testp.Test;
-import com.dnamedical.R;
-import com.dnamedical.utils.Utils;
 
 import static android.view.View.GONE;
 
@@ -56,10 +56,14 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
 
+
+            holder.testStartTime.setText(Utils.startTimeFormat(Long.parseLong(test.getStartDate())*1000));
+            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getResultDate())*1000));
+
             //holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(test.getStartDate()).equals(test.getStartDate())) {
+                if (!Objects.requireNonNull(dailyTest.get(holder.getAdapterPosition()).getStartDate()).equals(dailyTest.get(holder.getAdapterPosition() - 1).getStartDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
@@ -74,13 +78,13 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(),test.getStartDate(),test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });
 
 
-        }else  if (grandTests != null) {
+        } else if (grandTests != null) {
             holder.title.setText(grandTests.get(holder.getAdapterPosition()).getTitle());
             Test test = grandTests.get(holder.getAdapterPosition());
 
@@ -106,7 +110,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(),test.getStartDate(),test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
                     }
                 }
             });
@@ -223,9 +227,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (dailyTest!=null){
+        if (dailyTest != null) {
             return dailyTest.size();
-        }else if (grandTests != null) {
+        } else if (grandTests != null) {
             return grandTests.size();
         } else if (allTests != null) {
             return allTests.size();
@@ -286,6 +290,13 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
         @BindView(R.id.total_time)
         TextView timeTotal;
+
+        @BindView(R.id.testStartTime)
+        TextView testStartTime;
+
+
+        @BindView(R.id.testEndTime)
+        TextView testEndTime;
 
         @BindView(R.id.textView_Date)
         TextView textDate;

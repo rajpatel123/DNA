@@ -225,8 +225,8 @@ public class ReviewResultFragment extends Fragment {
 
             percentage.setText(question.getPercentage() + "%     of the people got this right");
 
-            Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
-            refText.setText(question.getRefernce().getTitle());
+//            Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
+//            refText.setText(question.getRefernce().getTitle());
 
 
             switch (question.getCorrectAnswer()) {

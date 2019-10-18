@@ -165,7 +165,7 @@ public class Utils {
 
         try {
             Log.d("date", "" + timeStamp);
-            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY  hh : mm  a");
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY   hh:mm a");
             Date dNow = new Date(timeStamp);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
