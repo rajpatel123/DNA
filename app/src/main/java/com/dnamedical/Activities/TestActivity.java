@@ -179,7 +179,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
         test_id = getIntent().getStringExtra("id");
-        testDuration = Integer.parseInt(duration)*1000;
+        testDuration = Integer.parseInt(duration) * 1000;
         resettimer();
         startTimer();
         nextBtn = findViewById(R.id.skip_button);
@@ -243,19 +243,21 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
         pauseTimer();
 
-        if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
-            submitTest();
-            //Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
-            pauseTimer();
-        } else {
-            if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
-                submitQuestionAnswer();
-            }else {
-                updateQuestionsFragment();
+        if (qustionDetails.getData().getQuestionList() != null) {
+            if ((currentPosition + 1) == qustionDetails.getData().getQuestionList().size()) {
+                submitTest();
+                //Toast.makeText(TestActivity.this, "Time for Switch Question ==", Toast.LENGTH_LONG).show();
+                pauseTimer();
+            } else {
+                if (!nextBtn.getText().toString().trim().equalsIgnoreCase("SKIP")) {
+                    submitQuestionAnswer();
+                } else {
+                    updateQuestionsFragment();
+                }
+
             }
 
         }
-
         submitTimeLogTest("switch_question", "" + Seconds);
         //Toast.makeText(TestActivity.this, "Time for Switch Question ==" + Seconds, Toast.LENGTH_LONG).show();
 
@@ -280,7 +282,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 if (testResult != null) {
                     Intent intent = new Intent(TestActivity.this, ResultActivity.class);
                     intent.putExtra(Constants.RESULT, testResult);
-                    intent.putExtra("testid",test_id);
+                    intent.putExtra("testid", test_id);
                     startActivity(intent);
                     Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
                     finish();
@@ -339,8 +341,8 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
             RequestBody qID = RequestBody.create(MediaType.parse("text/plain"), question_id);
             RequestBody answerID = RequestBody.create(MediaType.parse("text/plain"), answer);
             RequestBody guesStatus = RequestBody.create(MediaType.parse("text/plain"), isGuess);
-            RequestBody edit= RequestBody.create(MediaType.parse("text/plain"), "1");
-            RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus,edit, new Callback<ResponseBody>() {
+            RequestBody edit = RequestBody.create(MediaType.parse("text/plain"), "1");
+            RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, edit, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
@@ -553,7 +555,7 @@ public class TestActivity extends FragmentActivity implements PopupMenu.OnMenuIt
     @Override
     protected void onResume() {
         super.onResume();
-        if (qustionDetails==null){
+        if (qustionDetails == null) {
             getTest();
         }
     }

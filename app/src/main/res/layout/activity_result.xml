@@ -73,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Grand Test"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#FFF"
 
 
                         />
@@ -327,7 +327,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Your Score  :"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/yourScore"

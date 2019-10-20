@@ -49,8 +49,8 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private static String TAG = TestReviewResultActivity.class.getSimpleName();
     private TextView tvFilter;
     private List<Level> filterLevelsList = new ArrayList<>();
-    private List<Answer> filterAnswersList= new ArrayList<>();
-    private List<Subject> filterSubjectList= new ArrayList<>();
+    private List<Answer> filterAnswersList = new ArrayList<>();
+    private List<Subject> filterSubjectList = new ArrayList<>();
     private Filters filters;
     private Button applyFilters;
     String level, subject, answer;
@@ -118,16 +118,12 @@ public class TestReviewResultActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 
     private String getLevelId(String levelSelected) {
-        if (filterLevelsList.size()>0){
-            for (Level level: filterLevelsList){
-                if (level.getName().equalsIgnoreCase(levelSelected)){
+        if (filterLevelsList.size() > 0) {
+            for (Level level : filterLevelsList) {
+                if (level.getName().equalsIgnoreCase(levelSelected)) {
                     return level.getId();
                 }
             }
@@ -136,9 +132,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private String getSubjectId(String subjectSelected) {
-        if (filterLevelsList.size()>0){
-            for (Subject subject: filterSubjectList){
-                if (subject.getName().equalsIgnoreCase(subjectSelected)){
+        if (filterLevelsList.size() > 0) {
+            for (Subject subject : filterSubjectList) {
+                if (subject.getName().equalsIgnoreCase(subjectSelected)) {
                     return subject.getId();
                 }
             }
@@ -147,9 +143,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private String getAnswerId(String anserSelected) {
-        if (filterAnswersList.size()>0){
-            for (Answer answer: filterAnswersList){
-                if (answer.getName().equalsIgnoreCase(anserSelected)){
+        if (filterAnswersList.size() > 0) {
+            for (Answer answer : filterAnswersList) {
+                if (answer.getName().equalsIgnoreCase(anserSelected)) {
                     return answer.getId();
                 }
             }
@@ -158,26 +154,26 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private void openFilterDialog() {
-        if (isFilterAdded){
+        if (isFilterAdded) {
             filterView.setVisibility(View.VISIBLE);
             return;
         }
         if (filters != null) {
             filterView.setVisibility(View.VISIBLE);
 
-            if (filterAnswersList.size()>0){
-                isFilterAdded=true;
-                for (Answer answer :filterAnswersList){
+            if (filterAnswersList.size() > 0) {
+                isFilterAdded = true;
+                for (Answer answer : filterAnswersList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(answer.getName());
                     anRadioGroup.addView(radioButton);
-                    
+
                 }
 
             }
 
-            if (filterSubjectList.size()>0){
-                for (Subject subject :filterSubjectList){
+            if (filterSubjectList.size() > 0) {
+                for (Subject subject : filterSubjectList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(subject.getName());
                     subjectGroup.addView(radioButton);
@@ -185,8 +181,8 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
             }
 
-            if (filterLevelsList.size()>0){
-                for (Level level :filterLevelsList){
+            if (filterLevelsList.size() > 0) {
+                for (Level level : filterLevelsList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(level.getName());
                     levelGroup.addView(radioButton);
@@ -239,7 +235,10 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             testReviewListAdapter.setData(testReviewListResponse.getData());
                             Log.d("Api Response :", "Got Success from data");
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                            recyclerView.setLayoutManager(mLayoutManager);
+                            if (mLayoutManager != null) {
+                                recyclerView.setLayoutManager(mLayoutManager);
+
+                            }
                             Log.d("Api Response :", "Got Success from layout");
                             recyclerView.setAdapter(testReviewListAdapter);
                             testReviewListAdapter.setTestClickListener(new TestReviewListAdapter.TestClickListener() {

@@ -23,7 +23,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.dnamedical.utils.Constants;
@@ -63,7 +62,7 @@ public class FetchAddressIntentService extends IntentService {
      * result receiver. If unsuccessful, sends an error message instead.
      * Note: We define a {@link ResultReceiver} in * MainActivity to process content
      * sent from this service.
-     *
+     * <p>
      * This service calls this method from the default worker thread with the intent that started
      * the service. When this method returns, the service automatically stops.
      */
@@ -128,7 +127,7 @@ public class FetchAddressIntentService extends IntentService {
         }
 
         // Handle case where no address was found.
-        if (addresses == null || addresses.size()  == 0) {
+        if (addresses == null || addresses.size() == 0) {
             if (errorMessage.isEmpty()) {
                 errorMessage = getString(R.string.no_address_found);
                 Log.e(TAG, errorMessage);
@@ -150,19 +149,30 @@ public class FetchAddressIntentService extends IntentService {
 //            for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
 //                addressFragments.add(address.getAddressLine(i));
 //            }
-           // Log.d("Address",address.getAddressLine(0).toString());
+            // Log.d("Address",address.getAddressLine(0).toString());
             //Log.d("Address",address.getSubAdminArea().toString());
-           // Log.d("Address",address.getCountryName().toString());
+            // Log.d("Address",address.getCountryName().toString());
             JSONObject jsonObject = new JSONObject();
+
             try {
-                jsonObject.put(Constants.ADDRESS,address.getAddressLine(0).toString());
-                jsonObject.put(Constants.CITY,address.getSubAdminArea().toString());
-                jsonObject.put(Constants.COUNTRY,address.getCountryName().toString());
+                if (address.getAddressLine(0).toString() != null) {
+                    jsonObject.put(Constants.ADDRESS, address.getAddressLine(0).toString());
+                }
+                if (address.getSubAdminArea().toString() != null) {
+                    jsonObject.put(Constants.CITY, address.getSubAdminArea().toString());
+                }
+                if (address.getCountryName().toString() != null) {
+                    jsonObject.put(Constants.COUNTRY, address.getCountryName().toString());
+                }
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            deliverResultToReceiver(Constants.SUCCESS_RESULT,
-                    jsonObject.toString());
+            if (jsonObject!=null) {
+                deliverResultToReceiver(Constants.SUCCESS_RESULT,
+                        jsonObject.toString());
+            }
         }
     }
 
