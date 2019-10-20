@@ -25,28 +25,25 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
+import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
+import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
+import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
-import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
-import com.dnamedical.Models.login.loginResponse;
-import com.dnamedical.Models.maincat.CategoryDetailData;
-import com.dnamedical.Models.registration.CommonResponse;
 
-
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -60,8 +57,10 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @Multipart
-    @POST("api/api.php?req=login")
-    Call<loginResponse> loginUser(@Part("email_id") RequestBody email, @Part("password") RequestBody password);
+    @POST("api/api.php?req=customer_login")
+    Call<loginResponse> loginUser(@Part("email_id") RequestBody email,
+                                  @Part("password") RequestBody password,
+                                  @Part("device_id") RequestBody deviceId);
 
 
     @Multipart
@@ -91,7 +90,6 @@ public interface ApiInterface {
                                         @Part("address") RequestBody addressBody,
                                         @Part("city") RequestBody cityBody,
                                         @Part("country") RequestBody countryBody);
-
 
 
     @Multipart
@@ -238,6 +236,7 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/testquestions")
     Call<QustionDetails> getQuestion(@Query("user_id") String user_id,
                                      @Query("test_id") String test_id);
+
     @Multipart
     @POST("v1/index.php/api/test/testresult")
     Call<TestResult> submitTest(@Part("user_id") RequestBody userId,
@@ -360,8 +359,9 @@ public interface ApiInterface {
     Call<EmailByFBResponse> getEmailByFBID(@Part("fb_id") RequestBody fb_id);
 
     @Multipart
-    @POST("api/api.php?req=facebook_login")
-    Call<FacebookLoginResponse> loginWithFacebook(@Part("fb_id") RequestBody fb_id);
+    @POST("api/api.php?req=fb_login")
+    Call<FacebookLoginResponse> loginWithFacebook(@Part("fb_id") RequestBody fb_id,
+                                                  @Part("device_id") RequestBody deviceRequestBody);
 
 
     @Multipart
@@ -401,11 +401,11 @@ public interface ApiInterface {
     // New Api's Integrate
     @GET("v1/index.php/api/test/reviewquestionlist")
     Call<TestReviewListResponse> getTestReviewListData(
-                                                       @Query("test_id") String test_id,
-                                                       @Query("user_id") String user_id,
-                                                       @Query("filter_level") String filter_level,
-                                                       @Query("filter_answer") String filter_answer,
-                                                       @Query("filter_category") String filter_category);
+            @Query("test_id") String test_id,
+            @Query("user_id") String user_id,
+            @Query("filter_level") String filter_level,
+            @Query("filter_answer") String filter_answer,
+            @Query("filter_category") String filter_category);
 
 
 //    // New Api's Integrate

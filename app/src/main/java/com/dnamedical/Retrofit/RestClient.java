@@ -62,8 +62,8 @@ public class RestClient {
 */
 
 
-    public static void loginUser(RequestBody email, RequestBody password, Callback<loginResponse> callback) {
-        RetrofitClient.getClient().loginUser(email, password).enqueue(callback);
+    public static void loginUser(RequestBody email, RequestBody password,RequestBody deviceId, Callback<loginResponse> callback) {
+        RetrofitClient.getClient().loginUser(email, password,deviceId).enqueue(callback);
     }
 
     public static void getAdditionalDiscount(Callback<ResponseBody> callback) {
@@ -268,8 +268,8 @@ public class RestClient {
 
     }
 
-    public static void loginWithFacebook(RequestBody fb_id, Callback<FacebookLoginResponse> callback) {
-        RetrofitClient.getClient().loginWithFacebook(fb_id).enqueue(callback);
+    public static void loginWithFacebook(RequestBody fb_id,RequestBody deviceRequestBody, Callback<FacebookLoginResponse> callback) {
+        RetrofitClient.getClient().loginWithFacebook(fb_id,deviceRequestBody).enqueue(callback);
 
     }
 

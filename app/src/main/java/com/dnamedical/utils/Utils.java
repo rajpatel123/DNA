@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -137,6 +138,11 @@ public class Utils {
 
     }
 
+    public static String getDviceID(Context context) {
+        String androidId = Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        return androidId;
+    }
 
     public static String dateFormat(long timeStamp) {
 
@@ -165,7 +171,7 @@ public class Utils {
 
         try {
             Log.d("date", "" + timeStamp);
-            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY   hh:mm a");
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM yyyy   hh:mm a");
             Date dNow = new Date(timeStamp);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
