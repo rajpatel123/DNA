@@ -27,6 +27,7 @@ import com.dnamedical.Models.testReviewlistnew.Subject;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
@@ -177,6 +178,10 @@ public class TestReviewResultActivity extends AppCompatActivity {
             }
 
             if (filterSubjectList.size()>0){
+                Subject subjectAll =new Subject();
+                subjectAll.setId("");
+                subjectAll.setName("All");
+                filterSubjectList.add(0,subjectAll);
                 for (Subject subject :filterSubjectList){
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(subject.getName());
@@ -218,7 +223,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             user_Id = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
-            user_Id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+            user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
         if (getIntent().hasExtra("testid")) {
             test_Id = getIntent().getStringExtra("testid");

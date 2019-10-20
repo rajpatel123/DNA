@@ -46,6 +46,7 @@ public class TestStartActivity extends AppCompatActivity {
     private long startDate;
     private long resultDate;
     private String testStatus;
+    private String subjectName="19 Subjects of MBBS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +54,22 @@ public class TestStartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_start);
         ButterKnife.bind(this);
 
-        if (getIntent() != null) {
-            id = getIntent().getStringExtra("id");
-            duration = getIntent().getStringExtra("duration");
-            startDate = Long.parseLong(getIntent().getStringExtra("startDate"));
-            resultDate = Long.parseLong(getIntent().getStringExtra("resultDate"));
+        Intent intent = getIntent();
+        if (intent!= null) {
+            id = intent.getStringExtra("id");
+            duration = intent.getStringExtra("duration");
+            startDate = Long.parseLong(intent.getStringExtra("startDate"));
+            resultDate = Long.parseLong(intent.getStringExtra("resultDate"));
 
-            testName = getIntent().getStringExtra("testName");
-            String type = getIntent().getStringExtra("type");
-            testQuestion = getIntent().getStringExtra("testQuestion");
-            testStatus = getIntent().getStringExtra("testStatus");
-            description = getIntent().getStringExtra("desc");
-            testPaid = getIntent().getStringExtra("testPaid");
+            if (intent.hasExtra("subjectName")){
+                subjectName = intent.getStringExtra("subjectName");
+            }
+            testName = intent.getStringExtra("testName");
+            String type = intent.getStringExtra("type");
+            testQuestion = intent.getStringExtra("testQuestion");
+            testStatus = intent.getStringExtra("testStatus");
+            description = intent.getStringExtra("desc");
+            testPaid = intent.getStringExtra("testPaid");
 
             if (!testStatus.equalsIgnoreCase("open")) {
                 testTopic.setText(testName);
@@ -196,7 +201,7 @@ public class TestStartActivity extends AppCompatActivity {
         switch (type) {
 
             case "daily_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "grand_test":
@@ -208,7 +213,7 @@ public class TestStartActivity extends AppCompatActivity {
                 break;
 
             case "subject_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from "+subjectName+" Subject of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
         }
@@ -239,7 +244,6 @@ public class TestStartActivity extends AppCompatActivity {
                 Intent intent = new Intent(TestStartActivity.this, TestV1Activity.class);
                 DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
                 id = getIntent().getStringExtra("id");
-                duration = getIntent().getStringExtra("duration");
                 testName = getIntent().getStringExtra("testName");
                 intent.putExtra("id", id);
                 intent.putExtra("duration", duration);
@@ -283,7 +287,7 @@ public class TestStartActivity extends AppCompatActivity {
 //                    //here we start new activity whatever u want
 //                    //startActivity(new Intent(this,FirstloginActivity.class));
 //                    Intent intent = new Intent(TestStartActivity.this, TestActivity.class);
-//                    String id = getIntent().getStringExtra("id");
+//                    String id = intent.getStringExtra("id");
 //                    intent.putExtra("id", id);
 //                    startActivity(intent);
 //                    finish();

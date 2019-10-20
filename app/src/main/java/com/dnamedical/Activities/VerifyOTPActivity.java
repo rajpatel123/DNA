@@ -29,6 +29,7 @@ import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import okhttp3.MediaType;
@@ -120,7 +121,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                 if (response.body().getStatus().equalsIgnoreCase("1")) {
                     Utils.displayToast(getApplicationContext(), response.body().getMessage());
                     String id=response.body().getLoginDetails().get(0).getId();
-                    DnaPrefs.putString(getApplicationContext(),"Login_Id",response.body().getLoginDetails().get(0).getId());
+                    DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID,response.body().getLoginDetails().get(0).getId());
                     DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",false);
 
                     DnaPrefs.putString(getApplicationContext(),"NAME",response.body().getLoginDetails().get(0).getName());

@@ -98,6 +98,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private long timeSpend;
     private RecyclerView answersheetRecyclerView;
     private int questionIndex = 0;
+    private TextView answer1, answer2, answer3, answer4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +175,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             }
         });
 
-        user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        user_id = DnaPrefs.getString(TestV1Activity.this, Constants.LOGIN_ID);
 
         quesionCounter = findViewById(R.id.counter);
         questionpannel = findViewById(R.id.questionpannel);
@@ -185,7 +186,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
         test_id = getIntent().getStringExtra("id");
-        testDuration = Integer.parseInt(duration) * 1000;
+        if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)){
+            testDuration = Integer.parseInt(duration) * 1000;
+        }
         resettimer();
         startTimer();
         nextBtn = findViewById(R.id.skip_button);
@@ -266,8 +269,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         submitTimeLogTest("switch_question", "" + Seconds);
 
 
-
-
         Log.d("Question Number", "" + questionIndex);
 
 
@@ -307,7 +308,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     intent.putExtra(Constants.RESULT, testResult);
                     intent.putExtra("testid", test_id);
                     startActivity(intent);
-                    Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
                     finish();
                 }
 
@@ -316,14 +317,13 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             @Override
             public void onFailure(Call<TestResult> call, Throwable t) {
                 Utils.dismissProgressDialog();
-                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                Log.d("SubmitTest", "Faileduser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
         });
 
     }
 
     public void submitTimeLogTest(String type, String time) {
-
         if (!Utils.isInternetConnected(this)) {
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
             return;
@@ -336,12 +336,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         RestClient.submit_timeLog(userId, timeSpendBody, testEvent, subEvent, product_id, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("Time Log -==>  " + type, "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                Log.d("Submittime", time + " user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + "Time-->" + answer + " Guess-->" + isGuess + "  Time-->" + Seconds);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                Log.d("Submittime", type + " user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
 
             }
         });
@@ -349,7 +349,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
     private void submitQuestionAnswer() {
-
         if (!Utils.isInternetConnected(this)) {
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
             return;
@@ -368,14 +367,14 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, edit, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    Log.d("submitQuestionAnswer", "Success " + "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess+"   Time-->" + Seconds);
                     updateQuestionsFragment(questionIndex);
 
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    Log.d("submitQuestionAnswer", "Failed "+"user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
 
                 }
             });
@@ -401,12 +400,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             RestClient.submitTestAnswer(userId, testID, qID, answerID, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("DataSuccess", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    Log.d("submitAnswer", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess+    "Time-->" + Seconds);
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    Log.d("submitAnswer", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
 
                 }
             });
@@ -416,7 +415,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
     private void updateQuestionsFragment(int questionIndex) {
-        startTimer();
         answerList.removeAllViews();
         Question question = questionArrayList.get(questionIndex);
         question_id = question.getId();
@@ -432,25 +430,25 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             switch (i) {
                 case 0:
                     View answerView = inflater.inflate(R.layout.item_answer, null, false);
-                    TextView answer1 = answerView.findViewById(R.id.answer);
+                    answer1 = answerView.findViewById(R.id.answer);
                     cardView1 = answerView.findViewById(R.id.cardView);
                     answer1.setText(question.getOption1());
                     answerList.addView(answerView);
 
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption1().equalsIgnoreCase(question.getSelectedOption())) {
-                        updateAnswer(cardView1);
+                        updateAnswer(cardView1, answer1);
                     }
                     answer1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
                             answer = "1";
-                            updateAnswer(cardView1);
+                            updateAnswer(cardView1, answer1);
 
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
                             } else {
-                                updateAnswer(cardView1);
+                                updateAnswer(cardView1, answer1);
                             }
                             question.setSelectedOption(question.getOption1());
 
@@ -460,12 +458,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 case 1:
                     View answerView1 = inflater.inflate(R.layout.item_answer,
                             null, false);
-                    TextView answer2 = answerView1.findViewById(R.id.answer);
+                    answer2 = answerView1.findViewById(R.id.answer);
                     cardView2 = answerView1.findViewById(R.id.cardView);
                     answer2.setText(question.getOption2());
                     answerList.addView(answerView1);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())) {
-                        updateAnswer(cardView2);
+                        updateAnswer(cardView2, answer2);
                     }
                     answer2.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -475,7 +473,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
                             }
-                            updateAnswer(cardView2);
+                            updateAnswer(cardView2, answer2);
                             question.setSelectedOption(question.getOption2());
 
                         }
@@ -484,13 +482,13 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 case 2:
                     View answerView2 = inflater.inflate(R.layout.item_answer,
                             null, false);
-                    TextView answer3 = answerView2.findViewById(R.id.answer);
+                    answer3 = answerView2.findViewById(R.id.answer);
                     cardView3 = answerView2.findViewById(R.id.cardView);
                     answer3.setText(question.getOption3());
 
                     answerList.addView(answerView2);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())) {
-                        updateAnswer(cardView3);
+                        updateAnswer(cardView3, answer3);
                     }
                     answer3.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -501,7 +499,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                                 updateToServerAnswerSelection();
                             }
                             question.setSelectedOption(question.getOption3());
-                            updateAnswer(cardView3);
+                            updateAnswer(cardView3, answer3);
 
                         }
                     });
@@ -509,12 +507,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 case 3:
                     View answerView4 = inflater.inflate(R.layout.item_answer,
                             null, false);
-                    TextView answer4 = answerView4.findViewById(R.id.answer);
+                    answer4 = answerView4.findViewById(R.id.answer);
                     cardView4 = answerView4.findViewById(R.id.cardView);
                     answer4.setText(question.getOption4());
                     answerList.addView(answerView4);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())) {
-                        updateAnswer(cardView4);
+                        updateAnswer(cardView4, answer4);
                     }
                     answer4.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -524,7 +522,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                                 updateToServerAnswerSelection();
                             }
                             question.setSelectedOption(question.getOption4());
-                            updateAnswer(cardView4);
+                            updateAnswer(cardView4, answer4);
 
                         }
                     });
@@ -845,7 +843,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
 
-    private void updateAnswer(CardView cardView) {
+    private void updateAnswer(CardView cardView, TextView answer) {
         cardView1.setCardBackgroundColor(getResources().getColor(R.color.white));
         cardView2.setCardBackgroundColor(getResources().getColor(R.color.white));
         cardView3.setCardBackgroundColor(getResources().getColor(R.color.white));
@@ -855,6 +853,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         } else {
             nextBtn.setText("NEXT");
         }
+
+        answer1.setTextColor(getResources().getColor(R.color.black));
+        answer2.setTextColor(getResources().getColor(R.color.black));
+        answer3.setTextColor(getResources().getColor(R.color.black));
+        answer4.setTextColor(getResources().getColor(R.color.black));
+        answer.setTextColor(getResources().getColor(R.color.white));
 
         cardView.setCardBackgroundColor(getResources().getColor(R.color.test_fragment_card_bacckground));
     }

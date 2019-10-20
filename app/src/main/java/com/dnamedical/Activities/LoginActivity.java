@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                             String college = loginResponse.getLoginDetails().get(0).getCollege();
                             String username = loginResponse.getLoginDetails().get(0).getName();
 
-                            DnaPrefs.putString(getApplicationContext(), "Login_Id", id);
+                            DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, id);
                             DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                             DnaPrefs.putString(getApplicationContext(), "STATE", state);
                             DnaPrefs.putString(getApplicationContext(), "COLLEGE", college);
@@ -258,7 +258,7 @@ public class LoginActivity extends AppCompatActivity {
                                             } else {
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                 DnaPrefs.putBoolean(LoginActivity.this, Constants.LoginCheck, true);
-                                                DnaPrefs.putString(getApplicationContext(), "Login_Id", facebookLoginResponse.getLoginDetails().get(0).getId());
+                                                DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, facebookLoginResponse.getLoginDetails().get(0).getId());
                                                 DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
                                                 DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                                 DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);

@@ -49,14 +49,7 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
 
 
-    TextView dateTv, percentValue, testNameTv, totalUser, totalQuestion, userRank, userNumber;
-    CircularSeekBar correct, wrong, skipped;
-    TextView correctTXT, wrongTXT, skippedTXT;
-
-    private List<UserResult> userResults;
-    private List<ResultList> resultLists;
-    private List<AllReult> allReults;
-    private RecyclerView recyclerView;
+    TextView totalQuestion;
     private Button reviewButton, shareButton;
 
     String user_id;
@@ -226,7 +219,7 @@ public class ResultActivity extends AppCompatActivity {
 
 
     private void submitTest() {
-        user_id = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        user_id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
@@ -280,6 +273,8 @@ public class ResultActivity extends AppCompatActivity {
         setHeadBorder(wrongAnswer);
         setHeadBorder(skipped);
         //setBorder(score);
+        score.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.size_11));
 
         subject.setPadding(5, 0, 5, 5);
         subject.setGravity(Gravity.CENTER);
@@ -348,13 +343,13 @@ public class ResultActivity extends AppCompatActivity {
             //setBorder(scoreTv);
 
 
-            subjectTv.setPadding(15, 0, 15, 5);
+            subjectTv.setPadding(5, 0, 15, 5);
             subjectTv.setMaxLines(3);
             subjectTv.setTextSize(14f);
             subjectTv.setMaxWidth(300);
-            rightAnswerTv.setPadding(10, 0, 5, 5);
+            rightAnswerTv.setPadding(5, 0, 5, 5);
             skippedTv.setPadding(0, 0, 5, 5);
-            wrongAnswerTv.setPadding(10, 0, 5, 5);
+            wrongAnswerTv.setPadding(5, 0, 5, 5);
             scoreTv.setPadding(5, 0, 5, 5);
 
 
@@ -393,6 +388,9 @@ public class ResultActivity extends AppCompatActivity {
             }else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")){
                 subjectTv.setText("DERMA");
 
+            }else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIO")){
+                subjectTv.setText("DERMA");
+
             }else {
                 subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
             }
@@ -417,7 +415,7 @@ public class ResultActivity extends AppCompatActivity {
             }
 
             if (scoreAnalysi.get(i).getScore()!=null){
-                scoreTv.setText("" + scoreAnalysi.get(i).getScore());
+                scoreTv.setText("" + scoreAnalysi.get(i).getScore().trim());
             }else{
                 scoreTv.setText("" +0);
             }
@@ -453,7 +451,7 @@ public class ResultActivity extends AppCompatActivity {
 
         totalmarks.setPadding(10, 0, 5, 5);
         totalmarks.setGravity(Gravity.CENTER);
-        totalMarksValue.setPadding(15, 0, 5, 5);
+        totalMarksValue.setPadding(5, 0, 5, 5);
         totalMarksValue.setGravity(Gravity.CENTER);
 
         totalmarks.setText("  TOTAL ");
@@ -497,7 +495,7 @@ public class ResultActivity extends AppCompatActivity {
         border.getPaint().setColor(Color.BLACK);
 
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimension(R.dimen.size_12));
+                getResources().getDimension(R.dimen.size_11));
         tv.setBackground(border);
     }
 

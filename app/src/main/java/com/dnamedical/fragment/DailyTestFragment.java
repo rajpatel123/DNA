@@ -129,8 +129,11 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
             recyclerView.setVisibility(View.VISIBLE);
         } else {
             Log.d("Api Response :", "Got Success from Api");
-            recyclerView.setVisibility(View.GONE);
-            notext.setVisibility(View.VISIBLE);
+            if (recyclerView!=null){
+                recyclerView.setVisibility(View.GONE);
+                notext.setVisibility(View.VISIBLE);
+            }
+
 
         }
 

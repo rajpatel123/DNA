@@ -40,7 +40,7 @@ public class EnterMobileAndEmailActivity extends AppCompatActivity {
             email_submit = findViewById(R.id.Email_submit_Button);
 
 
-            ids = DnaPrefs.getString(getApplicationContext(),"Login_Id");
+            ids = DnaPrefs.getString(getApplicationContext(),Constants.LOGIN_ID);
 
             email_submit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,7 +75,7 @@ public class EnterMobileAndEmailActivity extends AppCompatActivity {
                         FacebookResponse facebookResponse = response.body();
                         if (facebookResponse.getFacebookDetails() != null && facebookResponse.getFacebookDetails().size() > 0) {
                             int ids = facebookResponse.getFacebookDetails().get(0).getId();
-                            DnaPrefs.putString(getApplicationContext(), "Login_Id", ""+ids);
+                            DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, ""+ids);
                             if (response != null && response.body() != null) {
 
 

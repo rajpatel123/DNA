@@ -38,7 +38,7 @@ public class Mobilenumber extends AppCompatActivity {
         mob_submit = findViewById(R.id.Mobile_submit_Button);
 
 
-        ids = DnaPrefs.getString(getApplicationContext(),"Login_Id");
+        ids = DnaPrefs.getString(getApplicationContext(),Constants.LOGIN_ID);
 
         mob_submit.setOnClickListener(new View.OnClickListener() {
             @Override

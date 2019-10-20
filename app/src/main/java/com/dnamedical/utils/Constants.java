@@ -21,7 +21,7 @@ public class Constants {
     public static final String SOFT_UPGRADE_SKIP = "soft_upgrade_skip";
     public static final String ADD_DISCOUNT = "additionalDiscount";
     public static final String MOBILE = "mobile";
-    public static final String LOGIN_ID = "Login_Id";
+    public static final String LOGIN_ID = "user_id";
     public static final String FB_ID = "fb_id";
 
 

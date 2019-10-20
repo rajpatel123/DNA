@@ -27,6 +27,7 @@ import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import okhttp3.MediaType;
@@ -112,7 +113,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     }
 
     private void getQbankData() {
-        UserId= DnaPrefs.getString(getContext(),"Login_Id");
+        UserId= DnaPrefs.getString(getContext(), Constants.LOGIN_ID);
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());

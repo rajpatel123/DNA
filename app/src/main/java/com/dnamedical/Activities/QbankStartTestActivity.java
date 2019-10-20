@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
@@ -80,7 +81,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
     }
 
     private void getStartData() {
-        userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+        userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         String isPaused = "1";
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody is_paused = RequestBody.create(MediaType.parse("text/plain"), isPaused);

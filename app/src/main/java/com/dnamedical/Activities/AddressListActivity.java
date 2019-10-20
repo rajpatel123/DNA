@@ -16,6 +16,7 @@ import com.dnamedical.Adapters.AddressListAdapter;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
@@ -117,7 +118,7 @@ public class AddressListActivity extends AppCompatActivity {
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
-            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
 

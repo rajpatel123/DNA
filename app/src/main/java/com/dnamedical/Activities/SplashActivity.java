@@ -89,7 +89,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
                                 } else {
-                                    DnaPrefs.putString(getApplicationContext(), "Login_Id", data[3]);
+                                    DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, data[3]);
                                     DnaPrefs.putString(getApplicationContext(), "EMAIL", data[4]);
                                     DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, data[5]);
                                     DnaPrefs.putBoolean(SplashActivity.this, Constants.LoginCheck, true);

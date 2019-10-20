@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
-            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);

@@ -18,6 +18,7 @@ import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.razorpay.Checkout;
@@ -279,7 +280,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
-            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
 
 
@@ -343,7 +344,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
-            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
 
 
@@ -408,7 +409,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
-            userId = DnaPrefs.getString(getApplicationContext(), "Login_Id");
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
 
 

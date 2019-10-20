@@ -28,6 +28,7 @@ import com.dnamedical.Models.QbankSubCat.SubCat;
 import com.dnamedical.Models.qbank.QBank;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import okhttp3.MediaType;
@@ -113,7 +114,7 @@ public class QbankAllFragment extends Fragment {
 
         String qbank_sub_cat = qbankSubActivity.qbankcat_id;
         RequestBody qcat_id = RequestBody.create(MediaType.parse("text/plain"), qbank_sub_cat);
-        UserId= DnaPrefs.getString(getContext(),"Login_Id");
+        UserId= DnaPrefs.getString(getContext(), Constants.LOGIN_ID);
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());

@@ -78,6 +78,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             intent.putExtra("duration", time);
             intent.putExtra("startDate", startDate);
             intent.putExtra("resultDate", resultDate);
+            intent.putExtra("subjectName", testName);
 
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);
