@@ -23,6 +23,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.dnamedical.utils.Constants;
@@ -133,7 +134,7 @@ public class FetchAddressIntentService extends IntentService {
                 Log.e(TAG, errorMessage);
             }
             deliverResultToReceiver(Constants.FAILURE_RESULT, errorMessage);
-        } else {
+        } else if (addresses.size()>0){
             Address address = addresses.get(0);
             ArrayList<String> addressFragments = new ArrayList<>();
 
@@ -155,21 +156,30 @@ public class FetchAddressIntentService extends IntentService {
             JSONObject jsonObject = new JSONObject();
 
             try {
-                if (address.getAddressLine(0).toString() != null) {
-                    jsonObject.put(Constants.ADDRESS, address.getAddressLine(0).toString());
+                if (!TextUtils.isEmpty(address.getAddressLine(0)) && address.getAddressLine(0) != null) {
+                    jsonObject.put(Constants.ADDRESS, address.getAddressLine(0));
+                }else{
+                    jsonObject.put(Constants.ADDRESS, "Unable to get Addresss");
+
                 }
-                if (address.getSubAdminArea().toString() != null) {
+                if (!TextUtils.isEmpty(address.getSubAdminArea()) && address.getSubAdminArea()!= null) {
                     jsonObject.put(Constants.CITY, address.getSubAdminArea().toString());
+                } else {
+                    if (!TextUtils.isEmpty(address.getAdminArea()) && address.getAdminArea()!= null) {
+                        jsonObject.put(Constants.CITY, address.getAdminArea());
+                    }
                 }
-                if (address.getCountryName().toString() != null) {
+                if (!TextUtils.isEmpty(address.getCountryName())  && address.getCountryName().toString() != null) {
                     jsonObject.put(Constants.COUNTRY, address.getCountryName().toString());
+                }else{
+                    jsonObject.put(Constants.COUNTRY, "India");
                 }
 
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (jsonObject!=null) {
+            if (jsonObject != null) {
                 deliverResultToReceiver(Constants.SUCCESS_RESULT,
                         jsonObject.toString());
             }

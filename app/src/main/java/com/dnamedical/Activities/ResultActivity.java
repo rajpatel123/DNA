@@ -9,7 +9,6 @@ import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.UnderlineSpan;
@@ -18,14 +17,11 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.dnamedical.Models.ResultData.AllReult;
-import com.dnamedical.Models.ResultData.ResultList;
-import com.dnamedical.Models.ResultData.UserResult;
 import com.dnamedical.Models.test.testresult.ScoreAnalysi;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
@@ -36,7 +32,6 @@ import com.dnamedical.utils.Utils;
 
 import java.util.List;
 
-import me.tankery.lib.circularseekbar.CircularSeekBar;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -153,20 +148,20 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         totalQuestion = findViewById(R.id.total_question);
-//        skipped = findViewById(R.id.skipped);
-//        wrong = findViewById(R.id.wrong);
-//        correct = findViewById(R.id.correct);
 
-        //  showRankResult();
 
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
-                intent1.putExtra("testid", test_id);
-                startActivity(intent1);
-                // finish();
+                if (Utils.isInternetConnected(ResultActivity.this)) {
+                    Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent1.putExtra("testid", test_id);
+                    startActivity(intent1);
+                } else {
+                    Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -176,7 +171,7 @@ public class ResultActivity extends AppCompatActivity {
 
         init(testResult.getData().getScoreAnalysis());
 
-        if(testResult!=null) {
+        if (testResult != null) {
             rankTV.setText("" + testResult.getData().getRank());
             startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
             endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
@@ -355,71 +350,69 @@ public class ResultActivity extends AppCompatActivity {
             scoreTv.setPadding(5, 0, 5, 5);
 
 
-
-
-            if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")){
+            if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")) {
                 subjectTv.setText("MICRO");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("FORENSIC MEDICINE & TOXICOLOGY ( F.M.T )")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("FORENSIC MEDICINE & TOXICOLOGY ( F.M.T )")) {
                 subjectTv.setText("F.M.T");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("OPHTHALMOLOGY(EYE)")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("OPHTHALMOLOGY(EYE)")) {
                 subjectTv.setText("EYE");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("COMMUNITY MEDICINE")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("COMMUNITY MEDICINE")) {
                 subjectTv.setText("P.S.M.");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("OBS & GYNE ( OBG )")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("OBS & GYNE ( OBG )")) {
                 subjectTv.setText("OBG");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")) {
                 subjectTv.setText("PHARMA");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("BIO-CHEMISTRY")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("BIO-CHEMISTRY")) {
                 subjectTv.setText("BIOCHEM");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")) {
                 subjectTv.setText("BIOCHEM");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("ANATOMY (UG)")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("ANATOMY (UG)")) {
                 subjectTv.setText("ANATOMY");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")) {
                 subjectTv.setText("ORTHO");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")) {
                 subjectTv.setText("DERMA");
 
-            }else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIO")){
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIO")) {
                 subjectTv.setText("DERMA");
 
-            }else {
+            } else {
                 subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
             }
 
 
-            if (scoreAnalysi.get(i).getCorrect()!=null){
+            if (scoreAnalysi.get(i).getCorrect() != null) {
                 rightAnswerTv.setText("" + scoreAnalysi.get(i).getCorrect());
-            }else{
+            } else {
                 rightAnswerTv.setText("" + 0);
             }
 
-            if (scoreAnalysi.get(i).getWrong()!=null){
+            if (scoreAnalysi.get(i).getWrong() != null) {
                 wrongAnswerTv.setText("" + scoreAnalysi.get(i).getWrong());
-            }else{
+            } else {
                 wrongAnswerTv.setText("" + 0);
             }
 
-            if (scoreAnalysi.get(i).getSkip()!=null){
+            if (scoreAnalysi.get(i).getSkip() != null) {
                 skippedTv.setText("" + scoreAnalysi.get(i).getSkip());
-            }else{
+            } else {
                 skippedTv.setText("" + 0);
             }
 
-            if (scoreAnalysi.get(i).getScore()!=null){
+            if (scoreAnalysi.get(i).getScore() != null) {
                 scoreTv.setText("" + scoreAnalysi.get(i).getScore().trim());
-            }else{
-                scoreTv.setText("" +0);
+            } else {
+                scoreTv.setText("" + 0);
             }
             row.addView(subjectTv);
             row.addView(rightAnswerTv);
@@ -459,7 +452,7 @@ public class ResultActivity extends AppCompatActivity {
         totalmarks.setText("  TOTAL ");
 
 
-        totalMarksValue.setText(testResult.getData().getYourScore()+"  ");
+        totalMarksValue.setText(testResult.getData().getYourScore() + "  ");
 
         totalmarks.setTextColor(ContextCompat.getColor(this, R.color.red));
         totalMarksValue.setTextColor(ContextCompat.getColor(this, R.color.red));

@@ -1,17 +1,10 @@
 package com.dnamedical.Activities;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,26 +22,29 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.dnamedical.DNAApplication;
-import com.dnamedical.Models.test.AllTest;
-import com.dnamedical.Models.test.GrandTest;
-import com.dnamedical.Models.test.MiniTest;
-import com.dnamedical.Models.test.SubjectTest;
-import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
+import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.fragment.HomeFragment;
+import com.dnamedical.fragment.OnlineFragment;
+import com.dnamedical.fragment.QbankFragment;
+import com.dnamedical.fragment.TestFragment;
+import com.dnamedical.fragment.videoFragment;
+import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.ImageUtils;
 import com.dnamedical.utils.Utils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,22 +57,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import com.dnamedical.R;
-import com.dnamedical.fragment.HomeFragment;
-import com.dnamedical.fragment.OnlineFragment;
-import com.dnamedical.fragment.QbankFragment;
-import com.dnamedical.fragment.TestFragment;
-import com.dnamedical.fragment.videoFragment;
-import com.dnamedical.interfaces.FragmentLifecycle;
-import com.dnamedical.utils.DnaPrefs;
-import com.dnamedical.utils.ImageUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static android.os.Build.VERSION_CODES.M;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -164,105 +144,6 @@ public class MainActivity extends AppCompatActivity
         updateLogin();
         //getTest();
 
-        registerBroadcastForLogout();
-
-
-    }
-
-    private void registerBroadcastForLogout() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.package.ACTION_LOGOUT");
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.d("onReceive","Logout in progress");
-                //At this point you should start the login activity and finish this one
-                finish();
-            }
-        }, intentFilter);
-    }
-
-
-    private void getTest() {
-
-        String userId;
-
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        }
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-
-            RestClient.getAllTestData(userId, new Callback<TestDataResponse>() {
-                @Override
-                public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
-                    if (response.code() == 200) {
-                        Utils.dismissProgressDialog();
-
-
-                        if (testDataResponse != null) {
-                            testDataResponse = null;
-                        }
-                        testDataResponse = response.body();
-
-                        if (testDataResponse.getData() != null
-                                && testDataResponse.getData().getTestList() != null
-                                && testDataResponse.getData().getTestList().size() > 0
-                                && testDataResponse.getData().getTestList().get(0).getList().size() > 0) {
-                            grandTests = testDataResponse.getData().getTestList().get(0).getList();
-
-                        }
-
-                        if (testDataResponse.getData() != null
-                                && testDataResponse.getData().getTestList() != null
-                                && testDataResponse.getData().getTestList().size() > 0
-                                && testDataResponse.getData().getTestList().get(1).getList().size() > 0) {
-                            miniTests = testDataResponse.getData().getTestList().get(1).getList();
-
-                        }
-
-                        if (testDataResponse.getData() != null
-                                && testDataResponse.getData().getTestList() != null
-                                && testDataResponse.getData().getTestList().size() > 0
-                                && testDataResponse.getData().getTestList().get(2).getList().size() > 0) {
-                            subjectTests = testDataResponse.getData().getTestList().get(2).getList();
-
-                        }
-
-
-                        if (grandTests.size() > 0) {
-                            allTests.addAll(grandTests);
-                        }
-                        if (miniTests.size() > 0) {
-                            allTests.addAll(miniTests);
-                        }
-                        if (subjectTests.size() > 0) {
-                            allTests.addAll(subjectTests);
-                        }
-
-
-                        if (dashboardTestFragment!=null){
-                            dashboardTestFragment.updateAllTest();
-                        }
-
-
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<TestDataResponse> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                    //Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
-
-                }
-            });
-        } else {
-            Utils.dismissProgressDialog();
-            // Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
-        }
 
     }
 
@@ -336,7 +217,7 @@ public class MainActivity extends AppCompatActivity
 
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(pageChangeListener);
-       // int limit = (adapter.getCount() > 1 ? adapter.getCount() - 1 : 1);
+        // int limit = (adapter.getCount() > 1 ? adapter.getCount() - 1 : 1);
         pager.setOffscreenPageLimit(4);
     }
 
@@ -464,12 +345,54 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("title", "Terms & Conditions");
             startActivity(intent);
+        } else if (id == R.id.login_button) {
+            userlogout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    private void userlogout() {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+        TextView text_logout = dialogView.findViewById(R.id.text_logout);
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        text_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               startActivity(intent);
+               finish();
+
+            }
+        });
+
+
+        dialog.show();
+
+    }
+
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         int currentPosition = 0;

@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,7 +82,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     public String question_id;
     public String answer;
     public String isGuess;
-
+    ProgressBar progressBar;
     public Button nextBtn, prevBtn;
     static int currentPosition;
     boolean timeUp;
@@ -112,6 +114,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         answerList = findViewById(R.id.answerList);
         questionTxt = findViewById(R.id.questionTxt);
         imageQuestion = findViewById(R.id.question_image);
+        progressBar = findViewById(R.id.progressBar);
         inflater = LayoutInflater.from(this);
         answersheetRecyclerView = findViewById(R.id.answersheetRecycler);
         handler = new Handler();
@@ -186,7 +189,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
         test_id = getIntent().getStringExtra("id");
-        if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)){
+        if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
             testDuration = Integer.parseInt(duration) * 1000;
         }
         resettimer();
@@ -368,14 +371,14 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             RestClient.submitQuestionTestAnswer(userId, testID, qID, answerID, guesStatus, edit, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("submitQuestionAnswer", "Success " + "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess+"   Time-->" + Seconds);
+                    Log.d("submitQuestionAnswer", "Success " + "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess + "   Time-->" + Seconds);
                     updateQuestionsFragment(questionIndex);
 
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d("submitQuestionAnswer", "Failed "+"user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    Log.d("submitQuestionAnswer", "Failed " + "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
 
                 }
             });
@@ -401,7 +404,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             RestClient.submitTestAnswer(userId, testID, qID, answerID, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("submitAnswer", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess+    "Time-->" + Seconds);
+                    Log.d("submitAnswer", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess + "Time-->" + Seconds);
                 }
 
                 @Override
@@ -421,8 +424,32 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         question_id = question.getId();
         guessCheck.setChecked(question.isGues());
         if (!TextUtils.isEmpty(question.getTitle_image())) {
-            imageQuestion.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(question.getTitle_image()).into(imageQuestion);
+           if (Utils.isInternetConnected(TestV1Activity.this)){
+               imageQuestion.setVisibility(View.VISIBLE);
+               Picasso.with(this).load(question.getTitle_image())
+                       .into(imageQuestion, new com.squareup.picasso.Callback() {
+                           @Override
+                           public void onSuccess() {
+                               if (progressBar != null) {
+                                   progressBar.setVisibility(View.GONE);
+                               }
+                           }
+
+                           @Override
+                           public void onError() {
+                               if (progressBar != null) {
+                                   progressBar.setVisibility(View.GONE);
+                               }
+                               imageQuestion.setVisibility(View.GONE);
+                               Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+
+
+                           }
+                       });
+           }else{
+
+           }
+
         } else {
             imageQuestion.setVisibility(View.GONE);
         }

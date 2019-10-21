@@ -204,13 +204,8 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
     private void getTest() {
 
-        String userId;
+        String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        }
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());
 

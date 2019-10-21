@@ -46,7 +46,7 @@ public class TestStartActivity extends AppCompatActivity {
     private long startDate;
     private long resultDate;
     private String testStatus;
-    private String subjectName="19 Subjects of MBBS";
+    private String subjectName = "19 Subjects of MBBS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +55,13 @@ public class TestStartActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        if (intent!= null) {
+        if (intent != null) {
             id = intent.getStringExtra("id");
             duration = intent.getStringExtra("duration");
             startDate = Long.parseLong(intent.getStringExtra("startDate"));
             resultDate = Long.parseLong(intent.getStringExtra("resultDate"));
 
-            if (intent.hasExtra("subjectName")){
+            if (intent.hasExtra("subjectName")) {
                 subjectName = intent.getStringExtra("subjectName");
             }
             testName = intent.getStringExtra("testName");
@@ -82,8 +82,8 @@ public class TestStartActivity extends AppCompatActivity {
                 start_desc.setVisibility(View.GONE);
 
             } else {
-                if ((System.currentTimeMillis() - (startDate*1000) >= 0)) {
-                    if (resultDate*1000 < System.currentTimeMillis()) {
+                if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
+                    if (resultDate * 1000 < System.currentTimeMillis()) {
                         btnStart.setText("Test result declared want to start the test");
                     } else {
                         btnStart.setText("Start The Test");
@@ -103,7 +103,7 @@ public class TestStartActivity extends AppCompatActivity {
                     updateTestTypeText(type);
                     btnStart.setText("Start The Test");
                     btnStart.setVisibility(View.GONE);
-                    start_date.setText(Utils.startTimeFormat(startDate*1000));
+                    start_date.setText(Utils.startTimeFormat(startDate * 1000));
                     start_desc.setText("This test will start on: ");
                     start_date.setVisibility(View.VISIBLE);
                     start_desc.setVisibility(View.VISIBLE);
@@ -136,10 +136,16 @@ public class TestStartActivity extends AppCompatActivity {
                     }
                     StartTest();
                 } else {
-                    Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
-                    intent.putExtra("testid", id);
-                    startActivity(intent);
-                    finish();
+
+                    if (Utils.isInternetConnected(TestStartActivity.this)) {
+                        Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
+                        intent.putExtra("testid", id);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(TestStartActivity.this,"No internet connection",Toast.LENGTH_LONG).show();
+                    }
+
 
                 }
             }
@@ -213,7 +219,7 @@ public class TestStartActivity extends AppCompatActivity {
                 break;
 
             case "subject_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from "+subjectName+" Subject of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from " + subjectName + " Subject of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
         }
@@ -241,15 +247,20 @@ public class TestStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(TestStartActivity.this, TestV1Activity.class);
-                DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
-                id = getIntent().getStringExtra("id");
-                testName = getIntent().getStringExtra("testName");
-                intent.putExtra("id", id);
-                intent.putExtra("duration", duration);
-                intent.putExtra("testName", testName);
-                startActivity(intent);
-                finish();
+                if (Utils.isInternetConnected(TestStartActivity.this)) {
+                    Intent intent = new Intent(TestStartActivity.this, TestV1Activity.class);
+                    DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
+                    id = getIntent().getStringExtra("id");
+                    testName = getIntent().getStringExtra("testName");
+                    intent.putExtra("id", id);
+                    intent.putExtra("duration", duration);
+                    intent.putExtra("testName", testName);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(TestStartActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                }
+
                 dialog.dismiss();
 
 
@@ -259,44 +270,6 @@ public class TestStartActivity extends AppCompatActivity {
         dialog.show();
 
     }
-
-//    private void startTest() {
-//
-//
-//            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//            // ...Irrelevant code for customizing the buttons and titl
-//            LayoutInflater inflater = this.getLayoutInflater();
-//            View dialogView= inflater.inflate(R.layout.start_test_alertdialog, null);
-//            dialogBuilder.setView(dialogView);
-//
-//            final AlertDialog dialog = dialogBuilder.create();
-//            Button btn_Done = dialogView.findViewById(R.id.btn_done);
-//            TextView text_Cancel=dialogView.findViewById(R.id.text_cancel);
-//            text_Cancel.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    dialog.dismiss();
-//
-//                }
-//            });
-//
-//
-//            btn_Done.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //here we start new activity whatever u want
-//                    //startActivity(new Intent(this,FirstloginActivity.class));
-//                    Intent intent = new Intent(TestStartActivity.this, TestActivity.class);
-//                    String id = intent.getStringExtra("id");
-//                    intent.putExtra("id", id);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            });
-//            if (!dialog.isShowing())
-//            dialog.show();
-//
-//        }
 
 
 }

@@ -75,12 +75,7 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
         textViewVerification.setOnClickListener(this);
 
         setprofiledata();
-        textViewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userlogout();
-            }
-        });
+
 
     }
 
@@ -90,41 +85,9 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
         setprofiledata();
     }
 
-    private void userlogout() {
 
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        // ...Irrelevant code for customizing the buttons and titl
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
-        dialogBuilder.setView(dialogView);
 
-        final AlertDialog dialog = dialogBuilder.create();
-        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-        TextView text_logout = dialogView.findViewById(R.id.text_logout);
-        btn_Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
 
-            }
-        });
-
-        text_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DnaPrefs.putBoolean(DNAProfileActivity.this, Constants.LoginCheck, false);
-                /** on your logout method:**/
-                Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-                sendBroadcast(broadcastIntent);
-                startActivity(new Intent(DNAProfileActivity.this, FirstloginActivity.class));
-                finish();
-            }
-        });
-
-        dialog.show();
-
-    }
 
     private void setprofiledata() {
         Intent intent = getIntent();

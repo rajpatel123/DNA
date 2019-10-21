@@ -255,6 +255,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                     if (filterView.getVisibility() != View.VISIBLE) {
                                         Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
                                         intent.putExtra("position", postion);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         intent.putParcelableArrayListExtra("list", testReviewListResponse.getData().getQuestionList());
                                         startActivity(intent);
                                         // Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
