@@ -169,73 +169,76 @@ public class FirstloginActivity extends AppCompatActivity {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         JSONObject data = response.getJSONObject();
                         try {
-                            String name = data.optString("name");
-                            String email = data.optString("email");
-                            String facebook_id = data.optString("id");
-                            String pictureurl = data.getJSONObject("picture").getJSONObject("data").getString("url");
+                            if (data!=null){
+                                String name = data.optString("name");
+                                String email = data.optString("email");
+                                String facebook_id = data.optString("id");
+                                String pictureurl = data.getJSONObject("picture").getJSONObject("data").getString("url");
 
-                            RequestBody facebookRequestBody = RequestBody.create(MediaType.parse("text/plain"), facebook_id);
-                            RequestBody deviceRequestBody = RequestBody.create(MediaType.parse("text/plain"), Utils.getDviceID(FirstloginActivity.this));
+                                RequestBody facebookRequestBody = RequestBody.create(MediaType.parse("text/plain"), facebook_id);
+                                RequestBody deviceRequestBody = RequestBody.create(MediaType.parse("text/plain"), Utils.getDviceID(FirstloginActivity.this));
 
 
-                            RestClient.loginWithFacebook(facebookRequestBody,deviceRequestBody, new Callback<FacebookLoginResponse>() {
-                                @Override
-                                public void onResponse(Call<FacebookLoginResponse> call, Response<FacebookLoginResponse> response) {
+                                RestClient.loginWithFacebook(facebookRequestBody,deviceRequestBody, new Callback<FacebookLoginResponse>() {
+                                    @Override
+                                    public void onResponse(Call<FacebookLoginResponse> call, Response<FacebookLoginResponse> response) {
 
-                                    FacebookLoginResponse facebookLoginResponse = response.body();
-                                    if (Integer.parseInt(facebookLoginResponse.getStatus())==1){
-                                        if (facebookLoginResponse != null && facebookLoginResponse.getLoginDetails() != null) {
-                                            if (TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getState()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getEmailId()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getMobileNo())) {
-                                                Intent intent = new Intent(FirstloginActivity.this, RegistrationActivity.class);
+                                        FacebookLoginResponse facebookLoginResponse = response.body();
+                                        if (Integer.parseInt(facebookLoginResponse.getStatus())==1){
+                                            if (facebookLoginResponse != null && facebookLoginResponse.getLoginDetails() != null) {
+                                                if (TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getState()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getEmailId()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getMobileNo())) {
+                                                    Intent intent = new Intent(FirstloginActivity.this, RegistrationActivity.class);
 
-                                                intent.putExtra(Constants.LOGIN_ID, facebookLoginResponse.getLoginDetails().get(0).getId());
-                                                intent.putExtra(Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
-                                                intent.putExtra(Constants.NAME, facebookLoginResponse.getLoginDetails().get(0).getName());
-                                                intent.putExtra(Constants.EMAILID, facebookLoginResponse.getLoginDetails().get(0).getEmailId());
-                                                intent.putExtra(Constants.FB_ID, facebook_id);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
-                                                DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck, true);
-                                                DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, facebookLoginResponse.getLoginDetails().get(0).getId());
-                                                DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
-                                                DnaPrefs.putString(getApplicationContext(), "NAME", name);
-                                                DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
-                                                DnaPrefs.putString(getApplicationContext(), "EMAIL", facebookLoginResponse.getLoginDetails().get(0).getEmailId());
-                                                DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
-                                                DnaPrefs.putString(getApplicationContext(), "STATE", facebookLoginResponse.getLoginDetails().get(0).getState());
-                                                DnaPrefs.putString(getApplicationContext(), "COLLEGE", facebookLoginResponse.getLoginDetails().get(0).getCollege());
+                                                    intent.putExtra(Constants.LOGIN_ID, facebookLoginResponse.getLoginDetails().get(0).getId());
+                                                    intent.putExtra(Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
+                                                    intent.putExtra(Constants.NAME, facebookLoginResponse.getLoginDetails().get(0).getName());
+                                                    intent.putExtra(Constants.EMAILID, facebookLoginResponse.getLoginDetails().get(0).getEmailId());
+                                                    intent.putExtra(Constants.FB_ID, facebook_id);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    Intent intent = new Intent(FirstloginActivity.this, MainActivity.class);
+                                                    DnaPrefs.putBoolean(FirstloginActivity.this, Constants.LoginCheck, true);
+                                                    DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, facebookLoginResponse.getLoginDetails().get(0).getId());
+                                                    DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
+                                                    DnaPrefs.putString(getApplicationContext(), "NAME", name);
+                                                    DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
+                                                    DnaPrefs.putString(getApplicationContext(), "EMAIL", facebookLoginResponse.getLoginDetails().get(0).getEmailId());
+                                                    DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
+                                                    DnaPrefs.putString(getApplicationContext(), "STATE", facebookLoginResponse.getLoginDetails().get(0).getState());
+                                                    DnaPrefs.putString(getApplicationContext(), "COLLEGE", facebookLoginResponse.getLoginDetails().get(0).getCollege());
 //                                            DnaPrefs.putString(getApplicationContext(), "FBID", facebook_id);
 
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            } else {
+                                                Intent intent = new Intent(FirstloginActivity.this, RegistrationActivity.class);
+
+                                                intent.putExtra(Constants.LOGIN_ID, "");
+                                                intent.putExtra(Constants.MOBILE, "");
+
+                                                intent.putExtra(Constants.FB_ID, facebook_id);
+                                                intent.putExtra(Constants.NAME, name);
+                                                intent.putExtra(Constants.EMAILID, email);
                                                 startActivity(intent);
-                                                finish();
                                             }
-                                        } else {
-                                            Intent intent = new Intent(FirstloginActivity.this, RegistrationActivity.class);
 
-                                            intent.putExtra(Constants.LOGIN_ID, "");
-                                            intent.putExtra(Constants.MOBILE, "");
+                                        }else if(Integer.parseInt(facebookLoginResponse.getStatus())==2){
+                                            showLoginfailedDialog(facebookLoginResponse.getMessage());
 
-                                            intent.putExtra(Constants.FB_ID, facebook_id);
-                                            intent.putExtra(Constants.NAME, name);
-                                            intent.putExtra(Constants.EMAILID, email);
-                                            startActivity(intent);
                                         }
-
-                                    }else if(Integer.parseInt(facebookLoginResponse.getStatus())==2){
-                                        showLoginfailedDialog(facebookLoginResponse.getMessage());
 
                                     }
 
-                                }
+                                    @Override
+                                    public void onFailure(Call<FacebookLoginResponse> call, Throwable t) {
+                                        Log.d("Data", "Error in login");
 
-                                @Override
-                                public void onFailure(Call<FacebookLoginResponse> call, Throwable t) {
-                                    Log.d("Data", "Error in login");
+                                    }
+                                });
 
-                                }
-                            });
+                            }
 
 
                         } catch (JSONException e) {
