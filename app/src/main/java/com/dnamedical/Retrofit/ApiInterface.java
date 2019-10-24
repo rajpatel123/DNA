@@ -34,6 +34,7 @@ import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
+import com.dnamedical.Models.subs.PlanResponse;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
@@ -213,6 +214,10 @@ public interface ApiInterface {
 
     @GET("http://13.234.161.7/api/api.php?req=getreleasedetail")
     Call<PlaystoreUpdateResponse> playstoreUpdate();
+
+
+    @GET("http://vrok.in/dnalive/api/api.php?req=get_subscription")
+    Call<PlanResponse> getSubscriptionPlans();
 
 
     @Multipart

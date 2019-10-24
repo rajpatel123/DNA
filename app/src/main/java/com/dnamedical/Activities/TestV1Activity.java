@@ -863,7 +863,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private void updateToServerAnswerSelection() {
         pauseTimer();
         submitTimeLogTest("selecting_option", "" + Seconds);
-        //  Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Time for Select Answer ==  time" + Seconds, Toast.LENGTH_LONG).show();
 
         submitAnswer();
         resettimer();
