@@ -302,8 +302,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, DNAKnowmoreActivity.class);
             startActivity(intent);
         } else if (id == R.id.subscribe) {
-           /* Intent intent = new Intent(this, DNASuscribeActivity.class);
-            startActivity(intent);*/
+            Intent intent = new Intent(this, DNASuscribeActivity.class);
+            startActivity(intent);
         } else if (id == R.id.notice_board) {
 
             Intent intent = new Intent(this, Noticeboard.class);

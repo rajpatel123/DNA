@@ -23,41 +23,38 @@
         <item
             android:id="@+id/subscribe"
             android:title="Subscribe"
-            android:visible="false"/>
+            android:visible="true"/>
+        <item
+            android:id="@+id/about"
+            android:title="About Us" />
+
+        <item
+            android:id="@+id/contact_us"
+            android:title="Contact Us" />
+
+        <item
+            android:id="@+id/rate"
+            android:title="Rate Us" />
+        <item
+            android:id="@+id/nav_share"
+            android:title="Share the App" />
+
+
+        <item
+            android:id="@+id/terms_conditions"
+            android:title="T&amp;C" />
+
+
+        <item
+            android:id="@+id/report"
+            android:title="Franchise Query" />
+
+
+        <item
+            android:id="@+id/login_button"
+            android:title="Logout" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/about"
-                android:title="About Us" />
 
-            <item
-                android:id="@+id/contact_us"
-                android:title="Contact Us" />
-
-            <item
-                android:id="@+id/rate"
-                android:title="Rate Us" />
-            <item
-                android:id="@+id/nav_share"
-                android:title="Share the App" />
-
-
-            <item
-                android:id="@+id/terms_conditions"
-                android:title="T&amp;C" />
-
-
-            <item
-                android:id="@+id/report"
-                android:title="Franchise Query" />
-
-
-            <item
-                android:id="@+id/login_button"
-                android:title="Logout" />
-        </menu>
-    </item>
 
 </menu>
