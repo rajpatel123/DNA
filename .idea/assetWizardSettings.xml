@@ -16,26 +16,11 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_bookmark_black_24dp.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_filter" />
-                            <entry key="sourceFile" value="C:\Users\Lenovo\Downloads\icomoon (1)\SVG\filter.svg" />
+                            <entry key="outputName" value="ic_drop_down_arrow" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../drop-down-arrow.svg" />
                           </map>
                         </option>
                       </PersistentState>

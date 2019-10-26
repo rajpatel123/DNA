@@ -4,620 +4,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/vedioborder"
+    android:background="@color/white"
+
     android:scrollbars="none"
     tools:context=".Activities.DNASuscribeActivity">
 
-
-    <RelativeLayout
-        android:id="@+id/relative_head"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearhead"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentTop="true"
+                android:background="?attr/colorPrimary"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:title="Subscribe"
+                app:titleTextColor="@color/white" />
+        </android.support.design.widget.AppBarLayout>
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="2dp"
             android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:padding="@dimen/margin_10">
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_toStartOf="@+id/name"
+                    app:srcCompat="@drawable/dnalogo" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:text="DNA Classes" />
+
+                <TextView
+                    android:id="@+id/premium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:layout_toEndOf="@+id/name"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:background="@drawable/rounded_shape"
+                    android:text="PREMIUM" />
+
+
+            </RelativeLayout>
 
             <TextView
+                android:id="@+id/descriptin_of_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="DNA"
-                android:layout_margin="20sp"
-                android:textColor="@color/colorAccent"
-                android:textSize="24sp" />
-
-
-            <TextView
-               android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="DNA Pro users enjoy access to all the content"
-                android:textColor="@color/black_titles"
-                android:textSize="14sp"
+                android:layout_below="@+id/header"
+                android:text="Prepare anytime, anywhere on the go with the best resoureces"
                 android:textStyle="bold" />
 
-            <TextView
-                android:visibility="gone"
-                android:layout_width="wrap_content"
+
+        </RelativeLayout>
+
+        <RadioGroup
+            android:id="@+id/planGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/margin_30"
+            android:paddingEnd="@dimen/margin_30"
+            android:paddingBottom="@dimen/margin_10dp"
+            >
+
+            <RadioButton
+                android:id="@+id/ind"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="You can now go for an individual plan to unlock a specific component."
-                android:textColor="@color/black_titles"
-                android:textSize="13sp" />
-        </LinearLayout>
+                android:layout_weight="1"
+                android:checked="true"
+                android:layout_marginStart="@dimen/margin_10dp"
+                android:text="Individual Plan" />
+
+
+            <RadioButton
+                android:id="@+id/combo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/margin_10dp"
+                android:text="Combo Plan" />
+
+        </RadioGroup>
 
 
         <LinearLayout
-            android:id="@+id/linearmiddle"
+            android:id="@+id/planholderlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearhead"
-            android:layout_marginTop="5dp"
-            android:background="@color/vedioborder"
-            android:orientation="vertical">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginLeft="12dp"
-                    android:layout_weight="2"
-                    android:text="Pro Plans"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:text="Coupon applied"
-                    android:textColor="@color/colorAccent" />
-            </LinearLayout>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="@color/white">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Plan A"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="17dp" />
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="1px"
-                        android:background="@color/black_titles" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="14dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/black_titles"
-                                app:srcCompat="@drawable/text" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="Test Series"
-                                android:textColor="@color/black_titles"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="12dp"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/first"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Rs. 3,500 "
-                                android:textColor="@color/black_titles"
-                                android:textSize="17dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="BUY NOW"
-                                android:textColor="@color/black_titles"
-                                android:textSize="17dp"
-
-                                />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="@color/white">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Plan A"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="17dp" />
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="1px"
-                        android:background="@color/colorAccent" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="14dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/black_titles"
-                                app:srcCompat="@drawable/text" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="Test Series"
-                                android:textColor="@color/black_titles"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="12dp"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/second"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Rs. 3,500 "
-                                android:textColor="@color/black_titles"
-                                android:textSize="17dp"
-                                android:textStyle="bold" />
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="BUY NOW"
-                                android:textColor="@color/black_titles"
-                                android:textSize="17dp"
-
-                                />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="@color/white">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Plan A"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="17dp" />
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="1px"
-                        android:background="@android:color/darker_gray" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="14dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/black_titles"
-                                app:srcCompat="@drawable/text" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="Test Series"
-                                android:textColor="@color/black_titles"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="12dp"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/third"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Rs. 3,500 "
-                                android:textColor="@color/black_titles"
-                                android:textSize="17dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="BUY NOW"
-                                android:textColor="@color/black_titles"
-                                android:textSize="17dp"
-
-                                />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearmiddle"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:id="@+id/layoutmiddle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linearhead"
-                android:layout_marginTop="5dp"
-                android:background="@color/vedioborder"
-                android:orientation="vertical">
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginLeft="12dp"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:text="Individual Plans"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="Coupon applied"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp"
-                    android:layout_marginTop="10dp"
-                    app:cardBackgroundColor="@color/white">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:text="Plan A"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="17dp" />
-
-                        <View
-                            android:layout_width="wrap_content"
-                            android:layout_height="1px"
-                            android:background="@android:color/darker_gray" />
-
-                        <LinearLayout
-
-                            android:layout_width="match_parent"
-
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="14dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@color/black_titles"
-                                    app:srcCompat="@drawable/text" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="5dp"
-                                    android:text="Video"
-                                    android:textColor="@color/black_titles"
-                                    android:textSize="15sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="12dp"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/fourth"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Rs. 3,500 "
-                                    android:textColor="@color/black_titles"
-                                    android:textSize="17dp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="BUY NOW"
-                                    android:textColor="@color/black_titles"
-                                    android:textSize="17dp"
-                                    />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layoutmiddle1"
-                android:layout_marginLeft="9sp"
-                android:layout_marginRight="9sp"
-                android:layout_marginTop="15sp"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/white"
-                    android:text="Learn more"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp"
-
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="Have more queries?"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp" />
-
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1px"
-                    android:background="@android:color/darker_gray" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="Read our FAQ's"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp" />
-
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1px"
-                    android:background="@android:color/darker_gray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="Get a Call to know more about the PRO Plans"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp" />
-
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1px"
-                    android:background="@android:color/darker_gray" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="Email: Support@dna.com"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp" />
-
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1px"
-                    android:background="@android:color/darker_gray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="Privacy policy| Cancellation Policy"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp" />
-
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1px"
-                    android:background="@android:color/darker_gray" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical" />
+
+    </LinearLayout>
 
 
 </ScrollView>

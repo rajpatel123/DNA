@@ -1,64 +1,104 @@
 package com.dnamedical.Models.subs;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ComboPack {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-@SerializedName("id")
-@Expose
-private String id;
-@SerializedName("name")
-@Expose
-private String name;
-@SerializedName("subname")
-@Expose
-private String subname;
-@SerializedName("price")
-@Expose
-private String price;
-@SerializedName("discount")
-@Expose
-private String discount;
+public class ComboPack implements Parcelable {
 
-public String getId() {
-return id;
-}
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("subname")
+    @Expose
+    private String subname;
+    @SerializedName("price")
+    @Expose
+    private String price;
+    @SerializedName("discount")
+    @Expose
+    private String discount;
 
-public void setId(String id) {
-this.id = id;
-}
+    protected ComboPack(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        subname = in.readString();
+        price = in.readString();
+        discount = in.readString();
+    }
 
-public String getName() {
-return name;
-}
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(subname);
+        dest.writeString(price);
+        dest.writeString(discount);
+    }
 
-public void setName(String name) {
-this.name = name;
-}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-public String getSubname() {
-return subname;
-}
+    public static final Creator<ComboPack> CREATOR = new Creator<ComboPack>() {
+        @Override
+        public ComboPack createFromParcel(Parcel in) {
+            return new ComboPack(in);
+        }
 
-public void setSubname(String subname) {
-this.subname = subname;
-}
+        @Override
+        public ComboPack[] newArray(int size) {
+            return new ComboPack[size];
+        }
+    };
 
-public String getPrice() {
-return price;
-}
+    public String getId() {
+        return id;
+    }
 
-public void setPrice(String price) {
-this.price = price;
-}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-public String getDiscount() {
-return discount;
-}
+    public String getName() {
+        return name;
+    }
 
-public void setDiscount(String discount) {
-this.discount = discount;
-}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSubname() {
+        return subname;
+    }
+
+    public void setSubname(String subname) {
+        this.subname = subname;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
 
 }

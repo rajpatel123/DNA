@@ -34,6 +34,7 @@ import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
+import com.dnamedical.Models.subs.PlanDetailResponse;
 import com.dnamedical.Models.subs.PlanResponse;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
@@ -153,6 +154,11 @@ public class RestClient {
     public static void getTest(RequestBody user_id, Callback<TestQuestionData> callback) {
         RetrofitClient.getClient().getTest(user_id).enqueue(callback);
     }
+
+    public static void getPlanById(RequestBody subs_id ,Callback<PlanDetailResponse> callback) {
+        RetrofitClient.getClient().getPlanById(subs_id).enqueue(callback);
+    }
+
 
     public static void getSubscriptionPlans(Callback<PlanResponse> callback) {
         RetrofitClient.getClient().getSubscriptionPlans().enqueue(callback);
