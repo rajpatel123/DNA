@@ -25,6 +25,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentTop="true"
                 android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/back_arrow"
+
                 app:contentInsetStartWithNavigation="0dp"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -86,8 +88,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_margin="@dimen/margin_10"
                 android:layout_below="@+id/header"
-                android:text="Prepare anytime, anywhere on the go with the best resoureces"
+                android:text="Prepare anytime, anywhere on the go with the best resources"
                 android:textStyle="bold" />
 
 

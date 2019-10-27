@@ -141,7 +141,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         }
 
         Log.d("VideoUrl",price.getUrl());
-        if (price.getPaymentStatus().equalsIgnoreCase("1")) {
+        if (price.getPaymentStatus().equalsIgnoreCase("1") || price.getSubscription_status().equalsIgnoreCase("1")) {
             holder.buyNow.setVisibility(View.GONE);
             holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
@@ -167,7 +167,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (price.getPaymentStatus().equalsIgnoreCase("1") && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+                if ((price.getPaymentStatus().equalsIgnoreCase("1") || price.getSubscription_status().equalsIgnoreCase("1")) && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     }else{

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddressListActivity extends AppCompatActivity {
+public class AddressForSubscriptionListActivity extends AppCompatActivity {
 
 
     @BindView(R.id.recycler)
@@ -37,7 +38,10 @@ public class AddressListActivity extends AppCompatActivity {
     @BindView(R.id.noData)
     TextView textViewNoData;
 
-    String userId, amount, vedioId, shippingCharge, couponValue, couponValueAdd, totalValue, subchildcat;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    String userId, amount, subscription_id, shippingCharge,totalDiscountGiven,totalADDDiscountGiven, couponValue, couponValueAdd, totalValue, plan_id,months,pack_key,order_id;
     GetDataAddressResponse getDataAddressList;
 
     @Override
@@ -46,30 +50,37 @@ public class AddressListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address_list);
         ButterKnife.bind(this);
 
+
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         if (getIntent().hasExtra("AMOUNT")) {
             amount = getIntent().getStringExtra("AMOUNT");
 
-            if (getIntent().hasExtra("VEDIOID")) {
-                vedioId = getIntent().getStringExtra("VEDIOID");
+            if (getIntent().hasExtra("subscription_id")) {
+                subscription_id = getIntent().getStringExtra("subscription_id");
             }
-            if (getIntent().hasExtra("SUB_CHILD_CAT")) {
-                subchildcat = getIntent().getStringExtra("SUB_CHILD_CAT");
+
+            if (getIntent().hasExtra("plan_id")) {
+                plan_id = getIntent().getStringExtra("plan_id");
             }
+
+            if (getIntent().hasExtra("months")) {
+                months = getIntent().getStringExtra("months");
+            }
+            if (getIntent().hasExtra("pack_key")) {
+                pack_key = getIntent().getStringExtra("pack_key");
+            }
+            if (getIntent().hasExtra("order_id")) {
+                order_id = getIntent().getStringExtra("order_id");
+            }
+
+            //
             shippingCharge = getIntent().getStringExtra("SHIPPING_CHARGE");
+            totalDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_GIVEN");
             couponValue = getIntent().getStringExtra("COUPON_VALUE");
             couponValueAdd = getIntent().getStringExtra("COUPON_VALUE_ADD");
-            totalValue = getIntent().getStringExtra("TOTAL_VALUE");
-        } else {
-            amount = DnaPrefs.getString(AddressListActivity.this, "AMOUNT");
-            if (DnaPrefs.getString(AddressListActivity.this, "VEDIOID") != null) {
-                vedioId = DnaPrefs.getString(AddressListActivity.this, "VEDIOID");
-            }
-            if (DnaPrefs.getString(AddressListActivity.this, "SUB_CHILD_CAT") != null) {
-                subchildcat = DnaPrefs.getString(AddressListActivity.this, "SUB_CHILD_CAT");
-            }
-            shippingCharge = DnaPrefs.getString(AddressListActivity.this, "SHIPPING_CHARGE");
-            couponValue = DnaPrefs.getString(AddressListActivity.this, "COUPON_VALUE");
-            totalValue = DnaPrefs.getString(AddressListActivity.this, "TOTAL_VALUE");
+
+
 
         }
 
@@ -89,7 +100,7 @@ public class AddressListActivity extends AppCompatActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         if (item.getItemId() == R.id.add_address) {
-            Intent intent = new Intent(AddressListActivity.this, PaymentAddressSaveActivity.class);
+            Intent intent = new Intent(AddressForSubscriptionListActivity.this, PaymentAddressSaveActivity.class);
             startActivity(intent);
             finish();
         }
@@ -134,7 +145,7 @@ public class AddressListActivity extends AppCompatActivity {
                                 addressListAdapter.setOnClickAddressData(new AddressListAdapter.onClickAddress() {
                                     @Override
                                     public void onAddressClick(String name, String mobile, String email, String address1, String address2, String state, String city, String pincode) {
-                                        Intent intent = new Intent(AddressListActivity.this, PaymentDetailActivity.class);
+                                        Intent intent = new Intent(AddressForSubscriptionListActivity.this, SubscriptionPaymentActivity.class);
                                         intent.putExtra("NAME", name);
                                         intent.putExtra("MOBILE", mobile);
                                         intent.putExtra("EMAIL", email);
@@ -143,16 +154,23 @@ public class AddressListActivity extends AppCompatActivity {
                                         intent.putExtra("STATE", state);
                                         intent.putExtra("CITY", city);
                                         intent.putExtra("PINCODE", pincode);
+
+
+
+                                        intent.putExtra("subscription_id", subscription_id);
+                                        intent.putExtra("plan_id", plan_id);
+                                        intent.putExtra("months", months);
+                                        intent.putExtra("pack_key", pack_key);
+                                        intent.putExtra("COUPON_VALUE_GIVEN", totalDiscountGiven);
+
+
+
+
                                         intent.putExtra("AMOUNT", amount);
-                                        if (vedioId != null) {
-                                            intent.putExtra("VEDIOID", vedioId);
-                                        } else {
-                                            intent.putExtra("SUB_CHILD_CAT_ID", subchildcat);
-                                        }
+
                                         intent.putExtra("SHIPPING_CHARGE", shippingCharge);
                                         intent.putExtra("COUPON_VALUE", couponValue);
                                         intent.putExtra("COUPON_VALUE_ADD", couponValueAdd);
-                                        intent.putExtra("TOTAL_VALUE", totalValue);
 
                                         startActivity(intent);
                                         finish();
@@ -161,7 +179,7 @@ public class AddressListActivity extends AppCompatActivity {
                                 addressListAdapter.setOnClickEditAddress(new AddressListAdapter.onClickEditAddress() {
                                     @Override
                                     public void onEditAddressClick(String name, String mobile, String Aid, String email, String address1, String address2, String state, String city, String pincode) {
-                                        Intent intent = new Intent(AddressListActivity.this, UpdateAddressActivity.class);
+                                        Intent intent = new Intent(AddressForSubscriptionListActivity.this, UpdateAddressActivity.class);
                                         intent.putExtra("NAME", name);
                                         intent.putExtra("MOBILE", mobile);
                                         intent.putExtra("EMAIL", email);
@@ -211,7 +229,7 @@ public class AddressListActivity extends AppCompatActivity {
                 public void onFailure(Call<GetDataAddressResponse> call, Throwable t) {
 
                     Utils.dismissProgressDialog();
-                    Toast.makeText(AddressListActivity.this, "Response Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddressForSubscriptionListActivity.this, "Response Failed", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {

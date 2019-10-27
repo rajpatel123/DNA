@@ -49,6 +49,7 @@ import com.dnamedical.Models.video.VideoList;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -247,6 +248,11 @@ public class RestClient {
 
     public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
         RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
+    }
+
+
+    public static void addOrderForSubsDetail(RequestBody user_id, RequestBody order_id, RequestBody planId, RequestBody subscriptioId, RequestBody packKey, RequestBody month, RequestBody status,RequestBody price, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().addOrderForSubsDetail(user_id,order_id, planId,subscriptioId, packKey, month, status,price).enqueue(callback);
     }
 
 

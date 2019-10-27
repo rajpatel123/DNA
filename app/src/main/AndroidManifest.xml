@@ -24,8 +24,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity android:name=".Activities.PlanPaymentProceesingActivity"></activity>
-        <activity android:name=".Activities.TestV1Activity" />
+        <activity
+            android:name=".Activities.SubscriptionPaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.PlanPaymentProceesingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.TestV1Activity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -171,6 +178,10 @@
         <activity
             android:name=".Activities.FirstloginActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Activities.AddressForSubscriptionListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait" />
@@ -220,8 +231,7 @@
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNASuscribeActivity"
-            android:screenOrientation="portrait"
-             />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.DNAKnowmoreActivity"
             android:label="Know More"

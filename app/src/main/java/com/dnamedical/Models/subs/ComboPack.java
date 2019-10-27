@@ -23,6 +23,19 @@ public class ComboPack implements Parcelable {
     @SerializedName("price")
     @Expose
     private String price;
+
+
+    public String getPack_key() {
+        return pack_key;
+    }
+
+    public void setPack_key(String pack_key) {
+        this.pack_key = pack_key;
+    }
+
+    @SerializedName("pack_key")
+    @Expose
+    private String pack_key;
     @SerializedName("discount")
     @Expose
     private String discount;
@@ -33,6 +46,7 @@ public class ComboPack implements Parcelable {
         subname = in.readString();
         price = in.readString();
         discount = in.readString();
+        pack_key = in.readString();
     }
 
     @Override
@@ -42,6 +56,7 @@ public class ComboPack implements Parcelable {
         dest.writeString(subname);
         dest.writeString(price);
         dest.writeString(discount);
+        dest.writeString(pack_key);
     }
 
     @Override

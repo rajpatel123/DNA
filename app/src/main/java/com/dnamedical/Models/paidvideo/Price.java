@@ -76,6 +76,18 @@ public class Price implements Parcelable {
     @SerializedName("dr_img")
     @Expose
     private String drImg;
+
+    public String getSubscription_status() {
+        return subscription_status;
+    }
+
+    public void setSubscription_status(String subscription_status) {
+        this.subscription_status = subscription_status;
+    }
+
+    @SerializedName("subscription_status")
+    @Expose
+    private String subscription_status;
     @SerializedName("source_time")
     @Expose
     private List<SourceTime> sourceTime = null;
@@ -98,6 +110,7 @@ public class Price implements Parcelable {
         userId = in.readString();
         paymentStatus = in.readString();
         drImg = in.readString();
+        subscription_status = in.readString();
         url = in.readString();
     }
 
@@ -262,6 +275,7 @@ public class Price implements Parcelable {
         dest.writeString(userId);
         dest.writeString(paymentStatus);
         dest.writeString(drImg);
+        dest.writeString(subscription_status);
         dest.writeString(url);
     }
 }

@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha=".7"
+        android:alpha="1"
         android:background="@color/colorPrimaryDark"
         android:padding="@dimen/margin_10dp">
 
@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="@dimen/margin_20"
             android:text="Rapid Revision for NEET-PG"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/planName"
             android:gravity="center"
-            android:text="Rapid revision for NEET-PG"
+            android:text="Rapid revision for NEevision for NEevision for NEevision for NEevision for NEevision for NEevision for NEevision for NEET-PG"
             android:textColor="@color/black_primary"
             android:textSize="12sp" />
     </RelativeLayout>
@@ -45,8 +46,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"
-        android:layout_above="@+id/bottomView">
+        android:layout_above="@+id/bottomView"
+        android:layout_below="@+id/header">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,6 +73,7 @@
                     android:layout_marginRight="15sp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:id="@+id/qbankLL"
                         android:layout_width="match_parent"
@@ -79,12 +81,12 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:visibility="gone"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -104,20 +106,19 @@
 
 
                             <Button
-                                android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="25dp"
                                 android:layout_margin="5dp"
                                 android:background="@drawable/rounded_shape"
+                                android:gravity="center"
                                 android:text="Edition 2019"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
 
 
-
                         </LinearLayout>
 
-                        
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -275,11 +276,11 @@
                         android:paddingBottom="@dimen/padding_bottom_20">
 
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -300,16 +301,15 @@
 
 
                             <Button
-                                android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="25dp"
                                 android:layout_marginLeft="5dp"
                                 android:background="@drawable/rounded_shape"
+                                android:gravity="center"
                                 android:padding="5sp"
                                 android:text="Edition 2019"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
-
 
 
                         </LinearLayout>
@@ -476,9 +476,9 @@
                         android:paddingBottom="@dimen/padding_bottom_20">
 
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -487,6 +487,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:background="@drawable/ic_switch_video_black_24dp" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -495,12 +496,13 @@
                                 android:textColor="@color/colorAccent"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
+
                             <Button
-                                android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="25dp"
                                 android:layout_marginLeft="5dp"
                                 android:background="@drawable/rounded_shape"
+                                android:gravity="center"
                                 android:padding="5sp"
                                 android:text="Edition 2019"
                                 android:textColor="@color/white"
@@ -555,7 +557,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="Concept Based Teaching on Latest Pattern"/>
+                                android:text="Concept Based Teaching on Latest Pattern" />
                         </LinearLayout>
 
                         <View
@@ -680,10 +682,19 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp">
 
-                    <LinearLayout
 
+                    <ImageView
+                        android:id="@+id/coupanicon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_coupon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/coupanicon"
+                        android:layout_marginStart="@dimen/margin_10"
                         android:orientation="vertical">
 
                         <TextView
@@ -698,7 +709,8 @@
                             android:id="@+id/validTill"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vailid till 25th Jan 2020" />
+                            android:text="Vailid till 25th Jan 2020"
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <TextView
@@ -751,7 +763,9 @@
                             android:id="@+id/discountDetail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="You will get INR 2999 OFF on this transaction." />
+                            android:text="You will get INR 2999 OFF on this transaction."
+
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <ImageView
@@ -768,10 +782,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        android:textSize="16sp"
-                        android:visibility="gone"
                         android:text="Apply"
-                        />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
 
@@ -814,8 +827,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:textColor="@color/black"
-                            android:text="INR 2999" />
+                            android:text="INR 2999"
+                            android:textColor="@color/black" />
 
                     </RelativeLayout>
 
@@ -836,9 +849,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:textColor="@color/green"
+                            android:text="INR 2999"
 
-                            android:text="INR 2999" />
+                            android:textColor="@color/green" />
 
                     </RelativeLayout>
 
@@ -859,9 +872,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:textColor="@color/black"
+                            android:text="INR 2999"
 
-                            android:text="INR 2999" />
+                            android:textColor="@color/black" />
 
                     </RelativeLayout>
 
@@ -906,7 +919,8 @@
                     android:id="@+id/actual_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="                INR 4999" />
+                    android:layout_marginStart="@dimen/margin_50"
+                    android:text="INR 4999" />
             </LinearLayout>
 
             <Button

@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dnamedical.Models.subs.PlanResponse;
 import com.dnamedical.R;
@@ -54,13 +53,13 @@ public class DNASuscribeActivity extends AppCompatActivity {
 
                 if (radioButton.getText().toString().equalsIgnoreCase("Individual Plan")) {
                     if (planResponse != null && planResponse.getIndividualPlan() != null && planResponse.getIndividualPlan().size() > 0) {
-                        individual=true;
+                        individual = true;
                         addPlans();
                     }
 
                 } else {
                     if (planResponse != null && planResponse.getComboPack() != null && planResponse.getComboPack().size() > 0) {
-                        individual=false;
+                        individual = false;
                         addProPlans();
                     }
                 }
@@ -90,7 +89,7 @@ public class DNASuscribeActivity extends AppCompatActivity {
 
                     if (response != null && response.code() == 200 && response.body() != null) {
                         planResponse = response.body();
-                        individual=true;
+                        individual = true;
                         addPlans();
 
                     }
@@ -135,8 +134,9 @@ public class DNASuscribeActivity extends AppCompatActivity {
                             intent.putExtra("plan", planResponse.getIndividualPlan().get(finalI));
                             intent.putExtra("planType", "individual");
                         }
-                            //Toast.makeText(DNASuscribeActivity.this, "Plan id" + planResponse.getIndividualPlan().get(finalI).getId(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(DNASuscribeActivity.this, "Plan id" + planResponse.getIndividualPlan().get(finalI).getId(), Toast.LENGTH_LONG).show();
                         startActivity(intent);
+                        finish();
                     }
                 });
 //                discountAmount.setText("INR "+(Integer.parseInt(planResponse.getIndividualPlan().get(i).getPrice())
@@ -176,11 +176,12 @@ public class DNASuscribeActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(DNASuscribeActivity.this, PlanPaymentProceesingActivity.class);
 
-                            intent.putExtra("plan", planResponse.getComboPack().get(finalI));
-                            intent.putExtra("planType","combo");
+                        intent.putExtra("plan", planResponse.getComboPack().get(finalI));
+                        intent.putExtra("planType", "combo");
 
-                       // Toast.makeText(DNASuscribeActivity.this, "Plan id" + planResponse.getComboPack().get(finalI).getId(), Toast.LENGTH_LONG).show();
+                        // Toast.makeText(DNASuscribeActivity.this, "Plan id" + planResponse.getComboPack().get(finalI).getId(), Toast.LENGTH_LONG).show();
                         startActivity(intent);
+                        finish();
                     }
                 });
 //                discountAmount.setText("INR "+(Integer.parseInt(planResponse.getIndividualPlan().get(i).getPrice())

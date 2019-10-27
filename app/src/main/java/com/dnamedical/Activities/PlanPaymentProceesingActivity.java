@@ -1,19 +1,37 @@
 package com.dnamedical.Activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dnamedical.Adapters.PlanListAdapter;
 import com.dnamedical.Models.subs.ComboPack;
 import com.dnamedical.Models.subs.IndividualPlan;
 import com.dnamedical.Models.subs.Plan;
 import com.dnamedical.Models.subs.PlanDetailResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.razorpay.Checkout;
+
+import org.json.JSONObject;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -28,11 +46,14 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
     IndividualPlan individualPlan;
     ComboPack comboPack;
     private String planType;
+    Button subscribeBtn;
     private PlanDetailResponse planDetailResponse;
     private TextView finalPrice, pricefinalInBottom, actual_price;
     private TextView discount, subTotal;
     private int discountAmount;
     private TextView applyDiscount;
+    private Plan plan;
+    private String user_id, plan_id, subscription_id, status, price, pack_key, months, order_id;
 
 
     @Override
@@ -50,7 +71,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         valueOfPlane = findViewById(R.id.valueOfPlane);
         discountTitle = findViewById(R.id.discountTitle);
         discountDetail = findViewById(R.id.discountDetail);
-        finalPrice = findViewById(R.id.pricefinal);
+        pricefinalInBottom = findViewById(R.id.pricefinal);
         finalPrice = findViewById(R.id.finalPrice);
         discount = findViewById(R.id.discount);
         subTotal = findViewById(R.id.subtotal);
@@ -58,7 +79,9 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         crossBtn = findViewById(R.id.crossBtn);
         cancelDiscount = findViewById(R.id.cancelDiscount);
         applyDiscount = findViewById(R.id.applyDiscount);
+        subscribeBtn = findViewById(R.id.subscribe);
 
+        user_id = DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.LOGIN_ID);
 
         if (getIntent().hasExtra("planType")) {
             planType = getIntent().getStringExtra("planType");
@@ -68,9 +91,11 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 if (individualPlan != null) {
                     planName.setText(individualPlan.getName());
                     subPlanaName.setText(individualPlan.getSubname());
+                    pack_key = individualPlan.getPack_key();
                     //from plan detail api
                     //priceTitle.setText(individualPlan.get());
                     valueOfPlane.setText(individualPlan.getPrice());
+                    subscription_id = individualPlan.getId();
                     getPlanList(individualPlan.getId());
 
 
@@ -93,9 +118,9 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 }
             } else {
                 comboPack = getIntent().getParcelableExtra("plan");
-                comboPack = getIntent().getParcelableExtra("plan");
                 if (comboPack != null) {
                     planName.setText(comboPack.getName());
+                    pack_key = comboPack.getPack_key();
                     subPlanaName.setText(comboPack.getSubname());
                     //from plan detail api
                     //priceTitle.setText(individualPlan.get());
@@ -108,13 +133,17 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                         testLL.setVisibility(View.VISIBLE);
                         qBankLL.setVisibility(View.VISIBLE);
                         videoLL.setVisibility(View.GONE);
-                    } else if (comboPack.getName().contains("Plan - (B)- Q - Bank")) {
+                    } else if (comboPack.getName().contains("SILVER PACK (B + C)")) {
                         testLL.setVisibility(View.GONE);
                         qBankLL.setVisibility(View.VISIBLE);
-                        videoLL.setVisibility(View.GONE);
-                    } else if (comboPack.getName().contains("Plan - (C) - Video Lecture ")) {
-                        testLL.setVisibility(View.GONE);
-                        qBankLL.setVisibility(View.GONE);
+                        videoLL.setVisibility(View.VISIBLE);
+                    } else if (comboPack.getName().contains("GOLD PACK (A + B + C)")) {
+                        testLL.setVisibility(View.VISIBLE);
+                        qBankLL.setVisibility(View.VISIBLE);
+                        videoLL.setVisibility(View.VISIBLE);
+                    } else if (comboPack.getName().contains("PLATINUM PACK (A + B + C + D)")) {
+                        testLL.setVisibility(View.VISIBLE);
+                        qBankLL.setVisibility(View.VISIBLE);
                         videoLL.setVisibility(View.VISIBLE);
                     }
 
@@ -124,6 +153,15 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         }
 
 
+        valueOfPlane.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (planDetailResponse != null) {
+                    openPlanList();
+                }
+            }
+        });
+
         crossBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,9 +170,77 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
             }
         });
 
+
+        subscribeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // ,order_id
+                plan_id = plan.getPlanId();
+                price = plan.getPlanPrice();
+
+                months = plan.getPlanMonths();
+
+
+                Intent intent = new Intent(PlanPaymentProceesingActivity.this, AddressForSubscriptionListActivity.class);
+
+                intent.putExtra("AMOUNT", price);
+                intent.putExtra("subscription_id", subscription_id);
+                intent.putExtra("plan_id", plan_id);
+                intent.putExtra("months", months);
+                intent.putExtra("pack_key", pack_key);
+                intent.putExtra("COUPON_VALUE_ADD", DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT));
+                intent.putExtra("COUPON_VALUE", plan.getCoupan_value());
+                intent.putExtra("COUPON_VALUE_GIVEN", ""+discountAmount);
+
+                Log.d(PlanPaymentProceesingActivity.class.getSimpleName(),"AMOUNT "+price+" subscription_id "+subscription_id
+                +" plan_id "+plan_id+ " months "+months+" pack_key "+pack_key+" COUPON_VALUE_ADD "+DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT)
+                +" COUPON_VALUE "+plan.getCoupan_value()+ " COUPON_VALUE_GIVEN "+discountAmount);
+
+                startActivity(intent);
+                finish();
+
+
+                //
+
+
+            }
+        });
+
         applyDiscount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (plan != null) {
+                    if (!TextUtils.isEmpty(plan.getCoupan_code())) {
+                        discountAmount = Integer.parseInt(plan.getPlanPrice()) * Integer.parseInt(plan.getCoupan_value()) / 100;
+                    }
+                    discount.setText("-" + discountAmount);
+                    cancelDiscount.setVisibility(View.VISIBLE);
+                    applyDiscount.setVisibility(View.GONE);
+                    discountDetail.setText("Yay! You will get INR " + discountAmount + " on this transaction.");
+
+                    finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                    pricefinalInBottom.setText("Buy for. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+
+                }
+
+
+            }
+        });
+
+
+        cancelDiscount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (plan != null) {
+                    cancelDiscount.setVisibility(View.GONE);
+                    applyDiscount.setVisibility(View.VISIBLE);
+                    discountAmount=0;
+                    discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this transaction.");
+                    discount.setText("-" + 0);
+                    finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice())));
+                    pricefinalInBottom.setText("Buy for. INR " + (Integer.parseInt(plan.getPlanPrice())));
+
+                }
 
 
             }
@@ -175,20 +281,26 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
     private void updatePlanDetails(int i) {
         if (planDetailResponse != null && planDetailResponse.getPlans() != null && planDetailResponse.getPlans().size() > 0) {
-            Plan plan = planDetailResponse.getPlans().get(i);
+            plan = planDetailResponse.getPlans().get(i);
             if (plan != null) {
 
 
                 priceTitle.setText(plan.getPlanName());
-                validTill.setText("" + plan.getValidTill());
+                validTill.setText("Valid till " + Utils.dateFormat(plan.getValidTill()));
                 valueOfPlane.setText(plan.getPlanPrice());
-                discountAmount = Integer.parseInt(plan.getPlanPrice()) * Integer.parseInt(plan.getPlanDiscount()) / 100;
+
+                discountTitle.setText(" Coupan :" + plan.getCoupan_code());
+                if (!TextUtils.isEmpty(plan.getCoupan_code())) {
+                    discountAmount = Integer.parseInt(plan.getPlanPrice()) * Integer.parseInt(plan.getCoupan_value()) / 100;
+                }
                 discount.setText("-" + (discountAmount));
                 subTotal.setText(plan.getPlanPrice());
-                discountTitle.setText("Coupan: DNADEEWALI");
+                discountTitle.setText("Coupan: " + plan.getCoupan_code());
                 discountDetail.setText("You will get " + discountAmount + " OFF on this transaction");
-                finalPrice.setText(Integer.parseInt(plan.getPlanPrice()) - discountAmount);
-
+                finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                pricefinalInBottom.setText("Buy for. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                actual_price.setText("INR " + plan.getPlanPrice());
+                actual_price.setPaintFlags(actual_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             }
 
@@ -196,5 +308,56 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         }
 
     }
+
+
+    private void openPlanList() {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.planlistview, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        ImageView closePlanList = dialogView.findViewById(R.id.closePlanList);
+        RecyclerView recyclerView = dialogView.findViewById(R.id.planrecycler);
+
+        PlanListAdapter planListAdapter = new PlanListAdapter();
+        //videoListAdapter.setPaidVideoResponse(paidVideoResponseList);
+        planListAdapter.setPlanList(planDetailResponse.getPlans());
+        planListAdapter.setOnDataClick(new PlanListAdapter.OnDataClick() {
+            @Override
+            public void onDataClick(int position) {
+                updatePlanDetails(position);
+                dialog.dismiss();
+            }
+
+        });
+        recyclerView.setAdapter(planListAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(PlanPaymentProceesingActivity.this, 0));
+        recyclerView.setVisibility(View.VISIBLE);
+        Log.d("Api Response :", "Got Success from Api");
+        // noInternet.setVisibility(View.GONE);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PlanPaymentProceesingActivity.this) {
+            @Override
+            public boolean canScrollVertically() {
+                return true;
+            }
+        };
+        recyclerView.setLayoutManager(layoutManager);
+
+        closePlanList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+
+
 
 }

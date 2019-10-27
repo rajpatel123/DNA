@@ -6,83 +6,109 @@ import com.google.gson.annotations.SerializedName;
 
 public class Plan {
 
-@SerializedName("plan_id")
-@Expose
-private String planId;
-@SerializedName("plan_name")
-@Expose
-private String planName;
-@SerializedName("plan_price")
-@Expose
-private String planPrice;
-@SerializedName("plan_discount")
-@Expose
-private String planDiscount;
-@SerializedName("plan_status")
-@Expose
-private String planStatus;
-@SerializedName("plan_months")
-@Expose
-private String planMonths;
-@SerializedName("valid_till")
-@Expose
-private Integer validTill;
+    @SerializedName("plan_id")
+    @Expose
+    private String planId;
+    @SerializedName("plan_name")
+    @Expose
+    private String planName;
+    @SerializedName("plan_price")
+    @Expose
+    private String planPrice;
+    @SerializedName("plan_discount")
+    @Expose
+    private String planDiscount;
+    @SerializedName("plan_status")
+    @Expose
+    private String planStatus;
 
-public String getPlanId() {
-return planId;
-}
+    @SerializedName("plan_months")
+    @Expose
+    private String planMonths;
 
-public void setPlanId(String planId) {
-this.planId = planId;
-}
 
-public String getPlanName() {
-return planName;
-}
+    @SerializedName("coupan_code")
+    @Expose
+    private String coupan_code;
 
-public void setPlanName(String planName) {
-this.planName = planName;
-}
+    public String getCoupan_code() {
+        return coupan_code;
+    }
 
-public String getPlanPrice() {
-return planPrice;
-}
+    public void setCoupan_code(String coupan_code) {
+        this.coupan_code = coupan_code;
+    }
 
-public void setPlanPrice(String planPrice) {
-this.planPrice = planPrice;
-}
+    public String getCoupan_value() {
+        return coupan_value;
+    }
 
-public String getPlanDiscount() {
-return planDiscount;
-}
+    public void setCoupan_value(String coupan_value) {
+        this.coupan_value = coupan_value;
+    }
 
-public void setPlanDiscount(String planDiscount) {
-this.planDiscount = planDiscount;
-}
+    @SerializedName("coupan_value")
+    @Expose
+    private String coupan_value;
+    @SerializedName("valid_till")
+    @Expose
+    private long validTill;
 
-public String getPlanStatus() {
-return planStatus;
-}
+    public String getPlanId() {
+        return planId;
+    }
 
-public void setPlanStatus(String planStatus) {
-this.planStatus = planStatus;
-}
+    public void setPlanId(String planId) {
+        this.planId = planId;
+    }
 
-public String getPlanMonths() {
-return planMonths;
-}
+    public String getPlanName() {
+        return planName;
+    }
 
-public void setPlanMonths(String planMonths) {
-this.planMonths = planMonths;
-}
+    public void setPlanName(String planName) {
+        this.planName = planName;
+    }
 
-public Integer getValidTill() {
-return validTill;
-}
+    public String getPlanPrice() {
+        return planPrice;
+    }
 
-public void setValidTill(Integer validTill) {
-this.validTill = validTill;
-}
+    public void setPlanPrice(String planPrice) {
+        this.planPrice = planPrice;
+    }
+
+    public String getPlanDiscount() {
+        return planDiscount;
+    }
+
+    public void setPlanDiscount(String planDiscount) {
+        this.planDiscount = planDiscount;
+    }
+
+    public String getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(String planStatus) {
+        this.planStatus = planStatus;
+    }
+
+    public String getPlanMonths() {
+        return planMonths;
+    }
+
+    public void setPlanMonths(String planMonths) {
+        this.planMonths = planMonths;
+    }
+
+    public long getValidTill() {
+        return validTill;
+    }
+
+    public void setValidTill(long validTill) {
+        this.validTill = validTill;
+    }
 
 }
 

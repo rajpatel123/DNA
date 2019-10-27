@@ -152,7 +152,20 @@ public interface ApiInterface {
                                            @Part("status") RequestBody status);
 
     @Multipart
+    @POST("api/api.php?req=order_subscription")
+    Call<ResponseBody> addOrderForSubsDetail(@Part("user_id") RequestBody userid,
+                                                  @Part("order_id") RequestBody orderid,
+                                                  @Part("plan_id") RequestBody planid,
+                                                  @Part("subscription_id") RequestBody subsid,
+                                                  @Part("pack_key") RequestBody pack,
+                                                  @Part("months") RequestBody month,
+                                                  @Part("status") RequestBody status,
+                                                  @Part("price") RequestBody price);
+
+
+    @Multipart
     @POST("/v1/index.php/api/ordersdetails/saveorder")
+
     Call<CreateOrderResponse> createOrderDetail(@Part("user_id") RequestBody user_id,
                                                 @Part("amount") RequestBody amount,
                                                 @Part("currency") RequestBody currency,
@@ -226,7 +239,7 @@ public interface ApiInterface {
     Call<PlanDetailResponse> getPlanById(@Part("subscription_id") RequestBody subscription_id);
 
 
-@Multipart
+    @Multipart
     @POST("api/api.php?req=test")
     Call<TestQuestionData> getTest(@Part("user_id") RequestBody user_id);
 
