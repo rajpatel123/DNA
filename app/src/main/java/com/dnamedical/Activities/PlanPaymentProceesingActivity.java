@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,16 +34,19 @@ import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlanPaymentProceesingActivity extends AppCompatActivity {
-    LinearLayout qBankLL, testLL, videoLL;
+    LinearLayout packDetailLayout, testLL, videoLL;
     ImageView cancelDiscount, crossBtn;
-    TextView planName, subPlanaName, priceTitle, validTill, valueOfPlane, discountTitle, discountDetail;
+    TextView planName, subPlanaName, coupanicon,priceTitle, validTill, valueOfPlane, discountTitle, discountDetail;
     IndividualPlan individualPlan;
     ComboPack comboPack;
     private String planType;
@@ -55,6 +60,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
     private String user_id, plan_id, subscription_id, status, price, pack_key, months, order_id;
     private String rawJSONData;
     private PlanPoints planPoints;
+    private LayoutInflater inflater;
 
 
     @Override
@@ -62,12 +68,12 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_payment_proceesing);
 
-        qBankLL = findViewById(R.id.qbankLL);
-        testLL = findViewById(R.id.testLL);
-        videoLL = findViewById(R.id.videoLL);
+        packDetailLayout = findViewById(R.id.packDetailLayout);
+
         planName = findViewById(R.id.planName);
         subPlanaName = findViewById(R.id.subPlanName);
         priceTitle = findViewById(R.id.priceTitle);
+        coupanicon = findViewById(R.id.coupanicon);
         validTill = findViewById(R.id.validTill);
         valueOfPlane = findViewById(R.id.valueOfPlane);
         discountTitle = findViewById(R.id.discountTitle);
@@ -82,16 +88,13 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         applyDiscount = findViewById(R.id.applyDiscount);
         subscribeBtn = findViewById(R.id.subscribe);
 
+        inflater = LayoutInflater.from(this);
         rawJSONData = Utils.loadJSONFromAsset(this);
 
 
         if (!TextUtils.isEmpty(rawJSONData)) {
-
             planPoints = new Gson().fromJson(rawJSONData, PlanPoints.class);
-
         }
-
-
         user_id = DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.LOGIN_ID);
 
         if (getIntent().hasExtra("planType")) {
@@ -108,24 +111,45 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     valueOfPlane.setText(individualPlan.getPrice());
                     subscription_id = individualPlan.getId();
                     getPlanList(individualPlan.getId());
+                    TextView title;
 
+                    switch (individualPlan.getPack_key()) {
+                        case "A":
+                            title = new TextView(this);
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getA().getPlanName());
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getA().getAllPoints());
+                            break;
+                        case "B":
+                            title = new TextView(this);
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
 
-                    if (individualPlan.getName().contains("Plan - (A)- Test Series")) {
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getB().getPlanName());
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getB().getAllPoints());
+                            break;
+                        case "C":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getC().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
 
-                        testLL.setVisibility(View.VISIBLE);
-                        qBankLL.setVisibility(View.GONE);
-                        videoLL.setVisibility(View.GONE);
-                    } else if (individualPlan.getName().contains("Plan - (B)- Q - Bank")) {
-                        testLL.setVisibility(View.GONE);
-                        qBankLL.setVisibility(View.VISIBLE);
-                        videoLL.setVisibility(View.GONE);
-                    } else if (individualPlan.getName().contains("Plan - (C) - Video Lecture ")) {
-                        testLL.setVisibility(View.GONE);
-                        qBankLL.setVisibility(View.GONE);
-                        videoLL.setVisibility(View.VISIBLE);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getC().getAllPoints());
+                            break;
+                        case "D":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getD().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getD().getAllPoints());
+                            break;
                     }
-
-
                 }
             } else {
                 comboPack = getIntent().getParcelableExtra("plan");
@@ -137,28 +161,178 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     //priceTitle.setText(individualPlan.get());
                     valueOfPlane.setText(comboPack.getPrice());
                     getPlanList(comboPack.getId());
+                    TextView title;
+
+                    switch (comboPack.getPack_key()) {
+                        case "A+B":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getA().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getA().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getB().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getB().getAllPoints());
 
 
-                    if (comboPack.getName().contains("BRONZE PACK (A + B)")) {
+                            break;
+                        case "B+C":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getB().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
 
-                        testLL.setVisibility(View.VISIBLE);
-                        qBankLL.setVisibility(View.VISIBLE);
-                        videoLL.setVisibility(View.GONE);
-                    } else if (comboPack.getName().contains("SILVER PACK (B + C)")) {
-                        testLL.setVisibility(View.GONE);
-                        qBankLL.setVisibility(View.VISIBLE);
-                        videoLL.setVisibility(View.VISIBLE);
-                    } else if (comboPack.getName().contains("GOLD PACK (A + B + C)")) {
-                        testLL.setVisibility(View.VISIBLE);
-                        qBankLL.setVisibility(View.VISIBLE);
-                        videoLL.setVisibility(View.VISIBLE);
-                    } else if (comboPack.getName().contains("PLATINUM PACK (A + B + C + D)")) {
-                        testLL.setVisibility(View.VISIBLE);
-                        qBankLL.setVisibility(View.VISIBLE);
-                        videoLL.setVisibility(View.VISIBLE);
+                            packDetailLayout.addView(title);
+
+                            addPoints(planPoints.getB().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getC().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getC().getAllPoints());
+
+                            break;
+
+                        case "A+B+C":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getA().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getA().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getB().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getB().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getC().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getC().getAllPoints());
+
+                            break;
+                        case "A+B+C+D":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getA().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getA().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getB().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getB().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getC().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getC().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getD().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getD().getAllPoints());
+                            break;
+
+                        case "A+C":
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getA().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getA().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getC().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getC().getAllPoints());
+                            break;
+
+                        case "C+D":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getC().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getC().getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getD().getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getD().getAllPoints());
+
+                            break;
+
+                        case "MBBS1":
+                        case "MBBS2":
+                        case "MBBS3":
+                        case "MBBS4":
+                        case "MBBS5":
+                          default:
+                              title = new TextView(this);
+                              title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                              title.setText("" + planPoints.getFirstYear().get(0).getPlanName());
+                              title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                              packDetailLayout.addView(title);
+                              addPoints(planPoints.getFirstYear().get(0).getAllPoints());
+
+                              title = new TextView(this);
+                              title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                              title.setText("" + planPoints.getFirstYear().get(1).getPlanName());
+                              title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                              packDetailLayout.addView(title);
+
+                              addPoints(planPoints.getFirstYear().get(1).getAllPoints());
+
+                              title = new TextView(this);
+                              title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                              title.setText("" + planPoints.getFirstYear().get(2).getPlanName());
+                              title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                              packDetailLayout.addView(title);
+                              addPoints(planPoints.getFirstYear().get(2).getAllPoints());
+
                     }
-
-
                 }
             }
         }
@@ -168,7 +342,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (planDetailResponse != null) {
-                    openPlanList();
+                    //  openPlanList();
                 }
             }
         });
@@ -187,7 +361,6 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
                 // ,order_id
                 plan_id = plan.getPlanId();
                 price = plan.getPlanPrice();
@@ -195,8 +368,6 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 months = plan.getPlanMonths();
 
                 openSubscribeDialog();
-
-
 
 
                 //
@@ -215,7 +386,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     discount.setText("-" + discountAmount);
                     cancelDiscount.setVisibility(View.VISIBLE);
                     applyDiscount.setVisibility(View.GONE);
-                    discountDetail.setText("Yay! You will get INR " + discountAmount + " on this transaction.");
+                    discountDetail.setText("Yay! You will get INR " + discountAmount + " on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
 
                     finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
                     pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
@@ -234,7 +405,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     cancelDiscount.setVisibility(View.GONE);
                     applyDiscount.setVisibility(View.VISIBLE);
                     discountAmount = 0;
-                    discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this transaction.");
+                    discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
                     discount.setText("-" + 0);
                     finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice())));
                     pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice())));
@@ -245,6 +416,20 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private synchronized void addPoints(List<String> allPoints) {
+
+        for (int i = 0; i < allPoints.size(); i++) {
+            View plan = inflater.inflate(R.layout.point_items,
+                    null, false);
+
+            TextView pointDesc = plan.findViewById(R.id.desc);
+            pointDesc.setText(allPoints.get(i));
+            packDetailLayout.addView(plan);
+
+        }
 
     }
 
@@ -284,7 +469,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                         + " plan_id " + plan_id + " months " + months + " pack_key " + pack_key + " COUPON_VALUE_ADD " + DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT)
                         + " COUPON_VALUE " + plan.getCoupan_value() + " COUPON_VALUE_GIVEN " + discountAmount);
 
-                startActivityForResult(intent,Constants.FINISH);
+                startActivityForResult(intent, Constants.FINISH);
 
                 dialog.dismiss();
             }
@@ -293,9 +478,6 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
-
-
 
 
     private void getPlanList(String plan_id) {
@@ -333,18 +515,27 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
             if (plan != null) {
 
 
-                priceTitle.setText(plan.getPlanName());
-                validTill.setText("Valid till " + Utils.dateFormatForPlan(plan.getValidTill()));
-                valueOfPlane.setText(plan.getPlanPrice());
+                if (individualPlan!=null){
+                    priceTitle.setText(individualPlan.getName());
 
-                discountTitle.setText(" Coupan :" + plan.getCoupan_code());
+                }else{
+                    if (comboPack!=null){
+                        priceTitle.setText(comboPack.getName());
+
+                    }
+                }
+                validTill.setText("Valid till " + Utils.dateFormatForPlan(plan.getValidTill()));
+                valueOfPlane.setText("INR "+plan.getPlanPrice());
+
+                discountTitle.setText(" Coupon :" + plan.getCoupan_code());
+                coupanicon.setText(plan.getCoupan_value()+"%");
                 if (!TextUtils.isEmpty(plan.getCoupan_code())) {
                     discountAmount = Integer.parseInt(plan.getPlanPrice()) * Integer.parseInt(plan.getCoupan_value()) / 100;
                 }
                 discount.setText("-" + (discountAmount));
                 subTotal.setText(plan.getPlanPrice());
-                discountTitle.setText("Coupan: " + plan.getCoupan_code());
-                discountDetail.setText("You will get " + discountAmount + " OFF on this transaction");
+                discountTitle.setText("Coupon: " + plan.getCoupan_code());
+                discountDetail.setText("You will get " + discountAmount + " OFF on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
                 finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
                 pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
                 actual_price.setText("INR " + plan.getPlanPrice());
@@ -361,7 +552,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (DnaPrefs.getBoolean(this,Constants.ISFINISHING)){
+        if (DnaPrefs.getBoolean(this, Constants.ISFINISHING)) {
             Intent resultIntent = new Intent();
             setResult(Activity.RESULT_OK, resultIntent);
             finish();

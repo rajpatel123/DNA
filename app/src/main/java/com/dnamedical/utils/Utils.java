@@ -7,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -15,23 +14,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
 
-
-    public static String loadJSONFromAsset(Activity activity){
+    public static String loadJSONFromAsset(Activity activity) {
         String json = null;
         try {
-            InputStream is = activity.getAssets().open("yourfilename.json");
+            InputStream is = activity.getAssets().open("data.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -146,7 +140,7 @@ public class Utils {
     public static String getTimeInHHMMSS(long millies) {
 
         SimpleDateFormat mdformat = new SimpleDateFormat("hh  : mm  :  ss");
-        String strTime = mdformat.format(millies*1000);
+        String strTime = mdformat.format(millies * 1000);
         return strTime;
     }
 
@@ -174,15 +168,35 @@ public class Utils {
         try {
             Log.d("date", "" + timeStamp);
             SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
-            Date dNow = new Date(timeStamp*1000);
+            Date dNow = new Date(timeStamp * 1000);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
     }
+
     public static String dateFormatForPlan(long timeStamp) {
 
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
+            Date dNow = new Date(timeStamp);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
+    public static String dateFormatForPlanCoupon(String time) {
+        long timeStamp = getMilliesFromDate(time);
 
         if (timeStamp <= 0) {
             return null;
@@ -227,7 +241,7 @@ public class Utils {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a", Locale.ENGLISH);
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         String formattedDate = sdf.format(date);
-       return formattedDate;// System.out.println(formattedDate);
+        return formattedDate;// System.out.println(formattedDate);
     }
 
 
@@ -241,14 +255,13 @@ public class Utils {
         try {
             Log.d("date", "" + timeStamp);
             SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd : MM : YYYY");
-            Date dNow = new Date(timeStamp*1000);
+            Date dNow = new Date(timeStamp * 1000);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
     }
-
 
 
     public static long getMillies(String testDate) {
@@ -258,6 +271,26 @@ public class Utils {
         int dt = Integer.parseInt(dates[0]);
         int mm = Integer.parseInt(dates[1]);
         int yy = Integer.parseInt(dates[2]);
+
+        calendar.set(yy, mm - 1, dt);
+
+        try {
+            Date date = calendar.getTime();
+            return date.getTime();
+        } catch (Exception e) {
+            // Log.e("Tag", "Wrong date Format");
+        }
+        return -1;
+    }
+
+
+ public static long getMilliesFromDate(String testDate) {
+
+        Calendar calendar = Calendar.getInstance();
+        String dates[] = testDate.split("-");
+        int yy = Integer.parseInt(dates[0]);
+        int mm = Integer.parseInt(dates[1]);
+        int dt = Integer.parseInt(dates[2]);
 
         calendar.set(yy, mm - 1, dt);
 
@@ -289,6 +322,9 @@ public class Utils {
         return -1;
     }
 
+
+
+
     public static long getMilliesOfTestTime(String time) {
 
         String source = "00:10:17";
@@ -304,47 +340,45 @@ public class Utils {
         int p2 = seconds / 60;
         int p3 = p2 % 60;
         p2 = p2 / 60;
-        System.out.print( p2 + ":" + p3 + ":" + p1);
+        System.out.print(p2 + ":" + p3 + ":" + p1);
         System.out.print("\n");
 
-        return  p2+"h "+p3+"m";
+        return p2 + "h " + p3 + "m";
 
     }
 
     public static String getTimeTakenInTestFormat(int seconds) {
-        StringBuilder time =new StringBuilder();
+        StringBuilder time = new StringBuilder();
         int p1 = seconds % 60;
         int p2 = seconds / 60;
         int p3 = p2 % 60;
         p2 = p2 / 60;
-        System.out.print( p2 + ":" + p3 + ":" + p1);
+        System.out.print(p2 + ":" + p3 + ":" + p1);
         System.out.print("\n");
 
 
-        if (String.valueOf(p2).length()==1){
-            time.append("0"+p2);
-        }else{
-            time.append(""+p2);
+        if (String.valueOf(p2).length() == 1) {
+            time.append("0" + p2);
+        } else {
+            time.append("" + p2);
         }
         time.append("  :  ");
 
-        if (String.valueOf(p3).length()==1){
-            time.append("0"+p3);
-        }else{
-            time.append(""+p3);
+        if (String.valueOf(p3).length() == 1) {
+            time.append("0" + p3);
+        } else {
+            time.append("" + p3);
         }
         time.append("  :  ");
 
-        if (String.valueOf(p1).length()==1){
-            time.append("0"+p1);
-        }else{
-            time.append(""+p1);
+        if (String.valueOf(p1).length() == 1) {
+            time.append("0" + p1);
+        } else {
+            time.append("" + p1);
         }
-        return  time.toString();
+        return time.toString();
 
     }
-
-
 
 
     private static void getDateInddmmYYYY(long time) {

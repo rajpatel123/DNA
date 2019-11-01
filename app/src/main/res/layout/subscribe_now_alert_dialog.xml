@@ -125,7 +125,7 @@
             android:paddingTop="5sp"
             android:paddingRight="50dp"
             android:paddingBottom="5sp"
-            android:text="PAY NOW"
+            android:text="PROCEED"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp" />

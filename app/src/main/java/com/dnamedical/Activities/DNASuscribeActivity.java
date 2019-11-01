@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Models.subs.PlanResponse;
 import com.dnamedical.R;
@@ -29,7 +30,6 @@ public class DNASuscribeActivity extends AppCompatActivity {
 
     PlanResponse planResponse;
     @BindView(R.id.planholderlayout)
-
     LinearLayout planholderlayout;
     LayoutInflater inflater;
 
@@ -204,6 +204,7 @@ public class DNASuscribeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (DnaPrefs.getBoolean(this,Constants.ISFINISHING)){
+            DnaPrefs.putBoolean(this,Constants.ISFINISHING,false);
             finish();
         }
 

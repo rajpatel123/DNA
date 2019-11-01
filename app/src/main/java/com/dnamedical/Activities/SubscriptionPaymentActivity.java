@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -387,10 +388,8 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
                     if (response.body() != null) {
                         if (response.code()==200) {
                             Toast.makeText(SubscriptionPaymentActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
-                            Intent resultIntent = new Intent();
-                            DnaPrefs.putBoolean(SubscriptionPaymentActivity.this,Constants.ISFINISHING,true);
-                            setResult(Activity.RESULT_OK, resultIntent);
-                            finish();
+                            openSubscribeDialog();
+
                         }
                     }
 
@@ -432,4 +431,32 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     public void onPaymentError(int i, String s) {
         Log.d("Error", "" + s);
     }
+
+
+
+    private void openSubscribeDialog() {
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(SubscriptionPaymentActivity.this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = LayoutInflater.from(SubscriptionPaymentActivity.this);
+        View dialogView = inflater.inflate(R.layout.subscribe_done, null);
+        dialogBuilder.setView(dialogView);
+
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button btn_pay_now = dialogView.findViewById(R.id.btn_pay_now);
+
+        btn_pay_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                DnaPrefs.putBoolean(SubscriptionPaymentActivity.this,Constants.ISFINISHING,true);
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+    }
+
 }

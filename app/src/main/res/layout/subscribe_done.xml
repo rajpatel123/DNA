@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_20">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:textColor="@color/colorPrimary"
+    android:textSize="28sp"
+    android:layout_marginTop="@dimen/margin_10"
+    android:text="Congratulations!"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:textColor="@color/colorPrimary"
+            android:text="You have successfully enrolled for the 1 year ( 12 Months ) Pack under DNA App for session 2020."/>
+
+
+        <Button
+            android:id="@+id/btn_pay_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:background="@color/colorAccent"
+            android:paddingLeft="50dp"
+            android:paddingTop="5sp"
+            android:paddingRight="50dp"
+            android:paddingBottom="5sp"
+            android:text="OK"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+        <!-- <TextView
+             android:visibility="gone"
+             android:id="@+id/text_cancel"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:padding="10dp"
+             android:text="back"
+             android:textColor="@color/colorAccent"
+             android:textSize="20sp" />
+ -->
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -62,7 +62,7 @@
                     android:id="@+id/discountValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rzp_green_button"
+                    android:background="@drawable/green_button"
                     android:text="INR 3999 off"
                     android:paddingStart="@dimen/margin_5"
                     android:paddingEnd="@dimen/margin_5"

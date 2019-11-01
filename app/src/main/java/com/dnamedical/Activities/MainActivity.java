@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -129,6 +130,17 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        String text = "<font color=#000000>Subscribe</font> <font color=#ff3824>NEW(2020)</font>";
+        MenuItem menuItem =  navigationView.getMenu().getItem(4);
+
+        menuItem.setTitle(Html.fromHtml(text));
+
+        String textFr = "<font color=#000000>Franchise Query</font> <font color=#ff3824>NEW(2020)</font>";
+        MenuItem menuItemFR =  navigationView.getMenu().getItem(10);
+
+        menuItemFR.setTitle(Html.fromHtml(textFr));
+
         navigationView.setNavigationItemSelectedListener(this);
         tvSetting.setOnClickListener(new View.OnClickListener() {
             @Override

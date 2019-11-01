@@ -15,6 +15,19 @@ public class Plan {
     @SerializedName("plan_price")
     @Expose
     private String planPrice;
+
+
+    public String getExpiry_date() {
+        return expiry_date;
+    }
+
+    public void setExpiry_date(String expiry_date) {
+        this.expiry_date = expiry_date;
+    }
+
+    @SerializedName("expiry_date")
+    @Expose
+    private String expiry_date;
     @SerializedName("plan_discount")
     @Expose
     private String planDiscount;
