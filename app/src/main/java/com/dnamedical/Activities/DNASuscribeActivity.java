@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +33,8 @@ public class DNASuscribeActivity extends AppCompatActivity {
     @BindView(R.id.planholderlayout)
     LinearLayout planholderlayout;
     LayoutInflater inflater;
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     RadioGroup radioGroup;
     RadioButton radioButton;
     private boolean individual;
@@ -45,6 +47,7 @@ public class DNASuscribeActivity extends AppCompatActivity {
         inflater = LayoutInflater.from(this);
 
 
+        setSupportActionBar(toolbar);
         radioGroup = findViewById(R.id.planGroup);
 
 
@@ -71,6 +74,7 @@ public class DNASuscribeActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         }
         getPlanList();
 
@@ -121,7 +125,14 @@ public class DNASuscribeActivity extends AppCompatActivity {
                 TextView priceValue = plan.findViewById(R.id.priceValue);
                 TextView discountAmount = plan.findViewById(R.id.discountValue);
                 planName.setText("" + planResponse.getIndividualPlan().get(i).getName());
-                subPLanName.setText("" + planResponse.getIndividualPlan().get(i).getSubname());
+
+               if (planResponse.getIndividualPlan().get(i).getSubname().contains("\n")){
+                   subPLanName.setText("" + planResponse.getIndividualPlan().get(i).getSubname().replace("\n",""));
+
+               }else{
+                   subPLanName.setText("" + planResponse.getIndividualPlan().get(i).getSubname());
+
+               }
                 priceValue.setText("INR " + planResponse.getIndividualPlan().get(i).getPrice());
                 int dsct = Integer.parseInt(planResponse.getIndividualPlan().get(i).getPrice())
                         * Integer.parseInt(planResponse.getIndividualPlan().get(i).getDiscount()) / 100;
@@ -214,10 +225,10 @@ public class DNASuscribeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.home) {
+      //  if (id == R.id.home) {
             finish();
 
-        }
+//        }
         return super.onOptionsItemSelected(item);
     }
 

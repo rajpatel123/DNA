@@ -104,7 +104,14 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 individualPlan = getIntent().getParcelableExtra("plan");
                 if (individualPlan != null) {
                     planName.setText(individualPlan.getName());
-                    subPlanaName.setText(individualPlan.getSubname());
+                    if (individualPlan.getSubname().contains("\n")){
+                        subPlanaName.setText("" + individualPlan.getSubname().replace("\n",""));
+
+                    }else{
+                        subPlanaName.setText("" + individualPlan.getSubname());
+
+                    }
+
                     pack_key = individualPlan.getPack_key();
                     //from plan detail api
                     //priceTitle.setText(individualPlan.get());
@@ -156,7 +163,13 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 if (comboPack != null) {
                     planName.setText(comboPack.getName());
                     pack_key = comboPack.getPack_key();
-                    subPlanaName.setText(comboPack.getSubname());
+                    if (comboPack.getSubname().contains("\n")){
+                        subPlanaName.setText("" + comboPack.getSubname().replace("\n",""));
+
+                    }else{
+                        subPlanaName.setText("" + comboPack.getSubname());
+
+                    }
                     //from plan detail api
                     //priceTitle.setText(individualPlan.get());
                     valueOfPlane.setText(comboPack.getPrice());

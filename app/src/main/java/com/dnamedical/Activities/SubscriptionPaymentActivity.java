@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
-import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
@@ -87,6 +87,9 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     @BindView(R.id.txt_tax)
     TextView textViewTax;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
 
     @BindView(R.id.txt_coupon_applied)
     TextView textViewCouponApplied;
@@ -101,7 +104,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     @BindView(R.id.btn_pay_now)
     Button btnPaynow;
     String name, mobile, email, address1, address2, state, city, pincode, amountAfterDiscount,
-            subscription_id, plan_id, months, order_id, pack_key, shippingCharge, totalDiscountGiven, totalADDDiscountGiven, coupanValue,totalValue, subchildCat;
+            subscription_id, plan_id, months, order_id, pack_key, shippingCharge, totalDiscountGiven, totalADDDiscountGiven, coupanValue, totalValue, subchildCat;
     String befortaxValue, taxValue;
     String userId;
     String videoId, subchildcat;
@@ -115,12 +118,13 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         setContentView(R.layout.activity_payment_detail);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
         Checkout.preload(getApplicationContext());
        /*
         SpannableString spannableString = new SpannableString(getString(R.string.view_breakup));
         spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textViewbreakup.setText(spannableString);*/
-        userId = DnaPrefs.getString(SubscriptionPaymentActivity.this,Constants.LOGIN_ID);
+        userId = DnaPrefs.getString(SubscriptionPaymentActivity.this, Constants.LOGIN_ID);
 
         if (getIntent().hasExtra("NAME")) {
             name = getIntent().getStringExtra("NAME");
@@ -148,7 +152,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
             totalValue = getIntent().getStringExtra("AMOUNT");
 
 
-            amountAfterDiscount=""+(Integer.parseInt(totalValue)-Integer.parseInt(totalDiscountGiven));
+            amountAfterDiscount = "" + (Integer.parseInt(totalValue) - Integer.parseInt(totalDiscountGiven));
 
             if (name != null) {
                 textViewName.setText("" + name);
@@ -186,12 +190,12 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
             }
 //            } else {
             textViewCouponApplied.setText("" + "\u20B9 " + "" + totalDiscountGiven);
-            int addDDD =  (Integer.parseInt(amountAfterDiscount)*Integer.parseInt(totalADDDiscountGiven))/100;
-            textViewCouponAppliedAdd.setText("" + "\u20B9 " + "" +addDDD);
+            int addDDD = (Integer.parseInt(amountAfterDiscount) * Integer.parseInt(totalADDDiscountGiven)) / 100;
+            textViewCouponAppliedAdd.setText("" + "\u20B9 " + "" + addDDD);
 
             // }
 
-            befortaxValue =""+ (Integer.parseInt(amountAfterDiscount)-addDDD);
+            befortaxValue = "" + (Integer.parseInt(amountAfterDiscount) - addDDD);
             textViewBeforeTax.setText("" + "\u20B9 " + befortaxValue);
 
 
@@ -270,8 +274,8 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
 
     private void createOrder() {
 
-        RequestBody user_idbody = RequestBody.create(MediaType.parse("text/plain"), ""+userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + 1 * 100);
+        RequestBody user_idbody = RequestBody.create(MediaType.parse("text/plain"), "" + userId);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
         RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), "" + 123);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "subs");
@@ -287,7 +291,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
                     if (response.body() != null) {
                         CreateOrderResponse createOrderResponse = response.body();
                         if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
-                            if ((1 * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
                                 startPayment(createOrderResponse.getData().getOrderId());
                             }
                         }
@@ -327,17 +331,17 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         RequestBody subscriptioId = RequestBody.create(MediaType.parse("text/plain"), subscription_id);
         RequestBody month = RequestBody.create(MediaType.parse("text/plain"), months);
         RequestBody status = RequestBody.create(MediaType.parse("text/plain"), payment_status);
-        RequestBody orderVl = RequestBody.create(MediaType.parse("text/plain"), ""+orderValue);
+        RequestBody orderVl = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.addOrderForSubsDetail(user_id,order_id, planId,subscriptioId, packKey, month, status,orderVl, new Callback<ResponseBody>() {
+            RestClient.addOrderForSubsDetail(user_id, order_id, planId, subscriptioId, packKey, month, status, orderVl, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
-                    if (response.body() != null && response.code()==200) {
+                    if (response.body() != null && response.code() == 200) {
 
                         uploadPaymentDetailForInvoices(orderId);
 
@@ -380,28 +384,28 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.invoiceOrderDetailForSubscription(user_id, orderId_forInvoice,pramotoin, addDiscount,
-                    totalAmountBeforeTax, tax, shippingCharges,paymethod,discount,grandTotal, new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Utils.dismissProgressDialog();
-                    if (response.body() != null) {
-                        if (response.code()==200) {
-                            Toast.makeText(SubscriptionPaymentActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
-                            openSubscribeDialog();
+            RestClient.invoiceOrderDetailForSubscription(user_id, orderId_forInvoice, pramotoin, addDiscount,
+                    totalAmountBeforeTax, tax, shippingCharges, totalAmount,paymethod, discount, grandTotal, new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Utils.dismissProgressDialog();
+                            if (response.body() != null) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(SubscriptionPaymentActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
+                                    openSubscribeDialog();
+
+                                }
+                            }
 
                         }
-                    }
 
-                }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                    Utils.dismissProgressDialog();
+                            Utils.dismissProgressDialog();
 //                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
+                        }
+                    });
         } else {
             Utils.dismissProgressDialog();
             Toast.makeText(this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
@@ -412,11 +416,11 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            Intent resultIntent = new Intent();
-            setResult(Activity.RESULT_OK, resultIntent);
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
+
+        Intent resultIntent = new Intent();
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish(); // close this activity and return to preview activity (if there is any)
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -433,7 +437,6 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     }
 
 
-
     private void openSubscribeDialog() {
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(SubscriptionPaymentActivity.this);
         // ...Irrelevant code for customizing the buttons and titl
@@ -448,7 +451,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
-                DnaPrefs.putBoolean(SubscriptionPaymentActivity.this,Constants.ISFINISHING,true);
+                DnaPrefs.putBoolean(SubscriptionPaymentActivity.this, Constants.ISFINISHING, true);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
                 dialog.dismiss();
