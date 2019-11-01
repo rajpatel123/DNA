@@ -476,8 +476,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
                             } else {
-                                updateAnswer(cardView1, answer1);
+                                updateMarkingOptionTime();
                             }
+                            updateAnswer(cardView1, answer1);
                             question.setSelectedOption(question.getOption1());
 
                         }
@@ -500,6 +501,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             answer = "2";
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
+                            }else{
+                                updateMarkingOptionTime();
                             }
                             updateAnswer(cardView2, answer2);
                             question.setSelectedOption(question.getOption2());
@@ -525,6 +528,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             answer = "3";
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
+                            }else{
+                                updateMarkingOptionTime();
                             }
                             question.setSelectedOption(question.getOption3());
                             updateAnswer(cardView3, answer3);
@@ -548,6 +553,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             answer = "4";
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
+                            }else{
+                                updateMarkingOptionTime();
                             }
                             question.setSelectedOption(question.getOption4());
                             updateAnswer(cardView4, answer4);
@@ -869,6 +876,17 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         resettimer();
         startTimer();
     }
+
+    private void updateMarkingOptionTime() {
+        pauseTimer();
+        submitTimeLogTest("selecting_option", "" + Seconds);
+        //  Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
+
+        //  submitAnswer();
+        resettimer();
+        startTimer();
+    }
+
 
 
     private void updateAnswer(CardView cardView, TextView answer) {

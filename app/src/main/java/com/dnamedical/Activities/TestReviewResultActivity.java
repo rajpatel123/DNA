@@ -44,7 +44,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
     private Toolbar mTopToolbar;
     boolean isFilterAdded;
-    private RecyclerView recyclerView, filtersRV;
+    private RecyclerView recyclerView;
     private ImageView imageView;
     private TestReviewListResponse testReviewListResponse;
     private static String TAG = TestReviewResultActivity.class.getSimpleName();

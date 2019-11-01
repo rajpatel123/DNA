@@ -621,6 +621,15 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), "xyz");
+        if (TextUtils.isEmpty(address)){
+            address="Unable to get Address";
+        }
+        if (TextUtils.isEmpty(city)){
+            city="Unable to get City";
+        }
+        if (TextUtils.isEmpty(mCountry)){
+            mCountry="India";
+        }
         RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), address);
         RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), city);
         RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), mCountry);
