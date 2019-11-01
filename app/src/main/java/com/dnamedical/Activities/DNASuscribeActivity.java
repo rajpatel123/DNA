@@ -2,6 +2,7 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.dnamedical.Models.subs.PlanResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
 import butterknife.BindView;
@@ -135,8 +138,8 @@ public class DNASuscribeActivity extends AppCompatActivity {
                             intent.putExtra("planType", "individual");
                         }
                         //Toast.makeText(DNASuscribeActivity.this, "Plan id" + planResponse.getIndividualPlan().get(finalI).getId(), Toast.LENGTH_LONG).show();
-                        startActivity(intent);
-                        finish();
+                        startActivityForResult(intent, Constants.FINISH);
+
                     }
                 });
 //                discountAmount.setText("INR "+(Integer.parseInt(planResponse.getIndividualPlan().get(i).getPrice())
@@ -180,8 +183,8 @@ public class DNASuscribeActivity extends AppCompatActivity {
                         intent.putExtra("planType", "combo");
 
                         // Toast.makeText(DNASuscribeActivity.this, "Plan id" + planResponse.getComboPack().get(finalI).getId(), Toast.LENGTH_LONG).show();
-                        startActivity(intent);
-                        finish();
+                        startActivityForResult(intent, Constants.FINISH);
+
                     }
                 });
 //                discountAmount.setText("INR "+(Integer.parseInt(planResponse.getIndividualPlan().get(i).getPrice())
@@ -196,6 +199,15 @@ public class DNASuscribeActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (DnaPrefs.getBoolean(this,Constants.ISFINISHING)){
+            finish();
+        }
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

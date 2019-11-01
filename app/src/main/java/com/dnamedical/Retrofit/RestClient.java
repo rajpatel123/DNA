@@ -327,4 +327,11 @@ public class RestClient {
     }
 
 
+    public static void invoiceOrderDetailForSubscription(RequestBody user_id, RequestBody orderId_forInvoice,
+                                                         RequestBody pramotoin, RequestBody addDiscount, RequestBody totalAmountBeforeTax,
+                                                         RequestBody tax, RequestBody shippingCharges, RequestBody paymethod,
+                                                         RequestBody discount, RequestBody grandTotal, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().invoiceOrderDetailForSubscription(user_id,orderId_forInvoice,pramotoin,addDiscount,
+                totalAmountBeforeTax,tax,shippingCharges,paymethod,discount,grandTotal).enqueue(callback);
+    }
 }

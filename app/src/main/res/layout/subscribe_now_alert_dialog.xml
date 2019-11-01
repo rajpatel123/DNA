@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_15"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/coupon_design_alert_dialog"
+                    android:tint="@color/colorAccent" />
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_10"
+                    android:text="DNA is Non profitable ,even at the above rates."
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/size_14" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/coupon_design_alert_dialog" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_10"
+                    android:text="Our Vision is to provide Education at Lowest Possible Cost."
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/size_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/coupon_design_alert_dialog"
+                    android:padding="@dimen/padding_5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_10"
+                    android:text=" Join our mission by Taking a paid plan"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/size_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/coupon_design_alert_dialog"
+                    android:padding="@dimen/padding_5" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_10"
+                    android:text="Once paid you can’t cancel or get refund as there is no cancellation or refund policy."
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/size_14" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_pay_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2sp"
+            android:background="@color/colorAccent"
+            android:paddingLeft="50dp"
+            android:paddingTop="5sp"
+            android:paddingRight="50dp"
+            android:paddingBottom="5sp"
+            android:text="PAY NOW"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+
+
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@color/colorAccent"
+            android:paddingLeft="50dp"
+            android:paddingTop="5sp"
+            android:paddingRight="50dp"
+            android:paddingBottom="5sp"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+        <!-- <TextView
+             android:visibility="gone"
+             android:id="@+id/text_cancel"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:padding="10dp"
+             android:text="back"
+             android:textColor="@color/colorAccent"
+             android:textSize="20sp" />
+ -->
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -46,6 +46,8 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
     TextView textViewName;
 
 
+
+
     @BindView(R.id.txt_email)
     TextView textViewEmail;
 

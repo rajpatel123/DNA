@@ -27,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="@dimen/margin_20"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/margin_10"
             android:text="Rapid Revision for NEET-PG"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -37,10 +38,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/planName"
+            android:layout_marginStart="@dimen/margin_25"
             android:gravity="center"
-            android:text="Rapid revision for NEevision for NEevision for NEevision for NEevision for NEevision for NEevision for NEevision for NEET-PG"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="Rapid revision for sion forision for sion forision for sion forision for sion forision for sion for NEevision for NEET-PG"
             android:textColor="@color/black_primary"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </RelativeLayout>
 
     <ScrollView

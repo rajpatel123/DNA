@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,21 +18,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dnamedical.Adapters.PlanListAdapter;
 import com.dnamedical.Models.subs.ComboPack;
 import com.dnamedical.Models.subs.IndividualPlan;
 import com.dnamedical.Models.subs.Plan;
 import com.dnamedical.Models.subs.PlanDetailResponse;
+import com.dnamedical.Models.subs.points.PlanPoints;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
-import com.razorpay.Checkout;
-
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -54,6 +53,8 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
     private TextView applyDiscount;
     private Plan plan;
     private String user_id, plan_id, subscription_id, status, price, pack_key, months, order_id;
+    private String rawJSONData;
+    private PlanPoints planPoints;
 
 
     @Override
@@ -80,6 +81,16 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         cancelDiscount = findViewById(R.id.cancelDiscount);
         applyDiscount = findViewById(R.id.applyDiscount);
         subscribeBtn = findViewById(R.id.subscribe);
+
+        rawJSONData = Utils.loadJSONFromAsset(this);
+
+
+        if (!TextUtils.isEmpty(rawJSONData)) {
+
+            planPoints = new Gson().fromJson(rawJSONData, PlanPoints.class);
+
+        }
+
 
         user_id = DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.LOGIN_ID);
 
@@ -174,30 +185,18 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         subscribeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 // ,order_id
                 plan_id = plan.getPlanId();
                 price = plan.getPlanPrice();
 
                 months = plan.getPlanMonths();
 
+                openSubscribeDialog();
 
-                Intent intent = new Intent(PlanPaymentProceesingActivity.this, AddressForSubscriptionListActivity.class);
 
-                intent.putExtra("AMOUNT", price);
-                intent.putExtra("subscription_id", subscription_id);
-                intent.putExtra("plan_id", plan_id);
-                intent.putExtra("months", months);
-                intent.putExtra("pack_key", pack_key);
-                intent.putExtra("COUPON_VALUE_ADD", DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT));
-                intent.putExtra("COUPON_VALUE", plan.getCoupan_value());
-                intent.putExtra("COUPON_VALUE_GIVEN", ""+discountAmount);
-
-                Log.d(PlanPaymentProceesingActivity.class.getSimpleName(),"AMOUNT "+price+" subscription_id "+subscription_id
-                +" plan_id "+plan_id+ " months "+months+" pack_key "+pack_key+" COUPON_VALUE_ADD "+DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT)
-                +" COUPON_VALUE "+plan.getCoupan_value()+ " COUPON_VALUE_GIVEN "+discountAmount);
-
-                startActivity(intent);
-                finish();
 
 
                 //
@@ -219,7 +218,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     discountDetail.setText("Yay! You will get INR " + discountAmount + " on this transaction.");
 
                     finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
-                    pricefinalInBottom.setText("Buy for. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                    pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
 
                 }
 
@@ -234,11 +233,11 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 if (plan != null) {
                     cancelDiscount.setVisibility(View.GONE);
                     applyDiscount.setVisibility(View.VISIBLE);
-                    discountAmount=0;
+                    discountAmount = 0;
                     discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this transaction.");
                     discount.setText("-" + 0);
                     finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice())));
-                    pricefinalInBottom.setText("Buy for. INR " + (Integer.parseInt(plan.getPlanPrice())));
+                    pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice())));
 
                 }
 
@@ -248,6 +247,55 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
 
     }
+
+    private void openSubscribeDialog() {
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(PlanPaymentProceesingActivity.this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = LayoutInflater.from(PlanPaymentProceesingActivity.this);
+        View dialogView = inflater.inflate(R.layout.subscribe_now_alert_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button btn_pay_now = dialogView.findViewById(R.id.btn_pay_now);
+        Button btn_cancel = dialogView.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
+        btn_pay_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlanPaymentProceesingActivity.this, AddressForSubscriptionListActivity.class);
+
+                intent.putExtra("AMOUNT", price);
+                intent.putExtra("subscription_id", subscription_id);
+                intent.putExtra("plan_id", plan_id);
+                intent.putExtra("months", months);
+                intent.putExtra("pack_key", pack_key);
+                intent.putExtra("COUPON_VALUE_ADD", DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT));
+                intent.putExtra("COUPON_VALUE", plan.getCoupan_value());
+                intent.putExtra("COUPON_VALUE_GIVEN", "" + discountAmount);
+
+                Log.d(PlanPaymentProceesingActivity.class.getSimpleName(), "AMOUNT " + price + " subscription_id " + subscription_id
+                        + " plan_id " + plan_id + " months " + months + " pack_key " + pack_key + " COUPON_VALUE_ADD " + DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT)
+                        + " COUPON_VALUE " + plan.getCoupan_value() + " COUPON_VALUE_GIVEN " + discountAmount);
+
+                startActivityForResult(intent,Constants.FINISH);
+
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+    }
+
+
+
 
 
     private void getPlanList(String plan_id) {
@@ -286,7 +334,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
 
                 priceTitle.setText(plan.getPlanName());
-                validTill.setText("Valid till " + Utils.dateFormat(plan.getValidTill()));
+                validTill.setText("Valid till " + Utils.dateFormatForPlan(plan.getValidTill()));
                 valueOfPlane.setText(plan.getPlanPrice());
 
                 discountTitle.setText(" Coupan :" + plan.getCoupan_code());
@@ -298,7 +346,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 discountTitle.setText("Coupan: " + plan.getCoupan_code());
                 discountDetail.setText("You will get " + discountAmount + " OFF on this transaction");
                 finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
-                pricefinalInBottom.setText("Buy for. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
                 actual_price.setText("INR " + plan.getPlanPrice());
                 actual_price.setPaintFlags(actual_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -309,6 +357,17 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (DnaPrefs.getBoolean(this,Constants.ISFINISHING)){
+            Intent resultIntent = new Intent();
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        }
+
+    }
 
     private void openPlanList() {
 
@@ -356,8 +415,6 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
         dialog.show();
 
     }
-
-
 
 
 }

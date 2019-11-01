@@ -42,4 +42,6 @@ public class Constants {
     public static final String CITY ="city" ;
     public static final String COUNTRY ="country" ;
     public static final String RESULT = "result";
+    public static final int FINISH = 121;
+    public static final String ISFINISHING = "isFinishing";
 }

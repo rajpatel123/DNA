@@ -432,6 +432,21 @@ public interface ApiInterface {
             @Query("filter_category") String filter_category);
 
 
+
+    @Multipart
+    @POST("api/api.php?req=subscription_invoice")
+    Call<ResponseBody> invoiceOrderDetailForSubscription(@Part("user_id") RequestBody user_id,
+                                                         @Part("order_id") RequestBody orderId_forInvoice,
+                                                         @Part("pramotion") RequestBody pramotoin,
+                                                         @Part("additionaltotalAmountBeforTax") RequestBody addDiscount,
+                                                         @Part("tax") RequestBody totalAmountBeforeTax,
+                                                         @Part("shippingCharges") RequestBody tax,
+                                                         @Part("totalAmount") RequestBody shippingCharges,
+                                                         @Part("payment_method") RequestBody paymethod,
+                                                         @Part("discount") RequestBody discount,
+                                                         @Part("grandTotal") RequestBody grandTotal);
+
+
 //    // New Api's Integrate
 //    @GET("v1/index.php/api/test/reviewquestionlist")
 //    Call<TestReviewListResponse> getTestReviewListFilteredData(

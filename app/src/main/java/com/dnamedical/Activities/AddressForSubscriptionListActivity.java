@@ -1,7 +1,9 @@
 package com.dnamedical.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -162,18 +164,13 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
                                         intent.putExtra("months", months);
                                         intent.putExtra("pack_key", pack_key);
                                         intent.putExtra("COUPON_VALUE_GIVEN", totalDiscountGiven);
-
-
-
-
                                         intent.putExtra("AMOUNT", amount);
 
                                         intent.putExtra("SHIPPING_CHARGE", shippingCharge);
                                         intent.putExtra("COUPON_VALUE", couponValue);
                                         intent.putExtra("COUPON_VALUE_ADD", couponValueAdd);
 
-                                        startActivity(intent);
-                                        finish();
+                                        startActivityForResult(intent,Constants.FINISH);
                                     }
                                 });
                                 addressListAdapter.setOnClickEditAddress(new AddressListAdapter.onClickEditAddress() {
@@ -243,5 +240,16 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (DnaPrefs.getBoolean(this,Constants.ISFINISHING)){
+            Intent resultIntent = new Intent();
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        }
+
+    }
 }
 

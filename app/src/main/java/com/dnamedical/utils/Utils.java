@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -23,6 +25,24 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
+
+
+
+    public static String loadJSONFromAsset(Activity activity){
+        String json = null;
+        try {
+            InputStream is = activity.getAssets().open("yourfilename.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
 
 
     public static boolean hideKeyBoard(Activity activity) {
@@ -155,6 +175,23 @@ public class Utils {
             Log.d("date", "" + timeStamp);
             SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
             Date dNow = new Date(timeStamp*1000);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+    public static String dateFormatForPlan(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
+            Date dNow = new Date(timeStamp);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
             e.printStackTrace();

@@ -147,6 +147,7 @@
     <dimen name="margin_300">300dp</dimen>
     <dimen name="size_10">10sp</dimen>
     <dimen name="size_11">11sp</dimen>
+    <dimen name="margin_25">25dp</dimen>
 
 
 </resources>

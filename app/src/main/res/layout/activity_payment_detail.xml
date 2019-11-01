@@ -19,6 +19,118 @@
         android:layout_marginBottom="@dimen/margin_top_30"
 
         >
+        <LinearLayout
+            android:id="@+id/terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextstyle"
+
+           >
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextstyle"
+
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:background="@drawable/coupon_design" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/padding_10"
+                            android:text="@string/coupen_txt"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/size_14" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:background="@drawable/coupon_design" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/padding_10"
+                            android:text="@string/coupen_txt_one"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:background="@drawable/coupon_design"
+                            android:padding="@dimen/padding_5" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/padding_10"
+                            android:text="@string/coupen_txt_two"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/size_14" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:text="@string/coupen_txt_three"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_16"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:text="@string/coupen_txt_four"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_16"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
 
 
         <LinearLayout
@@ -27,6 +139,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittextstyle"
             android:orientation="vertical"
+            android:layout_below="@+id/terms"
+            android:layout_marginTop="@dimen/margin_10"
             android:padding="@dimen/padding_10">
 
             <LinearLayout

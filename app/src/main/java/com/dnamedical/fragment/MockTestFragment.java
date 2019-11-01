@@ -144,8 +144,10 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
 
         } else {
             Log.d("Api Response :", "Got Success from Api");
-            recyclerView.setVisibility(View.GONE);
-            notext.setVisibility(View.VISIBLE);
+            if (recyclerView!=null) {
+                recyclerView.setVisibility(View.GONE);
+                notext.setVisibility(View.VISIBLE);
+            }
         }
 
     }

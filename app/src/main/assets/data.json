@@ -1,0 +1,230 @@
+{
+  "A": {
+    "planName": "Plan A",
+    "allPoints": [
+      "DR - Daily Round Test",
+      "SWT - Subject wise Test for all     19 subjects",
+      "GT - Grand Test ( Combined 19 Subjects Test )",
+      " MT - Mock Test ( Combined 19 Subjects Test ) before every major exam.",
+      "Exam will be on latest pattern software with all India ranking ( AIR ).",
+      "Complete analysis of your exam\nVia Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis."
+    ]
+  },
+  "B": {
+    "planName": "Plan - B",
+    "allPoints": [
+      "Q - Bank - Questions Bank of all 19 Subjects.",
+      "20,000 MCQs arranged in Subject wise, Chapter wise & Topic wise.",
+      "MCQs framed by experienced faculties team.",
+      "Recent Updated MCQs as per Latest Pattern Of Exam.",
+      "All MCQs with fully explained answers.",
+      "Imaged Based MCQs included.",
+      "Complete analysis of Q bank practice Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis."
+    ]
+  },
+  "C": {
+    "planName": "Plan - C",
+    "allPoints": [
+      "Recorded video Lectures with Vertical Integration Of Subjects for better understanding along with clinical approach to patients.",
+      "Concept Based Recorded Video Lecture modules.",
+      "Recorded Video Lectures by India’s Top faculties team who are teaching on latest exam pattern.",
+      "All 19 Subjects recorded video Lectures.",
+      "Video Lecture will Updated after every major exam.",
+      "Watch videos anytime, anywhere with your convenience.",
+      "Imaged Based recorded Video Lecture.",
+      "Clinical case Videos with approach to patient included as faculties team are renowned clinicians cum national level faculties."
+    ]
+  },
+  "D": {
+    "planName": "Plan - D",
+    "allPoints": [
+      "T & D - Test and Discussion recorded video Lectures of all 19 Subjects T & D.",
+      "Imaged Based Questions Discussion included as per Latest exam pattern.",
+      "Video based clinical case related questions discussed.",
+      "instrument and important images incorporated as per requirements of the new trends of Exam.",
+      "Recent exams Questions Discussion after each exam."
+    ]
+  },
+  "firstYear": [
+    {
+      "planName": "Video Lecture",
+      "allPoints": [
+        "Competency Based recorded Video Lecture as per new MBBS Curriculum 2019.",
+        " Recorded video Lectures with Vertical Integration Of Subjects for better understanding along with clinical approach to patients.",
+        "Concept Based Recorded Video Lecture modules.",
+        "Recorded Video Lectures by India’s Top faculties team who are teaching on latest exam pattern.",
+        "Recorded video Lectures Of ANATOMY, PHYSIOLOGY & BIOCHEMISTRY.",
+        "Video Lecture will be Updated after each major exam.",
+        "Watch videos anytime, anywhere with your convenience.",
+        "Imaged Based recorded Video Lecture.",
+        "Clinical case Videos with approach to patient included as faculties team are renowned clinicians cum national level faculties."
+      ]
+    },
+    {
+      "planName": "Question Bank",
+      "allPoints": [
+        "Q - Bank - Questions Bank of ANATOMY, PHYSIOLOGY & BIOCHEMISTRY.",
+        "MCQs arranged in Subject wise, Chapter wise & Topic wise.",
+        "MCQs framed by experienced faculties team.",
+        "Recent Updated MCQs as per Latest Pattern Of Exam.",
+        "All MCQs with fully explained answers.",
+        "Imaged Based MCQs included.",
+        "Complete analysis of Q bank practice Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis."
+      ]
+    },
+    {
+      "planName": "Test Series",
+      "allPoints": [
+        "DR - Daily Round Test",
+        "SWT - Subject wise Test for ANATOMY, PHYSIOLOGY & BIOCHEMISTRY.",
+        "Exam will be on Latest software with All India Ranking ( AIR ).",
+        "Complete analysis of your exam Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis."
+      ]
+    }
+  ],
+  "secondyear": [
+    {
+      "planName": "Video Lecture",
+      "allPoints": [
+        "Recorded video Lectures with Vertical Integration Of Subjects for better understanding along with clinical approach to patients.",
+        "Concept Based Recorded Video Lecture modules.",
+        "Recorded Video Lectures by India’s Top faculties team who are teaching on latest exam pattern.",
+        "Recorded video Lectures Of PATHOLOGY, PHARMACOLOGY, MICROBIOLOGY & F.M.T",
+        "Video Lecture will be Updated after each major exam.",
+        "Watch videos anytime, anywhere with your convenience.",
+        "Imaged Based recorded Video Lecture.",
+        "Clinical case Videos with approach to patient included as faculties team are renowned clinicians cum national level faculties."
+      ]
+    },
+    {
+      "planName": "Question Bank",
+      "allPoints": [
+        "Q - Bank - Questions Bank of PATHOLOGY, PHARMACOLOGY, MICROBIOLOGY & F.M.T.",
+        "MCQs arranged in Subject wise, Chapter wise & Topic wise.",
+        "MCQs framed by experienced faculties team.",
+        "Recent Updated MCQs as per Latest Pattern Of Exam.",
+        "All MCQs with fully explained answers.",
+        "Imaged Based MCQs included.",
+        "Complete analysis of Q bank practice Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis , performance analysis & 2nd Hits analysis."
+      ]
+    },
+    {
+      "planName": "Test Series",
+      "allPoints": [
+        "DR - Daily Round Test",
+        "SWT - Subject wise Test for PATHOLOGY, PHARMACOLOGY, MICROBIOLOGY & F.M.T.",
+        "Exam will be on Latest software with All India Ranking ( AIR ).",
+        "Complete analysis of your exam Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis.,"
+      ]
+    }
+  ],
+  "prefinal": [
+    {
+      "planName": "Video Lecture",
+      "allPoints": [
+        " Recorded video Lectures with Vertical Integration Of Subjects for better understanding along with clinical approach to patients.",
+        "Concept Based Recorded Video Lecture modules.",
+        "Recorded Video Lectures by India’s Top faculties team who are teaching on latest exam pattern.",
+        "Recorded video Lectures Of OPHTAMOLOGY, E.N.T & COMMUNITY MEDICINE ( PSM).",
+        "Video Lecture will be Updated after each major exam.",
+        "Watch videos anytime, anywhere with your convenience.",
+        "Imaged Based recorded Video Lecture.",
+        "Clinical case Videos with approach to patient included as faculties team are renowned clinicians cum national level faculties."
+      ]
+    },
+    {
+      "planName": "Question Bank",
+      "allPoints": [
+        "Q - Bank - Questions Bank of OPHTAMOLOGY, E.N.T & COMMUNITY MEDICINE ( PSM).",
+        "MCQs arranged in Subject wise, Chapter wise & Topic wise.",
+        "MCQs framed by experienced faculties team.",
+        "Recent Updated MCQs as per Latest Pattern Of Exam.",
+        "All MCQs with fully explained answers.",
+        "Imaged Based MCQs included.",
+        "Complete analysis of Q bank practice Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis."
+      ]
+    },
+    {
+      "planName": "Test Series",
+      "allPoints": [
+        "DR - Daily Round Test",
+        "SWT - Subject wise Test for OPHTAMOLOGY, E.N.T & COMMUNITY MEDICINE ( PSM).",
+        "Exam will be on Latest software with All India Ranking ( AIR ).",
+        "Complete analysis of your exam Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis."
+      ]
+    }
+  ],
+  "final": [
+    {
+      "planName": "Video Lecture",
+      "allPoints": [
+        "Recorded video Lectures with Vertical Integration Of Subjects for better understanding along with clinical approach to patients.",
+        "Concept Based Recorded Video Lecture modules.",
+        "Recorded Video Lectures by India’s Top faculties team who are teaching on latest exam pattern.",
+        "Recorded video Lectures Of MEDICINE, SURGERY, OBG, PEDIATRICS, RADIODIAGNOSIS, DERMATOLOGY, ANESTHESIA, PSYCHIATRY & ORTHOPAEDICS.",
+        "Video Lecture will be Updated after each major exam.",
+        "Watch videos anytime, anywhere with your convenience.",
+        "Imaged Based recorded Video Lecture.",
+        "Clinical case Videos with approach to patient included as faculties team are renowned clinicians cum national level faculties."
+      ]
+    },
+    {
+      "planName": "Question Bank",
+      "allPoints": [
+        "Q - Bank - Questions Bank of MEDICINE, SURGERY, OBG, PEDIATRICS, RADIODIAGNOSIS, DERMATOLOGY, ANESTHESIA, PSYCHIATRY & ORTHOPAEDICS.",
+        "MCQs arranged in Subject wise, Chapter wise & Topic wise.",
+        "MCQs framed by experienced faculties team.",
+        "Recent Updated MCQs as per Latest Pattern Of Exam.",
+        "All MCQs with fully explained answers.",
+        "Imaged Based MCQs included.",
+        "Complete analysis of Q bank practice Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis , performance analysis & 2nd Hits analysis"
+      ]
+    },
+    {
+      "planName": "Test Series",
+      "allPoints": [
+        "DR - Daily Round Test",
+        "SWT - Subject wise Test for MEDICINE, SURGERY, OBG, PEDIATRICS, RADIODIAGNOSIS, DERMATOLOGY, ANESTHESIA, PSYCHIATRY & ORTHOPAEDICS.",
+        "Exam will be on Latest software with All India Ranking ( AIR ).",
+        "Complete analysis of your exam Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis, performance analysis & 2nd Hits analysis."
+      ]
+    }
+  ],
+  "shortSubject": [
+    {
+      "planName": "Video Lecture",
+      "allPoints": [
+        "Recorded video Lectures with Vertical Integration Of Subjects for better understanding along with clinical approach to patients.",
+        "Concept Based Recorded Video Lecture modules.",
+        "Recorded Video Lectures by India’s Top faculties team who are teaching on latest exam pattern.",
+        "Recorded video Lectures Of RADIODIAGNOSIS, DERMATOLOGY, ANESTHESIA, PSYCHIATRY & ORTHOPAEDICS.",
+        "Video Lecture will be Updated after each major exam.",
+        "Watch videos anytime, anywhere with your convenience.",
+        "Imaged Based recorded Video Lecture.",
+        "Clinical case Videos with approach to patient included as faculties team are renowned clinicians cum national level faculties."
+      ]
+    },
+    {
+      "planName": "Question Bank",
+      "allPoints": [
+        "Q - Bank - Questions Bank of RADIODIAGNOSIS, DERMATOLOGY, ANESTHESIA, PSYCHIATRY & ORTHOPAEDICS.",
+        "MCQs arranged in Subject wise , Chapter wise & Topic wise.",
+        "MCQs framed by experienced faculties team.",
+        "Recent Updated MCQs as per Latest Pattern Of Exam.",
+        "All MCQs with fully explained answers.",
+        "Imaged Based MCQs included.",
+        "Complete analysis of Q bank practice Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis , performance analysis & 2nd Hits analysis."
+      ]
+    },
+    {
+      "planName": "Test Series",
+      "allPoints": [
+        "DR - Daily Round Test",
+        "SWT - Subject wise Test for RADIODIAGNOSIS, DERMATOLOGY, ANESTHESIA, PSYCHIATRY & ORTHOPAEDICS.",
+        "Exam will be on Latest software with All India Ranking ( AIR ).",
+        "Complete analysis of your exam Via Each Question analysis, Time analysis, Guess analysis, difficulty level analysis , performance analysis & 2nd Hits analysis."
+      ]
+    }
+  ]
+}
+

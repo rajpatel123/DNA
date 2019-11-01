@@ -1,6 +1,7 @@
 package com.dnamedical.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -336,21 +337,22 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null && response.code()==200) {
-                            finish();
+
+                        uploadPaymentDetailForInvoices(orderId);
+
+
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
                     Utils.dismissProgressDialog();
                     //Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
 
-          //  uploadPaymentDetailForInvoices();
         } else {
             Utils.dismissProgressDialog();
             Toast.makeText(this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
@@ -359,35 +361,35 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     }
 
 
-    private void uploadPaymentDetailForInvoices() {
-
-
-        String productId = "0";
-
-
-        String payment_status = "1";
+    private void uploadPaymentDetailForInvoices(String orderId) {
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-//        RequestBody orderId_forInvoice = RequestBody.create(MediaType.parse("text/plain"), orderId);
+        RequestBody orderId_forInvoice = RequestBody.create(MediaType.parse("text/plain"), orderId);
 
         RequestBody pramotoin = RequestBody.create(MediaType.parse("text/plain"), totalDiscountGiven);
         RequestBody addDiscount = RequestBody.create(MediaType.parse("text/plain"), totalADDDiscountGiven);
         RequestBody totalAmountBeforeTax = RequestBody.create(MediaType.parse("text/plain"), befortaxValue);
-        RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), "" + totalValue);
         RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
         RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"), shippingCharge);
+        RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), "" + totalValue);
+        RequestBody paymethod = RequestBody.create(MediaType.parse("text/plain"), "" + "Online");
+        RequestBody discount = RequestBody.create(MediaType.parse("text/plain"), totalDiscountGiven);
         RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount, new Callback<SaveOrderResponse>() {
+            RestClient.invoiceOrderDetailForSubscription(user_id, orderId_forInvoice,pramotoin, addDiscount,
+                    totalAmountBeforeTax, tax, shippingCharges,paymethod,discount,grandTotal, new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("true")) {
+                        if (response.code()==200) {
                             Toast.makeText(SubscriptionPaymentActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
+                            Intent resultIntent = new Intent();
+                            DnaPrefs.putBoolean(SubscriptionPaymentActivity.this,Constants.ISFINISHING,true);
+                            setResult(Activity.RESULT_OK, resultIntent);
                             finish();
                         }
                     }
@@ -395,7 +397,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
                 }
 
                 @Override
-                public void onFailure(Call<SaveOrderResponse> call, Throwable t) {
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     Utils.dismissProgressDialog();
 //                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -412,6 +414,8 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
+            Intent resultIntent = new Intent();
+            setResult(Activity.RESULT_OK, resultIntent);
             finish(); // close this activity and return to preview activity (if there is any)
         }
 
