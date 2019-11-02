@@ -70,6 +70,18 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/size_12" />
 
+                <TextView
+                    android:id="@+id/buy_now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_shape"
+                    android:text="INR 3999 off"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:layout_marginStart="25dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_12" />
+
             </LinearLayout>
 
         </LinearLayout>

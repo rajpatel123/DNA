@@ -22,6 +22,8 @@ import java.util.TimeZone;
 public class Utils {
 
 
+    private static long millis;
+
     public static String loadJSONFromAsset(Activity activity) {
         String json = null;
         try {
@@ -176,9 +178,24 @@ public class Utils {
         }
     }
 
+
+    public static long getTimeinMillisecondsFromDate() {
+        String myDate = "2020/12/31 12:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = sdf.parse(myDate);
+            millis = date.getTime();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return millis;
+    }
+
     public static String dateFormatForPlan(long timeStamp) {
 
-
+       timeStamp= getTimeinMillisecondsFromDate();
         if (timeStamp <= 0) {
             return null;
         }
@@ -284,7 +301,7 @@ public class Utils {
     }
 
 
- public static long getMilliesFromDate(String testDate) {
+    public static long getMilliesFromDate(String testDate) {
 
         Calendar calendar = Calendar.getInstance();
         String dates[] = testDate.split("-");
@@ -321,8 +338,6 @@ public class Utils {
         }
         return -1;
     }
-
-
 
 
     public static long getMilliesOfTestTime(String time) {

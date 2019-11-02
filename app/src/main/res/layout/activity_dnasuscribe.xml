@@ -82,7 +82,7 @@
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
                     android:textSize="12sp"
-                    android:background="@drawable/rounded_shape"
+                    android:background="@drawable/green_button"
                     android:text="PREMIUM 2020" />
 
 
@@ -95,7 +95,7 @@
                 android:gravity="center"
                 android:layout_margin="@dimen/margin_10"
                 android:layout_below="@+id/header"
-                android:text="Prepare anytime, anywhere on the go with the best resources"
+                android:text="Here are India's best educators as your study partner who are teaching on latest exam pattern. So prepare anywhere, anytime at affordable price."
                 android:textStyle="bold" />
 
 

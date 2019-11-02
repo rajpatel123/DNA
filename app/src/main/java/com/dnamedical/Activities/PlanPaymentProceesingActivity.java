@@ -315,35 +315,129 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                             break;
 
                         case "MBBS1":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getFirstYear().get(0).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getFirstYear().get(0).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getFirstYear().get(1).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+
+                            addPoints(planPoints.getFirstYear().get(1).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getFirstYear().get(2).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getFirstYear().get(2).getAllPoints());
+                            break;
                         case "MBBS2":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getSecondyear().get(0).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getSecondyear().get(0).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getSecondyear().get(1).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getSecondyear().get(1).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getSecondyear().get(2).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getSecondyear().get(2).getAllPoints());
+                            break;
                         case "MBBS3":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getPrefinal().get(0).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getFirstYear().get(0).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getPrefinal().get(1).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+
+                            addPoints(planPoints.getFirstYear().get(1).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getPrefinal().get(2).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getFirstYear().get(2).getAllPoints());
+                            break;
                         case "MBBS4":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getFinal().get(0).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getFinal().get(0).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getFinal().get(1).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+
+                            addPoints(planPoints.getFinal().get(1).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getFinal().get(2).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getFinal().get(2).getAllPoints());
+                            break;
                         case "MBBS5":
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getShortSubject().get(0).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getShortSubject().get(0).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getShortSubject().get(1).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+
+                            addPoints(planPoints.getShortSubject().get(1).getAllPoints());
+
+                            title = new TextView(this);
+                            title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            title.setText("" + planPoints.getShortSubject().get(2).getPlanName());
+                            title.setTypeface(Typeface.DEFAULT_BOLD);
+
+                            packDetailLayout.addView(title);
+                            addPoints(planPoints.getShortSubject().get(2).getAllPoints());
+                            break;
                           default:
-                              title = new TextView(this);
-                              title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-                              title.setText("" + planPoints.getFirstYear().get(0).getPlanName());
-                              title.setTypeface(Typeface.DEFAULT_BOLD);
 
-                              packDetailLayout.addView(title);
-                              addPoints(planPoints.getFirstYear().get(0).getAllPoints());
-
-                              title = new TextView(this);
-                              title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-                              title.setText("" + planPoints.getFirstYear().get(1).getPlanName());
-                              title.setTypeface(Typeface.DEFAULT_BOLD);
-
-                              packDetailLayout.addView(title);
-
-                              addPoints(planPoints.getFirstYear().get(1).getAllPoints());
-
-                              title = new TextView(this);
-                              title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-                              title.setText("" + planPoints.getFirstYear().get(2).getPlanName());
-                              title.setTypeface(Typeface.DEFAULT_BOLD);
-
-                              packDetailLayout.addView(title);
-                              addPoints(planPoints.getFirstYear().get(2).getAllPoints());
 
                     }
                 }
@@ -402,7 +496,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     discountDetail.setText("Yay! You will get INR " + discountAmount + " on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
 
                     finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
-                    pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                    pricefinalInBottom.setText("Buy for: INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
 
                 }
 
@@ -421,7 +515,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
                     discount.setText("-" + 0);
                     finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice())));
-                    pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice())));
+                    pricefinalInBottom.setText("Buy for: INR " + (Integer.parseInt(plan.getPlanPrice())));
 
                 }
 
@@ -537,11 +631,11 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
                     }
                 }
-                validTill.setText("Valid till " + Utils.dateFormatForPlan(plan.getValidTill()));
+                validTill.setText("This plan is Valid till " + Utils.dateFormatForPlan(plan.getValidTill()));
                 valueOfPlane.setText("INR "+plan.getPlanPrice());
 
-                discountTitle.setText(" Coupon :" + plan.getCoupan_code());
-                coupanicon.setText(plan.getCoupan_value()+"%");
+                discountTitle.setText(" Coupon Code :" + plan.getCoupan_code());
+                coupanicon.setText(plan.getCoupan_value()+"%\noff");
                 if (!TextUtils.isEmpty(plan.getCoupan_code())) {
                     discountAmount = Integer.parseInt(plan.getPlanPrice()) * Integer.parseInt(plan.getCoupan_value()) / 100;
                 }
@@ -550,7 +644,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 discountTitle.setText("Coupon: " + plan.getCoupan_code());
                 discountDetail.setText("You will get " + discountAmount + " OFF on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
                 finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
-                pricefinalInBottom.setText("Buy for.. INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                pricefinalInBottom.setText("Buy for: INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
                 actual_price.setText("INR " + plan.getPlanPrice());
                 actual_price.setPaintFlags(actual_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 

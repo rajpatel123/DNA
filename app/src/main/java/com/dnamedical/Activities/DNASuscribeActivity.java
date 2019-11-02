@@ -124,6 +124,7 @@ public class DNASuscribeActivity extends AppCompatActivity {
                 TextView subPLanName = plan.findViewById(R.id.subNameOfPlan);
                 TextView priceValue = plan.findViewById(R.id.priceValue);
                 TextView discountAmount = plan.findViewById(R.id.discountValue);
+                TextView buy_now = plan.findViewById(R.id.buy_now);
                 planName.setText("" + planResponse.getIndividualPlan().get(i).getName());
 
                if (planResponse.getIndividualPlan().get(i).getSubname().contains("\n")){
@@ -137,6 +138,7 @@ public class DNASuscribeActivity extends AppCompatActivity {
                 int dsct = Integer.parseInt(planResponse.getIndividualPlan().get(i).getPrice())
                         * Integer.parseInt(planResponse.getIndividualPlan().get(i).getDiscount()) / 100;
                 discountAmount.setText("INR " + dsct + " OFF");
+                buy_now.setText("Buy for: "+(Integer.parseInt(planResponse.getIndividualPlan().get(i).getPrice())-dsct));
 
 
                 int finalI = i;
@@ -176,12 +178,15 @@ public class DNASuscribeActivity extends AppCompatActivity {
                 TextView subPLanName = plan.findViewById(R.id.subNameOfPlan);
                 TextView priceValue = plan.findViewById(R.id.priceValue);
                 TextView discountAmount = plan.findViewById(R.id.discountValue);
+                TextView buy_now = plan.findViewById(R.id.buy_now);
                 planName.setText("" + planResponse.getComboPack().get(i).getName());
                 subPLanName.setText("" + planResponse.getComboPack().get(i).getSubname());
                 priceValue.setText("INR " + planResponse.getComboPack().get(i).getPrice());
                 int dsct = Integer.parseInt(planResponse.getComboPack().get(i).getPrice())
                         * Integer.parseInt(planResponse.getComboPack().get(i).getDiscount()) / 100;
                 discountAmount.setText("INR " + dsct + " OFF");
+
+                buy_now.setText("Buy for: "+(Integer.parseInt(planResponse.getComboPack().get(i).getPrice())-dsct));
 
 
                 int finalI = i;

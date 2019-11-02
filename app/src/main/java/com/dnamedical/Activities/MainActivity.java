@@ -131,12 +131,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        String text = "<font color=#000000>Subscribe</font> <font color=#ff3824>NEW(2020)</font>";
+        String text = "<font color=#000000>Subscribe</font> <font color=#ff3824>For 2020</font>";
         MenuItem menuItem =  navigationView.getMenu().getItem(4);
 
         menuItem.setTitle(Html.fromHtml(text));
 
-        String textFr = "<font color=#000000>Franchise Query</font> <font color=#ff3824>NEW(2020)</font>";
+        String textFr = "<font color=#000000>Franchise Query</font> <font color=#ff3824>For 2020</font>";
         MenuItem menuItemFR =  navigationView.getMenu().getItem(10);
 
         menuItemFR.setTitle(Html.fromHtml(textFr));
