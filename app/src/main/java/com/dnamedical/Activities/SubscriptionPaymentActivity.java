@@ -252,7 +252,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
 
 
             options.put("currency", "INR");
-            options.put("amount", orderValue * 100);
+            options.put("amount", 1 * 100);
             //options.put("amount", 1*100);
             options.put("order_id", orderId);
             //options.put("amount", 100);
@@ -275,7 +275,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     private void createOrder() {
 
         RequestBody user_idbody = RequestBody.create(MediaType.parse("text/plain"), "" + userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + 1 * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
         RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), "" + 123);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "subs");
@@ -291,7 +291,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
                     if (response.body() != null) {
                         CreateOrderResponse createOrderResponse = response.body();
                         if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
-                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                            if ((1 * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
                                 startPayment(createOrderResponse.getData().getOrderId());
                             }
                         }
@@ -427,7 +427,11 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
 
     @Override
     public void onPaymentSuccess(String paymentID) {
-        uploadPaymentData(paymentID);
+       try{
+           uploadPaymentData(paymentID);
+       }catch (Exception e){
+           e.printStackTrace();
+       }
         //finish();
     }
 

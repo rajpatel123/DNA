@@ -367,7 +367,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                             title.setText("" + planPoints.getPrefinal().get(0).getPlanName());
                             title.setTypeface(Typeface.DEFAULT_BOLD);
                             packDetailLayout.addView(title);
-                            addPoints(planPoints.getFirstYear().get(0).getAllPoints());
+                            addPoints(planPoints.getPrefinal().get(0).getAllPoints());
 
                             title = new TextView(this);
                             title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -376,7 +376,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
                             packDetailLayout.addView(title);
 
-                            addPoints(planPoints.getFirstYear().get(1).getAllPoints());
+                            addPoints(planPoints.getPrefinal().get(1).getAllPoints());
 
                             title = new TextView(this);
                             title.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -384,7 +384,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                             title.setTypeface(Typeface.DEFAULT_BOLD);
 
                             packDetailLayout.addView(title);
-                            addPoints(planPoints.getFirstYear().get(2).getAllPoints());
+                            addPoints(planPoints.getPrefinal().get(2).getAllPoints());
                             break;
                         case "MBBS4":
                             title = new TextView(this);
@@ -641,7 +641,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 }
                 discount.setText("-" + (discountAmount));
                 subTotal.setText(plan.getPlanPrice());
-                discountTitle.setText("Coupon: " + plan.getCoupan_code());
+                discountTitle.setText("Coupon Code: " + plan.getCoupan_code());
                 discountDetail.setText("You will get " + discountAmount + " OFF on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
                 finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
                 pricefinalInBottom.setText("Buy for: INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));

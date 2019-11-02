@@ -190,6 +190,8 @@ public class Utils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        Log.d("time",""+millis);
         return millis;
     }
 
