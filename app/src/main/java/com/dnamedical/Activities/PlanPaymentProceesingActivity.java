@@ -173,6 +173,8 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                     //from plan detail api
                     //priceTitle.setText(individualPlan.get());
                     valueOfPlane.setText(comboPack.getPrice());
+                    subscription_id = comboPack.getId();
+
                     getPlanList(comboPack.getId());
                     TextView title;
 
@@ -631,7 +633,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
                     }
                 }
-                validTill.setText("This plan is Valid till " + Utils.dateFormatForPlan(plan.getValidTill()));
+                validTill.setText("This plan is Valid till 31 Dec 2020");
                 valueOfPlane.setText("INR "+plan.getPlanPrice());
 
                 discountTitle.setText(" Coupon Code :" + plan.getCoupan_code());

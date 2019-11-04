@@ -73,7 +73,7 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
 
         Plan plan = planList.get(i);
         holder.planName.setText(plan.getPlanName());
-        holder.valididty.setText(Utils.dateFormatForPlan(plan.getValidTill()));
+      //  holder.valididty.setText(Utils.dateFormatForPlan(plan.getValidTill()),co);
         holder.priceValue.setText(plan.getPlanPrice());
 
          holder.view.setOnClickListener(new View.OnClickListener() {
