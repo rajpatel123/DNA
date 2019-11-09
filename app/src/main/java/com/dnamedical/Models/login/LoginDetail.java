@@ -30,6 +30,32 @@ public class LoginDetail {
     @Expose
     private String image;
 
+
+    public String getInstitute_id() {
+        return institute_id;
+    }
+
+    public void setInstitute_id(String institute_id) {
+        this.institute_id = institute_id;
+    }
+
+    public String getInstitute_name() {
+        return institute_name;
+    }
+
+    public void setInstitute_name(String institute_name) {
+        this.institute_name = institute_name;
+    }
+
+    @SerializedName("institute_id")
+    @Expose
+    private String institute_id;
+
+
+    @SerializedName("institute_name")
+    @Expose
+    private String institute_name;
+
     public String getId() {
         return id;
     }

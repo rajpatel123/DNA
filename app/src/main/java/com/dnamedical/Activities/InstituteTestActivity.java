@@ -1,32 +1,22 @@
 package com.dnamedical.Activities;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
-import com.dnamedical.fragment.HomeFragment;
-import com.dnamedical.fragment.OnlineFragment;
-import com.dnamedical.fragment.QbankFragment;
-import com.dnamedical.fragment.TestFragment;
-import com.dnamedical.fragment.videoFragment;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InstituteTestActivity extends AppCompatActivity {
 
@@ -35,26 +25,9 @@ public class InstituteTestActivity extends AppCompatActivity {
     public TabLayout tabLayout;
     private Toolbar toolbar;
     public ViewPager pager;
-    private HomeFragment dashboardHomeFragment;
-    private videoFragment dashboardvideoFragment;
-    private QbankFragment dashboardQbankFragment;
-    private TestFragment dashboardTestFragment;
-    private OnlineFragment dashboardOnlineFragment;
+
     private MainActivity.ViewPagerAdapter adapter;
-    private TextView myDeviceTitle;
-    private ImageView imgDeviceIcon;
-    private TextView videoText;
-    private ImageView imgVideoViewIcon;
-    private TextView qbTitle;
-    private ImageView imgQBIcon;
-    private TextView testTitle;
-    private ImageView testIcon;
-    private ImageView imgOnlineIcon;
-    private TextView onlineTitle;
-    private NavigationView navigationView;
-    private TextView tvName, tvEmail, tvSetting;
-    private CircleImageView circleImageView;
-    String name, image, email;
+    String name, email;
     TestDataResponse testDataResponse;
 
 
@@ -83,17 +56,15 @@ public class InstituteTestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        toolbar.setTitle("" + DnaPrefs.getString(this, Constants.INST_NAME));
+
     }
 
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
+
     }
 
 
@@ -107,13 +78,9 @@ public class InstituteTestActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toolbar:
-                //your code here
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        finish();
+        return super.onOptionsItemSelected(item);
+
     }
 
 

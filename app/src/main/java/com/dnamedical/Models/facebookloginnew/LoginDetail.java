@@ -5,24 +5,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginDetail {
 
-@SerializedName("id")
-@Expose
-private String id;
-@SerializedName("name")
-@Expose
-private String name;
-@SerializedName("username")
-@Expose
-private String username;
-@SerializedName("email_id")
-@Expose
-private String emailId;
-@SerializedName("mobile_no")
-@Expose
-private String mobileNo;
-@SerializedName("state")
-@Expose
-private String state;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("username")
+    @Expose
+    private String username;
+    @SerializedName("email_id")
+    @Expose
+    private String emailId;
+    @SerializedName("mobile_no")
+    @Expose
+    private String mobileNo;
+    @SerializedName("state")
+    @Expose
+    private String state;
 
     public String getCollege() {
         return college;
@@ -33,66 +33,92 @@ private String state;
     }
 
     @SerializedName("college")
-@Expose
-private String college;
-@SerializedName("image")
-@Expose
-private String image;
+    @Expose
+    private String college;
+    @SerializedName("image")
+    @Expose
+    private String image;
 
-public String getId() {
-return id;
-}
+    @SerializedName("institute_id")
+    @Expose
+    private String institute_id;
 
-public void setId(String id) {
-this.id = id;
-}
 
-public String getName() {
-return name;
-}
+    @SerializedName("institute_name")
+    @Expose
+    private String institute_name;
 
-public void setName(String name) {
-this.name = name;
-}
 
-public String getUsername() {
-return username;
-}
+    public String getInstitute_id() {
+        return institute_id;
+    }
 
-public void setUsername(String username) {
-this.username = username;
-}
+    public void setInstitute_id(String institute_id) {
+        this.institute_id = institute_id;
+    }
 
-public String getEmailId() {
-return emailId;
-}
+    public String getInstitute_name() {
+        return institute_name;
+    }
 
-public void setEmailId(String emailId) {
-this.emailId = emailId;
-}
+    public void setInstitute_name(String institute_name) {
+        this.institute_name = institute_name;
+    }
 
-public String getMobileNo() {
-return mobileNo;
-}
+    public String getId() {
+        return id;
+    }
 
-public void setMobileNo(String mobileNo) {
-this.mobileNo = mobileNo;
-}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-public String getState() {
-return state;
-}
+    public String getName() {
+        return name;
+    }
 
-public void setState(String state) {
-this.state = state;
-}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-public String getImage() {
-return image;
-}
+    public String getUsername() {
+        return username;
+    }
 
-public void setImage(String image) {
-this.image = image;
-}
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
 }

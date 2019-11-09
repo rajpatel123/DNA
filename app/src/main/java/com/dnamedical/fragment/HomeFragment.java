@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import com.dnamedical.Activities.AddressListActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
+import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Models.maincat.Detail;
 import com.dnamedical.Models.maincat.SubCat;
 import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -67,6 +69,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mainActivity = (MainActivity) getActivity();
 
     }
 
@@ -104,10 +107,9 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
-                            boolean addedInInstitute=true;
-                            if (addedInInstitute){
+                            if (!TextUtils.isEmpty(DnaPrefs.getString(mainActivity,Constants.INST_ID))){
                                 Detail obj = new Detail();
-                               obj.setCatName("Marrow");
+                               obj.setCatName(DnaPrefs.getString(mainActivity,Constants.INST_NAME));
                                obj.setType(Constants.TYPE);
 
                                 SubCat subCat= new SubCat();
@@ -115,7 +117,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                                 List<SubCat> list =  new ArrayList<>();
                                 list.add(subCat);
                                 obj.setSubCat(list);
-                                obj.setCatId("10001");
+                                obj.setCatId(DnaPrefs.getString(mainActivity,Constants.INST_ID)+"432");
                                 categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(),obj);
 
                              }
@@ -194,9 +196,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
     @Override
     public void onInstituteClick(String name) {
-
-        Intent intent = new Intent(mainActivity, AddressListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(mainActivity, InstituteTestActivity.class);
         startActivity(intent);
 
     }

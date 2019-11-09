@@ -412,7 +412,7 @@ public interface ApiInterface {
     Call<ResponseBody> checkuserExist(@Part("email_id") RequestBody id);
 
     @GET("v1/index.php/api/test/list")
-    Call<TestDataResponse> getAllTestData(@Query("user_id") String id);
+    Call<TestDataResponse> getAllTestData(@Query("user_id") String id, @Query("institute_id") String institute_id);
 
     @Multipart
     @POST("v1/index.php/api/test/bookmark")

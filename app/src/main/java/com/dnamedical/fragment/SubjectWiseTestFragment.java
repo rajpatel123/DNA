@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
+import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
@@ -34,13 +36,13 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     private String subTest;
     private List<Test> subjectTest;
 
-    MainActivity mainActivity;
+    Activity activity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity) getActivity();
-        ;
+        activity =  getActivity();
+
 
     }
 
@@ -93,9 +95,25 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     }
 
     public void showTest() {
-        if (mainActivity != null && mainActivity.getSubjectTests() != null && mainActivity.getSubjectTests().size() > 0) {
+        MainActivity mainActivity = null;
+        InstituteTestActivity instituteTestActivity = null;
+        if (activity instanceof MainActivity) {
+            mainActivity = (MainActivity) activity;
+            if (mainActivity != null && mainActivity.getSubjectTests() != null && mainActivity.getSubjectTests().size() > 0) {
+                subjectTest = mainActivity.getSubjectTests();
+
+            }
+        } else {
+            instituteTestActivity = (InstituteTestActivity) activity;
+            if (instituteTestActivity != null && instituteTestActivity.getSubjectTests() != null && instituteTestActivity.getSubjectTests().size() > 0) {
+                subjectTest = instituteTestActivity.getSubjectTests();
+
+            }
+        }
+
+
+        if (subjectTest != null && subjectTest.size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            subjectTest = mainActivity.getSubjectTests();
             TestAdapter subjectWiseAdapter = new TestAdapter(getActivity());
             Collections.sort(subjectTest);
             subjectWiseAdapter.setSubjectTestsData(subjectTest);

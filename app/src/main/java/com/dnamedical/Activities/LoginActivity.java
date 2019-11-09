@@ -153,18 +153,23 @@ public class LoginActivity extends AppCompatActivity {
                     if (response != null && response.body() != null) {
                         loginResponse loginResponse = response.body();
                         if (Integer.parseInt(loginResponse.getStatus()) == 1) {
-                            Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
+                            //Utils.displayToast(LoginActivity.this, loginResponse.getMessage());
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             String id = loginResponse.getLoginDetails().get(0).getId();
                             String state = loginResponse.getLoginDetails().get(0).getState();
                             String college = loginResponse.getLoginDetails().get(0).getCollege();
                             String username = loginResponse.getLoginDetails().get(0).getName();
 
+
                             DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, id);
                             DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                             DnaPrefs.putString(getApplicationContext(), "STATE", state);
                             DnaPrefs.putString(getApplicationContext(), "COLLEGE", college);
                             DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, loginResponse.getLoginDetails().get(0).getMobileNo());
+
+
+                            DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, loginResponse.getLoginDetails().get(0).getInstitute_id());
+                            DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, loginResponse.getLoginDetails().get(0).getInstitute_name());
 
                             DnaPrefs.putString(getApplicationContext(), "NAME", username);
                             DnaPrefs.putString(getApplicationContext(), "URL", "");

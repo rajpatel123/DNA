@@ -139,21 +139,17 @@
                                 android:id="@+id/vid_title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="start"
-                                android:ellipsize="marquee"
-                                android:ems="10"
-                                android:maxLength="20"
+                                android:layout_toStartOf="@+id/txt_actual_price"
+
                                 android:padding="@dimen/margin_3"
-                                android:singleLine="true"
-                                android:text="Introduction to Anotomy"
+                                android:text="Introduction to  Anotomy Video in Anotomy Anotomy"
                                 android:textColor="#313133"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"  />
 
 
                             <TextView
                                 android:id="@+id/txt_actual_price"
                                 android:layout_width="wrap_content"
-
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:paddingLeft="@dimen/margin_7"

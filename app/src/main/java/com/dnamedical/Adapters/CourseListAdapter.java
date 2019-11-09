@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.R;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,16 +83,21 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        if (Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 10001) {
-                            onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
-                        } else {
-                            if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3) || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11)
-                                onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
-
+                        if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID))) {
+                            if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID)+"432")) {
+                                onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+                            }
                         }
+
+                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3) || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11)
+                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+
+
                     }
 
                 }
+
+
             });
         } else {
             holder.desc.setText("");

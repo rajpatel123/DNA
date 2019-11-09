@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,6 +27,7 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -80,6 +82,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         spinState = (Spinner) findViewById(R.id.selectState);
         spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
+       // staticCollegeData();
         sendCollegeListData();
         getStateList();
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +145,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         }
 
-
         RequestBody id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), update_edit_name);
         RequestBody mobile_no = RequestBody.create(MediaType.parse("text/plain"), edit_phonetxt);
@@ -191,6 +193,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     }
+    private void staticCollegeData() {
+        List<String> list = new ArrayList<String>();
+        list.add("--Select College--");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCollege.setAdapter(dataAdapter);
+    }
 
     private void getStateList() {
         if (Utils.isInternetConnected(this)) {
@@ -215,10 +226,16 @@ public class EditProfileActivity extends AppCompatActivity {
                             spinState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    collegeList = stateListResponse.getDetails().get(position).getCollege();
-                                    StateText = stateListResponse.getDetails().get(position).getStateName();
-                                    Log.d("StateName", StateText);
-                                    sendCollegeListData();
+                                    if (stateListResponse.getDetails().get(position).getStateName().equalsIgnoreCase("--Select State--")) {
+                                        Toast.makeText(EditProfileActivity.this, "Please Select State", Toast.LENGTH_SHORT).show();
+                                        staticCollegeData();
+                                    }else{
+                                        collegeList = stateListResponse.getDetails().get(position).getCollege();
+                                        StateText = stateListResponse.getDetails().get(position).getStateName();
+                                        Log.d("StateName", StateText);
+                                        sendCollegeListData();
+                                    }
+
                                 }
 
                                 @Override

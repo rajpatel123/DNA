@@ -430,6 +430,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+
+                DnaPrefs.clear(MainActivity.this);
                Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                startActivity(intent);

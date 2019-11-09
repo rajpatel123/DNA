@@ -310,9 +310,9 @@ public class RestClient {
 
     }
 
-    public static void getAllTestData(String id, Callback
+    public static void getAllTestData(String id, String institute_id, Callback
             <TestDataResponse> callback) {
-        RetrofitClient.getClient().getAllTestData(id).enqueue(callback);
+        RetrofitClient.getClient().getAllTestData(id,institute_id).enqueue(callback);
 
     }
 

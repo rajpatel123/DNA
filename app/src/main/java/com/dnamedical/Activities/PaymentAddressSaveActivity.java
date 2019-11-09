@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.StateListAdapter;
+import com.dnamedical.Models.StateList.Detail;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.R;
@@ -67,7 +68,7 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
     private String StateText;
     StateListResponse stateListResponse;
 
-    String name1, emailId, address,addressTwo, cityname, phone, zipcode, userId;
+    String name1, emailId, address, addressTwo, cityname, phone, zipcode, userId;
 
 
     @Override
@@ -100,7 +101,7 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
         cityname = editTextCity.getText().toString().trim();
         phone = editTextPhone.getText().toString().trim();
         emailId = editTextEmail.getText().toString().trim();
-        addressTwo=editTextAddressTwo.getText().toString().trim();
+        addressTwo = editTextAddressTwo.getText().toString().trim();
 
         if (TextUtils.isEmpty(name1.trim()) || name1.length() == 0) {
             editTextName.setError(getString(R.string.invalid_name));
@@ -152,6 +153,10 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
                 return;
             }
         }
+        if (StateText.equalsIgnoreCase("--Select State--")) {
+            Utils.displayToast(getApplicationContext(), "Please select state");
+            return;
+        }
 
 
       /*  if (TextUtils.isEmpty(StateText)) {
@@ -174,7 +179,7 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), emailId);
         RequestBody address_line1 = RequestBody.create(MediaType.parse("text/plain"), address);
         RequestBody address_line2 = RequestBody.create(MediaType.parse("text/plain"), addressTwo);
-        RequestBody state = RequestBody.create(MediaType.parse("text/plain"),StateText);
+        RequestBody state = RequestBody.create(MediaType.parse("text/plain"), StateText);
         RequestBody city = RequestBody.create(MediaType.parse("text/plain"), cityname);
         RequestBody pin_code = RequestBody.create(MediaType.parse("text/plain"), zipcode);
 
@@ -186,10 +191,10 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
                 public void onResponse(Call<AddressDetailResponse> call, Response<AddressDetailResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
-                        Log.d("Address","address");
+                        Log.d("Address", "address");
                         if (response.body().getStatus().equalsIgnoreCase("true")) {
                             Toast.makeText(PaymentAddressSaveActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(PaymentAddressSaveActivity.this,AddressListActivity.class);
+                            Intent intent = new Intent(PaymentAddressSaveActivity.this, AddressListActivity.class);
                             startActivity(intent);
                             finish();
                             editTextName.setText("");
@@ -240,6 +245,9 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             if (response.body().getStatus().equalsIgnoreCase("1")) {
                                 stateListResponse = response.body();
+                                Detail detail = new Detail();
+                                detail.setStateName("--Select State--");
+                                stateListResponse.getDetails().add(0, detail);
                                 if (stateListResponse != null && stateListResponse.getDetails().size() > 0) {
                                     StateText = stateListResponse.getDetails().get(0).getStateName();
                                     stateListAdapter = new StateListAdapter(getApplicationContext());

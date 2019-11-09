@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
+import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
@@ -36,23 +38,26 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     private List<Test> dailyTest;
     private boolean loadedOnce;
 
+    MainActivity mainActivity = null;
+    InstituteTestActivity instituteTestActivity = null;
     public DailyTestFragment() {
 
     }
 
-    MainActivity mainActivity;
+    Activity activity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity) getActivity();;
+        activity = getActivity();
+        ;
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        loadedOnce=false;
+        loadedOnce = false;
     }
 
     @Override
@@ -64,7 +69,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-            //showTest();
+        //showTest();
     }
 
 
@@ -93,10 +98,9 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);
             intent.putExtra("testQuestion", testQuestion);
-            intent.putExtra("testStatus",testStatus);
-            intent.putExtra("testPaid",testPaid);
+            intent.putExtra("testStatus", testStatus);
+            intent.putExtra("testPaid", testPaid);
             startActivity(intent);
-
 
 
         }
@@ -104,9 +108,23 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     public void showTest() {
-        if (mainActivity != null && mainActivity.getDailyTest() != null && mainActivity.getDailyTest().size() > 0) {
+
+        if (activity instanceof MainActivity) {
+            mainActivity = (MainActivity) activity;
+            if (mainActivity != null && mainActivity.getDailyTest() != null && mainActivity.getDailyTest().size() > 0) {
+                dailyTest = mainActivity.getDailyTest();
+
+            }
+        } else {
+            instituteTestActivity = (InstituteTestActivity) activity;
+            if (instituteTestActivity != null && instituteTestActivity.getDailyTest() != null && instituteTestActivity.getDailyTest().size() > 0) {
+                dailyTest = instituteTestActivity.getDailyTest();
+
+            }
+        }
+
+        if (dailyTest  != null && dailyTest.size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            dailyTest= mainActivity.getDailyTest();
             TestAdapter testAdapter = new TestAdapter(getActivity());
             Collections.sort(dailyTest);
             testAdapter.setDailyTest(dailyTest);
@@ -129,7 +147,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
             recyclerView.setVisibility(View.VISIBLE);
         } else {
             Log.d("Api Response :", "Got Success from Api");
-            if (recyclerView!=null){
+            if (recyclerView != null) {
                 recyclerView.setVisibility(View.GONE);
                 notext.setVisibility(View.VISIBLE);
             }

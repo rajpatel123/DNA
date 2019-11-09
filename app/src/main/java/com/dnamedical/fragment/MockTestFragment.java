@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
+import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
@@ -37,16 +39,19 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     private String subTest;
     private List<Test> miniTest;
 
+
+    MainActivity mainActivity = null;
+    InstituteTestActivity instituteTestActivity = null;
     public MockTestFragment() {
 
     }
 
-    MainActivity mainActivity;
+    Activity activity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity) getActivity();
+        activity = getActivity();
 
 
     }
@@ -118,9 +123,25 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
 
     public void showTest() {
 
-        if (mainActivity != null && mainActivity.getMiniTests() != null && mainActivity.getMiniTests().size() > 0) {
+
+        if (activity instanceof MainActivity) {
+            mainActivity = (MainActivity) activity;
+            if (mainActivity != null && mainActivity.getMiniTests() != null && mainActivity.getMiniTests().size() > 0) {
+                miniTest = mainActivity.getMiniTests();
+
+            }
+        } else {
+            instituteTestActivity = (InstituteTestActivity) activity;
+            if (instituteTestActivity != null && instituteTestActivity.getMiniTests() != null && instituteTestActivity.getMiniTests().size() > 0) {
+                miniTest = instituteTestActivity.getMiniTests();
+
+            }
+        }
+
+
+
+        if (miniTest != null && miniTest.size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            miniTest = mainActivity.getMiniTests();
             TestAdapter miniTestAdapter = new TestAdapter(getActivity());
             Collections.sort(miniTest);
             miniTestAdapter.setMiniData(miniTest);

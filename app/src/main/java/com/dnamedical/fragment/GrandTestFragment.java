@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
+import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
@@ -35,17 +37,19 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     private String subTest;
     private List<Test> grandTest;
     private boolean loadedOnce;
+    MainActivity mainActivity = null;
+    InstituteTestActivity instituteTestActivity = null;
 
     public GrandTestFragment() {
 
     }
 
-    MainActivity mainActivity;
+   Activity activity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity) getActivity();;
+        activity =  getActivity();;
 
     }
 
@@ -111,9 +115,25 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     public void showTest() {
-        if (mainActivity != null && mainActivity.getGrandTests() != null && mainActivity.getAllTests().size() > 0) {
+
+
+        if (activity instanceof MainActivity) {
+            mainActivity = (MainActivity) activity;
+            if (mainActivity != null && mainActivity.getGrandTests() != null && mainActivity.getGrandTests().size() > 0) {
+                grandTest = mainActivity.getGrandTests();
+
+            }
+        } else {
+            instituteTestActivity = (InstituteTestActivity) activity;
+            if (instituteTestActivity != null && instituteTestActivity.getGrandTests() != null && instituteTestActivity.getGrandTests().size() > 0) {
+                grandTest = instituteTestActivity.getGrandTests();
+
+            }
+        }
+
+
+        if (grandTest!= null && grandTest.size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            grandTest= mainActivity.getGrandTests();
             TestAdapter testAdapter = new TestAdapter(getActivity());
             Collections.sort(grandTest);
             testAdapter.setGrandData(grandTest);

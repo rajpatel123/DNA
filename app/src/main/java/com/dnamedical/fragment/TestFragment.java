@@ -209,12 +209,11 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());
 
-            RestClient.getAllTestData(userId, new Callback<TestDataResponse>() {
+            RestClient.getAllTestData(userId, "",new Callback<TestDataResponse>() {
                 @Override
                 public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
-
 
                         if (testDataResponse != null) {
                             testDataResponse = null;

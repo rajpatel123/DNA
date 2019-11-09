@@ -32,6 +32,7 @@ import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -39,6 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -185,6 +187,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
+
         //getCollegeList();
         initGoogleAPIClient();//Init Google API Client
         checkPermissionsOnPhone();//Check Permission
@@ -199,9 +202,12 @@ public class RegistrationActivity extends AppCompatActivity implements
         } else {
             getAddress();
         }
+        spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
 
-        sendCollegeListData();
+
+        staticCollegeData();
         getStateList();
+        sendCollegeListData();
         btnSignUp.setOnClickListener(this);
         textLogin.setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -247,7 +253,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         //state spinner
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         spinState = (Spinner) findViewById(R.id.selectState);
-        spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
+
         //spinState.setOnItemSelectedListener(this);
         if (getIntent().hasExtra(Constants.LOGIN_ID)) {
 
@@ -273,8 +279,16 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     }
 
+    private void staticCollegeData() {
+        List<String> list = new ArrayList<String>();
+        list.add("--Select College--");
 
-   
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCollege.setAdapter(dataAdapter);
+    }
+
 
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(this,
@@ -293,6 +307,9 @@ public class RegistrationActivity extends AppCompatActivity implements
                         if (response.body() != null) {
                             if (response.body().getStatus().equalsIgnoreCase("1")) {
                                 stateListResponse = response.body();
+                                Detail detail = new Detail();
+                                detail.setStateName("--Select State--");
+                                stateListResponse.getDetails().add(0, detail);
                                 if (stateListResponse != null && stateListResponse.getDetails().size() > 0) {
                                     StateText = stateListResponse.getDetails().get(5).getStateName();
                                     stateListAdapter = new StateListAdapter(getApplicationContext());
@@ -305,18 +322,24 @@ public class RegistrationActivity extends AppCompatActivity implements
                             spinState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    collegeList = stateListResponse.getDetails().get(position).getCollege();
-                                    collegeList.add(new College("Others"));
-                                    StateText = stateListResponse.getDetails().get(position).getStateName();
-                                    DnaPrefs.putInt(getApplicationContext(), "statePosition", position);
-                                    Log.d("StateName", StateText);
-
-                                    if (StateText.equalsIgnoreCase("Others")) {
-                                        otherState.setVisibility(View.VISIBLE);
+                                    if (stateListResponse.getDetails().get(position).getStateName().equalsIgnoreCase("--Select State--")) {
+                                        Toast.makeText(RegistrationActivity.this, "Please Select State", Toast.LENGTH_SHORT).show();
+                                        staticCollegeData();
                                     } else {
-                                        otherState.setVisibility(View.GONE);
+                                        collegeList = stateListResponse.getDetails().get(position).getCollege();
+                                        collegeList.add(new College("Others"));
+                                        StateText = stateListResponse.getDetails().get(position).getStateName();
+                                        DnaPrefs.putInt(getApplicationContext(), "statePosition", position);
+                                        Log.d("StateName", StateText);
+                                        sendCollegeListData();
+                                        if (StateText.equalsIgnoreCase("Others")) {
+                                            otherState.setVisibility(View.VISIBLE);
+                                        } else {
+                                            otherState.setVisibility(View.GONE);
+                                        }
                                     }
-                                    sendCollegeListData();
+
+
                                 }
 
                                 @Override
@@ -346,10 +369,12 @@ public class RegistrationActivity extends AppCompatActivity implements
     }
 
     private void sendCollegeListData() {
+        College college = new College();
+        college.setName("--Select College--");
         if (collegeList != null && collegeList.size() > 0) {
+            collegeList.add(0, college);
             CollegeListAdapter collegeListAdapter = new CollegeListAdapter(getApplicationContext());
             collegeListAdapter.setCollegeList(collegeList);
-
             spinnerCollege.setAdapter(collegeListAdapter);
             spinnerCollege.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -450,7 +475,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     private void showSnackbar(final int mainTextStringId, final int actionStringId,
                               View.OnClickListener listener) {
 
-        if (TextUtils.isEmpty(mAddressOutput)){
+        if (TextUtils.isEmpty(mAddressOutput)) {
             Snackbar.make(findViewById(android.R.id.content),
                     getString(mainTextStringId),
                     Snackbar.LENGTH_INDEFINITE)
@@ -466,17 +491,17 @@ public class RegistrationActivity extends AppCompatActivity implements
             case R.id.btn_signUp:
                 initGoogleAPIClient();//Init Google API Client
                 checkPermissionsOnPhone();
-              if (TextUtils.isEmpty(mAddressOutput)){
-                  getAddress();
+                if (TextUtils.isEmpty(mAddressOutput)) {
+                    getAddress();
 
-              }
+                }
 
-              new Handler().postDelayed(new Runnable() {
-                  @Override
-                  public void run() {
-                      validation();
-                  }
-              },2*1000);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        validation();
+                    }
+                }, 2 * 1000);
                 break;
 
             case R.id.text_login:
@@ -551,8 +576,18 @@ public class RegistrationActivity extends AppCompatActivity implements
             return;
 
         }
+        if (StateText.equalsIgnoreCase("--Select State--")) {
+            Utils.displayToast(getApplicationContext(), "Please select state");
+            return;
+
+        }
 
         if (TextUtils.isEmpty(collegetext)) {
+            Utils.displayToast(getApplicationContext(), "Please select College");
+            return;
+
+        }
+        if (collegetext.equalsIgnoreCase("--Select College--")) {
             Utils.displayToast(getApplicationContext(), "Please select College");
             return;
 
@@ -607,10 +642,10 @@ public class RegistrationActivity extends AppCompatActivity implements
 
 
         MultipartBody.Part vFile = MultipartBody.Part.createFormData("file", videoFile.getName(), videoBody);
-        RequestBody faceBookID=null;
-        if (TextUtils.isEmpty(fb_id)){
+        RequestBody faceBookID = null;
+        if (TextUtils.isEmpty(fb_id)) {
             faceBookID = RequestBody.create(MediaType.parse("text/plain"), "email_registered");
-        }else{
+        } else {
             faceBookID = RequestBody.create(MediaType.parse("text/plain"), fb_id);
         }
 
@@ -621,14 +656,14 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), "xyz");
-        if (TextUtils.isEmpty(address)){
-            address="Unable to get Address";
+        if (TextUtils.isEmpty(address)) {
+            address = "Unable to get Address";
         }
-        if (TextUtils.isEmpty(city)){
-            city="Unable to get City";
+        if (TextUtils.isEmpty(city)) {
+            city = "Unable to get City";
         }
-        if (TextUtils.isEmpty(mCountry)){
-            mCountry="India";
+        if (TextUtils.isEmpty(mCountry)) {
+            mCountry = "India";
         }
         RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), address);
         RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), city);
@@ -642,7 +677,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             Utils.showProgressDialog(this);
             if (TextUtils.isEmpty(userId)) {
 
-                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody,androidBody,vFile, new Callback<CommonResponse>() {
+                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody, androidBody, vFile, new Callback<CommonResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -676,7 +711,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             } else {
                 RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
-                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody, cityBody,countryBody, new Callback<UserUpdateResponse>() {
+                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody, cityBody, countryBody, new Callback<UserUpdateResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -872,7 +907,6 @@ public class RegistrationActivity extends AppCompatActivity implements
         // immediately kicks off the process of getting the address.
         mAddressRequested = true;
     }
-
 
 
     /* Initiate Google API Client  */
