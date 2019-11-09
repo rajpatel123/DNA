@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by rbpatel on 9/29/2017.
@@ -46,10 +46,9 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName()
-                        .equalsIgnoreCase("Contact us"))
-                {
-                    Intent intent =new Intent(applicationContext, ContactUsActivity.class);
+                if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName()
+                        .equalsIgnoreCase("Contact us")) {
+                    Intent intent = new Intent(applicationContext, ContactUsActivity.class);
                     applicationContext.startActivity(intent);
                 }
             }
@@ -82,8 +81,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3) ||Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId())==11 )
-                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+                        if (Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 10001) {
+                            onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+                        } else {
+                            if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3) || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11)
+                                onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+
+                        }
                     }
 
                 }
@@ -140,6 +144,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
     public interface OnCategoryClick {
         public void onCateClick(String id);
+
+        void onInstituteClick(String name);
     }
 
 }

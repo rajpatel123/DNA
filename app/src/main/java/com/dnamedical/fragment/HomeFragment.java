@@ -17,7 +17,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Activities.AddressListActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
+import com.dnamedical.Models.maincat.Detail;
+import com.dnamedical.Models.maincat.SubCat;
+import com.dnamedical.utils.Constants;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -30,6 +34,10 @@ import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,7 +104,21 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
+                            boolean addedInInstitute=true;
+                            if (addedInInstitute){
+                                Detail obj = new Detail();
+                               obj.setCatName("Marrow");
+                               obj.setType(Constants.TYPE);
 
+                                SubCat subCat= new SubCat();
+                                subCat.setSubCatName("Go To Test");
+                                List<SubCat> list =  new ArrayList<>();
+                                list.add(subCat);
+                                obj.setSubCat(list);
+                                obj.setCatId("10001");
+                                categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(),obj);
+
+                             }
 
                             CourseListAdapter courseListAdapter = new CourseListAdapter(getActivity());
                             courseListAdapter.setData(categoryDetailData);
@@ -167,6 +189,15 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
             getActivity().startActivity(intent);
         }
 
+
+    }
+
+    @Override
+    public void onInstituteClick(String name) {
+
+        Intent intent = new Intent(mainActivity, AddressListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
     }
 }

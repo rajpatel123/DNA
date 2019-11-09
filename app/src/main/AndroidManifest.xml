@@ -24,6 +24,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
+        <activity android:name=".Activities.InstituteTestActivity"></activity>
         <activity
             android:name=".Activities.SubscriptionPaymentActivity"
             android:screenOrientation="portrait" />
@@ -178,7 +179,6 @@
         <activity
             android:name=".Activities.FirstloginActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Activities.AddressForSubscriptionListActivity"
             android:screenOrientation="portrait" />

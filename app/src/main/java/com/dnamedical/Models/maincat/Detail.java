@@ -16,6 +16,8 @@ private String catName;
 @Expose
 private List<SubCat> subCat = null;
 
+private String type;
+
 public String getCatId() {
 return catId;
 }
@@ -40,4 +42,11 @@ public void setSubCat(List<SubCat> subCat) {
 this.subCat = subCat;
 }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

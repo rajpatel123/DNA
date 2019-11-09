@@ -44,4 +44,5 @@ public class Constants {
     public static final String RESULT = "result";
     public static final int FINISH = 121;
     public static final String ISFINISHING = "isFinishing";
+    public static final String TYPE = "Ins";
 }
