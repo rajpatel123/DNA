@@ -267,6 +267,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
                                                 DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                                 DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
+                                                DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, facebookLoginResponse.getLoginDetails().get(0).getInstitute_id());
+                                                DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, facebookLoginResponse.getLoginDetails().get(0).getInstitute_name());
+
                                                 DnaPrefs.putString(getApplicationContext(), "EMAIL", facebookLoginResponse.getLoginDetails().get(0).getEmailId());
                                                 DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                                                 DnaPrefs.putString(getApplicationContext(), "STATE", facebookLoginResponse.getLoginDetails().get(0).getState());
