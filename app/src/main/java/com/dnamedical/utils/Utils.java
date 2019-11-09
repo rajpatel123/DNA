@@ -180,8 +180,8 @@ public class Utils {
 
 
     public static long getTimeinMillisecondsFromDate() {
-        String myDate = "2020/12/31 12:00:00";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String myDate = "2020/11/31 12:07:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
         Date date = null;
         try {
             date = sdf.parse(myDate);

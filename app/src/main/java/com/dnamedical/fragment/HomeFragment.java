@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Activities.DNASuscribeActivity;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -155,10 +157,16 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
     @Override
     public void onCateClick(String id) {
-        Intent intent = new Intent(getActivity(),NeetPgActivity.class);
-        intent.putExtra("catData",new Gson().toJson(categoryDetailData));
-        intent.putExtra("catId",id);
-        getActivity().startActivity(intent);
+        if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("11")){
+            Intent intent = new Intent(getActivity(), DNASuscribeActivity.class);
+            getActivity().startActivity(intent);
+        }else {
+            Intent intent = new Intent(getActivity(),NeetPgActivity.class);
+            intent.putExtra("catData",new Gson().toJson(categoryDetailData));
+            intent.putExtra("catId",id);
+            getActivity().startActivity(intent);
+        }
+
 
     }
 }

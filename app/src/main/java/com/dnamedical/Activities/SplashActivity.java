@@ -65,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
         String appLinkAction = appLinkIntent.getAction();
-        if (appLinkIntent != null && appLinkIntent.getData() != null) {
+                if (appLinkIntent != null && appLinkIntent.getData() != null) {
             String appLinkData = appLinkIntent.getData().toString();
             if (!TextUtils.isEmpty(appLinkData)) {
                 String data[] = appLinkData.split("/");
@@ -174,8 +174,8 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)));
             }
 
-            DnaPrefs.putBoolean(this, Constants.LoginCheck, false);
             clearApplicationData();
+            DnaPrefs.putBoolean(this, Constants.LoginCheck, false);
             LoginManager.getInstance().logOut();
 
 

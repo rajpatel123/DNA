@@ -13,7 +13,10 @@ private String id;
 @Expose
 private String name;
 
+public College()
+{
 
+}
 public College(String name){
     this.name=name;
 }

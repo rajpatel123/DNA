@@ -77,8 +77,9 @@ public interface ApiInterface {
                                       @Part("college") RequestBody college,
                                       @Part("address") RequestBody addressBody,
                                       @Part("city") RequestBody cityBody,
-                                      @Part("platform") RequestBody plateform,
-                                      @Part("country") RequestBody countryBody);
+                                      @Part("country") RequestBody countryBody,
+                                      @Part("platform") RequestBody plateform
+                                      );
 
 
     @Multipart
@@ -400,9 +401,15 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("api/api.php?req=is_real")
+    @POST("api/api.php?req=is_real1")
     Call<ResponseBody> updateLogin(@Part("id") RequestBody id,
                                    @Part("isreal") RequestBody isreal);
+
+
+
+    @Multipart
+    @POST("api/api.php?req=checkuserdeleted")
+    Call<ResponseBody> checkuserExist(@Part("email_id") RequestBody id);
 
     @GET("v1/index.php/api/test/list")
     Call<TestDataResponse> getAllTestData(@Query("user_id") String id);

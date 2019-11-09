@@ -303,6 +303,13 @@ public class RestClient {
 
     }
 
+
+    public static void checkuserExist(RequestBody email, Callback
+            <ResponseBody> callback) {
+        RetrofitClient.getClient().checkuserExist(email).enqueue(callback);
+
+    }
+
     public static void getAllTestData(String id, Callback
             <TestDataResponse> callback) {
         RetrofitClient.getClient().getAllTestData(id).enqueue(callback);

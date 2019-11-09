@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.StateListAdapter;
+import com.dnamedical.Models.StateList.Detail;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.R;
@@ -185,6 +186,11 @@ public class UpdateAddressActivity extends AppCompatActivity {
                 return;
             }
         }
+        if (StateText.equalsIgnoreCase("--Select State--"))
+        {
+            Utils.displayToast(getApplicationContext(), "Please select state");
+            return;
+        }
 
 
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
@@ -265,7 +271,14 @@ public class UpdateAddressActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             if (response.body().getStatus().equalsIgnoreCase("1")) {
                                 stateListResponse = response.body();
+
                                 if (stateListResponse != null && stateListResponse.getDetails().size() > 0) {
+                                    stateListResponse = response.body();
+                                    Detail detail = new Detail();
+                                    detail.setStateName("--Select State--");
+                                    stateListResponse.getDetails().add(0, detail);
+
+
                                     StateText = stateListResponse.getDetails().get(0).getStateName();
                                     stateListAdapter = new StateListAdapter(getApplicationContext());
                                     stateListAdapter.setStateList(stateListResponse.getDetails());
