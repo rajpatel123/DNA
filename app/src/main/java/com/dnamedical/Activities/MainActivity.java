@@ -162,16 +162,16 @@ public class MainActivity extends AppCompatActivity
     private void updateLogin() {
 
         RequestBody id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID));
-        RequestBody isReal = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), "1"));
+        RequestBody isReal = RequestBody.create(MediaType.parse("text/plain"), "true");
 
         RestClient.updateLogin(id, isReal, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                try {
-//                    //Log.d("data", response.body().string());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    Log.d("data", response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -180,6 +180,44 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+
+    private void checkUserExistance() {
+        if (TextUtils.isEmpty(email)){
+            return;
+        }
+
+        RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), email);
+
+        RestClient.checkuserExist(emailBody, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.d("data", response.body().string());
+
+                    if (!TextUtils.isEmpty(response.body().string())){
+                        JSONObject obj = new JSONObject(response.body().string());
+
+                        if (obj.getString("status").equals("2")){
+                            userlogout();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("data", "");
+            }
+        });
+    }
+
+
+
 
 
     private void updateNavViewHeader() {
@@ -528,6 +566,14 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkUserExistance();
     }
 
     public List<Test> getGrandTests() {
