@@ -107,10 +107,11 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
-                            if (!TextUtils.isEmpty(DnaPrefs.getString(mainActivity,Constants.INST_ID))){
+                            if (!TextUtils.isEmpty(DnaPrefs.getString(mainActivity,Constants.INST_ID)) && !DnaPrefs.getString(mainActivity,Constants.INST_ID).equals("0")){
                                 Detail obj = new Detail();
                                obj.setCatName(DnaPrefs.getString(mainActivity,Constants.INST_NAME));
                                obj.setType(Constants.TYPE);
+                               obj.setIns_logo(DnaPrefs.getString(mainActivity,Constants.INST_IMAGE));
 
                                 SubCat subCat= new SubCat();
                                 subCat.setSubCatName("Go To Test");

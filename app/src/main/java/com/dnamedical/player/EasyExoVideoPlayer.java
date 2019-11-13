@@ -669,6 +669,7 @@ public class EasyExoVideoPlayer extends FrameLayout
             Map<String, String> headers = new HashMap<>();
             headers.put("Accept-Ranges", "bytes");
             headers.put("Cache-control", "no-cache");
+            headers.put("METHOD", "POST");
 
             initDataSource();
             initMp4Player(mSource);

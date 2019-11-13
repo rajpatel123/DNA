@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.TypedValue;
@@ -22,6 +23,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Models.RankResult;
 import com.dnamedical.Models.test.testresult.ScoreAnalysi;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
@@ -62,6 +64,7 @@ public class ResultActivity extends AppCompatActivity {
     private TextView totalstudent;
 
     TextView testTimeHead, examNameHead;
+    private RankResult rankResult;
 
 
     @Override
@@ -171,8 +174,7 @@ public class ResultActivity extends AppCompatActivity {
 
         init(testResult.getData().getScoreAnalysis());
 
-        if (testResult != null) {
-            rankTV.setText("" + testResult.getData().getRank());
+        if (testResult != null && testResult.getData()!=null) {
             startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
             endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
             totalTestTime.setText("" + Utils.getTimeTakenInTestFormat((testResult.getData().getEndTime() - testResult.getData().getStartTime())));
@@ -180,7 +182,11 @@ public class ResultActivity extends AppCompatActivity {
 
             yourScoreTV.setText("" + testResult.getData().getYourScore());
             totalMarksTv.setText("" + testResult.getData().getTotalMarks());
-            percentageTV.setText("" + testResult.getData().getPercenatge());
+            if (TextUtils.isEmpty(testResult.getData().getPercenatge()) &&  testResult.getData().getPercenatge().length()>4){
+                percentageTV.setText("" + testResult.getData().getPercenatge().substring(0,3));
+            }else{
+                percentageTV.setText("" + testResult.getData().getPercenatge());
+            }
             percentaileTV.setText("" + testResult.getData().getPercentile());
 
             //Guess Analysis
@@ -210,10 +216,37 @@ public class ResultActivity extends AppCompatActivity {
 
 
             testName.setText("" + testResult.getData().getTestName());
-            totalstudent.setText("" + testResult.getData().getLowestRank().toString());
+            getRank();
         }
     }
 
+
+    private void getRank() {
+        user_id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        Utils.showProgressDialog(ResultActivity.this);
+        RestClient.getStudentRank(userId, testID, new Callback<RankResult>() {
+            @Override
+            public void onResponse(Call<RankResult> call, Response<RankResult> response) {
+                rankResult = response.body();
+                Utils.dismissProgressDialog();
+                if (rankResult != null) {
+                    rankTV.setText("" + rankResult.getRank());
+                    totalstudent.setText("" + rankResult.getTotalStudents());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RankResult> call, Throwable t) {
+                Utils.dismissProgressDialog();
+                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
+            }
+        });
+
+    }
 
     private void submitTest() {
         user_id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);

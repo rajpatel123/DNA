@@ -1,6 +1,5 @@
 package com.dnamedical.Activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,35 +12,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-
-import io.fabric.sdk.android.Fabric;
-
-import java.io.File;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import com.dnamedical.BuildConfig;
-import com.dnamedical.Models.LoginDetail;
 import com.dnamedical.Models.LoginDetailForDemo;
 import com.dnamedical.Models.LoginDetails;
+import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.institute.InstituteDetails;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.facebook.login.LoginManager;
 
+import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import io.fabric.sdk.android.Fabric;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -65,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
         String appLinkAction = appLinkIntent.getAction();
-                if (appLinkIntent != null && appLinkIntent.getData() != null) {
+        if (appLinkIntent != null && appLinkIntent.getData() != null) {
             String appLinkData = appLinkIntent.getData().toString();
             if (!TextUtils.isEmpty(appLinkData)) {
                 String data[] = appLinkData.split("/");
@@ -77,25 +68,48 @@ public class SplashActivity extends AppCompatActivity {
                     public void onResponse(Call<LoginDetailForDemo> call, Response<LoginDetailForDemo> response) {
                         if (response.body() != null) {
                             LoginDetailForDemo loginDetailForDemo = response.body();
-                            if (loginDetailForDemo != null && loginDetailForDemo.getLoginDetails() != null) {
+                            if (loginDetailForDemo != null && loginDetailForDemo.getLoginDetails() != null && loginDetailForDemo.getStatus().equals("1")) {
                                 LoginDetails loginDetails = loginDetailForDemo.getLoginDetails().get(0);
                                 if (TextUtils.isEmpty(loginDetails.getName())) {
                                     Intent intent = new Intent(SplashActivity.this, RegistrationActivity.class);
-                                    intent.putExtra("user_id",data[3]);
-                                    intent.putExtra("email_id",data[4]);
-                                    intent.putExtra("mobile",data[5]);
+                                    intent.putExtra(Constants.LOGIN_ID, data[3]);
+                                    intent.putExtra(Constants.EMAILID, data[4]);
+                                    intent.putExtra(Constants.MOBILE, data[5]);
                                     startActivity(intent);
                                     finish();
 
 
                                 } else {
-                                    DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, data[3]);
-                                    DnaPrefs.putString(getApplicationContext(), "EMAIL", data[4]);
-                                    DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, data[5]);
-                                    DnaPrefs.putBoolean(SplashActivity.this, Constants.LoginCheck, true);
-                                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                                    finish();
+                                    if (DnaPrefs.getBoolean(SplashActivity.this, Constants.LoginCheck)) {
+
+                                        DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, data[3]);
+                                        DnaPrefs.putString(getApplicationContext(), Constants.EMAILID, data[4]);
+                                        DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, data[5]);
+                                        DnaPrefs.putBoolean(SplashActivity.this, Constants.LoginCheck, true);
+                                        if (data.length>8){
+                                            getInstituteDetails(data[3],data[8]);
+                                        }else{
+                                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                            finish();
+                                        }
+
+
+
+
+                                    } else {
+                                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                                        finish();
+
+                                    }
+
                                 }
+                            }else{
+                                Intent intent = new Intent(SplashActivity.this, RegistrationActivity.class);
+                                intent.putExtra(Constants.LOGIN_ID, data[3]);
+                                intent.putExtra(Constants.EMAILID, data[4]);
+                                intent.putExtra("mobile", data[5]);
+                                startActivity(intent);
+                                finish();
                             }
                         }
                     }
@@ -110,9 +124,67 @@ public class SplashActivity extends AppCompatActivity {
 //Api call lagegi yha
 
             }
-        }else{
+        } else {
             UpdateApiCall();
         }
+
+
+    }
+
+    private void getInstituteDetails(String user_id, String institute_id) {
+
+
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody insid = RequestBody.create(MediaType.parse("text/plain"), institute_id);
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.getInstituteDetail(userId, insid, new Callback<InstituteDetails>() {
+                @Override
+                public void onResponse(Call<InstituteDetails> call, Response<InstituteDetails> response) {
+                    Utils.dismissProgressDialog();
+                    if (response != null && response.body() != null) {
+                        InstituteDetails instituteDetails = response.body();
+                        if (Integer.parseInt(instituteDetails.getStatus()) == 1) {
+
+
+
+                            if (!TextUtils.isEmpty(instituteDetails.getDetails().get(0).getId())){
+                                DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, instituteDetails.getDetails().get(0).getId());
+                                DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, instituteDetails.getDetails().get(0).getInstituteName());
+                                DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, instituteDetails.getDetails().get(0).getInstituteLogo());
+
+                            }else{
+                                DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, "0");
+                                DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, "");
+                                DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, "");
+
+
+                            }
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            finish();
+
+                        }
+
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<InstituteDetails> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                   // Utils.displayToast(SplashActivity.this, "Invalid login detail");
+
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(this, "Internet Connection Failed", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
 
 
     }
@@ -125,7 +197,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void UpdateApiCall() {
         if (Utils.isInternetConnected(this)) {
-           // Utils.showProgressDialog(this);
+            // Utils.showProgressDialog(this);
             RestClient.playstoreUpdate(new Callback<PlaystoreUpdateResponse>() {
                 @Override
                 public void onResponse(Call<PlaystoreUpdateResponse> call, Response<PlaystoreUpdateResponse> response) {

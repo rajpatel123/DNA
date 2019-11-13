@@ -204,7 +204,14 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     onNextQuestion();
                 } else {
                     pauseTimer();
-                    submitTest();
+                    submitQuestionAnswer();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            submitTest();
+
+                        }
+                    },2*1000);
                 }
             }
         });

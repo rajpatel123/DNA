@@ -429,6 +429,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                             if (upper_exoplayer.isPlaying()) {
                                 //change code here
                                 upper_exoplayer.seekTo(miliis);
+
                             } else {
                                 Toast.makeText(VideoPlayerActivity.this, "Please play video first", Toast.LENGTH_LONG).show();
                             }

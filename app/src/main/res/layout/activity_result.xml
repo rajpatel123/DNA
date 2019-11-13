@@ -129,7 +129,7 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:padding="@dimen/margin_2"
-                                    android:paddingStart="@dimen/margin_15"
+                                    android:paddingStart="@dimen/margin_5"
                                     android:text="257"
                                     android:textColor="@color/star_color"
                                     android:textStyle="bold" />

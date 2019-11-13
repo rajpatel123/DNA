@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
@@ -83,6 +81,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
 
         Price price = priceList.get(i);
+
+
         if (price.getTitle() != null) {
             holder.title.setText("" + price.getTitle());
             holder.title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
@@ -101,7 +101,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                     holder.chapter.setVisibility(View.VISIBLE);
                     holder.lineView.setVisibility(GONE);
                     holder.lineViewWithMargin.setVisibility(View.VISIBLE);
-                  //  holder.lineView.setLayoutParams(getLayoutParams(true));
+                    //  holder.lineView.setLayoutParams(getLayoutParams(true));
                 } else {
                     //holder.lineView.setLayoutParams(getLayoutParams(false));
                     holder.chapter.setVisibility(GONE);
@@ -140,15 +140,14 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         }
 
-        Log.d("VideoUrl",price.getUrl());
-        if (price.getPaymentStatus().equalsIgnoreCase("1") || price.getSubscription_status().equalsIgnoreCase("1")) {
+        if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) || (!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))) {
             holder.buyNow.setVisibility(View.GONE);
             holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
             if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 holder.commingSoon.setVisibility(GONE);
 
             }
@@ -159,7 +158,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.lockNew.setVisibility(View.VISIBLE);
             if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 holder.commingSoon.setVisibility(GONE);
             }
 
@@ -167,10 +166,10 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((price.getPaymentStatus().equalsIgnoreCase("1") || price.getSubscription_status().equalsIgnoreCase("1")) && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/"))) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
-                    }else{
+                    } else {
                         Utils.displayToast(applicationContext, "Coming Soon");
 
                     }
@@ -239,8 +238,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
     private ViewGroup.LayoutParams getLayoutParams(boolean marginTop) {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-               ViewGroup.LayoutParams.WRAP_CONTENT,
-               ViewGroup.LayoutParams.WRAP_CONTENT);
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
 
         if (marginTop) {
             layoutParams.setMargins(0, 50, 0, 0);

@@ -9,9 +9,22 @@ public class Detail {
 @SerializedName("cat_id")
 @Expose
 private String catId;
+
 @SerializedName("cat_name")
 @Expose
 private String catName;
+
+    public String getIns_logo() {
+        return ins_logo;
+    }
+
+    public void setIns_logo(String ins_logo) {
+        this.ins_logo = ins_logo;
+    }
+
+    @SerializedName("ins_logo")
+@Expose
+private String ins_logo;
 @SerializedName("sub_cat")
 @Expose
 private List<SubCat> subCat = null;

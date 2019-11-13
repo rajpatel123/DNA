@@ -46,5 +46,6 @@ public class Constants {
     public static final String ISFINISHING = "isFinishing";
     public static final String TYPE = "Ins";
     public static final String INST_ID = "insid";
-    public static final String INST_NAME = "name";
+    public static final String INST_NAME = "nameins";
+    public static final String INST_IMAGE ="insimage" ;
 }

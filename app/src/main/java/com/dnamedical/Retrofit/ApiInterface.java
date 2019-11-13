@@ -9,11 +9,13 @@ import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
+import com.dnamedical.Models.RankResult;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
+import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
@@ -45,6 +47,7 @@ import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
+import com.dnamedical.institute.InstituteDetails;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -66,6 +69,13 @@ public interface ApiInterface {
 
 
     @Multipart
+    @POST("api/api.php?req=institute_detail")
+    Call<InstituteDetails> getInstituteDetail(@Part("user_id") RequestBody user_id,
+                                              @Part("institute_id") RequestBody institute_id);
+
+
+
+    @Multipart
     @POST("api/api.php?req=registrationnew")
     Call<CommonResponse> registerUser(@Part("fb_id") RequestBody fb_id,
                                       @Part("name") RequestBody name,
@@ -78,7 +88,8 @@ public interface ApiInterface {
                                       @Part("address") RequestBody addressBody,
                                       @Part("city") RequestBody cityBody,
                                       @Part("country") RequestBody countryBody,
-                                      @Part("platform") RequestBody plateform
+                                      @Part("platform") RequestBody plateform,
+                                      @Part("academic_year_id") RequestBody acaademicYear_id
                                       );
 
 
@@ -86,13 +97,16 @@ public interface ApiInterface {
     @POST("api/api.php?req=update_user")
     Call<UserUpdateResponse> updateUser(@Part("name") RequestBody name,
                                         @Part("id") RequestBody user_id,
+                                        @Part("password") RequestBody password,
                                         @Part("username") RequestBody username,
                                         @Part("mobile_no") RequestBody phone,
                                         @Part("state") RequestBody state,
                                         @Part("college") RequestBody college,
                                         @Part("address") RequestBody addressBody,
                                         @Part("city") RequestBody cityBody,
-                                        @Part("country") RequestBody countryBody);
+                                        @Part("country") RequestBody countryBody,
+                                        @Part("academic_year_id") RequestBody acaademicYear_id
+    );
 
 
     @Multipart
@@ -268,6 +282,13 @@ public interface ApiInterface {
                                 @Part("test_id") RequestBody testID,
                                 @Part("is_submit") RequestBody isSubmit);
 
+
+    @Multipart
+    @POST("api/api.php?req=get_testrank")
+    Call<RankResult> getStudentRank(@Part("user_id") RequestBody userId,
+                                    @Part("test_id") RequestBody testID
+                              );
+
     @Multipart
     @POST("api/api.php?req=result")
     Call<ResultList> resultList(@Part("user_id") RequestBody user_id,
@@ -292,8 +313,13 @@ public interface ApiInterface {
     Call<CollegeListResponse> collegeData();
 
 
-    @POST("http://13.234.161.7/api/api.php?req=state")
+    @POST("api/api.php?req=state")
     Call<StateListResponse> stateData();
+
+
+
+    @POST("api/api.php?req=getall_academics")
+    Call<Academic> getAllAcademicYears();
 
     @Multipart
     @POST("api/api.php?req=qbank_cate")

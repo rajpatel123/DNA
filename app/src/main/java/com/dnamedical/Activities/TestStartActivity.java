@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -84,7 +85,18 @@ public class TestStartActivity extends AppCompatActivity {
             } else {
                 if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
                     if (resultDate * 1000 < System.currentTimeMillis()) {
-                        btnStart.setText("Test result declared want to start the test");
+
+                        if (DnaPrefs.getString(TestStartActivity.this,Constants.INST_ID).equalsIgnoreCase("0")){
+                            btnStart.setText("Test result declared you can not attempt this test");
+                            btnStart.setVisibility(View.GONE);
+                        }else{
+                            btnStart.setText("Test result declared want to start the test");
+                            btnStart.setVisibility(View.VISIBLE);
+
+
+                        }
+
+
                     } else {
                         btnStart.setText("Start The Test");
                     }

@@ -73,7 +73,7 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
         ButterKnife.bind(this);
         textViewChangePassword.setOnClickListener(this);
         textViewVerification.setOnClickListener(this);
-
+        textViewSubscription.setOnClickListener(this);
         setprofiledata();
 
 
@@ -154,6 +154,12 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
                 Toast.makeText(this, "Verification link sent to your email id", Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.subscription:
+                Intent intent1 = new Intent(this, DNASuscribeActivity.class);
+                startActivity(intent1);
+                break;
+
         }
     }
 }

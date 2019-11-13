@@ -204,9 +204,16 @@ public class FirstloginActivity extends AppCompatActivity {
                                                     DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                                     DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
 
-                                                    DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, facebookLoginResponse.getLoginDetails().get(0).getInstitute_id());
-                                                    DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, facebookLoginResponse.getLoginDetails().get(0).getInstitute_name());
+                                                    if (!TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getInstitute_id())){
+                                                        DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, facebookLoginResponse.getLoginDetails().get(0).getInstitute_id());
+                                                        DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, facebookLoginResponse.getLoginDetails().get(0).getInstitute_name());
+                                                        DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, facebookLoginResponse.getLoginDetails().get(0).getInstitute_logo());
+                                                    }else{
+                                                        DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, "0");
+                                                        DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, "");
+                                                        DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, "");
 
+                                                    }
                                                     DnaPrefs.putString(getApplicationContext(), "EMAIL", facebookLoginResponse.getLoginDetails().get(0).getEmailId());
                                                     DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                                                     DnaPrefs.putString(getApplicationContext(), "STATE", facebookLoginResponse.getLoginDetails().get(0).getState());
@@ -216,7 +223,12 @@ public class FirstloginActivity extends AppCompatActivity {
                                                     startActivity(intent);
                                                     finish();
                                                 }
-                                            } else {
+                                            }
+                                        }else if(Integer.parseInt(facebookLoginResponse.getStatus())==2){
+                                            showLoginfailedDialog(facebookLoginResponse.getMessage());
+
+                                        }else if (Integer.parseInt(facebookLoginResponse.getStatus())==3){
+
                                                 Intent intent = new Intent(FirstloginActivity.this, RegistrationActivity.class);
 
                                                 intent.putExtra(Constants.LOGIN_ID, "");
@@ -226,10 +238,7 @@ public class FirstloginActivity extends AppCompatActivity {
                                                 intent.putExtra(Constants.NAME, name);
                                                 intent.putExtra(Constants.EMAILID, email);
                                                 startActivity(intent);
-                                            }
 
-                                        }else if(Integer.parseInt(facebookLoginResponse.getStatus())==2){
-                                            showLoginfailedDialog(facebookLoginResponse.getMessage());
 
                                         }
 

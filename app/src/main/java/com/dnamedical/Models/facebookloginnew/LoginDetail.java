@@ -39,6 +39,18 @@ public class LoginDetail {
     @Expose
     private String image;
 
+    public String getInstitute_logo() {
+        return institute_logo;
+    }
+
+    public void setInstitute_logo(String institute_logo) {
+        this.institute_logo = institute_logo;
+    }
+
+    @SerializedName("institute_logo")
+    @Expose
+    private String institute_logo;
+
     @SerializedName("institute_id")
     @Expose
     private String institute_id;

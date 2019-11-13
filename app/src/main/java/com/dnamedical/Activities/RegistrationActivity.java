@@ -39,17 +39,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
-
+import com.dnamedical.Adapters.AcademicListAdapter;
 import com.dnamedical.Adapters.CollegeCustomAdapter;
 import com.dnamedical.Adapters.CollegeListAdapter;
-import com.dnamedical.Adapters.CustomAdapter;
 import com.dnamedical.Adapters.StateListAdapter;
 import com.dnamedical.BuildConfig;
 import com.dnamedical.FetchAddressIntentService;
@@ -57,6 +49,8 @@ import com.dnamedical.Models.StateList.College;
 import com.dnamedical.Models.StateList.Detail;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.UserUpdateResponse;
+import com.dnamedical.Models.acadamic.Academic;
+import com.dnamedical.Models.acadamic.Acdemic;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.R;
@@ -81,6 +75,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -164,6 +165,10 @@ public class RegistrationActivity extends AppCompatActivity implements
     @BindView(R.id.edit_phone)
     EditText edit_phone;
 
+
+    @BindView(R.id.academic)
+    Spinner academicSpinner;
+
     @BindView(R.id.selectState)
     Spinner selectState;
     String fb_id = "dummyID", edit_name, edit_username, edit_email, edit_password = "dummy";
@@ -171,7 +176,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     private StateListAdapter stateListAdapter;
     private String collegetext;
-    private String StateText;
+    private String StateText, acadmicYear, acaademicYearId="0";
     private String edit_phonetxt;
     Spinner spinnerCollege;
     CollegeCustomAdapter collegeCustomAdapter;
@@ -181,6 +186,8 @@ public class RegistrationActivity extends AppCompatActivity implements
     private Spinner spinState;
     private String userId;
     private String city;
+    private Academic academic;
+    private AcademicListAdapter academicAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +201,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         mResultReceiver = new AddressResultReceiver(new Handler());
         mAddressRequested = false;
         mAddressOutput = "";
-
+        getAcademicYear();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fetchAddressButtonHandler();
         if (!checkPermissions()) {
@@ -255,7 +262,8 @@ public class RegistrationActivity extends AppCompatActivity implements
         spinState = (Spinner) findViewById(R.id.selectState);
 
         //spinState.setOnItemSelectedListener(this);
-        if (getIntent().hasExtra(Constants.LOGIN_ID)) {
+        if (getIntent().hasExtra(Constants.LOGIN_ID) && !TextUtils.isEmpty(getIntent().getStringExtra(Constants.LOGIN_ID))) {
+            userId = getIntent().getStringExtra(Constants.LOGIN_ID);
 
             editEmailId.setText(getIntent().getStringExtra(Constants.EMAILID));
             edit_phone.setText(getIntent().getStringExtra(Constants.MOBILE));
@@ -267,14 +275,28 @@ public class RegistrationActivity extends AppCompatActivity implements
             }
 
             btnSignUp.setText("Update");
-            editPassword.setVisibility(View.GONE);
             if (TextUtils.isEmpty(getIntent().getStringExtra(Constants.MOBILE))) {
                 edit_phone.setEnabled(true);
             } else {
                 edit_phone.setEnabled(false);
             }
-            userId = getIntent().getStringExtra(Constants.LOGIN_ID);
+
+        } else {
+
             fb_id = getIntent().getStringExtra(Constants.FB_ID);
+
+            if (!TextUtils.isEmpty(fb_id)) {
+                editPassword.setVisibility(View.GONE);
+
+            } else {
+                editPassword.setVisibility(View.VISIBLE);
+
+            }
+
+
+            editEmailId.setText(getIntent().getStringExtra(Constants.EMAILID));
+            edit_phone.setText(getIntent().getStringExtra(Constants.MOBILE));
+            editName.setText(getIntent().getStringExtra(Constants.NAME));
         }
 
     }
@@ -330,7 +352,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                                         collegeList.add(new College("Others"));
                                         StateText = stateListResponse.getDetails().get(position).getStateName();
                                         DnaPrefs.putInt(getApplicationContext(), "statePosition", position);
-                                        Log.d("StateName", StateText);
+                                       // Log.d("StateName", StateText);
                                         sendCollegeListData();
                                         if (StateText.equalsIgnoreCase("Others")) {
                                             otherState.setVisibility(View.VISIBLE);
@@ -387,7 +409,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
                     }
                     DnaPrefs.putInt(getApplicationContext(), "stateCollege", position);
-                    Log.d("CollegeTxt", collegetext);
+                    //Log.d("CollegeTxt", collegetext);
 
                 }
 
@@ -400,6 +422,65 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
+    }
+
+    private void getAcademicYear() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            {
+                RestClient.getAllAcademicYears(new Callback<Academic>() {
+                    @Override
+                    public void onResponse(Call<Academic> call, Response<Academic> response) {
+                        Utils.dismissProgressDialog();
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                academic = response.body();
+                                Acdemic detail = new Acdemic();
+                                detail.setTitle("--Select Acdemic Year--");
+                                detail.setId("0");
+                                academic.getAcdemics().add(0, detail);
+                                if (academic != null && academic.getAcdemics().size() > 0) {
+                                    acadmicYear = academic.getAcdemics().get(0).getTitle();
+                                    academicAdapter = new AcademicListAdapter(getApplicationContext());
+                                    academicAdapter.setAcademinList(academic.getAcdemics());
+                                }
+                            }
+                            academicSpinner.setAdapter(academicAdapter);
+                            academicSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                        acadmicYear = academic.getAcdemics().get(position).getTitle();
+                                        acaademicYearId = academic.getAcdemics().get(position).getId();
+                                        DnaPrefs.putString(getApplicationContext(), "academic", acadmicYear);
+                                        //Log.d("Academin", StateText);
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
+                            // spinnerCollege.setAdapter(collegeCustomAdapter);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Academic> call, Throwable t) {
+
+                        Utils.dismissProgressDialog();
+                        Toast.makeText(RegistrationActivity.this, "Response Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        } else {
+            Toast.makeText(this, "Internet Connection Failed", Toast.LENGTH_SHORT).show();
+            Utils.dismissProgressDialog();
+        }
     }
 
 
@@ -576,6 +657,13 @@ public class RegistrationActivity extends AppCompatActivity implements
             return;
 
         }
+
+
+        if (acaademicYearId.equals("0")) {
+            Utils.displayToast(getApplicationContext(), "Please select academic year");
+            return;
+
+        }
         if (StateText.equalsIgnoreCase("--Select State--")) {
             Utils.displayToast(getApplicationContext(), "Please select state");
             return;
@@ -656,6 +744,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), "xyz");
+        RequestBody acaademicYear_id = RequestBody.create(MediaType.parse("text/plain"), acaademicYearId);
         if (TextUtils.isEmpty(address)) {
             address = "Unable to get Address";
         }
@@ -677,7 +766,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             Utils.showProgressDialog(this);
             if (TextUtils.isEmpty(userId)) {
 
-                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody, androidBody, vFile, new Callback<CommonResponse>() {
+                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody, androidBody,acaademicYear_id, vFile, new Callback<CommonResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -710,8 +799,9 @@ public class RegistrationActivity extends AppCompatActivity implements
                 });
             } else {
                 RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+                RequestBody passwordtxt = RequestBody.create(MediaType.parse("text/plain"), editPassword.getText().toString());
 
-                RestClient.updateUser(name, user_id, username, phone, states, college, addressBody, cityBody, countryBody, new Callback<UserUpdateResponse>() {
+                RestClient.updateUser(name, user_id, passwordtxt, username, phone, states, college, addressBody, cityBody, countryBody,acaademicYear_id, new Callback<UserUpdateResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */

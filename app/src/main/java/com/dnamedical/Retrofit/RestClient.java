@@ -9,11 +9,13 @@ import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
+import com.dnamedical.Models.RankResult;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
+import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
@@ -46,6 +48,7 @@ import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
+import com.dnamedical.institute.InstituteDetails;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -69,16 +72,21 @@ public class RestClient {
         RetrofitClient.getClient().loginUser(email, password,deviceId).enqueue(callback);
     }
 
+    public static void getInstituteDetail(RequestBody userId, RequestBody instituteId,Callback<InstituteDetails> callback) {
+        RetrofitClient.getClient().getInstituteDetail(userId, instituteId).enqueue(callback);
+    }
+
+
     public static void getAdditionalDiscount(Callback<ResponseBody> callback) {
         RetrofitClient.getClient().getAdditionalDiscount().enqueue(callback);
     }
 
-    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody,RequestBody platform, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody,platform).enqueue(callback);
+    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody, RequestBody platform, RequestBody acaademicYear_id, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody,platform,acaademicYear_id).enqueue(callback);
     }
 
-    public static void updateUser(RequestBody name, RequestBody user_id, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, Callback<UserUpdateResponse> callback) {
-        RetrofitClient.getClient().updateUser(name, user_id, username, phone, statetxt, college, address, city, country).enqueue(callback);
+    public static void updateUser(RequestBody name, RequestBody user_id, RequestBody password, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, RequestBody acaademicYear_id, Callback<UserUpdateResponse> callback) {
+        RetrofitClient.getClient().updateUser(name, user_id, password,username, phone, statetxt, college, address, city, country,acaademicYear_id).enqueue(callback);
     }
 
     public static void addressDetail(RequestBody user_id, RequestBody name, RequestBody mobile, RequestBody email, RequestBody address_line1, RequestBody address_line2, RequestBody state, RequestBody city, RequestBody pin_code, Callback<AddressDetailResponse> callback) {
@@ -112,6 +120,12 @@ public class RestClient {
 
     public static void getState(Callback<StateListResponse> callback) {
         RetrofitClient.getClient().stateData().enqueue(callback);
+    }
+
+
+
+    public static void getAllAcademicYears(Callback<Academic> callback) {
+        RetrofitClient.getClient().getAllAcademicYears().enqueue(callback);
     }
 
 
@@ -176,6 +190,11 @@ public class RestClient {
 
     public static void submitTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<TestResult> callback) {
         RetrofitClient.getClient().submitTest(userId, testID, isSubmit).enqueue(callback);
+
+    }
+
+    public static void getStudentRank(RequestBody userId, RequestBody testID, Callback<RankResult> callback) {
+        RetrofitClient.getClient().getStudentRank(userId, testID).enqueue(callback);
 
     }
 
