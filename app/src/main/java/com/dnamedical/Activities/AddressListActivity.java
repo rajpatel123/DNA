@@ -91,7 +91,7 @@ public class AddressListActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.add_address) {
             Intent intent = new Intent(AddressListActivity.this, PaymentAddressSaveActivity.class);
             startActivity(intent);
-            finish();
+
         }
 
         return super.onOptionsItemSelected(item);

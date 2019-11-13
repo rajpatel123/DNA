@@ -193,9 +193,7 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
                     if (response.body() != null) {
                         Log.d("Address", "address");
                         if (response.body().getStatus().equalsIgnoreCase("true")) {
-                            Toast.makeText(PaymentAddressSaveActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PaymentAddressSaveActivity.this, AddressListActivity.class);
-                            startActivity(intent);
+
                             finish();
                             editTextName.setText("");
                             editTextAddress.setText("");

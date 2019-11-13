@@ -437,8 +437,8 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
 
     @Override
     public void onPaymentError(int i, String s) {
-        Log.d("Error", "" + s);
-        Toast.makeText(this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
+      //  Log.d("Error", "" + s);
+        Toast.makeText(this, "You Cancelled the payment", Toast.LENGTH_SHORT).show();
 
     }
 

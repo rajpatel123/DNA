@@ -10,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.PicassoImageGetter;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +49,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -211,7 +213,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             submitTest();
 
                         }
-                    },2*1000);
+                    }, 2 * 1000);
                 }
             }
         });
@@ -426,48 +428,66 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
     private void updateQuestionsFragment(int questionIndex) {
+        PicassoImageGetter imageGetter = new PicassoImageGetter(questionTxt, this);
         answerList.removeAllViews();
         Question question = questionArrayList.get(questionIndex);
         question_id = question.getId();
         guessCheck.setChecked(question.isGues());
         if (!TextUtils.isEmpty(question.getTitle_image())) {
-           if (Utils.isInternetConnected(TestV1Activity.this)){
-               imageQuestion.setVisibility(View.VISIBLE);
-               Picasso.with(this).load(question.getTitle_image())
-                       .into(imageQuestion, new com.squareup.picasso.Callback() {
-                           @Override
-                           public void onSuccess() {
-                               if (progressBar != null) {
-                                   progressBar.setVisibility(View.GONE);
-                               }
-                           }
+            if (Utils.isInternetConnected(TestV1Activity.this)) {
+                imageQuestion.setVisibility(View.VISIBLE);
+                Picasso.with(this).load(question.getTitle_image())
+                        .into(imageQuestion, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }
 
-                           @Override
-                           public void onError() {
-                               if (progressBar != null) {
-                                   progressBar.setVisibility(View.GONE);
-                               }
-                               imageQuestion.setVisibility(View.GONE);
-                               Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+                            @Override
+                            public void onError() {
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                imageQuestion.setVisibility(View.GONE);
+                                Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
 
 
-                           }
-                       });
-           }else{
+                            }
+                        });
+            } else {
 
-           }
+            }
 
         } else {
             imageQuestion.setVisibility(View.GONE);
         }
-        questionTxt.setText("Q" + (questionIndex + 1) + ". " + question.getTitle());
+
+        Spannable html;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            html = (Spannable) Html.fromHtml("Q" + (questionIndex + 1) + ". " + question.getTitle(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+        } else {
+            html = (Spannable) Html.fromHtml("Q" + (questionIndex + 1) + ". " + question.getTitle(), imageGetter, null);
+        }
+        questionTxt.setText(html);
+
+
         for (int i = 0; i < 4; i++) {
             switch (i) {
                 case 0:
                     View answerView = inflater.inflate(R.layout.item_answer, null, false);
                     answer1 = answerView.findViewById(R.id.answer);
                     cardView1 = answerView.findViewById(R.id.cardView);
-                    answer1.setText(question.getOption1());
+
+
+                    Spannable html1;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        html1 = (Spannable) Html.fromHtml("(A) " + question.getOption1(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                    } else {
+                        html1 = (Spannable) Html.fromHtml("(A) " + question.getOption1(), imageGetter, null);
+                    }
+                    answer1.setText(html1);
                     answerList.addView(answerView);
 
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption1().equalsIgnoreCase(question.getSelectedOption())) {
@@ -496,7 +516,15 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             null, false);
                     answer2 = answerView1.findViewById(R.id.answer);
                     cardView2 = answerView1.findViewById(R.id.cardView);
-                    answer2.setText(question.getOption2());
+
+                    Spannable html2;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        html2 = (Spannable) Html.fromHtml("(B) " + question.getOption2(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                    } else {
+                        html2 = (Spannable) Html.fromHtml("(B) " + question.getOption2(), imageGetter, null);
+                    }
+
+                    answer2.setText(html2);
                     answerList.addView(answerView1);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView2, answer2);
@@ -508,7 +536,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             answer = "2";
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
-                            }else{
+                            } else {
                                 updateMarkingOptionTime();
                             }
                             updateAnswer(cardView2, answer2);
@@ -522,7 +550,15 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             null, false);
                     answer3 = answerView2.findViewById(R.id.answer);
                     cardView3 = answerView2.findViewById(R.id.cardView);
-                    answer3.setText(question.getOption3());
+
+                    Spannable html3;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        html3 = (Spannable) Html.fromHtml("(C) " + question.getOption3(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                    } else {
+                        html3 = (Spannable) Html.fromHtml("(C) " + question.getOption3(), imageGetter, null);
+                    }
+
+                    answer3.setText(html3);
 
                     answerList.addView(answerView2);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())) {
@@ -535,7 +571,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             answer = "3";
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
-                            }else{
+                            } else {
                                 updateMarkingOptionTime();
                             }
                             question.setSelectedOption(question.getOption3());
@@ -549,7 +585,15 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             null, false);
                     answer4 = answerView4.findViewById(R.id.answer);
                     cardView4 = answerView4.findViewById(R.id.cardView);
-                    answer4.setText(question.getOption4());
+
+                    Spannable html4;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        html4 = (Spannable) Html.fromHtml("(D) " + question.getOption4(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                    } else {
+                        html4 = (Spannable) Html.fromHtml("(D) " + question.getOption4(), imageGetter, null);
+                    }
+
+                    answer4.setText(html4);
                     answerList.addView(answerView4);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView4, answer4);
@@ -560,7 +604,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             answer = "4";
                             if (!TextUtils.isEmpty(question.getSelectedOption())) {
                                 updateToServerAnswerSelection();
-                            }else{
+                            } else {
                                 updateMarkingOptionTime();
                             }
                             question.setSelectedOption(question.getOption4());
@@ -877,7 +921,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private void updateToServerAnswerSelection() {
         pauseTimer();
         submitTimeLogTest("selecting_option", "" + Seconds);
-        Toast.makeText(this, "Time for Select Answer ==  time" + Seconds, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Time for Select Answer ==  time" + Seconds, Toast.LENGTH_LONG).show();
 
         submitAnswer();
         resettimer();
@@ -893,7 +937,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         resettimer();
         startTimer();
     }
-
 
 
     private void updateAnswer(CardView cardView, TextView answer) {

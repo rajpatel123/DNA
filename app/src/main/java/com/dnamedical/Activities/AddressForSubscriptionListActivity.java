@@ -104,7 +104,6 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.add_address) {
             Intent intent = new Intent(AddressForSubscriptionListActivity.this, PaymentAddressSaveActivity.class);
             startActivity(intent);
-            finish();
         }
 
         return super.onOptionsItemSelected(item);
