@@ -1,13 +1,18 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -32,6 +37,8 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -65,6 +72,7 @@ public class ResultActivity extends AppCompatActivity {
 
     TextView testTimeHead, examNameHead;
     private RankResult rankResult;
+    private String sharePath = "no";
 
 
     @Override
@@ -138,15 +146,8 @@ public class ResultActivity extends AppCompatActivity {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                return;
-//                Intent share = new Intent(android.content.Intent.ACTION_SEND);
-//                share.setType("text/plain");
-//                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-//                // Add data to the intent, the receiving app will decide
-//                // what to do with it.
-//                share.putExtra(Intent.EXTRA_SUBJECT, "DNA");
-//                share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.dnamedical");
-//                startActivity(Intent.createChooser(share, "Share link!"));
+
+                takeScreenshot();
             }
         });
 
@@ -170,11 +171,73 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+
+    private void takeScreenshot() {
+        // Date now = new Date();
+        // android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + System.currentTimeMillis() + ".jpeg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            //setting screenshot in imageview
+            String filePath = imageFile.getPath();
+
+            Bitmap ssbitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            // iv.setImageBitmap(ssbitmap);
+            sharePath = filePath;
+
+            if (!sharePath.equals("no")) {
+                share(sharePath);
+            }
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+    }
+
+    private void share(String sharePath) {
+
+
+        try {
+            File file = new File(sharePath);
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Uri apkURI = FileProvider.getUriForFile(
+                    this,
+                    this.getApplicationContext()
+                            .getPackageName() + ".provider", file);
+            install.setDataAndType(apkURI, "image/*");
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(install);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     private void updateResult(TestResult testResult) {
 
         init(testResult.getData().getScoreAnalysis());
 
-        if (testResult != null && testResult.getData()!=null) {
+        if (testResult != null && testResult.getData() != null) {
             startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
             endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
             totalTestTime.setText("" + Utils.getTimeTakenInTestFormat((testResult.getData().getEndTime() - testResult.getData().getStartTime())));
@@ -182,9 +245,9 @@ public class ResultActivity extends AppCompatActivity {
 
             yourScoreTV.setText("" + testResult.getData().getYourScore());
             totalMarksTv.setText("" + testResult.getData().getTotalMarks());
-            if (TextUtils.isEmpty(testResult.getData().getPercenatge()) &&  testResult.getData().getPercenatge().length()>4){
-                percentageTV.setText("" + testResult.getData().getPercenatge().substring(0,3));
-            }else{
+            if (TextUtils.isEmpty(testResult.getData().getPercenatge()) && testResult.getData().getPercenatge().length() > 4) {
+                percentageTV.setText("" + testResult.getData().getPercenatge().substring(0, 3));
+            } else {
                 percentageTV.setText("" + testResult.getData().getPercenatge());
             }
             percentaileTV.setText("" + testResult.getData().getPercentile());

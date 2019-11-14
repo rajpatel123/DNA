@@ -219,7 +219,13 @@ public class TestStartActivity extends AppCompatActivity {
         switch (type) {
 
             case "daily_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+
+
+                if (DnaPrefs.getBoolean(this, Constants.FROM_INSTITUTE)){
+                    testInformation.setText("This test contains " + testQuestion + " Q's from all 3 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                }else{
+                    testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                }
                 break;
 
             case "grand_test":

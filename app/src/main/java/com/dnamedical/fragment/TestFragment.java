@@ -78,7 +78,9 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     public void onStart() {
         super.onStart();
         getTest();
-    }
+        DnaPrefs.putBoolean(mainActivity, Constants.FROM_INSTITUTE,false);
+
+        }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
