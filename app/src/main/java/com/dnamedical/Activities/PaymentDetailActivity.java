@@ -192,7 +192,9 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
             textViewShipping.setText("\u20B9 " + shippingCharge);
-            taxValue = String.valueOf((Integer.parseInt(befortaxValue) * 18) / 100);
+            if (!TextUtils.isEmpty(befortaxValue)){
+                taxValue = String.valueOf((Integer.parseInt(befortaxValue) * 18) / 100);
+            }
             textViewTax.setText("" + "\u20B9 " + taxValue);
 //            orderValue = 1;//((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
             orderValue = ((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));

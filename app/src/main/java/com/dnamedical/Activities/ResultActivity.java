@@ -332,7 +332,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<TestResult> call, Throwable t) {
                 Utils.dismissProgressDialog();
-                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
+              //  Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
             }
         });
 
@@ -479,8 +479,8 @@ public class ResultActivity extends AppCompatActivity {
             } else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")) {
                 subjectTv.setText("DERMA");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIO")) {
-                subjectTv.setText("DERMA");
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIOLOGY")) {
+                subjectTv.setText("PHYSIO");
 
             } else {
                 subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());

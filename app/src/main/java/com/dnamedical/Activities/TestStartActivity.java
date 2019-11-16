@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -86,16 +85,16 @@ public class TestStartActivity extends AppCompatActivity {
                 if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
                     if (resultDate * 1000 < System.currentTimeMillis()) {
 
-                        if (DnaPrefs.getString(TestStartActivity.this,Constants.INST_ID).equalsIgnoreCase("0")){
+                        if (DnaPrefs.getString(TestStartActivity.this, Constants.INST_ID).equalsIgnoreCase("0")) {
                             btnStart.setText("Test result declared you can not attempt this test");
-                            btnStart.setVisibility(View.GONE);
-                        }else{
+                            btnStart.setVisibility(View.VISIBLE);
+                        } else {
                             btnStart.setText("Test result declared want to start the test");
                             btnStart.setVisibility(View.VISIBLE);
 
 
                         }
-
+                        return;
 
                     } else {
                         btnStart.setText("Start The Test");
@@ -155,7 +154,7 @@ public class TestStartActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(TestStartActivity.this,"No internet connection",Toast.LENGTH_LONG).show();
+                        Toast.makeText(TestStartActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
                     }
 
 
@@ -221,9 +220,9 @@ public class TestStartActivity extends AppCompatActivity {
             case "daily_test":
 
 
-                if (DnaPrefs.getBoolean(this, Constants.FROM_INSTITUTE)){
+                if (DnaPrefs.getBoolean(this, Constants.FROM_INSTITUTE)) {
                     testInformation.setText("This test contains " + testQuestion + " Q's from all 3 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
-                }else{
+                } else {
                     testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 }
                 break;
