@@ -73,6 +73,7 @@ public class ResultActivity extends AppCompatActivity {
     TextView testTimeHead, examNameHead;
     private RankResult rankResult;
     private String sharePath = "no";
+    private long resultDate;
 
 
     @Override
@@ -84,7 +85,7 @@ public class ResultActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("testid")) {
             test_id = getIntent().getStringExtra("testid");
-
+            resultDate = getIntent().getLongExtra("resultDate",0);
         }
 
 
@@ -158,13 +159,18 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (Utils.isInternetConnected(ResultActivity.this)) {
-                    Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent1.putExtra("testid", test_id);
-                    startActivity(intent1);
-                } else {
-                    Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+
+                if (resultDate * 1000 > System.currentTimeMillis()) {
+                    Toast.makeText(ResultActivity.this,"Test is running, review will be available after "+Utils.dateFormat(resultDate),Toast.LENGTH_LONG).show();
+                }else{
+                    if (Utils.isInternetConnected(ResultActivity.this)) {
+                        Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent1.putExtra("testid", test_id);
+                        startActivity(intent1);
+                    } else {
+                        Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }

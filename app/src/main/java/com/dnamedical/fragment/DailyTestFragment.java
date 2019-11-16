@@ -86,7 +86,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate,String subjectCount) {
 
         if (testPaid.equalsIgnoreCase("Yes")) {
             Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
@@ -97,6 +97,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
             intent.putExtra("duration", time);
             intent.putExtra("startDate", startDate);
             intent.putExtra("resultDate", resultDate);
+            intent.putExtra("no_of_sub", subjectCount);
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);
             intent.putExtra("testQuestion", testQuestion);

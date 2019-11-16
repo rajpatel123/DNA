@@ -68,7 +68,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate,String subjectCount) {
 
 
         if (testPaid.equalsIgnoreCase("Yes")) {
@@ -81,6 +81,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             intent.putExtra("startDate", startDate);
             intent.putExtra("resultDate", resultDate);
             intent.putExtra("subjectName", testName);
+            intent.putExtra("no_of_sub", subjectCount);
 
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);

@@ -47,6 +47,7 @@ public class TestStartActivity extends AppCompatActivity {
     private long resultDate;
     private String testStatus;
     private String subjectName = "19 Subjects of MBBS";
+    private String no_of_sub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class TestStartActivity extends AppCompatActivity {
             duration = intent.getStringExtra("duration");
             startDate = Long.parseLong(intent.getStringExtra("startDate"));
             resultDate = Long.parseLong(intent.getStringExtra("resultDate"));
+            no_of_sub = intent.getStringExtra("no_of_sub");
 
             if (intent.hasExtra("subjectName")) {
                 subjectName = intent.getStringExtra("subjectName");
@@ -84,28 +86,29 @@ public class TestStartActivity extends AppCompatActivity {
             } else {
                 if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
                     if (resultDate * 1000 < System.currentTimeMillis()) {
-
                         if (DnaPrefs.getString(TestStartActivity.this, Constants.INST_ID).equalsIgnoreCase("0")) {
                             btnStart.setText("Test result declared you can not attempt this test");
+                            testTopic.setText(testName);
+                            updateTestTypeText(type);
                             btnStart.setVisibility(View.VISIBLE);
+                            btnStart.setEnabled(false);
+                            //return;
                         } else {
-                            btnStart.setText("Test result declared want to start the test");
+                            btnStart.setText("Test result declared, you can not attempt test");
                             btnStart.setVisibility(View.VISIBLE);
-
+                            btnStart.setEnabled(false);
 
                         }
-                        return;
-
                     } else {
                         btnStart.setText("Start The Test");
+                        btnStart.setVisibility(View.VISIBLE);
+
                     }
 
                     testTopic.setText(testName);
                     updateTestTypeText(type);
                     testTopic.setText(testName);
                     updateTestTypeText(type);
-                    btnStart.setText("Start The Test");
-                    btnStart.setVisibility(View.VISIBLE);
                     start_date.setVisibility(View.GONE);
                     start_desc.setVisibility(View.GONE);
 
@@ -149,7 +152,10 @@ public class TestStartActivity extends AppCompatActivity {
                 } else {
 
                     if (Utils.isInternetConnected(TestStartActivity.this)) {
+
                         Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
+
+                        intent.putExtra("resultDate", resultDate);
                         intent.putExtra("testid", id);
                         startActivity(intent);
                         finish();
@@ -221,18 +227,18 @@ public class TestStartActivity extends AppCompatActivity {
 
 
                 if (DnaPrefs.getBoolean(this, Constants.FROM_INSTITUTE)) {
-                    testInformation.setText("This test contains " + testQuestion + " Q's from all 3 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                    testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 } else {
-                    testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                    testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 }
                 break;
 
             case "grand_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "mini_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all 19 Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "subject_test":
@@ -272,6 +278,8 @@ public class TestStartActivity extends AppCompatActivity {
                     intent.putExtra("id", id);
                     intent.putExtra("duration", duration);
                     intent.putExtra("testName", testName);
+                    intent.putExtra("resultDate", resultDate);
+
                     startActivity(intent);
                     finish();
                 } else {

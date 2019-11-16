@@ -103,6 +103,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private RecyclerView answersheetRecyclerView;
     private int questionIndex = 0;
     private TextView answer1, answer2, answer3, answer4;
+    private long resultDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +131,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitAlertDiolog();
+                submitAlertDiolog("");
             }
         });
 
@@ -190,6 +191,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         timer = findViewById(R.id.timer);
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
+        resultDate = getIntent().getLongExtra("resultDate",0);
         test_id = getIntent().getStringExtra("id");
         if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
             testDuration = Integer.parseInt(duration) * 1000;
@@ -236,12 +238,16 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 timer.setText(hms);
                 testCompleteTime = TimeUnit.MILLISECONDS.toMinutes(testDuration - millis);
-            }
+
+                if (resultDate * 1000 < System.currentTimeMillis()) {
+                    submitAlertDiolog("Test time is over, kindly submit the test");
+                }
+                }
 
             public void onFinish() {
                 timer.setText("Time up!");
                 timeUp = true;
-                submitAlertDiolog();
+                submitAlertDiolog("");
             }
 
         };
@@ -302,6 +308,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
 
+
+
     private void submitTest() {
         if (!Utils.isInternetConnected(this)) {
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
@@ -316,6 +324,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             public void onResponse(Call<TestResult> call, Response<TestResult> response) {
                 TestResult testResult = response.body();
                 Utils.dismissProgressDialog();
+
                 if (testResult != null) {
                     Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
                     intent.putExtra(Constants.RESULT, testResult);
@@ -658,7 +667,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
                 return true;
             case R.id.submitTest:
-                submitAlertDiolog();
+                submitAlertDiolog("");
                 return true;
             case R.id.closeSheet:
                 questionpannel.setVisibility(View.VISIBLE);
@@ -693,7 +702,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     }
 
-    private void submitAlertDiolog() {
+    private void submitAlertDiolog(String message) {
         int count = getUnAttemptedCount();
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
@@ -706,6 +715,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         if (count > 0) {
             TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
             unuttempted.setText("You have " + count + " unattempted questions");
+            unuttempted.setVisibility(View.VISIBLE);
+        }
+
+        if (!TextUtils.isEmpty(message)){
+            TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
+            unuttempted.setText(message);
             unuttempted.setVisibility(View.VISIBLE);
         }
         TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
@@ -895,8 +910,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             answerSheet.setVisibility(View.GONE);
             closeSheet.setVisibility(View.GONE);
             return;
+        }else{
+            submitAlertDiolog("Test will be submitted!, want to submit?");
         }
-        super.onBackPressed();
 
     }
 

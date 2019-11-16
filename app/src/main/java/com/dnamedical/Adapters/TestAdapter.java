@@ -78,7 +78,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getNo_of_subjects());
                     }
                 }
             });
@@ -111,7 +111,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getNo_of_subjects());
                     }
                 }
             });
@@ -144,7 +144,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getNo_of_subjects());
                     }
                 }
             });
@@ -183,7 +183,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getNo_of_subjects());
                     }
                 }
             });
@@ -223,7 +223,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getNo_of_subjects());
                     }
                 }
             });
@@ -281,7 +281,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     public interface OnCategoryClick {
 
-        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid, String TestStatus, String type, String startDate, String resultDate);
+        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid, String TestStatus, String type, String startDate, String resultDate,String subjectCount);
 
     }
 

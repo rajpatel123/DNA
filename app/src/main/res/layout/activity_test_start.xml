@@ -9,12 +9,12 @@
 
     <ImageView
         android:id="@+id/test_image"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="15dp"
-        app:srcCompat="@drawable/dnalogo" />
+        app:srcCompat="@drawable/logo_with_title" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

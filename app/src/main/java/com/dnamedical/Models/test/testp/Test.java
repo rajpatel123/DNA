@@ -17,6 +17,18 @@ public class Test implements Comparable<Test>{
     @SerializedName("description")
     @Expose
     private String description;
+
+    public String getNo_of_subjects() {
+        return no_of_subjects;
+    }
+
+    public void setNo_of_subjects(String no_of_subjects) {
+        this.no_of_subjects = no_of_subjects;
+    }
+
+    @SerializedName("no_of_subjects")
+    @Expose
+    private String no_of_subjects;
     @SerializedName("logo")
     @Expose
     private Object logo;
