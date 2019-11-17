@@ -219,7 +219,7 @@ public class UpdateAddressActivity extends AppCompatActivity {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("true")) {
-                            Toast.makeText(UpdateAddressActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(UpdateAddressActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(UpdateAddressActivity.this, AddressListActivity.class);
                             startActivity(intent);
                             finish();

@@ -199,7 +199,20 @@
                         android:background="@drawable/buttonlogin"
                         android:padding="@dimen/padding_5"
                         android:layout_marginLeft="@dimen/margin_10"
-                        android:text="Edit Address"
+                        android:text="Edit"
+                        android:textColor="@color/white" />
+
+
+                    <Button
+                        android:id="@+id/deleteAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@drawable/buttonlogin"
+                        android:padding="@dimen/padding_5"
+                        android:text="Delete"
                         android:textColor="@color/white" />
 
                     <Button

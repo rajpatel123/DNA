@@ -118,7 +118,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         setContentView(R.layout.activity_payment_detail);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
+      //  setSupportActionBar(toolbar);
         Checkout.preload(getApplicationContext());
        /*
         SpannableString spannableString = new SpannableString(getString(R.string.view_breakup));
@@ -223,6 +223,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("Payment");
         }
 
         btnPaynow.setOnClickListener(new View.OnClickListener() {

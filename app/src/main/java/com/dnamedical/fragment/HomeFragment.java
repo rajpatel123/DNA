@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.MainActivity;
@@ -178,6 +179,9 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public void onCateClick(String id) {
         if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("11")) {
             Intent intent = new Intent(getActivity(), DNASuscribeActivity.class);
+            getActivity().startActivity(intent);
+        }else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("10")) {
+            Intent intent = new Intent(getActivity(), ContactUsActivity.class);
             getActivity().startActivity(intent);
         } else {
             Intent intent = new Intent(getActivity(), NeetPgActivity.class);

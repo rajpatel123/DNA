@@ -224,25 +224,19 @@ public class TestStartActivity extends AppCompatActivity {
         switch (type) {
 
             case "daily_test":
-
-
-                if (DnaPrefs.getBoolean(this, Constants.FROM_INSTITUTE)) {
-                    testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
-                } else {
-                    testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
-                }
+                    testInformation.setText("This test contains " + testQuestion + " Q's from "+no_of_sub+" with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "grand_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from "+no_of_sub+"  with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "mini_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from all "+no_of_sub+" Subjects of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from  "+no_of_sub+"  with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "subject_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from " + subjectName + " Subject of MBBS with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from " + no_of_sub + "  with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
         }

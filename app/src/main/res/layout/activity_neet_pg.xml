@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            app:srcCompat="@drawable/ic_left_arrow"
+            app:srcCompat="@drawable/back_arrow"
             android:tint="@color/white" />
 
         <ImageView

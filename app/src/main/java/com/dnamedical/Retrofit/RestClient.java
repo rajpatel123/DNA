@@ -329,6 +329,12 @@ public class RestClient {
 
     }
 
+    public static void deleteAddress(RequestBody add_id, Callback
+            <ResponseBody> callback) {
+        RetrofitClient.getClient().deleteAddress(add_id).enqueue(callback);
+
+    }
+
     public static void getAllTestData(String id, String institute_id, Callback
             <TestDataResponse> callback) {
         RetrofitClient.getClient().getAllTestData(id,institute_id).enqueue(callback);

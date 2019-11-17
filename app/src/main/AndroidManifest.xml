@@ -29,7 +29,8 @@
         <activity android:name=".Activities.InstituteTestActivity"></activity>
         <activity
             android:name=".Activities.SubscriptionPaymentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"/>
         <activity
             android:name=".Activities.PlanPaymentProceesingActivity"
             android:screenOrientation="portrait" />
@@ -184,7 +185,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddressForSubscriptionListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"
+            />
         <activity
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait" />
@@ -219,7 +222,8 @@
 
         <activity
             android:name=".Activities.NeetPgActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".Activities.ShoppingActivty"
             android:screenOrientation="portrait" />

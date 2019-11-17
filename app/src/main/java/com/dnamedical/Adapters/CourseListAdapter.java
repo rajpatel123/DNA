@@ -74,14 +74,14 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
             @Override
             public void onClick(View v) {
                 if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName()
-                        .equalsIgnoreCase("Contact us")) {
+                        .equalsIgnoreCase("Contact")) {
                     Intent intent = new Intent(applicationContext, ContactUsActivity.class);
                     applicationContext.startActivity(intent);
                 }
             }
         });
 
-        if ( categoryDetailData!=null && categoryDetailData.getDetails()!=null && categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
+        if (categoryDetailData != null && categoryDetailData.getDetails() != null && categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
                 && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat() != null
                 && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -111,7 +111,9 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3) || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11)
+                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
+                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11
+                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 10)
                             onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
 
 
@@ -123,7 +125,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
 
                         }
-
 
 
                     }

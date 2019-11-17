@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,10 +24,16 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +50,7 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    String userId, amount, subscription_id, shippingCharge,totalDiscountGiven,totalADDDiscountGiven, couponValue, couponValueAdd, totalValue, plan_id,months,pack_key,order_id;
+    String userId, amount, subscription_id, shippingCharge, totalDiscountGiven, totalADDDiscountGiven, couponValue, couponValueAdd, totalValue, plan_id, months, pack_key, order_id;
     GetDataAddressResponse getDataAddressList;
 
     @Override
@@ -53,8 +60,8 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+//        mToolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolbar);
         if (getIntent().hasExtra("AMOUNT")) {
             amount = getIntent().getStringExtra("AMOUNT");
 
@@ -82,8 +89,6 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
             couponValue = getIntent().getStringExtra("COUPON_VALUE");
             couponValueAdd = getIntent().getStringExtra("COUPON_VALUE_ADD");
 
-
-
         }
 
         getAddressData();
@@ -91,6 +96,7 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("Address");
         }
 
     }
@@ -145,6 +151,13 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
                                 addressListAdapter.setAddreseList(getDataAddressList.getAddreses());
                                 addressListAdapter.setOnClickAddressData(new AddressListAdapter.onClickAddress() {
                                     @Override
+                                    public void deleteAddress(String add_id) {
+                                        if (!TextUtils.isEmpty(add_id)) {
+                                            deleteAddressApi(add_id);
+                                        }
+                                    }
+
+                                    @Override
                                     public void onAddressClick(String name, String mobile, String email, String address1, String address2, String state, String city, String pincode) {
                                         Intent intent = new Intent(AddressForSubscriptionListActivity.this, SubscriptionPaymentActivity.class);
                                         intent.putExtra("NAME", name);
@@ -155,9 +168,6 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
                                         intent.putExtra("STATE", state);
                                         intent.putExtra("CITY", city);
                                         intent.putExtra("PINCODE", pincode);
-
-
-
                                         intent.putExtra("subscription_id", subscription_id);
                                         intent.putExtra("plan_id", plan_id);
                                         intent.putExtra("months", months);
@@ -169,7 +179,7 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
                                         intent.putExtra("COUPON_VALUE", couponValue);
                                         intent.putExtra("COUPON_VALUE_ADD", couponValueAdd);
 
-                                        startActivityForResult(intent,Constants.FINISH);
+                                        startActivityForResult(intent, Constants.FINISH);
                                     }
                                 });
                                 addressListAdapter.setOnClickEditAddress(new AddressListAdapter.onClickEditAddress() {
@@ -204,7 +214,6 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setVisibility(View.VISIBLE);
                             } else {
-
                                 Log.d("Api Response :", "Got Success from Api");
                                 // noInternet.setVisibility(View.VISIBLE);
                                 // noInternet.setText(getString(R.string.no_project));
@@ -243,12 +252,41 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (DnaPrefs.getBoolean(this,Constants.ISFINISHING)){
+        if (DnaPrefs.getBoolean(this, Constants.ISFINISHING)) {
             Intent resultIntent = new Intent();
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }
 
     }
+
+    private void deleteAddressApi(String add_id) {
+        if (TextUtils.isEmpty(add_id)) {
+            return;
+        }
+
+        RequestBody address_id = RequestBody.create(MediaType.parse("text/plain"), add_id);
+        Utils.showProgressDialog(this);
+        RestClient.deleteAddress(address_id, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Utils.dismissProgressDialog();
+                    Log.d("data", response.body().string());
+
+                            onResume();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Utils.dismissProgressDialog();
+                Log.d("data", "");
+            }
+        });
+    }
+
 }
 

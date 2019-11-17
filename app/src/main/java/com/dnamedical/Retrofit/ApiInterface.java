@@ -437,6 +437,13 @@ public interface ApiInterface {
     @POST("api/api.php?req=checkuserdeleted")
     Call<ResponseBody> checkuserExist(@Part("email_id") RequestBody id);
 
+
+
+
+    @Multipart
+    @POST("api/api.php?req=deleteAddress")
+    Call<ResponseBody> deleteAddress(@Part("address_id") RequestBody id);
+
     @GET("v1/index.php/api/test/list")
     Call<TestDataResponse> getAllTestData(@Query("user_id") String id, @Query("institute_id") String institute_id);
 
