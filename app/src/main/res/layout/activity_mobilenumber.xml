@@ -23,7 +23,7 @@
             android:paddingLeft="@dimen/padding_25dp"
             android:text="Enter your Mobile Number"
             android:textColor="@color/black_titles"
-            android:textSize="@dimen/size_16"
+            android:textSize="@dimen/ts_16"
             android:textStyle="bold"
 
             />

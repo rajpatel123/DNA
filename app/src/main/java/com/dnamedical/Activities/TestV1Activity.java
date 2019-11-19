@@ -104,6 +104,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private int questionIndex = 0;
     private TextView answer1, answer2, answer3, answer4;
     private long resultDate;
+    private boolean isSubmitVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,7 +192,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         timer = findViewById(R.id.timer);
         String duration = getIntent().getStringExtra("duration");
         testName = getIntent().getStringExtra("testName");
-        resultDate = getIntent().getLongExtra("resultDate",0);
+        resultDate = getIntent().getLongExtra("resultDate", 0);
         test_id = getIntent().getStringExtra("id");
         if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
             testDuration = Integer.parseInt(duration) * 1000;
@@ -242,7 +243,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 if (resultDate * 1000 < System.currentTimeMillis()) {
                     submitAlertDiolog("Test time is over, kindly submit the test");
                 }
-                }
+            }
 
             public void onFinish() {
                 timer.setText("Time up!");
@@ -306,8 +307,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
 
     }
-
-
 
 
     private void submitTest() {
@@ -703,6 +702,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
     private void submitAlertDiolog(String message) {
+
+        if (isSubmitVisible){
+            return;
+        }
+
+        isSubmitVisible=true;
         int count = getUnAttemptedCount();
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
@@ -718,7 +723,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             unuttempted.setVisibility(View.VISIBLE);
         }
 
-        if (!TextUtils.isEmpty(message)){
+        if (!TextUtils.isEmpty(message)) {
             TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
             unuttempted.setText(message);
             unuttempted.setVisibility(View.VISIBLE);
@@ -728,6 +733,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                isSubmitVisible=false;
 
             }
         });
@@ -736,10 +742,13 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             @Override
             public void onClick(View v) {
 
+                isSubmitVisible=false;
+
                 if (countDownTimer != null)
                     countDownTimer.cancel();
+
+
                 submitTest();
-                onBackPressed();
                 dialog.dismiss();
 
             }
@@ -910,7 +919,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             answerSheet.setVisibility(View.GONE);
             closeSheet.setVisibility(View.GONE);
             return;
-        }else{
+        } else {
             submitAlertDiolog("Test will be submitted!, want to submit?");
         }
 

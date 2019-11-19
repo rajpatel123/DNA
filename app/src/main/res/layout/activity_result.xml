@@ -434,7 +434,7 @@
                 android:paddingBottom="5dp"
                 android:text="A. SCORE ANALYSIS"
                 android:textColor="@color/color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -469,7 +469,7 @@
                         android:layout_height="wrap_content"
                         android:text="B. GUESS ANALYSIS:"
                         android:textColor="@color/color_noticeboard"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/ts_16"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -614,7 +614,7 @@
                         android:text="C. TIME ANALYSIS:"
                         android:textColor="@color/color_noticeboard"
 
-                        android:textSize="16sp"
+                        android:textSize="@dimen/ts_16"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -815,7 +815,7 @@
                         android:layout_marginTop="@dimen/margin_10dp"
                         android:text="D. DIFICULTY LABEL ANALYSIS:"
                         android:textColor="@color/color_noticeboard"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/ts_16"
 
                         android:textStyle="bold" />
 

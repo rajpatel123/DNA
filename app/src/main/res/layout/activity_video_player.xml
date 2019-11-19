@@ -264,7 +264,7 @@
         android:background="@color/white"
         android:padding="8dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:textSize="@dimen/ts_16" />
 
 
     <ScrollView

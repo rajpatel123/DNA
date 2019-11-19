@@ -12,6 +12,6 @@
         android:gravity="center"
         android:textColor="@color/colorAccent"
         android:text="No un-attempted video"
-        android:textSize="16sp" />
+        android:textSize="@dimen/ts_16" />
 
 </LinearLayout>

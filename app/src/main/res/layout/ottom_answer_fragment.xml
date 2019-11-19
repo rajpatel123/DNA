@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:padding="10dp"
             android:text="Submit"
-            android:textSize="22sp" />
+            android:textSize="@dimen/ts_20" />
     </LinearLayout>
 
 </RelativeLayout>

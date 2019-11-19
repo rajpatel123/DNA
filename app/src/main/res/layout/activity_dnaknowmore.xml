@@ -100,7 +100,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="Question Bank"
                             android:textColor="@color/colorAccent"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/ts_16"
                             android:textStyle="bold" />
 
 
@@ -310,7 +310,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="Test Series"
                             android:textColor="@color/colorAccent"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/ts_16"
                             android:textStyle="bold" />
 
 
@@ -518,7 +518,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="Video Lessons"
                             android:textColor="@color/colorAccent"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/ts_16"
                             android:textStyle="bold" />
                         <Button
                             android:gravity="center"
@@ -722,7 +722,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="Live Online Sessions"
                             android:textColor="@color/colorAccent"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/ts_16"
                             android:textStyle="bold" />
 
                         <Button
@@ -873,7 +873,7 @@
                         android:layout_marginRight="10dp"
                         android:text="What makes Marrow special?"
                         android:textColor="@color/colorAccent"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/ts_20"
                         android:textStyle="bold"
                         android:visibility="gone" />
 

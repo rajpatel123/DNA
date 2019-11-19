@@ -149,8 +149,8 @@
                     android:paddingBottom="5dp">
 
                     <ImageView
-                        android:layout_width="20sp"
-                        android:layout_height="20sp"
+                        android:layout_width="@dimen/ts_20"
+                        android:layout_height="@dimen/ts_20"
                         app:srcCompat="@drawable/ic_star" />
 
                     <TextView

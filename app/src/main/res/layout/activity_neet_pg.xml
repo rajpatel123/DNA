@@ -50,7 +50,7 @@
         android:paddingStart="16dp"
         android:text="NEET PG"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
+        android:textSize="@dimen/ts_16"
         android:textStyle="bold" />
 
     <RelativeLayout

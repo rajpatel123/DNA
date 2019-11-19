@@ -51,7 +51,7 @@
                 android:paddingTop="5dp"
                 android:text="NEET- PG"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                 android:paddingTop="5dp"
                 android:text="NEET- SS"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
                 android:paddingTop="5dp"
                 android:text="Today Update"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
@@ -163,7 +163,7 @@
                 android:paddingTop="5dp"
                 android:text="Live Online"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                 android:paddingTop="5dp"
                 android:text="Shopping"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
@@ -240,7 +240,7 @@
                 android:paddingTop="5dp"
                 android:text="Test Series"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
@@ -284,7 +284,7 @@
                 android:paddingTop="5dp"
                 android:text="MBBS PROF."
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/desc"
@@ -322,7 +322,7 @@
                 android:paddingTop="5dp"
                 android:text="NEET- UG"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/des"
@@ -366,7 +366,7 @@
                 android:paddingTop="5dp"
                 android:text="Feedback"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
@@ -389,7 +389,7 @@
                 android:paddingTop="4dp"
                 android:text="Contact us"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>-->

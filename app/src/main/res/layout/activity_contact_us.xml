@@ -27,7 +27,7 @@
             android:layout_marginTop="15sp"
             android:text="Email"
             android:textColor="@color/colorAccent"
-            android:textSize="16sp" />
+            android:textSize="@dimen/ts_16" />
 
         <Button
             android:id="@+id/contact_us_email"
@@ -53,7 +53,7 @@
             android:layout_marginTop="15sp"
             android:text="Get a call to know more about the DNA Plans"
             android:textColor="@color/colorAccent"
-            android:textSize="16sp" />
+            android:textSize="@dimen/ts_16" />
 
         <Button
             android:id="@+id/contact_us_call"

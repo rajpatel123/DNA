@@ -251,8 +251,8 @@ public class ResultActivity extends AppCompatActivity {
 
             yourScoreTV.setText("" + testResult.getData().getYourScore());
             totalMarksTv.setText("" + testResult.getData().getTotalMarks());
-            if (TextUtils.isEmpty(testResult.getData().getPercenatge()) && testResult.getData().getPercenatge().length() > 4) {
-                percentageTV.setText("" + testResult.getData().getPercenatge().substring(0, 3));
+            if (!TextUtils.isEmpty(testResult.getData().getPercenatge()) && testResult.getData().getPercenatge().length() > 5) {
+                percentageTV.setText("" + testResult.getData().getPercenatge().substring(0, 4));
             } else {
                 percentageTV.setText("" + testResult.getData().getPercenatge());
             }

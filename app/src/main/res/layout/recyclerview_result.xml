@@ -88,7 +88,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="MalavikrAccent"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/ts_16"
                             android:lines="1"
                             android:textStyle="bold" />
 
@@ -135,7 +135,7 @@
                                 android:paddingBottom="4dp"
                                 android:paddingTop="2dp"
                                 android:text="correct"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/ts_16" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -159,7 +159,7 @@
                                 android:paddingBottom="4dp"
                                 android:paddingTop="2dp"
                                 android:text="wrong"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/ts_16" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -183,7 +183,7 @@
                                 android:paddingBottom="4dp"
                                 android:paddingTop="2dp"
                                 android:text="skipped"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/ts_16" />
                         </LinearLayout>
 
 

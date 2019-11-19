@@ -33,7 +33,7 @@
             android:paddingLeft="10dp"
             android:text="Anatomy"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/ts_20"
             android:textStyle="bold" />
 
         <ImageView

@@ -27,13 +27,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/billing_txt"
-                android:textSize="@dimen/margin_22" />
+                android:textSize="@dimen/ts_20" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/billing_txt_one"
-                android:textSize="@dimen/margin_22" />
+                android:textSize="@dimen/ts_20" />
         </LinearLayout>
 
         <LinearLayout
