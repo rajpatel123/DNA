@@ -75,13 +75,10 @@ public class VerifyOTPActivity extends AppCompatActivity {
         spannableString.setSpan(new UnderlineSpan(), 0, resendOtp.getText().toString().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         resendOtp.setText(spannableString);
 
-
         Intent intent = getIntent();
 
         user_id = intent.getStringExtra("user_id");
         phone = intent.getStringExtra("mobile");
-
-
 
         openKeyboard();
 
@@ -102,8 +99,6 @@ public class VerifyOTPActivity extends AppCompatActivity {
                             verifyOtp(pinLayout.getText().toString().trim());
                         }
                     }
-
-
         });
 
     }

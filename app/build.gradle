@@ -25,9 +25,11 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.dnamedical"
+        //applicationId "bb.hoppingbird"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 68
+        //versionCode 68
+        versionCode 74
         versionName "v5.9.1"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true

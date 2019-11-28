@@ -48,4 +48,8 @@ public class Constants {
     public static final String INST_ID = "insid";
     public static final String INST_NAME = "nameins";
     public static final String INST_IMAGE ="insimage" ;
+    public static final String USERPHNUMBER ="userPhoneNo" ;
+    public static final String USERID ="userId" ;
+
+
 }

@@ -18,6 +18,8 @@ import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
+import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
+import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
@@ -105,7 +107,7 @@ public class RestClient {
     public static void franchiesRegister(RequestBody username, RequestBody phoneno, RequestBody usermail, RequestBody comment, Callback<FranchiesResponse> callback) {
         RetrofitClient.getClient().franchiRegister(username, phoneno, usermail, comment).enqueue(callback);
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void facebookRegister(RequestBody name, RequestBody email_id, RequestBody fb_id, Callback<FacebookResponse> callback) {
         RetrofitClient.getClient().facebookRegister(name, email_id, fb_id).enqueue(callback);
     }
@@ -360,4 +362,16 @@ public class RestClient {
         RetrofitClient.getClient().invoiceOrderDetailForSubscription(user_id,orderId_forInvoice,pramotoin,addDiscount,
                 totalAmountBeforeTax,tax,shippingCharges,totalAmount,paymethod,discount,grandTotal).enqueue(callback);
     }
+
+    // Change phone Number
+    public static void changePhoneNumber(RequestBody user_id, RequestBody phoneNo, Callback<ChangePhoneNumberResponse>callback){
+        RetrofitClient.getClient().changePhoneNumber(user_id, phoneNo).enqueue(callback);
+    }
+
+    // change phone no otp Response
+
+    public static void changePhoneNoOTPVerification(RequestBody user_id, RequestBody mobile, RequestBody otp, Callback<ChangePhoneNumberOtpResponse>callback){
+        RetrofitClient.getClient().phoneOtpVerified(user_id,mobile,otp).enqueue(callback);
+    }
+
 }

@@ -18,6 +18,8 @@ import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
+import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
+import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
@@ -219,7 +221,7 @@ public interface ApiInterface {
                                           @Part("state") RequestBody state,
                                           @Part("college") RequestBody college);
 
-
+/////////////////////////////////////////
     @Multipart
     @POST("api/api.php?req=facebook")
     Call<FacebookResponse> facebookRegister(@Part("name") RequestBody name,
@@ -382,7 +384,7 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=qbank_mcq")
     Call<QbankTestResponse> qbanksubTestData(@Part("qmodule_id") RequestBody qmodule_id);
-
+////////////////////////////////////
     @Multipart
     @POST("api/api.php?req=mobileverify")
     Call<VerifyOtpResponse> verifyOTP(
@@ -486,6 +488,21 @@ public interface ApiInterface {
 //    Call<TestReviewListResponse> getTestReviewListFilteredData(
 //                                                       @Query("test_id") String test_id,
 //                                                       @Query("user_id") String user_id);
+
+
+// Change phone No
+    @Multipart
+    @POST("api/api.php?req=send_otp")
+    Call<ChangePhoneNumberResponse> changePhoneNumber(@Part("user_id") RequestBody name,
+                                                     @Part("mobile") RequestBody phoneNo);
+
+    // change phone no verified otp
+
+    @Multipart
+    @POST("api/api.php?req=update_mobile")
+    Call<ChangePhoneNumberOtpResponse>phoneOtpVerified(@Part("user_id")RequestBody user_id,
+                                                       @Part("mobile")RequestBody mobile,
+                                                       @Part("otp")RequestBody otp);
 
 }
 
