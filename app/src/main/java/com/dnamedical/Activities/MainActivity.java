@@ -405,7 +405,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void userlogout() {
+    public void userlogout() {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl

@@ -41,7 +41,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity =  getActivity();
+        activity = getActivity();
 
 
     }
@@ -68,7 +68,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate,String subjectCount) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate, String resultDate, String subjectCount) {
 
 
         if (testPaid.equalsIgnoreCase("Yes")) {
@@ -80,6 +80,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             intent.putExtra("duration", time);
             intent.putExtra("startDate", startDate);
             intent.putExtra("resultDate", resultDate);
+            intent.putExtra("endDate", endDate);
             intent.putExtra("subjectName", testName);
             intent.putExtra("no_of_sub", subjectCount);
 
@@ -134,7 +135,7 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
             notext.setVisibility(View.GONE);
 
         } else {
-            if (recyclerView!=null){
+            if (recyclerView != null) {
                 recyclerView.setVisibility(View.GONE);
                 notext.setVisibility(View.VISIBLE);
             }

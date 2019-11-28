@@ -95,7 +95,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate,String subjectCount) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate,String resultDate,String subjectCount) {
 
 
         if (testPaid.equalsIgnoreCase("Yes")) {
@@ -106,6 +106,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
             intent.putExtra("id", id);
             intent.putExtra("duration", time);
             intent.putExtra("startDate", startDate);
+            intent.putExtra("endDate", endDate);
             intent.putExtra("resultDate", resultDate);
             intent.putExtra("no_of_sub", subjectCount);
 

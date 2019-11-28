@@ -24,13 +24,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-
         tools:replace="android:label">
-        <activity android:name=".Activities.InstituteTestActivity"></activity>
+        <activity android:name=".Activities.RemarksActivity"></activity>
+        <activity android:name=".Activities.InstituteTestActivity" />
         <activity
             android:name=".Activities.SubscriptionPaymentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"/>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.PlanPaymentProceesingActivity"
             android:screenOrientation="portrait" />
@@ -45,8 +45,8 @@
         <activity android:name=".Activities.EnterMobileAndEmailActivity" />
         <activity
             android:name=".Activities.UpdateAddressActivity"
-            android:screenOrientation="portrait"
             android:label="Edit Address"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
 
         <service
@@ -186,8 +186,7 @@
         <activity
             android:name=".Activities.AddressForSubscriptionListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
-            />
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait" />
@@ -222,8 +221,7 @@
 
         <activity
             android:name=".Activities.NeetPgActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ShoppingActivty"
             android:screenOrientation="portrait" />
@@ -302,8 +300,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-
 
         <service
             android:name=".FetchAddressIntentService"

@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.AnswerListAdapter;
+import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testresult.TestResult;
@@ -195,7 +196,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         resultDate = getIntent().getLongExtra("resultDate", 0);
         test_id = getIntent().getStringExtra("id");
         if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
-            testDuration = Integer.parseInt(duration) * 1000;
+            testDuration = (resultDate*1000)-System.currentTimeMillis();
         }
         resettimer();
         startTimer();
@@ -314,6 +315,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        endTest();
+
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
@@ -325,18 +329,40 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 Utils.dismissProgressDialog();
 
                 if (testResult != null) {
-                    Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
-                    intent.putExtra(Constants.RESULT, testResult);
-                    intent.putExtra("testid", test_id);
-                    startActivity(intent);
-                    Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
-                    finish();
+                    getResultRemarks(testResult);
+
                 }
 
             }
 
             @Override
             public void onFailure(Call<TestResult> call, Throwable t) {
+                Utils.dismissProgressDialog();
+                Log.d("SubmitTest", "Faileduser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+            }
+        });
+
+    }
+    private void getResultRemarks(TestResult testResult) {
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Utils.showProgressDialog(TestV1Activity.this);
+        RestClient.getResultRemark(test_id, new Callback<RankResultRemarks>() {
+            @Override
+            public void onResponse(Call<RankResultRemarks> call, Response<RankResultRemarks> response) {
+                RankResultRemarks remarks = response.body();
+                Utils.dismissProgressDialog();
+
+                if (remarks != null) {
+                    displayRemark(remarks,testResult);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RankResultRemarks> call, Throwable t) {
                 Utils.dismissProgressDialog();
                 Log.d("SubmitTest", "Faileduser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
@@ -759,6 +785,49 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
 
     }
+    private void displayRemark(RankResultRemarks resultRemarks, TestResult testResult) {
+
+        int count = getUnAttemptedCount();
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_remarks, null);
+        dialogBuilder.setView(dialogView);
+
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button btn_yes = dialogView.findViewById(R.id.ok);
+        TextView messagetv = dialogView.findViewById(R.id.message);
+        messagetv.setText(""+resultRemarks.getRemarks());
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (resultRemarks==null){
+                    return;
+                }
+                if (Long.parseLong(resultRemarks.getResultDate())*1000>System.currentTimeMillis()){
+                    finish();
+                    dialog.dismiss();
+                }else{
+                    Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
+                    intent.putExtra(Constants.RESULT, testResult);
+                    intent.putExtra("testid", test_id);
+                    intent.putExtra("resultDate", resultDate);
+
+                    startActivity(intent);
+                    Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    finish();
+                }
+
+
+            }
+        });
+
+        if (!isFinishing() && !dialog.isShowing())
+            dialog.show();
+
+
+    }
 
 
     private void discardAlertDialog() {
@@ -920,6 +989,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             closeSheet.setVisibility(View.GONE);
             return;
         } else {
+            //super.onBackPressed();
             submitAlertDiolog("Test will be submitted!, want to submit?");
         }
 
@@ -982,6 +1052,36 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         answer.setTextColor(getResources().getColor(R.color.white));
 
         cardView.setCardBackgroundColor(getResources().getColor(R.color.test_fragment_card_bacckground));
+    }
+
+
+
+    private void endTest() {
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(test_id)) {
+            Toast.makeText(this, "Unable to start Test, lease try again later", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RequestBody time = RequestBody.create(MediaType.parse("text/plain"), ""+(System.currentTimeMillis()/1000));
+        Utils.showProgressDialog(TestV1Activity.this);
+        RestClient.startTest(userId, testID, time, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Utils.dismissProgressDialog();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Utils.dismissProgressDialog();
+            }
+        });
+
     }
 
 }

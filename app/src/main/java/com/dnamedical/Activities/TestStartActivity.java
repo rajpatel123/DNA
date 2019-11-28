@@ -5,19 +5,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.R;
+import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TestStartActivity extends AppCompatActivity {
 
@@ -41,13 +51,14 @@ public class TestStartActivity extends AppCompatActivity {
     @BindView(R.id.card_view)
     CardView cardView;
 
-    String id, duration, testName, testQuestion = "0", testPaid;
+    String test_id, duration, testName, testQuestion = "0", testPaid;
     String description;
     private long startDate;
-    private long resultDate;
+    private long resultDate, endDate;
     private String testStatus;
     private String subjectName = "19 Subjects of MBBS";
     private String no_of_sub;
+    private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +66,16 @@ public class TestStartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_start);
         ButterKnife.bind(this);
 
+
+        user_id = DnaPrefs.getString(TestStartActivity.this, Constants.LOGIN_ID);
+
         Intent intent = getIntent();
         if (intent != null) {
-            id = intent.getStringExtra("id");
+            test_id = intent.getStringExtra("id");
             duration = intent.getStringExtra("duration");
             startDate = Long.parseLong(intent.getStringExtra("startDate"));
             resultDate = Long.parseLong(intent.getStringExtra("resultDate"));
+            endDate = Long.parseLong(intent.getStringExtra("endDate"));
             no_of_sub = intent.getStringExtra("no_of_sub");
 
             if (intent.hasExtra("subjectName")) {
@@ -152,13 +167,17 @@ public class TestStartActivity extends AppCompatActivity {
                 } else {
 
                     if (Utils.isInternetConnected(TestStartActivity.this)) {
+                        if (resultDate * 1000 > System.currentTimeMillis()) {
+                            Toast.makeText(TestStartActivity.this, "Result does not declared, review will be available on " + Utils.testReviewTime(resultDate), Toast.LENGTH_LONG).show();
+                        } else {
+                            Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
 
-                        Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
+                            intent.putExtra("resultDate", resultDate);
+                            intent.putExtra("testid", test_id);
+                            startActivity(intent);
+                            finish();
+                        }
 
-                        intent.putExtra("resultDate", resultDate);
-                        intent.putExtra("testid", id);
-                        startActivity(intent);
-                        finish();
                     } else {
                         Toast.makeText(TestStartActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
                     }
@@ -224,15 +243,15 @@ public class TestStartActivity extends AppCompatActivity {
         switch (type) {
 
             case "daily_test":
-                    testInformation.setText("This test contains " + testQuestion + " Q's from "+no_of_sub+" with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from " + no_of_sub + " with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "grand_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from "+no_of_sub+"  with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from " + no_of_sub + "  with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "mini_test":
-                testInformation.setText("This test contains " + testQuestion + " Q's from  "+no_of_sub+"  with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
+                testInformation.setText("This test contains " + testQuestion + " Q's from  " + no_of_sub + "  with time duration of " + Utils.getTestDurationDuration(Integer.parseInt(duration)));
                 break;
 
             case "subject_test":
@@ -265,17 +284,9 @@ public class TestStartActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (Utils.isInternetConnected(TestStartActivity.this)) {
-                    Intent intent = new Intent(TestStartActivity.this, TestV1Activity.class);
-                    DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
-                    id = getIntent().getStringExtra("id");
-                    testName = getIntent().getStringExtra("testName");
-                    intent.putExtra("id", id);
-                    intent.putExtra("duration", duration);
-                    intent.putExtra("testName", testName);
-                    intent.putExtra("resultDate", resultDate);
 
-                    startActivity(intent);
-                    finish();
+                    startTest();
+
                 } else {
                     Toast.makeText(TestStartActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
                 }
@@ -287,6 +298,49 @@ public class TestStartActivity extends AppCompatActivity {
         });
 
         dialog.show();
+
+    }
+
+    private void startTest() {
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(test_id)) {
+            Toast.makeText(this, "Unable to start Test, lease try again later", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RequestBody time = RequestBody.create(MediaType.parse("text/plain"), ""+(System.currentTimeMillis()/1000));
+        Utils.showProgressDialog(TestStartActivity.this);
+        RestClient.endTest(userId, testID, time, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                ResponseBody testResult = response.body();
+                Utils.dismissProgressDialog();
+                Intent intent = new Intent(TestStartActivity.this, TestV1Activity.class);
+                DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
+                test_id = getIntent().getStringExtra("id");
+                testName = getIntent().getStringExtra("testName");
+                intent.putExtra("id", test_id);
+                intent.putExtra("duration", duration);
+                intent.putExtra("testName", testName);
+                intent.putExtra("resultDate", resultDate);
+
+
+                startActivity(intent);
+                finish();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Utils.dismissProgressDialog();
+            }
+        });
 
     }
 

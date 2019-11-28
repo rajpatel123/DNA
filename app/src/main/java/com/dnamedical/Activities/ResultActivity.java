@@ -161,7 +161,7 @@ public class ResultActivity extends AppCompatActivity {
 
 
                 if (resultDate * 1000 > System.currentTimeMillis()) {
-                    Toast.makeText(ResultActivity.this,"Test is running, review will be available after "+Utils.dateFormat(resultDate),Toast.LENGTH_LONG).show();
+                    Toast.makeText(ResultActivity.this,"Test is running, review will be available after "+Utils.testReviewTime(resultDate),Toast.LENGTH_LONG).show();
                 }else{
                     if (Utils.isInternetConnected(ResultActivity.this)) {
                         Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);

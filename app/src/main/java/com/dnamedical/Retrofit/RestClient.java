@@ -38,6 +38,7 @@ import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
 import com.dnamedical.Models.subs.PlanResponse;
+import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
@@ -188,8 +189,25 @@ public class RestClient {
     }
 
 
-    public static void submitTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<TestResult> callback) {
-        RetrofitClient.getClient().submitTest(userId, testID, isSubmit).enqueue(callback);
+    public static void startTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().startTest(userId, testID, isSubmit).enqueue(callback);
+
+    }
+
+
+    public static void endTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().endTest(userId, testID, isSubmit).enqueue(callback);
+
+    }
+
+
+    public static void submitTest(RequestBody userId, RequestBody testID, RequestBody time, Callback<TestResult> callback) {
+        RetrofitClient.getClient().submitTest(userId, testID, time).enqueue(callback);
+
+    }
+
+    public static void getResultRemark( String testID, Callback<RankResultRemarks> callback) {
+        RetrofitClient.getClient().getResultRemark(testID).enqueue(callback);
 
     }
 

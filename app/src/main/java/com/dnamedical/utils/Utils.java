@@ -179,6 +179,25 @@ public class Utils {
     }
 
 
+    public static String testReviewTime(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY hh:mm a");
+            Date dNow = new Date(timeStamp * 1000);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
     public static long getTimeinMillisecondsFromDate() {
         String myDate = "2020/11/31 12:07:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");

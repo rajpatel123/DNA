@@ -38,6 +38,7 @@ import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
 import com.dnamedical.Models.subs.PlanResponse;
+import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
@@ -74,7 +75,6 @@ public interface ApiInterface {
                                               @Part("institute_id") RequestBody institute_id);
 
 
-
     @Multipart
     @POST("api/api.php?req=registrationnew")
     Call<CommonResponse> registerUser(@Part("fb_id") RequestBody fb_id,
@@ -90,7 +90,7 @@ public interface ApiInterface {
                                       @Part("country") RequestBody countryBody,
                                       @Part("platform") RequestBody plateform,
                                       @Part("academic_year_id") RequestBody acaademicYear_id
-                                      );
+    );
 
 
     @Multipart
@@ -169,18 +169,17 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=order_subscription")
     Call<ResponseBody> addOrderForSubsDetail(@Part("user_id") RequestBody userid,
-                                                  @Part("order_id") RequestBody orderid,
-                                                  @Part("plan_id") RequestBody planid,
-                                                  @Part("subscription_id") RequestBody subsid,
-                                                  @Part("pack_key") RequestBody pack,
-                                                  @Part("months") RequestBody month,
-                                                  @Part("status") RequestBody status,
-                                                  @Part("price") RequestBody price);
+                                             @Part("order_id") RequestBody orderid,
+                                             @Part("plan_id") RequestBody planid,
+                                             @Part("subscription_id") RequestBody subsid,
+                                             @Part("pack_key") RequestBody pack,
+                                             @Part("months") RequestBody month,
+                                             @Part("status") RequestBody status,
+                                             @Part("price") RequestBody price);
 
 
     @Multipart
     @POST("/v1/index.php/api/ordersdetails/saveorder")
-
     Call<CreateOrderResponse> createOrderDetail(@Part("user_id") RequestBody user_id,
                                                 @Part("amount") RequestBody amount,
                                                 @Part("currency") RequestBody currency,
@@ -283,11 +282,32 @@ public interface ApiInterface {
                                 @Part("is_submit") RequestBody isSubmit);
 
 
+
+    @Multipart
+    @POST("api/api.php?req=add_testtime")
+    Call<ResponseBody> startTest(@Part("user_id") RequestBody userId,
+                                @Part("test_id") RequestBody testID,
+                                @Part("start_time") RequestBody startTime);
+
+
+
+    @Multipart
+    @POST("api/api.php?req=add_endtime")
+    Call<ResponseBody> endTest(@Part("user_id") RequestBody userId,
+                                @Part("test_id") RequestBody testID,
+                                    @Part("end_time") RequestBody endTime);
+
+
+
+    @GET("api/api.php?req=get_remark")
+    Call<RankResultRemarks> getResultRemark(@Query("test_id") String testID);
+
+
     @Multipart
     @POST("api/api.php?req=get_testrank")
     Call<RankResult> getStudentRank(@Part("user_id") RequestBody userId,
                                     @Part("test_id") RequestBody testID
-                              );
+    );
 
     @Multipart
     @POST("api/api.php?req=result")
@@ -315,7 +335,6 @@ public interface ApiInterface {
 
     @POST("api/api.php?req=state")
     Call<StateListResponse> stateData();
-
 
 
     @POST("api/api.php?req=getall_academics")
@@ -432,12 +451,9 @@ public interface ApiInterface {
                                    @Part("isreal") RequestBody isreal);
 
 
-
     @Multipart
     @POST("api/api.php?req=checkuserdeleted")
     Call<ResponseBody> checkuserExist(@Part("email_id") RequestBody id);
-
-
 
 
     @Multipart
@@ -470,7 +486,6 @@ public interface ApiInterface {
             @Query("filter_level") String filter_level,
             @Query("filter_answer") String filter_answer,
             @Query("filter_category") String filter_category);
-
 
 
     @Multipart
