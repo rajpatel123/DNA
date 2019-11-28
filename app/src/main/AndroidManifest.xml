@@ -25,6 +25,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
+        <activity android:name=".Activities.ChangePhoneNumberOtypVarification"></activity>
+        <activity android:name=".Activities.ChanePhoneNumberActivity" />
+        <activity android:name=".Activities.InstituteTestActivity" />
         <activity android:name=".Activities.RemarksActivity"></activity>
         <activity android:name=".Activities.InstituteTestActivity" />
         <activity
@@ -45,8 +48,8 @@
         <activity android:name=".Activities.EnterMobileAndEmailActivity" />
         <activity
             android:name=".Activities.UpdateAddressActivity"
-            android:label="Edit Address"
             android:screenOrientation="portrait"
+            android:label="Edit Address"
             android:theme="@style/AppTheme5" />
 
         <service
@@ -185,8 +188,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddressForSubscriptionListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait" />

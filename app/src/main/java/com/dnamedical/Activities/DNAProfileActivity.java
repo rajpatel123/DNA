@@ -1,30 +1,22 @@
 package com.dnamedical.Activities;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.dnamedical.R;
-import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 
 public class DNAProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -71,11 +63,13 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnaprofile);
         ButterKnife.bind(this);
-        textViewChangePassword.setOnClickListener(this);
-        textViewVerification.setOnClickListener(this);
-        textViewSubscription.setOnClickListener(this);
-        setprofiledata();
 
+        textViewSubscription.setOnClickListener(this);
+        textViewChangePassword.setOnClickListener(this);
+        textViewChangePhone.setOnClickListener(this);
+        textViewVerification.setOnClickListener(this);
+
+        setprofiledata();
 
     }
 
@@ -84,10 +78,6 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
         super.onResume();
         setprofiledata();
     }
-
-
-
-
 
     private void setprofiledata() {
         Intent intent = getIntent();
@@ -116,7 +106,6 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
         }
-
 
     }
 
@@ -148,7 +137,6 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
                 Toast.makeText(this, "Reset Password link sent to your email id", Toast.LENGTH_SHORT).show();
                 break;
 
-
             case R.id.id__verification:
                 Intent intent = new Intent(DNAProfileActivity.this, IdVerificationActivitty.class);
                 startActivity(intent);
@@ -158,6 +146,11 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
             case R.id.subscription:
                 Intent intent1 = new Intent(this, DNASuscribeActivity.class);
                 startActivity(intent1);
+                break;
+
+            case R.id.change_phone:
+                Intent intent2 = new Intent(this, ChanePhoneNumberActivity.class);
+                startActivity(intent2);
                 break;
 
         }

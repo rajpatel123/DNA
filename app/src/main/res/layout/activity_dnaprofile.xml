@@ -161,7 +161,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="3px"
-                        android:background="@color/profile_cardview"></View>
+                        android:background="@color/profile_cardview"/>
 
                     <TextView
                         android:id="@+id/change_phone"
@@ -178,7 +178,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="3px"
-                        android:background="@color/profile_cardview"></View>
+                        android:background="@color/profile_cardview"/>
 
                     <TextView
                         android:id="@+id/id__verification"

@@ -39,7 +39,6 @@ public class EnterMobileAndEmailActivity extends AppCompatActivity {
             enter_email = findViewById(R.id.enter_email);
             email_submit = findViewById(R.id.Email_submit_Button);
 
-
             ids = DnaPrefs.getString(getApplicationContext(),Constants.LOGIN_ID);
 
             email_submit.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +49,7 @@ public class EnterMobileAndEmailActivity extends AppCompatActivity {
                 }
             });
         }
+
         public  void enterEmailAddress(){
 
             email = enter_email.getText().toString().trim();

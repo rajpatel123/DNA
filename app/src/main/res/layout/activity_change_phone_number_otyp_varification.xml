@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/pin_content_layout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    tools:context=".Activities.ChangePhoneNumberOtypVarification">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/crossBtn"
@@ -22,19 +21,19 @@
 
 
     <TextView
-        android:id="@+id/otpTxt"
+        android:id="@+id/otpTxtView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="236dp"
         android:gravity="center"
-        android:text="@string/enter_otp_on_email"
+        android:text="@string/enter_otp_on_yor_phoneno"
         android:textStyle="normal" />
 
     <com.alimuzaffar.lib.pin.PinEntryEditText
-        android:id="@+id/pin_layout"
+        android:id="@+id/prntEdtChangePhoneOtp"
         android:layout_width="164dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/otpTxt"
+        android:layout_below="@+id/otpTxtView"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
@@ -45,9 +44,9 @@
         android:gravity="center_horizontal"
         android:imeOptions="actionDone"
         android:inputType="number"
-        android:maxLength="6"
+        android:maxLength="5"
         android:textIsSelectable="false"
-        android:textSize="@dimen/ts_20"
+        android:textSize="20sp"
         app:pinAnimationType="popIn"
         app:pinBackgroundIsSquare="true"
         app:pinCharacterSpacing="12dp"
@@ -70,7 +69,7 @@
 
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/nextBtn"
+        android:id="@+id/btnVerify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -80,8 +79,5 @@
         android:textColor="@color/white"
         app:backgroundTint="@color/colorPrimary" />
 
+
 </RelativeLayout>
-
-
-
-
