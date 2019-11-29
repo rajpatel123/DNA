@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,13 +80,13 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
             RequestBody UserId = RequestBody.create(MediaType.parse("text/plane"), userId);
             RequestBody phoneNo = RequestBody.create(MediaType.parse("text/plane"), updatePhoneNumber);
 
-            RestClient.changePhoneNumber(UserId, phoneNo, new Callback<ChangePhoneNumberResponse>() {
+            RestClient.changePhoneNumber(UserId, phoneNo, new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<ChangePhoneNumberResponse> call, Response<ChangePhoneNumberResponse> response) {
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
                     if (response.code()==200) {
                             Intent intent = new Intent(getApplicationContext(), ChangePhoneNumberOtypVarification.class);
-                            DnaPrefs.putString(getApplicationContext(), Constants.USERPHNUMBER, phoneNumber);
+                            DnaPrefs.putString(getApplicationContext(), Constants.USERPHNUMBER, updatePhoneNumber);
                             //DnaPrefs.putString(getApplicationContext(), Constants.USERID, userId);
                             startActivity(intent);
                             finish();
@@ -94,7 +95,7 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ChangePhoneNumberResponse> call, Throwable t) {
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
 
                 }

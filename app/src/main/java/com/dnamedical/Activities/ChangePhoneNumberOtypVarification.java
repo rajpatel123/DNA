@@ -106,15 +106,16 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity {
 
 
             RequestBody UserId = RequestBody.create(MediaType.parse("text/plane"), userId);
-            RequestBody PhoneNo = RequestBody.create(MediaType.parse("text/plane"), otpNumber);
-            RequestBody Otp = RequestBody.create(MediaType.parse("text/plane"),phoneNumber);
+            RequestBody PhoneNo = RequestBody.create(MediaType.parse("text/plane"), phoneNumber);
+            RequestBody Otp = RequestBody.create(MediaType.parse("text/plane"),otpNumber);
 
+            Utils.showProgressDialog(ChangePhoneNumberOtypVarification.this);
             RestClient.changePhoneNoOTPVerification(UserId, PhoneNo, Otp, new Callback<ChangePhoneNumberOtpResponse>() {
                 @Override
                 public void onResponse(Call<ChangePhoneNumberOtpResponse> call, Response<ChangePhoneNumberOtpResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.body()!=null){
-                        if (response.body().getStatus()=="1"){
+                        if (response.body().getStatus()=="true"){
                             finish();
                             Toast.makeText(getApplicationContext(), "Phone number updated successfully", Toast.LENGTH_SHORT).show();
                         }

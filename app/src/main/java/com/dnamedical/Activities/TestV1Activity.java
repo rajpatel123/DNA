@@ -287,7 +287,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         }
 
         pauseTimer();
-        submitTimeLogTest("switch_question", "" + Seconds);
+        submitTimeLogTest("switch_question", "" + 1);
 
 
         Log.d("Question Number", "" + questionIndex);
@@ -1015,7 +1015,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     private void updateToServerAnswerSelection() {
         pauseTimer();
-        submitTimeLogTest("selecting_option", "" + Seconds);
+        submitTimeLogTest("selecting_option", "" + 1);
         //Toast.makeText(this, "Time for Select Answer ==  time" + Seconds, Toast.LENGTH_LONG).show();
 
         submitAnswer();
@@ -1025,7 +1025,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     private void updateMarkingOptionTime() {
         pauseTimer();
-        submitTimeLogTest("selecting_option", "" + Seconds);
+        submitTimeLogTest("selecting_option", "" + 1);
         //  Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
 
         //  submitAnswer();

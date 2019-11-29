@@ -515,7 +515,7 @@ public interface ApiInterface {
 // Change phone No
     @Multipart
     @POST("api/api.php?req=send_otp")
-    Call<ChangePhoneNumberResponse> changePhoneNumber(@Part("user_id") RequestBody name,
+    Call<ResponseBody> changePhoneNumber(@Part("user_id") RequestBody name,
                                                      @Part("mobile") RequestBody phoneNo);
 
     // change phone no verified otp

@@ -388,7 +388,7 @@ public class RestClient {
     }
 
     // Change phone Number
-    public static void changePhoneNumber(RequestBody user_id, RequestBody phoneNo, Callback<ChangePhoneNumberResponse>callback){
+    public static void changePhoneNumber(RequestBody user_id, RequestBody phoneNo, Callback<ResponseBody>callback){
         RetrofitClient.getClient().changePhoneNumber(user_id, phoneNo).enqueue(callback);
     }
 
