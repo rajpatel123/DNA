@@ -156,12 +156,14 @@
                         android:text="Change Password"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/ts_16"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="3px"
-                        android:background="@color/profile_cardview"></View>
+                        android:background="@color/profile_cardview"
+                        android:visibility="gone"></View>
 
                     <TextView
                         android:id="@+id/change_phone"
