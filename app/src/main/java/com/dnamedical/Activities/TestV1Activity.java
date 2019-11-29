@@ -6,6 +6,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -162,11 +164,11 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             Utils.dismissProgressDialog();
                             if (response != null && response.code() == 200) {
                                 if (isBookmarkedRemoved) {
-                                    // DrawableCompat.setTint(star.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                                   Utils.setTintForImage(TestV1Activity.this,star,R.color.dark_gray);
                                     qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(false);
 
                                 } else {
-                                    //DrawableCompat.setTint(star.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                                    Utils.setTintForImage(TestV1Activity.this,star,R.color.colorPrimary);
                                     qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(true);
 
                                 }
@@ -467,6 +469,13 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         Question question = questionArrayList.get(questionIndex);
         question_id = question.getId();
         guessCheck.setChecked(question.isGues());
+
+        if (question.isBookMarked()){
+            Utils.setTintForImage(TestV1Activity.this,star,R.color.colorPrimary);
+        }else{
+            Utils.setTintForImage(TestV1Activity.this,star,R.color.dark_gray);
+        }
+
         if (!TextUtils.isEmpty(question.getTitle_image())) {
             if (Utils.isInternetConnected(TestV1Activity.this)) {
                 imageQuestion.setVisibility(View.VISIBLE);
@@ -490,8 +499,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
                             }
                         });
-            } else {
-
             }
 
         } else {
@@ -1069,16 +1076,13 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody time = RequestBody.create(MediaType.parse("text/plain"), ""+(System.currentTimeMillis()/1000));
-        Utils.showProgressDialog(TestV1Activity.this);
         RestClient.startTest(userId, testID, time, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Utils.dismissProgressDialog();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Utils.dismissProgressDialog();
             }
         });
 

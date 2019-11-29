@@ -6,8 +6,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -460,5 +462,9 @@ public class Utils {
         // Will print in UTC
         System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
 
+    }
+
+    public static void setTintForImage(Context context, ImageView imageView, int color){
+        imageView.setColorFilter(ContextCompat.getColor(context, color), android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 }

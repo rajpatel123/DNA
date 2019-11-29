@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.dnamedical.Adapters.TestReviewListAdapter;
 import com.dnamedical.Models.testReviewlistnew.Answer;
 import com.dnamedical.Models.testReviewlistnew.Filters;
 import com.dnamedical.Models.testReviewlistnew.Level;
+import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.Models.testReviewlistnew.Subject;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
@@ -34,6 +36,9 @@ import com.dnamedical.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,8 +55,8 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private static String TAG = TestReviewResultActivity.class.getSimpleName();
     private TextView tvFilter;
     private List<Level> filterLevelsList = new ArrayList<>();
-    private List<Answer> filterAnswersList= new ArrayList<>();
-    private List<Subject> filterSubjectList= new ArrayList<>();
+    private List<Answer> filterAnswersList = new ArrayList<>();
+    private List<Subject> filterSubjectList = new ArrayList<>();
     private Filters filters;
     private Button applyFilters;
     String level, subject, answer;
@@ -59,6 +64,8 @@ public class TestReviewResultActivity extends AppCompatActivity {
     RadioGroup subjectGroup;
     RadioGroup levelGroup;
     CardView filterView;
+    private String bookmark;
+    private TestReviewListAdapter testReviewListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,16 +126,12 @@ public class TestReviewResultActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 
     private String getLevelId(String levelSelected) {
-        if (filterLevelsList.size()>0){
-            for (Level level: filterLevelsList){
-                if (level.getName().equalsIgnoreCase(levelSelected)){
+        if (filterLevelsList.size() > 0) {
+            for (Level level : filterLevelsList) {
+                if (level.getName().equalsIgnoreCase(levelSelected)) {
                     return level.getId();
                 }
             }
@@ -137,9 +140,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private String getSubjectId(String subjectSelected) {
-        if (filterLevelsList.size()>0){
-            for (Subject subject: filterSubjectList){
-                if (subject.getName().equalsIgnoreCase(subjectSelected)){
+        if (filterLevelsList.size() > 0) {
+            for (Subject subject : filterSubjectList) {
+                if (subject.getName().equalsIgnoreCase(subjectSelected)) {
                     return subject.getId();
                 }
             }
@@ -148,9 +151,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private String getAnswerId(String anserSelected) {
-        if (filterAnswersList.size()>0){
-            for (Answer answer: filterAnswersList){
-                if (answer.getName().equalsIgnoreCase(anserSelected)){
+        if (filterAnswersList.size() > 0) {
+            for (Answer answer : filterAnswersList) {
+                if (answer.getName().equalsIgnoreCase(anserSelected)) {
                     return answer.getId();
                 }
             }
@@ -159,30 +162,34 @@ public class TestReviewResultActivity extends AppCompatActivity {
     }
 
     private void openFilterDialog() {
-        if (isFilterAdded){
+        if (isFilterAdded) {
             filterView.setVisibility(View.VISIBLE);
             return;
         }
         if (filters != null) {
             filterView.setVisibility(View.VISIBLE);
 
-            if (filterAnswersList.size()>0){
-                isFilterAdded=true;
-                for (Answer answer :filterAnswersList){
+            if (filterAnswersList.size() > 0) {
+                isFilterAdded = true;
+                Answer answerAll = new Answer();
+                answerAll.setId("");
+                answerAll.setName("All");
+                filterAnswersList.add(answerAll);
+                for (Answer answer : filterAnswersList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(answer.getName());
                     anRadioGroup.addView(radioButton);
-                    
+
                 }
 
             }
 
-            if (filterSubjectList.size()>0){
-                Subject subjectAll =new Subject();
+            if (filterSubjectList.size() > 0) {
+                Subject subjectAll = new Subject();
                 subjectAll.setId("");
                 subjectAll.setName("All");
-                filterSubjectList.add(0,subjectAll);
-                for (Subject subject :filterSubjectList){
+                filterSubjectList.add(0, subjectAll);
+                for (Subject subject : filterSubjectList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(subject.getName());
                     subjectGroup.addView(radioButton);
@@ -190,8 +197,12 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
             }
 
-            if (filterLevelsList.size()>0){
-                for (Level level :filterLevelsList){
+            if (filterLevelsList.size() > 0) {
+                Level levelAll = new Level();
+                levelAll.setId("");
+                levelAll.setName("All");
+                filterLevelsList.add(levelAll);
+                for (Level level : filterLevelsList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(level.getName());
                     levelGroup.addView(radioButton);
@@ -240,7 +251,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                     if (response.body() != null) {
                         testReviewListResponse = response.body();
                         if (testReviewListResponse != null && testReviewListResponse.getData().getQuestionList().size() > 0) {
-                            TestReviewListAdapter testReviewListAdapter = new TestReviewListAdapter(getApplicationContext());
+                            testReviewListAdapter = new TestReviewListAdapter(getApplicationContext());
                             testReviewListAdapter.setData(testReviewListResponse.getData());
                             Log.d("Api Response :", "Got Success from data");
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -261,6 +272,53 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                         // Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
 
                                     }
+                                }
+
+                                @Override
+                                public void onBookMarkClick(int position) {
+
+                                    if (testReviewListResponse != null && testReviewListResponse.getData() != null && testReviewListResponse.getData().getQuestionList().size() > 0) {
+                                        QuestionList questionList = testReviewListResponse.getData().getQuestionList().get(position);
+
+                                        if (questionList != null) {
+                                            if (!TextUtils.isEmpty(user_Id) && !TextUtils.isEmpty(test_Id)) {
+                                                RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
+                                                RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_Id);
+                                                RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), questionList.getId());
+                                                RequestBody remove_bookmark = null;
+                                                if (questionList.getIsBookmark() == 0) {
+                                                    remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
+                                                } else {
+                                                    remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
+                                                }
+
+                                                Utils.showProgressDialog(TestReviewResultActivity.this);
+                                                RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, new Callback<ResponseBody>() {
+                                                    @Override
+                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                        Utils.dismissProgressDialog();
+                                                        if (response != null && response.code() == 200) {
+                                                            if (testReviewListAdapter != null) {
+                                                                if (questionList.getIsBookmark() == 0) {
+                                                                    questionList.setIsBookmark(1);
+                                                                } else {
+                                                                    questionList.setIsBookmark(0);
+
+                                                                }
+                                                                testReviewListAdapter.notifyItemChanged(position);
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                        Utils.dismissProgressDialog();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+
                                 }
                             });
                             Log.d("Api Response :", "Got Success from send");
@@ -340,6 +398,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
             level = "";
             subject = "";
             answer = "";
+            bookmark = "";
             openFilterDialog();
             return true;
         } else {

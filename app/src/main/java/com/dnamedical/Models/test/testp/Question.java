@@ -49,6 +49,10 @@ public class Question implements Parcelable {
         isBookMarked = bookMarked;
     }
 
+    public static Creator<Question> getCREATOR() {
+        return CREATOR;
+    }
+
     private boolean isBookMarked;
 
     public boolean isGues() {

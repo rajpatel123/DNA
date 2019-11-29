@@ -59,6 +59,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public LinearLayout tabBar;
@@ -199,7 +201,12 @@ public class MainActivity extends AppCompatActivity
                         JSONObject obj = new JSONObject(response.body().string());
 
                         if (obj.getString("status").equals("2")){
-                            userlogout();
+
+                            DnaPrefs.clear(MainActivity.this);
+                            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 } catch (IOException e) {
@@ -574,6 +581,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+
+        if (TextUtils.isEmpty(userId)){
+            DnaPrefs.clear(MainActivity.this);
+            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         checkUserExistance();
     }

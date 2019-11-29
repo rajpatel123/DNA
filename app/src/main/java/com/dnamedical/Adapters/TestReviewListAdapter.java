@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Activities.TestV1Activity;
 import com.dnamedical.Models.testReviewlistnew.Data;
+import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
 
 import java.util.List;
 
@@ -41,12 +44,26 @@ public class TestReviewListAdapter extends RecyclerView.Adapter<TestReviewListAd
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        if (datalist.getQuestionList().get(position).getCategoryId() != null) {
-            holder.txtTestName.setText("Q "+(position+1)+". " + datalist.getQuestionList().get(position).getTitle());
+        QuestionList questionModel = datalist.getQuestionList().get(position);
+        if (questionModel==null){
+            return;
         }
 
-        if (datalist.getQuestionList().get(position).getCategoryName() != null) {
-            holder.txtTestCategoryName.setText("" + datalist.getQuestionList().get(position).getCategoryName());
+        if (questionModel.getCategoryId() != null) {
+            holder.txtTestName.setText("Q "+(position+1)+". " + questionModel.getTitle());
+        }
+
+
+        if (questionModel.getIsBookmark()==1){
+            Utils.setTintForImage(context,holder.imgBookmark,R.color.colorPrimary);
+
+        }else{
+            Utils.setTintForImage(context,holder.imgBookmark,R.color.dark_gray);
+
+        }
+
+        if (questionModel.getCategoryName() != null) {
+            holder.txtTestCategoryName.setText("" + questionModel.getCategoryName());
         }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +71,18 @@ public class TestReviewListAdapter extends RecyclerView.Adapter<TestReviewListAd
                 if(testClickListener!=null)
                 {
                     testClickListener.onTestClicklist(position);
+                   // Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        holder.imgBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(testClickListener!=null)
+                {
+                    testClickListener.onBookMarkClick(holder.getAdapterPosition());
                    // Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -89,7 +118,8 @@ public class TestReviewListAdapter extends RecyclerView.Adapter<TestReviewListAd
         }
     }
     public interface TestClickListener {
-        public void onTestClicklist(int postion);
+        public void onTestClicklist(int position);
+        public void onBookMarkClick(int position);
 
     }
 

@@ -29,7 +29,6 @@
         <activity android:name=".Activities.ChanePhoneNumberActivity" />
         <activity android:name=".Activities.InstituteTestActivity" />
         <activity android:name=".Activities.RemarksActivity"></activity>
-        <activity android:name=".Activities.InstituteTestActivity" />
         <activity
             android:name=".Activities.SubscriptionPaymentActivity"
             android:screenOrientation="portrait"

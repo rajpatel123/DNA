@@ -210,7 +210,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
         if (TextUtils.isEmpty(userId)){
-            mainActivity.userlogout();
+            return;
         }
 
         if (Utils.isInternetConnected(getActivity())) {
