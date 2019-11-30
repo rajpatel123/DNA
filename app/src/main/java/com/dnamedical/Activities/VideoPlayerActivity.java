@@ -22,6 +22,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,7 +83,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     RelativeLayout toolbar;
+    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
 
+    public int Seconds, Minutes, MilliSeconds;
 
     @BindView(R.id.md_replay)
     ImageView md_replay;
@@ -200,14 +203,17 @@ public class VideoPlayerActivity extends AppCompatActivity {
     };
     private String mobileTxt;
     private String userId;
+    private int minutes;
 
 
     private void onSingle() {
         String uri = url;
         initPlayer(upper_exoplayer, upper_exoCallback, uri);
         upper_progress.setVisibility(View.VISIBLE);
+        startTimer();
 
-       /* new Handler().postDelayed(new Runnable() {
+
+        /* new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // This method will be executed once the timer is over
@@ -693,6 +699,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void onBackClick() {
         if (upper_exoplayer != null) {
             upper_exoplayer.stop();
+            pauseTimer();
+
+            int p1 = Seconds % 60;
+            int p2 = Seconds / 60;
+             minutes = p2 % 60;
+
         }
 
         if (TextUtils.isEmpty(videoId)){
@@ -707,7 +719,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
-        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+TimeUnit.MILLISECONDS.toMinutes(upper_exoplayer.getCurrentPosition()));
+        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+minutes);
+
+
+        Log.d("TimeCall","user_id  "+userId+" videoID "+videoId+" Time "+minutes);
         //RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+100);
 
         if (Utils.isInternetConnected(this)){
@@ -827,6 +842,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         try {
             if (upper_exoplayer != null) {
                 upper_exoplayer.start();
+                startTimer();
 //                if (upper_exoplayer.isPlayerBuffered()) {
 //                    //Change code here
 //                   // int pos = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
@@ -856,12 +872,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 md_play.setImageResource(R.drawable.ic_pause_new);
                 if (upper_exoplayer.isEnded()) {
                     upper_exoplayer.start();
+                    startTimer();
                 } else {
                     upper_exoplayer.start();
+                    startTimer();
                 }
             } else {
                 md_play.setImageResource(R.drawable.ic_play);
                 upper_exoplayer.pause();
+                pauseTimer();
             }
         }
 
@@ -896,6 +915,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void pauseAllPlayer() {
         if (upper_exoplayer != null) {
             upper_exoplayer.pause();
+            pauseTimer();
         }
     }
 
@@ -943,4 +963,51 @@ public class VideoPlayerActivity extends AppCompatActivity {
     public void onBackPressed() {
         onBackClick();
     }
+
+
+
+
+    public void startTimer() {
+
+        StartTime = SystemClock.uptimeMillis();
+        handler.postDelayed(runnable, 0);
+
+    }
+
+
+    public void resettimer() {
+        MillisecondTime = 0L;
+        StartTime = 0L;
+        TimeBuff = 0L;
+        UpdateTime = 0L;
+        Seconds = 0;
+        Minutes = 0;
+        MilliSeconds = 0;
+        Seconds = 0;
+    }
+
+
+    public void pauseTimer() {
+        TimeBuff += MillisecondTime;
+        handler.removeCallbacks(runnable);
+
+
+    }
+
+
+    public Runnable runnable = new Runnable() {
+
+        public void run() {
+
+            MillisecondTime = SystemClock.uptimeMillis() - StartTime;
+
+            UpdateTime = TimeBuff + MillisecondTime;
+
+            Seconds = (int) (UpdateTime / 1000);
+
+
+            handler.postDelayed(this, 0);
+        }
+
+    };
 }

@@ -53,13 +53,13 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private ImageView imageView;
     private TestReviewListResponse testReviewListResponse;
     private static String TAG = TestReviewResultActivity.class.getSimpleName();
-    private TextView tvFilter;
+    private TextView tvFilter, noContent;
     private List<Level> filterLevelsList = new ArrayList<>();
     private List<Answer> filterAnswersList = new ArrayList<>();
     private List<Subject> filterSubjectList = new ArrayList<>();
     private Filters filters;
     private Button applyFilters;
-    String level, subject, answer;
+    String level, subject, answer,filter_bookmark;
     RadioGroup anRadioGroup;
     RadioGroup subjectGroup;
     RadioGroup levelGroup;
@@ -77,6 +77,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
         filterView = findViewById(R.id.filterView);
         anRadioGroup = findViewById(R.id.answersGroup);
         subjectGroup = findViewById(R.id.subjectsGroup);
+        noContent = findViewById(R.id.noContent);
         levelGroup = findViewById(R.id.levelGroup);
 
 
@@ -84,24 +85,19 @@ public class TestReviewResultActivity extends AppCompatActivity {
         setSupportActionBar(mTopToolbar);
 
 
-        applyFilters.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getFilterSelection();
-                getReviewData();
-                filterView.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    private void getFilterSelection() {
-
         anRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton answerSected = findViewById(checkedId);
-                answer = getAnswerId(answerSected.getText().toString());
+                String str = answerSected.getText().toString();
+                if (str.equalsIgnoreCase("Bookmarked")){
+                    filter_bookmark ="test";
+                }else{
+                    answer = getAnswerId(str);
+                    filter_bookmark="";
+
+                }
+
             }
         });
 
@@ -125,8 +121,16 @@ public class TestReviewResultActivity extends AppCompatActivity {
             }
         });
 
+        applyFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                getReviewData();
+                filterView.setVisibility(View.GONE);
+            }
+        });
     }
+
 
     private String getLevelId(String levelSelected) {
         if (filterLevelsList.size() > 0) {
@@ -168,13 +172,13 @@ public class TestReviewResultActivity extends AppCompatActivity {
         }
         if (filters != null) {
             filterView.setVisibility(View.VISIBLE);
-
+            Answer answerb = new Answer();
+            answerb.setId("test");
+            answerb.setName("Bookmarked");
+            filterAnswersList.add(1,answerb);
             if (filterAnswersList.size() > 0) {
                 isFilterAdded = true;
-                Answer answerAll = new Answer();
-                answerAll.setId("");
-                answerAll.setName("All");
-                filterAnswersList.add(answerAll);
+
                 for (Answer answer : filterAnswersList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(answer.getName());
@@ -201,7 +205,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                 Level levelAll = new Level();
                 levelAll.setId("");
                 levelAll.setName("All");
-                filterLevelsList.add(levelAll);
+                filterLevelsList.add(0, levelAll);
                 for (Level level : filterLevelsList) {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(level.getName());
@@ -244,11 +248,14 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getTestReviewListData(test_Id, user_Id, level, subject, answer, new Callback<TestReviewListResponse>() {
+            RestClient.getTestReviewListData(test_Id, user_Id, level, subject, answer,filter_bookmark, new Callback<TestReviewListResponse>() {
                 @Override
                 public void onResponse(Call<TestReviewListResponse> call, Response<TestReviewListResponse> response) {
                     Utils.dismissProgressDialog();
-                    if (response.body() != null) {
+                    if (response.code() == 200 && response.body() != null) {
+                        if (testReviewListResponse != null) {
+                            testReviewListResponse = null;
+                        }
                         testReviewListResponse = response.body();
                         if (testReviewListResponse != null && testReviewListResponse.getData().getQuestionList().size() > 0) {
                             testReviewListAdapter = new TestReviewListAdapter(getApplicationContext());
@@ -256,6 +263,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             Log.d("Api Response :", "Got Success from data");
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(mLayoutManager);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            noContent.setVisibility(View.GONE);
+
                             Log.d("Api Response :", "Got Success from layout");
                             recyclerView.setAdapter(testReviewListAdapter);
                             testReviewListAdapter.setTestClickListener(new TestReviewListAdapter.TestClickListener() {
@@ -287,16 +297,14 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                                 RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), questionList.getId());
                                                 RequestBody remove_bookmark = null;
                                                 if (questionList.getIsBookmark() == 0) {
-                                                    remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
-                                                } else {
                                                     remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
+                                                } else {
+                                                    remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
                                                 }
 
-                                                Utils.showProgressDialog(TestReviewResultActivity.this);
                                                 RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, new Callback<ResponseBody>() {
                                                     @Override
                                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                        Utils.dismissProgressDialog();
                                                         if (response != null && response.code() == 200) {
                                                             if (testReviewListAdapter != null) {
                                                                 if (questionList.getIsBookmark() == 0) {
@@ -312,7 +320,6 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
                                                     @Override
                                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                        Utils.dismissProgressDialog();
                                                     }
                                                 });
                                             }
@@ -330,9 +337,14 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            Toast.makeText(TestReviewResultActivity.this, "No Test", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TestReviewResultActivity.this, "No question found", Toast.LENGTH_SHORT).show();
                         }
 
+                    } else {
+                        noContent.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+
+                        Toast.makeText(TestReviewResultActivity.this, "No question found", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -395,10 +407,10 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
-            level = "";
-            subject = "";
-            answer = "";
-            bookmark = "";
+//            level = "";
+//            subject = "";
+//            answer = "";
+//            bookmark = "";
             openFilterDialog();
             return true;
         } else {

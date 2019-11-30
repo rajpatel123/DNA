@@ -315,7 +315,7 @@ public class TestStartActivity extends AppCompatActivity {
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody time = RequestBody.create(MediaType.parse("text/plain"), ""+(System.currentTimeMillis()/1000));
         Utils.showProgressDialog(TestStartActivity.this);
-        RestClient.endTest(userId, testID, time, new Callback<ResponseBody>() {
+        RestClient.startTest(userId, testID, time, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody testResult = response.body();

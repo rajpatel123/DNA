@@ -44,6 +44,7 @@ import com.dnamedical.utils.PicassoImageGetter;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +90,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     public String isGuess;
     ProgressBar progressBar;
     public Button nextBtn, prevBtn;
-    static int currentPosition;
     boolean timeUp;
     private String testName;
     long testDuration = 0;
@@ -149,12 +149,20 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
                     RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), question_id);
                     RequestBody remove_bookmark = null;
-                    if (qustionDetails.getData().getQuestionList().get(currentPosition).isBookMarked()) {
+                    if (qustionDetails.getData().getQuestionList().get(questionIndex).isBookMarked()) {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
-                        isBookmarkedRemoved = true;
+                        qustionDetails.getData().getQuestionList().get(questionIndex).setBookMarked(false);
+
+                        Log.d("BookMark",""+1);
+                        star.setBackgroundResource(R.drawable.star_grey);
+
                     } else {
-                        isBookmarkedRemoved = false;
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
+                        qustionDetails.getData().getQuestionList().get(questionIndex).setBookMarked(true);
+                        star.setBackgroundResource(R.drawable.star_colored);
+                        Log.d("BookMark",""+0);
+
+
                     }
 
                     Utils.showProgressDialog(TestV1Activity.this);
@@ -163,15 +171,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             Utils.dismissProgressDialog();
                             if (response != null && response.code() == 200) {
-                                if (isBookmarkedRemoved) {
-                                   Utils.setTintForImage(TestV1Activity.this,star,R.color.dark_gray);
-                                    qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(false);
 
-                                } else {
-                                    Utils.setTintForImage(TestV1Activity.this,star,R.color.colorPrimary);
-                                    qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(true);
-
-                                }
                             }
                         }
 
@@ -464,16 +464,22 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
     private void updateQuestionsFragment(int questionIndex) {
+
+
+
         PicassoImageGetter imageGetter = new PicassoImageGetter(questionTxt, this);
         answerList.removeAllViews();
         Question question = questionArrayList.get(questionIndex);
+
+
+
         question_id = question.getId();
         guessCheck.setChecked(question.isGues());
 
-        if (question.isBookMarked()){
-            Utils.setTintForImage(TestV1Activity.this,star,R.color.colorPrimary);
-        }else{
-            Utils.setTintForImage(TestV1Activity.this,star,R.color.dark_gray);
+        if (question.isBookMarked()) {
+            star.setBackgroundResource(R.drawable.star_colored);
+        } else {
+            star.setBackgroundResource(R.drawable.star_grey);
         }
 
         if (!TextUtils.isEmpty(question.getTitle_image())) {
@@ -494,7 +500,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                                     progressBar.setVisibility(View.GONE);
                                 }
                                 imageQuestion.setVisibility(View.GONE);
-                                Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
 
 
                             }
@@ -1070,19 +1076,24 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         }
 
         if (TextUtils.isEmpty(test_id)) {
-            Toast.makeText(this, "Unable to start Test, lease try again later", Toast.LENGTH_SHORT).show();
             return;
         }
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody time = RequestBody.create(MediaType.parse("text/plain"), ""+(System.currentTimeMillis()/1000));
-        RestClient.startTest(userId, testID, time, new Callback<ResponseBody>() {
+        RestClient.endTest(userId, testID, time, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.d("data",response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
             }
         });
 

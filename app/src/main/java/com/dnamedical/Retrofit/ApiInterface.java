@@ -487,7 +487,8 @@ public interface ApiInterface {
             @Query("user_id") String user_id,
             @Query("filter_level") String filter_level,
             @Query("filter_answer") String filter_answer,
-            @Query("filter_category") String filter_category);
+            @Query("filter_category") String filter_category,
+            @Query("filter_bookmark") String filter_bookmark);
 
 
     @Multipart

@@ -6,49 +6,70 @@ import com.google.gson.annotations.SerializedName;
 
 public class RankResult {
 
-@SerializedName("status")
-@Expose
-private String status;
-@SerializedName("message")
-@Expose
-private String message;
-@SerializedName("rank")
-@Expose
-private String rank;
-@SerializedName("total_students")
-@Expose
-private Integer totalStudents;
 
-public String getStatus() {
-return status;
-}
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("rank")
+    @Expose
+    private String rank;
+    @SerializedName("total_students")
+    @Expose
+    private Integer totalStudents;
+    @SerializedName("start_time")
+    @Expose
+    private String startTime;
+    @SerializedName("end_time")
+    @Expose
+    private String endTime;
 
-public void setStatus(String status) {
-this.status = status;
-}
+    public String getStatus() {
+        return status;
+    }
 
-public String getMessage() {
-return message;
-}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-public void setMessage(String message) {
-this.message = message;
-}
+    public String getMessage() {
+        return message;
+    }
 
-public String getRank() {
-return rank;
-}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-public void setRank(String rank) {
-this.rank = rank;
-}
+    public String getRank() {
+        return rank;
+    }
 
-public Integer getTotalStudents() {
-return totalStudents;
-}
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
 
-public void setTotalStudents(Integer totalStudents) {
-this.totalStudents = totalStudents;
-}
+    public Integer getTotalStudents() {
+        return totalStudents;
+    }
 
-}
+    public void setTotalStudents(Integer totalStudents) {
+        this.totalStudents = totalStudents;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }}

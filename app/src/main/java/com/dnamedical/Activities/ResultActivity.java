@@ -244,9 +244,6 @@ public class ResultActivity extends AppCompatActivity {
         init(testResult.getData().getScoreAnalysis());
 
         if (testResult != null && testResult.getData() != null) {
-            startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
-            endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
-            totalTestTime.setText("" + Utils.getTimeTakenInTestFormat((testResult.getData().getEndTime() - testResult.getData().getStartTime())));
             dateTV.setText("" + Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
 
             yourScoreTV.setText("" + testResult.getData().getYourScore());
@@ -304,6 +301,12 @@ public class ResultActivity extends AppCompatActivity {
                 if (rankResult != null) {
                     rankTV.setText("" + rankResult.getRank());
                     totalstudent.setText("" + rankResult.getTotalStudents());
+                    startTimeTV.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getStartTime())));
+                    endTimeTv.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getEndTime())));
+                    int  time = Integer.parseInt(rankResult.getEndTime()) -Integer.parseInt(rankResult.getStartTime());
+                    totalTestTime.setText("" + Utils.getTimeTakenInTestFormat(time));
+
+
                 }
 
             }

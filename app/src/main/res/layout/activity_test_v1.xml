@@ -216,12 +216,11 @@
 
                 <ImageView
                     android:id="@+id/star"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/margin_20dp"
-                    app:srcCompat="@drawable/test_star"
+                    android:layout_marginStart="@dimen/margin_10"
                     android:layout_toEndOf="@+id/context_Menu"
                     />
 

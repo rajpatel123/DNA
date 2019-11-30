@@ -197,8 +197,8 @@ public class RestClient {
     }
 
 
-    public static void endTest(RequestBody userId, RequestBody testID, RequestBody isSubmit, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().endTest(userId, testID, isSubmit).enqueue(callback);
+    public static void endTest(RequestBody userId, RequestBody testID, RequestBody time, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().endTest(userId, testID, time).enqueue(callback);
 
     }
 
@@ -368,8 +368,8 @@ public class RestClient {
     }
     // new Api changes Here
 
-    public static void getTestReviewListData(String test_id, String user_id, String level, String subject, String answer, Callback<TestReviewListResponse> callback) {
-        RetrofitClient.getClient().getTestReviewListData(test_id, user_id,level,answer,subject).enqueue(callback);
+    public static void getTestReviewListData(String test_id, String user_id, String level, String subject, String answer,String filter_bookmark, Callback<TestReviewListResponse> callback) {
+        RetrofitClient.getClient().getTestReviewListData(test_id, user_id,level,answer,subject,filter_bookmark).enqueue(callback);
     }
 
 
