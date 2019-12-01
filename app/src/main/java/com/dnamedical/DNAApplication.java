@@ -10,15 +10,19 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.dnamedical.Models.test.TestQuestionData;
+import com.dnamedical.Models.testReviewlistnew.QuestionList;
 
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DNAApplication extends MultiDexApplication {
 
     static DNAApplication dnaApplication = null;
 
+    List<QuestionList> questionList = new ArrayList<>();
     public static TestQuestionData getTestQuestionData() {
         return testQuestionData;
     }
@@ -75,5 +79,14 @@ public class DNAApplication extends MultiDexApplication {
             dnaApplication = new DNAApplication();
         }
         return dnaApplication;
+    }
+
+    public void setReviewList(List<QuestionList> questionList) {
+        this.questionList = questionList;
+    }
+
+
+    public List<QuestionList> getQuestionList(){
+        return questionList;
     }
 }

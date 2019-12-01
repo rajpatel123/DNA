@@ -11,13 +11,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
 import com.dnamedical.fragment.ReviewResultFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ReviewresulActivity extends FragmentActivity {
@@ -32,7 +35,7 @@ public class ReviewresulActivity extends FragmentActivity {
     TextView leftTest, rightTest;
     static int itemPosition;
     Button back_button;
-    private ArrayList<QuestionList> reviewResult;
+    private List<QuestionList> reviewResult;
 
 
     @Override
@@ -44,7 +47,7 @@ public class ReviewresulActivity extends FragmentActivity {
         quesionCounter = findViewById(R.id.question_number);
 
         Intent intent = getIntent();
-        reviewResult = intent.getParcelableArrayListExtra("list");
+        reviewResult = DNAApplication.getInstance().getQuestionList();
         itemPosition = intent.getIntExtra("position", 0);
         if (reviewResult != null) {
             mAdapter = new MyAdapter(getSupportFragmentManager(), reviewResult, quesionCounter);
@@ -124,10 +127,10 @@ public class ReviewresulActivity extends FragmentActivity {
     };
 
     public static class MyAdapter extends FragmentPagerAdapter {
-        ArrayList<QuestionList> reviewResult = null;
+        List<QuestionList> reviewResult = null;
         TextView quesionCounter;
 
-        public MyAdapter(FragmentManager fragmentManager, ArrayList<QuestionList> reviewResult, TextView quesionCounter) {
+        public MyAdapter(FragmentManager fragmentManager, List<QuestionList> reviewResult, TextView quesionCounter) {
             super(fragmentManager);
             this.reviewResult = reviewResult;
             this.quesionCounter = quesionCounter;

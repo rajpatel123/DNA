@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.TestReviewListAdapter;
+import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.testReviewlistnew.Answer;
 import com.dnamedical.Models.testReviewlistnew.Filters;
 import com.dnamedical.Models.testReviewlistnew.Level;
@@ -273,15 +274,19 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                 public void onTestClicklist(int postion) {
 
 
-                                    if (filterView.getVisibility() != View.VISIBLE) {
-                                        Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
-                                        intent.putExtra("position", postion);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.putParcelableArrayListExtra("list", testReviewListResponse.getData().getQuestionList());
-                                        startActivity(intent);
-                                        // Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
+                                    intent.putExtra("position", postion);
+                                    DNAApplication.getInstance().setReviewList(testReviewListResponse.getData().getQuestionList());
+                                    startActivity(intent);
 
-                                    }
+//                                    if (filterView.getVisibility() != View.VISIBLE) {
+//                                        Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
+//                                        intent.putExtra("position", postion);
+//                                        intent.putParcelableArrayListExtra("list", testReviewListResponse.getData().getQuestionList());
+//                                        startActivity(intent);
+//                                        // Toast.makeText(TestReviewResultActivity.this, "" + postion, Toast.LENGTH_SHORT).show();
+//
+//                                    }
                                 }
 
                                 @Override

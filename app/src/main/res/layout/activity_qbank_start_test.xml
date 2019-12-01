@@ -16,15 +16,13 @@
 
         <ImageView
             android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            app:srcCompat="@drawable/ic_left_arrow"
-            android:tint="@color/white" />
+            app:tintMode="@color/white"
+            android:layout_marginStart="@dimen/margin_20"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
 
         <TextView
             android:id="@+id/qbank_sub_subcategory_name"

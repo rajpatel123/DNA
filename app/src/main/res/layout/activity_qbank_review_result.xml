@@ -22,11 +22,13 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/back"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="5dp"
-                app:srcCompat="@drawable/review_back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                app:tintMode="@color/white"
+                android:layout_marginStart="@dimen/margin_20"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
             <TextView
                 android:layout_marginLeft="50dp"
                 android:textColor="@color/white"

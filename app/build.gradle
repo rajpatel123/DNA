@@ -79,6 +79,8 @@ android {
         sourceCompatibility 1.8
     }
 
+
+
 }
 
 dependencies {
@@ -86,6 +88,9 @@ dependencies {
     implementation project(':easy-player')
     implementation project(':indicatorseekbar')
     //    implementation project(':pinentryedittext')
+
+
+
 
     implementation 'com.karumi:dexter:4.2.0'
     //noinspection GradleCompatible
