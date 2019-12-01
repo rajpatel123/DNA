@@ -85,7 +85,7 @@ public class ResultActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("testid")) {
             test_id = getIntent().getStringExtra("testid");
-            resultDate = getIntent().getLongExtra("resultDate",0);
+            resultDate = getIntent().getLongExtra("resultDate", 0);
         }
 
 
@@ -161,8 +161,8 @@ public class ResultActivity extends AppCompatActivity {
 
 
                 if (resultDate * 1000 > System.currentTimeMillis()) {
-                    Toast.makeText(ResultActivity.this,"Test is running, review will be available after "+Utils.testReviewTime(resultDate),Toast.LENGTH_LONG).show();
-                }else{
+                    Toast.makeText(ResultActivity.this, "Test is running, review will be available after " + Utils.testReviewTime(resultDate), Toast.LENGTH_LONG).show();
+                } else {
                     if (Utils.isInternetConnected(ResultActivity.this)) {
                         Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -301,9 +301,19 @@ public class ResultActivity extends AppCompatActivity {
                 if (rankResult != null) {
                     rankTV.setText("" + rankResult.getRank());
                     totalstudent.setText("" + rankResult.getTotalStudents());
-                    startTimeTV.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getStartTime())));
-                    endTimeTv.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getEndTime())));
-                    int  time = Integer.parseInt(rankResult.getEndTime()) -Integer.parseInt(rankResult.getStartTime());
+
+                    int time = 0;
+                    if (!TextUtils.isEmpty(rankResult.getStartTime())) {
+                        startTimeTV.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getStartTime())));
+                        endTimeTv.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getEndTime())));
+                        time = Integer.parseInt(rankResult.getEndTime()) - Integer.parseInt(rankResult.getStartTime());
+
+                    } else {
+                        startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
+                        endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
+                        time = testResult.getData().getEndTime() - testResult.getData().getStartTime();
+
+                    }
                     totalTestTime.setText("" + Utils.getTimeTakenInTestFormat(time));
 
 
@@ -341,7 +351,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<TestResult> call, Throwable t) {
                 Utils.dismissProgressDialog();
-              //  Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
+                //  Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
             }
         });
 

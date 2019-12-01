@@ -421,8 +421,6 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         Intent resultIntent = new Intent();
         setResult(Activity.RESULT_OK, resultIntent);
         finish(); // close this activity and return to preview activity (if there is any)
-
-
         return super.onOptionsItemSelected(item);
     }
 

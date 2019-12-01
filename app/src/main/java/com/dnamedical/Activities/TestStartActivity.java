@@ -168,7 +168,7 @@ public class TestStartActivity extends AppCompatActivity {
 
                     if (Utils.isInternetConnected(TestStartActivity.this)) {
                         if (resultDate * 1000 > System.currentTimeMillis()) {
-                            Toast.makeText(TestStartActivity.this, "Result does not declared, review will be available on " + Utils.testReviewTime(resultDate), Toast.LENGTH_LONG).show();
+                            Toast.makeText(TestStartActivity.this, "Result does not declared, review will be available on " + Utils.startTimeFormat(resultDate*1000), Toast.LENGTH_LONG).show();
                         } else {
                             Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
 
