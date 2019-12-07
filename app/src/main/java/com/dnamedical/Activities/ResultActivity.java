@@ -74,6 +74,7 @@ public class ResultActivity extends AppCompatActivity {
     private RankResult rankResult;
     private String sharePath = "no";
     private long resultDate;
+    private boolean isDailyTest;
 
 
     @Override
@@ -86,6 +87,9 @@ public class ResultActivity extends AppCompatActivity {
         if (getIntent().hasExtra("testid")) {
             test_id = getIntent().getStringExtra("testid");
             resultDate = getIntent().getLongExtra("resultDate", 0);
+            isDailyTest = getIntent().getBooleanExtra(Constants.ISDAILY_TEST, false);
+
+
         }
 
 
@@ -160,21 +164,30 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (resultDate * 1000 > System.currentTimeMillis()) {
-                    Toast.makeText(ResultActivity.this, "Test is running, review will be available after " + Utils.testReviewTime(resultDate), Toast.LENGTH_LONG).show();
+                if (isDailyTest) {
+                    gotoReview();
                 } else {
-                    if (Utils.isInternetConnected(ResultActivity.this)) {
-                        Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent1.putExtra("testid", test_id);
-                        startActivity(intent1);
+                    if (resultDate * 1000 > System.currentTimeMillis()) {
+                        Toast.makeText(ResultActivity.this, "Test is running, review will be available after " + Utils.testReviewTime(resultDate), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                        gotoReview();
                     }
                 }
 
+
             }
         });
+    }
+
+    private void gotoReview() {
+        if (Utils.isInternetConnected(ResultActivity.this)) {
+            Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
+            intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent1.putExtra("testid", test_id);
+            startActivity(intent1);
+        } else {
+            Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -292,12 +305,12 @@ public class ResultActivity extends AppCompatActivity {
 
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        Utils.showProgressDialog(ResultActivity.this);
+       // Utils.showProgressDialog(ResultActivity.this);
         RestClient.getStudentRank(userId, testID, new Callback<RankResult>() {
             @Override
             public void onResponse(Call<RankResult> call, Response<RankResult> response) {
                 rankResult = response.body();
-                Utils.dismissProgressDialog();
+                //Utils.dismissProgressDialog();
                 if (rankResult != null) {
                     rankTV.setText("" + rankResult.getRank());
                     totalstudent.setText("" + rankResult.getTotalStudents());
@@ -323,7 +336,7 @@ public class ResultActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RankResult> call, Throwable t) {
-                Utils.dismissProgressDialog();
+               // Utils.dismissProgressDialog();
                 Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
             }
         });

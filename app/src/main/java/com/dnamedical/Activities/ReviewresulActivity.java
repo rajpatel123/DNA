@@ -100,6 +100,14 @@ public class ReviewresulActivity extends FragmentActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        DNAApplication.getInstance().setReviewList(new ArrayList<>());
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

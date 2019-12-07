@@ -164,7 +164,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         if (allTestFragment == null) {
             return;
         }
-        dailyTestFragment.showTest();
+        dailyTestFragment.showTest(true);
         //allTestFragment.showTest();
         mockTestFragment.showTest();
         grandTestFragment.showTest();

@@ -53,4 +53,5 @@ public class Constants {
 
 
     public static final String FROM_INSTITUTE = "frompage";
+    public static final String ISDAILY_TEST = "isDailytest";
 }

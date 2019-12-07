@@ -6,8 +6,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -108,6 +106,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private TextView answer1, answer2, answer3, answer4;
     private long resultDate;
     private boolean isSubmitVisible = false;
+    private boolean isDailyTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,14 +152,14 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
                         qustionDetails.getData().getQuestionList().get(questionIndex).setBookMarked(false);
 
-                        Log.d("BookMark",""+1);
+                        Log.d("BookMark", "" + 1);
                         star.setBackgroundResource(R.drawable.star_grey);
 
                     } else {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
                         qustionDetails.getData().getQuestionList().get(questionIndex).setBookMarked(true);
                         star.setBackgroundResource(R.drawable.star_colored);
-                        Log.d("BookMark",""+0);
+                        Log.d("BookMark", "" + 0);
 
 
                     }
@@ -193,13 +192,28 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         closeSheet = findViewById(R.id.closeSheet);
         quesionCounter = findViewById(R.id.counter);
         timer = findViewById(R.id.timer);
-        String duration = getIntent().getStringExtra("duration");
-        testName = getIntent().getStringExtra("testName");
-        resultDate = getIntent().getLongExtra("resultDate", 0);
-        test_id = getIntent().getStringExtra("id");
+
+
+        Intent intent = getIntent();
+        String duration = intent.getStringExtra("duration");
+        testName = intent.getStringExtra("testName");
+        resultDate = intent.getLongExtra("resultDate", 0);
+        test_id = intent.getStringExtra("id");
+        isDailyTest = intent.getBooleanExtra(Constants.ISDAILY_TEST, false);
+
         if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
-            testDuration = (resultDate*1000)-System.currentTimeMillis();
+            if (isDailyTest || resultDate < System.currentTimeMillis()) {
+                testDuration = Long.parseLong(duration) * 1000;
+            } else {
+
+                testDuration = (resultDate * 1000) - System.currentTimeMillis();
+
+            }
         }
+
+
+
+
         resettimer();
         startTimer();
         nextBtn = findViewById(R.id.skip_button);
@@ -243,9 +257,18 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 timer.setText(hms);
                 testCompleteTime = TimeUnit.MILLISECONDS.toMinutes(testDuration - millis);
 
-                if (resultDate * 1000 < System.currentTimeMillis()) {
-                    submitAlertDiolog("Test time is over, kindly submit the test");
+                if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
+                    if (isDailyTest || resultDate < System.currentTimeMillis()) {
+                    }else{
+                        if (resultDate * 1000 < System.currentTimeMillis()) {
+                            submitAlertDiolog("Test time is over, kindly submit the test");
+                        }
+                    }
                 }
+
+
+
+
             }
 
             public void onFinish() {
@@ -331,7 +354,19 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 Utils.dismissProgressDialog();
 
                 if (testResult != null) {
-                    getResultRemarks(testResult);
+                    if (resultDate * 1000 < System.currentTimeMillis()) {
+                        Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
+                        intent.putExtra(Constants.RESULT, testResult);
+                        intent.putExtra("testid", test_id);
+                        intent.putExtra(Constants.ISDAILY_TEST, isDailyTest);
+                        intent.putExtra("resultDate", resultDate);
+
+                        startActivity(intent);
+                        Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                        finish();
+                    }else{
+                        getResultRemarks(testResult);
+                    }
 
                 }
 
@@ -345,6 +380,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         });
 
     }
+
     private void getResultRemarks(TestResult testResult) {
         if (!Utils.isInternetConnected(this)) {
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
@@ -358,7 +394,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 Utils.dismissProgressDialog();
 
                 if (remarks != null) {
-                    displayRemark(remarks,testResult);
+                    displayRemark(remarks, testResult);
                 }
 
             }
@@ -466,11 +502,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private void updateQuestionsFragment(int questionIndex) {
 
 
-
         PicassoImageGetter imageGetter = new PicassoImageGetter(questionTxt, this);
         answerList.removeAllViews();
         Question question = questionArrayList.get(questionIndex);
-
 
 
         question_id = question.getId();
@@ -742,11 +776,11 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     private void submitAlertDiolog(String message) {
 
-        if (isSubmitVisible){
+        if (isSubmitVisible) {
             return;
         }
 
-        isSubmitVisible=true;
+        isSubmitVisible = true;
         int count = getUnAttemptedCount();
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
@@ -772,7 +806,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                isSubmitVisible=false;
+                isSubmitVisible = false;
 
             }
         });
@@ -781,7 +815,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             @Override
             public void onClick(View v) {
 
-                isSubmitVisible=false;
+                isSubmitVisible = false;
 
                 if (countDownTimer != null)
                     countDownTimer.cancel();
@@ -798,6 +832,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
 
     }
+
     private void displayRemark(RankResultRemarks resultRemarks, TestResult testResult) {
 
         int count = getUnAttemptedCount();
@@ -810,21 +845,22 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         final android.app.AlertDialog dialog = dialogBuilder.create();
         Button btn_yes = dialogView.findViewById(R.id.ok);
         TextView messagetv = dialogView.findViewById(R.id.message);
-        messagetv.setText(""+resultRemarks.getRemarks());
+        messagetv.setText("" + resultRemarks.getRemarks());
 
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (resultRemarks==null){
+                if (resultRemarks == null) {
                     return;
                 }
-                if (Long.parseLong(resultRemarks.getResultDate())*1000>System.currentTimeMillis()){
+                if (Long.parseLong(resultRemarks.getResultDate()) * 1000 > System.currentTimeMillis()) {
                     finish();
                     dialog.dismiss();
-                }else{
+                } else {
                     Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
                     intent.putExtra(Constants.RESULT, testResult);
                     intent.putExtra("testid", test_id);
+                    intent.putExtra(Constants.ISDAILY_TEST, isDailyTest);
                     intent.putExtra("resultDate", resultDate);
 
                     startActivity(intent);
@@ -1068,7 +1104,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
 
-
     private void endTest() {
         if (!Utils.isInternetConnected(this)) {
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
@@ -1080,12 +1115,12 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         }
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        RequestBody time = RequestBody.create(MediaType.parse("text/plain"), ""+(System.currentTimeMillis()/1000));
+        RequestBody time = RequestBody.create(MediaType.parse("text/plain"), "" + (System.currentTimeMillis() / 1000));
         RestClient.endTest(userId, testID, time, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Log.d("data",response.body().string());
+                    Log.d("data", response.body().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

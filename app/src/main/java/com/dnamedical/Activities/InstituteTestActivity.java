@@ -33,6 +33,7 @@ public class InstituteTestActivity extends AppCompatActivity {
 
     private List<Test> grandTests = new ArrayList<>();
     private List<Test> miniTests = new ArrayList<>();
+    public boolean isDailyTest;
 
     public List<Test> getDailyTest() {
         return dailyTest;
@@ -57,6 +58,8 @@ public class InstituteTestActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         toolbar.setTitle("" + DnaPrefs.getString(this, Constants.INST_NAME));
+
+        isDailyTest = getIntent().getBooleanExtra(Constants.ISDAILY_TEST,false);
 
     }
 

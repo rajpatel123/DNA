@@ -196,6 +196,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @Override
     public void onInstituteClick(String name) {
         Intent intent = new Intent(mainActivity, InstituteTestActivity.class);
+        intent.putExtra(Constants.ISDAILY_TEST,false);
         DnaPrefs.putBoolean(mainActivity, Constants.FROM_INSTITUTE, true);
 
         startActivity(intent);

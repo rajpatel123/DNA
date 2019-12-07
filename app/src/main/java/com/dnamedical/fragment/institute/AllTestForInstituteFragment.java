@@ -166,7 +166,7 @@ public class AllTestForInstituteFragment extends Fragment{
         if (allTestFragment == null) {
             return;
         }
-        dailyTestFragment.showTest();
+        dailyTestFragment.showTest(mainActivity.isDailyTest);
         //allTestFragment.showTest();
         mockTestFragment.showTest();
         grandTestFragment.showTest();

@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TestStartActivity extends AppCompatActivity {
+public class TestStartDailyActivity extends AppCompatActivity {
 
 
     @BindView(R.id.test_topic)
@@ -65,7 +65,7 @@ public class TestStartActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        user_id = DnaPrefs.getString(TestStartActivity.this, Constants.LOGIN_ID);
+        user_id = DnaPrefs.getString(TestStartDailyActivity.this, Constants.LOGIN_ID);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -98,29 +98,8 @@ public class TestStartActivity extends AppCompatActivity {
 
             } else {
                 if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
-                    if (resultDate * 1000 < System.currentTimeMillis()) {
-                        btnStart.setText("TEST RESULT HAS BEEN DECLARED, YOU CAN ATTEMPT THE TEST BUT RANK WILL BE RELATIVE RANK ( NOT ACTUAL RANK ).");
-                        testTopic.setText(testName);
-                        updateTestTypeText(type);
-                        btnStart.setVisibility(View.VISIBLE);
-
-                    } else {
-
-                        if (endDate*1000<System.currentTimeMillis()){
-                            btnStart.setText("TEST TIME OVER AND RESULT HAS NOT BEEN DECLARED.\n" +
-                                    "YOU CAN ATTEMPT THE TEST AFTER RESULT DECLARATION.");
-                            btnStart.setVisibility(View.VISIBLE);
-                            btnStart.setEnabled(false);
-                            btnStart.setVisibility(View.VISIBLE);
-                        }else{
-                            btnStart.setText("START THE TEST");
-                            btnStart.setVisibility(View.VISIBLE);
-                            btnStart.setEnabled(true);
-                            btnStart.setVisibility(View.VISIBLE);
-                        }
-
-
-                    }
+                    btnStart.setText("Start The Test");
+                    btnStart.setVisibility(View.VISIBLE);
 
                     testTopic.setText(testName);
                     updateTestTypeText(type);
@@ -162,33 +141,79 @@ public class TestStartActivity extends AppCompatActivity {
 
                 if (testStatus.equalsIgnoreCase("open")) {
                     if (testQuestion.equalsIgnoreCase("0")) {
-                        Toast.makeText(TestStartActivity.this, "No questions in this test", Toast.LENGTH_LONG).show();
+                        Toast.makeText(TestStartDailyActivity.this, "No questions in this test", Toast.LENGTH_LONG).show();
                         return;
                     }
                     StartTest();
                 } else {
 
-                    if (Utils.isInternetConnected(TestStartActivity.this)) {
-                        if (resultDate * 1000 > System.currentTimeMillis()) {
-                            Toast.makeText(TestStartActivity.this, "Result does not declared, review will be available on " + Utils.startTimeFormat(resultDate * 1000), Toast.LENGTH_LONG).show();
-                        } else {
-                            Intent intent = new Intent(TestStartActivity.this, ResultActivity.class);
+                    if (Utils.isInternetConnected(TestStartDailyActivity.this)) {
+                        Intent intent = new Intent(TestStartDailyActivity.this, ResultActivity.class);
+                        intent.putExtra("resultDate", resultDate);
+                        intent.putExtra("testid", test_id);
+                        intent.putExtra(Constants.ISDAILY_TEST,true);
 
-                            intent.putExtra("resultDate", resultDate);
-                            intent.putExtra(Constants.ISDAILY_TEST, false);
-                            intent.putExtra("testid", test_id);
-                            startActivity(intent);
-                            finish();
-                        }
+                        startActivity(intent);
+                        finish();
 
                     } else {
-                        Toast.makeText(TestStartActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                        Toast.makeText(TestStartDailyActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
                     }
 
 
                 }
             }
         });
+    }
+
+    private void PaymentAlertDialog() {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.payment_alert_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        Button btn_learnmore = dialogView.findViewById(R.id.btn_learn_more);
+        Button btn_view_plans = dialogView.findViewById(R.id.btn_view_plans);
+
+        TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
+        text_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
+        btn_learnmore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(TestStartDailyActivity.this, DNAKnowmoreActivity.class);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
+
+
+            }
+        });
+
+        btn_view_plans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(TestStartDailyActivity.this, DNASuscribeActivity.class);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
+
+            }
+        });
+
+        dialog.show();
+
     }
 
 
@@ -236,12 +261,12 @@ public class TestStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (Utils.isInternetConnected(TestStartActivity.this)) {
+                if (Utils.isInternetConnected(TestStartDailyActivity.this)) {
 
                     startTest();
 
                 } else {
-                    Toast.makeText(TestStartActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TestStartDailyActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
                 }
 
                 dialog.dismiss();
@@ -267,18 +292,18 @@ public class TestStartActivity extends AppCompatActivity {
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody time = RequestBody.create(MediaType.parse("text/plain"), "" + (System.currentTimeMillis() / 1000));
-        Utils.showProgressDialog(TestStartActivity.this);
+        Utils.showProgressDialog(TestStartDailyActivity.this);
         RestClient.startTest(userId, testID, time, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody testResult = response.body();
                 Utils.dismissProgressDialog();
-                Intent intent = new Intent(TestStartActivity.this, TestV1Activity.class);
-                DnaPrefs.putBoolean(TestStartActivity.this, Constants.Resultsubmit, true);
+                Intent intent = new Intent(TestStartDailyActivity.this, TestV1Activity.class);
+                DnaPrefs.putBoolean(TestStartDailyActivity.this, Constants.Resultsubmit, true);
                 test_id = getIntent().getStringExtra("id");
                 testName = getIntent().getStringExtra("testName");
                 intent.putExtra("id", test_id);
-                intent.putExtra(Constants.ISDAILY_TEST, false);
+                intent.putExtra(Constants.ISDAILY_TEST,true);
                 intent.putExtra("duration", duration);
                 intent.putExtra("testName", testName);
                 intent.putExtra("resultDate", resultDate);

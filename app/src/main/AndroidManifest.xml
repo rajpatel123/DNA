@@ -284,6 +284,10 @@
         <activity
             android:name=".Activities.TestStartActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Activities.TestStartDailyActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Mobilenumber"
             android:screenOrientation="portrait" />

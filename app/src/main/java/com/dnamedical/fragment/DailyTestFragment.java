@@ -19,12 +19,11 @@ import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.TestStartActivity;
+import com.dnamedical.Activities.TestStartDailyActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.R;
-import com.dnamedical.utils.Constants;
-import com.dnamedical.utils.DnaPrefs;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +41,8 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
 
     MainActivity mainActivity = null;
     InstituteTestActivity instituteTestActivity = null;
+    private boolean isDailyTest;
+
     public DailyTestFragment() {
 
     }
@@ -81,18 +82,22 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
         View view = inflater.inflate(R.layout.fragment_grandtest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         notext = view.findViewById(R.id.noTest);
-        showTest();
         return view;
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate,String resultDate,String subjectCount) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate, String resultDate, String subjectCount) {
 
         if (testPaid.equalsIgnoreCase("Yes")) {
             Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(getActivity(), TestStartActivity.class);
+            Intent intent = null;
+            if (isDailyTest){
+                intent = new Intent(getActivity(), TestStartDailyActivity.class);
+            }else{
+                intent = new Intent(getActivity(), TestStartActivity.class);
+            }
             intent.putExtra("id", id);
             intent.putExtra("duration", time);
             intent.putExtra("startDate", startDate);
@@ -111,7 +116,9 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
 
     }
 
-    public void showTest() {
+    public void showTest(boolean isDailyTest) {
+
+        this.isDailyTest = isDailyTest;
 
         if (activity instanceof MainActivity) {
             mainActivity = (MainActivity) activity;
@@ -127,7 +134,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
             }
         }
 
-        if (dailyTest  != null && dailyTest.size() > 0) {
+        if (dailyTest != null && dailyTest.size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter testAdapter = new TestAdapter(getActivity());
             Collections.sort(dailyTest);
