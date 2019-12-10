@@ -107,6 +107,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private long resultDate;
     private boolean isSubmitVisible = false;
     private boolean isDailyTest;
+    private long endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,15 +199,16 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         String duration = intent.getStringExtra("duration");
         testName = intent.getStringExtra("testName");
         resultDate = intent.getLongExtra("resultDate", 0);
+        endDate = intent.getLongExtra("endDate", 0);
         test_id = intent.getStringExtra("id");
         isDailyTest = intent.getBooleanExtra(Constants.ISDAILY_TEST, false);
 
         if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
-            if (isDailyTest || resultDate < System.currentTimeMillis()) {
+            if (isDailyTest || endDate*1000 <System.currentTimeMillis()) {
                 testDuration = Long.parseLong(duration) * 1000;
             } else {
 
-                testDuration = (resultDate * 1000) - System.currentTimeMillis();
+                testDuration = (endDate * 1000) - System.currentTimeMillis();
 
             }
         }
@@ -354,7 +356,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 Utils.dismissProgressDialog();
 
                 if (testResult != null) {
-                    if (resultDate * 1000 < System.currentTimeMillis()) {
+                    if (isDailyTest) {
                         Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
                         intent.putExtra(Constants.RESULT, testResult);
                         intent.putExtra("testid", test_id);
@@ -364,9 +366,29 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                         startActivity(intent);
                         Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
                         finish();
-                    }else{
-                        getResultRemarks(testResult);
+                    } else {
+
+                        if (resultDate * 1000 < System.currentTimeMillis()) {
+                            Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
+                            intent.putExtra(Constants.RESULT, testResult);
+                            intent.putExtra("testid", test_id);
+                            intent.putExtra(Constants.ISDAILY_TEST, isDailyTest);
+                            intent.putExtra("resultDate", resultDate);
+
+                            startActivity(intent);
+                            Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                            finish();
+                        }else{
+                            getResultRemarks(testResult);
+                        }
+
                     }
+
+
+
+
+                }else{
+                    Toast.makeText(TestV1Activity.this,"Please answer atleast 1 question",Toast.LENGTH_LONG).show();
 
                 }
 
@@ -375,6 +397,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             @Override
             public void onFailure(Call<TestResult> call, Throwable t) {
                 Utils.dismissProgressDialog();
+                Toast.makeText(TestV1Activity.this,"Please answer atleast 1 question",Toast.LENGTH_LONG).show();
                 Log.d("SubmitTest", "Faileduser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
         });

@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -194,6 +198,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
+
     }
 
     private void UpdateApiCall() {
@@ -215,6 +221,7 @@ public class SplashActivity extends AppCompatActivity {
                                     // Toast.makeText(SplashActivity.this, "First", Toast.LENGTH_SHORT).show();
                                 } else {
                                     splashCall();
+
                                     // Toast.makeText(SplashActivity.this, "Second", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -225,6 +232,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<PlaystoreUpdateResponse> call, Throwable t) {
                     splashCall();
+
                 }
             });
         } else {
@@ -236,11 +244,21 @@ public class SplashActivity extends AppCompatActivity {
 
     private void forceToUpgradeDialog(boolean isForceUpdate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
-        builder.setTitle("Update Available!");
+        //builder.setTitle("Update Available!");
         builder.setCancelable(false);
-        builder.setMessage("In order to continue, you must update the DNA  application. This should only take a few moments.\n");
 
-        builder.setPositiveButton("OK", (dialog, which) -> {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.upgrade_view,null);
+
+        TextView title = view.findViewById(R.id.title);
+        TextView message = view.findViewById(R.id.message);
+        title.setText("New Version Available       "+ BuildConfig.VERSION_NAME);
+        message.setText("In order to continue, you must update the DNA  application. This should only take a few moments.\n");
+        builder.setView(view);
+
+        //builder.setMessage("In order to continue, you must update the DNA  application. This should only take a few moments.\n");
+
+        builder.setPositiveButton("Update", (dialog, which) -> {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID)));
             } catch (android.content.ActivityNotFoundException anfe) {
@@ -256,7 +274,7 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         if (!isForceUpdate) {
-            builder.setNegativeButton("SKIP", (dialog, which) -> {
+            builder.setNegativeButton("Later", (dialog, which) -> {
                 DnaPrefs.putBoolean(SplashActivity.this, Constants.SOFT_UPGRADE_SKIP, true);
                 dialog.dismiss();
             });

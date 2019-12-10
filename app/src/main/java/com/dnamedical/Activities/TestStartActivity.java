@@ -282,6 +282,7 @@ public class TestStartActivity extends AppCompatActivity {
                 intent.putExtra("duration", duration);
                 intent.putExtra("testName", testName);
                 intent.putExtra("resultDate", resultDate);
+                intent.putExtra("endDate", endDate);
 
 
                 startActivity(intent);
