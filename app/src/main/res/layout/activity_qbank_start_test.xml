@@ -5,46 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/app_bg"
     tools:context=".Activities.QbankStartTestActivity">
 
-    <RelativeLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize">
-
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            app:tintMode="@color/white"
-            android:layout_marginStart="@dimen/margin_20"
-            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
-
-
-        <TextView
-            android:id="@+id/qbank_sub_subcategory_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/back_button"
-            android:paddingLeft="10dp"
-            android:text="Anatomy"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_large"
-            android:textStyle="bold" />
-
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/margin_100"
         android:layout_marginRight="20dp">
 
         <LinearLayout
@@ -90,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:textSize="14dp"
-                    android:text="dhjjgdfhjgdhjgdsl" />
+                    android:text="You have paused this module on 13 Dec" />
             </LinearLayout>
 
             <View
@@ -99,7 +69,7 @@
                 android:layout_height="1px"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="20dp"
-                android:background="@color/darkwhite" />
+                android:background="@color/orange" />
         </LinearLayout>
 
         <TextView
@@ -109,9 +79,9 @@
             android:layout_below="@id/linear1"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:paddingTop="10dp"
-            android:visibility="gone"
-            android:textColor="@color/black"
+            android:visibility="visible"
+            android:gravity="center_vertical"
+            android:textColor="@color/dark_gray"
             android:text="2 Fresh Mcq added"
             android:textSize="@dimen/ts_16" />
 
@@ -181,6 +151,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:text="SOLVE"
+                            android:elevation="@dimen/dp_2"
                             android:textColor="@color/white" />
 
 
@@ -195,9 +166,7 @@
                 android:id="@+id/bookmark_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:elevation="10dp"
+                android:layout_marginTop="@dimen/margin_20"
                 app:cardElevation="10dp">
 
                 <LinearLayout
@@ -205,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="15dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -32,6 +32,9 @@ import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
+import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
+import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
+import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
@@ -343,8 +346,17 @@ public interface ApiInterface {
     Call<Academic> getAllAcademicYears();
 
     @Multipart
-    @POST("api/api.php?req=qbank_cate")
-    Call<QbankResponse> qbankDetail(@Part("user_id") RequestBody user_id);
+    @POST("http://vrok.in/dnalive/api/api.php?req=qbank_subjects")
+    Call<ModuleListResponse> qbankDetail(@Part("user_id") RequestBody user_id);
+
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=getall_modules")
+    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id);
+
+
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=getall_mcqs")
+    Call<MCQQuestionList> getAllMCQQuestions(@Part("user_id") RequestBody user_id, @Part("module_id") RequestBody module_id);
 
     @Multipart
     @POST("api/api.php?req=qbankmodulereview")

@@ -23,6 +23,7 @@ import com.dnamedical.Activities.BookmarkActivity;
 import com.dnamedical.Activities.QbankSubActivity;
 import com.dnamedical.Activities.WebViewActivity;
 import com.dnamedical.Adapters.QbankAdapter;
+import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -54,7 +55,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
   /*  @BindView(R.id.bookmark_cardview)
     CardView bookmarkedCardView;*/
     String UserId;
-    private QbankResponse qbankResponse;
+    private ModuleListResponse qbankResponse;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,15 +115,15 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
 
     private void getQbankData() {
         UserId= DnaPrefs.getString(getContext(), Constants.LOGIN_ID);
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),"1369");
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.qbankDetail(user_id, new Callback<QbankResponse>() {
+            RestClient.qbankDetail(user_id, new Callback<ModuleListResponse>() {
                 @Override
-                public void onResponse(Call<QbankResponse> call, Response<QbankResponse> response) {
+                public void onResponse(Call<ModuleListResponse> call, Response<ModuleListResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
-                        if (response.body().getStatus().equals("1")) {
+                        if (response.body().getStatus()) {
                             qbankResponse = response.body();
                             Log.d("Data", "Done");
                             if (qbankResponse != null && qbankResponse.getDetails().size() > 0) {
@@ -133,10 +134,10 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                                 qbankAdapter.setQbankClickListner(new QbankAdapter.QbankClickListner() {
                                     @Override
                                     public void onQbankClick(int postion, String id, String name) {
-                                        if (Integer.parseInt(qbankResponse.getDetails().get(postion).getTotalmodules())>0){
+                                        if (Integer.parseInt(qbankResponse.getDetails().get(postion).getTotalModule())>0){
                                             Intent intent = new Intent(getActivity(), QbankSubActivity.class);
-                                            intent.putExtra("cat_id", id);
-                                            intent.putExtra("cat_name", name);
+                                            intent.putExtra(Constants.MODULE_ID, id);
+                                            intent.putExtra(Constants.MODULE_NAME, name);
                                             startActivity(intent);
                                         }
                                     }
@@ -156,7 +157,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                 }
 
                 @Override
-                public void onFailure(Call<QbankResponse> call, Throwable t) {
+                public void onFailure(Call<ModuleListResponse> call, Throwable t) {
                     Utils.dismissProgressDialog();
                     //Toast.makeText(getActivity(), "Data Failed", Toast.LENGTH_SHORT).show();
                 }

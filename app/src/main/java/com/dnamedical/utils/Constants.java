@@ -54,4 +54,6 @@ public class Constants {
 
     public static final String FROM_INSTITUTE = "frompage";
     public static final String ISDAILY_TEST = "isDailytest";
+    public static final String MODULE_ID ="module_id" ;
+    public static final String MODULE_NAME = "module_name";
 }

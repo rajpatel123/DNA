@@ -4,38 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_bg"
     android:scrollbars="none">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="2"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="DNA"
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
-
         <ImageView
             android:id="@+id/btnCancel"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             app:srcCompat="@drawable/qbank_wrong_answer" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -84,10 +72,10 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_one"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
 
                             >
 
@@ -95,17 +83,16 @@
                                 android:id="@+id/imga"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:padding="5dp"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginTop="8dp" />
+                                android:layout_marginTop="8dp"
+                                android:padding="5dp" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_one"
-                     >
+                            android:layout_toRightOf="@id/linear_txt_one">
 
                             <TextView
                                 android:id="@+id/optionA"
@@ -115,7 +102,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@id/imga"
                                 android:text="Test"
-                                android:textSize="19sp"/>
+                                android:textSize="19sp" />
 
                             <TextView
                                 android:id="@+id/optionAPer"
@@ -137,11 +124,10 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_two"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                           >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imgb"
@@ -155,8 +141,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_two"
-                        >
+                            android:layout_toRightOf="@id/linear_txt_two">
 
                             <TextView
                                 android:id="@+id/optionB"
@@ -190,11 +175,10 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_three"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imgc"
@@ -207,8 +191,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_three"
-                            >
+                            android:layout_toRightOf="@id/linear_txt_three">
 
                             <TextView
                                 android:id="@+id/optionC"
@@ -242,19 +225,17 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                        android:layout_margin="5dp"
                             android:id="@+id/linear_txt_four"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                          >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imgd"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                />
+                                android:layout_marginTop="5dp" />
 
 
                         </LinearLayout>
@@ -305,9 +286,9 @@
                             app:cardBackgroundColor="@color/card_gray">
 
                             <LinearLayout
-                                android:visibility="gone"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:visibility="gone">
 
                                 <ProgressBar
                                     android:id="@+id/progress_bar_chart"
@@ -379,39 +360,65 @@
 
         android:visibility="gone" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/linearBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:paddingTop="@dimen/dp_2"
+        android:paddingBottom="@dimen/dp_2"
+        android:orientation="horizontal"
         android:visibility="gone"
         tools:visibility="visible">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/bookmark"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/review_result_question_icon" />
 
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@+id/bookmark"
+            app:srcCompat="@drawable/ic_share" />
+
         <Button
-            android:id="@+id/nextBtn"
-            android:layout_width="wrap_content"
+            android:id="@+id/prevBtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:background="@color/colorAccent"
-            android:minWidth="140dp"
-            android:padding="5dp"
+            android:text="PREV"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
             android:text="Next"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

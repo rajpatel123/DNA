@@ -3,18 +3,12 @@ package com.dnamedical.Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,13 +16,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Models.QbankSubTest.Detail;
-import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
+import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
+import com.dnamedical.Models.newqbankmodule.ModulesMcq;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
@@ -56,20 +49,21 @@ public class QbankTestActivity extends AppCompatActivity {
     CustomViewPager mPager;
     TextView quesionCounter;
     static int currentPosition;
-    public QbankTestResponse qbankTestResponse;
+    public MCQQuestionList qbankTestResponse;
     ImageView imageViewCancel;
     public ProgressBar mProgressBar;
     public CountDownTimer mCountDownTimer;
     int progress = 100;
-    RelativeLayout linearBottom;
+    LinearLayout linearBottom;
     public Button nextBtn;
     String module_id;
+
     private int questionStartId;
     LinearLayout answerList;
     TextView questionTestList;
     QbankTestActivity qbankTestActivity;
     int fragNum;
-    List<Detail> questionDetail;
+    List<ModulesMcq> questionDetail;
     private CardView cardView;
     private CardView cardView1;
     private CardView cardView2;
@@ -101,7 +95,7 @@ public class QbankTestActivity extends AppCompatActivity {
         if (getIntent().hasExtra("qmodule_id")) {
             module_id = getIntent().getStringExtra("qmodule_id");
             user_id = getIntent().getStringExtra("userId");
-            questionNo = Integer.parseInt(getIntent().getStringExtra("questionStartId"));
+            questionNo = getIntent().getIntExtra("questionStartId",0);
         }
         qbankgetTest();
 
@@ -184,17 +178,18 @@ public class QbankTestActivity extends AppCompatActivity {
 
     private void qbankgetTest() {
         RequestBody qmodule_id = RequestBody.create(MediaType.parse("text/plain"), module_id);
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.qbanksubTestData(qmodule_id, new Callback<QbankTestResponse>() {
+            RestClient.qbanksubTestData(userId,qmodule_id, new Callback<MCQQuestionList>() {
                 @Override
-                public void onResponse(Call<QbankTestResponse> call, Response<QbankTestResponse> response) {
+                public void onResponse(Call<MCQQuestionList> call, Response<MCQQuestionList> response) {
                     Utils.dismissProgressDialog();
                     if (response.isSuccessful()) {
 
                         if (response.body() != null) {
                             qbankTestResponse = response.body();
-                            questionDetail = qbankTestResponse.getDetails();
+                            questionDetail = qbankTestResponse.getData().getModulesMcqs();
 
                             solveQBank(questionNo);
                         }
@@ -209,7 +204,7 @@ public class QbankTestActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<QbankTestResponse> call, Throwable t) {
+                public void onFailure(Call<MCQQuestionList> call, Throwable t) {
                     Toast.makeText(QbankTestActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -224,10 +219,10 @@ public class QbankTestActivity extends AppCompatActivity {
             if (questinNo == questionDetail.size() - 1) {
                 isLast = true;
             }
-            Detail questionDetails = questionDetail.get(questinNo);
+            ModulesMcq questionDetails = questionDetail.get(questinNo);
             TextView questionText = new TextView(this);
             questionText.setPadding(15, 0, 5, 0);
-            questionText.setText("Q " + (questinNo + 1) + ". " + questionDetails.getQname());
+            questionText.setText("Q " + (questinNo + 1) + ". " + questionDetails.getMcqTitle());
 
             answerList.addView(questionText);
 
@@ -238,15 +233,15 @@ public class QbankTestActivity extends AppCompatActivity {
                         View answer1 = inflater.inflate(R.layout.qbank_item_test, null);
                         questionTestList = answer1.findViewById(R.id.qbank_answer);
                         cardView1 = answer1.findViewById(R.id.cardView);
-                        questionTestList.setText("A." + questionDetails.getOptionA());
+                        questionTestList.setText("A." + questionDetails.getOption1());
 
                         answerList.addView(answer1);
                         cardView1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                user_answer = questionDetails.getOptionA();
-                                updateAnswer(questionDetails, cardView1, questionDetails.getOptionA(), questionDetails.getId(), isLast);
+                                user_answer = questionDetails.getOption1();
+                                updateAnswer(questionDetails, cardView1, questionDetails.getOption1(), questionDetails.getId(), isLast);
                             }
                         });
                         break;
@@ -255,15 +250,15 @@ public class QbankTestActivity extends AppCompatActivity {
                         questionTestList = answer2.findViewById(R.id.qbank_answer);
                         cardView2 = answer2.findViewById(R.id.cardView);
 
-                        questionTestList.setText("B." + questionDetails.getOptionB());
+                        questionTestList.setText("B." + questionDetails.getOption2());
                         answerList.addView(answer2);
                         cardView2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                user_answer = questionDetails.getOptionB();
+                                user_answer = questionDetails.getOption2();
 
-                                updateAnswer(questionDetails, cardView2, questionDetails.getOptionB(), questionDetails.getId(), isLast);
+                                updateAnswer(questionDetails, cardView2, questionDetails.getOption2(), questionDetails.getId(), isLast);
 
                             }
                         });
@@ -273,7 +268,7 @@ public class QbankTestActivity extends AppCompatActivity {
 
                         View answer3 = inflater.inflate(R.layout.qbank_item_test, null);
                         questionTestList = answer3.findViewById(R.id.qbank_answer);
-                        questionTestList.setText("C." + questionDetails.getOptionC());
+                        questionTestList.setText("C." + questionDetails.getOption3());
                         cardView3 = answer3.findViewById(R.id.cardView);
 
                         answerList.addView(answer3);
@@ -281,9 +276,9 @@ public class QbankTestActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                user_answer = questionDetails.getOptionC();
+                                user_answer = questionDetails.getOption3();
 
-                                updateAnswer(questionDetails, cardView3, questionDetails.getOptionC(), questionDetails.getId(), isLast);
+                                updateAnswer(questionDetails, cardView3, questionDetails.getOption3(), questionDetails.getId(), isLast);
 
                             }
                         });
@@ -293,15 +288,15 @@ public class QbankTestActivity extends AppCompatActivity {
                         questionTestList = answer4.findViewById(R.id.qbank_answer);
                         cardView4 = answer4.findViewById(R.id.cardView);
 
-                        questionTestList.setText("D." + questionDetails.getOptionD());
+                        questionTestList.setText("D." + questionDetails.getOption4());
                         answerList.addView(answer4);
                         cardView4.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                user_answer = questionDetails.getOptionD();
+                                user_answer = questionDetails.getOption4();
 
-                                updateAnswer(questionDetails, cardView4, questionDetails.getOptionD(), questionDetails.getId(), isLast);
+                                updateAnswer(questionDetails, cardView4, questionDetails.getOption4(), questionDetails.getId(), isLast);
 
                             }
                         });
@@ -330,15 +325,15 @@ public class QbankTestActivity extends AppCompatActivity {
     };
 
 
-    private void updateAnswer(Detail questionDetail, CardView cardView, String answervalue, String questionId, boolean isLast) {
+    private void updateAnswer(ModulesMcq questionDetail, CardView cardView, String answervalue, String questionId, boolean isLast) {
         cardView1.setCardBackgroundColor(getResources().getColor(R.color.white));
         cardView2.setCardBackgroundColor(getResources().getColor(R.color.white));
         cardView3.setCardBackgroundColor(getResources().getColor(R.color.white));
         cardView4.setCardBackgroundColor(getResources().getColor(R.color.white));
 
 
-        if (answervalue.equalsIgnoreCase(questionDetail.getOptionA())) {
-            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+        if (answervalue.equalsIgnoreCase(questionDetail.getOption1())) {
+            if (answervalue.equalsIgnoreCase(questionDetail.getCorrectAnswer())) {
                 cardView1.setCardBackgroundColor(getResources().getColor(R.color.green));
             } else {
                 cardView1.setCardBackgroundColor(getResources().getColor(R.color.red));
@@ -347,22 +342,22 @@ public class QbankTestActivity extends AppCompatActivity {
 
 
         }
-        if (answervalue.equalsIgnoreCase(questionDetail.getOptionB())) {
-            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+        if (answervalue.equalsIgnoreCase(questionDetail.getOption2())) {
+            if (answervalue.equalsIgnoreCase(questionDetail.getCorrectAnswer())) {
                 cardView2.setCardBackgroundColor(getResources().getColor(R.color.green));
             } else {
                 cardView2.setCardBackgroundColor(getResources().getColor(R.color.red));
             }
         }
-        if (answervalue.equalsIgnoreCase(questionDetail.getOptionC())) {
-            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+        if (answervalue.equalsIgnoreCase(questionDetail.getOption3())) {
+            if (answervalue.equalsIgnoreCase(questionDetail.getCorrectAnswer())) {
                 cardView3.setCardBackgroundColor(getResources().getColor(R.color.green));
             } else {
                 cardView3.setCardBackgroundColor(getResources().getColor(R.color.red));
             }
         }
-        if (answervalue.equalsIgnoreCase(questionDetail.getOptionD())) {
-            if (answervalue.equalsIgnoreCase(questionDetail.getAnswer())) {
+        if (answervalue.equalsIgnoreCase(questionDetail.getOption4())) {
+            if (answervalue.equalsIgnoreCase(questionDetail.getCorrectAnswer())) {
                 cardView4.setCardBackgroundColor(getResources().getColor(R.color.green));
 
             } else {
@@ -402,7 +397,6 @@ public class QbankTestActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateUI(SubmitAnswer body) {
 
         aTV.setTextColor(Color.BLACK);
@@ -482,13 +476,13 @@ public class QbankTestActivity extends AppCompatActivity {
 //            }
 
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                aTV.setTextColor(getColor(R.color.green));
+                aTV.setTextColor(getResources().getColor(R.color.green));
                // aTVPer.setTextColor(Color.GREEN);
                 imgA.setImageResource(R.drawable.right_answer_icon);
                 imgA.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionA())) {
-                    aTV.setTextColor(getColor(R.color.green));
+                    aTV.setTextColor(getResources().getColor(R.color.green));
                     //aTVPer.setTextColor(Color.GREEN);
                     imgA.setImageResource(R.drawable.right_answer_icon);
                     imgA.setVisibility(View.VISIBLE);
@@ -514,13 +508,13 @@ public class QbankTestActivity extends AppCompatActivity {
                 }
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                bTV.setTextColor(getColor(R.color.green));
+                bTV.setTextColor(getResources().getColor(R.color.green));
                // bTVPer.setTextColor(Color.GREEN);
                 imgB.setImageResource(R.drawable.right_answer_icon);
                 imgB.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionB())) {
-                    bTV.setTextColor(getColor(R.color.green));
+                    bTV.setTextColor(getResources().getColor(R.color.green));
                    // bTVPer.setTextColor(Color.GREEN);
                     imgB.setImageResource(R.drawable.right_answer_icon);
                     imgB.setVisibility(View.VISIBLE);
@@ -550,14 +544,14 @@ public class QbankTestActivity extends AppCompatActivity {
                 }
             }
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                cTV.setTextColor(getColor(R.color.green));
+                cTV.setTextColor(getResources().getColor(R.color.green));
                // cTVPer.setTextColor(Color.GREEN);
                 imgC.setImageResource(R.drawable.right_answer_icon);
                 imgC.setVisibility(View.VISIBLE);
 
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionC())) {
-                    cTV.setTextColor(getColor(R.color.green));
+                    cTV.setTextColor(getResources().getColor(R.color.green));
                    // cTVPer.setTextColor(Color.GREEN);
                     imgC.setImageResource(R.drawable.right_answer_icon);
                     imgC.setVisibility(View.VISIBLE);
@@ -588,13 +582,13 @@ public class QbankTestActivity extends AppCompatActivity {
             }
 
             if (body.getDetails().get(0).getAnswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                dTV.setTextColor(getColor(R.color.green));
+                dTV.setTextColor(getResources().getColor(R.color.green));
                // dTVPer.setTextColor(Color.GREEN);
                 imgD.setImageResource(R.drawable.right_answer_icon);
                 imgD.setVisibility(View.VISIBLE);
 
                 if (body.getDetails().get(0).getUseranswer().equalsIgnoreCase(body.getDetails().get(0).getOptionD())) {
-                    dTV.setTextColor(getColor(R.color.green));
+                    dTV.setTextColor(getResources().getColor(R.color.green));
                    // dTVPer.setTextColor(Color.GREEN);
                     imgD.setImageResource(R.drawable.right_answer_icon);
                     imgD.setVisibility(View.VISIBLE);

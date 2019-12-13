@@ -91,6 +91,7 @@ public class PromoActivity extends AppCompatActivity {
         });
 
 
+
         promoVideo.start();
 //        RestClient.getVideo(new Callback<PromoVideo>() {
 //            @Override

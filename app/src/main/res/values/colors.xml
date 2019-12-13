@@ -7,7 +7,7 @@
     <color name="colorAccent">#f37636</color>
     <color name="black_secondary">#757575</color>
     <color name="black_primary">#212121</color>
-    <color name="app_bg">#EAEDF2</color>
+    <color name="app_bg">#f5f5f5</color>
     <color name="app_bg1">#dc5d01</color>
     <color name="card_gray">#E7E3DE</color>
     <color name="knowmorebck">#ebeaef</color>
@@ -37,6 +37,7 @@
     <color name="vediobackgroundColor">#e6e7e9</color>
     <color name="home">#f6ece9</color>
     <color name="homebackground">#EAEDF2</color>
+    <color name="page_bg">#F1F2F5</color>
     <color name="vediobackground">#fef1eb</color>
     <color name="vedioborder">#eeeae8</color>
     <color name="vediobordertextcolor">#d0c5c1</color>

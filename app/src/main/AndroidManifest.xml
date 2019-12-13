@@ -148,7 +148,7 @@
             android:name=".Activities.QbankStartTestActivity"
             android:label="Amino acid:Metabolism"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme1" />
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankSubActivity"
             android:screenOrientation="portrait" />

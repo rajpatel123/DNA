@@ -17,18 +17,23 @@ import android.widget.Toast;
 import com.dnamedical.Activities.QbankStartTestActivity;
 import com.dnamedical.Activities.QbankSubActivity;
 import com.dnamedical.Adapters.QbankSubCatAdapter;
+import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
+
+import java.util.List;
 
 public class QbankUnattemptedFragment extends Fragment {
 
     RecyclerView recyclerView;
     TextView noItem;
-    private QbankSubActivity activity;
+    private QbankSubActivity qbankSubActivity;
+    private QbankSubCatAdapter qbankSubCatAdapter;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity= (QbankSubActivity) getActivity();
+        qbankSubActivity= (QbankSubActivity) getActivity();
 
     }
 
@@ -44,20 +49,20 @@ public class QbankUnattemptedFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        QbankSubCatAdapter qbankSubCatAdapter=new QbankSubCatAdapter();
-        qbankSubCatAdapter.setDetailList(activity.qBankUnAttempted);
+         qbankSubCatAdapter=new QbankSubCatAdapter();
+        qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankUnAttempted);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
             public void onQbankSubClick(int position, String id, String moduleName) {
-                if (Integer.parseInt(activity.qBankAll.get(position).getmCQ()) > 0) {
+                if (qbankSubActivity.qBankUnAttempted.get(position).getTotalMcq() > 0) {
                     Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
-                    intent.putExtra("qmodule_id", id);
-                    intent.putExtra("qmodule_name", moduleName);
+                    intent.putExtra("module", qbankSubActivity.qBankUnAttempted.get(position));
+
                     startActivity(intent);
                 } else {
-                    Toast.makeText(activity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                    Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -67,5 +72,20 @@ public class QbankUnattemptedFragment extends Fragment {
         recyclerView.setVisibility(View.VISIBLE);
         noItem.setVisibility(View.GONE);
 
+    }
+
+    public void showQList(List<Module> qBankUnAttempted) {
+        if (qBankUnAttempted!=null && qBankUnAttempted.size()>0){
+
+            qbankSubCatAdapter.setDetailList(qBankUnAttempted);
+            qbankSubCatAdapter.notifyDataSetChanged();
+            recyclerView.setVisibility(View.VISIBLE);
+            noItem.setVisibility(View.GONE);
+        }else {
+            Utils.dismissProgressDialog();
+            recyclerView.setVisibility(View.GONE);
+            noItem.setVisibility(View.VISIBLE);
+            Toast.makeText(qbankSubActivity, "No Data", Toast.LENGTH_SHORT).show();
+        }
     }
 }

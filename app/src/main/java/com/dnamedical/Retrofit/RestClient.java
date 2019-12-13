@@ -32,6 +32,9 @@ import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
+import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
+import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
+import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
@@ -240,8 +243,13 @@ public class RestClient {
     }
 
 
-    public static void qbankDetail(RequestBody user_id, Callback<QbankResponse> callback) {
+    public static void qbankDetail(RequestBody user_id, Callback<ModuleListResponse> callback) {
         RetrofitClient.getClient().qbankDetail(user_id).enqueue(callback);
+    }
+
+
+    public static void getAllChapterByModuleId(RequestBody user_id, Callback<ChaptersModuleResponse> callback) {
+        RetrofitClient.getClient().getAllChapterByModuleId(user_id).enqueue(callback);
     }
 
     public static void qbankStart(RequestBody qmodule_id, RequestBody user_id, RequestBody is_paused, Callback<QbankstartResponse> callback) {
@@ -252,8 +260,8 @@ public class RestClient {
         RetrofitClient.getClient().qbanksubdata(qcat_id, user_id).enqueue(callback);
     }
 
-    public static void qbanksubTestData(RequestBody qmodule_id, Callback<QbankTestResponse> callback) {
-        RetrofitClient.getClient().qbanksubTestData(qmodule_id).enqueue(callback);
+    public static void qbanksubTestData(RequestBody user_id,RequestBody qmodule_id, Callback<MCQQuestionList> callback) {
+        RetrofitClient.getClient().getAllMCQQuestions(user_id,qmodule_id).enqueue(callback);
     }
 
     public static void qbankFeedback(String user_id, String qmodule_id, String rating, String feedback, Callback<QbankfeedbackResponse> callback) {

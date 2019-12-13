@@ -17,44 +17,49 @@ import android.widget.Toast;
 import com.dnamedical.Activities.QbankStartTestActivity;
 import com.dnamedical.Activities.QbankSubActivity;
 import com.dnamedical.Adapters.QbankSubCatAdapter;
+import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
+import com.dnamedical.utils.Utils;
+
+import java.util.List;
 
 public class QbankCompletedFragment extends Fragment {
-    QbankSubActivity activity;
+    QbankSubActivity qbankSubActivity;
     RecyclerView recyclerView;
     TextView no_item;
+    private QbankSubCatAdapter qbankSubCatAdapter;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity= (QbankSubActivity) getActivity();
+        qbankSubActivity = (QbankSubActivity) getActivity();
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qbank_completed, container, false);
-        recyclerView=view.findViewById(R.id.recycler);
-        no_item=view.findViewById(R.id.item_text);
+        recyclerView = view.findViewById(R.id.recycler);
+        no_item = view.findViewById(R.id.item_text);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        QbankSubCatAdapter qbankSubCatAdapter=new QbankSubCatAdapter();
-        qbankSubCatAdapter.setDetailList(activity.qBankCompleted);
+        qbankSubCatAdapter = new QbankSubCatAdapter();
+        qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankCompleted);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
             public void onQbankSubClick(int position, String id, String moduleName) {
-                if (Integer.parseInt(activity.qBankAll.get(position).getmCQ()) > 0) {
+                if (qbankSubActivity.qBankCompleted.get(position).getTotalMcq() > 0) {
                     Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
-                    intent.putExtra("qmodule_id", id);
-                    intent.putExtra("qmodule_name", moduleName);
+                    intent.putExtra("module", qbankSubActivity.qBankCompleted.get(position));
                     startActivity(intent);
                 } else {
-                    Toast.makeText(activity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                    Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -63,6 +68,22 @@ public class QbankCompletedFragment extends Fragment {
         recyclerView.setVisibility(View.VISIBLE);
         no_item.setVisibility(View.GONE);
 
+
+    }
+
+    public void showQList(List<Module> qBankCompleted) {
+        if (qBankCompleted != null && qBankCompleted.size() > 0) {
+
+            qbankSubCatAdapter.setDetailList(qBankCompleted);
+            qbankSubCatAdapter.notifyDataSetChanged();
+            recyclerView.setVisibility(View.VISIBLE);
+            no_item.setVisibility(View.GONE);
+        } else {
+            Utils.dismissProgressDialog();
+            recyclerView.setVisibility(View.GONE);
+            no_item.setVisibility(View.VISIBLE);
+            Toast.makeText(qbankSubActivity, "No Data", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
