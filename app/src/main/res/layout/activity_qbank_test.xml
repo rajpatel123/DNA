@@ -12,8 +12,29 @@
         android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/margin_10"
         android:orientation="horizontal">
 
+        <SeekBar
+            android:id="@+id/progressTimer"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:padding="0dp"
+            android:max="10"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+
+            android:progress="100"/>
+        <TextView
+            android:id="@+id/appname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DNA"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_20"
+            android:textSize="@dimen/margin_20"
+            />
         <ImageView
             android:id="@+id/btnCancel"
             android:layout_width="40dp"
@@ -21,6 +42,19 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             app:srcCompat="@drawable/qbank_wrong_answer" />
+
+
+        <LinearLayout
+            android:id="@+id/questionmarking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appname"
+            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:orientation="horizontal"
+           /> >
+
 
 
     </RelativeLayout>
@@ -34,7 +68,8 @@
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_10">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,21 +84,22 @@
                     android:visibility="visible" />
 
 
+                <TextView
+                    android:id="@+id/qtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    android:textSize="18sp" />
+
                 <LinearLayout
                     android:id="@+id/questionListDescription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="10dp"
                     android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/qtext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:text="Test Questions"
-                        android:textSize="@dimen/text_large" />
 
 
                     <RelativeLayout
@@ -75,17 +111,16 @@
                             android:id="@+id/linear_txt_one"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-
-                            >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imga"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginTop="8dp"
+                                app:srcCompat="@drawable/tick"
                                 android:padding="5dp" />
+
 
                         </LinearLayout>
 
@@ -131,9 +166,10 @@
 
                             <ImageView
                                 android:id="@+id/imgb"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
+
                                 android:layout_marginTop="10dp" />
 
                         </LinearLayout>
@@ -182,8 +218,8 @@
 
                             <ImageView
                                 android:id="@+id/imgc"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp" />
 
                         </LinearLayout>
@@ -232,8 +268,8 @@
 
                             <ImageView
                                 android:id="@+id/imgd"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="5dp" />
 
@@ -265,7 +301,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@+id/optionD"
-
                                 android:textColor="@color/black_titles"
                                 android:textSize="@dimen/evp_text_size_medium" />
                         </LinearLayout>
@@ -306,7 +341,7 @@
                                     android:gravity="center_vertical"
                                     android:minHeight="30sp"
                                     android:paddingLeft="15dp"
-                                    android:text="gydghjdghj"
+                                    android:text=""
                                     android:textColor="@color/black_titles"
                                     android:textSize="@dimen/text_large" />
 
@@ -350,15 +385,6 @@
         </ScrollView>
     </FrameLayout>
 
-    <com.dnamedical.views.CustomViewPager
-        android:id="@+id/pager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/linearBottom"
-        android:layout_below="@id/linear1"
-        android:layout_weight="1"
-
-        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/linearBottom"
@@ -401,6 +427,7 @@
             android:layout_marginRight="10dp"
             android:background="@color/colorAccent"
             android:text="PREV"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

@@ -140,8 +140,8 @@ public class RestClient {
     }
 
 
-    public static void submitAnswer(String q_id, String u_id, String is_completed, String userAnswer, Callback<SubmitAnswer> callback) {
-        RetrofitClient.getClient().submitAnswer(q_id, u_id, is_completed, userAnswer).enqueue(callback);
+    public static void submitAnswer(RequestBody u_id, RequestBody q_id , RequestBody module_id, RequestBody userAnswer, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().submitAnswer( u_id,q_id, module_id, userAnswer).enqueue(callback);
     }
 
     public static void submitQuestionTestAnswer(RequestBody userId, RequestBody testID, RequestBody qID, RequestBody answerID, RequestBody guesStatus,RequestBody edit, Callback<ResponseBody> callback) {
@@ -383,6 +383,14 @@ public class RestClient {
 
     public static void bookMarkQuestion(RequestBody user_id, RequestBody test_id,RequestBody question_id,RequestBody bookmark, Callback<ResponseBody> callback) {
         RetrofitClient.getClient().bookMarkQuestion(user_id,test_id,question_id,bookmark).enqueue(callback);
+
+    }
+
+
+
+
+    public static void completeMCQ(RequestBody user_id, RequestBody moduleId,RequestBody complete,RequestBody subject,RequestBody chapter, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().completeMCQ(user_id,moduleId,complete,subject,chapter).enqueue(callback);
 
     }
 

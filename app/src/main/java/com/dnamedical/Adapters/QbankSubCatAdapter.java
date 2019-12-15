@@ -75,14 +75,12 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
                 holder.title.setVisibility(View.GONE);
             }
         }
-        if (detail.getIsPaid().equalsIgnoreCase("Paid")) {
+
+        if (!TextUtils.isEmpty(detail.getIsPaid()) && detail.getIsPaid().equalsIgnoreCase("1")) {
             holder.sub_cat_free.setImageResource(R.drawable.question_bank_lock);
         }
-        if (detail.getIsPaid().equalsIgnoreCase("1")) {
-            holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
-        }
         try {
-            if (detail.getIsPaused().equalsIgnoreCase("1")) {
+            if (!TextUtils.isEmpty(detail.getIsPaused()) && detail.getIsPaused().equalsIgnoreCase("1")) {
                 holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
             }
         } catch (Exception e) {

@@ -115,7 +115,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
 
     private void getQbankData() {
         UserId= DnaPrefs.getString(getContext(), Constants.LOGIN_ID);
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),"1369");
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
             RestClient.qbankDetail(user_id, new Callback<ModuleListResponse>() {
@@ -138,6 +138,7 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                                             Intent intent = new Intent(getActivity(), QbankSubActivity.class);
                                             intent.putExtra(Constants.MODULE_ID, id);
                                             intent.putExtra(Constants.MODULE_NAME, name);
+                                            DnaPrefs.putString(getActivity(),"subject_id",id);
                                             startActivity(intent);
                                         }
                                     }

@@ -59,13 +59,17 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             testModuleName.setText(module.getChapterName());
             testTotalQuestion.setText(module.getTotalMcq() + " MCQ's");
             testCompletedQuestion.setText(module.getTotalAttemptedmcq() + " Completed");
+            linearLayoutStatus.setVisibility(View.GONE);
 
 
             if (module.getTotalAttemptedmcq() > 0) {
                 linearLayoutStatus.setVisibility(View.VISIBLE);
                 testTime.setText("You have paused this mudule on " + Utils.dateFormatForPlan(System.currentTimeMillis()));
             } else {
-                linearLayoutStatus.setVisibility(View.VISIBLE);
+                if (module.getTotalAttemptedmcq()==module.getTotalMcq()){
+                    testTime.setText("You have completed this mudule on " + Utils.dateFormatForPlan(System.currentTimeMillis()));
+                    linearLayoutStatus.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -100,7 +104,8 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                             Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
                             intent.putExtra("qmodule_id", module.getModuleId());
                             intent.putExtra("userId", userId);
-                            intent.putExtra("questionStartId", module.getTotalAttemptedmcq()+1);
+                            intent.putExtra("chap_ID", module.getChapterId());
+                            intent.putExtra("questionStartId", module.getTotalAttemptedmcq());
                             startActivity(intent);
                             finish();
                         }

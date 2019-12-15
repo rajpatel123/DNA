@@ -19,7 +19,6 @@ import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
-import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
@@ -37,7 +36,6 @@ import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
-import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
@@ -223,7 +221,7 @@ public interface ApiInterface {
                                           @Part("state") RequestBody state,
                                           @Part("college") RequestBody college);
 
-/////////////////////////////////////////
+    /////////////////////////////////////////
     @Multipart
     @POST("api/api.php?req=facebook")
     Call<FacebookResponse> facebookRegister(@Part("name") RequestBody name,
@@ -287,21 +285,18 @@ public interface ApiInterface {
                                 @Part("is_submit") RequestBody isSubmit);
 
 
-
     @Multipart
     @POST("api/api.php?req=add_testtime")
     Call<ResponseBody> startTest(@Part("user_id") RequestBody userId,
-                                @Part("test_id") RequestBody testID,
-                                @Part("start_time") RequestBody startTime);
-
+                                 @Part("test_id") RequestBody testID,
+                                 @Part("start_time") RequestBody startTime);
 
 
     @Multipart
     @POST("api/api.php?req=add_endtime")
     Call<ResponseBody> endTest(@Part("user_id") RequestBody userId,
-                                @Part("test_id") RequestBody testID,
-                                    @Part("end_time") RequestBody endTime);
-
+                               @Part("test_id") RequestBody testID,
+                               @Part("end_time") RequestBody endTime);
 
 
     @GET("api/api.php?req=get_remark")
@@ -355,8 +350,19 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=getall_mcqs")
+    @POST("http://vrok.in/dnalive/api/api.php?req=getall_mcq")
     Call<MCQQuestionList> getAllMCQQuestions(@Part("user_id") RequestBody user_id, @Part("module_id") RequestBody module_id);
+
+
+    @Multipart
+    @POST(" http://vrok.in/dnalive/api/api.php?req=sumbit_module")
+    Call<ResponseBody> completeMCQ(@Part("user_id") RequestBody user_id,
+                                   @Part("module_id") RequestBody module_id,
+                                   @Part("complete_status") RequestBody complete_status,
+                                   @Part("subject_id") RequestBody subject_id,
+                                   @Part("chapter_id") RequestBody chapter_id
+    );
+
 
     @Multipart
     @POST("api/api.php?req=qbankmodulereview")
@@ -389,11 +395,12 @@ public interface ApiInterface {
                                               @Query("feedback") String feedback);
 
 
-    @GET("api/api.php?req=qbank_mcq_atteped_answer")
-    Call<SubmitAnswer> submitAnswer(@Query("quest_id") String quest_id,
-                                    @Query("user_id") String user_id,
-                                    @Query("is_completed") String is_completed,
-                                    @Query("user_answer") String user_answer);
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=submit_mcqanswer")
+    Call<ResponseBody> submitAnswer(@Part("user_id") RequestBody user_id,
+                                    @Part("mcq_id") RequestBody quest_id,
+                                    @Part("module_id") RequestBody module_id,
+                                    @Part("given_answer") RequestBody user_answer);
 
     @Multipart
     @POST("v1/index.php/api/test/submitanswer")
@@ -415,7 +422,8 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=qbank_mcq")
     Call<QbankTestResponse> qbanksubTestData(@Part("qmodule_id") RequestBody qmodule_id);
-////////////////////////////////////
+
+    ////////////////////////////////////
     @Multipart
     @POST("api/api.php?req=mobileverify")
     Call<VerifyOtpResponse> verifyOTP(
@@ -525,19 +533,19 @@ public interface ApiInterface {
 //                                                       @Query("user_id") String user_id);
 
 
-// Change phone No
+    // Change phone No
     @Multipart
     @POST("api/api.php?req=send_otp")
     Call<ResponseBody> changePhoneNumber(@Part("user_id") RequestBody name,
-                                                     @Part("mobile") RequestBody phoneNo);
+                                         @Part("mobile") RequestBody phoneNo);
 
     // change phone no verified otp
 
     @Multipart
     @POST("api/api.php?req=update_mobile")
-    Call<ChangePhoneNumberOtpResponse>phoneOtpVerified(@Part("user_id")RequestBody user_id,
-                                                       @Part("mobile")RequestBody mobile,
-                                                       @Part("otp")RequestBody otp);
+    Call<ChangePhoneNumberOtpResponse> phoneOtpVerified(@Part("user_id") RequestBody user_id,
+                                                        @Part("mobile") RequestBody mobile,
+                                                        @Part("otp") RequestBody otp);
 
 }
 
