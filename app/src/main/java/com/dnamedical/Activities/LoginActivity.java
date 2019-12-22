@@ -18,9 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
-import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -168,11 +166,11 @@ public class LoginActivity extends AppCompatActivity {
                             DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, loginResponse.getLoginDetails().get(0).getMobileNo());
 
 
-                            if (!TextUtils.isEmpty(loginResponse.getLoginDetails().get(0).getInstitute_id())){
+                            if (!TextUtils.isEmpty(loginResponse.getLoginDetails().get(0).getInstitute_id())) {
                                 DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, loginResponse.getLoginDetails().get(0).getInstitute_id());
                                 DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, loginResponse.getLoginDetails().get(0).getInstitute_name());
                                 DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, loginResponse.getLoginDetails().get(0).getInstitute_logo());
-                            }else{
+                            } else {
                                 DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, "0");
                                 DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, "");
                                 DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, "");
@@ -256,7 +254,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onResponse(Call<FacebookLoginResponse> call, Response<FacebookLoginResponse> response) {
 
                                     FacebookLoginResponse facebookLoginResponse = response.body();
-                                    if (facebookLoginResponse != null  && Integer.parseInt(facebookLoginResponse.getStatus())==1){
+                                    if (facebookLoginResponse != null && Integer.parseInt(facebookLoginResponse.getStatus()) == 1) {
                                         if (facebookLoginResponse != null && facebookLoginResponse.getLoginDetails() != null) {
                                             if (TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getState()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getEmailId()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getMobileNo())) {
                                                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
@@ -275,12 +273,12 @@ public class LoginActivity extends AppCompatActivity {
                                                 DnaPrefs.putString(getApplicationContext(), "NAME", name);
                                                 DnaPrefs.putString(getApplicationContext(), "URL", pictureurl);
 
-                                                if (!TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getInstitute_id())){
+                                                if (!TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getInstitute_id())) {
                                                     DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, facebookLoginResponse.getLoginDetails().get(0).getInstitute_id());
                                                     DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, facebookLoginResponse.getLoginDetails().get(0).getInstitute_name());
                                                     DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, facebookLoginResponse.getLoginDetails().get(0).getInstitute_logo());
 
-                                                }else{
+                                                } else {
                                                     DnaPrefs.putString(getApplicationContext(), Constants.INST_ID, "0");
                                                     DnaPrefs.putString(getApplicationContext(), Constants.INST_NAME, "");
                                                     DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, "");
@@ -297,10 +295,10 @@ public class LoginActivity extends AppCompatActivity {
                                                 finish();
                                             }
                                         }
-                                    }else if(Integer.parseInt(facebookLoginResponse.getStatus())==2){
+                                    } else if (Integer.parseInt(facebookLoginResponse.getStatus()) == 2) {
                                         showLoginfailedDialog(facebookLoginResponse.getMessage());
 
-                                    }else if (Integer.parseInt(facebookLoginResponse.getStatus())==3){
+                                    } else if (Integer.parseInt(facebookLoginResponse.getStatus()) == 3) {
 
                                         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
 
@@ -311,7 +309,7 @@ public class LoginActivity extends AppCompatActivity {
                                         intent.putExtra(Constants.NAME, name);
                                         intent.putExtra(Constants.EMAILID, email);
                                         startActivity(intent);
-
+                                        finish();
 
                                     }
 
@@ -361,7 +359,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     @Override

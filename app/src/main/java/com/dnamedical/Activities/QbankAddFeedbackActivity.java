@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +36,7 @@ public class QbankAddFeedbackActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        submitFeedback.addTextChangedListener(new TextWatcher() {
+        editFeedback.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -44,16 +45,18 @@ public class QbankAddFeedbackActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 if (count<=100){
                     charCount.setText(count+"/100");
                     editFeedback.setText(s);
                 }else{
-                   editFeedback.setText(s.subSequence(0,100));
+                    editFeedback.setText(s.subSequence(0,100));
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                submitFeedback.setSaveEnabled(true);
 
             }
         });
@@ -71,5 +74,12 @@ public class QbankAddFeedbackActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }

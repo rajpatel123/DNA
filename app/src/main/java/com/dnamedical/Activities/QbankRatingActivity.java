@@ -257,7 +257,8 @@ public class QbankRatingActivity extends AppCompatActivity {
 
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("true")) {
+
+                    if (response.body().getStatus().equalsIgnoreCase("true")) {
                             Intent intent = new Intent(QbankRatingActivity.this,QbankResultActivity.class);
                             intent.putExtra("module_id",getIntent().getStringExtra("module_id"));
 

@@ -755,6 +755,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             mCountry = "India";
         }
         RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), address);
+//        RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), "");
         RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), city);
         RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), mCountry);
         RequestBody androidBody = RequestBody.create(MediaType.parse("text/plain"), "Android");

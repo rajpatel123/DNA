@@ -218,7 +218,7 @@ public class FirstloginActivity extends AppCompatActivity {
                                                     DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                                                     DnaPrefs.putString(getApplicationContext(), "STATE", facebookLoginResponse.getLoginDetails().get(0).getState());
                                                     DnaPrefs.putString(getApplicationContext(), "COLLEGE", facebookLoginResponse.getLoginDetails().get(0).getCollege());
-//                                            DnaPrefs.putString(getApplicationContext(), "FBID", facebook_id);
+//                                                 DnaPrefs.putString(getApplicationContext(), "FBID", facebook_id);
 
                                                     startActivity(intent);
                                                     finish();
@@ -238,6 +238,7 @@ public class FirstloginActivity extends AppCompatActivity {
                                                 intent.putExtra(Constants.NAME, name);
                                                 intent.putExtra(Constants.EMAILID, email);
                                                 startActivity(intent);
+                                                finish();
 
 
                                         }

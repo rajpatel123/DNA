@@ -203,22 +203,24 @@ public class QbankTestActivity extends AppCompatActivity {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
                         questionDetail.get(questionNo).setBookmarked(false);
                         Log.d("BookMark", "" + 1);
-                        bookmark.setBackgroundResource(R.drawable.star_grey);
+                        Utils.setTintForImage(QbankTestActivity.this,bookmark,R.color.dark_gray);
+
 
                     } else {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
                         questionDetail.get(questionNo).setBookmarked(true);
-                        bookmark.setBackgroundResource(R.drawable.star_colored);
+                        Utils.setTintForImage(QbankTestActivity.this,bookmark,R.color.colorPrimary);
+
                         Log.d("BookMark", "" + 0);
 
 
                     }
 
-                    Utils.showProgressDialog(QbankTestActivity.this);
+                   // Utils.showProgressDialog(QbankTestActivity.this);
                     RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, type, new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            Utils.dismissProgressDialog();
+                          //  Utils.dismissProgressDialog();
                             if (response != null && response.code() == 200) {
 
                             }
@@ -226,7 +228,7 @@ public class QbankTestActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Utils.dismissProgressDialog();
+                            //Utils.dismissProgressDialog();
                         }
                     });
                 }
@@ -362,10 +364,11 @@ public class QbankTestActivity extends AppCompatActivity {
             ImageView iv = new ImageView(getApplicationContext());
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 540);
             iv.setLayoutParams(lp);
+            Utils.setTintForImage(QbankTestActivity.this,bookmark,R.color.dark_gray);
+
 
             answerList.removeAllViews();
             answerList.addView(questionText);
-            answerList.addView(iv);
             if (!TextUtils.isEmpty(questionDetails.getTitleImage())) {
                 if (Utils.isInternetConnected(QbankTestActivity.this)) {
                    // question_image.setVisibility(View.VISIBLE);
