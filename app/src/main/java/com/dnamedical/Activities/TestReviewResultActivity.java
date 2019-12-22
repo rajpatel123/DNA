@@ -300,6 +300,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                                 RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
                                                 RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_Id);
                                                 RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), questionList.getId());
+                                                RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "test");
                                                 RequestBody remove_bookmark = null;
                                                 if (questionList.getIsBookmark() == 0) {
                                                     remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
@@ -307,7 +308,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                                     remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
                                                 }
 
-                                                RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, new Callback<ResponseBody>() {
+                                                RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark,type, new Callback<ResponseBody>() {
                                                     @Override
                                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                         if (response != null && response.code() == 200) {

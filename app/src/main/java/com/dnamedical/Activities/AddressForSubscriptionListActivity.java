@@ -1,6 +1,8 @@
 package com.dnamedical.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -153,7 +157,7 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
                                     @Override
                                     public void deleteAddress(String add_id) {
                                         if (!TextUtils.isEmpty(add_id)) {
-                                            deleteAddressApi(add_id);
+                                            deleteAddressDialog(add_id);
                                         }
                                     }
 
@@ -244,6 +248,40 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
             textViewNoData.setText("No Internet Connections!!");
             Toast.makeText(this, "Internet Connections Failed!!!", Toast.LENGTH_SHORT).show();
         }
+
+
+    }
+
+    private void deleteAddressDialog(String add_id) {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddressForSubscriptionListActivity.this);
+        // ...Irrelevant code for customizing the buttons and titl
+        dialogBuilder.setTitle("Delete");
+        dialogBuilder.setMessage("Are you sure want to delete address?");
+        dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteAddressApi(add_id);
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+
+
+
+
+
+        if (!dialog.isShowing())
+            dialog.show();
 
 
     }

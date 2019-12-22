@@ -350,7 +350,14 @@ public interface ApiInterface {
     @POST("api/api.php?req=qbankmodulereview")
     Call<ReviewListResponse> qbankReview(@Part("user_id") RequestBody user_id, @Part("qmodule_id") RequestBody qmodule_id);
 
-
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=submit_module")
+    Call<ResponseBody> completeMCQ(@Part("user_id") RequestBody user_id,
+                                   @Part("module_id") RequestBody module_id,
+                                   @Part("complete_status") RequestBody complete_status,
+                                   @Part("subject_id") RequestBody subject_id,
+                                   @Part("chapter_id") RequestBody chapter_id
+    );
     /*@Multipart
     @POST("api/api.php?req=qbank_subcate")
     Call<QbankstartResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);
@@ -468,9 +475,10 @@ public interface ApiInterface {
     @Multipart
     @POST("v1/index.php/api/test/bookmark")
     Call<ResponseBody> bookMarkQuestion(@Part("user_id") RequestBody user_id,
-                                        @Part("test_id") RequestBody timespend,
-                                        @Part("question_id") RequestBody event,
-                                        @Part("remove_bookmark") RequestBody remove_bookmark);
+                                        @Part("test_id") RequestBody test_id,
+                                        @Part("question_id") RequestBody question_id,
+                                        @Part("remove_bookmark") RequestBody remove_bookmark,
+                                        @Part("type") RequestBody type);
 
     @Multipart
     @POST("v1/index.php/api/test/timelogs")

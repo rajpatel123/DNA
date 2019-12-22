@@ -32,6 +32,7 @@
             android:paddingRight="50dp"
             android:paddingTop="5sp"
             android:text="Learn More"
+            android:visibility="gone"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/ts_20" />
@@ -52,7 +53,7 @@
             android:textSize="@dimen/ts_20" />
 
         <TextView
-            android:id="@+id/text_cancel"
+            android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"

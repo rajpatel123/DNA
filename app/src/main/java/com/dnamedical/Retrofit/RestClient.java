@@ -373,8 +373,17 @@ public class RestClient {
     }
 
 
-    public static void bookMarkQuestion(RequestBody user_id, RequestBody test_id,RequestBody question_id,RequestBody bookmark, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().bookMarkQuestion(user_id,test_id,question_id,bookmark).enqueue(callback);
+
+    public static void bookMarkQuestion(RequestBody user_id, RequestBody test_id,RequestBody question_id,RequestBody bookmark,RequestBody type, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().bookMarkQuestion(user_id,test_id,question_id,bookmark,type).enqueue(callback);
+
+    }
+
+
+
+
+    public static void completeMCQ(RequestBody user_id, RequestBody moduleId,RequestBody complete,RequestBody subject,RequestBody chapter, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().completeMCQ(user_id,moduleId,complete,subject,chapter).enqueue(callback);
 
     }
 
