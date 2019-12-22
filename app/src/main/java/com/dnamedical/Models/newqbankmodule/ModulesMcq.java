@@ -36,6 +36,17 @@ public class ModulesMcq {
     @Expose
     private String givenAnswer;
 
+
+    public boolean isBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        isBookmarked = bookmarked;
+    }
+
+    private boolean isBookmarked;
+
     public String getId() {
         return id;
     }

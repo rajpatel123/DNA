@@ -111,20 +111,29 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
-                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
-                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11
-                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 10)
-                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
-
-
+//                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
+//                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11
+//                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 10){
+//
+//                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+//
+//                        }
                         if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID)) && !DnaPrefs.getString(applicationContext, Constants.INST_ID).equals("0")) {
                             if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
                                 onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
-                            }
-                            return;
+                                return;
 
+                            }
+                        }
+
+                        if (Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId())!=5){
+                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
 
                         }
+
+
+
+
 
 
                     }

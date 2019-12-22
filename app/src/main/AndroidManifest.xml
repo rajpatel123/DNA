@@ -119,6 +119,10 @@
         <activity
             android:name=".Activities.TestReviewResultActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Activities.QBankReviewResultActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.PromoActivity"
             android:screenOrientation="portrait"
@@ -128,13 +132,16 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"/>
         <activity
             android:name=".Activities.QbankResultActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"/>
         <activity
             android:name=".Activities.QbankRatingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"/>
         <activity
             android:name=".Activities.QbankTestActivity"
             android:screenOrientation="portrait"

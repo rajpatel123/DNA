@@ -51,7 +51,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         Module detail = detailList.get(position);
 //        if (!detail.getPausedStatus().equalsIgnoreCase("1")){
@@ -89,6 +89,11 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
         if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("1")) {
             Picasso.with(applicationContext).load(R.drawable.qbank_right_answer).into(holder.sub_cat_free);
+            holder.sub_cat_free.setVisibility(View.VISIBLE);
+
+        } else {
+            holder.sub_cat_free.setVisibility(View.GONE);
+
         }
         Picasso.with(applicationContext).load(detail.getChapterImage()).error(R.drawable.biology).into(holder.subImage);
         holder.subTitle.setText("" + detail.getModuleName());

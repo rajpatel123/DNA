@@ -17,7 +17,6 @@ import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
-import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
@@ -34,6 +33,8 @@ import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
 import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
+import com.dnamedical.Models.newqbankmodule.ModuleResponse;
+import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
@@ -355,7 +356,7 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST(" http://vrok.in/dnalive/api/api.php?req=sumbit_module")
+    @POST("http://vrok.in/dnalive/api/api.php?req=submit_module")
     Call<ResponseBody> completeMCQ(@Part("user_id") RequestBody user_id,
                                    @Part("module_id") RequestBody module_id,
                                    @Part("complete_status") RequestBody complete_status,
@@ -385,14 +386,16 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=qbank_solve")
     Call<QbankstartResponse> qbankStart(@Part("qmodule_id") RequestBody qmodule_id,
-                                        @Part("user_id") RequestBody user_id
-            , @Part("is_paused") RequestBody is_paused);
+                                        @Part("user_id") RequestBody user_id,
+                                        @Part("is_paused") RequestBody is_paused);
 
-    @POST("api/api.php?req=qbank_mcq_model_feedback")
-    Call<QbankfeedbackResponse> qbankFeedback(@Query("user_id") String user_id,
-                                              @Query("qmodule_id") String qmodule_id,
-                                              @Query("rating") String rating,
-                                              @Query("feedback") String feedback);
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=add_feedback")
+    Call<QbankfeedbackResponse> qbankFeedback(@Part("user_id") RequestBody user_id,
+                                              @Part("module_id") RequestBody qmodule_id,
+                                              @Part("rating") RequestBody rating,
+                                              @Part("feedback") RequestBody feedback,
+                                              @Part("remark") RequestBody remark);
 
 
     @Multipart
@@ -401,6 +404,17 @@ public interface ApiInterface {
                                     @Part("mcq_id") RequestBody quest_id,
                                     @Part("module_id") RequestBody module_id,
                                     @Part("given_answer") RequestBody user_answer);
+
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=get_modulebyid")
+    Call<ModuleResponse> updateQBankStatus(@Part("user_id") RequestBody user_id,
+                                           @Part("module_id") RequestBody module_id);
+
+
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=get_score")
+    Call<QBankResultResponse> getMCQResult(@Part("user_id") RequestBody user_id,
+                                           @Part("module_id") RequestBody module_id);
 
     @Multipart
     @POST("v1/index.php/api/test/submitanswer")
@@ -488,9 +502,10 @@ public interface ApiInterface {
     @Multipart
     @POST("v1/index.php/api/test/bookmark")
     Call<ResponseBody> bookMarkQuestion(@Part("user_id") RequestBody user_id,
-                                        @Part("test_id") RequestBody timespend,
-                                        @Part("question_id") RequestBody event,
-                                        @Part("remove_bookmark") RequestBody remove_bookmark);
+                                        @Part("test_id") RequestBody test_id,
+                                        @Part("question_id") RequestBody question_id,
+                                        @Part("remove_bookmark") RequestBody remove_bookmark,
+                                        @Part("type") RequestBody type);
 
     @Multipart
     @POST("v1/index.php/api/test/timelogs")
@@ -504,6 +519,17 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/reviewquestionlist")
     Call<TestReviewListResponse> getTestReviewListData(
             @Query("test_id") String test_id,
+            @Query("user_id") String user_id,
+            @Query("filter_level") String filter_level,
+            @Query("filter_answer") String filter_answer,
+            @Query("filter_category") String filter_category,
+            @Query("filter_bookmark") String filter_bookmark);
+
+
+    // New Api's Integrate
+    @GET("http://vrok.in/dnalive/v1/index.php/api/test/reviewqbankquestionlist")
+    Call<TestReviewListResponse> getQBankReviewListData(
+            @Query("module_id") String test_id,
             @Query("user_id") String user_id,
             @Query("filter_level") String filter_level,
             @Query("filter_answer") String filter_answer,

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Module implements Parcelable, Comparable<Module> {
+public class Module implements Parcelable, Comparable<Module>,Cloneable {
 
     @SerializedName("chapter_id")
     @Expose
@@ -39,7 +39,7 @@ public class Module implements Parcelable, Comparable<Module> {
     @SerializedName("rating")
     @Expose
     private String rating;
-    @SerializedName("is_completed")
+    @SerializedName("module_status")
     @Expose
     private String isCompleted;
     @SerializedName("total_mcq")
@@ -71,6 +71,19 @@ public class Module implements Parcelable, Comparable<Module> {
         } else {
             totalAttemptedmcq = in.readInt();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Module) {
+            return ((Module) obj).chapterId == chapterId;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(this.chapterId);
     }
 
     public static final Creator<Module> CREATOR = new Creator<Module>() {
@@ -225,4 +238,6 @@ public class Module implements Parcelable, Comparable<Module> {
             dest.writeInt(totalAttemptedmcq);
         }
     }
+
+
 }

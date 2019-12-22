@@ -2,8 +2,10 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,11 +14,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dnamedical.Models.newqbankmodule.Module;
+import com.dnamedical.Models.newqbankmodule.ModuleResponse;
+import com.dnamedical.Models.newqbankmodule.ModulesMcq;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.R;
+import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.squareup.picasso.Picasso;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.view.View.GONE;
 
 public class QbankStartTestActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,31 +62,19 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
         btnStart.setOnClickListener(this);
         if (getIntent().hasExtra("module")) {
             module = getIntent().getParcelableExtra("module");
-        }
 
 
-        // getActionBar().setTitle(qbank_name);
-        if (getSupportActionBar() != null) {
+            if (module != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setTitle(module.getChapterName());
+                // getActionBar().setTitle(qbank_name);
+                updateData();
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(module.getChapterName());
-            testModuleName.setText(module.getChapterName());
-            testTotalQuestion.setText(module.getTotalMcq() + " MCQ's");
-            testCompletedQuestion.setText(module.getTotalAttemptedmcq() + " Completed");
-            linearLayoutStatus.setVisibility(View.GONE);
-
-
-            if (module.getTotalAttemptedmcq() > 0) {
-                linearLayoutStatus.setVisibility(View.VISIBLE);
-                testTime.setText("You have paused this mudule on " + Utils.dateFormatForPlan(System.currentTimeMillis()));
-            } else {
-                if (module.getTotalAttemptedmcq()==module.getTotalMcq()){
-                    testTime.setText("You have completed this mudule on " + Utils.dateFormatForPlan(System.currentTimeMillis()));
-                    linearLayoutStatus.setVisibility(View.VISIBLE);
-                }
             }
         }
+
+
     }
 
     @Override
@@ -90,36 +93,91 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_test:
-                btnStart.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (!TextUtils.isEmpty(module.getIsCompleted()) && module.getIsCompleted().equalsIgnoreCase("1")) {
-                            Intent intent = new Intent(QbankStartTestActivity.this, TestReviewResultActivity.class);
-                            intent.putExtra("qmodule_id", module.getModuleId());
-                            intent.putExtra("userId", userId);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
-                            intent.putExtra("qmodule_id", module.getModuleId());
-                            intent.putExtra("userId", userId);
-                            intent.putExtra("chap_ID", module.getChapterId());
-                            intent.putExtra("questionStartId", module.getTotalAttemptedmcq());
-                            startActivity(intent);
-                            finish();
-                        }
-
-                    }
-                });
+                if (module.getTotalMcq()<=module.getTotalAttemptedmcq()) {
+                    Intent intent = new Intent(QbankStartTestActivity.this, QbankResultActivity.class);
+                    intent.putExtra("module_id", module.getModuleId());
+                    intent.putExtra("userId", userId);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(QbankStartTestActivity.this, QbankTestActivity.class);
+                    intent.putExtra("qmodule_id", module.getModuleId());
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("chap_ID", module.getChapterId());
+                    intent.putExtra("questionStartId", module.getTotalAttemptedmcq());
+                    startActivityForResult(intent, 12);
+                    finish();
+                }
 
                 break;
         }
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        updateStatus();
 
-  /*  // Enable or disable and change button text by EditText text length.
+
+    }
+
+
+    public void updateStatus() {
+        // Utils.showProgressDialog(qbankTestActivity);
+
+        RequestBody moduleID = RequestBody.create(MediaType.parse("text/plain"), module.getModuleId());
+
+        RequestBody userIdRequest = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+
+
+
+        RestClient.updateQBankStatus(userIdRequest,moduleID, new Callback<ModuleResponse>() {
+            @Override
+            public void onResponse(Call<ModuleResponse> call, Response<ModuleResponse> response) {
+                // Utils.dismissProgressDialog();
+                module =response.body().getDetails().get(0);
+
+                updateData();
+            }
+
+            @Override
+            public void onFailure(Call<ModuleResponse> call, Throwable t) {
+                // Utils.dismissProgressDialog();
+            }
+        });
+    }
+
+    private void updateData() {
+        if (module!=null){
+            testModuleName.setText(module.getChapterName());
+            testTotalQuestion.setText(module.getTotalMcq() + " MCQ's");
+            linearLayoutStatus.setVisibility(View.GONE);
+            if (module.getTotalMcq()<=module.getTotalAttemptedmcq()) {
+                btnStart.setText("REVIEW");
+                testCompletedQuestion.setText("All Completed");
+                Picasso.with(this).load(R.drawable.qbank_right_answer).into(pauseImage);
+                linearLayoutStatus.setVisibility(View.VISIBLE);
+                testTime.setText("You have paused this mudule on " + Utils.dateFormatForPlan(module.getModule_submit_time()));
+            } else {
+                testCompletedQuestion.setText(module.getTotalAttemptedmcq() + " Completed");
+                btnStart.setText("SOLVE");
+                if (module.getTotalAttemptedmcq() >0) {
+                    testTime.setText("You have completed this mudule on " + Utils.dateFormatForPlan(module.getModule_submit_time()));
+                    linearLayoutStatus.setVisibility(View.VISIBLE);
+                    Picasso.with(this).load(R.drawable.paused_icon).into(pauseImage);
+
+                }
+            }
+
+
+        }
+    }
+
+
+
+    /*  // Enable or disable and change button text by EditText text length.
     private void processButtonByTextLength()
     {
 

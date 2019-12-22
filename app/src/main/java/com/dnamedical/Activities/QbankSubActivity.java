@@ -27,6 +27,7 @@ import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -72,6 +73,7 @@ public class QbankSubActivity extends AppCompatActivity {
     }
 
     public List<Module> qBankAll = new ArrayList<>();
+    public List<Module> allMCQS = new ArrayList<>();
     public List<Module> qBankPaused = new ArrayList<>();
     public List<Module> qBankCompleted = new ArrayList<>();
     public List<Module> qBankUnAttempted = new ArrayList<>();
@@ -98,7 +100,6 @@ public class QbankSubActivity extends AppCompatActivity {
 
 
 
-        getAllChapterByModule();
 
         toolbarName.setText(qbankmoduleName);
 
@@ -115,6 +116,7 @@ public class QbankSubActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getAllChapterByModule();
 
 
     }
@@ -201,6 +203,12 @@ public class QbankSubActivity extends AppCompatActivity {
 
     private void getAllChapterByModule() {
 
+        qBankAll.clear();
+        qBankFree.clear();
+        qBankUnAttempted.clear();
+        qBankPaused.clear();
+        qBankCompleted.clear();
+
         String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
         if (TextUtils.isEmpty(userId)) {
@@ -248,9 +256,7 @@ public class QbankSubActivity extends AppCompatActivity {
                         if (chaptersModuleResponse.getFree() != null
                                 && chaptersModuleResponse.getFree().size() > 0) {
                             qBankFree    = chaptersModuleResponse.getFree();
-
                         }
-
 
                         if (qBankCompleted.size() > 0) {
                             qBankAll.addAll(qBankCompleted);
@@ -262,9 +268,9 @@ public class QbankSubActivity extends AppCompatActivity {
                             qBankAll.addAll(qBankUnAttempted);
                         }
 
-                        if (qBankFree.size() > 0) {
-                            qBankAll.addAll(qBankFree);
-                        }
+//                        if (qBankFree.size() > 0) {
+//                            qBankAll.addAll(qBankFree);
+//                        }
 
                         updateAllModules();
                     }

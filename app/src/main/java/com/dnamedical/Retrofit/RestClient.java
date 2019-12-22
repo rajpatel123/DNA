@@ -35,6 +35,8 @@ import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
 import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
+import com.dnamedical.Models.newqbankmodule.ModuleResponse;
+import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbank.QbankResponse;
@@ -142,6 +144,16 @@ public class RestClient {
 
     public static void submitAnswer(RequestBody u_id, RequestBody q_id , RequestBody module_id, RequestBody userAnswer, Callback<ResponseBody> callback) {
         RetrofitClient.getClient().submitAnswer( u_id,q_id, module_id, userAnswer).enqueue(callback);
+    }
+
+
+    public static void updateQBankStatus(RequestBody u_id, RequestBody module_id, Callback<ModuleResponse> callback) {
+        RetrofitClient.getClient().updateQBankStatus( u_id,module_id).enqueue(callback);
+    }
+
+
+    public static void getMCQResult(RequestBody u_id, RequestBody module_id, Callback<QBankResultResponse> callback) {
+        RetrofitClient.getClient().getMCQResult( u_id,module_id).enqueue(callback);
     }
 
     public static void submitQuestionTestAnswer(RequestBody userId, RequestBody testID, RequestBody qID, RequestBody answerID, RequestBody guesStatus,RequestBody edit, Callback<ResponseBody> callback) {
@@ -264,8 +276,8 @@ public class RestClient {
         RetrofitClient.getClient().getAllMCQQuestions(user_id,qmodule_id).enqueue(callback);
     }
 
-    public static void qbankFeedback(String user_id, String qmodule_id, String rating, String feedback, Callback<QbankfeedbackResponse> callback) {
-        RetrofitClient.getClient().qbankFeedback(user_id, qmodule_id, rating, feedback).enqueue(callback);
+    public static void qbankFeedback(RequestBody user_id, RequestBody qmodule_id, RequestBody rating, RequestBody feedback,RequestBody remark, Callback<QbankfeedbackResponse> callback) {
+        RetrofitClient.getClient().qbankFeedback(user_id, qmodule_id, rating, feedback,remark).enqueue(callback);
     }
 
     public static void sendOtp(RequestBody phone, Callback<CommonResponse> callback) {
@@ -381,8 +393,14 @@ public class RestClient {
     }
 
 
-    public static void bookMarkQuestion(RequestBody user_id, RequestBody test_id,RequestBody question_id,RequestBody bookmark, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().bookMarkQuestion(user_id,test_id,question_id,bookmark).enqueue(callback);
+
+    public static void getQBankReviewListData(String test_id, String user_id, String level, String subject, String answer,String filter_bookmark, Callback<TestReviewListResponse> callback) {
+        RetrofitClient.getClient().getQBankReviewListData(test_id, user_id,level,answer,subject,filter_bookmark).enqueue(callback);
+    }
+
+
+    public static void bookMarkQuestion(RequestBody user_id, RequestBody test_id,RequestBody question_id,RequestBody bookmark,RequestBody type, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().bookMarkQuestion(user_id,test_id,question_id,bookmark,type).enqueue(callback);
 
     }
 
