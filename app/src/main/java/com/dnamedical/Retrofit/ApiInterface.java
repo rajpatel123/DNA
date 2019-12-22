@@ -369,7 +369,14 @@ public interface ApiInterface {
     @POST("api/api.php?req=qbankmodulereview")
     Call<ReviewListResponse> qbankReview(@Part("user_id") RequestBody user_id, @Part("qmodule_id") RequestBody qmodule_id);
 
-
+    @Multipart
+    @POST("http://vrok.in/dnalive/api/api.php?req=submit_module")
+    Call<ResponseBody> completeMCQ(@Part("user_id") RequestBody user_id,
+                                   @Part("module_id") RequestBody module_id,
+                                   @Part("complete_status") RequestBody complete_status,
+                                   @Part("subject_id") RequestBody subject_id,
+                                   @Part("chapter_id") RequestBody chapter_id
+    );
     /*@Multipart
     @POST("api/api.php?req=qbank_subcate")
     Call<QbankstartResponse> qbanksubData(@Part("qcat_id") RequestBody qcat_id);

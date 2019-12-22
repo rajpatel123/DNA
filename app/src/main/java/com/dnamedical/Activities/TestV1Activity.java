@@ -148,7 +148,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
                     RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
                     RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), question_id);
-                    RequestBody type = RequestBody.create(MediaType.parse("text/plain"),"type");
+                    RequestBody type = RequestBody.create(MediaType.parse("text/plain"),"test");
                     RequestBody remove_bookmark = null;
                     if (qustionDetails.getData().getQuestionList().get(questionIndex).isBookMarked()) {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
