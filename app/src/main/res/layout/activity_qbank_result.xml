@@ -32,7 +32,7 @@
                android:textStyle="bold" />
            <TextView
                android:id="@+id/curved"
-               android:layout_width="wrap_content"
+               android:layout_width="140dp"
                android:layout_height="wrap_content"
                android:layout_gravity="center"
                android:layout_marginTop="10dp"
@@ -70,6 +70,19 @@
                android:text="You solved 24 high yield MCQs and got 29% correct"
                android:textColor="@color/black"
                android:textSize="15dp" />
+
+           <com.dnamedical.views.CustomSeekBar
+               android:id="@+id/seekBar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="10dp"
+               android:paddingLeft="12dp"
+               android:paddingRight="12dp"
+
+               android:progressTint="@color/colorAccent"
+               android:progressDrawable="@android:color/transparent"
+               android:thumbOffset="1dp" />
+
 
            <!--        <Seekbar-->
            <!--            android:id="@+id/seekbar"-->

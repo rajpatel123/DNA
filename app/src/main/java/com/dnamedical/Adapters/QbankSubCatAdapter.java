@@ -80,21 +80,24 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             holder.sub_cat_free.setImageResource(R.drawable.question_bank_lock);
         }
         try {
-            if (!TextUtils.isEmpty(detail.getIsPaused()) && detail.getIsPaused().equalsIgnoreCase("1")) {
+            if (TextUtils.isEmpty(detail.getIsCompleted())) {
+                holder.sub_cat_free.setVisibility(View.GONE);
+            }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("0")) {
                 holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
+                holder.sub_cat_free.setVisibility(View.VISIBLE);
+
+            }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("1")) {
+                holder.sub_cat_free.setImageResource(R.drawable.qbank_right_answer);
+                holder.sub_cat_free.setVisibility(View.VISIBLE);
+
+            }else{
+                holder.sub_cat_free.setVisibility(View.GONE);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("1")) {
-            Picasso.with(applicationContext).load(R.drawable.qbank_right_answer).into(holder.sub_cat_free);
-            holder.sub_cat_free.setVisibility(View.VISIBLE);
-
-        } else {
-            holder.sub_cat_free.setVisibility(View.GONE);
-
-        }
         Picasso.with(applicationContext).load(detail.getChapterImage()).error(R.drawable.biology).into(holder.subImage);
         holder.subTitle.setText("" + detail.getModuleName());
 //        holder.itemNumber.setText("" + (position + 1));
@@ -109,7 +112,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             @Override
             public void onClick(View v) {
                 if (qbanksubListener != null) {
-                    qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getModuleName());
+                    qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getChapterName(),detail.getTotal_bookmarks());
                 }
             }
         });
@@ -144,7 +147,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
 
     public interface QbanksubListener {
-        public void onQbankSubClick(int position, String id, String moduleName);
+        public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks);
 
     }
 }

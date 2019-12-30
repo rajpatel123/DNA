@@ -21,6 +21,7 @@ import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
+import java.util.Collections;
 import java.util.List;
 
 public class QbankUnattemptedFragment extends Fragment {
@@ -55,10 +56,12 @@ public class QbankUnattemptedFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(int position, String id, String moduleName) {
+            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
                 if (qbankSubActivity.qBankUnAttempted.get(position).getTotalMcq() > 0) {
                     Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
                     intent.putExtra("module", qbankSubActivity.qBankUnAttempted.get(position));
+                    intent.putExtra("attemptedTime", qbankSubActivity.qBankAll.get(position).getModule_submit_time());
+
 
                     startActivity(intent);
                 } else {
@@ -76,6 +79,7 @@ public class QbankUnattemptedFragment extends Fragment {
 
     public void showQList(List<Module> qBankUnAttempted) {
         if (qBankUnAttempted!=null && qBankUnAttempted.size()>0){
+            Collections.sort(qBankUnAttempted);
 
             qbankSubCatAdapter.setDetailList(qBankUnAttempted);
             qbankSubCatAdapter.notifyDataSetChanged();
@@ -85,7 +89,6 @@ public class QbankUnattemptedFragment extends Fragment {
             Utils.dismissProgressDialog();
             recyclerView.setVisibility(View.GONE);
             noItem.setVisibility(View.VISIBLE);
-            Toast.makeText(qbankSubActivity, "No Data", Toast.LENGTH_SHORT).show();
         }
     }
 }

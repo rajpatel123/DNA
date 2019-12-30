@@ -17,6 +17,10 @@ import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.dnamedical.views.CustomSeekBar;
+import com.dnamedical.views.ProgressItem;
+
+import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -26,12 +30,13 @@ import retrofit2.Response;
 
 public class QbankResultActivity extends AppCompatActivity {
 
-    private TextView incorrectAnswer, correctAnswer, skkipedAnswer, yousolved, skipReview;
+    private TextView incorrectAnswer, correctAnswer, skkipedAnswer, yousolved, skipReview,curved;
     private Button reviewMCQ;
-    private View incorrectAnswerView, correctAnswerView, skkipedAnswerView;
     private String moduleID;
     private String userId;
     private LinearLayout dataView;
+    CustomSeekBar seekBar;
+    private ArrayList<ProgressItem> progressItemList;
 
 
     @Override
@@ -45,12 +50,12 @@ public class QbankResultActivity extends AppCompatActivity {
         skkipedAnswer = findViewById(R.id.skkiped_answer);
         yousolved = findViewById(R.id.yousolved);
         dataView = findViewById(R.id.dataView);
+        seekBar = findViewById(R.id.seekBar);
+        curved = findViewById(R.id.curved);
 
         skipReview = findViewById(R.id.skipreviewandexit);
 
-        skkipedAnswerView = findViewById(R.id.skkiped);
-        correctAnswerView = findViewById(R.id.correctView);
-        incorrectAnswerView = findViewById(R.id.incorrectView);
+
 
         if (getSupportActionBar() != null) {
 
@@ -117,10 +122,49 @@ public class QbankResultActivity extends AppCompatActivity {
     private void updateData(QBankResultResponse resultResponse) {
 
         if (resultResponse != null && resultResponse.getStatus()) {
+
+
+
             ResultData result = resultResponse.getResult();
             incorrectAnswer.setText("" + result.getWrong());
             correctAnswer.setText("" + result.getCurrect());
             skkipedAnswer.setText("" + result.getSkipped());
+
+            float wrong = Float.parseFloat(result.getWrong());
+            float correct = Float.parseFloat(result.getCurrect());
+            float skip = Float.parseFloat(result.getSkipped());
+
+
+
+            progressItemList = new ArrayList<ProgressItem>();
+            // red span
+            ProgressItem progressItem = new ProgressItem();
+            progressItem.progressItemPercentage = (30);
+            progressItem.progressItemPercentage = (wrong / result.getTotalMcq()) * 100;
+
+            Log.i("Mainactivity", progressItem.progressItemPercentage + "");
+            progressItemList.add(progressItem);
+
+
+            ProgressItem progressItemCorrect = new ProgressItem();
+            progressItemCorrect.progressItemPercentage = (correct / result.getTotalMcq()) * 100;
+            Log.i("Mainactivity", progressItemCorrect.progressItemPercentage + "");
+            progressItemList.add(progressItemCorrect);
+
+            ProgressItem progressItemSkipp = new ProgressItem();
+            progressItemSkipp.progressItemPercentage =(skip / result.getTotalMcq()) * 100;
+            Log.i("Mainactivity", progressItemSkipp.progressItemPercentage + "");
+            progressItemList.add(progressItemSkipp);
+
+            seekBar.initData(progressItemList);
+            seekBar.invalidate();
+            seekBar.setThumb(null);
+
+
+
+
+
+            curved.setText(result.getPercentage()+"%");
             yousolved.setText("You solved " + result.getTotalMcq() + " high yield MCQs and got " + result.getPercentage() + "% correct");
             dataView.setVisibility(View.VISIBLE);
         }

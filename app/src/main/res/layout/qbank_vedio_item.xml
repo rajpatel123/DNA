@@ -85,7 +85,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
                     android:background="@drawable/vedio_image_background"
-                    app:srcCompat="@drawable/doctor" />
+                    />
 
             </LinearLayout>
 

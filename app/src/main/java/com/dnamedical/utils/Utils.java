@@ -224,7 +224,7 @@ public class Utils {
 
         try {
             Log.d("date", "" + timeStamp);
-            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM yyyy");
             Date dNow = new Date(timeStamp*1000);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {

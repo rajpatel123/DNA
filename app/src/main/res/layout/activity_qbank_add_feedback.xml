@@ -37,6 +37,7 @@
             android:layout_height="100dp"
             android:gravity="start"
             android:padding="@dimen/margin_10dp"
+            android:maxLength="100"
             android:background="@drawable/cardview_border"
             android:hint="How can We improve this module? max 100 character"
             android:textColor="@color/dark_gray"
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/margin_20"
+            android:visibility="gone"
             android:text="20/100"/>
         <Button
             android:layout_width="wrap_content"

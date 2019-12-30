@@ -36,30 +36,7 @@ public class QbankAddFeedbackActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        editFeedback.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (count<=100){
-                    charCount.setText(count+"/100");
-                    editFeedback.setText(s);
-                }else{
-                    editFeedback.setText(s.subSequence(0,100));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                submitFeedback.setSaveEnabled(true);
-
-            }
-        });
         submitFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

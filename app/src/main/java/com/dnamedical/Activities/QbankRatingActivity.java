@@ -37,7 +37,9 @@ public class QbankRatingActivity extends AppCompatActivity {
     RatingBar ratingbar;
     LinearLayout linearLayout;
     Set<String> feedback = new HashSet<>();
-    private String remarks;
+    private String remarks="No remarks";
+    private String user_id;
+    private String qmodule_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class QbankRatingActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.linear_bottom);
         result = new StringBuilder();
 
+
+         user_id = getIntent().getStringExtra("userId");
+         qmodule_id = getIntent().getStringExtra("module_id");
      if (getSupportActionBar()!=null){
          getSupportActionBar().setTitle("Result Analysis");
          getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -233,8 +238,7 @@ public class QbankRatingActivity extends AppCompatActivity {
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            String user_id = getIntent().getStringExtra("userId");
-            String qmodule_id = getIntent().getStringExtra("module_id");
+
             String rating = String.valueOf(ratingbar.getRating());
             if (feedback.size()>0){
                 for (String sss:feedback){

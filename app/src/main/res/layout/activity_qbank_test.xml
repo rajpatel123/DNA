@@ -377,7 +377,8 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/reference"
@@ -410,27 +411,52 @@
     </FrameLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linearBottom"
+    <RelativeLayout
+        android:id="@+id/skipLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/dp_2"
         android:paddingBottom="@dimen/dp_2"
         android:orientation="horizontal"
         android:visibility="gone"
+        android:elevation="5dp"
+        android:background="@color/color_text">
+        <Button
+            android:id="@+id/skipBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/rounded_shape"
+            android:text="SKIP"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/linearBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:background="@color/color_text"
+        android:visibility="gone"
         tools:visibility="visible">
 
         <ImageView
             android:id="@+id/bookmark"
-            android:layout_width="0dp"
-            android:layout_weight=".5"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="@dimen/margin_40"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            app:srcCompat="@drawable/review_result_question_icon" />
+            app:srcCompat="@drawable/review_bookmark_icon" />
 
 
         <ImageView
@@ -439,6 +465,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:visibility="invisible"
             android:layout_toEndOf="@+id/bookmark"
             app:srcCompat="@drawable/ic_share" />
 
@@ -458,12 +485,14 @@
 
         <Button
             android:id="@+id/nextBtn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:background="@color/colorAccent"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:maxHeight="@dimen/margin_40"
+            android:background="@drawable/rounded_shape"
             android:text="Next"
             android:textColor="@color/white"
             android:textSize="18sp" />

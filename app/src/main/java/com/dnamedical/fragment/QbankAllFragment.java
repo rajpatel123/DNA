@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,23 +23,9 @@ import com.dnamedical.Activities.QbankStartTestActivity;
 import com.dnamedical.Activities.QbankSubActivity;
 import com.dnamedical.Adapters.QbankSubCatAdapter;
 import com.dnamedical.Models.QbankSubCat.Detail;
-import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
-import com.dnamedical.Models.QbankSubCat.SubCat;
 import com.dnamedical.Models.newqbankmodule.Module;
-import com.dnamedical.Models.qbank.QBank;
 import com.dnamedical.R;
-import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.utils.Constants;
-import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.dnamedical.utils.Constants.FREE;
-import static com.dnamedical.utils.Constants.UN_ATTEMPTED;
 
 public class QbankAllFragment extends Fragment {
 
@@ -85,10 +70,11 @@ public class QbankAllFragment extends Fragment {
         qbankSubCatAdapter.notifyDataSetChanged();
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(int position, String id, String moduleName) {
+            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
                 if (qbankSubActivity.qBankAll.get(position).getTotalMcq() > 0) {
                     Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
                     intent.putExtra("module", qbankSubActivity.qBankAll.get(position));
+                    intent.putExtra("attemptedTime", qbankSubActivity.qBankAll.get(position).getModule_submit_time());
 
                     startActivity(intent);
                 } else {
@@ -115,7 +101,6 @@ public class QbankAllFragment extends Fragment {
             Utils.dismissProgressDialog();
             recyclerView.setVisibility(View.GONE);
             itemText.setVisibility(View.VISIBLE);
-            Toast.makeText(qbankSubActivity, "No Data", Toast.LENGTH_SHORT).show();
         }
     }
 }

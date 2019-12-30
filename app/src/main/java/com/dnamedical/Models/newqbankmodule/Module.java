@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Module implements Parcelable, Comparable<Module>,Cloneable {
+public class Module implements Parcelable, Comparable<Module>, Cloneable {
 
     @SerializedName("chapter_id")
     @Expose
@@ -36,6 +36,19 @@ public class Module implements Parcelable, Comparable<Module>,Cloneable {
     @SerializedName("price")
     @Expose
     private String price;
+
+
+    public int getTotal_bookmarks() {
+        return total_bookmarks;
+    }
+
+    public void setTotal_bookmarks(int total_bookmarks) {
+        this.total_bookmarks = total_bookmarks;
+    }
+
+    @SerializedName("total_bookmarks")
+    @Expose
+    private Integer total_bookmarks;
     @SerializedName("rating")
     @Expose
     private String rating;
@@ -55,7 +68,7 @@ public class Module implements Parcelable, Comparable<Module>,Cloneable {
         chapterImage = in.readString();
         moduleId = in.readString();
         moduleName = in.readString();
-        module_submit_time=in.readLong();
+        module_submit_time = in.readLong();
         isPaid = in.readString();
         isPaused = in.readString();
         price = in.readString();
@@ -66,6 +79,13 @@ public class Module implements Parcelable, Comparable<Module>,Cloneable {
         } else {
             totalMcq = in.readInt();
         }
+
+
+        if (in.readByte() == 0) {
+            total_bookmarks = null;
+        } else {
+            total_bookmarks = in.readInt();
+        }
         if (in.readByte() == 0) {
             totalAttemptedmcq = null;
         } else {
@@ -73,13 +93,6 @@ public class Module implements Parcelable, Comparable<Module>,Cloneable {
         }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Module) {
-            return ((Module) obj).chapterId == chapterId;
-        }
-        return false;
-    }
 
     @Override
     public int hashCode() {
@@ -230,6 +243,14 @@ public class Module implements Parcelable, Comparable<Module>,Cloneable {
         } else {
             dest.writeByte((byte) 1);
             dest.writeInt(totalMcq);
+        }
+
+
+        if (total_bookmarks == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(total_bookmarks);
         }
         if (totalAttemptedmcq == null) {
             dest.writeByte((byte) 0);

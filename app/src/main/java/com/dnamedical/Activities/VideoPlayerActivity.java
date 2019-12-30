@@ -30,6 +30,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -103,7 +104,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     @BindView(R.id.top_view)
     RelativeLayout top_view;
-    @BindView(R.id.seekbarVideo)
+    @BindView(R.id.seekbarVideoo)
     DotIndicatorSeekBar seekbarVideo;
     @BindView(R.id.md_play)
     ImageView md_play;
@@ -145,6 +146,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     @BindView(R.id.techer_name)
     TextView textTeacher;
+
+    @BindView(R.id.fast_forward_controls)
+    TextView fast_forward_controls;
 
     private Unbinder unbinder;
     private String title;
@@ -190,6 +194,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
         public void run() {
             if (upper_exoplayer != null && seekbarVideo != null) {
                 int pos;
+                seekbarVideo.setPadding(5,0,5,0);
+
                 pos = upper_exoplayer.getCurrentPosition();
                 final int dur = upper_exoplayer.getDuration();
                 if (pos > dur) pos = dur;
@@ -226,7 +232,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 */
 
-        play_btn.setVisibility(GONE);
+        fast_forward_controls.setVisibility(GONE);
+        md_play.setImageResource(R.drawable.ic_pause_new);
         upper_progress.bringToFront();
     }
 
@@ -238,19 +245,28 @@ public class VideoPlayerActivity extends AppCompatActivity {
         @Override
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
-            if (llControllerWrapperFlexible != null)
+            if (llControllerWrapperFlexible != null) {
                 llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+                seekbarVideo.hideThumb(true);
+                seekbarVideo.setVisibility(View.VISIBLE);
+                fast_forward_controls.setVisibility(View.VISIBLE);
+            }
 
             handler.postDelayed(emailPresenter, 10 * 1000);
 
-            handler.postDelayed(new Runnable() {
+            handler1.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // This method will be executed once the timer is over
 
-                    if (llControllerWrapperFlexible != null)
+                    if (llControllerWrapperFlexible != null) {
                         llControllerWrapperFlexible.setVisibility(GONE);
-                    handler.postDelayed(this, SPLASH_TIME_OUT);
+                        seekbarVideo.hideThumb(true);
+                        seekbarVideo.setVisibility(GONE);
+                        fast_forward_controls.setVisibility(GONE);
+
+                    }
+                    handler1.postDelayed(this, SPLASH_TIME_OUT);
                     //finish();
                 }
             }, SPLASH_TIME_OUT);
@@ -294,6 +310,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
         public void onTouch(@Nullable boolean touched) {
             if(llControllerWrapperFlexible!=null) {
                 llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+                seekbarVideo.hideThumb(false);
+                seekbarVideo.setVisibility(View.VISIBLE);
+                fast_forward_controls.setVisibility(View.VISIBLE);
+                
+
             }
         }
 
@@ -340,6 +361,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             //String currentTime = getTimeDurationFormat(time);
             videoDuration.setText(currentTime + " / " + totalDuration);
             upper_progress.setVisibility(GONE);
+            seekbarVideo.hideThumb(false);
 
 
             //llControllerWrapperFlexible.setVisibility(View.VISIBLE);
@@ -513,6 +535,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
             handler.removeCallbacks(mediaProgressRunnable);
             handler.postDelayed(mediaProgressRunnable, MEDIA_CALLBACK_DURATION);
         });
+
+
+
+
     }
 
     private int getTimeMillies(String source) {
@@ -557,6 +583,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
      */
     private void setUpperSeekBar() {
 
+        seekbarVideo.setThumbAdjustAuto(true);
+        seekbarVideo.hideThumb(true);
+
         seekbarVideo.setOnSeekChangeListener(new DotOnSeekChangeListener() {
             @Override
             public void onSeeking(DotSeekParams seekParams) {
@@ -598,6 +627,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     }
                     seekFromUser = false;
                 }
+            }
+        });
+
+        seekbarVideo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                seekbarVideo.hideThumb(false);
+                return false;
             }
         });
     }
@@ -699,6 +736,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void onBackClick() {
         if (upper_exoplayer != null) {
             upper_exoplayer.stop();
+            DnaPrefs.putInt(this,Constants.PAUSE_POSITION,upper_exoplayer.getCurrentPosition());
             pauseTimer();
 
             int p1 = Seconds % 60;
@@ -842,16 +880,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
         try {
             if (upper_exoplayer != null) {
                 upper_exoplayer.start();
+                upper_exoplayer.seekTo(0);
                 startTimer();
-//                if (upper_exoplayer.isPlayerBuffered()) {
-//                    //Change code here
-//                   // int pos = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
-//                    //upper_exoplayer.seekTo(pos);
-//                    upper_exoplayer.start();
-//                } else {
-//                    //int pos = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
-//                    //upper_exoplayer.setInitialPosition(pos);
-//                }
             }
 
             seekbarVideo.setProgress(0);

@@ -342,21 +342,21 @@ public interface ApiInterface {
     Call<Academic> getAllAcademicYears();
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=qbank_subjects")
+    @POST("api/api.php?req=qbank_subjects")
     Call<ModuleListResponse> qbankDetail(@Part("user_id") RequestBody user_id);
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=getall_modules")
+    @POST("api/api.php?req=getall_modules")
     Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id);
 
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=getall_mcq")
+    @POST("api/api.php?req=getall_mcq")
     Call<MCQQuestionList> getAllMCQQuestions(@Part("user_id") RequestBody user_id, @Part("module_id") RequestBody module_id);
 
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=submit_module")
+    @POST("api/api.php?req=submit_module")
     Call<ResponseBody> completeMCQ(@Part("user_id") RequestBody user_id,
                                    @Part("module_id") RequestBody module_id,
                                    @Part("complete_status") RequestBody complete_status,
@@ -390,7 +390,7 @@ public interface ApiInterface {
                                         @Part("is_paused") RequestBody is_paused);
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=add_feedback")
+    @POST("api/api.php?req=add_feedback")
     Call<QbankfeedbackResponse> qbankFeedback(@Part("user_id") RequestBody user_id,
                                               @Part("module_id") RequestBody qmodule_id,
                                               @Part("rating") RequestBody rating,
@@ -399,20 +399,20 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=submit_mcqanswer")
+    @POST("api/api.php?req=submit_mcqanswer")
     Call<ResponseBody> submitAnswer(@Part("user_id") RequestBody user_id,
                                     @Part("mcq_id") RequestBody quest_id,
                                     @Part("module_id") RequestBody module_id,
                                     @Part("given_answer") RequestBody user_answer);
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=get_modulebyid")
+    @POST("api/api.php?req=get_modulebyid")
     Call<ModuleResponse> updateQBankStatus(@Part("user_id") RequestBody user_id,
                                            @Part("module_id") RequestBody module_id);
 
 
     @Multipart
-    @POST("http://vrok.in/dnalive/api/api.php?req=get_score")
+    @POST("api/api.php?req=get_score")
     Call<QBankResultResponse> getMCQResult(@Part("user_id") RequestBody user_id,
                                            @Part("module_id") RequestBody module_id);
 
@@ -527,7 +527,7 @@ public interface ApiInterface {
 
 
     // New Api's Integrate
-    @GET("http://vrok.in/dnalive/v1/index.php/api/test/reviewqbankquestionlist")
+    @GET("v1/index.php/api/test/reviewqbankquestionlist")
     Call<TestReviewListResponse> getQBankReviewListData(
             @Query("module_id") String test_id,
             @Query("user_id") String user_id,

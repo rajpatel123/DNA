@@ -516,6 +516,12 @@ public class ResultActivity extends AppCompatActivity {
             } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIOLOGY")) {
                 subjectTv.setText("PHYSIO");
 
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("PSYCHIATRY")) {
+                subjectTv.setText("PSYCH");
+
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("ANESTHESIA")) {
+                subjectTv.setText("ANESTH");
+
             } else {
                 subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
             }

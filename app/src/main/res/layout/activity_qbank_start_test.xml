@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -79,13 +79,14 @@
             android:layout_below="@id/linear1"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:textColor="@color/dark_gray"
             android:text="2 Fresh Mcq added"
             android:textSize="@dimen/ts_16" />
 
         <LinearLayout
+            android:id="@+id/detailLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/new_text"
@@ -170,6 +171,7 @@
                 app:cardElevation="10dp">
 
                 <LinearLayout
+                    android:id="@+id/bookmarLL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -188,6 +190,7 @@
                             app:srcCompat="@drawable/review_result_question_icon" />
 
                         <TextView
+                            android:id="@+id/totalBookmark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -212,6 +215,227 @@
         </LinearLayout>
 
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/detailLL"
+            android:orientation="vertical"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/dataView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/youperfromed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="You performed better than"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/curved"
+                        android:layout_width="130dp"
+                        android:layout_height="100dp"                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/qbank_result_graph"
+                        android:gravity="center"
+                        android:text="1 %"
+                        android:textColor="@color/orange"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/peerss"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="of yours peers"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="220dp"
+                        android:layout_height="3dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/profile_cardview" />
+
+                    <TextView
+                        android:id="@+id/yousolved"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="You solved 24 high yield MCQs and got 29% correct"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+                    <com.dnamedical.views.CustomSeekBar
+                        android:id="@+id/seekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+
+                        android:progressTint="@color/colorAccent"
+                        android:progressDrawable="@android:color/transparent"
+                        android:thumbOffset="1dp" />
+
+
+                    <!--        <Seekbar-->
+                    <!--            android:id="@+id/seekbar"-->
+                    <!--            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"-->
+                    <!--            android:layout_width="match_parent"-->
+                    <!--            android:layout_height="wrap_content"-->
+                    <!--            android:layout_marginLeft="20dp"-->
+                    <!--            android:layout_marginTop="20dp"-->
+                    <!--            android:layout_marginRight="30dp"-->
+                    <!--            android:background="@color/green" />-->
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|end"
+
+                        android:layout_weight="1">
+                        <View
+                            android:id="@+id/incorrectView"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@drawable/circlered"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/text_incorrect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:text="7 correct"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+
+                        android:layout_weight="1">
+                        <View
+                            android:id="@+id/correctView"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@drawable/circlecorrect"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/correct_answer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:text="7 correct"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:layout_weight="1">
+                        <View
+                            android:id="@+id/skkiped"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@drawable/circleskip"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/skkiped_answer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|start"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:text="7 correct"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="220dp"
+                    android:layout_height="3dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/profile_cardview" />
+
+                <Button
+                    android:id="@+id/reviewbutton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/orange"
+                    android:gravity="center"
+                    android:text="REVIEW LESSON"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/skipreviewandexit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Skip review and exit"
+                    android:textColor="@color/orange"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
     </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>
