@@ -99,8 +99,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @BindView(R.id.videoPlayerControlsPortraitMode)
     RelativeLayout videoPlayerControlsPortraitMode;
 
-    @BindView(R.id.upper_exoplayer)
-    EasyExoVideoPlayer upper_exoplayer;
+    @BindView(R.id.exoplayer)
+    EasyExoVideoPlayer exoplayer;
 
     @BindView(R.id.top_view)
     RelativeLayout top_view;
@@ -147,8 +147,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @BindView(R.id.techer_name)
     TextView textTeacher;
 
-    @BindView(R.id.fast_forward_controls)
-    TextView fast_forward_controls;
 
     private Unbinder unbinder;
     private String title;
@@ -192,12 +190,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private Runnable mediaProgressRunnable = new Runnable() {
         @Override
         public void run() {
-            if (upper_exoplayer != null && seekbarVideo != null) {
+            if (exoplayer != null && seekbarVideo != null) {
                 int pos;
-                seekbarVideo.setPadding(5,0,5,0);
+                seekbarVideo.setPadding(0, 0, 0, 0);
 
-                pos = upper_exoplayer.getCurrentPosition();
-                final int dur = upper_exoplayer.getDuration();
+                pos = exoplayer.getCurrentPosition();
+                final int dur = exoplayer.getDuration();
                 if (pos > dur) pos = dur;
                 if (!seekFromUser) {
                     seekBarProgress = pos;
@@ -210,11 +208,26 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private String mobileTxt;
     private String userId;
     private int minutes;
+    private Runnable playerControlRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // This method will be executed once the timer is over
+
+            if (llControllerWrapperFlexible != null) {
+                llControllerWrapperFlexible.setVisibility(GONE);
+                seekbarVideo.hideThumb(true);
+                seekbarVideo.setVisibility(GONE);
+
+            }
+            //finish();
+        }
+    };
+    private int progressPosition;
 
 
     private void onSingle() {
         String uri = url;
-        initPlayer(upper_exoplayer, upper_exoCallback, uri);
+        initPlayer(exoplayer, upper_exoCallback, uri);
         upper_progress.setVisibility(View.VISIBLE);
         startTimer();
 
@@ -231,8 +244,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }, SPLASH_TIME_OUT);
 
 */
+        play_btn.setVisibility(GONE);
 
-        fast_forward_controls.setVisibility(GONE);
         md_play.setImageResource(R.drawable.ic_pause_new);
         upper_progress.bringToFront();
     }
@@ -249,30 +262,17 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 llControllerWrapperFlexible.setVisibility(View.VISIBLE);
                 seekbarVideo.hideThumb(true);
                 seekbarVideo.setVisibility(View.VISIBLE);
-                fast_forward_controls.setVisibility(View.VISIBLE);
             }
 
             handler.postDelayed(emailPresenter, 10 * 1000);
 
-            handler1.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // This method will be executed once the timer is over
-
-                    if (llControllerWrapperFlexible != null) {
-                        llControllerWrapperFlexible.setVisibility(GONE);
-                        seekbarVideo.hideThumb(true);
-                        seekbarVideo.setVisibility(GONE);
-                        fast_forward_controls.setVisibility(GONE);
-
-                    }
-                    handler1.postDelayed(this, SPLASH_TIME_OUT);
-                    //finish();
-                }
-            }, SPLASH_TIME_OUT);
             md_replay.setVisibility(GONE);
             upper_progress.setVisibility(GONE);
             videoPlayerControlsPortraitMode.setVisibility(View.VISIBLE);
+
+            if (progressPosition > 0) {
+                exoplayer.seekTo(progressPosition);
+            }
             enablePlayPause(true, true);
         }
 
@@ -296,24 +296,23 @@ public class VideoPlayerActivity extends AppCompatActivity {
         @Override
         public void onBuffering(int percent) {
             if (seekbarVideo != null) {
-                if (upper_exoplayer != null) {
-                    seekbarVideo.setSecondaryProgress(upper_exoplayer.getBufferedPercent());
+                if (exoplayer != null) {
+                    seekbarVideo.setSecondaryProgress(exoplayer.getBufferedPercent());
                 }
 
-                String currentTime = getTimeDurationFormat(upper_exoplayer.getCurrentPosition());
-                String totalDuration = getTimeDurationFormat(upper_exoplayer.getDuration());
+                String currentTime = getTimeDurationFormat(exoplayer.getCurrentPosition());
+                String totalDuration = getTimeDurationFormat(exoplayer.getDuration());
                 videoDuration.setText(currentTime + " / " + totalDuration);
             }
         }
 
         @Override
         public void onTouch(@Nullable boolean touched) {
-            if(llControllerWrapperFlexible!=null) {
+            if (llControllerWrapperFlexible != null && llControllerWrapperFlexible.getVisibility() != View.VISIBLE) {
                 llControllerWrapperFlexible.setVisibility(View.VISIBLE);
                 seekbarVideo.hideThumb(false);
                 seekbarVideo.setVisibility(View.VISIBLE);
-                fast_forward_controls.setVisibility(View.VISIBLE);
-                
+                handler1.postDelayed(playerControlRunnable, SPLASH_TIME_OUT);
 
             }
         }
@@ -373,6 +372,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
             upper_progress.setVisibility(GONE);
             enablePlayPause(true, false);
         }
+
+
     };
 
     private String getTimeDurationFormat(int millis) {
@@ -418,11 +419,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             textViewEmail.setText(email_id);
         }
 
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        }
+        userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
 
         if (DnaPrefs.getString(getApplicationContext(), Constants.MOBILE) != null) {
@@ -444,6 +441,17 @@ public class VideoPlayerActivity extends AppCompatActivity {
             video_title.setText(price.getDescription());
             text.setText("" + price.getDescription());
 
+            if (!TextUtils.isEmpty(price.getTime())) {
+                progressPosition = Integer.parseInt(price.getTime());
+                if (progressPosition > 0) {
+                    if (exoplayer != null)
+                        exoplayer.setAutoPlay(true);
+                    onSingle();
+                    handler1.postDelayed(playerControlRunnable, SPLASH_TIME_OUT);
+                }
+
+            }
+
 
             if (price.getSourceTime() != null && price.getSourceTime().size() > 0) {
                 TimeListPriceAdapter videoPriceAdapter = new TimeListPriceAdapter(this);
@@ -452,11 +460,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     @Override
                     public void onTimeClick(String time) {
 
-                        if (upper_exoplayer != null) {
+                        if (exoplayer != null) {
                             int miliis = getTimeMillies(time);
-                            if (upper_exoplayer.isPlaying()) {
+                            if (exoplayer.isPlaying()) {
                                 //change code here
-                                upper_exoplayer.seekTo(miliis);
+                                exoplayer.seekTo(miliis);
 
                             } else {
                                 Toast.makeText(VideoPlayerActivity.this, "Please play video first", Toast.LENGTH_LONG).show();
@@ -489,10 +497,23 @@ public class VideoPlayerActivity extends AppCompatActivity {
             free = intent.getParcelableExtra("free");
             url = free.getUrl();
             title = free.getTitle();
+            videoId = free.getId();
             textHeading.setText(title);
             textTeacher.setText(free.getSubTitle());
             video_title.setText(free.getDescription());
             text.setText("" + free.getDescription());
+
+
+            if (!TextUtils.isEmpty(free.getTime())) {
+                progressPosition = Integer.parseInt(free.getTime());
+                if (progressPosition > 0) {
+                    if (exoplayer != null)
+                        exoplayer.setAutoPlay(true);
+                    onSingle();
+                    handler1.postDelayed(playerControlRunnable, SPLASH_TIME_OUT);
+                }
+
+            }
 
             if (free.getSourceTime() != null && free.getSourceTime().size() > 0) {
                 TimeListFreeAdapter videoListAdapter = new TimeListFreeAdapter(this);
@@ -500,11 +521,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 videoListAdapter.setListener(new TimeListFreeAdapter.OnTimeClick() {
                     @Override
                     public void onTimeClick(String time) {
-                        if (upper_exoplayer != null) {
+                        if (exoplayer != null) {
                             int miliis = getTimeMillies(time);
-                            if (upper_exoplayer.isPlaying()) {
+                            if (exoplayer.isPlaying()) {
                                 //change code here
-                                upper_exoplayer.seekTo(miliis);
+                                exoplayer.seekTo(miliis);
                             } else {
                                 Toast.makeText(VideoPlayerActivity.this, "Please play video first", Toast.LENGTH_LONG).show();
                             }
@@ -531,12 +552,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         setUpperSeekBar();
 
-        upper_exoplayer.setProgressCallback((newPosition, duration) -> {
+        exoplayer.setProgressCallback((newPosition, duration) -> {
             handler.removeCallbacks(mediaProgressRunnable);
             handler.postDelayed(mediaProgressRunnable, MEDIA_CALLBACK_DURATION);
         });
-
-
 
 
     }
@@ -591,13 +610,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
             public void onSeeking(DotSeekParams seekParams) {
                 seekFromUser = seekParams.fromUser;
                 seekBarProgress = seekParams.progress;
-                if (upper_exoplayer != null &&
-                        upper_exoplayer.isPrepared()) {
+                if (exoplayer != null &&
+                        exoplayer.isPrepared()) {
                     //change code
 
                     int time = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
 //                    String tmp= getTimeDurationFormat(time);
-//                    int tmp = upper_exoplayer.getCurrentPosition();
+//                    int tmp = exoplayer.getCurrentPosition();
                     int curSec = (int) TimeUnit.MILLISECONDS.toSeconds(time);
                     //change code here
 
@@ -616,17 +635,17 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(DotIndicatorSeekBar seekBar) {
-                if (seekFromUser) {
+//                if (seekFromUser) {
 
-                    if (upper_exoplayer != null && upper_exoplayer.isPrepared()) {
+                    if (exoplayer != null && exoplayer.isPrepared()) {
 
                         //   llControllerWrapperFlexible.setVisibility(View.VISIBLE);
-                        upper_exoplayer.seekTo(seekBarProgress);
+                        exoplayer.seekTo(seekBarProgress);
 
 
                     }
                     seekFromUser = false;
-                }
+               // }
             }
         });
 
@@ -641,9 +660,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
     private void resetCameraViews(int cams) {
-        if (upper_exoplayer != null) {
-            upper_exoplayer.pause();
-            upper_exoplayer.resetScreen();
+        if (exoplayer != null) {
+            exoplayer.pause();
+            exoplayer.resetScreen();
         }
 
 
@@ -661,9 +680,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
         playbackSpeed = NORMAL_PLAYBACK_SPEED;
         txtSpeed.setText((int) playbackSpeed + "x");
         try {
-            if (upper_exoplayer != null) {
-                upper_exoplayer.updateSpeed(getSpeed((int) playbackSpeed));
-                upper_exoplayer.setVolume(1f);
+            if (exoplayer != null) {
+                exoplayer.updateSpeed(getSpeed((int) playbackSpeed));
+                exoplayer.setVolume(1f);
                 //md_sound.setImageResource(R.drawable.ic_volume);
             }
 
@@ -680,27 +699,28 @@ public class VideoPlayerActivity extends AppCompatActivity {
             md_play.setImageResource(R.drawable.ic_play);
         }
 
-        if (upper_exoplayer != null) {
-            upper_exoplayer.detachBufferUpdate();
+        if (exoplayer != null) {
+            exoplayer.detachBufferUpdate();
         }
     }
 
 
     @Override
     public void onResume() {
-        if (upper_exoplayer != null) {
-            upper_exoplayer.attachBufferUpdate();
+        if (exoplayer != null) {
+            exoplayer.attachBufferUpdate();
         }
         super.onResume();
     }
 
 
-    @OnClick({R.id.upper_exoplayer, R.id.back,
+    @OnClick({R.id.exoplayer, R.id.back,
             R.id.play_btn,
             R.id.md_speed,
             R.id.md_replay,
             R.id.md_play,
-            R.id.full_mode})
+            R.id.full_mode,
+            R.id.fast_forward})
     public void onControlClick(View view) {
         switch (view.getId()) {
             case R.id.full_mode:
@@ -713,7 +733,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 onReplay();
                 break;
             case R.id.md_play:
-                if (upper_exoplayer != null && upper_exoplayer.isPrepared()) {
+                if (exoplayer != null && exoplayer.isPrepared()) {
                     onPlayPause();
                 } else {
                     onSingle();
@@ -721,11 +741,21 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 break;
             case R.id.play_btn:
                 onSingle();
+                handler1.postDelayed(playerControlRunnable, SPLASH_TIME_OUT);
+
                 break;
 
 
             case R.id.back:
                 onBackClick();
+                break;
+
+            case R.id.fast_forward:
+                if (exoplayer != null && exoplayer.isPlaying()) {
+                    exoplayer.seekTo((exoplayer.getCurrentPosition() + 20000));
+                    Toast.makeText(VideoPlayerActivity.this, "Forward 20 seconds", Toast.LENGTH_LONG).show();
+                }
+
                 break;
 
 
@@ -734,50 +764,52 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
     private void onBackClick() {
-        if (upper_exoplayer != null) {
-            upper_exoplayer.stop();
-            DnaPrefs.putInt(this,Constants.PAUSE_POSITION,upper_exoplayer.getCurrentPosition());
+        if (exoplayer != null) {
+            exoplayer.stop();
+            DnaPrefs.putInt(this, Constants.PAUSE_POSITION, exoplayer.getCurrentPosition());
             pauseTimer();
 
             int p1 = Seconds % 60;
             int p2 = Seconds / 60;
-             minutes = p2 % 60;
+            minutes = p2 % 60;
 
         }
 
-        if (TextUtils.isEmpty(videoId)){
+        if (TextUtils.isEmpty(videoId)) {
             finish();
             return;
         }
 
-        if (upper_exoplayer.getCurrentPosition()<1){
+        if (exoplayer.getCurrentPosition() < 1) {
             finish();
             return;
         }
 
+
+        updateVideoProgress();
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
-        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+minutes);
+        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), "" + minutes);
 
 
-        Log.d("TimeCall","user_id  "+userId+" videoID "+videoId+" Time "+minutes);
+        Log.d("TimeCall", "user_id  " + userId + " videoID " + videoId + " Time " + minutes);
         //RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+100);
 
-        if (Utils.isInternetConnected(this)){
+        if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RestClient.updateVideoPlayTime(user_id, video_id, video_playTime, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
 
-                    Log.d("Resonse",""+response.body());
+                    Log.d("Resonse", "" + response.body());
                     finish();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Utils.dismissProgressDialog();
-                    Log.d("Error","");
+                    Log.d("Error", "");
                 }
             });
         }
@@ -785,6 +817,31 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     }
 
+
+    private void updateVideoProgress() {
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
+        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), "" + exoplayer.getCurrentPosition());
+
+
+        Log.d("TimeCall", "user_id  " + userId + " videoID " + videoId + " Time " + minutes);
+        //RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+100);
+
+        if (Utils.isInternetConnected(this)) {
+            RestClient.updateVideoProgress(user_id, video_id, video_playTime, new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("Resonse", "" + response.body());
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d("Error", "");
+                }
+            });
+
+        }
+    }
 
     /**
      * This is the method used to enter and exit full mode video
@@ -801,7 +858,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 0, 0, 0);
 
-            upper_exoplayer.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            exoplayer.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             llControllerWrapperFlexible.setBackgroundColor(getResources().getColor(R.color.transparent));
         } else {
@@ -816,7 +873,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             layoutParams.addRule(RelativeLayout.ABOVE, R.id.videoPlayerControlsPortraitMode);
             int pixel = dp2px(20) * -1;
             layoutParams.setMargins(0, 0, 0, pixel);
-            upper_exoplayer.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 550));
+            exoplayer.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 550));
             llControllerWrapperFlexible.setBackgroundColor(getResources().getColor(R.color.mdtp_transparent_black));
 
         }
@@ -854,14 +911,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
         try {
-            if (upper_exoplayer != null && upper_exoplayer.isPrepared()) {
+            if (exoplayer != null && exoplayer.isPrepared()) {
                 if (playbackSpeed > NORMAL_PLAYBACK_SPEED) {
-                    upper_exoplayer.updateSpeed(getSpeed((int) playbackSpeed));
-                    //  upper_exoplayer.setVolume(0);
+                    exoplayer.updateSpeed(getSpeed((int) playbackSpeed));
+                    //  exoplayer.setVolume(0);
                     //md_sound.setImageResource(R.drawable.ic_volume_muted);
                 } else {
-                    upper_exoplayer.updateSpeed(getSpeed((int) playbackSpeed));
-                    upper_exoplayer.setVolume(1f);
+                    exoplayer.updateSpeed(getSpeed((int) playbackSpeed));
+                    exoplayer.setVolume(1f);
                     //md_sound.setImageResource(R.drawable.ic_volume);
                 }
 
@@ -878,9 +935,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
      */
     private void onReplay() {
         try {
-            if (upper_exoplayer != null) {
-                upper_exoplayer.start();
-                upper_exoplayer.seekTo(0);
+            if (exoplayer != null) {
+                exoplayer.start();
+                exoplayer.seekTo(0);
                 startTimer();
             }
 
@@ -897,19 +954,21 @@ public class VideoPlayerActivity extends AppCompatActivity {
      * On handling (PLAY/PAUSE) states
      */
     private void onPlayPause() {
-        if (upper_exoplayer != null) {
-            if (!upper_exoplayer.isPlaying()) {
+        if (exoplayer != null) {
+            handler1.postDelayed(playerControlRunnable, SPLASH_TIME_OUT);
+
+            if (!exoplayer.isPlaying()) {
                 md_play.setImageResource(R.drawable.ic_pause_new);
-                if (upper_exoplayer.isEnded()) {
-                    upper_exoplayer.start();
+                if (exoplayer.isEnded()) {
+                    exoplayer.start();
                     startTimer();
                 } else {
-                    upper_exoplayer.start();
+                    exoplayer.start();
                     startTimer();
                 }
             } else {
                 md_play.setImageResource(R.drawable.ic_play);
-                upper_exoplayer.pause();
+                exoplayer.pause();
                 pauseTimer();
             }
         }
@@ -928,6 +987,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
             player.setSource(Uri.parse(uri));
             player.setCallback(callback);
             player.setVisibility(View.VISIBLE);
+            player.attachBufferUpdate();
+
             player.bringToFront();
 //            player.updateSpeed(UtilsApp.getSpeed((int) playbackSpeed));
         }
@@ -943,8 +1004,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
      * Pause All Player
      */
     private void pauseAllPlayer() {
-        if (upper_exoplayer != null) {
-            upper_exoplayer.pause();
+        if (exoplayer != null) {
+            exoplayer.pause();
             pauseTimer();
         }
     }
@@ -993,8 +1054,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
     public void onBackPressed() {
         onBackClick();
     }
-
-
 
 
     public void startTimer() {

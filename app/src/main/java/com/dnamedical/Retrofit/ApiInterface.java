@@ -233,8 +233,13 @@ public interface ApiInterface {
     @GET("api/api.php?req=category")
     Call<CategoryDetailData> getCourse();
 
-    @GET("api/api.php?req=allfile")
-    Call<VideoList> getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
+    @Multipart
+    @POST("api/api.php?req=allfile")
+    Call<VideoList> getVideos(
+            @Part("sub_child_cat") RequestBody sub_child_cat,
+            @Part("file_type") RequestBody fileType,
+            @Part("user_id") RequestBody user_id
+    );
 
 
     @Multipart
@@ -265,6 +270,14 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=demo_time")
     Call<ResponseBody> updateVideoPlayTime(@Part("user_id") RequestBody user_id,
+                                           @Part("video_id") RequestBody video_id,
+                                           @Part("time") RequestBody time
+    );
+
+
+    @Multipart
+    @POST("api/api.php?req=add_progress")
+    Call<ResponseBody> updateVideoProgress(@Part("user_id") RequestBody user_id,
                                            @Part("video_id") RequestBody video_id,
                                            @Part("time") RequestBody time
     );

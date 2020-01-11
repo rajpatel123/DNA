@@ -80,20 +80,31 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             holder.sub_cat_free.setImageResource(R.drawable.question_bank_lock);
         }
         try {
-            if (TextUtils.isEmpty(detail.getIsCompleted())) {
-                holder.sub_cat_free.setVisibility(View.GONE);
-            }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("0")) {
-                holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
-                holder.sub_cat_free.setVisibility(View.VISIBLE);
 
-            }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("1")) {
-                holder.sub_cat_free.setImageResource(R.drawable.qbank_right_answer);
-                holder.sub_cat_free.setVisibility(View.VISIBLE);
+            if (!TextUtils.isEmpty(detail.getIsPaid())){
+              if (!detail.getIsPaid().equalsIgnoreCase("1")){
+                  if (TextUtils.isEmpty(detail.getIsCompleted())) {
+                      holder.sub_cat_free.setVisibility(View.GONE);
+                  }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("0")) {
+                      holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
+                      holder.sub_cat_free.setVisibility(View.VISIBLE);
 
-            }else{
-                holder.sub_cat_free.setVisibility(View.GONE);
+                  }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("1")) {
+                      holder.sub_cat_free.setImageResource(R.drawable.qbank_right_answer);
+                      holder.sub_cat_free.setVisibility(View.VISIBLE);
 
+                  }else{
+                      holder.sub_cat_free.setVisibility(View.GONE);
+
+                  }
+              }else{
+                  holder.sub_cat_free.setImageResource(R.drawable.lock);
+                  holder.sub_cat_free.setVisibility(View.VISIBLE);
+
+              }
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +123,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             @Override
             public void onClick(View v) {
                 if (qbanksubListener != null) {
-                    qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getChapterName(),detail.getTotal_bookmarks());
+                        qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getChapterName(),detail.getTotal_bookmarks());
                 }
             }
         });
@@ -129,7 +140,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, subTitle, subRating, subTotalQuestion, itemNumber;
-        ImageView subImage, sub_cat_free;
+        ImageView subImage, sub_cat_free,lock;
         LinearLayout linearClick;
 
         public ViewHolder(@NonNull View itemView) {
@@ -138,6 +149,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subImage = itemView.findViewById(R.id.sub_cat_image);
             subTitle = itemView.findViewById(R.id.sub_cat_title);
             subRating = itemView.findViewById(R.id.rating);
+            lock = itemView.findViewById(R.id.lock_icon);
             // itemNumber = itemView.findViewById(R.id.index);
             sub_cat_free = itemView.findViewById(R.id.lock_icon);
             subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);

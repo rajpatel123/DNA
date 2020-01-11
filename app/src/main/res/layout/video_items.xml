@@ -168,6 +168,17 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <SeekBar
+                            android:id="@+id/progress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:max="100"
+                            android:visibility="gone"
+                            android:progress="100"
+                            android:focusable="false"
+
+                            android:thumb="@color/transparent" />
 
                         <TextView
                             android:id="@+id/vid_doctor_name"

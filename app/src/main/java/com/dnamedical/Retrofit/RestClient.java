@@ -166,8 +166,8 @@ public class RestClient {
     }
 
 
-    public static void getVideos(String sub_child_cat, String fileType, Callback<VideoList> callback) {
-        RetrofitClient.getClient().getVideos(sub_child_cat, fileType).enqueue(callback);
+    public static void getVideos(RequestBody sub_child_cat, RequestBody fileType,RequestBody user_id, Callback<VideoList> callback) {
+        RetrofitClient.getClient().getVideos(sub_child_cat, fileType,user_id).enqueue(callback);
     }
 
 
@@ -199,6 +199,11 @@ public class RestClient {
 
     public static void updateVideoPlayTime(RequestBody user_id, RequestBody video_id, RequestBody time, Callback<ResponseBody> callback) {
         RetrofitClient.getClient().updateVideoPlayTime(user_id, video_id, time).enqueue(callback);
+    }
+
+
+ public static void updateVideoProgress(RequestBody user_id, RequestBody video_id, RequestBody time, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().updateVideoProgress(user_id, video_id, time).enqueue(callback);
     }
 
     public static void sentMail(RequestBody email_id, Callback<ForgetMailSentResponse> callback) {

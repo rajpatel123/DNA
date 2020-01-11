@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.List;
 
+import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.QbankStartTestActivity;
 import com.dnamedical.Activities.QbankSubActivity;
 import com.dnamedical.Adapters.QbankSubCatAdapter;
@@ -27,7 +30,7 @@ import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
-public class QbankAllFragment extends Fragment {
+public class QbankAllFragment extends QBankBaseFragment {
 
 
  String UserId;
@@ -71,15 +74,20 @@ public class QbankAllFragment extends Fragment {
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
             public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
-                if (qbankSubActivity.qBankAll.get(position).getTotalMcq() > 0) {
-                    Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
-                    intent.putExtra("module", qbankSubActivity.qBankAll.get(position));
-                    intent.putExtra("attemptedTime", qbankSubActivity.qBankAll.get(position).getModule_submit_time());
+                if (qbankSubActivity.qBankAll.get(position).getIsPaid().equalsIgnoreCase("1")){
+                    showPlanDialog(qbankSubActivity);
+                }else{
+                    if (qbankSubActivity.qBankAll.get(position).getTotalMcq() > 0) {
+                        Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
+                        intent.putExtra("module", qbankSubActivity.qBankAll.get(position));
+                        intent.putExtra("attemptedTime", qbankSubActivity.qBankAll.get(position).getModule_submit_time());
 
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                    }
                 }
+
 
             }
         });
@@ -103,4 +111,7 @@ public class QbankAllFragment extends Fragment {
             itemText.setVisibility(View.VISIBLE);
         }
     }
+
+
+
 }

@@ -127,10 +127,6 @@ public class WebViewActivity extends AppCompatActivity {
                 break;
 
 
-            case "Contact Us":
-                progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
-                break;
 
         }
     }
