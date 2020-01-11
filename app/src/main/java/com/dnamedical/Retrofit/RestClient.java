@@ -310,8 +310,8 @@ public class RestClient {
         RetrofitClient.getClient().saveOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
     }
 
-    public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
-        RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
+    public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id,RequestBody cat_id,RequestBody sub_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id,cat_id,sub_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
     }
 
 

@@ -109,6 +109,8 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
     String videoId, subchildcat;
     private int orderValue;
     private String orderId;
+    private String catID;
+    private String subCatID;
 
 
     @Override
@@ -246,7 +248,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
             options.put("currency", "INR");
-            options.put("amount", orderValue * 100);
+            options.put("amount", 1 * 100);
             //options.put("amount", 1*100);
             options.put("order_id", orderId);
             //options.put("amount", 100);
@@ -289,7 +291,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + 1 * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
         RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), "" + 123);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "video");
@@ -305,7 +307,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
                     if (response.body() != null) {
                         CreateOrderResponse createOrderResponse = response.body();
                         if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
-                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                            if ((1 * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
                                 startPayment(createOrderResponse.getData().getOrderId());
                             }
                         }
@@ -345,11 +347,9 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
         String testId = "0";
         String payment_status = "1";
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        }
+        userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        catID = DnaPrefs.getString(getApplicationContext(), Constants.CAT_ID);
+        subCatID = DnaPrefs.getString(getApplicationContext(), Constants.SUB_CAT_ID);
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
@@ -360,12 +360,14 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
         RequestBody test_id = RequestBody.create(MediaType.parse("text/plain"), testId);
         RequestBody status = RequestBody.create(MediaType.parse("text/plain"), payment_status);
+        RequestBody sub_cat_id = RequestBody.create(MediaType.parse("text/plain"), subCatID);
+        RequestBody cat_id = RequestBody.create(MediaType.parse("text/plain"), catID);
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.addOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status, new Callback<SaveOrderResponse>() {
+            RestClient.addOrderDetail(order_id, sub_child_cat_id, cat_id,sub_cat_id,user_id, product_id, video_id, test_id, status, new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();
@@ -426,7 +428,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), "" + totalValue);
         RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
         RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"), shippingCharge);
-        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
+        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + 1);
 
 
         if (Utils.isInternetConnected(this)) {

@@ -164,6 +164,10 @@ public interface ApiInterface {
     @POST("api/api.php?req=add_order")
     Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
                                            @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
+
+                                           @Part("cat_id") RequestBody cat_id,
+                                           @Part("sub_cat_id") RequestBody sub_cat_id,
+
                                            @Part("user_id") RequestBody user_id,
                                            @Part("product_id") RequestBody product_id,
                                            @Part("video_id") RequestBody video_id,

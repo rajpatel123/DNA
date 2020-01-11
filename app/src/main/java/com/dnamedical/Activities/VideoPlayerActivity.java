@@ -223,6 +223,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
     };
     private int progressPosition;
+    private boolean isCompleted;
 
 
     private void onSingle() {
@@ -331,6 +332,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
             md_play.setImageResource(R.drawable.ic_play);
             md_replay.setVisibility(View.VISIBLE);
             enablePlayPause(false, false);
+
+            isCompleted = true;
+
         }
 
         @Override
@@ -637,15 +641,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
             public void onStopTrackingTouch(DotIndicatorSeekBar seekBar) {
 //                if (seekFromUser) {
 
-                    if (exoplayer != null && exoplayer.isPrepared()) {
+                if (exoplayer != null && exoplayer.isPrepared()) {
 
-                        //   llControllerWrapperFlexible.setVisibility(View.VISIBLE);
-                        exoplayer.seekTo(seekBarProgress);
+                    //   llControllerWrapperFlexible.setVisibility(View.VISIBLE);
+                    exoplayer.seekTo(seekBarProgress);
 
 
-                    }
-                    seekFromUser = false;
-               // }
+                }
+                seekFromUser = false;
+                // }
             }
         });
 
@@ -720,6 +724,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             R.id.md_replay,
             R.id.md_play,
             R.id.full_mode,
+            R.id.fast_backward,
             R.id.fast_forward})
     public void onControlClick(View view) {
         switch (view.getId()) {
@@ -756,6 +761,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     Toast.makeText(VideoPlayerActivity.this, "Forward 20 seconds", Toast.LENGTH_LONG).show();
                 }
 
+                break;
+            case R.id.fast_backward:
+                if (exoplayer != null && exoplayer.isPlaying() && exoplayer.getCurrentPosition()>20000) {
+                    exoplayer.seekTo((exoplayer.getCurrentPosition() - 20000));
+                    Toast.makeText(VideoPlayerActivity.this, "Backward 20 seconds", Toast.LENGTH_LONG).show();
+                }
                 break;
 
 
@@ -821,7 +832,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void updateVideoProgress() {
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
-        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), "" + exoplayer.getCurrentPosition());
+        int time = exoplayer.getCurrentPosition();
+
+        if (isCompleted) {
+            time = 0;
+        }
+        RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), "" + time);
 
 
         Log.d("TimeCall", "user_id  " + userId + " videoID " + videoId + " Time " + minutes);
@@ -939,6 +955,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 exoplayer.start();
                 exoplayer.seekTo(0);
                 startTimer();
+                isCompleted = false;
             }
 
             seekbarVideo.setProgress(0);

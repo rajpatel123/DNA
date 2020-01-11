@@ -231,6 +231,17 @@
 
                 </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/fast_backward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:tint="@color/white"
+                    android:translationZ="3dp"
+                    android:paddingBottom="5dp"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/exo_icon_rewind"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/fast_forward"
