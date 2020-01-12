@@ -246,9 +246,6 @@ public class QbankTestActivity extends AppCompatActivity {
         });
 
 
-
-
-
         countDownTimer = new CountDownTimer(10, 1000) {
 
             public void onTick(long millis) {
@@ -261,6 +258,7 @@ public class QbankTestActivity extends AppCompatActivity {
                 user_answer=questionDetails.getCorrectAnswer();
                 submitAnswer(questionDetails);
                 timerProgressBar.setMax(10);
+                questionTime=10;
             }
 
         };
@@ -331,8 +329,9 @@ public class QbankTestActivity extends AppCompatActivity {
 
     private void solveQBank(int questinNo) {
         if (questinNo < questionDetail.size()) {
-            if (countDownTimer!=null)
-            countDownTimer.start();
+            if (countDownTimer!=null){
+                countDownTimer.start();
+            }
 
             questionDetails = questionDetail.get(questinNo);
             TextView questionText = new TextView(this);
