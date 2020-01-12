@@ -21,9 +21,10 @@ import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
+import java.util.Collections;
 import java.util.List;
 
-public class QbankUnattemptedFragment extends Fragment {
+public class QbankUnattemptedFragment extends QBankBaseFragment {
 
     RecyclerView recyclerView;
     TextView noItem;
@@ -55,14 +56,22 @@ public class QbankUnattemptedFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(int position, String id, String moduleName) {
-                if (qbankSubActivity.qBankUnAttempted.get(position).getTotalMcq() > 0) {
-                    Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
-                    intent.putExtra("module", qbankSubActivity.qBankUnAttempted.get(position));
+            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
 
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                if (qbankSubActivity.qBankAll.get(position).getIsPaid().equalsIgnoreCase("1")){
+                    showPlanDialog(qbankSubActivity);
+                }else{
+
+                    if (qbankSubActivity.qBankUnAttempted.get(position).getTotalMcq() > 0) {
+                        Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
+                        intent.putExtra("module", qbankSubActivity.qBankUnAttempted.get(position));
+                        intent.putExtra("attemptedTime", qbankSubActivity.qBankAll.get(position).getModule_submit_time());
+
+
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }
@@ -76,6 +85,7 @@ public class QbankUnattemptedFragment extends Fragment {
 
     public void showQList(List<Module> qBankUnAttempted) {
         if (qBankUnAttempted!=null && qBankUnAttempted.size()>0){
+            Collections.sort(qBankUnAttempted);
 
             qbankSubCatAdapter.setDetailList(qBankUnAttempted);
             qbankSubCatAdapter.notifyDataSetChanged();
@@ -85,7 +95,6 @@ public class QbankUnattemptedFragment extends Fragment {
             Utils.dismissProgressDialog();
             recyclerView.setVisibility(View.GONE);
             noItem.setVisibility(View.VISIBLE);
-            Toast.makeText(qbankSubActivity, "No Data", Toast.LENGTH_SHORT).show();
         }
     }
 }

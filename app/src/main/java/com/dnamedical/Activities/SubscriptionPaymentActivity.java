@@ -37,7 +37,7 @@ import retrofit2.Response;
 public class SubscriptionPaymentActivity extends AppCompatActivity implements PaymentResultListener {
 
     private static final String TAG = PaymentDetailActivity.class.getSimpleName();
-/*
+   /*
     @BindView(R.id.view_breakup)
     TextView textViewbreakup;*/
 

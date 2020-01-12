@@ -19,9 +19,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="No Item Found"
-
         android:textColor="@color/colorAccent"
-        android:textSize="30dp"
+        android:textSize="14sp"
         tools:layout_editor_absoluteX="106dp"
         tools:layout_editor_absoluteY="345dp" />
 </LinearLayout>

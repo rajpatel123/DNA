@@ -184,6 +184,8 @@ public class ResultActivity extends AppCompatActivity {
             Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent1.putExtra("testid", test_id);
+            intent1.putExtra("qbank",true);
+
             startActivity(intent1);
         } else {
             Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
@@ -513,6 +515,12 @@ public class ResultActivity extends AppCompatActivity {
 
             } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIOLOGY")) {
                 subjectTv.setText("PHYSIO");
+
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("PSYCHIATRY")) {
+                subjectTv.setText("PSYCH");
+
+            } else if (scoreAnalysi.get(i).getCategoryName().contains("ANESTHESIA")) {
+                subjectTv.setText("ANESTH");
 
             } else {
                 subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());

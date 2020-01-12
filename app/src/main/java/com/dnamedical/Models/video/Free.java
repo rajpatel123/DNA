@@ -16,6 +16,20 @@ public class Free implements  Parcelable {
     @SerializedName("title")
     @Expose
     private String title;
+
+
+    @SerializedName("time")
+    @Expose
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @SerializedName("sub_title")
     @Expose
     private String subTitle;
@@ -23,6 +37,7 @@ public class Free implements  Parcelable {
     protected Free(Parcel in) {
         id = in.readString();
         title = in.readString();
+        time = in.readString();
         subTitle = in.readString();
         dr_img = in.readString();
         duration = in.readString();
@@ -36,6 +51,7 @@ public class Free implements  Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(title);
+        dest.writeString(time);
         dest.writeString(subTitle);
         dest.writeString(duration);
         dest.writeString(chapter);

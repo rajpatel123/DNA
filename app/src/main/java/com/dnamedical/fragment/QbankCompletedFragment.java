@@ -21,6 +21,7 @@ import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
+import java.util.Collections;
 import java.util.List;
 
 public class QbankCompletedFragment extends Fragment {
@@ -53,10 +54,12 @@ public class QbankCompletedFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(int position, String id, String moduleName) {
+            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
                 if (qbankSubActivity.qBankCompleted.get(position).getTotalMcq() > 0) {
                     Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
                     intent.putExtra("module", qbankSubActivity.qBankCompleted.get(position));
+                    intent.putExtra("attemptedTime", qbankSubActivity.qBankCompleted.get(position).getModule_submit_time());
+
                     startActivity(intent);
                 } else {
                     Toast.makeText(qbankSubActivity, "No MCQ in this module", Toast.LENGTH_LONG).show();
@@ -68,12 +71,12 @@ public class QbankCompletedFragment extends Fragment {
         recyclerView.setVisibility(View.VISIBLE);
         no_item.setVisibility(View.GONE);
 
-
     }
 
     public void showQList(List<Module> qBankCompleted) {
         if (qBankCompleted != null && qBankCompleted.size() > 0) {
 
+            Collections.sort(qBankCompleted);
             qbankSubCatAdapter.setDetailList(qBankCompleted);
             qbankSubCatAdapter.notifyDataSetChanged();
             recyclerView.setVisibility(View.VISIBLE);
@@ -82,7 +85,6 @@ public class QbankCompletedFragment extends Fragment {
             Utils.dismissProgressDialog();
             recyclerView.setVisibility(View.GONE);
             no_item.setVisibility(View.VISIBLE);
-            Toast.makeText(qbankSubActivity, "No Data", Toast.LENGTH_SHORT).show();
         }
 
     }

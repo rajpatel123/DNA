@@ -44,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TestReviewResultActivity extends AppCompatActivity {
+public class QBankReviewResultActivity extends AppCompatActivity {
 
     String user_Id, test_Id;
 
@@ -60,13 +60,14 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private List<Subject> filterSubjectList = new ArrayList<>();
     private Filters filters;
     private Button applyFilters;
-    String level, subject, answer,filter_bookmark;
+    String level, subject, answer, filter_bookmark;
     RadioGroup anRadioGroup;
     RadioGroup subjectGroup;
     RadioGroup levelGroup;
     CardView filterView;
     private String bookmark;
     private TestReviewListAdapter testReviewListAdapter;
+    private String moduleID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +92,11 @@ public class TestReviewResultActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton answerSected = findViewById(checkedId);
                 String str = answerSected.getText().toString();
-                if (str.equalsIgnoreCase("Bookmarked")){
-                    filter_bookmark ="test";
-                }else{
+                if (str.equalsIgnoreCase("Bookmarked")) {
+                    filter_bookmark = "test";
+                } else {
                     answer = getAnswerId(str);
-                    filter_bookmark="";
+                    filter_bookmark = "";
 
                 }
 
@@ -176,7 +177,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
             Answer answerb = new Answer();
             answerb.setId("test");
             answerb.setName("Bookmarked");
-            filterAnswersList.add(1,answerb);
+            filterAnswersList.add(1, answerb);
             if (filterAnswersList.size() > 0) {
                 isFilterAdded = true;
 
@@ -236,16 +237,14 @@ public class TestReviewResultActivity extends AppCompatActivity {
 //
 //
 
-            user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        if (getIntent().hasExtra("testid")) {
-            test_Id = getIntent().getStringExtra("testid");
+        moduleID = getIntent().getStringExtra("module_id");
+        user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
-        }
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getTestReviewListData(test_Id, user_Id, level, subject, answer,filter_bookmark, new Callback<TestReviewListResponse>() {
+            RestClient.getQBankReviewListData(moduleID, user_Id, level, subject, answer, filter_bookmark, new Callback<TestReviewListResponse>() {
                 @Override
                 public void onResponse(Call<TestReviewListResponse> call, Response<TestReviewListResponse> response) {
                     Utils.dismissProgressDialog();
@@ -270,7 +269,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                 public void onTestClicklist(int postion) {
 
 
-                                    Intent intent = new Intent(TestReviewResultActivity.this, ReviewresulActivity.class);
+                                    Intent intent = new Intent(QBankReviewResultActivity.this, ReviewresulActivity.class);
                                     intent.putExtra("position", postion);
                                     DNAApplication.getInstance().setReviewList(testReviewListResponse.getData().getQuestionList());
                                     startActivity(intent);
@@ -292,11 +291,11 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                         QuestionList questionList = testReviewListResponse.getData().getQuestionList().get(position);
 
                                         if (questionList != null) {
-                                            if (!TextUtils.isEmpty(user_Id) && !TextUtils.isEmpty(test_Id)) {
+                                            if (!TextUtils.isEmpty(user_Id) && !TextUtils.isEmpty(moduleID)) {
                                                 RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
-                                                RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_Id);
+                                                RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), moduleID);
                                                 RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), questionList.getId());
-                                                RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "test");
+                                                RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "qbank");
                                                 RequestBody remove_bookmark = null;
                                                 if (questionList.getIsBookmark() == 0) {
                                                     remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
@@ -304,7 +303,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                                     remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
                                                 }
 
-                                                RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark,type, new Callback<ResponseBody>() {
+                                                RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, type, new Callback<ResponseBody>() {
                                                     @Override
                                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                         if (response != null && response.code() == 200) {
@@ -339,14 +338,13 @@ public class TestReviewResultActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            Toast.makeText(TestReviewResultActivity.this, "No question found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(QBankReviewResultActivity.this, "No question found", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
                         noContent.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);
-
-                        Toast.makeText(TestReviewResultActivity.this, "No question found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QBankReviewResultActivity.this, "No question found", Toast.LENGTH_SHORT).show();
                     }
 
                 }

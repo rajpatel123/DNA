@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Module implements Parcelable, Comparable<Module> {
+public class Module implements Parcelable, Comparable<Module>, Cloneable {
 
     @SerializedName("chapter_id")
     @Expose
@@ -36,10 +36,23 @@ public class Module implements Parcelable, Comparable<Module> {
     @SerializedName("price")
     @Expose
     private String price;
+
+
+    public int getTotal_bookmarks() {
+        return total_bookmarks;
+    }
+
+    public void setTotal_bookmarks(int total_bookmarks) {
+        this.total_bookmarks = total_bookmarks;
+    }
+
+    @SerializedName("total_bookmarks")
+    @Expose
+    private Integer total_bookmarks;
     @SerializedName("rating")
     @Expose
     private String rating;
-    @SerializedName("is_completed")
+    @SerializedName("module_status")
     @Expose
     private String isCompleted;
     @SerializedName("total_mcq")
@@ -55,7 +68,7 @@ public class Module implements Parcelable, Comparable<Module> {
         chapterImage = in.readString();
         moduleId = in.readString();
         moduleName = in.readString();
-        module_submit_time=in.readLong();
+        module_submit_time = in.readLong();
         isPaid = in.readString();
         isPaused = in.readString();
         price = in.readString();
@@ -66,11 +79,24 @@ public class Module implements Parcelable, Comparable<Module> {
         } else {
             totalMcq = in.readInt();
         }
+
+
+        if (in.readByte() == 0) {
+            total_bookmarks = null;
+        } else {
+            total_bookmarks = in.readInt();
+        }
         if (in.readByte() == 0) {
             totalAttemptedmcq = null;
         } else {
             totalAttemptedmcq = in.readInt();
         }
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(this.chapterId);
     }
 
     public static final Creator<Module> CREATOR = new Creator<Module>() {
@@ -218,6 +244,14 @@ public class Module implements Parcelable, Comparable<Module> {
             dest.writeByte((byte) 1);
             dest.writeInt(totalMcq);
         }
+
+
+        if (total_bookmarks == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(total_bookmarks);
+        }
         if (totalAttemptedmcq == null) {
             dest.writeByte((byte) 0);
         } else {
@@ -225,4 +259,6 @@ public class Module implements Parcelable, Comparable<Module> {
             dest.writeInt(totalAttemptedmcq);
         }
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.dnamedical.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -139,7 +141,7 @@ public class AddressListActivity extends AppCompatActivity {
                                     @Override
                                     public void deleteAddress(String add_id) {
                                         if (!TextUtils.isEmpty(add_id)) {
-                                            deleteAddressApi(add_id);
+                                           deleteAddressDialog(add_id);
                                         }
                                     }
 
@@ -236,6 +238,39 @@ public class AddressListActivity extends AppCompatActivity {
 
     }
 
+    private void deleteAddressDialog(String add_id) {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddressListActivity.this);
+        // ...Irrelevant code for customizing the buttons and titl
+        dialogBuilder.setTitle("Delete");
+        dialogBuilder.setMessage("Are you sure want to delete address?");
+        dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteAddressApi(add_id);
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+
+
+
+
+
+        if (!dialog.isShowing())
+            dialog.show();
+
+
+    }
 
     private void deleteAddressApi(String add_id) {
         if (TextUtils.isEmpty(add_id)) {

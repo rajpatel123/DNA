@@ -21,6 +21,7 @@ import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
+import java.util.Collections;
 import java.util.List;
 
 public class QbankFreeFragment extends Fragment {
@@ -32,8 +33,9 @@ public class QbankFreeFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        qbankSubActivity= (QbankSubActivity) getActivity();
+        qbankSubActivity = (QbankSubActivity) getActivity();
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,16 +48,17 @@ public class QbankFreeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-         qbankSubCatAdapter=new QbankSubCatAdapter();
+        qbankSubCatAdapter = new QbankSubCatAdapter();
         qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankFree);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(int position, String id, String moduleName) {
+            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
                 if (qbankSubActivity.qBankFree.get(position).getTotalMcq() > 0) {
                     Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
                     intent.putExtra("module", qbankSubActivity.qBankFree.get(position));
+                    intent.putExtra("attemptedTime", qbankSubActivity.qBankFree.get(position).getModule_submit_time());
 
                     startActivity(intent);
                 } else {
@@ -69,17 +72,17 @@ public class QbankFreeFragment extends Fragment {
     }
 
     public void showQList(List<Module> qBankFree) {
-        if (qBankFree!=null && qBankFree.size()>0){
+        if (qBankFree != null && qBankFree.size() > 0) {
 
+            Collections.sort(qBankFree);
             qbankSubCatAdapter.setDetailList(qBankFree);
             qbankSubCatAdapter.notifyDataSetChanged();
             recyclerView.setVisibility(View.VISIBLE);
             no_item.setVisibility(View.GONE);
-        }else {
+        } else {
             Utils.dismissProgressDialog();
             recyclerView.setVisibility(View.GONE);
             no_item.setVisibility(View.VISIBLE);
-            Toast.makeText(qbankSubActivity, "No Data", Toast.LENGTH_SHORT).show();
         }
     }
 }

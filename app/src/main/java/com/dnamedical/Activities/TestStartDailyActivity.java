@@ -166,55 +166,6 @@ public class TestStartDailyActivity extends AppCompatActivity {
         });
     }
 
-    private void PaymentAlertDialog() {
-
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        // ...Irrelevant code for customizing the buttons and titl
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.payment_alert_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final AlertDialog dialog = dialogBuilder.create();
-        Button btn_learnmore = dialogView.findViewById(R.id.btn_learn_more);
-        Button btn_view_plans = dialogView.findViewById(R.id.btn_view_plans);
-
-        TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
-        text_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-
-            }
-        });
-
-        btn_learnmore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(TestStartDailyActivity.this, DNAKnowmoreActivity.class);
-                startActivity(intent);
-                finish();
-                dialog.dismiss();
-
-
-            }
-        });
-
-        btn_view_plans.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(TestStartDailyActivity.this, DNASuscribeActivity.class);
-                startActivity(intent);
-                finish();
-                dialog.dismiss();
-
-            }
-        });
-
-        dialog.show();
-
-    }
 
 
     private void updateTestTypeText(String type) {

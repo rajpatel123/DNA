@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.LoginActivity;
@@ -49,6 +50,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
         if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration()) > 0) {
             holder.ratingandtime.setText(freeList.get(holder.getAdapterPosition()).getDuration() + " min video");
+
         } else {
             holder.ratingandtime.setText("N/A");
 
@@ -132,6 +134,9 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         LinearLayout row_view;
         @BindView(R.id.vid_title)
         TextView title;
+
+        @BindView(R.id.progress)
+        SeekBar progress;
 
 
         @BindView(R.id.ratingandtime)
