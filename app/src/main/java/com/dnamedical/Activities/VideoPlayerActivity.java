@@ -647,6 +647,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     exoplayer.seekTo(seekBarProgress);
 
 
+
                 }
                 seekFromUser = false;
                 // }
