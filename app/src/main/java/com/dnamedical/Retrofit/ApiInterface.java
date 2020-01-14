@@ -161,7 +161,7 @@ public interface ApiInterface {
                                             @Part("status") RequestBody status);
 
     @Multipart
-    @POST("api/api.php?req=add_order")
+    @POST("api/api.php?req=add_ordercopy")
     Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
                                            @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
 

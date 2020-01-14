@@ -273,6 +273,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             if (progressPosition > 0) {
                 exoplayer.seekTo(progressPosition);
+                upper_progress.setVisibility(View.VISIBLE);
+
+
             }
             enablePlayPause(true, true);
         }
@@ -469,6 +472,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
                             if (exoplayer.isPlaying()) {
                                 //change code here
                                 exoplayer.seekTo(miliis);
+                                upper_progress.setVisibility(View.VISIBLE);
+
 
                             } else {
                                 Toast.makeText(VideoPlayerActivity.this, "Please play video first", Toast.LENGTH_LONG).show();
@@ -530,6 +535,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
                             if (exoplayer.isPlaying()) {
                                 //change code here
                                 exoplayer.seekTo(miliis);
+                                upper_progress.setVisibility(View.VISIBLE);
+
                             } else {
                                 Toast.makeText(VideoPlayerActivity.this, "Please play video first", Toast.LENGTH_LONG).show();
                             }
@@ -645,8 +652,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
                     //   llControllerWrapperFlexible.setVisibility(View.VISIBLE);
                     exoplayer.seekTo(seekBarProgress);
-
-
+                    upper_progress.setVisibility(View.VISIBLE);
                 }
                 seekFromUser = false;
                 // }
@@ -758,6 +764,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             case R.id.fast_forward:
                 if (exoplayer != null && exoplayer.isPlaying()) {
                     exoplayer.seekTo((exoplayer.getCurrentPosition() + 20000));
+                    upper_progress.setVisibility(View.VISIBLE);
                     Toast.makeText(VideoPlayerActivity.this, "Forward 20 seconds", Toast.LENGTH_LONG).show();
                 }
 
@@ -765,6 +772,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             case R.id.fast_backward:
                 if (exoplayer != null && exoplayer.isPlaying() && exoplayer.getCurrentPosition()>20000) {
                     exoplayer.seekTo((exoplayer.getCurrentPosition() - 20000));
+                    upper_progress.setVisibility(View.VISIBLE);
                     Toast.makeText(VideoPlayerActivity.this, "Backward 20 seconds", Toast.LENGTH_LONG).show();
                 }
                 break;
