@@ -273,8 +273,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             if (progressPosition > 0) {
                 exoplayer.seekTo(progressPosition);
+                progressPosition = 0;
                 upper_progress.setVisibility(View.VISIBLE);
-
 
             }
             enablePlayPause(true, true);
@@ -312,7 +312,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         @Override
         public void onTouch(@Nullable boolean touched) {
-            if (llControllerWrapperFlexible != null && llControllerWrapperFlexible.getVisibility() != View.VISIBLE) {
+            if (llControllerWrapperFlexible != null && llControllerWrapperFlexible.getVisibility() != View.VISIBLE && !exoplayer.isEnded()) {
                 llControllerWrapperFlexible.setVisibility(View.VISIBLE);
                 seekbarVideo.hideThumb(false);
                 seekbarVideo.setVisibility(View.VISIBLE);
@@ -333,9 +333,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 seekbarVideo.setProgress(player.getCurrentPosition());
             }
             md_play.setImageResource(R.drawable.ic_play);
-            md_replay.setVisibility(View.VISIBLE);
-            enablePlayPause(false, false);
 
+            play_btn.setImageResource(R.drawable.ic_audio_replay_new);
+            play_btn.setVisibility(View.VISIBLE);
+            md_replay.setVisibility(View.VISIBLE);
+            llControllerWrapperFlexible.setVisibility(GONE);
+            enablePlayPause(false, false);
             isCompleted = true;
 
         }
@@ -763,14 +766,17 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             case R.id.fast_forward:
                 if (exoplayer != null && exoplayer.isPlaying()) {
-                    exoplayer.seekTo((exoplayer.getCurrentPosition() + 20000));
-                    upper_progress.setVisibility(View.VISIBLE);
-                    Toast.makeText(VideoPlayerActivity.this, "Forward 20 seconds", Toast.LENGTH_LONG).show();
+                    if ((exoplayer.getDuration() - exoplayer.getCurrentPosition()) > 20000) {
+                        exoplayer.seekTo((exoplayer.getCurrentPosition() + 20000));
+                        upper_progress.setVisibility(View.VISIBLE);
+                        Toast.makeText(VideoPlayerActivity.this, "Forward 20 seconds", Toast.LENGTH_LONG).show();
+
+                    }
                 }
 
                 break;
             case R.id.fast_backward:
-                if (exoplayer != null && exoplayer.isPlaying() && exoplayer.getCurrentPosition()>20000) {
+                if (exoplayer != null && exoplayer.isPlaying() && exoplayer.getCurrentPosition() > 20000) {
                     exoplayer.seekTo((exoplayer.getCurrentPosition() - 20000));
                     upper_progress.setVisibility(View.VISIBLE);
                     Toast.makeText(VideoPlayerActivity.this, "Backward 20 seconds", Toast.LENGTH_LONG).show();
@@ -846,7 +852,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
             time = 0;
         }
         RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), "" + time);
-
 
         Log.d("TimeCall", "user_id  " + userId + " videoID " + videoId + " Time " + minutes);
         //RequestBody video_playTime = RequestBody.create(MediaType.parse("text/plain"), ""+100);

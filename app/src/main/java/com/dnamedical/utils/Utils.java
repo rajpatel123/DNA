@@ -272,7 +272,6 @@ public class Utils {
 
     public static String startTestTimeFormat(long timeStamp) {
 
-
         if (timeStamp <= 0) {
             return null;
         }
