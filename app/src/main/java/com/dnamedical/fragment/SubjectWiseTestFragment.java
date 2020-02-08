@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
-import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.Models.test.TestQuestionData;
@@ -137,10 +137,10 @@ public class SubjectWiseTestFragment extends Fragment implements TestAdapter.OnC
     }
 
     public void showTest() {
-        MainActivity mainActivity = null;
+        ModuleTestActivity mainActivity = null;
         InstituteTestActivity instituteTestActivity = null;
-        if (activity instanceof MainActivity) {
-            mainActivity = (MainActivity) activity;
+        if (activity instanceof ModuleTestActivity) {
+            mainActivity = (ModuleTestActivity) activity;
             if (mainActivity != null && mainActivity.getSubjectTests() != null && mainActivity.getSubjectTests().size() > 0) {
                 subjectTest = mainActivity.getSubjectTests();
 

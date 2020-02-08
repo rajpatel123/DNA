@@ -21,7 +21,7 @@ import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.FirstloginActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
-import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.Models.test.TestQuestionData;
@@ -44,7 +44,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     private String subTest;
     private List<Test> grandTest;
     private boolean loadedOnce;
-    MainActivity mainActivity = null;
+    ModuleTestActivity mainActivity = null;
     InstituteTestActivity instituteTestActivity = null;
 
     public GrandTestFragment() {
@@ -162,8 +162,8 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     public void showTest() {
 
 
-        if (activity instanceof MainActivity) {
-            mainActivity = (MainActivity) activity;
+        if (activity instanceof ModuleTestActivity) {
+            mainActivity = (ModuleTestActivity) activity;
             if (mainActivity != null && mainActivity.getGrandTests() != null && mainActivity.getGrandTests().size() > 0) {
                 grandTest = mainActivity.getGrandTests();
 

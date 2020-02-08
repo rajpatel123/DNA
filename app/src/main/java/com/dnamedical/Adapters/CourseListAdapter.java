@@ -54,11 +54,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
                 if (!TextUtils.isEmpty(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())) {
                     Picasso.with(applicationContext).load(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())
-                            .error(R.drawable.dnalogo)
+                            .error(R.drawable.allins)
                             .into(holder.insImage);
                 } else {
                     Picasso.with(applicationContext)
-                            .load(R.drawable.dnalogo)
+                            .load(R.drawable.allins)
                             .into(holder.insImage);
                 }
 

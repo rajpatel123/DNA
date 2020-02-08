@@ -26,18 +26,43 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
         <activity
+            android:name=".Activities.ModuleQBankActivity"
+            android:label="QBank"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".Activities.ModuleTestActivity"
+            android:label="Test"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+
+
+        <activity
+            android:name=".Activities.CategoryModulesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+
+
+        <activity
+            android:name=".Activities.AllInstituteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+
+
+        <activity
             android:name=".Activities.ChangePhoneNumberOtypVarification"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ChanePhoneNumberActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"/>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.InstituteTestActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.RemarksActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SubscriptionPaymentActivity"
             android:screenOrientation="portrait"
@@ -119,7 +144,6 @@
         <activity
             android:name=".Activities.TestReviewResultActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Activities.QBankReviewResultActivity"
             android:screenOrientation="portrait" />
@@ -133,15 +157,15 @@
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"/>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankResultActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"/>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankRatingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"/>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankTestActivity"
             android:screenOrientation="portrait"
@@ -204,7 +228,7 @@
         <activity
             android:name=".Activities.AddressForSubscriptionListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"/>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait" />
@@ -239,7 +263,8 @@
 
         <activity
             android:name=".Activities.NeetPgActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"/>
         <activity
             android:name=".Activities.ShoppingActivty"
             android:screenOrientation="portrait" />
@@ -292,7 +317,6 @@
         <activity
             android:name=".Activities.TestStartActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Activities.TestStartDailyActivity"
             android:screenOrientation="portrait" />

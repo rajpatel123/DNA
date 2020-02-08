@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
-import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.DNAApplication;
@@ -43,7 +43,7 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     private List<Test> miniTest;
 
 
-    MainActivity mainActivity = null;
+    ModuleTestActivity mainActivity = null;
     InstituteTestActivity instituteTestActivity = null;
     public MockTestFragment() {
 
@@ -165,8 +165,8 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     public void showTest() {
 
 
-        if (activity instanceof MainActivity) {
-            mainActivity = (MainActivity) activity;
+        if (activity instanceof ModuleTestActivity) {
+            mainActivity = (ModuleTestActivity) activity;
             if (mainActivity != null && mainActivity.getMiniTests() != null && mainActivity.getMiniTests().size() > 0) {
                 miniTest = mainActivity.getMiniTests();
 

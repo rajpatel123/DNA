@@ -16,11 +16,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Activities.AllInstituteActivity;
+import com.dnamedical.Activities.CategoryModulesActivity;
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.MainActivity;
-import com.dnamedical.Activities.NeetPgActivity;
 import com.dnamedical.Adapters.CourseListAdapter;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
@@ -80,6 +81,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
+        getCourse();
         return view;
 
     }
@@ -88,7 +90,6 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @Override
     public void onResume() {
         super.onResume();
-        getCourse();
     }
 
     private void getCourse() {
@@ -103,21 +104,19 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
-                            if (!TextUtils.isEmpty(DnaPrefs.getString(mainActivity, Constants.INST_ID)) && !DnaPrefs.getString(mainActivity, Constants.INST_ID).equals("0")) {
-                                Detail obj = new Detail();
-                                obj.setCatName(DnaPrefs.getString(mainActivity, Constants.INST_NAME));
-                                obj.setType(Constants.TYPE);
-                                obj.setIns_logo(DnaPrefs.getString(mainActivity, Constants.INST_IMAGE));
+                            Detail obj = new Detail();
+                            obj.setCatName(DnaPrefs.getString(mainActivity, Constants.INST_NAME));
+                            obj.setType(Constants.TYPE);
+                            obj.setIns_logo(DnaPrefs.getString(mainActivity, Constants.INST_IMAGE));
 
-                                SubCat subCat = new SubCat();
-                                subCat.setSubCatName("Go To Test");
-                                List<SubCat> list = new ArrayList<>();
-                                list.add(subCat);
-                                obj.setSubCat(list);
-                                obj.setCatId(DnaPrefs.getString(mainActivity, Constants.INST_ID) + "432");
-                                categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(), obj);
+                            SubCat subCat = new SubCat();
+                            subCat.setSubCatName("All Institute");
+                            List<SubCat> list = new ArrayList<>();
+                            list.add(subCat);
+                            obj.setSubCat(list);
+                            obj.setCatId(DnaPrefs.getString(mainActivity, Constants.INST_ID) + "432");
+                            categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(), obj);
 
-                            }
 
                             CourseListAdapter courseListAdapter = new CourseListAdapter(getActivity());
                             courseListAdapter.setData(categoryDetailData);
@@ -180,14 +179,23 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("11")) {
             Intent intent = new Intent(getActivity(), DNASuscribeActivity.class);
             getActivity().startActivity(intent);
-        }else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("10")) {
+        } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("10")) {
             Intent intent = new Intent(getActivity(), ContactUsActivity.class);
             getActivity().startActivity(intent);
+        } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("12")) {
+            return;
         } else {
-            Intent intent = new Intent(getActivity(), NeetPgActivity.class);
+//            Intent intent = new Intent(getActivity(), NeetPgActivity.class);
+//            intent.putExtra("catData", new Gson().toJson(categoryDetailData));
+//            intent.putExtra("catId", id);
+//            DnaPrefs.putString(mainActivity,Constants.CAT_ID,id);
+//            getActivity().startActivity(intent);
+
+
+            Intent intent = new Intent(getActivity(), CategoryModulesActivity.class);
             intent.putExtra("catData", new Gson().toJson(categoryDetailData));
             intent.putExtra("catId", id);
-            DnaPrefs.putString(mainActivity,Constants.CAT_ID,id);
+            DnaPrefs.putString(mainActivity, Constants.CAT_ID, id);
             getActivity().startActivity(intent);
         }
 
@@ -196,8 +204,9 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
     @Override
     public void onInstituteClick(String name) {
-        Intent intent = new Intent(mainActivity, InstituteTestActivity.class);
-        intent.putExtra(Constants.ISDAILY_TEST,false);
+        Intent intent = new Intent(mainActivity, AllInstituteActivity.class);
+        intent.putExtra(Constants.ISDAILY_TEST, false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         DnaPrefs.putBoolean(mainActivity, Constants.FROM_INSTITUTE, true);
 
         startActivity(intent);

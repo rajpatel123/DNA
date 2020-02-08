@@ -17,6 +17,7 @@ import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
+import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberResponse;
@@ -32,6 +33,7 @@ import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
+import com.dnamedical.Models.modulesforcat.CatModuleResponse;
 import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
 import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
@@ -120,6 +122,11 @@ public class RestClient {
 
     public static void getCourses(Callback<CategoryDetailData> callback) {
         RetrofitClient.getClient().getCourse().enqueue(callback);
+    }
+
+
+    public static void getAllModulesForCategory(RequestBody requestBody, Callback<CatModuleResponse> callback) {
+        RetrofitClient.getClient().getAllModulesForCategory(requestBody).enqueue(callback);
     }
 
     public static void getCollege(Callback<CollegeListResponse> callback) {
@@ -260,8 +267,8 @@ public class RestClient {
     }
 
 
-    public static void qbankDetail(RequestBody user_id, Callback<ModuleListResponse> callback) {
-        RetrofitClient.getClient().qbankDetail(user_id).enqueue(callback);
+    public static void qbankDetail(RequestBody userId, RequestBody catId,  Callback<ModuleListResponse> callback) {
+        RetrofitClient.getClient().qbankDetail(userId,catId).enqueue(callback);
     }
 
 
@@ -384,9 +391,9 @@ public class RestClient {
 
     }
 
-    public static void getAllTestData(String id, String institute_id, Callback
+    public static void getAllTestData(String id, String institute_id, String catId,Callback
             <TestDataResponse> callback) {
-        RetrofitClient.getClient().getAllTestData(id,institute_id).enqueue(callback);
+        RetrofitClient.getClient().getAllTestData(id,institute_id,catId).enqueue(callback);
 
     }
 
@@ -439,6 +446,11 @@ public class RestClient {
 
     public static void changePhoneNoOTPVerification(RequestBody user_id, RequestBody mobile, RequestBody otp, Callback<ChangePhoneNumberOtpResponse>callback){
         RetrofitClient.getClient().phoneOtpVerified(user_id,mobile,otp).enqueue(callback);
+    }
+
+
+    public static void getAllInstitute(RequestBody user_id, Callback<AllInstituteResponseModel>callback){
+        RetrofitClient.getClient().getAllInstitute(user_id).enqueue(callback);
     }
 
 }

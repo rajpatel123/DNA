@@ -17,6 +17,7 @@ import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
+import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
@@ -30,6 +31,7 @@ import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
+import com.dnamedical.Models.modulesforcat.CatModuleResponse;
 import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
 import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
@@ -247,7 +249,7 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("api/api.php?req=price_videos")
+    @POST("api/api.php?req=price_videoscopy")
     Call<PaidVideoResponse> getPaidVedio(@Part("sub_child_cat") RequestBody sub_child_cat,
                                          @Part("user_id") RequestBody user_id,
                                          @Part("file_type") RequestBody file_type);
@@ -360,7 +362,8 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=qbank_subjects")
-    Call<ModuleListResponse> qbankDetail(@Part("user_id") RequestBody user_id);
+    Call<ModuleListResponse> qbankDetail(@Part("user_id") RequestBody user_id,
+                                         @Part("cat_id") RequestBody catid);
 
     @Multipart
     @POST("api/api.php?req=getall_modules")
@@ -514,7 +517,8 @@ public interface ApiInterface {
     Call<ResponseBody> deleteAddress(@Part("address_id") RequestBody id);
 
     @GET("v1/index.php/api/test/list")
-    Call<TestDataResponse> getAllTestData(@Query("user_id") String id, @Query("institute_id") String institute_id);
+    Call<TestDataResponse> getAllTestData(@Query("user_id") String id, @Query("institute_id") String institute_id,
+                                          @Query("cat_id") String catId);
 
     @Multipart
     @POST("v1/index.php/api/test/bookmark")
@@ -582,6 +586,12 @@ public interface ApiInterface {
     Call<ResponseBody> changePhoneNumber(@Part("user_id") RequestBody name,
                                          @Part("mobile") RequestBody phoneNo);
 
+
+    // Change phone No
+    @Multipart
+    @POST("api/api.php?req=get_catsubmodules")
+    Call<CatModuleResponse> getAllModulesForCategory(@Part("cat_id") RequestBody catId);
+
     // change phone no verified otp
 
     @Multipart
@@ -589,6 +599,11 @@ public interface ApiInterface {
     Call<ChangePhoneNumberOtpResponse> phoneOtpVerified(@Part("user_id") RequestBody user_id,
                                                         @Part("mobile") RequestBody mobile,
                                                         @Part("otp") RequestBody otp);
+
+
+    @Multipart
+    @POST("api/api.php?req=get_institute")
+    Call<AllInstituteResponseModel> getAllInstitute(@Part("user_id") RequestBody user_id);
 
 }
 

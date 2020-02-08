@@ -90,20 +90,6 @@ public class MainActivity extends AppCompatActivity
     TestDataResponse testDataResponse;
 
 
-    private List<Test> grandTests = new ArrayList<>();
-    private List<Test> miniTests = new ArrayList<>();
-
-    public List<Test> getDailyTest() {
-        return dailyTest;
-    }
-
-    public void setDailyTest(List<Test> dailyTest) {
-        this.dailyTest = dailyTest;
-    }
-
-    private List<Test> dailyTest = new ArrayList<>();
-    private List<Test> subjectTests = new ArrayList<>();
-    private List<Test> allTests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +138,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent1);
             }
         });
-        setUpFragments();
+        //setUpFragments();
         updateNavViewHeader();
 
         updateLogin();
@@ -195,7 +181,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Log.d("data", response.body().string());
 
                     if (!TextUtils.isEmpty(response.body().string())){
                         JSONObject obj = new JSONObject(response.body().string());
@@ -595,35 +580,5 @@ public class MainActivity extends AppCompatActivity
         checkUserExistance();
     }
 
-    public List<Test> getGrandTests() {
-        return grandTests;
-    }
 
-    public void setGrandTests(List<Test> grandTests) {
-        this.grandTests = grandTests;
-    }
-
-    public List<Test> getMiniTests() {
-        return miniTests;
-    }
-
-    public void setMiniTests(List<Test> miniTests) {
-        this.miniTests = miniTests;
-    }
-
-    public List<Test> getSubjectTests() {
-        return subjectTests;
-    }
-
-    public void setSubjectTests(List<Test> subjectTests) {
-        this.subjectTests = subjectTests;
-    }
-
-    public List<Test> getAllTests() {
-        return allTests;
-    }
-
-    public void setAllTests(List<Test> allTests) {
-        this.allTests = allTests;
-    }
 }

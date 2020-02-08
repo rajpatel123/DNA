@@ -37,7 +37,7 @@ public class QbankRatingActivity extends AppCompatActivity {
     RatingBar ratingbar;
     LinearLayout linearLayout;
     Set<String> feedback = new HashSet<>();
-    private String remarks="No remarks";
+    private String remarks = "No remarks";
     private String user_id;
     private String qmodule_id;
 
@@ -60,13 +60,13 @@ public class QbankRatingActivity extends AppCompatActivity {
         result = new StringBuilder();
 
 
-         user_id = getIntent().getStringExtra("userId");
-         qmodule_id = getIntent().getStringExtra("module_id");
-     if (getSupportActionBar()!=null){
-         getSupportActionBar().setTitle("Result Analysis");
-         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         getSupportActionBar().setDisplayShowHomeEnabled(true);
-     }
+        user_id = getIntent().getStringExtra("userId");
+        qmodule_id = getIntent().getStringExtra("module_id");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Result Analysis");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         textViewToolittle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +153,7 @@ public class QbankRatingActivity extends AppCompatActivity {
 
                     feedback.remove(textViewNeedmore.getText().toString());
                 } else {
-                   feedback.add(textViewNeedmore.getText().toString());
+                    feedback.add(textViewNeedmore.getText().toString());
                     textViewNeedmore.setBackgroundColor(getResources().getColor(R.color.green));
 
 
@@ -204,8 +204,8 @@ public class QbankRatingActivity extends AppCompatActivity {
         textViewAddFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(QbankRatingActivity.this,QbankAddFeedbackActivity.class);
-                startActivityForResult(intent,12);
+                Intent intent = new Intent(QbankRatingActivity.this, QbankAddFeedbackActivity.class);
+                startActivityForResult(intent, 12);
             }
         });
 
@@ -240,31 +240,31 @@ public class QbankRatingActivity extends AppCompatActivity {
             Utils.showProgressDialog(this);
 
             String rating = String.valueOf(ratingbar.getRating());
-            if (feedback.size()>0){
-                for (String sss:feedback){
-                    result.append(sss+",");
+            if (feedback.size() > 0) {
+                for (String sss : feedback) {
+                    result.append(sss + ",");
                 }
             }
 
-            String feedback = result.toString().substring(0,result.toString().length()-1);
+            String feedback = result.toString().substring(0, result.toString().length() - 1);
 
             RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
             RequestBody moduleId = RequestBody.create(MediaType.parse("text/plain"), qmodule_id);
             RequestBody ratings = RequestBody.create(MediaType.parse("text/plain"), rating);
             RequestBody feedbacks = RequestBody.create(MediaType.parse("text/plain"), feedback);
-            RequestBody remark= RequestBody.create(MediaType.parse("text/plain"), remarks);
+            RequestBody remark = RequestBody.create(MediaType.parse("text/plain"), remarks);
 
 
-            RestClient.qbankFeedback(userId, moduleId, ratings, feedbacks,remark, new Callback<QbankfeedbackResponse>() {
+            RestClient.qbankFeedback(userId, moduleId, ratings, feedbacks, remark, new Callback<QbankfeedbackResponse>() {
                 @Override
                 public void onResponse(Call<QbankfeedbackResponse> call, Response<QbankfeedbackResponse> response) {
 
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
 
-                    if (response.body().getStatus().equalsIgnoreCase("true")) {
-                            Intent intent = new Intent(QbankRatingActivity.this,QbankResultActivity.class);
-                            intent.putExtra("module_id",getIntent().getStringExtra("module_id"));
+                        if (response.body().getStatus().equalsIgnoreCase("true")) {
+                            Intent intent = new Intent(QbankRatingActivity.this, QbankResultActivity.class);
+                            intent.putExtra("module_id", getIntent().getStringExtra("module_id"));
 
                             startActivity(intent);
 
@@ -293,11 +293,11 @@ public class QbankRatingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       if (data!=null && data.hasExtra("remark")){
+        if (data != null && data.hasExtra("remark")) {
 
-           remarks = data.getStringExtra("remark");
+            remarks = data.getStringExtra("remark");
 
-       }
+        }
 
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.Models.test.TestQuestionData;
@@ -31,12 +32,12 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     RecyclerView recyclerView;
     List<Test> allTest;
 
-    MainActivity mainActivity;
+    ModuleTestActivity mainActivity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity) getActivity();;
+        mainActivity = (ModuleTestActivity) getActivity();;
 
     }
 

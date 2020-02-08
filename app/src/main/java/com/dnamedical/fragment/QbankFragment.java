@@ -20,6 +20,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.dnamedical.Activities.BookmarkActivity;
+import com.dnamedical.Activities.ModuleQBankActivity;
 import com.dnamedical.Activities.QbankSubActivity;
 import com.dnamedical.Activities.WebViewActivity;
 import com.dnamedical.Adapters.QbankAdapter;
@@ -116,9 +117,10 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     private void getQbankData() {
         UserId= DnaPrefs.getString(getContext(), Constants.LOGIN_ID);
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),UserId);
+        RequestBody catId = RequestBody.create(MediaType.parse("text/plain"),((ModuleQBankActivity)getActivity()).cat_id);
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.qbankDetail(user_id, new Callback<ModuleListResponse>() {
+            RestClient.qbankDetail(user_id,catId, new Callback<ModuleListResponse>() {
                 @Override
                 public void onResponse(Call<ModuleListResponse> call, Response<ModuleListResponse> response) {
                     Utils.dismissProgressDialog();
@@ -151,8 +153,14 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
                             } else {
                                 Log.d("Api Response :", "Got Success from Api");
                                 recyclerView.setVisibility(View.GONE);
+                                textInternet.setText("No MCQ's found");
                                 textInternet.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            Log.d("Api Response :", "Got Success from Api");
+                            recyclerView.setVisibility(View.GONE);
+                            textInternet.setText("No MCQ's found");
+                            textInternet.setVisibility(View.VISIBLE);
                         }
                     }
                 }

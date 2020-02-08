@@ -210,11 +210,12 @@ public class AllTestForInstituteFragment extends Fragment{
     private void getTest() {
 
         String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String  institute_id = getActivity().getIntent().getStringExtra("institute_id");
 
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());
 
-            RestClient.getAllTestData(userId, DnaPrefs.getString(mainActivity,Constants.INST_ID),new Callback<TestDataResponse>() {
+            RestClient.getAllTestData(userId,institute_id,"",new Callback<TestDataResponse>() {
                 @Override
                 public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
                     if (response.code() == 200) {

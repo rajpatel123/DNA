@@ -35,7 +35,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/rounded_shape"
                 android:padding="5dp"
-                android:text="Edition 2019"
+                android:text="Edition 2020"
                 android:textColor="@color/white"
                 android:textSize="14dp" />
 
@@ -110,7 +110,7 @@
                             android:layout_height="25dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/rounded_shape"
-                            android:text="Edition 2019"
+                            android:text="Edition 2020"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -321,7 +321,7 @@
                             android:layout_marginLeft="5dp"
                             android:background="@drawable/rounded_shape"
                             android:padding="5sp"
-                            android:text="Edition 2019"
+                            android:text="Edition 2020"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -527,7 +527,7 @@
                             android:layout_marginLeft="5dp"
                             android:background="@drawable/rounded_shape"
                             android:padding="5sp"
-                            android:text="Edition 2019"
+                            android:text="Edition 2020"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -556,7 +556,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_left_5"
-                            android:text="Video Lecture Recorded after NEET-PG 2019" />
+                            android:text="Video Lecture Recorded after NEET-PG 2020" />
                     </LinearLayout>
 
                     <View
@@ -732,7 +732,7 @@
                             android:layout_marginLeft="5dp"
                             android:background="@drawable/rounded_shape"
                             android:padding="5dp"
-                            android:text="Edition 2019"
+                            android:text="Edition 2020"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -1135,7 +1135,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="15sp"
-                            android:text="Full refund if you qualify for a PG seat in NEET PG 2019" />
+                            android:text="Full refund if you qualify for a PG seat in NEET PG 2020" />
                     </LinearLayout>
 
 

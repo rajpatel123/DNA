@@ -36,6 +36,19 @@ public class Price implements Parcelable {
     @SerializedName("sub_title")
     @Expose
     private String subTitle;
+
+
+    public String getIsbuyall() {
+        return isbuyall;
+    }
+
+    public void setIsbuyall(String isbuyall) {
+        this.isbuyall = isbuyall;
+    }
+
+    @SerializedName("isbuyall")
+    @Expose
+    private String isbuyall;
     @SerializedName("description")
     @Expose
     private String description;

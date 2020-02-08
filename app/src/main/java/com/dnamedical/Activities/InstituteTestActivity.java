@@ -57,7 +57,7 @@ public class InstituteTestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setTitle("" + DnaPrefs.getString(this, Constants.INST_NAME));
+        toolbar.setTitle("" + getIntent().getStringExtra(Constants.INST_NAME));
 
         isDailyTest = getIntent().getBooleanExtra(Constants.ISDAILY_TEST,false);
 

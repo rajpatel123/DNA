@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
-import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Activities.TestStartDailyActivity;
 import com.dnamedical.Adapters.TestAdapter;
@@ -42,7 +42,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     private List<Test> dailyTest;
     private boolean loadedOnce;
 
-    MainActivity mainActivity = null;
+    ModuleTestActivity mainActivity = null;
     InstituteTestActivity instituteTestActivity = null;
     private boolean isDailyTest;
 
@@ -56,7 +56,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = getActivity();
-        ;
+
 
     }
 
@@ -161,8 +161,8 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
 
         this.isDailyTest = isDailyTest;
 
-        if (activity instanceof MainActivity) {
-            mainActivity = (MainActivity) activity;
+        if (activity instanceof ModuleTestActivity) {
+            mainActivity = (ModuleTestActivity) activity;
             if (mainActivity != null && mainActivity.getDailyTest() != null && mainActivity.getDailyTest().size() > 0) {
                 dailyTest = mainActivity.getDailyTest();
 

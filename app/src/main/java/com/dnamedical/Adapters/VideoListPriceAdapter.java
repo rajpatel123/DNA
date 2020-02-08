@@ -190,7 +190,20 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
                 final android.app.AlertDialog dialog = dialogBuilder.create();
                 Button btn_yes = dialogView.findViewById(R.id.btn_done);
+                TextView ortxt = dialogView.findViewById(R.id.orTxt);
                 Button btn_yes_all = dialogView.findViewById(R.id.btn_done_all);
+
+                btn_yes_all.setText("Click Here To Buy All Topic");
+
+                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")){
+                    btn_yes.setVisibility(GONE);
+                    ortxt.setVisibility(GONE);
+
+                }else{
+                    btn_yes.setVisibility(View.VISIBLE);
+                    ortxt.setVisibility(View.VISIBLE);
+
+                }
                 Button btn_cancel = dialogView.findViewById(R.id.btn_cancel);
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
