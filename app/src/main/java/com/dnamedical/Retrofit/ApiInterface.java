@@ -255,7 +255,7 @@ public interface ApiInterface {
                                          @Part("file_type") RequestBody file_type);
 
 
-    @GET("http://13.234.161.7/api/api.php?req=getreleasedetail")
+    @GET("api/api.php?req=getreleasedetail")
     Call<PlaystoreUpdateResponse> playstoreUpdate();
 
 

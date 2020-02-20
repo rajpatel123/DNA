@@ -20,7 +20,7 @@ import com.dnamedical.Activities.AllInstituteActivity;
 import com.dnamedical.Activities.CategoryModulesActivity;
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
-import com.dnamedical.Activities.InstituteTestActivity;
+import com.dnamedical.Activities.FranchiActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Adapters.CourseListAdapter;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -105,16 +105,16 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                             Log.d("Api Response :", "Got Success from Api");
 
                             Detail obj = new Detail();
-                            obj.setCatName(DnaPrefs.getString(mainActivity, Constants.INST_NAME));
+                            obj.setCatName("COACHING INSTITUTES");
                             obj.setType(Constants.TYPE);
                             obj.setIns_logo(DnaPrefs.getString(mainActivity, Constants.INST_IMAGE));
 
                             SubCat subCat = new SubCat();
-                            subCat.setSubCatName("All Institute");
+                            subCat.setSubCatName("");
                             List<SubCat> list = new ArrayList<>();
                             list.add(subCat);
                             obj.setSubCat(list);
-                            obj.setCatId(DnaPrefs.getString(mainActivity, Constants.INST_ID) + "432");
+                            obj.setCatId("432");
                             categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(), obj);
 
 
@@ -183,7 +183,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
             Intent intent = new Intent(getActivity(), ContactUsActivity.class);
             getActivity().startActivity(intent);
         } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("12")) {
-            return;
+            Intent intent = new Intent(getActivity(), FranchiActivity.class);
+            getActivity().startActivity(intent);
         } else {
 //            Intent intent = new Intent(getActivity(), NeetPgActivity.class);
 //            intent.putExtra("catData", new Gson().toJson(categoryDetailData));

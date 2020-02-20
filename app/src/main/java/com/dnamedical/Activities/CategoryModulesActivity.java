@@ -84,7 +84,7 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
                         catModuleResponse = response.body();
-                        if (catModuleResponse != null && catModuleResponse.getModules().size() > 0) {
+                        if (catModuleResponse != null && catModuleResponse.getModules()!=null && catModuleResponse.getModules().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
 
@@ -103,13 +103,15 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
                             };
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setVisibility(View.VISIBLE);
+                            textInternet.setVisibility(View.GONE);
+
                         } else {
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.VISIBLE);
                             // noInternet.setText(getString(R.string.no_project));
                             recyclerView.setVisibility(View.GONE);
+                            textInternet.setText("No Module found!");
                             textInternet.setVisibility(View.VISIBLE);
-
                         }
                     } else {
 

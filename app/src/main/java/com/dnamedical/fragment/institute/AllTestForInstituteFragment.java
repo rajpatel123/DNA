@@ -125,7 +125,7 @@ public class AllTestForInstituteFragment extends Fragment{
 
 
         TextView tabOne = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-        tabOne.setText("Daily Test");
+        tabOne.setText("Class Test");
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
@@ -150,7 +150,7 @@ public class AllTestForInstituteFragment extends Fragment{
 
         AllTestForInstituteFragment.ViewPagerAdapter adapter = new AllTestForInstituteFragment.ViewPagerAdapter(getFragmentManager());
         //adapter.addFrag(allTestFragment, "All Test");
-        adapter.addFrag(dailyTestFragment, "Daily Test");
+        adapter.addFrag(dailyTestFragment, "Class Test");
         adapter.addFrag(grandTestFragment, "Grand Test");
         adapter.addFrag(mockTestFragment, "Mock Test");
         adapter.addFrag(subjectWiseTestFragment, "SWT");

@@ -74,7 +74,7 @@ public class AllInstituteActivity extends AppCompatActivity implements Institute
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
                         catModuleResponse = response.body();
-                        if (catModuleResponse != null && catModuleResponse.getInstitutes().size() > 0) {
+                        if (catModuleResponse != null && catModuleResponse.getInstitutes()!=null && catModuleResponse.getInstitutes().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
 
@@ -96,7 +96,7 @@ public class AllInstituteActivity extends AppCompatActivity implements Institute
                         } else {
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.VISIBLE);
-                            // noInternet.setText(getString(R.string.no_project));
+                            textInternet.setText("No institutions found!");
                             recyclerView.setVisibility(View.GONE);
                             textInternet.setVisibility(View.VISIBLE);
 

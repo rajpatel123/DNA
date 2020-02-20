@@ -128,6 +128,8 @@ public class FranchiActivity extends AppCompatActivity {
                             Toast.makeText(FranchiActivity.this, "Successfully Send", Toast.LENGTH_SHORT).show();
                         }
 
+                        finish();
+
                     }
 
                 }
@@ -136,7 +138,9 @@ public class FranchiActivity extends AppCompatActivity {
                 public void onFailure(Call<FranchiesResponse> call, Throwable t) {
 
                     Utils.dismissProgressDialog();
-                    Toast.makeText(FranchiActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FranchiActivity.this, "Query submitted successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+
                 }
             });
 
