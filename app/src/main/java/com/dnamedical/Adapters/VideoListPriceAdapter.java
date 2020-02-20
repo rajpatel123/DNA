@@ -145,7 +145,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
-            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
@@ -156,7 +156,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
             holder.lockNew.setVisibility(View.VISIBLE);
-            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
@@ -166,7 +166,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/"))) {
+                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/"))) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     } else {

@@ -27,7 +27,7 @@ android {
         applicationId "com.dnamedical"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 101
+        versionCode 102
         versionName "v6.2.3"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true

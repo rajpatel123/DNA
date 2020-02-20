@@ -59,4 +59,5 @@ public class Constants {
     public static final String MODULE_ID ="module_id" ;
     public static final String MODULE_NAME = "module_name";
     public static final String PAUSE_POSITION = "cPosition";
+    public static  boolean ISTEST = false;
 }

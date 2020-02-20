@@ -210,6 +210,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         DnaPrefs.putBoolean(mainActivity, Constants.FROM_INSTITUTE, true);
 
+        Constants.ISTEST=true;
+
         startActivity(intent);
 
     }

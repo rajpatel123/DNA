@@ -148,10 +148,12 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
                 intent.putExtra("catId", catId);
                 break;
             case "TEST":
+                Constants.ISTEST=true;
                 intent = new Intent(this, ModuleTestActivity.class);
                 intent.putExtra("catId", catId);
                 break;
             case "Q BANK":
+                Constants.ISTEST=false;
                 intent = new Intent(this, ModuleQBankActivity.class);
                 intent.putExtra("catId", catId);
                 break;

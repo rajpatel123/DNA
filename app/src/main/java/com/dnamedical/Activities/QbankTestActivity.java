@@ -743,6 +743,11 @@ public class QbankTestActivity extends AppCompatActivity {
             }
 
 
+            aTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+            bTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+            cTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+            dTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+
             switch (modulesMcq.getCorrectAnswer()) {
                 case "1":
                     aTV.setTextColor(ContextCompat.getColor(this, R.color.green));
@@ -810,7 +815,7 @@ public class QbankTestActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         progressBar.setVisibility(View.VISIBLE);
-        webView.loadUrl("http://13.234.161.7/review.php?id=" + qID);
+        webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
 
 
     }

@@ -56,7 +56,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         }
 
-        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
             holder.commingsoon.setVisibility(View.VISIBLE);
         }else{
             holder.commingsoon.setVisibility(GONE);
@@ -93,7 +93,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
                     onUserClickCallback.onCateClick(freeList.get(holder.getAdapterPosition()));
                 }else{
                     Utils.displayToast(applicationContext, "Coming Soon");

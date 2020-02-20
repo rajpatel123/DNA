@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -248,6 +249,10 @@ public class ReviewResultFragment extends Fragment {
 
 //            Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
 //            refText.setText(question.getRefernce().getTitle());
+            optionA.setTextColor(ContextCompat.getColor(activity, R.color.black));
+            optionB.setTextColor(ContextCompat.getColor(activity, R.color.black));
+            optionC.setTextColor(ContextCompat.getColor(activity, R.color.black));
+            optionD.setTextColor(ContextCompat.getColor(activity, R.color.black));
 
 
             switch (question.getCorrectAnswer()) {
@@ -301,7 +306,12 @@ public class ReviewResultFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
 
         progressBar.setVisibility(View.VISIBLE);
-        webView.loadUrl("http://13.232.100.13/review.php?id=" + qID);
+
+        if (Constants.ISTEST){
+            webView.loadUrl("http://13.232.100.13/review.php?id=" + qID);
+        }else{
+            webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
+        }
 
 
     }
