@@ -43,14 +43,11 @@
             android:gravity="center_vertical"
             android:background="@color/colorAccent"
             android:textStyle="bold"
-            android:layout_gravity="center"
-
-            />
+            android:layout_gravity="center" />
 
 
 
         <EditText
-
             android:id="@+id/edit_name_frenchi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,9 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/edittextstyle"
-
             android:drawablePadding="8dp"
-
             android:hint="Email ID"
             android:inputType="textEmailAddress"
             android:layout_marginLeft="10dp"
@@ -131,15 +126,13 @@
 
 
         <EditText
-
             android:id="@+id/editCity"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edittextstyle"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
             android:hint="Your present City "
             android:inputType="text"
@@ -148,10 +141,8 @@
             android:paddingRight="5dp"
             android:textColor="@color/Black" />
 
-
         <EditText
             android:id="@+id/edit_state"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -168,9 +159,7 @@
 
 
         <EditText
-
             android:id="@+id/editAddress"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -186,9 +175,7 @@
             android:layout_marginRight="10dp"/>
 
         <EditText
-
             android:id="@+id/editLandmark"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -205,7 +192,6 @@
 
         <EditText
             android:id="@+id/editPincode"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -234,15 +220,10 @@
             android:gravity="center_vertical"
             android:background="@color/colorAccent"
             android:textStyle="bold"
-            android:layout_gravity="center"
-
-            />
-
-
+            android:layout_gravity="center" />
 
 
         <EditText
-
             android:id="@+id/editcolleageforpartenership"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -251,7 +232,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
-            android:hint=""
+            android:hint="Colleage For Partenership"
             android:inputType="text"
             android:minHeight="44dp"
             android:paddingLeft="5dp"
@@ -260,9 +241,7 @@
 
 
         <EditText
-
             android:id="@+id/cityOfMedicalCollege"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -274,11 +253,8 @@
             android:inputType="text"
             android:minHeight="44dp"
             android:paddingLeft="5dp"
-
             android:paddingRight="5dp"
             android:textColor="@color/Black" />
-
-
 
 
         <EditText
@@ -286,7 +262,9 @@
             android:id="@+id/stateOfMedicalCollege"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
             android:hint="state of Medical College"
@@ -294,11 +272,7 @@
             android:minHeight="44dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textColor="@color/Black"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
-
-
+            android:textColor="@color/Black" />
 
         <EditText
 
@@ -308,7 +282,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
-            android:hint="Pin code"
+            android:hint="Medcal College Pin code"
             android:inputType="number"
             android:minHeight="44dp"
             android:paddingLeft="5dp"
@@ -316,8 +290,6 @@
             android:textColor="@color/Black"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
-
-
 
         <Spinner
             android:id="@+id/investmentSP"
@@ -339,6 +311,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:hint="Comment"
+           android:gravity="top"
             android:inputType="text"
             android:minHeight="44dp"
             android:paddingBottom="5dp"
@@ -352,7 +325,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="I agree to receive call/sms from DNA CLASSES."
-
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
