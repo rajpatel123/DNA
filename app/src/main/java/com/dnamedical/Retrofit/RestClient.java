@@ -115,9 +115,9 @@ public class RestClient {
     public static void franchiesRegister(RequestBody username, RequestBody usermail, RequestBody phoneno, RequestBody whatsppNumber,
                                          RequestBody pCity, RequestBody pState, RequestBody pAddress, RequestBody pLandmark, RequestBody pPincode,
                                          RequestBody collegaeFrenchise, RequestBody cMedicalCollegae, RequestBody sMedicalCollege, RequestBody pinMedicalCollege,
-                                         RequestBody comment, RequestBody requestBody, Callback<FranchiesResponse> callback) {
+                                         RequestBody comment, Callback<FranchiesResponse> callback) {
         RetrofitClient.getClient().franchiRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress, pLandmark, pPincode, collegaeFrenchise,
-                cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment).enqueue(callback);
+                                                   cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment).enqueue(callback);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -86,7 +86,7 @@ public class FranchiActivity extends AppCompatActivity {
     private void submitFrenchies() {
         username1 = editUsername.getText().toString().trim();
 
-        if (TextUtils.isEmpty(username1.trim()) || username1.length() <20) {
+        if (TextUtils.isEmpty(username1.trim()) || username1.length() < 20) {
             editUsername.setError(getString(R.string.invalid_name));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_name));
             return;
@@ -102,7 +102,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         whatsppNumbertxt = whatsppNumber.getText().toString().trim();
 
-        if (TextUtils.isEmpty(whatsppNumbertxt) || whatsppNumbertxt.length() <10) {
+        if (TextUtils.isEmpty(whatsppNumbertxt) || whatsppNumbertxt.length() < 10) {
             whatsppNumber.setError(getString(R.string.whatsappnumber));
             Utils.displayToast(getApplicationContext(), getString(R.string.whatsappnumber));
             return;
@@ -110,7 +110,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         email = edituserEmail.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email.trim()) || email.length() <25) {
+        if (TextUtils.isEmpty(email.trim()) || email.length() < 25) {
             edituserEmail.setError(getString(R.string.invalid_email));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
             return;
@@ -125,7 +125,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pCitytxt = pCity.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pCitytxt) || pCitytxt.length() <30) {
+        if (TextUtils.isEmpty(pCitytxt) || pCitytxt.length() < 30) {
             pCity.setError(getString(R.string.pcity));
             Utils.displayToast(getApplicationContext(), getString(R.string.pcity));
             return;
@@ -134,7 +134,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pStatetxt = pState.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pStatetxt) || pStatetxt.length() <30) {
+        if (TextUtils.isEmpty(pStatetxt) || pStatetxt.length() < 30) {
             pState.setError(getString(R.string.pstate));
             Utils.displayToast(getApplicationContext(), getString(R.string.pstate));
             return;
@@ -143,7 +143,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pAddresstxt = pAddress.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pAddresstxt) || pAddresstxt.length() <30) {
+        if (TextUtils.isEmpty(pAddresstxt) || pAddresstxt.length() < 30) {
             pAddress.setError(getString(R.string.enter_current_address));
             Utils.displayToast(getApplicationContext(), getString(R.string.enter_current_address));
             return;
@@ -151,7 +151,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pLandmarktxt = pLandmark.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pLandmarktxt) || pLandmarktxt.length()<30) {
+        if (TextUtils.isEmpty(pLandmarktxt) || pLandmarktxt.length() < 30) {
             pLandmark.setError(getString(R.string.landmark));
             Utils.displayToast(getApplicationContext(), getString(R.string.landmark));
             return;
@@ -159,7 +159,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pPincodetxt = pPincode.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pPincodetxt) ||  pPincodetxt.length() < 6) {
+        if (TextUtils.isEmpty(pPincodetxt) || pPincodetxt.length() < 6) {
             pPincode.setError(getString(R.string.pincode));
             Utils.displayToast(getApplicationContext(), getString(R.string.pincode));
             return;
@@ -167,7 +167,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         collegaeFrenchisetxt = collegaeFrenchise.getText().toString().trim();
 
-        if (TextUtils.isEmpty(collegaeFrenchisetxt) || collegaeFrenchisetxt.length() <30) {
+        if (TextUtils.isEmpty(collegaeFrenchisetxt) || collegaeFrenchisetxt.length() < 30) {
             collegaeFrenchise.setError(getString(R.string.clgname));
             Utils.displayToast(getApplicationContext(), getString(R.string.clgname));
             return;
@@ -175,14 +175,14 @@ public class FranchiActivity extends AppCompatActivity {
 
         cMedicalCollegaetxt = cMedicalCollegae.getText().toString().trim();
 
-        if (TextUtils.isEmpty(cMedicalCollegaetxt) || cMedicalCollegaetxt.length()<30) {
+        if (TextUtils.isEmpty(cMedicalCollegaetxt) || cMedicalCollegaetxt.length() < 30) {
             cMedicalCollegae.setError(getString(R.string.medicalclg));
             Utils.displayToast(getApplicationContext(), getString(R.string.medicalclg));
             return;
         }
 
         sMedicalCollegetxt = sMedicalCollege.getText().toString().trim();
-        if (TextUtils.isEmpty(sMedicalCollegetxt) || sMedicalCollegetxt.length()<30) {
+        if (TextUtils.isEmpty(sMedicalCollegetxt) || sMedicalCollegetxt.length() < 30) {
             sMedicalCollege.setError(getString(R.string.smedicalcollege));
             Utils.displayToast(getApplicationContext(), getString(R.string.smedicalcollege));
             return;
@@ -190,7 +190,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pinMedicalCollegetxt = pinMedicalCollege.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pinMedicalCollegetxt) || pinMedicalCollegetxt.length()<6) {
+        if (TextUtils.isEmpty(pinMedicalCollegetxt) || pinMedicalCollegetxt.length() < 6) {
             pinMedicalCollege.setError(getString(R.string.mpincode));
             Utils.displayToast(getApplicationContext(), getString(R.string.mpincode));
             return;
@@ -199,7 +199,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         comment1 = edituserComment.getText().toString().trim();
 
-        if (TextUtils.isEmpty(comment1.trim()) || comment1.length() <40) {
+        if (TextUtils.isEmpty(comment1.trim()) || comment1.length() < 40) {
             editUsername.setError("Please Fill the data");
             Utils.displayToast(getApplicationContext(), "Please Fill the data");
             return;
@@ -237,32 +237,33 @@ public class FranchiActivity extends AppCompatActivity {
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.franchiesRegister(username, phoneno, usermail,phoneno, whatsppNumber,pCity,pState,pAddress,pLandmark,pPincode,collegaeFrenchise,
-                    cMedicalCollegae,sMedicalCollege,pinMedicalCollege,comment, new Callback<FranchiesResponse>() {
-                @Override
-                public void onResponse(Call<FranchiesResponse> call, Response<FranchiesResponse> response) {
-                    Utils.dismissProgressDialog();
-                    if (response.body() != null) {
+            RestClient.franchiesRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress,
+                    pLandmark, pPincode, collegaeFrenchise, cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,
+                    new Callback<FranchiesResponse>() {
+                        @Override
+                        public void onResponse(Call<FranchiesResponse> call, Response<FranchiesResponse> response) {
+                            Utils.dismissProgressDialog();
+                            if (response.body() != null) {
 
-                        if (response.body().getStatus().equalsIgnoreCase("1")) {
-                            Toast.makeText(FranchiActivity.this, "Successfully Send", Toast.LENGTH_SHORT).show();
+                                if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                    Toast.makeText(FranchiActivity.this, "Successfully Send", Toast.LENGTH_SHORT).show();
+                                }
+
+                                finish();
+
+                            }
+
                         }
 
-                        finish();
+                        @Override
+                        public void onFailure(Call<FranchiesResponse> call, Throwable t) {
 
-                    }
+                            Utils.dismissProgressDialog();
+                            Toast.makeText(FranchiActivity.this, "Query submitted successfully", Toast.LENGTH_SHORT).show();
+                            finish();
 
-                }
-
-                @Override
-                public void onFailure(Call<FranchiesResponse> call, Throwable t) {
-
-                    Utils.dismissProgressDialog();
-                    Toast.makeText(FranchiActivity.this, "Query submitted successfully", Toast.LENGTH_SHORT).show();
-                    finish();
-
-                }
-            });
+                        }
+                    });
 
         } else {
             Utils.dismissProgressDialog();
