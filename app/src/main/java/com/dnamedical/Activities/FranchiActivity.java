@@ -25,9 +25,7 @@ import retrofit2.Response;
 
 public class FranchiActivity extends AppCompatActivity {
 
-    private EditText editUsername,
-            edituserEmail, edituserMobile,
-            whatsppNumber, pCity, pState, pAddress, pLandmark, pPincode,
+    private EditText editUsername, edituserMobile, whatsppNumber, edituserEmail, pCity, pState, pAddress, pLandmark, pPincode,
             collegaeFrenchise, cMedicalCollegae, sMedicalCollege, pinMedicalCollege, edituserComment;
 
     private CheckBox canCall;
@@ -42,9 +40,9 @@ public class FranchiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_franchi);
         editUsername = findViewById(R.id.edit_name_frenchi);
-        edituserEmail = findViewById(R.id.edit_emailId_frenchi);
         edituserMobile = findViewById(R.id.edit_phone_frenchi);
         whatsppNumber = findViewById(R.id.whatsppNumber);
+        edituserEmail = findViewById(R.id.edit_emailId_frenchi);
         pCity = findViewById(R.id.editCity);
         pState = findViewById(R.id.edit_state);
         pAddress = findViewById(R.id.editAddress);
@@ -54,11 +52,9 @@ public class FranchiActivity extends AppCompatActivity {
         cMedicalCollegae = findViewById(R.id.cityOfMedicalCollege);
         sMedicalCollege = findViewById(R.id.stateOfMedicalCollege);
         pinMedicalCollege = findViewById(R.id.medicalCollegePincode);
-        canCall = findViewById(R.id.agreeCheck);
         amountToInvest = findViewById(R.id.investmentSP);
-
-
         edituserComment = findViewById(R.id.edit_comment_frenchi);
+        canCall = findViewById(R.id.agreeCheck);
         btnSubmit = findViewById(R.id.btn_submit);
         if (getSupportActionBar() != null) {
 
@@ -90,20 +86,35 @@ public class FranchiActivity extends AppCompatActivity {
     private void submitFrenchies() {
         username1 = editUsername.getText().toString().trim();
 
-        if (TextUtils.isEmpty(username1.trim()) || username1.length() == 0) {
+        if (TextUtils.isEmpty(username1.trim()) || username1.length() <20) {
             editUsername.setError(getString(R.string.invalid_name));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_name));
             return;
         }
 
+        mobile = edituserMobile.getText().toString().trim();
+
+        if (TextUtils.isEmpty(mobile.trim()) || mobile.length() == 10) {
+            edituserEmail.setError(getString(R.string.invalid_mobile));
+            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_mobile));
+            return;
+        }
+
+        whatsppNumbertxt = whatsppNumber.getText().toString().trim();
+
+        if (TextUtils.isEmpty(whatsppNumbertxt) || whatsppNumbertxt.length() <10) {
+            whatsppNumber.setError(getString(R.string.whatsappnumber));
+            Utils.displayToast(getApplicationContext(), getString(R.string.whatsappnumber));
+            return;
+        }
+
         email = edituserEmail.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email.trim()) || email.length() == 0) {
+        if (TextUtils.isEmpty(email.trim()) || email.length() <25) {
             edituserEmail.setError(getString(R.string.invalid_email));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
             return;
         }
-
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             edituserEmail.setError(getString(R.string.invalid_email));
@@ -111,27 +122,10 @@ public class FranchiActivity extends AppCompatActivity {
             return;
         }
 
-        mobile = edituserMobile.getText().toString().trim();
-
-        if (TextUtils.isEmpty(mobile.trim()) || mobile.length() == 0) {
-            edituserEmail.setError(getString(R.string.invalid_mobile));
-            Utils.displayToast(getApplicationContext(), getString(R.string.invalid_mobile));
-            return;
-        }
-
-
-        whatsppNumbertxt = whatsppNumber.getText().toString().trim();
-
-
-        if (TextUtils.isEmpty(whatsppNumbertxt) || whatsppNumbertxt.length() == 0) {
-            whatsppNumber.setError(getString(R.string.whatsappnumber));
-            Utils.displayToast(getApplicationContext(), getString(R.string.whatsappnumber));
-            return;
-        }
 
         pCitytxt = pCity.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pCitytxt) || pCitytxt.length() == 0) {
+        if (TextUtils.isEmpty(pCitytxt) || pCitytxt.length() <30) {
             pCity.setError(getString(R.string.pcity));
             Utils.displayToast(getApplicationContext(), getString(R.string.pcity));
             return;
@@ -140,8 +134,8 @@ public class FranchiActivity extends AppCompatActivity {
 
         pStatetxt = pState.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pStatetxt) || pStatetxt.length() == 0) {
-            pCity.setError(getString(R.string.pstate));
+        if (TextUtils.isEmpty(pStatetxt) || pStatetxt.length() <30) {
+            pState.setError(getString(R.string.pstate));
             Utils.displayToast(getApplicationContext(), getString(R.string.pstate));
             return;
         }
@@ -149,68 +143,63 @@ public class FranchiActivity extends AppCompatActivity {
 
         pAddresstxt = pAddress.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pAddresstxt) || pAddresstxt.length() == 0) {
-            whatsppNumber.setError(getString(R.string.enter_current_address));
+        if (TextUtils.isEmpty(pAddresstxt) || pAddresstxt.length() <30) {
+            pAddress.setError(getString(R.string.enter_current_address));
             Utils.displayToast(getApplicationContext(), getString(R.string.enter_current_address));
             return;
         }
 
         pLandmarktxt = pLandmark.getText().toString().trim();
-        if (TextUtils.isEmpty(pLandmarktxt) || pLandmarktxt.length() == 0) {
-            whatsppNumber.setError(getString(R.string.landmark));
+
+        if (TextUtils.isEmpty(pLandmarktxt) || pLandmarktxt.length()<30) {
+            pLandmark.setError(getString(R.string.landmark));
             Utils.displayToast(getApplicationContext(), getString(R.string.landmark));
             return;
         }
 
         pPincodetxt = pPincode.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pPincodetxt) || pPincodetxt.length() == 0 || pPincodetxt.length() < 6) {
-            whatsppNumber.setError(getString(R.string.pincode));
+        if (TextUtils.isEmpty(pPincodetxt) ||  pPincodetxt.length() < 6) {
+            pPincode.setError(getString(R.string.pincode));
             Utils.displayToast(getApplicationContext(), getString(R.string.pincode));
             return;
         }
 
         collegaeFrenchisetxt = collegaeFrenchise.getText().toString().trim();
 
-
-        if (TextUtils.isEmpty(collegaeFrenchisetxt) || collegaeFrenchisetxt.length() == 0) {
-            whatsppNumber.setError(getString(R.string.whatsappnumber));
-            Utils.displayToast(getApplicationContext(), getString(R.string.whatsappnumber));
+        if (TextUtils.isEmpty(collegaeFrenchisetxt) || collegaeFrenchisetxt.length() <30) {
+            collegaeFrenchise.setError(getString(R.string.clgname));
+            Utils.displayToast(getApplicationContext(), getString(R.string.clgname));
             return;
         }
 
+        cMedicalCollegaetxt = cMedicalCollegae.getText().toString().trim();
 
-        if (TextUtils.isEmpty(cMedicalCollegaetxt) || cMedicalCollegaetxt.length() == 0) {
-            whatsppNumber.setError(getString(R.string.whatsappnumber));
-            Utils.displayToast(getApplicationContext(), getString(R.string.whatsappnumber));
+        if (TextUtils.isEmpty(cMedicalCollegaetxt) || cMedicalCollegaetxt.length()<30) {
+            cMedicalCollegae.setError(getString(R.string.medicalclg));
+            Utils.displayToast(getApplicationContext(), getString(R.string.medicalclg));
             return;
         }
 
-
-        if (TextUtils.isEmpty(sMedicalCollegetxt) || sMedicalCollegetxt.length() == 0) {
-            whatsppNumber.setError(getString(R.string.whatsappnumber));
-            Utils.displayToast(getApplicationContext(), getString(R.string.whatsappnumber));
+        sMedicalCollegetxt = sMedicalCollege.getText().toString().trim();
+        if (TextUtils.isEmpty(sMedicalCollegetxt) || sMedicalCollegetxt.length()<30) {
+            sMedicalCollege.setError(getString(R.string.smedicalcollege));
+            Utils.displayToast(getApplicationContext(), getString(R.string.smedicalcollege));
             return;
         }
 
+        pinMedicalCollegetxt = pinMedicalCollege.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pinMedicalCollegetxt) || pinMedicalCollegetxt.length() == 0) {
-            whatsppNumber.setError(getString(R.string.whatsappnumber));
-            Utils.displayToast(getApplicationContext(), getString(R.string.whatsappnumber));
+        if (TextUtils.isEmpty(pinMedicalCollegetxt) || pinMedicalCollegetxt.length()<6) {
+            pinMedicalCollege.setError(getString(R.string.mpincode));
+            Utils.displayToast(getApplicationContext(), getString(R.string.mpincode));
             return;
         }
 
 
         comment1 = edituserComment.getText().toString().trim();
 
-        if (TextUtils.isEmpty(comment1.trim()) || comment1.length() == 0) {
-            editUsername.setError("Please Fill the data");
-            Utils.displayToast(getApplicationContext(), "Please Fill the data");
-            return;
-        }
-
-
-        if (TextUtils.isEmpty(comment1.trim()) || comment1.length() == 0) {
+        if (TextUtils.isEmpty(comment1.trim()) || comment1.length() <40) {
             editUsername.setError("Please Fill the data");
             Utils.displayToast(getApplicationContext(), "Please Fill the data");
             return;
@@ -218,7 +207,6 @@ public class FranchiActivity extends AppCompatActivity {
 
 
         if (TextUtils.isEmpty(mobile)) {
-
             edituserMobile.setError(getString(R.string.invalid_email));
 
             return;
@@ -229,16 +217,28 @@ public class FranchiActivity extends AppCompatActivity {
             }
         }
 
-
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), username1);
-        RequestBody phoneno = RequestBody.create(MediaType.parse("text/plain"), mobile);
         RequestBody usermail = RequestBody.create(MediaType.parse("text/plain"), email);
-        RequestBody comment = RequestBody.create(MediaType.parse("text/plain"), comment1);
+        RequestBody phoneno = RequestBody.create(MediaType.parse("text/plain"), mobile);
+        RequestBody whatsppNumber = RequestBody.create(MediaType.parse("text/plain"), whatsppNumbertxt);
 
+        RequestBody pCity = RequestBody.create(MediaType.parse("text/plain"), pCitytxt);
+        RequestBody pState = RequestBody.create(MediaType.parse("text/plain"), pStatetxt);
+        RequestBody pAddress = RequestBody.create(MediaType.parse("text/plain"), pAddresstxt);
+        RequestBody pLandmark = RequestBody.create(MediaType.parse("text/plain"), pLandmarktxt);
+
+        RequestBody pPincode = RequestBody.create(MediaType.parse("text/plain"), pPincodetxt);
+        RequestBody collegaeFrenchise = RequestBody.create(MediaType.parse("text/plain"), collegaeFrenchisetxt);
+        RequestBody cMedicalCollegae = RequestBody.create(MediaType.parse("text/plain"), cMedicalCollegaetxt);
+
+        RequestBody sMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), sMedicalCollegetxt);
+        RequestBody pinMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), pinMedicalCollegetxt);
+        RequestBody comment = RequestBody.create(MediaType.parse("text/plain"), comment1);
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.franchiesRegister(username, phoneno, usermail, comment, new Callback<FranchiesResponse>() {
+            RestClient.franchiesRegister(username, phoneno, usermail,phoneno, whatsppNumber,pCity,pState,pAddress,pLandmark,pPincode,collegaeFrenchise,
+                    cMedicalCollegae,sMedicalCollege,pinMedicalCollege,comment, new Callback<FranchiesResponse>() {
                 @Override
                 public void onResponse(Call<FranchiesResponse> call, Response<FranchiesResponse> response) {
                     Utils.dismissProgressDialog();

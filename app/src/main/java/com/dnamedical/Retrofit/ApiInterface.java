@@ -56,6 +56,7 @@ import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -209,9 +210,22 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=userquery")
     Call<FranchiesResponse> franchiRegister(@Part("username") RequestBody username,
-                                            @Part("phoneno") RequestBody phoneno,
                                             @Part("usermail") RequestBody usermail,
+                                            @Part("phoneno") RequestBody phoneno,
+                                            @Part("whatsppNumber") RequestBody whatsppNumber,
+                                            @Part("pCity") RequestBody pCity,
+                                            @Part("pState") RequestBody pState,
+                                            @Part("pAddress") RequestBody pAddress,
+                                            @Part("pLandmark") RequestBody pLandmark,
+                                            @Part("pPincode") RequestBody pPincode,
+                                            @Part("collegaeFrenchise") RequestBody collegaeFrenchise,
+                                            @Part("cMedicalCollegae") RequestBody cMedicalCollegae,
+                                            @Part("sMedicalCollege") RequestBody sMedicalCollege,
+                                            @Part("pinMedicalCollege") RequestBody pinMedicalCollege,
                                             @Part("comment") RequestBody comment);
+
+
+
 
     @Multipart
     @POST("api/api.php?req=get_address")
