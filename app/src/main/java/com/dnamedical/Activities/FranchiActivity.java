@@ -205,7 +205,7 @@ public class FranchiActivity extends AppCompatActivity {
             return;
         }
 
-
+/*
         if (TextUtils.isEmpty(mobile)) {
             edituserMobile.setError(getString(R.string.invalid_email));
 
@@ -215,7 +215,7 @@ public class FranchiActivity extends AppCompatActivity {
                 edituserMobile.setError(getString(R.string.valid_phone));
                 return;
             }
-        }
+        }*/
 
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), username1);
         RequestBody usermail = RequestBody.create(MediaType.parse("text/plain"), email);
