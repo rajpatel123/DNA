@@ -218,8 +218,9 @@ public class QbankSubActivity extends AppCompatActivity {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+            RequestBody module_id = RequestBody.create(MediaType.parse("text/plain"), qbankmoduleID);
 
-            RestClient.getAllChapterByModuleId(user_id,  new Callback<ChaptersModuleResponse>() {
+            RestClient.getAllChapterByModuleId(user_id,module_id,  new Callback<ChaptersModuleResponse>() {
 
                 @Override
                 public void onResponse(Call<ChaptersModuleResponse> call, Response<ChaptersModuleResponse> response) {

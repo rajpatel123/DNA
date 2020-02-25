@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   >
 
     <LinearLayout
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profileImage"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            android:text="FRANCHISE ENQUIRY FORM\n( BUSINESS ASSOCIATES )"
-            />
 
 
         <TextView
@@ -32,50 +25,53 @@
             android:gravity="center"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
-
             android:textColor="@color/color_sub"
             android:textSize="16sp"
             android:text="We would  like to hear from you. Please fill all the details"
             />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Personal Details"
+            android:layout_marginTop="20dp"
+
+            android:paddingStart="@dimen/dp_15"
+            android:minHeight="48dp"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:background="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+
+            />
+
+
 
         <EditText
 
             android:id="@+id/edit_name_frenchi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:background="@drawable/edittextstyle"
-
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:drawablePadding="8dp"
-            android:hint="Name"
+            android:hint="Full Name(as per Aadhar Card/PAN card)"
             android:inputType="text"
             android:minHeight="44dp"
-            android:paddingLeft="5dp"
+            android:paddingLeft="10dp"
             android:paddingRight="5dp"
             android:textColor="@color/Black" />
 
-
-        <EditText
-            android:id="@+id/edit_emailId_frenchi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/edittextstyle"
-            android:drawablePadding="8dp"
-            android:hint="Email ID"
-            android:inputType="textEmailAddress"
-            android:minHeight="44dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="5dp"
-            android:textColor="@color/Black" />
 
         <EditText
             android:id="@+id/edit_phone_frenchi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
             android:drawableTint="@color/colorPrimary"
@@ -83,29 +79,285 @@
             android:inputType="number"
             android:maxLength="10"
             android:minHeight="44dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
             android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+
+        <EditText
+
+            android:id="@+id/whatsppNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/colorPrimary"
+            android:hint="WhatsApp No."
+            android:inputType="number"
+            android:maxLength="10"
+            android:minHeight="44dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <EditText
+            android:id="@+id/edit_emailId_frenchi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+
+            android:drawablePadding="8dp"
+
+            android:hint="Email ID"
+            android:inputType="textEmailAddress"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:minHeight="44dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
             android:textColor="@color/Black" />
+
+
+        <EditText
+
+            android:id="@+id/editCity"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:drawablePadding="8dp"
+            android:hint="Your present City "
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black" />
+
+
+        <EditText
+            android:id="@+id/edit_state"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint="Your present State"
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+
+        <EditText
+
+            android:id="@+id/editAddress"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint="Communication Address "
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <EditText
+
+            android:id="@+id/editLandmark"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint="Nearest Landmark"
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <EditText
+            android:id="@+id/editPincode"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint="Pin Code"
+            android:inputType="number"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Business Association Area"
+            android:paddingStart="@dimen/dp_15"
+            android:minHeight="48dp"
+            android:layout_marginTop="20dp"
+
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:background="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+
+            />
+
+
+
+
+        <EditText
+
+            android:id="@+id/editcolleageforpartenership"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint=""
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black" />
+
+
+        <EditText
+
+            android:id="@+id/cityOfMedicalCollege"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint="City of Medical College"
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+
+            android:paddingRight="5dp"
+            android:textColor="@color/Black" />
+
+
+
+
+        <EditText
+
+            android:id="@+id/stateOfMedicalCollege"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint="state of Medical College"
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+
+
+        <EditText
+
+            android:id="@+id/medicalCollegePincode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextstyle"
+            android:drawablePadding="8dp"
+            android:hint="Pin code"
+            android:inputType="number"
+            android:minHeight="44dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+
+
+        <Spinner
+            android:id="@+id/investmentSP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/amounttobeinvested"
+            />
 
         <EditText
             android:id="@+id/edit_comment_frenchi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
-
-            android:hint="Remarks"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="Comment"
             android:inputType="text"
             android:minHeight="44dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
             android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
             android:textColor="@color/Black" />
 
+        <CheckBox
+            android:id="@+id/agreeCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I agree to receive call/sms from DNA CLASSES."
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"
+            />
 
         <Button
 
@@ -113,23 +365,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@drawable/buttonlogin"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_shape"
             android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
             android:text="Submit"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="25dp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" />
 
     </LinearLayout>
 
-</RelativeLayout>
+
+</ScrollView>
+

@@ -272,8 +272,8 @@ public class RestClient {
     }
 
 
-    public static void getAllChapterByModuleId(RequestBody user_id, Callback<ChaptersModuleResponse> callback) {
-        RetrofitClient.getClient().getAllChapterByModuleId(user_id).enqueue(callback);
+    public static void getAllChapterByModuleId(RequestBody user_id, RequestBody module_id, Callback<ChaptersModuleResponse> callback) {
+        RetrofitClient.getClient().getAllChapterByModuleId(user_id,module_id).enqueue(callback);
     }
 
     public static void qbankStart(RequestBody qmodule_id, RequestBody user_id, RequestBody is_paused, Callback<QbankstartResponse> callback) {
@@ -317,8 +317,14 @@ public class RestClient {
         RetrofitClient.getClient().saveOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
     }
 
-    public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
-        RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
+    public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id,
+                                      RequestBody user_id, RequestBody product_id,
+                                      RequestBody video_id, RequestBody test_id,
+                                      RequestBody status,RequestBody cat_id,
+                                      RequestBody sub_cat_id,
+                                      Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id, user_id, product_id,
+                video_id, test_id, status).enqueue(callback);
     }
 
 //    public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id,RequestBody cat_id,RequestBody sub_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
@@ -326,18 +332,23 @@ public class RestClient {
 //    }
 
 
-    public static void addOrderForSubsDetail(RequestBody user_id, RequestBody order_id, RequestBody planId, RequestBody subscriptioId, RequestBody packKey, RequestBody month, RequestBody status,RequestBody price, Callback<ResponseBody> callback) {
+    public static void addOrderForSubsDetail(RequestBody user_id, RequestBody order_id,
+                                             RequestBody planId, RequestBody subscriptioId,
+                                             RequestBody packKey, RequestBody month,
+                                             RequestBody status,RequestBody price, Callback<ResponseBody> callback) {
         RetrofitClient.getClient().addOrderForSubsDetail(user_id,order_id, planId,subscriptioId, packKey, month, status,price).enqueue(callback);
     }
 
 
-    public static void createOrderDetail(RequestBody user_id, RequestBody amount, RequestBody currency, RequestBody video_id, RequestBody product_type, Callback<CreateOrderResponse> callback) {
+    public static void createOrderDetail(RequestBody user_id, RequestBody amount, RequestBody currency,
+                                         RequestBody video_id, RequestBody product_type,
+                                         Callback<CreateOrderResponse> callback) {
         RetrofitClient.getClient().createOrderDetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
     }
 
 
-    public static void invoiceOrderDetail(RequestBody user_id, RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal, RequestBody totalAmount, Callback<SaveOrderResponse> callback) {
-        RetrofitClient.getClient().invoiceOrderDetail(user_id, pramotion, additional, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount).enqueue(callback);
+    public static void invoiceOrderDetail(RequestBody user_id, RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal, RequestBody totalAmount,RequestBody orderID, Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().invoiceOrderDetail(user_id, pramotion, additional, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount,orderID).enqueue(callback);
     }
 
 

@@ -360,18 +360,20 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         RequestBody video_id = RequestBody.create(MediaType.parse("text/plain"), videoId);
         RequestBody test_id = RequestBody.create(MediaType.parse("text/plain"), testId);
         RequestBody status = RequestBody.create(MediaType.parse("text/plain"), payment_status);
-//        RequestBody sub_cat_id = RequestBody.create(MediaType.parse("text/plain"), subCatID);
-//        RequestBody cat_id = RequestBody.create(MediaType.parse("text/plain"), catID);
+        RequestBody sub_cat_id = RequestBody.create(MediaType.parse("text/plain"), subCatID);
+        RequestBody cat_id = RequestBody.create(MediaType.parse("text/plain"), catID);
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.addOrderDetail(order_id, sub_child_cat_id,user_id, product_id, video_id, test_id, status, new Callback<SaveOrderResponse>() {
+            RestClient.addOrderDetail(order_id, sub_child_cat_id,user_id, product_id, video_id, test_id, status,cat_id,sub_cat_id, new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
+                        uploadPaymentDetailForInvoices(orderId);
+
                         if (response.body().getStatus().equalsIgnoreCase("true")) {
                             finish();
                         }
@@ -388,7 +390,6 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
             });
 
 
-            uploadPaymentDetailForInvoices();
         } else {
             Utils.dismissProgressDialog();
             Toast.makeText(this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
@@ -397,7 +398,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
     }
 
 
-    private void uploadPaymentDetailForInvoices() {
+    private void uploadPaymentDetailForInvoices(String orderId) {
 
 
         String productId = "0";
@@ -420,7 +421,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-//        RequestBody orderId_forInvoice = RequestBody.create(MediaType.parse("text/plain"), orderId);
+        RequestBody orderId_forInvoice = RequestBody.create(MediaType.parse("text/plain"), this.orderId);
 
         RequestBody pramotoin = RequestBody.create(MediaType.parse("text/plain"), totalDiscountGiven);
         RequestBody addDiscount = RequestBody.create(MediaType.parse("text/plain"), totalADDDiscountGiven);
@@ -433,7 +434,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount, new Callback<SaveOrderResponse>() {
+            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount,orderId_forInvoice, new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();

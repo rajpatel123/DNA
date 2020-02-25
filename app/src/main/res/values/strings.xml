@@ -158,4 +158,11 @@
     <string name="answers">Answers</string>
     <string name="subjects">Subjects</string>
     <string name="levels">Levels</string>
+    <string name="whatsappnumber">Please enter 10 digit whatsapp number</string>
+    <string name="pcity">Please enter your city</string>
+    <string name="pstate">Please enter your state</string>
+    <string name="invalid_mobile">Please enter 10 digit mobile number</string>
+    <string name="enter_current_address">Please enter your current address</string>
+    <string name="landmark">Please enter nearest landmark</string>
+    <string name="pincode">Please enter 6 digit pincode</string>
 </resources>

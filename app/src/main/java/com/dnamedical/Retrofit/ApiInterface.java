@@ -150,7 +150,9 @@ public interface ApiInterface {
                                                @Part("tax") RequestBody tax,
                                                @Part("shippingCharges") RequestBody shippingCharges,
                                                @Part("grandTotal") RequestBody grandTotal,
-                                               @Part("totalAmount") RequestBody totalAmount);
+                                               @Part("totalAmount") RequestBody totalAmount,
+                                               @Part("order_id") RequestBody order_id
+                                               );
 
     @Multipart
     @POST("api/api.php?req=save_order")
@@ -166,15 +168,14 @@ public interface ApiInterface {
     @POST("api/api.php?req=add_order")
     Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
                                            @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
-
-//                                           @Part("cat_id") RequestBody cat_id,
-//                                           @Part("sub_cat_id") RequestBody sub_cat_id,
-
                                            @Part("user_id") RequestBody user_id,
                                            @Part("product_id") RequestBody product_id,
                                            @Part("video_id") RequestBody video_id,
                                            @Part("test_id") RequestBody test_id,
-                                           @Part("status") RequestBody status);
+                                           @Part("status") RequestBody status
+//                                           @Part("cat_id") RequestBody cat_id,
+//                                           @Part("sub_cat_id") RequestBody sub_cat_id
+    );
 
     @Multipart
     @POST("api/api.php?req=order_subscription")
@@ -366,8 +367,8 @@ public interface ApiInterface {
                                          @Part("cat_id") RequestBody catid);
 
     @Multipart
-    @POST("api/api.php?req=getall_modules")
-    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id);
+    @POST("api/api.php?req=getall_modulescopy")
+    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id, @Part("module_id") RequestBody module_id);
 
 
     @Multipart
