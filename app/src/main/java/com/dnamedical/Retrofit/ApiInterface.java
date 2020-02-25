@@ -368,7 +368,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=getall_modulescopy")
-    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id, @Part("module_id") RequestBody module_id);
+    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id, @Part("subject_id") RequestBody module_id);
 
 
     @Multipart
