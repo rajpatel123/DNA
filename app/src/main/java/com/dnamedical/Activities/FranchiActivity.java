@@ -217,6 +217,9 @@ public class FranchiActivity extends AppCompatActivity {
             }
         }*/
 
+
+
+
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), username1);
         RequestBody usermail = RequestBody.create(MediaType.parse("text/plain"), email);
         RequestBody phoneno = RequestBody.create(MediaType.parse("text/plain"), mobile);
