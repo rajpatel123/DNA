@@ -198,6 +198,7 @@
             android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
             android:hint="Pin Code"
+            android:maxLength="6"
             android:inputType="number"
             android:minHeight="44dp"
             android:paddingLeft="5dp"
@@ -207,7 +208,6 @@
             android:layout_marginRight="10dp"/>
 
         <TextView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Business Association Area"
@@ -285,6 +285,8 @@
             android:hint="Medcal College Pin code"
             android:inputType="number"
             android:minHeight="44dp"
+            android:maxLength="6"
+
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textColor="@color/Black"
@@ -303,21 +305,24 @@
         <EditText
             android:id="@+id/edit_comment_frenchi"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/edittextstyle"
+
             android:drawablePadding="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:gravity="top"
             android:hint="Comment"
-           android:gravity="top"
-            android:inputType="text"
+            android:inputType="textMultiLine"
+            android:lines="4"
             android:minHeight="44dp"
-            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:text=""
             android:textColor="@color/Black" />
 
         <CheckBox

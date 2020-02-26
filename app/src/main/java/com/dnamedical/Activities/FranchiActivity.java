@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,6 +35,8 @@ public class FranchiActivity extends AppCompatActivity {
             collegaeFrenchisetxt, cMedicalCollegaetxt, sMedicalCollegetxt, pinMedicalCollegetxt;
 
     private Button btnSubmit;
+    private String amountToInveststr="select how much you can invest yearly";
+    private String canCallStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,18 @@ public class FranchiActivity extends AppCompatActivity {
         });
 
 
+        amountToInvest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                amountToInveststr =getResources().getStringArray(R.array.amounttobeinvested)[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     @Override
@@ -86,7 +101,7 @@ public class FranchiActivity extends AppCompatActivity {
     private void submitFrenchies() {
         username1 = editUsername.getText().toString().trim();
 
-        if (TextUtils.isEmpty(username1.trim()) || username1.length() < 20) {
+        if (TextUtils.isEmpty(username1.trim()) || username1.length() < 3) {
             editUsername.setError(getString(R.string.invalid_name));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_name));
             return;
@@ -94,8 +109,8 @@ public class FranchiActivity extends AppCompatActivity {
 
         mobile = edituserMobile.getText().toString().trim();
 
-        if (TextUtils.isEmpty(mobile.trim()) || mobile.length() == 10) {
-            edituserEmail.setError(getString(R.string.invalid_mobile));
+        if (TextUtils.isEmpty(mobile.trim()) || mobile.length() < 10) {
+            edituserMobile.setError(getString(R.string.invalid_mobile));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_mobile));
             return;
         }
@@ -110,7 +125,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         email = edituserEmail.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email.trim()) || email.length() < 25) {
+        if (TextUtils.isEmpty(email.trim())) {
             edituserEmail.setError(getString(R.string.invalid_email));
             Utils.displayToast(getApplicationContext(), getString(R.string.invalid_email));
             return;
@@ -125,7 +140,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pCitytxt = pCity.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pCitytxt) || pCitytxt.length() < 30) {
+        if (TextUtils.isEmpty(pCitytxt)) {
             pCity.setError(getString(R.string.pcity));
             Utils.displayToast(getApplicationContext(), getString(R.string.pcity));
             return;
@@ -134,7 +149,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pStatetxt = pState.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pStatetxt) || pStatetxt.length() < 30) {
+        if (TextUtils.isEmpty(pStatetxt) || pStatetxt.length() < 2) {
             pState.setError(getString(R.string.pstate));
             Utils.displayToast(getApplicationContext(), getString(R.string.pstate));
             return;
@@ -143,7 +158,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pAddresstxt = pAddress.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pAddresstxt) || pAddresstxt.length() < 30) {
+        if (TextUtils.isEmpty(pAddresstxt)) {
             pAddress.setError(getString(R.string.enter_current_address));
             Utils.displayToast(getApplicationContext(), getString(R.string.enter_current_address));
             return;
@@ -151,7 +166,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         pLandmarktxt = pLandmark.getText().toString().trim();
 
-        if (TextUtils.isEmpty(pLandmarktxt) || pLandmarktxt.length() < 30) {
+        if (TextUtils.isEmpty(pLandmarktxt)) {
             pLandmark.setError(getString(R.string.landmark));
             Utils.displayToast(getApplicationContext(), getString(R.string.landmark));
             return;
@@ -167,7 +182,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         collegaeFrenchisetxt = collegaeFrenchise.getText().toString().trim();
 
-        if (TextUtils.isEmpty(collegaeFrenchisetxt) || collegaeFrenchisetxt.length() < 30) {
+        if (TextUtils.isEmpty(collegaeFrenchisetxt) ) {
             collegaeFrenchise.setError(getString(R.string.clgname));
             Utils.displayToast(getApplicationContext(), getString(R.string.clgname));
             return;
@@ -175,14 +190,14 @@ public class FranchiActivity extends AppCompatActivity {
 
         cMedicalCollegaetxt = cMedicalCollegae.getText().toString().trim();
 
-        if (TextUtils.isEmpty(cMedicalCollegaetxt) || cMedicalCollegaetxt.length() < 30) {
+        if (TextUtils.isEmpty(cMedicalCollegaetxt) ) {
             cMedicalCollegae.setError(getString(R.string.medicalclg));
             Utils.displayToast(getApplicationContext(), getString(R.string.medicalclg));
             return;
         }
 
         sMedicalCollegetxt = sMedicalCollege.getText().toString().trim();
-        if (TextUtils.isEmpty(sMedicalCollegetxt) || sMedicalCollegetxt.length() < 30) {
+        if (TextUtils.isEmpty(sMedicalCollegetxt) ) {
             sMedicalCollege.setError(getString(R.string.smedicalcollege));
             Utils.displayToast(getApplicationContext(), getString(R.string.smedicalcollege));
             return;
@@ -194,6 +209,20 @@ public class FranchiActivity extends AppCompatActivity {
             pinMedicalCollege.setError(getString(R.string.mpincode));
             Utils.displayToast(getApplicationContext(), getString(R.string.mpincode));
             return;
+        }
+
+
+
+        if (TextUtils.isEmpty(amountToInveststr) || amountToInveststr.equalsIgnoreCase("select how much you can invest yearly")) {
+            Utils.displayToast(getApplicationContext(), getString(R.string.select_amount));
+            return;
+        }
+
+        if (canCall.isChecked()){
+            canCallStr = "Yes";
+        }else{
+            canCallStr = "Yes";
+
         }
 
 
@@ -236,12 +265,14 @@ public class FranchiActivity extends AppCompatActivity {
 
         RequestBody sMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), sMedicalCollegetxt);
         RequestBody pinMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), pinMedicalCollegetxt);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), amountToInveststr);
+        RequestBody canCallfromdna = RequestBody.create(MediaType.parse("text/plain"), canCallStr);
         RequestBody comment = RequestBody.create(MediaType.parse("text/plain"), comment1);
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RestClient.franchiesRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress,
-                    pLandmark, pPincode, collegaeFrenchise, cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,
+                    pLandmark, pPincode, collegaeFrenchise, cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,amount,canCallfromdna,
                     new Callback<FranchiesResponse>() {
                         @Override
                         public void onResponse(Call<FranchiesResponse> call, Response<FranchiesResponse> response) {

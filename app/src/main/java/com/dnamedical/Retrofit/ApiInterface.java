@@ -208,21 +208,25 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("api/api.php?req=userquery")
-    Call<FranchiesResponse> franchiRegister(@Part("username") RequestBody username,
-                                            @Part("usermail") RequestBody usermail,
-                                            @Part("phoneno") RequestBody phoneno,
-                                            @Part("whatsppNumber") RequestBody whatsppNumber,
-                                            @Part("pCity") RequestBody pCity,
-                                            @Part("pState") RequestBody pState,
-                                            @Part("pAddress") RequestBody pAddress,
-                                            @Part("pLandmark") RequestBody pLandmark,
-                                            @Part("pPincode") RequestBody pPincode,
-                                            @Part("collegaeFrenchise") RequestBody collegaeFrenchise,
-                                            @Part("cMedicalCollegae") RequestBody cMedicalCollegae,
-                                            @Part("sMedicalCollege") RequestBody sMedicalCollege,
-                                            @Part("pinMedicalCollege") RequestBody pinMedicalCollege,
-                                            @Part("comment") RequestBody comment);
+    @POST("api/api.php?req=franchise_query")
+    Call<FranchiesResponse> franchiRegister(@Part("name") RequestBody username,
+                                            @Part("email") RequestBody usermail,
+                                            @Part("mobile") RequestBody phoneno,
+                                            @Part("whatsapp_no") RequestBody whatsppNumber,
+                                            @Part("city") RequestBody pCity,
+                                            @Part("state") RequestBody pState,
+                                            @Part("address") RequestBody pAddress,
+                                            @Part("landmark") RequestBody pLandmark,
+                                            @Part("pincode") RequestBody pPincode,
+                                            @Part("college") RequestBody collegaeFrenchise,
+                                            @Part("city_of_college") RequestBody cMedicalCollegae,
+                                            @Part("state_of_college") RequestBody sMedicalCollege,
+                                            @Part("pincode_of_college") RequestBody pinMedicalCollege,
+                                            @Part("comment") RequestBody comment,
+                                            @Part("invested_ammount") RequestBody amount,
+                                            @Part("is_recievecall") RequestBody canCall
+
+    );
 
 
 
@@ -382,7 +386,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=getall_modulescopy")
-    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id, @Part("module_id") RequestBody module_id);
+    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id, @Part("subject_id") RequestBody module_id);
 
 
     @Multipart
