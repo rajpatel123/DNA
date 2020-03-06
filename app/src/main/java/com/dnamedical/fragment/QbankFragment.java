@@ -76,7 +76,6 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onResume() {
         super.onResume();
-        getQbankData();
          /*textRead.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {

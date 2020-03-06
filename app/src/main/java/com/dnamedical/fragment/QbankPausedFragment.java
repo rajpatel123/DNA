@@ -56,7 +56,7 @@ public class QbankPausedFragment extends Fragment {
         recyclerView.setAdapter(qbankSubCatAdapter);
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
+            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks,String isPaid) {
                 if (qbankSubActivity.qBankPaused.get(position).getTotalMcq() > 0) {
                     Intent intent = new Intent(getActivity(), QbankStartTestActivity.class);
                     intent.putExtra("module", qbankSubActivity.qBankPaused.get(position));

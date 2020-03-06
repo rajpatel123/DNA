@@ -123,7 +123,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             @Override
             public void onClick(View v) {
                 if (qbanksubListener != null) {
-                        qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getChapterName(),detail.getTotal_bookmarks());
+                        qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getChapterName(),detail.getTotal_bookmarks(),detail.getIsPaid());
                 }
             }
         });
@@ -149,7 +149,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subImage = itemView.findViewById(R.id.sub_cat_image);
             subTitle = itemView.findViewById(R.id.sub_cat_title);
             subRating = itemView.findViewById(R.id.rating);
-            lock = itemView.findViewById(R.id.lock_icon);
+//            lock = itemView.findViewById(R.id.lock_icon);
             // itemNumber = itemView.findViewById(R.id.index);
             sub_cat_free = itemView.findViewById(R.id.lock_icon);
             subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);
@@ -159,7 +159,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
 
     public interface QbanksubListener {
-        public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks);
+        public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks,String isPaid);
 
     }
 }

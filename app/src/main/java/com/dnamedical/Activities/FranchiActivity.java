@@ -31,7 +31,7 @@ public class FranchiActivity extends AppCompatActivity {
 
     private CheckBox canCall;
     private Spinner amountToInvest;
-    String username1, email, mobile, comment1, whatsppNumbertxt, pCitytxt, pStatetxt, pAddresstxt, pLandmarktxt, pPincodetxt,
+    String username1, email, mobile, comment1="NA", whatsppNumbertxt, pCitytxt, pStatetxt, pAddresstxt, pLandmarktxt, pPincodetxt,
             collegaeFrenchisetxt, cMedicalCollegaetxt, sMedicalCollegetxt, pinMedicalCollegetxt;
 
     private Button btnSubmit;
@@ -223,13 +223,13 @@ public class FranchiActivity extends AppCompatActivity {
         }
 
 
-        comment1 = edituserComment.getText().toString().trim();
-
-        if (TextUtils.isEmpty(comment1.trim()) || comment1.length() < 40) {
-            editUsername.setError("Please Fill the data");
-            Utils.displayToast(getApplicationContext(), "Please Fill the data");
-            return;
-        }
+//        comment1 = edituserComment.getText().toString().trim();
+//
+//        if (TextUtils.isEmpty(comment1.trim()) || comment1.length() < 40) {
+//            edituserComment.setError("Please Fill the data");
+//            Utils.displayToast(getApplicationContext(), "Please Fill the data");
+//            return;
+//        }
 
         /*
         if (TextUtils.isEmpty(mobile)) {

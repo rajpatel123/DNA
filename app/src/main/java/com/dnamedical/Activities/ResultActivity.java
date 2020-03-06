@@ -184,7 +184,7 @@ public class ResultActivity extends AppCompatActivity {
             Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent1.putExtra("testid", test_id);
-            intent1.putExtra("qbank",true);
+            intent1.putExtra("qbank", true);
 
             startActivity(intent1);
         } else {
@@ -256,9 +256,10 @@ public class ResultActivity extends AppCompatActivity {
 
     private void updateResult(TestResult testResult) {
 
-        init(testResult.getData().getScoreAnalysis());
 
-        if (testResult != null && testResult.getData() != null) {
+        if (testResult != null && testResult.getData() != null && testResult.getData().getScoreAnalysis() != null && testResult.getData().getScoreAnalysis().size() > 0) {
+            init(testResult.getData().getScoreAnalysis());
+
             dateTV.setText("" + Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
 
             yourScoreTV.setText("" + testResult.getData().getYourScore());
@@ -307,7 +308,7 @@ public class ResultActivity extends AppCompatActivity {
 
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-       // Utils.showProgressDialog(ResultActivity.this);
+        // Utils.showProgressDialog(ResultActivity.this);
         RestClient.getStudentRank(userId, testID, new Callback<RankResult>() {
             @Override
             public void onResponse(Call<RankResult> call, Response<RankResult> response) {
@@ -338,7 +339,7 @@ public class ResultActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RankResult> call, Throwable t) {
-               // Utils.dismissProgressDialog();
+                // Utils.dismissProgressDialog();
                 Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
             }
         });
@@ -479,51 +480,53 @@ public class ResultActivity extends AppCompatActivity {
             wrongAnswerTv.setPadding(5, 0, 5, 5);
             scoreTv.setPadding(5, 0, 5, 5);
 
+            if (!TextUtils.isEmpty(scoreAnalysi.get(i).getCategoryName())){
+                if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")) {
+                    subjectTv.setText("MICRO");
 
-            if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")) {
-                subjectTv.setText("MICRO");
+                } else if (!TextUtils.isEmpty(scoreAnalysi.get(i).getCategoryName()) && scoreAnalysi.get(i).getCategoryName().contains("FORENSIC MEDICINE & TOXICOLOGY ( F.M.T )")) {
+                    subjectTv.setText("F.M.T");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("FORENSIC MEDICINE & TOXICOLOGY ( F.M.T )")) {
-                subjectTv.setText("F.M.T");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("OPHTHALMOLOGY(EYE)")) {
+                    subjectTv.setText("EYE");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("OPHTHALMOLOGY(EYE)")) {
-                subjectTv.setText("EYE");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("COMMUNITY MEDICINE")) {
+                    subjectTv.setText("P.S.M.");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("COMMUNITY MEDICINE")) {
-                subjectTv.setText("P.S.M.");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("OBS & GYNE ( OBG )")) {
+                    subjectTv.setText("OBG");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("OBS & GYNE ( OBG )")) {
-                subjectTv.setText("OBG");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")) {
+                    subjectTv.setText("PHARMA");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")) {
-                subjectTv.setText("PHARMA");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("BIO-CHEMISTRY")) {
+                    subjectTv.setText("BIOCHEM");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("BIO-CHEMISTRY")) {
-                subjectTv.setText("BIOCHEM");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")) {
+                    subjectTv.setText("BIOCHEM");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")) {
-                subjectTv.setText("BIOCHEM");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("ANATOMY (UG)")) {
+                    subjectTv.setText("ANATOMY");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("ANATOMY (UG)")) {
-                subjectTv.setText("ANATOMY");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")) {
+                    subjectTv.setText("ORTHO");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")) {
-                subjectTv.setText("ORTHO");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")) {
+                    subjectTv.setText("DERMA");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")) {
-                subjectTv.setText("DERMA");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIOLOGY")) {
+                    subjectTv.setText("PHYSIO");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIOLOGY")) {
-                subjectTv.setText("PHYSIO");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("PSYCHIATRY")) {
+                    subjectTv.setText("PSYCH");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("PSYCHIATRY")) {
-                subjectTv.setText("PSYCH");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("ANESTHESIA")) {
+                    subjectTv.setText("ANESTH");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("ANESTHESIA")) {
-                subjectTv.setText("ANESTH");
+                } else {
+                    subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
+                }
 
-            } else {
-                subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
             }
 
 
