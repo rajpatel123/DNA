@@ -323,12 +323,9 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
 
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
 
 
@@ -337,7 +334,6 @@ public class LoginActivity extends AppCompatActivity {
                 bundle.putString("fields", "id,name,email,picture,birthday,gender,age_range");
                 graphRequest.setParameters(bundle);
                 graphRequest.executeAsync();
-
 
             }
 

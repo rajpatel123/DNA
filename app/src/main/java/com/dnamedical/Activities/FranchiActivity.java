@@ -80,7 +80,6 @@ public class FranchiActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 amountToInveststr =getResources().getStringArray(R.array.amounttobeinvested)[position];
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -155,7 +154,6 @@ public class FranchiActivity extends AppCompatActivity {
             return;
         }
 
-
         pAddresstxt = pAddress.getText().toString().trim();
 
         if (TextUtils.isEmpty(pAddresstxt)) {
@@ -212,7 +210,6 @@ public class FranchiActivity extends AppCompatActivity {
         }
 
 
-
         if (TextUtils.isEmpty(amountToInveststr) || amountToInveststr.equalsIgnoreCase("select how much you can invest yearly")) {
             Utils.displayToast(getApplicationContext(), getString(R.string.select_amount));
             return;
@@ -234,7 +231,7 @@ public class FranchiActivity extends AppCompatActivity {
             return;
         }
 
-/*
+        /*
         if (TextUtils.isEmpty(mobile)) {
             edituserMobile.setError(getString(R.string.invalid_email));
 
@@ -245,8 +242,6 @@ public class FranchiActivity extends AppCompatActivity {
                 return;
             }
         }*/
-
-
 
 
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), username1);
@@ -269,6 +264,7 @@ public class FranchiActivity extends AppCompatActivity {
         RequestBody canCallfromdna = RequestBody.create(MediaType.parse("text/plain"), canCallStr);
         RequestBody comment = RequestBody.create(MediaType.parse("text/plain"), comment1);
 
+
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RestClient.franchiesRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress,
@@ -282,20 +278,15 @@ public class FranchiActivity extends AppCompatActivity {
                                 if (response.body().getStatus().equalsIgnoreCase("1")) {
                                     Toast.makeText(FranchiActivity.this, "Successfully Send", Toast.LENGTH_SHORT).show();
                                 }
-
                                 finish();
-
                             }
-
                         }
 
                         @Override
                         public void onFailure(Call<FranchiesResponse> call, Throwable t) {
-
                             Utils.dismissProgressDialog();
                             Toast.makeText(FranchiActivity.this, "Query submitted successfully", Toast.LENGTH_SHORT).show();
                             finish();
-
                         }
                     });
 
@@ -303,7 +294,5 @@ public class FranchiActivity extends AppCompatActivity {
             Utils.dismissProgressDialog();
             Toast.makeText(this, " Internet Connection Failed!!!", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 }
