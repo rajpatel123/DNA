@@ -606,11 +606,11 @@ public class QbankTestActivity extends AppCompatActivity {
 
     public void submitAnswer(ModulesMcq modulesMcq) {
         // Utils.showProgressDialog(qbankTestActivity);
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-            ;
-            timerProgressBar.setProgress(0);
-        }
+//        if (countDownTimer != null) {
+//            countDownTimer.cancel();
+//            ;
+//            timerProgressBar.setProgress(0);
+//        }
         RequestBody mcq_id = RequestBody.create(MediaType.parse("text/plain"), modulesMcq.getId());
 
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);

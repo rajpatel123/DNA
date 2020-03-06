@@ -73,7 +73,7 @@ public class QbankAllFragment extends QBankBaseFragment {
         qbankSubCatAdapter.notifyDataSetChanged();
         qbankSubCatAdapter.setQbanksubListener(new QbankSubCatAdapter.QbanksubListener() {
             @Override
-            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks) {
+            public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks,String isPaid) {
                 if (qbankSubActivity.qBankAll.get(position).getIsPaid().equalsIgnoreCase("1")){
                     showPlanDialog(qbankSubActivity);
                 }else{

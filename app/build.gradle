@@ -27,8 +27,8 @@ android {
         applicationId "com.dnamedical"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 105
-        versionName "v6.2.4"
+        versionCode 107
+        versionName "v6.2.6"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -52,7 +52,7 @@ android {
     }
     buildTypes {
         release {
-            debuggable false
+            debuggable true
             def uatSigningKey = signingConfigs.dna
             signingConfig uatSigningKey
             multiDexEnabled true
@@ -63,9 +63,6 @@ android {
         debug {
             minifyEnabled false
             multiDexEnabled true
-            //buildConfigField "String", "API_SERVER_IP", "\"http://13.234.161.7:80/\""
-
-//            buildConfigField "String", "API_SERVER_IP", "\"http://vrok.in/dna/\""
             buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
