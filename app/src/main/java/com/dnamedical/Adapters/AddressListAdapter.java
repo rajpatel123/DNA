@@ -28,10 +28,6 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     private onClickEditAddress onClickEditAddress;
 
 
-
-
-
-
     public void setOnClickEditAddress(AddressListAdapter.onClickEditAddress onClickEditAddress) {
         this.onClickEditAddress = onClickEditAddress;
     }
@@ -88,6 +84,16 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         if (addreseList.getPinCode() != null) {
             holder.textViewPincode.setText("" + addreseList.getPinCode());
         }
+
+
+        holder.deleteAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickAddressData != null) {
+                    onClickAddressData.deleteAddress(addreseList.getAId());
+                }
+            }
+        });
 
         holder.proceed_pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +175,10 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         Button proceed_pay;
 
 
+        @BindView(R.id.deleteAddress)
+        Button deleteAddress;
+
+
         @BindView(R.id.edit_address)
         Button btnEditAddress;
 
@@ -179,13 +189,12 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         public MyViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-
-
         }
     }
 
 
     public interface onClickAddress {
+        void deleteAddress(String add_id);
         public void onAddressClick(String name,String mobile,String email,String address1,String address2,String state,String city,String pincode);
     }
 

@@ -24,7 +24,7 @@ public class NeetPgActivity extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private ExpandableListView listView;
     private List<String> listDataheader;
-    TextView catTitle;
+    TextView catTitle,toolbarTitle;
     private HashMap<String, List<SubSubChild>> listHashMap;
     private ArrayList<SubSubChild> neetPg;
     private LinearLayout linearLayoutArrow;
@@ -37,10 +37,14 @@ public class NeetPgActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.list_view);
         catTitle = findViewById(R.id.catTitle);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
         initData();
         listAdapter = new ExpandableListAdapter(this, listDataheader, listHashMap);
         listView.setAdapter(listAdapter);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +66,10 @@ public class NeetPgActivity extends AppCompatActivity {
         for (int i = 0; i < categoryDetailData.getDetails().size(); i++) {
             if (id.equalsIgnoreCase(categoryDetailData.getDetails().get(i).getCatId())) {
                 int headerindex = i;
+
                 catTitle.setText(categoryDetailData.getDetails().get(i).getCatName());
+                toolbarTitle.setText(categoryDetailData.getDetails().get(i).getCatName());
+                getSupportActionBar().setTitle(categoryDetailData.getDetails().get(i).getCatName());
                 for (int j = 0; j < categoryDetailData.getDetails().get(i).getSubCat().size(); j++) {
                     neetPg = new ArrayList<SubSubChild>();
                     listDataheader.add(categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubCatName());
@@ -82,5 +89,10 @@ public class NeetPgActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
 }
 

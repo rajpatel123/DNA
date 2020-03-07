@@ -13,6 +13,8 @@ import java.util.List;
 import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Models.maincat.SubSubChild;
 import com.dnamedical.R;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -106,6 +108,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 Intent intent=new Intent(context,VideoActivity.class);
                 intent.putExtra("SubCategoryName",subSubChild.getSubChildName());
                 intent.putExtra("subCatId",subSubChild.getId());
+                DnaPrefs.putString(context, Constants.SUB_CAT_ID,subSubChild.getId());
+
                 context.startActivity(intent);
 
             }

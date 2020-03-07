@@ -47,41 +47,65 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         holder.title.setText("" + categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
 
-        if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID)) && !DnaPrefs.getString(applicationContext, Constants.INST_ID).equals("0")) {
-            if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
-                holder.detailLL.setVisibility(View.GONE);
-                holder.insImage.setVisibility(View.VISIBLE);
 
-                if (!TextUtils.isEmpty(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())) {
-                    Picasso.with(applicationContext).load(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())
-                            .error(R.drawable.dnalogo)
-                            .into(holder.insImage);
-                } else {
-                    Picasso.with(applicationContext)
-                            .load(R.drawable.dnalogo)
-                            .into(holder.insImage);
-                }
 
-            } else {
-                holder.detailLL.setVisibility(View.VISIBLE);
-                holder.insImage.setVisibility(View.GONE);
-
-            }
-        }
 
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName()
-                        .equalsIgnoreCase("Contact us")) {
+                        .equalsIgnoreCase("Contact")) {
                     Intent intent = new Intent(applicationContext, ContactUsActivity.class);
                     applicationContext.startActivity(intent);
                 }
             }
         });
 
-        if ( categoryDetailData!=null && categoryDetailData.getDetails()!=null && categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onUserClickCallback != null) {
+                    if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
+                        onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+                        return;
+                    }
+                    onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+
+////                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
+////                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11
+////                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 10){
+////
+////                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+////
+////                        }
+//                        if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID)) && !DnaPrefs.getString(applicationContext, Constants.INST_ID).equals("0")) {
+//                            if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
+//                                onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+//                                return;
+//
+//                            }
+//                        }
+//
+//                        if (Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId())!=5){
+//                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+//
+//                        }
+//
+//
+//
+//
+
+
+                }
+
+            }
+
+
+        });
+
+
+        if (categoryDetailData != null && categoryDetailData.getDetails() != null && categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
                 && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat() != null
                 && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -93,7 +117,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
 
             if (!TextUtils.isEmpty(subcats)) {
-
                 holder.desc.setText("" + subcats);
                 if (categoryDetailData.getDetails().get(holder.getAdapterPosition())
                         .getCatName().equalsIgnoreCase("MBBS PROF.")) {
@@ -101,42 +124,40 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 }
                 holder.desc.setVisibility(View.VISIBLE);
 
-
             } else {
                 holder.desc.setText("");
                 holder.desc.setVisibility(View.GONE);
             }
 
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onUserClickCallback != null) {
-                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3) || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11)
-                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
-
-
-                        if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID)) && !DnaPrefs.getString(applicationContext, Constants.INST_ID).equals("0")) {
-                            if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
-                                onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
-                            }
-                            return;
-
-
-                        }
-
-
-
-                    }
-
-                }
-
-
-            });
         } else {
             holder.desc.setText("");
             holder.desc.setVisibility(View.GONE);
 
         }
+
+//        if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
+//            holder.detailLL.setVisibility(View.GONE);
+//            holder.insImage.setVisibility(View.VISIBLE);
+////                if (!TextUtils.isEmpty(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())) {
+////                    Picasso.with(applicationContext).load(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())
+////                            .error(R.drawable.allins)
+////                            .into(holder.insImage);
+////                } else {
+////                    Picasso.with(applicationContext)
+////                            .load(R.drawable.allins)
+////                            .into(holder.insImage);
+////                }
+//
+////            if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
+////                Picasso.with(applicationContext)
+////                        .load(R.drawable.allins)
+////                        .into(holder.insImage);
+////            }
+//        } else {
+//            holder.detailLL.setVisibility(View.VISIBLE);
+//            holder.insImage.setVisibility(View.GONE);
+//
+//        }
 
 
     }
@@ -176,8 +197,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         TextView title;
 
 
-        @BindView(R.id.insImage)
-        ImageView insImage;
+//        @BindView(R.id.insImage)
+//        ImageView insImage;
 
         @BindView(R.id.desc)
         TextView desc;
@@ -185,6 +206,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+
+
         }
     }
 

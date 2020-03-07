@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Activities.NeetPgActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize">
 
@@ -23,8 +25,23 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            app:srcCompat="@drawable/ic_left_arrow"
+            app:srcCompat="@drawable/back_arrow"
             android:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_toEndOf="@+id/back"
+            android:layout_centerVertical="true"
+            android:minHeight="48dp"
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_16"
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="50dp"
@@ -49,15 +66,18 @@
         android:paddingLeft="16dp"
         android:paddingStart="16dp"
         android:text="NEET PG"
+        android:visibility="gone"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
+        android:textSize="@dimen/ts_16"
         android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="16dp">
+        android:layout_marginTop="20dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        >
 
         <ExpandableListView
             android:id="@+id/list_view"

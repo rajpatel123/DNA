@@ -3,6 +3,7 @@ package com.dnamedical.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +11,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dnamedical.Models.newqbankmodule.Module;
+import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import com.dnamedical.Models.qbank.QBank;
-import com.dnamedical.R;
 
 public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.ViewHolder> {
 
 
     private Context applicationContext;
-    private List<QBank> detailList;
+    private List<Module> detailList;
 
 
     private QbanksubListener qbanksubListener;
@@ -38,7 +38,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     }
 
 
-    public void setDetailList(List<QBank> detailList) {
+    public void setDetailList(List<Module> detailList) {
         this.detailList = detailList;
     }
 
@@ -51,9 +51,9 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
-        QBank detail = detailList.get(position);
+        Module detail = detailList.get(position);
 //        if (!detail.getPausedStatus().equalsIgnoreCase("1")){
 //          return;
 //        }
@@ -63,39 +63,56 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 //        }
 
         if (position == 0) {
-            holder.title.setText("" + detail.getSubCatName());
+            holder.title.setText("" + detail.getChapterName());
             holder.title.setVisibility(View.VISIBLE);
         }
 
         if (position > 0) {
-            if (!detail.getSubCatName().equalsIgnoreCase(detailList.get(position - 1).getSubCatName())) {
-                holder.title.setText("" + detail.getSubCatName());
+            if (!detail.getChapterName().equalsIgnoreCase(detailList.get(position - 1).getChapterName())) {
+                holder.title.setText("" + detail.getChapterName());
                 holder.title.setVisibility(View.VISIBLE);
             } else {
                 holder.title.setVisibility(View.GONE);
             }
         }
-        if (detail.getPaidStatus().equalsIgnoreCase("Paid")) {
+
+        if (!TextUtils.isEmpty(detail.getIsPaid()) && detail.getIsPaid().equalsIgnoreCase("1")) {
             holder.sub_cat_free.setImageResource(R.drawable.question_bank_lock);
         }
-        if (detail.getPausedStatus().equalsIgnoreCase("1")) {
-            holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
-        }
         try {
-            if (detail.getIsPaused().equalsIgnoreCase("1")) {
-                holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
+
+            if (!TextUtils.isEmpty(detail.getIsPaid())){
+              if (!detail.getIsPaid().equalsIgnoreCase("1")){
+                  if (TextUtils.isEmpty(detail.getIsCompleted())) {
+                      holder.sub_cat_free.setVisibility(View.GONE);
+                  }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("0")) {
+                      holder.sub_cat_free.setImageResource(R.drawable.paused_icon);
+                      holder.sub_cat_free.setVisibility(View.VISIBLE);
+
+                  }else if (!TextUtils.isEmpty(detail.getIsCompleted()) && detail.getIsCompleted().equalsIgnoreCase("1")) {
+                      holder.sub_cat_free.setImageResource(R.drawable.qbank_right_answer);
+                      holder.sub_cat_free.setVisibility(View.VISIBLE);
+
+                  }else{
+                      holder.sub_cat_free.setVisibility(View.GONE);
+
+                  }
+              }else{
+                  holder.sub_cat_free.setImageResource(R.drawable.lock);
+                  holder.sub_cat_free.setVisibility(View.VISIBLE);
+
+              }
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (detail.getCopletedStatus().equalsIgnoreCase("1")) {
-            Picasso.with(applicationContext).load(R.drawable.qbank_right_answer).into(holder.sub_cat_free);
-        }
-        Picasso.with(applicationContext).load(detail.getImage()).error(R.drawable.biology).into(holder.subImage);
+        Picasso.with(applicationContext).load(detail.getChapterImage()).error(R.drawable.biology).into(holder.subImage);
         holder.subTitle.setText("" + detail.getModuleName());
-        holder.itemNumber.setText("" + (position + 1));
-        holder.subTotalQuestion.setText("" + detail.getmCQ() + " MCQ's");
+//        holder.itemNumber.setText("" + (position + 1));
+        holder.subTotalQuestion.setText("" + detail.getTotalMcq() + " MCQ's");
         if (detail.getRating() != null) {
             holder.subRating.setText("(" + detail.getRating() + ")");
         } else {
@@ -106,7 +123,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             @Override
             public void onClick(View v) {
                 if (qbanksubListener != null) {
-                    qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getModuleName());
+                        qbanksubListener.onQbankSubClick(holder.getAdapterPosition(), detail.getModuleId(), detail.getChapterName(),detail.getTotal_bookmarks(),detail.getIsPaid());
                 }
             }
         });
@@ -123,7 +140,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, subTitle, subRating, subTotalQuestion, itemNumber;
-        ImageView subImage, sub_cat_free;
+        ImageView subImage, sub_cat_free,lock;
         LinearLayout linearClick;
 
         public ViewHolder(@NonNull View itemView) {
@@ -132,7 +149,8 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             subImage = itemView.findViewById(R.id.sub_cat_image);
             subTitle = itemView.findViewById(R.id.sub_cat_title);
             subRating = itemView.findViewById(R.id.rating);
-            itemNumber = itemView.findViewById(R.id.index);
+//            lock = itemView.findViewById(R.id.lock_icon);
+            // itemNumber = itemView.findViewById(R.id.index);
             sub_cat_free = itemView.findViewById(R.id.lock_icon);
             subTotalQuestion = itemView.findViewById(R.id.sub_cat_total_question);
             linearClick = itemView.findViewById(R.id.linear);
@@ -141,7 +159,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
 
 
     public interface QbanksubListener {
-        public void onQbankSubClick(int position, String id, String moduleName);
+        public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks,String isPaid);
 
     }
 }

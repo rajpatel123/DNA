@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="gdkhbdhbdhbhjdlddhgdhldhdhldhgd"
-                android:textSize="20sp" />
+                android:textSize="@dimen/ts_20" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="gsudjggdjsyudgldygdyugldyugd"
-                android:textSize="20sp" />
+                android:textSize="@dimen/ts_20" />
         </LinearLayout>
 
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="gsudjggdjsyudgldygdyugldyugd"
-                android:textSize="20sp" />
+                android:textSize="@dimen/ts_20" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="gsudjggdjsyudgldygdyugldyugd"
-                android:textSize="20sp" />
+                android:textSize="@dimen/ts_20" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="gsudjggdjsyudgldygdyugldyugd"
-                android:textSize="20sp" />
+                android:textSize="@dimen/ts_20" />
         </LinearLayout>
 
         <View

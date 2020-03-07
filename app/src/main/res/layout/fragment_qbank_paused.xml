@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/page_bg"
+
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:visibility="gone"
@@ -22,7 +24,7 @@
         android:text="No Item Found"
 
         android:textColor="@color/colorAccent"
-        android:textSize="30dp"
+        android:textSize="14sp"
         tools:layout_editor_absoluteX="106dp"
         tools:layout_editor_absoluteY="345dp" />
 </LinearLayout>

@@ -5,18 +5,18 @@
     android:orientation="vertical"
     >
     <LinearLayout
-        android:layout_margin="20sp"
+        android:layout_margin="@dimen/ts_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_gravity=""
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Tell us What we missed"
+            android:text="Tell us what we missed"
             android:textColor="@color/black"
             android:textSize="18dp"
             />
@@ -31,22 +31,33 @@
 
         <EditText
             android:id="@+id/edit_feedback"
-            android:layout_margin="20sp"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:gravity="start"
+            android:padding="@dimen/margin_10dp"
+            android:maxLength="100"
             android:background="@drawable/cardview_border"
-            android:hint="How can We improve this module?"
+            android:hint="How can We improve this module? max 100 character"
             android:textColor="@color/dark_gray"
-            android:textSize="18dp"
-            android:textStyle="bold"
+            android:textSize="14dp"
             />
-        <Button
-            android:padding="15dp"
+
+        <TextView
+            android:id="@+id/charCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:visibility="gone"
+            android:text="20/100"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@color/orange"
+            android:background="@drawable/rounded_shape"
             android:gravity="center"
             android:text="SUBMIT"
             android:id="@+id/submit"

@@ -17,7 +17,8 @@ import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
-import com.dnamedical.Models.answer.SubmitAnswer;
+import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
+import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
@@ -30,14 +31,20 @@ import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
+import com.dnamedical.Models.modulesforcat.CatModuleResponse;
+import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
+import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
+import com.dnamedical.Models.newqbankmodule.ModuleListResponse;
+import com.dnamedical.Models.newqbankmodule.ModuleResponse;
+import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
-import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
 import com.dnamedical.Models.subs.PlanResponse;
+import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
@@ -49,6 +56,7 @@ import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -74,7 +82,6 @@ public interface ApiInterface {
                                               @Part("institute_id") RequestBody institute_id);
 
 
-
     @Multipart
     @POST("api/api.php?req=registrationnew")
     Call<CommonResponse> registerUser(@Part("fb_id") RequestBody fb_id,
@@ -90,7 +97,7 @@ public interface ApiInterface {
                                       @Part("country") RequestBody countryBody,
                                       @Part("platform") RequestBody plateform,
                                       @Part("academic_year_id") RequestBody acaademicYear_id
-                                      );
+    );
 
 
     @Multipart
@@ -144,7 +151,9 @@ public interface ApiInterface {
                                                @Part("tax") RequestBody tax,
                                                @Part("shippingCharges") RequestBody shippingCharges,
                                                @Part("grandTotal") RequestBody grandTotal,
-                                               @Part("totalAmount") RequestBody totalAmount);
+                                               @Part("totalAmount") RequestBody totalAmount,
+                                               @Part("order_id") RequestBody order_id
+                                               );
 
     @Multipart
     @POST("api/api.php?req=save_order")
@@ -164,23 +173,25 @@ public interface ApiInterface {
                                            @Part("product_id") RequestBody product_id,
                                            @Part("video_id") RequestBody video_id,
                                            @Part("test_id") RequestBody test_id,
-                                           @Part("status") RequestBody status);
+                                           @Part("status") RequestBody status
+//                                           @Part("cat_id") RequestBody cat_id,
+//                                           @Part("sub_cat_id") RequestBody sub_cat_id
+    );
 
     @Multipart
     @POST("api/api.php?req=order_subscription")
     Call<ResponseBody> addOrderForSubsDetail(@Part("user_id") RequestBody userid,
-                                                  @Part("order_id") RequestBody orderid,
-                                                  @Part("plan_id") RequestBody planid,
-                                                  @Part("subscription_id") RequestBody subsid,
-                                                  @Part("pack_key") RequestBody pack,
-                                                  @Part("months") RequestBody month,
-                                                  @Part("status") RequestBody status,
-                                                  @Part("price") RequestBody price);
+                                             @Part("order_id") RequestBody orderid,
+                                             @Part("plan_id") RequestBody planid,
+                                             @Part("subscription_id") RequestBody subsid,
+                                             @Part("pack_key") RequestBody pack,
+                                             @Part("months") RequestBody month,
+                                             @Part("status") RequestBody status,
+                                             @Part("price") RequestBody price);
 
 
     @Multipart
     @POST("/v1/index.php/api/ordersdetails/saveorder")
-
     Call<CreateOrderResponse> createOrderDetail(@Part("user_id") RequestBody user_id,
                                                 @Part("amount") RequestBody amount,
                                                 @Part("currency") RequestBody currency,
@@ -197,11 +208,28 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("api/api.php?req=userquery")
-    Call<FranchiesResponse> franchiRegister(@Part("username") RequestBody username,
-                                            @Part("phoneno") RequestBody phoneno,
-                                            @Part("usermail") RequestBody usermail,
-                                            @Part("comment") RequestBody comment);
+    @POST("api/api.php?req=franchise_query")
+    Call<FranchiesResponse> franchiRegister(@Part("name") RequestBody username,
+                                            @Part("email") RequestBody usermail,
+                                            @Part("mobile") RequestBody phoneno,
+                                            @Part("whatsapp_no") RequestBody whatsppNumber,
+                                            @Part("city") RequestBody pCity,
+                                            @Part("state") RequestBody pState,
+                                            @Part("address") RequestBody pAddress,
+                                            @Part("landmark") RequestBody pLandmark,
+                                            @Part("pincode") RequestBody pPincode,
+                                            @Part("college") RequestBody collegaeFrenchise,
+                                            @Part("city_of_college") RequestBody cMedicalCollegae,
+                                            @Part("state_of_college") RequestBody sMedicalCollege,
+                                            @Part("pincode_of_college") RequestBody pinMedicalCollege,
+                                            @Part("comment") RequestBody comment,
+                                            @Part("invested_ammount") RequestBody amount,
+                                            @Part("is_recievecall") RequestBody canCall
+
+    );
+
+
+
 
     @Multipart
     @POST("api/api.php?req=get_address")
@@ -219,7 +247,7 @@ public interface ApiInterface {
                                           @Part("state") RequestBody state,
                                           @Part("college") RequestBody college);
 
-
+    /////////////////////////////////////////
     @Multipart
     @POST("api/api.php?req=facebook")
     Call<FacebookResponse> facebookRegister(@Part("name") RequestBody name,
@@ -230,18 +258,23 @@ public interface ApiInterface {
     @GET("api/api.php?req=category")
     Call<CategoryDetailData> getCourse();
 
-    @GET("api/api.php?req=allfile")
-    Call<VideoList> getVideos(@Query("sub_child_cat") String sub_child_cat, @Query("file_type") String fileType);
+    @Multipart
+    @POST("api/api.php?req=allfile")
+    Call<VideoList> getVideos(
+            @Part("sub_child_cat") RequestBody sub_child_cat,
+            @Part("file_type") RequestBody fileType,
+            @Part("user_id") RequestBody user_id
+    );
 
 
     @Multipart
-    @POST("api/api.php?req=price_videos")
+    @POST("api/api.php?req=price_videoscopy")
     Call<PaidVideoResponse> getPaidVedio(@Part("sub_child_cat") RequestBody sub_child_cat,
                                          @Part("user_id") RequestBody user_id,
                                          @Part("file_type") RequestBody file_type);
 
 
-    @GET("http://13.234.161.7/api/api.php?req=getreleasedetail")
+    @GET("api/api.php?req=getreleasedetail")
     Call<PlaystoreUpdateResponse> playstoreUpdate();
 
 
@@ -268,6 +301,14 @@ public interface ApiInterface {
 
 
     @Multipart
+    @POST("api/api.php?req=add_progress")
+    Call<ResponseBody> updateVideoProgress(@Part("user_id") RequestBody user_id,
+                                           @Part("video_id") RequestBody video_id,
+                                           @Part("time") RequestBody time
+    );
+
+
+    @Multipart
     @POST("api/api.php?req=forgot_password")
     Call<ForgetMailSentResponse> sentMail(@Part("email_id") RequestBody email_id);
 
@@ -284,10 +325,28 @@ public interface ApiInterface {
 
 
     @Multipart
+    @POST("api/api.php?req=add_testtime")
+    Call<ResponseBody> startTest(@Part("user_id") RequestBody userId,
+                                 @Part("test_id") RequestBody testID,
+                                 @Part("start_time") RequestBody startTime);
+
+
+    @Multipart
+    @POST("api/api.php?req=add_endtime")
+    Call<ResponseBody> endTest(@Part("user_id") RequestBody userId,
+                               @Part("test_id") RequestBody testID,
+                               @Part("end_time") RequestBody endTime);
+
+
+    @GET("api/api.php?req=get_remark")
+    Call<RankResultRemarks> getResultRemark(@Query("test_id") String testID);
+
+
+    @Multipart
     @POST("api/api.php?req=get_testrank")
     Call<RankResult> getStudentRank(@Part("user_id") RequestBody userId,
                                     @Part("test_id") RequestBody testID
-                              );
+    );
 
     @Multipart
     @POST("api/api.php?req=result")
@@ -317,13 +376,33 @@ public interface ApiInterface {
     Call<StateListResponse> stateData();
 
 
-
     @POST("api/api.php?req=getall_academics")
     Call<Academic> getAllAcademicYears();
 
     @Multipart
-    @POST("api/api.php?req=qbank_cate")
-    Call<QbankResponse> qbankDetail(@Part("user_id") RequestBody user_id);
+    @POST("api/api.php?req=qbank_subjects")
+    Call<ModuleListResponse> qbankDetail(@Part("user_id") RequestBody user_id,
+                                         @Part("cat_id") RequestBody catid);
+
+    @Multipart
+    @POST("api/api.php?req=getall_modulescopy")
+    Call<ChaptersModuleResponse> getAllChapterByModuleId(@Part("user_id") RequestBody user_id, @Part("subject_id") RequestBody module_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=getall_mcq")
+    Call<MCQQuestionList> getAllMCQQuestions(@Part("user_id") RequestBody user_id, @Part("module_id") RequestBody module_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=submit_module")
+    Call<ResponseBody> completeMCQ(@Part("user_id") RequestBody user_id,
+                                   @Part("module_id") RequestBody module_id,
+                                   @Part("complete_status") RequestBody complete_status,
+                                   @Part("subject_id") RequestBody subject_id,
+                                   @Part("chapter_id") RequestBody chapter_id
+    );
+
 
     @Multipart
     @POST("api/api.php?req=qbankmodulereview")
@@ -346,21 +425,35 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=qbank_solve")
     Call<QbankstartResponse> qbankStart(@Part("qmodule_id") RequestBody qmodule_id,
-                                        @Part("user_id") RequestBody user_id
-            , @Part("is_paused") RequestBody is_paused);
+                                        @Part("user_id") RequestBody user_id,
+                                        @Part("is_paused") RequestBody is_paused);
 
-    @POST("api/api.php?req=qbank_mcq_model_feedback")
-    Call<QbankfeedbackResponse> qbankFeedback(@Query("user_id") String user_id,
-                                              @Query("qmodule_id") String qmodule_id,
-                                              @Query("rating") String rating,
-                                              @Query("feedback") String feedback);
+    @Multipart
+    @POST("api/api.php?req=add_feedback")
+    Call<QbankfeedbackResponse> qbankFeedback(@Part("user_id") RequestBody user_id,
+                                              @Part("module_id") RequestBody qmodule_id,
+                                              @Part("rating") RequestBody rating,
+                                              @Part("feedback") RequestBody feedback,
+                                              @Part("remark") RequestBody remark);
 
 
-    @GET("api/api.php?req=qbank_mcq_atteped_answer")
-    Call<SubmitAnswer> submitAnswer(@Query("quest_id") String quest_id,
-                                    @Query("user_id") String user_id,
-                                    @Query("is_completed") String is_completed,
-                                    @Query("user_answer") String user_answer);
+    @Multipart
+    @POST("api/api.php?req=submit_mcqanswer")
+    Call<ResponseBody> submitAnswer(@Part("user_id") RequestBody user_id,
+                                    @Part("mcq_id") RequestBody quest_id,
+                                    @Part("module_id") RequestBody module_id,
+                                    @Part("given_answer") RequestBody user_answer);
+
+    @Multipart
+    @POST("api/api.php?req=get_modulebyid")
+    Call<ModuleResponse> updateQBankStatus(@Part("user_id") RequestBody user_id,
+                                           @Part("module_id") RequestBody module_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=get_score")
+    Call<QBankResultResponse> getMCQResult(@Part("user_id") RequestBody user_id,
+                                           @Part("module_id") RequestBody module_id);
 
     @Multipart
     @POST("v1/index.php/api/test/submitanswer")
@@ -383,6 +476,7 @@ public interface ApiInterface {
     @POST("api/api.php?req=qbank_mcq")
     Call<QbankTestResponse> qbanksubTestData(@Part("qmodule_id") RequestBody qmodule_id);
 
+    ////////////////////////////////////
     @Multipart
     @POST("api/api.php?req=mobileverify")
     Call<VerifyOtpResponse> verifyOTP(
@@ -432,20 +526,26 @@ public interface ApiInterface {
                                    @Part("isreal") RequestBody isreal);
 
 
-
     @Multipart
     @POST("api/api.php?req=checkuserdeleted")
     Call<ResponseBody> checkuserExist(@Part("email_id") RequestBody id);
 
+
+    @Multipart
+    @POST("api/api.php?req=deleteAddress")
+    Call<ResponseBody> deleteAddress(@Part("address_id") RequestBody id);
+
     @GET("v1/index.php/api/test/list")
-    Call<TestDataResponse> getAllTestData(@Query("user_id") String id, @Query("institute_id") String institute_id);
+    Call<TestDataResponse> getAllTestData(@Query("user_id") String id, @Query("institute_id") String institute_id,
+                                          @Query("cat_id") String catId);
 
     @Multipart
     @POST("v1/index.php/api/test/bookmark")
     Call<ResponseBody> bookMarkQuestion(@Part("user_id") RequestBody user_id,
-                                        @Part("test_id") RequestBody timespend,
-                                        @Part("question_id") RequestBody event,
-                                        @Part("remove_bookmark") RequestBody remove_bookmark);
+                                        @Part("test_id") RequestBody test_id,
+                                        @Part("question_id") RequestBody question_id,
+                                        @Part("remove_bookmark") RequestBody remove_bookmark,
+                                        @Part("type") RequestBody type);
 
     @Multipart
     @POST("v1/index.php/api/test/timelogs")
@@ -462,8 +562,19 @@ public interface ApiInterface {
             @Query("user_id") String user_id,
             @Query("filter_level") String filter_level,
             @Query("filter_answer") String filter_answer,
-            @Query("filter_category") String filter_category);
+            @Query("filter_category") String filter_category,
+            @Query("filter_bookmark") String filter_bookmark);
 
+
+    // New Api's Integrate
+    @GET("v1/index.php/api/test/reviewqbankquestionlist")
+    Call<TestReviewListResponse> getQBankReviewListData(
+            @Query("module_id") String test_id,
+            @Query("user_id") String user_id,
+            @Query("filter_level") String filter_level,
+            @Query("filter_answer") String filter_answer,
+            @Query("filter_category") String filter_category,
+            @Query("filter_bookmark") String filter_bookmark);
 
 
     @Multipart
@@ -486,6 +597,32 @@ public interface ApiInterface {
 //    Call<TestReviewListResponse> getTestReviewListFilteredData(
 //                                                       @Query("test_id") String test_id,
 //                                                       @Query("user_id") String user_id);
+
+
+    // Change phone No
+    @Multipart
+    @POST("api/api.php?req=send_otp")
+    Call<ResponseBody> changePhoneNumber(@Part("user_id") RequestBody name,
+                                         @Part("mobile") RequestBody phoneNo);
+
+
+    // Change phone No
+    @Multipart
+    @POST("api/api.php?req=get_catsubmodules")
+    Call<CatModuleResponse> getAllModulesForCategory(@Part("cat_id") RequestBody catId);
+
+    // change phone no verified otp
+
+    @Multipart
+    @POST("api/api.php?req=update_mobile")
+    Call<ChangePhoneNumberOtpResponse> phoneOtpVerified(@Part("user_id") RequestBody user_id,
+                                                        @Part("mobile") RequestBody mobile,
+                                                        @Part("otp") RequestBody otp);
+
+
+    @Multipart
+    @POST("api/api.php?req=get_institute")
+    Call<AllInstituteResponseModel> getAllInstitute(@Part("user_id") RequestBody user_id);
 
 }
 

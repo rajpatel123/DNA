@@ -21,7 +21,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:text="Edition 2019"
+            android:text="Edition 2020"
             android:textColor="@color/orange"
             android:textStyle="bold" />
 

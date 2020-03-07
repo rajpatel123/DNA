@@ -5,7 +5,7 @@
     </solid>
     <size android:width="30dp"
         android:height="30dp"></size>
-    <corners android:radius="20sp"/>
+    <corners android:radius="@dimen/ts_20"/>
     <stroke
         android:width="5dp"
         android:color="#939598"/>

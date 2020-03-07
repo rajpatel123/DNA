@@ -59,6 +59,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public LinearLayout tabBar;
@@ -88,20 +90,6 @@ public class MainActivity extends AppCompatActivity
     TestDataResponse testDataResponse;
 
 
-    private List<Test> grandTests = new ArrayList<>();
-    private List<Test> miniTests = new ArrayList<>();
-
-    public List<Test> getDailyTest() {
-        return dailyTest;
-    }
-
-    public void setDailyTest(List<Test> dailyTest) {
-        this.dailyTest = dailyTest;
-    }
-
-    private List<Test> dailyTest = new ArrayList<>();
-    private List<Test> subjectTests = new ArrayList<>();
-    private List<Test> allTests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +138,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent1);
             }
         });
-        setUpFragments();
+        //setUpFragments();
         updateNavViewHeader();
 
         updateLogin();
@@ -193,13 +181,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Log.d("data", response.body().string());
 
                     if (!TextUtils.isEmpty(response.body().string())){
                         JSONObject obj = new JSONObject(response.body().string());
 
                         if (obj.getString("status").equals("2")){
-                            userlogout();
+
+                            DnaPrefs.clear(MainActivity.this);
+                            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 } catch (IOException e) {
@@ -405,7 +397,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void userlogout() {
+    public void userlogout() {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
@@ -574,39 +566,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+
+        if (TextUtils.isEmpty(userId)){
+            DnaPrefs.clear(MainActivity.this);
+            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         checkUserExistance();
     }
 
-    public List<Test> getGrandTests() {
-        return grandTests;
-    }
 
-    public void setGrandTests(List<Test> grandTests) {
-        this.grandTests = grandTests;
-    }
-
-    public List<Test> getMiniTests() {
-        return miniTests;
-    }
-
-    public void setMiniTests(List<Test> miniTests) {
-        this.miniTests = miniTests;
-    }
-
-    public List<Test> getSubjectTests() {
-        return subjectTests;
-    }
-
-    public void setSubjectTests(List<Test> subjectTests) {
-        this.subjectTests = subjectTests;
-    }
-
-    public List<Test> getAllTests() {
-        return allTests;
-    }
-
-    public void setAllTests(List<Test> allTests) {
-        this.allTests = allTests;
-    }
 }

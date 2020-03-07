@@ -64,7 +64,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@id/imga"
                             android:text="Test"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
 
                         <TextView
                             android:id="@+id/optionAPer"
@@ -75,7 +75,7 @@
                             android:layout_toRightOf="@+id/optionA"
                             android:text="[14%]"
                             android:textColor="@color/black_titles"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -97,7 +97,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@id/imgb"
                             android:text="Test"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
 
                         <TextView
                             android:id="@+id/optionBPer"
@@ -108,7 +108,7 @@
                             android:layout_toRightOf="@+id/optionB"
                             android:text="[14%]"
                             android:textColor="@color/black_titles"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -130,7 +130,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@id/imgc"
                             android:text="Test"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
 
                         <TextView
                             android:id="@+id/optionCPer"
@@ -141,7 +141,7 @@
                             android:layout_toRightOf="@+id/optionC"
                             android:text="[14%]"
                             android:textColor="@color/black_titles"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -163,7 +163,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@id/imgd"
                             android:text="Test"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
 
                         <TextView
 
@@ -175,7 +175,7 @@
                             android:layout_toRightOf="@+id/optionD"
                             android:text="[14%]"
                             android:textColor="@color/black_titles"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
                     </RelativeLayout>
 
 
@@ -231,7 +231,7 @@
                             android:layout_marginTop="10dp"
                             android:padding="10dp"
                             android:text="Ref By Dr. Niraj Kumar Author"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/ts_20" />
 
 
                     </RelativeLayout>

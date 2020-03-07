@@ -103,9 +103,10 @@
             android:text="PAY NOW"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/ts_20" />
 
         <TextView
+            android:id="@+id/orTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -121,12 +122,13 @@
             android:background="@color/colorAccent"
             android:paddingLeft="10dp"
             android:paddingTop="5sp"
+            android:layout_margin="@dimen/dp_10"
             android:paddingRight="10dp"
             android:paddingBottom="5sp"
             android:text="Click Here To Buy All Topic "
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/ts_20" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,7 +169,7 @@
             android:text="Back"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/ts_20" />
 
 
         <!-- <TextView
@@ -178,7 +180,7 @@
              android:padding="10dp"
              android:text="back"
              android:textColor="@color/colorAccent"
-             android:textSize="20sp" />
+             android:textSize="@dimen/ts_20" />
  -->
 
     </LinearLayout>

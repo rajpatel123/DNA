@@ -37,7 +37,7 @@ import retrofit2.Response;
 public class SubscriptionPaymentActivity extends AppCompatActivity implements PaymentResultListener {
 
     private static final String TAG = PaymentDetailActivity.class.getSimpleName();
-/*
+   /*
     @BindView(R.id.view_breakup)
     TextView textViewbreakup;*/
 
@@ -118,7 +118,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         setContentView(R.layout.activity_payment_detail);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
+      //  setSupportActionBar(toolbar);
         Checkout.preload(getApplicationContext());
        /*
         SpannableString spannableString = new SpannableString(getString(R.string.view_breakup));
@@ -223,6 +223,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("Payment");
         }
 
         btnPaynow.setOnClickListener(new View.OnClickListener() {
@@ -420,8 +421,6 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         Intent resultIntent = new Intent();
         setResult(Activity.RESULT_OK, resultIntent);
         finish(); // close this activity and return to preview activity (if there is any)
-
-
         return super.onOptionsItemSelected(item);
     }
 

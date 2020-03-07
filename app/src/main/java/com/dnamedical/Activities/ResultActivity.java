@@ -1,13 +1,18 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -32,6 +37,8 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -65,6 +72,9 @@ public class ResultActivity extends AppCompatActivity {
 
     TextView testTimeHead, examNameHead;
     private RankResult rankResult;
+    private String sharePath = "no";
+    private long resultDate;
+    private boolean isDailyTest;
 
 
     @Override
@@ -76,6 +86,9 @@ public class ResultActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("testid")) {
             test_id = getIntent().getStringExtra("testid");
+            resultDate = getIntent().getLongExtra("resultDate", 0);
+            isDailyTest = getIntent().getBooleanExtra(Constants.ISDAILY_TEST, false);
+
 
         }
 
@@ -138,15 +151,8 @@ public class ResultActivity extends AppCompatActivity {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                return;
-//                Intent share = new Intent(android.content.Intent.ACTION_SEND);
-//                share.setType("text/plain");
-//                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-//                // Add data to the intent, the receiving app will decide
-//                // what to do with it.
-//                share.putExtra(Intent.EXTRA_SUBJECT, "DNA");
-//                share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.dnamedical");
-//                startActivity(Intent.createChooser(share, "Share link!"));
+
+                takeScreenshot();
             }
         });
 
@@ -157,34 +163,110 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (Utils.isInternetConnected(ResultActivity.this)) {
-                    Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent1.putExtra("testid", test_id);
-                    startActivity(intent1);
+
+                if (isDailyTest) {
+                    gotoReview();
                 } else {
-                    Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                    if (resultDate * 1000 > System.currentTimeMillis()) {
+                        Toast.makeText(ResultActivity.this, "Test is running, review will be available after " + Utils.testReviewTime(resultDate), Toast.LENGTH_LONG).show();
+                    } else {
+                        gotoReview();
+                    }
                 }
+
 
             }
         });
     }
 
+    private void gotoReview() {
+        if (Utils.isInternetConnected(ResultActivity.this)) {
+            Intent intent1 = new Intent(ResultActivity.this, TestReviewResultActivity.class);
+            intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent1.putExtra("testid", test_id);
+            intent1.putExtra("qbank", true);
+
+            startActivity(intent1);
+        } else {
+            Toast.makeText(ResultActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    private void takeScreenshot() {
+        // Date now = new Date();
+        // android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + System.currentTimeMillis() + ".jpeg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            //setting screenshot in imageview
+            String filePath = imageFile.getPath();
+
+            Bitmap ssbitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            // iv.setImageBitmap(ssbitmap);
+            sharePath = filePath;
+
+            if (!sharePath.equals("no")) {
+                share(sharePath);
+            }
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+    }
+
+    private void share(String sharePath) {
+
+
+        try {
+            File file = new File(sharePath);
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Uri apkURI = FileProvider.getUriForFile(
+                    this,
+                    this.getApplicationContext()
+                            .getPackageName() + ".provider", file);
+            install.setDataAndType(apkURI, "image/*");
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(install);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     private void updateResult(TestResult testResult) {
 
-        init(testResult.getData().getScoreAnalysis());
 
-        if (testResult != null && testResult.getData()!=null) {
-            startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
-            endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
-            totalTestTime.setText("" + Utils.getTimeTakenInTestFormat((testResult.getData().getEndTime() - testResult.getData().getStartTime())));
+        if (testResult != null && testResult.getData() != null && testResult.getData().getScoreAnalysis() != null && testResult.getData().getScoreAnalysis().size() > 0) {
+            init(testResult.getData().getScoreAnalysis());
+
             dateTV.setText("" + Utils.startTimeForTestFormat(testResult.getData().getEndTime()));
 
             yourScoreTV.setText("" + testResult.getData().getYourScore());
             totalMarksTv.setText("" + testResult.getData().getTotalMarks());
-            if (TextUtils.isEmpty(testResult.getData().getPercenatge()) &&  testResult.getData().getPercenatge().length()>4){
-                percentageTV.setText("" + testResult.getData().getPercenatge().substring(0,3));
-            }else{
+            if (!TextUtils.isEmpty(testResult.getData().getPercenatge()) && testResult.getData().getPercenatge().length() > 5) {
+                percentageTV.setText("" + testResult.getData().getPercenatge().substring(0, 4));
+            } else {
                 percentageTV.setText("" + testResult.getData().getPercenatge());
             }
             percentaileTV.setText("" + testResult.getData().getPercentile());
@@ -226,22 +308,38 @@ public class ResultActivity extends AppCompatActivity {
 
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
-        Utils.showProgressDialog(ResultActivity.this);
+        // Utils.showProgressDialog(ResultActivity.this);
         RestClient.getStudentRank(userId, testID, new Callback<RankResult>() {
             @Override
             public void onResponse(Call<RankResult> call, Response<RankResult> response) {
                 rankResult = response.body();
-                Utils.dismissProgressDialog();
+                //Utils.dismissProgressDialog();
                 if (rankResult != null) {
                     rankTV.setText("" + rankResult.getRank());
                     totalstudent.setText("" + rankResult.getTotalStudents());
+
+                    int time = 0;
+                    if (!TextUtils.isEmpty(rankResult.getStartTime())) {
+                        startTimeTV.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getStartTime())));
+                        endTimeTv.setText("" + Utils.getTimeInHHMMSS(Long.parseLong(rankResult.getEndTime())));
+                        time = Integer.parseInt(rankResult.getEndTime()) - Integer.parseInt(rankResult.getStartTime());
+
+                    } else {
+                        startTimeTV.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getStartTime()));
+                        endTimeTv.setText("" + Utils.getTimeInHHMMSS(testResult.getData().getEndTime()));
+                        time = testResult.getData().getEndTime() - testResult.getData().getStartTime();
+
+                    }
+                    totalTestTime.setText("" + Utils.getTimeTakenInTestFormat(time));
+
+
                 }
 
             }
 
             @Override
             public void onFailure(Call<RankResult> call, Throwable t) {
-                Utils.dismissProgressDialog();
+                // Utils.dismissProgressDialog();
                 Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
             }
         });
@@ -269,7 +367,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<TestResult> call, Throwable t) {
                 Utils.dismissProgressDialog();
-                Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
+                //  Log.d("DataFail", "user_id-->" + user_id + "TestId-->" + test_id + "Question_id-->");
             }
         });
 
@@ -382,45 +480,53 @@ public class ResultActivity extends AppCompatActivity {
             wrongAnswerTv.setPadding(5, 0, 5, 5);
             scoreTv.setPadding(5, 0, 5, 5);
 
+            if (!TextUtils.isEmpty(scoreAnalysi.get(i).getCategoryName())){
+                if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")) {
+                    subjectTv.setText("MICRO");
 
-            if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")) {
-                subjectTv.setText("MICRO");
+                } else if (!TextUtils.isEmpty(scoreAnalysi.get(i).getCategoryName()) && scoreAnalysi.get(i).getCategoryName().contains("FORENSIC MEDICINE & TOXICOLOGY ( F.M.T )")) {
+                    subjectTv.setText("F.M.T");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("FORENSIC MEDICINE & TOXICOLOGY ( F.M.T )")) {
-                subjectTv.setText("F.M.T");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("OPHTHALMOLOGY(EYE)")) {
+                    subjectTv.setText("EYE");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("OPHTHALMOLOGY(EYE)")) {
-                subjectTv.setText("EYE");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("COMMUNITY MEDICINE")) {
+                    subjectTv.setText("P.S.M.");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("COMMUNITY MEDICINE")) {
-                subjectTv.setText("P.S.M.");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("OBS & GYNE ( OBG )")) {
+                    subjectTv.setText("OBG");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("OBS & GYNE ( OBG )")) {
-                subjectTv.setText("OBG");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")) {
+                    subjectTv.setText("PHARMA");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHARMACOLOGY")) {
-                subjectTv.setText("PHARMA");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("BIO-CHEMISTRY")) {
+                    subjectTv.setText("BIOCHEM");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("BIO-CHEMISTRY")) {
-                subjectTv.setText("BIOCHEM");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")) {
+                    subjectTv.setText("BIOCHEM");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("BIOCHEMISTRY")) {
-                subjectTv.setText("BIOCHEM");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("ANATOMY (UG)")) {
+                    subjectTv.setText("ANATOMY");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("ANATOMY (UG)")) {
-                subjectTv.setText("ANATOMY");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")) {
+                    subjectTv.setText("ORTHO");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("ORTHOPAEDICS")) {
-                subjectTv.setText("ORTHO");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")) {
+                    subjectTv.setText("DERMA");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("DERMATOLOGY")) {
-                subjectTv.setText("DERMA");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIOLOGY")) {
+                    subjectTv.setText("PHYSIO");
 
-            } else if (scoreAnalysi.get(i).getCategoryName().contains("PHYSIO")) {
-                subjectTv.setText("DERMA");
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("PSYCHIATRY")) {
+                    subjectTv.setText("PSYCH");
 
-            } else {
-                subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
+                } else if (scoreAnalysi.get(i).getCategoryName().contains("ANESTHESIA")) {
+                    subjectTv.setText("ANESTH");
+
+                } else {
+                    subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());
+                }
+
             }
 
 

@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
@@ -43,7 +44,7 @@ public class PromoActivity extends AppCompatActivity {
         if (Utils.isInternetConnected(this)) {
             getVideo();
         } else {
-            if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
+            if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck) || TextUtils.isEmpty(DnaPrefs.getString(this,Constants.LOGIN_ID))) {
                 Intent i = new Intent(PromoActivity.this, MainActivity.class);
                 startActivity(i);
                 // close this activity
@@ -88,6 +89,7 @@ public class PromoActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
         promoVideo.start();
@@ -139,39 +141,6 @@ public class PromoActivity extends AppCompatActivity {
 
     }
 
-    private void playVideo(String url) {
-       pd.setVisibility(View.VISIBLE);
-
-        Uri uri = Uri.parse(url);
-        videoView.setVideoURI(uri);
-        videoView.start();
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                //close the progress dialog when buffering is done
-                pd.setVisibility(View.GONE);
-
-            }
-        });
-
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
-                    Intent i = new Intent(PromoActivity.this, MainActivity.class);
-                    startActivity(i);
-                    // close this activity
-                    finish();
-                } else {
-                    Intent i = new Intent(PromoActivity.this, FirstloginActivity.class);
-                    startActivity(i);
-                    // close this activity
-                    finish();
-                }
-            }
-        });
-    }
 
 
 }

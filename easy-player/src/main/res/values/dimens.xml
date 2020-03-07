@@ -9,7 +9,7 @@
     <dimen name="evp_text_size_small">10sp</dimen>
 
     <dimen name="evp_button_size">48dp</dimen>
-    <dimen name="evp_text_size_medium">16sp</dimen>
+    <dimen name="evp_text_size_medium">@dimen/ts_16</dimen>
 
     <dimen name="evp_negative_inset_large">-8dp</dimen>
     <dimen name="evp_negative_inset_small">-2dp</dimen>

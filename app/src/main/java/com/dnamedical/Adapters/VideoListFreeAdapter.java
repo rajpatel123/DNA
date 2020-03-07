@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.LoginActivity;
@@ -49,12 +50,13 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
         if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration()) > 0) {
             holder.ratingandtime.setText(freeList.get(holder.getAdapterPosition()).getDuration() + " min video");
+
         } else {
             holder.ratingandtime.setText("N/A");
 
         }
 
-        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
             holder.commingsoon.setVisibility(View.VISIBLE);
         }else{
             holder.commingsoon.setVisibility(GONE);
@@ -91,7 +93,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
                     onUserClickCallback.onCateClick(freeList.get(holder.getAdapterPosition()));
                 }else{
                     Utils.displayToast(applicationContext, "Coming Soon");
@@ -132,6 +134,9 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         LinearLayout row_view;
         @BindView(R.id.vid_title)
         TextView title;
+
+        @BindView(R.id.progress)
+        SeekBar progress;
 
 
         @BindView(R.id.ratingandtime)

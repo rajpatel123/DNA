@@ -63,7 +63,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/HeadingEdition1"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition2"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition3"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -129,7 +129,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition4"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition5"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -173,7 +173,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition6"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -195,7 +195,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition7"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -217,7 +217,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition8"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -239,7 +239,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition9"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -261,7 +261,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition10"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -283,7 +283,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition11"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -305,7 +305,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/HeadingEdition12"
                 android:textColor="@color/text_color_noticeboard"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />
 
             <TextView
@@ -334,7 +334,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Team DNA"
                 android:textColor="@color/text_color_noticeboard_normal"
-                android:textSize="16sp"
+                android:textSize="@dimen/ts_16"
                 android:textStyle="normal" />
 
             <TextView
@@ -367,7 +367,7 @@
                 android:layout_marginTop="40dp"
                 android:text=""
 
-                android:textSize="20sp"
+                android:textSize="@dimen/ts_20"
                 android:textStyle="normal" />
 
         </LinearLayout>

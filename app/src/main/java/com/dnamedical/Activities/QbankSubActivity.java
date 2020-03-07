@@ -8,20 +8,33 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.dnamedical.Models.qbank.QBank;
+import com.dnamedical.Models.newqbankmodule.ChaptersModuleResponse;
+import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
+import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.fragment.QbankAllFragment;
 import com.dnamedical.fragment.QbankCompletedFragment;
 import com.dnamedical.fragment.QbankFreeFragment;
 import com.dnamedical.fragment.QbankPausedFragment;
 import com.dnamedical.fragment.QbankUnattemptedFragment;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QbankSubActivity extends AppCompatActivity {
 
@@ -30,26 +43,65 @@ public class QbankSubActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    public String qbankcat_id;
-    public String qbankcat_name;
+    public String qbankmoduleID;
+    public String qbankmoduleName;
     TextView toolbarName;
-    public List<QBank> qBankAll = new ArrayList<>();
-    public List<QBank> qBankPaused = new ArrayList<>();
-    public List<QBank> qBankCompleted = new ArrayList<>();
-    public List<QBank> qBankUnAttempted = new ArrayList<>();
-    public List<QBank> qBankUnFree = new ArrayList<>();
+    private QbankAllFragment qbankAllFragment;
+    private QbankPausedFragment qbankPausedFragment;
+    private QbankCompletedFragment qbankCompletedFragment;
+    private QbankUnattemptedFragment qbankUnattemptedFragment;
+    private QbankFreeFragment qbankFreeFragment;
+
+    public List<Module> getqBankAll() {
+        return qBankAll;
+    }
+
+    public List<Module> getqBankPaused() {
+        return qBankPaused;
+    }
+
+    public List<Module> getqBankCompleted() {
+        return qBankCompleted;
+    }
+
+    public List<Module> getqBankUnAttempted() {
+        return qBankUnAttempted;
+    }
+
+    public List<Module> getqBankFree() {
+        return qBankFree;
+    }
+
+    public List<Module> qBankAll = new ArrayList<>();
+    public List<Module> allMCQS = new ArrayList<>();
+    public List<Module> qBankPaused = new ArrayList<>();
+    public List<Module> qBankCompleted = new ArrayList<>();
+    public List<Module> qBankUnAttempted = new ArrayList<>();
+    public List<Module> qBankFree = new ArrayList<>();
+    private ChaptersModuleResponse chaptersModuleResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_sub);
         toolbarName = findViewById(R.id.qbank_subcategory_name);
 
-        if (getIntent().hasExtra("cat_id")) {
-            qbankcat_id = getIntent().getStringExtra("cat_id");
-            qbankcat_name = getIntent().getStringExtra("cat_name");
+        if (getIntent().hasExtra(Constants.MODULE_ID)) {
+            qbankmoduleID = getIntent().getStringExtra(Constants.MODULE_ID);
+            qbankmoduleName = getIntent().getStringExtra(Constants.MODULE_NAME);
         }
 
-        toolbarName.setText(qbankcat_name);
+        viewPager =  findViewById(R.id.qbank_viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = findViewById(R.id.qbank_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+
+
+
+
+        toolbarName.setText(qbankmoduleName);
 
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +116,7 @@ public class QbankSubActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        viewPager = (ViewPager) findViewById(R.id.qbank_viewpager);
-        setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.qbank_tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+        getAllChapterByModule();
 
 
     }
@@ -101,12 +148,23 @@ public class QbankSubActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFrag(new QbankAllFragment(), "All");
-        viewPagerAdapter.addFrag(new QbankPausedFragment(), "Paused");
-        viewPagerAdapter.addFrag(new QbankCompletedFragment(), "Completed");
-        viewPagerAdapter.addFrag(new QbankUnattemptedFragment(), "Unattempted");
-        viewPagerAdapter.addFrag(new QbankFreeFragment(), "Free");
+
+        qbankAllFragment= new QbankAllFragment();
+        qbankPausedFragment= new QbankPausedFragment();
+        qbankCompletedFragment = new QbankCompletedFragment();
+        qbankUnattemptedFragment = new QbankUnattemptedFragment();
+        qbankFreeFragment= new QbankFreeFragment();
+
+
+        viewPagerAdapter.addFrag(qbankAllFragment, "All");
+        viewPagerAdapter.addFrag(qbankPausedFragment, "Paused");
+        viewPagerAdapter.addFrag(qbankCompletedFragment, "Completed");
+        viewPagerAdapter.addFrag(qbankUnattemptedFragment, "Unattempted");
+        viewPagerAdapter.addFrag(qbankFreeFragment, "Free");
+        viewPager.setOffscreenPageLimit(5);
         viewPager.setAdapter(viewPagerAdapter);
+
+
 
 
     }
@@ -141,5 +199,109 @@ public class QbankSubActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
+    private void getAllChapterByModule() {
+
+        qBankAll.clear();
+        qBankFree.clear();
+        qBankUnAttempted.clear();
+        qBankPaused.clear();
+        qBankCompleted.clear();
+
+        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+
+        if (TextUtils.isEmpty(userId)) {
+            return;
+        }
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+            RequestBody module_id = RequestBody.create(MediaType.parse("text/plain"), qbankmoduleID);
+
+            RestClient.getAllChapterByModuleId(user_id,module_id,  new Callback<ChaptersModuleResponse>() {
+
+                @Override
+                public void onResponse(Call<ChaptersModuleResponse> call, Response<ChaptersModuleResponse> response) {
+                    if (response.code() == 200) {
+                        Utils.dismissProgressDialog();
+
+                        if (chaptersModuleResponse != null) {
+                            chaptersModuleResponse = null;
+                        }
+
+                        chaptersModuleResponse = response.body();
+
+
+                        if (chaptersModuleResponse.getCompleted() != null
+                                && chaptersModuleResponse.getCompleted().size() > 0) {
+                            qBankCompleted = chaptersModuleResponse.getCompleted();
+
+                        }
+
+
+                        if (chaptersModuleResponse.getPaused() != null
+                                && chaptersModuleResponse.getPaused().size() > 0) {
+                            qBankPaused = chaptersModuleResponse.getPaused();
+
+                        }
+
+                        if (chaptersModuleResponse.getUnattempted() != null
+                                && chaptersModuleResponse.getUnattempted().size() > 0) {
+                            qBankUnAttempted = chaptersModuleResponse.getUnattempted();
+
+                        }
+
+
+                        if (chaptersModuleResponse.getFree() != null
+                                && chaptersModuleResponse.getFree().size() > 0) {
+                            qBankFree    = chaptersModuleResponse.getFree();
+                        }
+
+                        if (qBankCompleted.size() > 0) {
+                            qBankAll.addAll(qBankCompleted);
+                        }
+                        if (qBankPaused.size() > 0) {
+                            qBankAll.addAll(qBankPaused);
+                        }
+                        if (qBankUnAttempted.size() > 0) {
+                            qBankAll.addAll(qBankUnAttempted);
+                        }
+
+//                        if (qBankFree.size() > 0) {
+//                            qBankAll.addAll(qBankFree);
+//                        }
+
+                        updateAllModules();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ChaptersModuleResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            // Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void updateAllModules() {
+
+        qbankAllFragment.showQList(qBankAll);
+        qbankPausedFragment.showQList(qBankPaused);
+        qbankCompletedFragment.showQList(qBankCompleted);
+        qbankUnattemptedFragment.showQList(qBankUnAttempted);
+        qbankFreeFragment.showQList(qBankFree);
+
+
+
+    }
+
 
 }

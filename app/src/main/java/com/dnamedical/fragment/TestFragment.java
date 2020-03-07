@@ -1,5 +1,6 @@
 package com.dnamedical.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,12 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
@@ -48,7 +50,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     private List<Test> subjectTests = new ArrayList<>();
     private List<Test> allTests = new ArrayList<>();
 
-    public MainActivity mainActivity;
+    public ModuleTestActivity mainActivity;
     public String subCatId;
     AllTestFragment allTestFragment;
     DailyTestFragment dailyTestFragment;
@@ -78,6 +80,8 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     public void onStart() {
         super.onStart();
         getTest();
+        DnaPrefs.putBoolean(mainActivity, Constants.FROM_INSTITUTE, false);
+
     }
 
     @Override
@@ -99,8 +103,9 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+            mainActivity = (ModuleTestActivity) getActivity();
 
-        mainActivity = (MainActivity) getActivity();
+
     }
 
     private void setupTabIcons() {
@@ -161,7 +166,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         if (allTestFragment == null) {
             return;
         }
-        dailyTestFragment.showTest();
+        dailyTestFragment.showTest(true);
         //allTestFragment.showTest();
         mockTestFragment.showTest();
         grandTestFragment.showTest();
@@ -204,82 +209,87 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
     private void getTest() {
 
-        String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+
+        if (TextUtils.isEmpty(userId)) {
+            return;
+        }
 
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());
 
-            RestClient.getAllTestData(userId, "",new Callback<TestDataResponse>() {
-                @Override
-                public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
-                    if (response.code() == 200) {
-                        Utils.dismissProgressDialog();
+            RestClient.getAllTestData(userId, "", DnaPrefs.getString(getActivity(), Constants.CAT_ID)
+                    , new Callback<TestDataResponse>() {
+                        @Override
+                        public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
+                            if (response.code() == 200) {
+                                Utils.dismissProgressDialog();
 
-                        if (testDataResponse != null) {
-                            testDataResponse = null;
+                                if (testDataResponse != null) {
+                                    testDataResponse = null;
+                                }
+                                testDataResponse = response.body();
+
+                                if (testDataResponse.getData() != null
+                                        && testDataResponse.getData().getTestList() != null
+                                        && testDataResponse.getData().getTestList().size() > 0
+                                        && testDataResponse.getData().getTestList().get(0).getList().size() > 0) {
+                                    dailyTest = testDataResponse.getData().getTestList().get(0).getList();
+                                    mainActivity.setDailyTest(dailyTest);
+
+                                }
+
+                                if (testDataResponse.getData() != null
+                                        && testDataResponse.getData().getTestList() != null
+                                        && testDataResponse.getData().getTestList().size() > 0
+                                        && testDataResponse.getData().getTestList().get(1).getList().size() > 0) {
+                                    grandTests = testDataResponse.getData().getTestList().get(1).getList();
+                                    mainActivity.setGrandTests(grandTests);
+
+                                }
+
+                                if (testDataResponse.getData() != null
+                                        && testDataResponse.getData().getTestList() != null
+                                        && testDataResponse.getData().getTestList().size() > 0
+                                        && testDataResponse.getData().getTestList().get(2).getList().size() > 0) {
+                                    miniTests = testDataResponse.getData().getTestList().get(2).getList();
+                                    mainActivity.setMiniTests(miniTests);
+
+                                }
+
+                                if (testDataResponse.getData() != null
+                                        && testDataResponse.getData().getTestList() != null
+                                        && testDataResponse.getData().getTestList().size() > 0
+                                        && testDataResponse.getData().getTestList().get(3).getList().size() > 0) {
+                                    subjectTests = testDataResponse.getData().getTestList().get(3).getList();
+                                    mainActivity.setSubjectTests(subjectTests);
+                                }
+
+
+                                if (grandTests.size() > 0) {
+                                    allTests.addAll(grandTests);
+                                }
+                                if (miniTests.size() > 0) {
+                                    allTests.addAll(miniTests);
+                                }
+                                if (subjectTests.size() > 0) {
+                                    allTests.addAll(subjectTests);
+                                }
+
+                                mainActivity.setAllTests(allTests);
+                                updateAllTest();
+
+                            }
+
                         }
-                        testDataResponse = response.body();
 
-                        if (testDataResponse.getData() != null
-                                && testDataResponse.getData().getTestList() != null
-                                && testDataResponse.getData().getTestList().size() > 0
-                                && testDataResponse.getData().getTestList().get(0).getList().size() > 0) {
-                            dailyTest = testDataResponse.getData().getTestList().get(0).getList();
-                            mainActivity.setDailyTest(dailyTest);
+                        @Override
+                        public void onFailure(Call<TestDataResponse> call, Throwable t) {
+                            Utils.dismissProgressDialog();
+                            //Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
 
                         }
-
-                        if (testDataResponse.getData() != null
-                                && testDataResponse.getData().getTestList() != null
-                                && testDataResponse.getData().getTestList().size() > 0
-                                && testDataResponse.getData().getTestList().get(1).getList().size() > 0) {
-                            grandTests = testDataResponse.getData().getTestList().get(1).getList();
-                            mainActivity.setGrandTests(grandTests);
-
-                        }
-
-                        if (testDataResponse.getData() != null
-                                && testDataResponse.getData().getTestList() != null
-                                && testDataResponse.getData().getTestList().size() > 0
-                                && testDataResponse.getData().getTestList().get(2).getList().size() > 0) {
-                            miniTests = testDataResponse.getData().getTestList().get(2).getList();
-                            mainActivity.setMiniTests(miniTests);
-
-                        }
-
-                        if (testDataResponse.getData() != null
-                                && testDataResponse.getData().getTestList() != null
-                                && testDataResponse.getData().getTestList().size() > 0
-                                && testDataResponse.getData().getTestList().get(3).getList().size() > 0) {
-                            subjectTests = testDataResponse.getData().getTestList().get(3).getList();
-                            mainActivity.setSubjectTests(subjectTests);
-                        }
-
-
-                        if (grandTests.size() > 0) {
-                            allTests.addAll(grandTests);
-                        }
-                        if (miniTests.size() > 0) {
-                            allTests.addAll(miniTests);
-                        }
-                        if (subjectTests.size() > 0) {
-                            allTests.addAll(subjectTests);
-                        }
-
-                        mainActivity.setAllTests(allTests);
-                        updateAllTest();
-
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<TestDataResponse> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-                    //Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
-
-                }
-            });
+                    });
         } else {
             Utils.dismissProgressDialog();
             // Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();

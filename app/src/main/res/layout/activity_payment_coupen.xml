@@ -162,7 +162,7 @@
                                 android:padding="@dimen/padding_10"
                                 android:text="@string/coupen_txt_three"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/size_16"
+                                android:textSize="@dimen/ts_16"
                                 android:visibility="gone" />
 
                             <TextView
@@ -171,7 +171,7 @@
                                 android:padding="@dimen/padding_10"
                                 android:text="@string/coupen_txt_four"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/size_16"
+                                android:textSize="@dimen/ts_16"
                                 android:visibility="gone" />
 
 
@@ -262,7 +262,7 @@
                                     android:padding="10sp"
                                     android:text="Apply now"
                                     android:textColor="@color/orange"
-                                    android:textSize="@dimen/size_16"
+                                    android:textSize="@dimen/ts_16"
                                     android:visibility="gone" />
 
                             </LinearLayout>
@@ -466,7 +466,7 @@
                 android:gravity="center"
                 android:text="PROCEED TO PAY"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/ts_16" />
 
 
         </LinearLayout>

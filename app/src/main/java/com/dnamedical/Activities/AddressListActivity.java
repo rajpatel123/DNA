@@ -1,10 +1,13 @@
 package com.dnamedical.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,10 +23,13 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -133,6 +139,13 @@ public class AddressListActivity extends AppCompatActivity {
                                 addressListAdapter.setAddreseList(getDataAddressList.getAddreses());
                                 addressListAdapter.setOnClickAddressData(new AddressListAdapter.onClickAddress() {
                                     @Override
+                                    public void deleteAddress(String add_id) {
+                                        if (!TextUtils.isEmpty(add_id)) {
+                                           deleteAddressDialog(add_id);
+                                        }
+                                    }
+
+                                    @Override
                                     public void onAddressClick(String name, String mobile, String email, String address1, String address2, String state, String city, String pincode) {
                                         Intent intent = new Intent(AddressListActivity.this, PaymentDetailActivity.class);
                                         intent.putExtra("NAME", name);
@@ -224,6 +237,66 @@ public class AddressListActivity extends AppCompatActivity {
 
 
     }
+
+    private void deleteAddressDialog(String add_id) {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddressListActivity.this);
+        // ...Irrelevant code for customizing the buttons and titl
+        dialogBuilder.setTitle("Delete");
+        dialogBuilder.setMessage("Are you sure want to delete address?");
+        dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteAddressApi(add_id);
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+
+
+
+
+
+        if (!dialog.isShowing())
+            dialog.show();
+
+
+    }
+
+    private void deleteAddressApi(String add_id) {
+        if (TextUtils.isEmpty(add_id)) {
+            return;
+        }
+
+        RequestBody address_id = RequestBody.create(MediaType.parse("text/plain"), add_id);
+
+        RestClient.deleteAddress(address_id, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.d("data", response.body().string());
+                    onResume();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("data", "");
+            }
+        });
+    }
+
 
 }
 

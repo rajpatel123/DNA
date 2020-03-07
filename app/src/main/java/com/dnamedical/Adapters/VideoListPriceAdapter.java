@@ -145,7 +145,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
-            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
@@ -156,7 +156,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
             holder.lockNew.setVisibility(View.VISIBLE);
-            if (price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
@@ -166,7 +166,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.234.161.7/img/file/"))) {
+                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/"))) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     } else {
@@ -190,7 +190,20 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
                 final android.app.AlertDialog dialog = dialogBuilder.create();
                 Button btn_yes = dialogView.findViewById(R.id.btn_done);
+                TextView ortxt = dialogView.findViewById(R.id.orTxt);
                 Button btn_yes_all = dialogView.findViewById(R.id.btn_done_all);
+
+                btn_yes_all.setText("Click Here To Buy All Topic");
+
+                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")){
+                    btn_yes.setVisibility(GONE);
+                    ortxt.setVisibility(GONE);
+
+                }else{
+                    btn_yes.setVisibility(View.VISIBLE);
+                    ortxt.setVisibility(View.VISIBLE);
+
+                }
                 Button btn_cancel = dialogView.findViewById(R.id.btn_cancel);
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override

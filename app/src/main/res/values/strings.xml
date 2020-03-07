@@ -46,7 +46,7 @@
     <string name="HeadingEdition6">How can I register for DNA Edition 1.0 ?</string>
     <string name="HeadingEdition7">The first 1000 registrations will get : </string>
     <string name="HeadingEdition8">if I am already a Pro user, how can I upgrade to DNA Edition 1.0 pro plan ?</string>
-    <string name="HeadingEdition9">If I secure a PG seat in the NEET PG 2019 exam, what are the steps to be taken to avail the refund ?</string>
+    <string name="HeadingEdition9">If I secure a PG seat in the NEET PG 2020 exam, what are the steps to be taken to avail the refund ?</string>
     <string name="HeadingEdition10">If I qualify for the 2 months bonus, when eill it be credited to my account  ?</string>
     <string name="HeadingEdition11">What is DNA Edition 3.0 and who is it meant for ?</string>
     <string name="HeadingEdition12">For how long is my coupon valid ?</string>
@@ -117,13 +117,14 @@
     <string name="valid_phone">Please enter valid phone</string>
     <string name="enter_otp">Enter otp</string>
     <string name="enter_otp_on_email">Enter otp sent on your phone</string>
+    <string name="enter_otp_on_yor_phoneno">Enter otp sent on your phone....00:30</string>
     <string name="resend_otp">RESEND</string>
     <string name="resend_otp_remain">%1$d Seconds</string>
     <string name="know_more_data">Latest Online Platform For MD / MS / DNB / DM / M.Ch  Preparation With Questions Bank , Test Series , Recorded Video Lectures and Live Video Lectures</string>
     <string name="dialog_message">dhgdfg</string>
     <string name="dialog_title">kbkbc</string>
     <string name="update_txt">Update into Play Store</string>
-    <string name="payment_alert_text">The Module is available only for pro users. Would you like to learn more about Pro Plans?</string>
+    <string name="payment_alert_text">The Module is available only for subscribed users. Would you like to subscribe Pro Plans?</string>
     <string name="com_facebook_loginview_logged_in_using_facebook_f1gender">Test</string>
 
     <string name="billing_txt">Enter Billing/Shipping</string>
@@ -157,4 +158,16 @@
     <string name="answers">Answers</string>
     <string name="subjects">Subjects</string>
     <string name="levels">Levels</string>
+    <string name="whatsappnumber">Please enter 10 digit whatsapp number</string>
+    <string name="pcity">Please enter your city</string>
+    <string name="clgname">Please enter college name</string>
+    <string name="pstate">Please enter your state</string>
+    <string name="medicalclg">Please enter medical college name</string>
+    <string name="smedicalcollege">Please enter state medical college name</string>
+    <string name="invalid_mobile">Please enter 10 digit mobile number</string>
+    <string name="enter_current_address">Please enter your current address</string>
+    <string name="landmark">Please enter nearest landmark</string>
+    <string name="pincode">Please enter 6 digit pincode</string>
+    <string name="mpincode">Please enter 6 digit medical college pincode</string>
+    <string name="select_amount">Select amount to be invested per year</string>
 </resources>

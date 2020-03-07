@@ -6,8 +6,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -179,6 +181,25 @@ public class Utils {
     }
 
 
+    public static String testReviewTime(long timeStamp) {
+
+
+        if (timeStamp <= 0) {
+            return null;
+        }
+
+        try {
+            Log.d("date", "" + timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY hh:mm a");
+            Date dNow = new Date(timeStamp * 1000);
+            return tripDateFormat.format(dNow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
     public static long getTimeinMillisecondsFromDate() {
         String myDate = "2020/11/31 12:07:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
@@ -197,15 +218,14 @@ public class Utils {
 
     public static String dateFormatForPlan(long timeStamp) {
 
-       timeStamp= getTimeinMillisecondsFromDate();
         if (timeStamp <= 0) {
             return null;
         }
 
         try {
             Log.d("date", "" + timeStamp);
-            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM YYYY");
-            Date dNow = new Date(timeStamp);
+            SimpleDateFormat tripDateFormat = new SimpleDateFormat("dd MMM yyyy");
+            Date dNow = new Date(timeStamp*1000);
             return tripDateFormat.format(dNow);
         } catch (Exception e) {
             e.printStackTrace();
@@ -251,7 +271,6 @@ public class Utils {
     }
 
     public static String startTestTimeFormat(long timeStamp) {
-
 
         if (timeStamp <= 0) {
             return null;
@@ -441,5 +460,9 @@ public class Utils {
         // Will print in UTC
         System.out.println("HH:MM:SS  " + sdf.format(calendar.getTime()));
 
+    }
+
+    public static void setTintForImage(Context context, ImageView imageView, int color){
+        imageView.setColorFilter(ContextCompat.getColor(context, color), android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 }

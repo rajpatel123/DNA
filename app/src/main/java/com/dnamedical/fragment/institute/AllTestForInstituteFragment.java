@@ -125,7 +125,7 @@ public class AllTestForInstituteFragment extends Fragment{
 
 
         TextView tabOne = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-        tabOne.setText("Daily Test");
+        tabOne.setText("Class Test");
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
@@ -150,7 +150,7 @@ public class AllTestForInstituteFragment extends Fragment{
 
         AllTestForInstituteFragment.ViewPagerAdapter adapter = new AllTestForInstituteFragment.ViewPagerAdapter(getFragmentManager());
         //adapter.addFrag(allTestFragment, "All Test");
-        adapter.addFrag(dailyTestFragment, "Daily Test");
+        adapter.addFrag(dailyTestFragment, "Class Test");
         adapter.addFrag(grandTestFragment, "Grand Test");
         adapter.addFrag(mockTestFragment, "Mock Test");
         adapter.addFrag(subjectWiseTestFragment, "SWT");
@@ -166,7 +166,7 @@ public class AllTestForInstituteFragment extends Fragment{
         if (allTestFragment == null) {
             return;
         }
-        dailyTestFragment.showTest();
+        dailyTestFragment.showTest(mainActivity.isDailyTest);
         //allTestFragment.showTest();
         mockTestFragment.showTest();
         grandTestFragment.showTest();
@@ -210,11 +210,12 @@ public class AllTestForInstituteFragment extends Fragment{
     private void getTest() {
 
         String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String  institute_id = getActivity().getIntent().getStringExtra("institute_id");
 
         if (Utils.isInternetConnected(getActivity())) {
             Utils.showProgressDialog(getActivity());
 
-            RestClient.getAllTestData(userId, DnaPrefs.getString(mainActivity,Constants.INST_ID),new Callback<TestDataResponse>() {
+            RestClient.getAllTestData(userId,institute_id,"",new Callback<TestDataResponse>() {
                 @Override
                 public void onResponse(Call<TestDataResponse> call, Response<TestDataResponse> response) {
                     if (response.code() == 200) {

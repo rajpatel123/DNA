@@ -10,7 +10,7 @@
         android:id="@+id/relative_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="40dp">
 
         <LinearLayout
             android:id="@+id/linear1"
@@ -19,8 +19,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/qbank_feedback_icon" />
 
@@ -30,7 +30,7 @@
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:text="Module Completed"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,12 +46,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Please rate the QBank module"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxHeight="45dp"
                 android:layout_gravity="center" />
         </LinearLayout>
 
@@ -74,7 +75,7 @@
                     android:layout_margin="5dp"
                     android:text="What went wrong?"
                     android:textColor="@color/black_titles"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
 
             </LinearLayout>
@@ -96,13 +97,13 @@
                     android:layout_weight="1"
                     android:background="@color/profile_cardtext"
                     android:gravity="center"
-                    android:paddingLeft="20sp"
+                    android:paddingLeft="@dimen/ts_20"
                     android:paddingTop="10dp"
-                    android:paddingRight="20sp"
+                    android:paddingRight="@dimen/ts_20"
                     android:paddingBottom="10dp"
                     android:text="Too hard"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
                 <TextView
                     android:id="@+id/too_easy"
@@ -112,13 +113,13 @@
                     android:layout_weight="1"
                     android:background="@color/profile_cardtext"
                     android:gravity="center"
-                    android:paddingLeft="20sp"
+                    android:paddingLeft="@dimen/ts_20"
                     android:paddingTop="10dp"
-                    android:paddingRight="20sp"
+                    android:paddingRight="@dimen/ts_20"
                     android:paddingBottom="10dp"
                     android:text="Too easy"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
             </LinearLayout>
 
@@ -140,7 +141,7 @@
                     android:padding="10dp"
                     android:text="Too much content"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
                 <TextView
                     android:id="@+id/too_little_content"
@@ -153,7 +154,7 @@
                     android:padding="10dp"
                     android:text="Too little Content"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
             </LinearLayout>
 
@@ -176,7 +177,7 @@
                     android:padding="10dp"
                     android:text="Explanations are not clear"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
                 <TextView
                     android:id="@+id/need_more_images"
@@ -189,7 +190,7 @@
                     android:padding="10dp"
                     android:text="Need more images"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
             </LinearLayout>
 
@@ -210,12 +211,12 @@
                     android:padding="10dp"
                     android:paddingLeft="30sp"
                     android:paddingTop="10dp"
-                    android:paddingRight="20sp"
+                    android:paddingRight="@dimen/ts_20"
                     android:paddingBottom="10dp"
                     android:visibility="gone"
                     android:text="Explanations are not clear"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
             </LinearLayout>
 
@@ -237,7 +238,7 @@
                     android:padding="10dp"
                     android:text="Lacks concepts"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
                 <TextView
                     android:id="@+id/poorly_orgainez"
@@ -249,7 +250,7 @@
                     android:padding="10dp"
                     android:text="Poorly organized"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/ts_16" />
 
             </LinearLayout>
 
@@ -266,7 +267,8 @@
                     android:layout_gravity="center"
                     android:padding="10dp"
                     android:text="Add Feedback"
-                    android:visibility="gone" />
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="visible" />
 
                 <Button
                     android:id="@+id/submit_button"

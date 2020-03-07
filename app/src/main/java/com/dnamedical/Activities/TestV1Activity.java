@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.AnswerListAdapter;
+import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testresult.TestResult;
@@ -41,6 +42,7 @@ import com.dnamedical.utils.PicassoImageGetter;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +88,6 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     public String isGuess;
     ProgressBar progressBar;
     public Button nextBtn, prevBtn;
-    static int currentPosition;
     boolean timeUp;
     private String testName;
     long testDuration = 0;
@@ -103,6 +104,10 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private RecyclerView answersheetRecyclerView;
     private int questionIndex = 0;
     private TextView answer1, answer2, answer3, answer4;
+    private long resultDate;
+    private boolean isSubmitVisible = false;
+    private boolean isDailyTest;
+    private long endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +135,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitAlertDiolog();
+                submitAlertDiolog("");
             }
         });
 
@@ -143,30 +148,31 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
                     RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
                     RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), question_id);
+                    RequestBody type = RequestBody.create(MediaType.parse("text/plain"),"test");
                     RequestBody remove_bookmark = null;
-                    if (qustionDetails.getData().getQuestionList().get(currentPosition).isBookMarked()) {
+                    if (qustionDetails.getData().getQuestionList().get(questionIndex).isBookMarked()) {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
-                        isBookmarkedRemoved = true;
+                        qustionDetails.getData().getQuestionList().get(questionIndex).setBookMarked(false);
+
+                        Log.d("BookMark", "" + 1);
+                        star.setBackgroundResource(R.drawable.star_grey);
+
                     } else {
-                        isBookmarkedRemoved = false;
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
+                        qustionDetails.getData().getQuestionList().get(questionIndex).setBookMarked(true);
+                        star.setBackgroundResource(R.drawable.star_colored);
+                        Log.d("BookMark", "" + 0);
+
+
                     }
 
                     Utils.showProgressDialog(TestV1Activity.this);
-                    RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, new Callback<ResponseBody>() {
+                    RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark,type, new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             Utils.dismissProgressDialog();
                             if (response != null && response.code() == 200) {
-                                if (isBookmarkedRemoved) {
-                                    // DrawableCompat.setTint(star.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-                                    qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(false);
 
-                                } else {
-                                    //DrawableCompat.setTint(star.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-                                    qustionDetails.getData().getQuestionList().get(currentPosition).setBookMarked(true);
-
-                                }
                             }
                         }
 
@@ -188,12 +194,29 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         closeSheet = findViewById(R.id.closeSheet);
         quesionCounter = findViewById(R.id.counter);
         timer = findViewById(R.id.timer);
-        String duration = getIntent().getStringExtra("duration");
-        testName = getIntent().getStringExtra("testName");
-        test_id = getIntent().getStringExtra("id");
+
+
+        Intent intent = getIntent();
+        String duration = intent.getStringExtra("duration");
+        testName = intent.getStringExtra("testName");
+        resultDate = intent.getLongExtra("resultDate", 0);
+        endDate = intent.getLongExtra("endDate", 0);
+        test_id = intent.getStringExtra("id");
+        isDailyTest = intent.getBooleanExtra(Constants.ISDAILY_TEST, false);
+
         if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
-            testDuration = Integer.parseInt(duration) * 1000;
+            if (isDailyTest || endDate*1000 <System.currentTimeMillis()) {
+                testDuration = Long.parseLong(duration) * 1000;
+            } else {
+
+                testDuration = (endDate * 1000) - System.currentTimeMillis();
+
+            }
         }
+
+
+
+
         resettimer();
         startTimer();
         nextBtn = findViewById(R.id.skip_button);
@@ -236,12 +259,25 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 timer.setText(hms);
                 testCompleteTime = TimeUnit.MILLISECONDS.toMinutes(testDuration - millis);
+
+                if (!TextUtils.isEmpty(duration) && TextUtils.isDigitsOnly(duration)) {
+                    if (isDailyTest || resultDate < System.currentTimeMillis()) {
+                    }else{
+                        if (resultDate * 1000 < System.currentTimeMillis()) {
+                            submitAlertDiolog("Test time is over, kindly submit the test");
+                        }
+                    }
+                }
+
+
+
+
             }
 
             public void onFinish() {
                 timer.setText("Time up!");
                 timeUp = true;
-                submitAlertDiolog();
+                submitAlertDiolog("");
             }
 
         };
@@ -279,7 +315,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         }
 
         pauseTimer();
-        submitTimeLogTest("switch_question", "" + Seconds);
+        submitTimeLogTest("switch_question", "" + 1);
 
 
         Log.d("Question Number", "" + questionIndex);
@@ -307,6 +343,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        endTest();
+
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
         RequestBody isSubmit = RequestBody.create(MediaType.parse("text/plain"), "1");
@@ -316,19 +355,76 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             public void onResponse(Call<TestResult> call, Response<TestResult> response) {
                 TestResult testResult = response.body();
                 Utils.dismissProgressDialog();
+
                 if (testResult != null) {
-                    Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
-                    intent.putExtra(Constants.RESULT, testResult);
-                    intent.putExtra("testid", test_id);
-                    startActivity(intent);
-                    Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
-                    finish();
+                    if (isDailyTest) {
+                        Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
+                        intent.putExtra(Constants.RESULT, testResult);
+                        intent.putExtra("testid", test_id);
+                        intent.putExtra(Constants.ISDAILY_TEST, isDailyTest);
+                        intent.putExtra("resultDate", resultDate);
+
+                        startActivity(intent);
+                        Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                        finish();
+                    } else {
+
+                        if (resultDate * 1000 < System.currentTimeMillis()) {
+                            Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
+                            intent.putExtra(Constants.RESULT, testResult);
+                            intent.putExtra("testid", test_id);
+                            intent.putExtra(Constants.ISDAILY_TEST, isDailyTest);
+                            intent.putExtra("resultDate", resultDate);
+
+                            startActivity(intent);
+                            Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                            finish();
+                        }else{
+                            getResultRemarks(testResult);
+                        }
+
+                    }
+
+
+
+
+                }else{
+                    Toast.makeText(TestV1Activity.this,"Please answer atleast 1 question",Toast.LENGTH_LONG).show();
+
                 }
 
             }
 
             @Override
             public void onFailure(Call<TestResult> call, Throwable t) {
+                Utils.dismissProgressDialog();
+                Toast.makeText(TestV1Activity.this,"Please answer atleast 1 question",Toast.LENGTH_LONG).show();
+                Log.d("SubmitTest", "Faileduser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+            }
+        });
+
+    }
+
+    private void getResultRemarks(TestResult testResult) {
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Utils.showProgressDialog(TestV1Activity.this);
+        RestClient.getResultRemark(test_id, new Callback<RankResultRemarks>() {
+            @Override
+            public void onResponse(Call<RankResultRemarks> call, Response<RankResultRemarks> response) {
+                RankResultRemarks remarks = response.body();
+                Utils.dismissProgressDialog();
+
+                if (remarks != null) {
+                    displayRemark(remarks, testResult);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RankResultRemarks> call, Throwable t) {
                 Utils.dismissProgressDialog();
                 Log.d("SubmitTest", "Faileduser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
             }
@@ -428,11 +524,22 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     }
 
     private void updateQuestionsFragment(int questionIndex) {
+
+
         PicassoImageGetter imageGetter = new PicassoImageGetter(questionTxt, this);
         answerList.removeAllViews();
         Question question = questionArrayList.get(questionIndex);
+
+
         question_id = question.getId();
         guessCheck.setChecked(question.isGues());
+
+        if (question.isBookMarked()) {
+            star.setBackgroundResource(R.drawable.star_colored);
+        } else {
+            star.setBackgroundResource(R.drawable.star_grey);
+        }
+
         if (!TextUtils.isEmpty(question.getTitle_image())) {
             if (Utils.isInternetConnected(TestV1Activity.this)) {
                 imageQuestion.setVisibility(View.VISIBLE);
@@ -451,13 +558,11 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                                     progressBar.setVisibility(View.GONE);
                                 }
                                 imageQuestion.setVisibility(View.GONE);
-                                Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
 
 
                             }
                         });
-            } else {
-
             }
 
         } else {
@@ -658,7 +763,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
                 return true;
             case R.id.submitTest:
-                submitAlertDiolog();
+                submitAlertDiolog("");
                 return true;
             case R.id.closeSheet:
                 questionpannel.setVisibility(View.VISIBLE);
@@ -693,7 +798,13 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     }
 
-    private void submitAlertDiolog() {
+    private void submitAlertDiolog(String message) {
+
+        if (isSubmitVisible) {
+            return;
+        }
+
+        isSubmitVisible = true;
         int count = getUnAttemptedCount();
         final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
         // ...Irrelevant code for customizing the buttons and titl
@@ -708,11 +819,18 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             unuttempted.setText("You have " + count + " unattempted questions");
             unuttempted.setVisibility(View.VISIBLE);
         }
+
+        if (!TextUtils.isEmpty(message)) {
+            TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
+            unuttempted.setText(message);
+            unuttempted.setVisibility(View.VISIBLE);
+        }
         TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
         text_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                isSubmitVisible = false;
 
             }
         });
@@ -721,11 +839,59 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             @Override
             public void onClick(View v) {
 
+                isSubmitVisible = false;
+
                 if (countDownTimer != null)
                     countDownTimer.cancel();
+
+
                 submitTest();
-                onBackPressed();
                 dialog.dismiss();
+
+            }
+        });
+
+        if (!isFinishing() && !dialog.isShowing())
+            dialog.show();
+
+
+    }
+
+    private void displayRemark(RankResultRemarks resultRemarks, TestResult testResult) {
+
+        int count = getUnAttemptedCount();
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_remarks, null);
+        dialogBuilder.setView(dialogView);
+
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button btn_yes = dialogView.findViewById(R.id.ok);
+        TextView messagetv = dialogView.findViewById(R.id.message);
+        messagetv.setText("" + resultRemarks.getRemarks());
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (resultRemarks == null) {
+                    return;
+                }
+                if (Long.parseLong(resultRemarks.getResultDate()) * 1000 > System.currentTimeMillis()) {
+                    finish();
+                    dialog.dismiss();
+                } else {
+                    Intent intent = new Intent(TestV1Activity.this, ResultActivity.class);
+                    intent.putExtra(Constants.RESULT, testResult);
+                    intent.putExtra("testid", test_id);
+                    intent.putExtra(Constants.ISDAILY_TEST, isDailyTest);
+                    intent.putExtra("resultDate", resultDate);
+
+                    startActivity(intent);
+                    Log.d("SubmitTest", " Successuser_id-->" + user_id + "TestId-->" + test_id + "Question_id-->" + question_id + "Answer-->" + answer + " Guess-->" + isGuess);
+                    finish();
+                }
+
 
             }
         });
@@ -895,8 +1061,10 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
             answerSheet.setVisibility(View.GONE);
             closeSheet.setVisibility(View.GONE);
             return;
+        } else {
+            //super.onBackPressed();
+            submitAlertDiolog("Test will be submitted!, want to submit?");
         }
-        super.onBackPressed();
 
     }
 
@@ -920,7 +1088,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     private void updateToServerAnswerSelection() {
         pauseTimer();
-        submitTimeLogTest("selecting_option", "" + Seconds);
+        submitTimeLogTest("selecting_option", "" + 1);
         //Toast.makeText(this, "Time for Select Answer ==  time" + Seconds, Toast.LENGTH_LONG).show();
 
         submitAnswer();
@@ -930,7 +1098,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     private void updateMarkingOptionTime() {
         pauseTimer();
-        submitTimeLogTest("selecting_option", "" + Seconds);
+        submitTimeLogTest("selecting_option", "" + 1);
         //  Toast.makeText(activity, "Time for Select Answer ==  time" + activity.Seconds, Toast.LENGTH_LONG).show();
 
         //  submitAnswer();
@@ -957,6 +1125,37 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         answer.setTextColor(getResources().getColor(R.color.white));
 
         cardView.setCardBackgroundColor(getResources().getColor(R.color.test_fragment_card_bacckground));
+    }
+
+
+    private void endTest() {
+        if (!Utils.isInternetConnected(this)) {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(test_id)) {
+            return;
+        }
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_id);
+        RequestBody time = RequestBody.create(MediaType.parse("text/plain"), "" + (System.currentTimeMillis() / 1000));
+        RestClient.endTest(userId, testID, time, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.d("data", response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
 
 }

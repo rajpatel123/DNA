@@ -17,7 +17,6 @@
         android:id="@+id/profile_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/dr1"
         app:civ_border_color="#FFFF"
         app:civ_border_width="2dp" />
 

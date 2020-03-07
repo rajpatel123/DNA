@@ -1,6 +1,7 @@
 package com.dnamedical.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.DNAKnowmoreActivity;
+import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
-import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Activities.TestStartActivity;
+import com.dnamedical.Activities.TestStartDailyActivity;
 import com.dnamedical.Adapters.TestAdapter;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
@@ -38,8 +42,10 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     private List<Test> dailyTest;
     private boolean loadedOnce;
 
-    MainActivity mainActivity = null;
+    ModuleTestActivity mainActivity = null;
     InstituteTestActivity instituteTestActivity = null;
+    private boolean isDailyTest;
+
     public DailyTestFragment() {
 
     }
@@ -50,7 +56,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = getActivity();
-        ;
+
 
     }
 
@@ -79,22 +85,28 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
         View view = inflater.inflate(R.layout.fragment_grandtest, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         notext = view.findViewById(R.id.noTest);
-        showTest();
         return view;
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String resultDate) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate, String resultDate, String subjectCount) {
 
-        if (testPaid.equalsIgnoreCase("Yes")) {
-            Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
-            startActivity(intent);
+        if (testPaid.equalsIgnoreCase("1")) {
+            showTestPaidDialog();
+
         } else {
-            Intent intent = new Intent(getActivity(), TestStartActivity.class);
+            Intent intent = null;
+            if (isDailyTest){
+                intent = new Intent(getActivity(), TestStartDailyActivity.class);
+            }else{
+                intent = new Intent(getActivity(), TestStartActivity.class);
+            }
             intent.putExtra("id", id);
             intent.putExtra("duration", time);
             intent.putExtra("startDate", startDate);
+            intent.putExtra("endDate", endDate);
             intent.putExtra("resultDate", resultDate);
+            intent.putExtra("no_of_sub", subjectCount);
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);
             intent.putExtra("testQuestion", testQuestion);
@@ -107,10 +119,50 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
 
     }
 
-    public void showTest() {
 
-        if (activity instanceof MainActivity) {
-            mainActivity = (MainActivity) activity;
+    private void showTestPaidDialog() {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.payment_alert_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        Button viewPlan = dialogView.findViewById(R.id.btn_view_plans);
+        TextView cancel = dialogView.findViewById(R.id.btn_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        viewPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(getActivity(), DNASuscribeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        if (!dialog.isShowing())
+            dialog.show();
+
+
+    }
+
+    public void showTest(boolean isDailyTest) {
+
+        this.isDailyTest = isDailyTest;
+
+        if (activity instanceof ModuleTestActivity) {
+            mainActivity = (ModuleTestActivity) activity;
             if (mainActivity != null && mainActivity.getDailyTest() != null && mainActivity.getDailyTest().size() > 0) {
                 dailyTest = mainActivity.getDailyTest();
 
@@ -123,7 +175,7 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
             }
         }
 
-        if (dailyTest  != null && dailyTest.size() > 0) {
+        if (dailyTest != null && dailyTest.size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
             TestAdapter testAdapter = new TestAdapter(getActivity());
             Collections.sort(dailyTest);

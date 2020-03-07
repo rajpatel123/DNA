@@ -17,6 +17,18 @@ public class Test implements Comparable<Test>{
     @SerializedName("description")
     @Expose
     private String description;
+
+    public String getNo_of_subjects() {
+        return no_of_subjects;
+    }
+
+    public void setNo_of_subjects(String no_of_subjects) {
+        this.no_of_subjects = no_of_subjects;
+    }
+
+    @SerializedName("no_of_subjects")
+    @Expose
+    private String no_of_subjects;
     @SerializedName("logo")
     @Expose
     private Object logo;
@@ -29,6 +41,18 @@ public class Test implements Comparable<Test>{
     @SerializedName("result_date")
     @Expose
     private String resultDate;
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    @SerializedName("end_date")
+    @Expose
+    private String end_date;
     @SerializedName("duration")
     @Expose
     private String duration;

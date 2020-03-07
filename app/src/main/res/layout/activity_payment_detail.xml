@@ -36,10 +36,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16sp"
-            android:layout_marginTop="@dimen/size_16"
+            android:layout_marginLeft="@dimen/ts_16"
+            android:layout_marginTop="@dimen/ts_16"
 
-            android:layout_marginRight="16sp"
+            android:layout_marginRight="@dimen/ts_16"
             android:layout_marginBottom="@dimen/margin_top_30"
 
             >
@@ -56,7 +56,7 @@
                 android:text="Pay Now"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size_16" />
+                android:textSize="@dimen/ts_16" />
 
 
             <LinearLayout
@@ -516,7 +516,7 @@
                             android:padding="@dimen/padding_10"
                             android:text="@string/coupen_txt_three"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/size_16"
+                            android:textSize="@dimen/ts_16"
                             android:visibility="gone" />
 
                         <TextView
@@ -525,7 +525,7 @@
                             android:padding="@dimen/padding_10"
                             android:text="@string/coupen_txt_four"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/size_16"
+                            android:textSize="@dimen/ts_16"
                             android:visibility="gone" />
 
 

@@ -11,13 +11,13 @@
         android:padding="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20sp"
+        android:layout_marginLeft="@dimen/ts_20"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="@dimen/ts_20"
+            android:layout_height="@dimen/ts_20"
             app:srcCompat="@drawable/video_player" />
 
         <TextView

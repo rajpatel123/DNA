@@ -85,7 +85,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
                     android:background="@drawable/vedio_image_background"
-                    app:srcCompat="@drawable/doctor" />
+                    />
 
             </LinearLayout>
 
@@ -137,8 +137,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="20sp"
-                        android:layout_height="20sp"
+                        android:layout_width="@dimen/ts_20"
+                        android:layout_height="@dimen/ts_20"
                         app:srcCompat="@drawable/ic_star" />
 
                     <TextView

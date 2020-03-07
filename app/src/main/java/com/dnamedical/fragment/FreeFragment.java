@@ -22,7 +22,12 @@ import com.dnamedical.Models.video.Free;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +41,7 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
     TextView noVid;
     VideoActivity activity;
     private VideoList videoList;
+
 
     public FreeFragment()
     {
@@ -85,8 +91,15 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
 
     private void getVideos() {
         if (Utils.isInternetConnected(activity)) {
+
+
+            RequestBody file_type = RequestBody.create(MediaType.parse("text/plain"), "video");
+            RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(activity, Constants.LOGIN_ID));
+            RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"),activity.subCatId);
+
+
             Utils.showProgressDialog(activity);
-            RestClient.getVideos(activity.subCatId,"Video",new Callback<VideoList>() {
+            RestClient.getVideos(sub_child_cat,file_type,user_id,new Callback<VideoList>() {
                 @Override
                 public void onResponse(Call<VideoList> call, Response<VideoList> response) {
                     if (response.code() == 200) {

@@ -31,7 +31,7 @@
         android:layout_below="@id/appBarLayout"
         android:padding="16dp"
         android:layout_marginTop="20dp"
-        android:textSize="16sp"
+        android:textSize="@dimen/ts_16"
         android:textColor="@color/Black"
         android:text="DNA is the One-Stop solution for all the educational needs of young budding doctors.
 It prepares you for the challenges in your chosen field right from the beginning.

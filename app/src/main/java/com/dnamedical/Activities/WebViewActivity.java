@@ -95,12 +95,12 @@ public class WebViewActivity extends AppCompatActivity {
         switch (title) {
             case "Terms & Conditions":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.234.161.7/termsncondition.php");
+                mWebView.loadUrl("http://13.232.100.13/termsncondition.php");
                 break;
 
             case "Privacy Policy":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.234.161.7/privacy-policy.php");
+                mWebView.loadUrl("http://13.232.100.13/privacy-policy.php");
                 break;
 
             case "Read More":
@@ -114,7 +114,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             case "FAQ":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.234.161.7/dnafaq.php");
+                mWebView.loadUrl("http://13.232.100.13/dnafaq.php");
                 break;
             case "Report":
                 progressBar.setVisibility(View.VISIBLE);
@@ -127,10 +127,6 @@ public class WebViewActivity extends AppCompatActivity {
                 break;
 
 
-            case "Contact Us":
-                progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://reddyenterprise.com/education/termsncondition.php");
-                break;
 
         }
     }

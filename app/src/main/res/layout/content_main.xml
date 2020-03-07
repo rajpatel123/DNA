@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/tabBar"
+            android:visibility="gone"
             android:layout_below="@id/appBarLayout" />
 
         <LinearLayout
@@ -43,6 +44,7 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:ignore="KeyboardInaccessibleWidget">
 
             <View
@@ -56,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="0dp"
+                android:visibility="gone"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@android:color/white"
@@ -63,6 +66,12 @@
                 app:tabMode="fixed" />
         </LinearLayout>
 
+        <fragment
+            android:id="@+id/homefg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appBarLayout"
+            android:name="com.dnamedical.fragment.HomeFragment"/>
     </RelativeLayout>
 
 </RelativeLayout>

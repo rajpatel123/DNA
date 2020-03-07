@@ -46,14 +46,18 @@ public class AnswerListAdapter extends RecyclerView.Adapter<AnswerListAdapter.Vi
     public void onBindViewHolder(final AnswerListAdapter.ViewHolder holder, final int position) {
         holder.questionNumber.setText("" + (1+holder.getAdapterPosition()));
         if (!TextUtils.isEmpty(questionArrayList.get(holder.getAdapterPosition()).getSelectedOption())) {
+            holder.questionNumber.setTextColor(applicationContext.getResources().getColor(R.color.white));
             holder.cardView.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.colorPrimary));
+        }else{
+            holder.questionNumber.setTextColor(applicationContext.getResources().getColor(R.color.black));
+            holder.cardView.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.white));
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onUserClickCallback!=null){
-                    onUserClickCallback.onQuesClick(holder.getAdapterPosition()-1);
+                    onUserClickCallback.onQuesClick(holder.getAdapterPosition()>0?holder.getAdapterPosition():0);
                 }
             }
         });

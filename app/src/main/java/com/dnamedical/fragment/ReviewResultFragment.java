@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -118,13 +121,28 @@ public class ReviewResultFragment extends Fragment {
 //            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
 //
 
-            optionA.setText("A. " + question.getOption1());
-            optionB.setText("B. " + question.getOption2());
-            optionC.setText("C. " + question.getOption3());
-            optionD.setText("D. " + question.getOption4());
+            Spanned sp =  Html.fromHtml("Q " + (fragNum + 1) + ". " + question.getTitle());
+            questionTxt.setText(sp);
 
 
-            questionTxt.setText("Q " + (fragNum + 1) + ". " + question.getTitle());
+
+            Spanned optionAtxt =  Html.fromHtml("A. " + question.getOption1());
+            optionA.setText(optionAtxt);
+
+
+            Spanned optionBtxt =  Html.fromHtml("B. " + question.getOption2());
+            optionB.setText(optionBtxt);
+
+
+            Spanned optionCtxt =  Html.fromHtml("C. " + question.getOption3());
+            optionC.setText(optionCtxt);
+
+
+            Spanned optionDtxt =  Html.fromHtml("D. " + question.getOption4());
+            optionD.setText(optionDtxt);
+
+
+
 
             if (!TextUtils.isEmpty(question.getTitleImage())) {
                 Picasso.with(activity).load(question.getTitleImage()).into(question_image);
@@ -154,9 +172,11 @@ public class ReviewResultFragment extends Fragment {
                         if (question.getCorrectAnswer().equalsIgnoreCase("2")) {
                             optionB.setTextColor(ContextCompat.getColor(activity, R.color.green));
                             optionBImg.setImageResource(R.drawable.right_answer_icon);
+
                         } else {
                             optionB.setTextColor(ContextCompat.getColor(activity, R.color.black));
                             optionBImg.setImageResource(R.drawable.wrong_answer_icon);
+
 
                         }
                         optionBImg.setVisibility(View.VISIBLE);
@@ -166,6 +186,7 @@ public class ReviewResultFragment extends Fragment {
                         if (question.getCorrectAnswer().equalsIgnoreCase("3")) {
                             optionC.setTextColor(ContextCompat.getColor(activity, R.color.green));
                             optionCImg.setImageResource(R.drawable.right_answer_icon);
+
                         } else {
                             optionC.setTextColor(ContextCompat.getColor(activity, R.color.black));
                             optionCImg.setImageResource(R.drawable.wrong_answer_icon);
@@ -178,6 +199,7 @@ public class ReviewResultFragment extends Fragment {
                         if (question.getCorrectAnswer().equalsIgnoreCase("4")) {
                             optionD.setTextColor(ContextCompat.getColor(activity, R.color.green));
                             optionDImg.setImageResource(R.drawable.right_answer_icon);
+
                         } else {
                             optionD.setTextColor(ContextCompat.getColor(activity, R.color.black));
                             optionDImg.setImageResource(R.drawable.wrong_answer_icon);
@@ -227,6 +249,10 @@ public class ReviewResultFragment extends Fragment {
 
 //            Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
 //            refText.setText(question.getRefernce().getTitle());
+            optionA.setTextColor(ContextCompat.getColor(activity, R.color.black));
+            optionB.setTextColor(ContextCompat.getColor(activity, R.color.black));
+            optionC.setTextColor(ContextCompat.getColor(activity, R.color.black));
+            optionD.setTextColor(ContextCompat.getColor(activity, R.color.black));
 
 
             switch (question.getCorrectAnswer()) {
@@ -280,7 +306,12 @@ public class ReviewResultFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
 
         progressBar.setVisibility(View.VISIBLE);
-        webView.loadUrl("http://13.234.161.7/review.php?id=" + qID);
+
+        if (Constants.ISTEST){
+            webView.loadUrl("http://13.232.100.13/review.php?id=" + qID);
+        }else{
+            webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
+        }
 
 
     }

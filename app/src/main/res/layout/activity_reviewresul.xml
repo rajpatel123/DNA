@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             app:tintMode="@color/white"
             android:layout_marginStart="@dimen/margin_20"
-            android:background="@drawable/ic_left_arrow" />
+            android:background="@drawable/ic_arrow_back_black_24dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -4,38 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_bg"
     android:scrollbars="none">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/margin_10"
         android:orientation="horizontal">
 
+        <SeekBar
+            android:id="@+id/progressTimer"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:padding="0dp"
+            android:max="10"
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
 
-        <TextView
-            android:layout_width="wrap_content"
+            android:progress="100"/>
+       <RelativeLayout
+           android:id="@+id/toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:id="@+id/appname"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="DNA"
+               android:layout_marginTop="@dimen/margin_15"
+               android:textColor="@color/colorPrimary"
+               android:layout_marginStart="@dimen/margin_20"
+               android:textSize="@dimen/margin_20"
+               />
+           <ImageView
+               android:id="@+id/btnCancel"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_alignParentEnd="true"
+               android:layout_marginStart="10dp"
+               android:layout_marginTop="@dimen/margin_10"
+               android:layout_marginEnd="@dimen/margin_10"
+               app:srcCompat="@drawable/qbank_wrong_answer" />
+
+       </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDots"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="2"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="DNA"
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            android:layout_below="@+id/toolbar"
+            android:orientation="vertical"
+            >
 
-        <ImageView
-            android:id="@+id/btnCancel"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/qbank_wrong_answer" />
+        </LinearLayout>
 
 
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -46,7 +77,8 @@
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_10">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,21 +93,37 @@
                     android:visibility="visible" />
 
 
+                <TextView
+                    android:id="@+id/qtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    android:textSize="18sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ProgressBar
+                        android:id="@+id/progressbarForImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        style="@style/TextAppearance.AppCompat.Small"/>
+
+                </FrameLayout>
+
+
                 <LinearLayout
                     android:id="@+id/questionListDescription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="10dp"
                     android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/qtext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:text="Test Questions"
-                        android:textSize="@dimen/text_large" />
 
 
                     <RelativeLayout
@@ -84,28 +132,26 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_one"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-
-                            >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imga"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:padding="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginTop="8dp" />
+                                app:srcCompat="@drawable/tick"
+                                android:padding="5dp" />
+
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_one"
-                     >
+                            android:layout_toRightOf="@id/linear_txt_one">
 
                             <TextView
                                 android:id="@+id/optionA"
@@ -115,7 +161,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@id/imga"
                                 android:text="Test"
-                                android:textSize="19sp"/>
+                                android:textSize="19sp" />
 
                             <TextView
                                 android:id="@+id/optionAPer"
@@ -137,17 +183,17 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_two"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                           >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imgb"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
+
                                 android:layout_marginTop="10dp" />
 
                         </LinearLayout>
@@ -155,8 +201,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_two"
-                        >
+                            android:layout_toRightOf="@id/linear_txt_two">
 
                             <TextView
                                 android:id="@+id/optionB"
@@ -190,16 +235,15 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_margin="5dp"
                             android:id="@+id/linear_txt_three"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imgc"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp" />
 
                         </LinearLayout>
@@ -207,8 +251,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_three"
-                            >
+                            android:layout_toRightOf="@id/linear_txt_three">
 
                             <TextView
                                 android:id="@+id/optionC"
@@ -242,19 +285,17 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                        android:layout_margin="5dp"
                             android:id="@+id/linear_txt_four"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                          >
+                            android:layout_margin="5dp">
 
                             <ImageView
                                 android:id="@+id/imgd"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                />
+                                android:layout_marginTop="5dp" />
 
 
                         </LinearLayout>
@@ -284,7 +325,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@+id/optionD"
-
                                 android:textColor="@color/black_titles"
                                 android:textSize="@dimen/evp_text_size_medium" />
                         </LinearLayout>
@@ -305,9 +345,9 @@
                             app:cardBackgroundColor="@color/card_gray">
 
                             <LinearLayout
-                                android:visibility="gone"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:visibility="gone">
 
                                 <ProgressBar
                                     android:id="@+id/progress_bar_chart"
@@ -325,7 +365,7 @@
                                     android:gravity="center_vertical"
                                     android:minHeight="30sp"
                                     android:paddingLeft="15dp"
-                                    android:text="gydghjdghj"
+                                    android:text=""
                                     android:textColor="@color/black_titles"
                                     android:textSize="@dimen/text_large" />
 
@@ -337,7 +377,8 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/reference"
@@ -369,49 +410,95 @@
         </ScrollView>
     </FrameLayout>
 
-    <com.dnamedical.views.CustomViewPager
-        android:id="@+id/pager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/linearBottom"
-        android:layout_below="@id/linear1"
-        android:layout_weight="1"
-
-        android:visibility="gone" />
 
     <RelativeLayout
+        android:id="@+id/skipLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dp_2"
+        android:paddingBottom="@dimen/dp_2"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:elevation="5dp"
+        android:background="@color/color_text">
+        <Button
+            android:id="@+id/skipBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/rounded_shape"
+            android:text="SKIP"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+    <LinearLayout
         android:id="@+id/linearBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:background="@color/color_text"
         android:visibility="gone"
         tools:visibility="visible">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/bookmark"
+            android:layout_width="40dp"
+            android:layout_height="@dimen/margin_40"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/review_bookmark_icon" />
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight=".5"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            app:srcCompat="@drawable/review_result_question_icon" />
+            android:visibility="invisible"
+            android:layout_toEndOf="@+id/bookmark"
+            app:srcCompat="@drawable/ic_share" />
+
+        <Button
+            android:id="@+id/prevBtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:text="PREV"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
 
         <Button
             android:id="@+id/nextBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:background="@color/colorAccent"
-            android:minWidth="140dp"
-            android:padding="5dp"
+            android:layout_marginRight="10dp"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:maxHeight="@dimen/margin_40"
+            android:background="@drawable/rounded_shape"
             android:text="Next"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

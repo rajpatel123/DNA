@@ -12,10 +12,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16sp"
-        android:layout_marginTop="@dimen/size_16"
+        android:layout_marginLeft="@dimen/ts_16"
+        android:layout_marginTop="@dimen/ts_16"
 
-        android:layout_marginRight="16sp"
+        android:layout_marginRight="@dimen/ts_16"
         android:layout_marginBottom="@dimen/margin_top_30"
 
         >
@@ -404,7 +404,7 @@
             android:text="Pay Now"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_16" />
+            android:textSize="@dimen/ts_16" />
 
     </RelativeLayout>
 

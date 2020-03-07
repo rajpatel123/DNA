@@ -19,9 +19,36 @@ public class Price implements Parcelable {
     @SerializedName("title")
     @Expose
     private String title;
+
+
+    @SerializedName("time")
+    @Expose
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @SerializedName("sub_title")
     @Expose
     private String subTitle;
+
+
+    public String getIsbuyall() {
+        return isbuyall;
+    }
+
+    public void setIsbuyall(String isbuyall) {
+        this.isbuyall = isbuyall;
+    }
+
+    @SerializedName("isbuyall")
+    @Expose
+    private String isbuyall;
     @SerializedName("description")
     @Expose
     private String description;
@@ -99,6 +126,7 @@ public class Price implements Parcelable {
         id = in.readString();
         subChildCat = in.readString();
         title = in.readString();
+        time = in.readString();
         subTitle = in.readString();
         description = in.readString();
         coupanId = in.readString();
@@ -264,6 +292,7 @@ public class Price implements Parcelable {
         dest.writeString(id);
         dest.writeString(subChildCat);
         dest.writeString(title);
+        dest.writeString(time);
         dest.writeString(subTitle);
         dest.writeString(description);
         dest.writeString(coupanId);

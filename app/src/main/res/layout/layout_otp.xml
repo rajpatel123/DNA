@@ -47,7 +47,7 @@
         android:inputType="number"
         android:maxLength="6"
         android:textIsSelectable="false"
-        android:textSize="20sp"
+        android:textSize="@dimen/ts_20"
         app:pinAnimationType="popIn"
         app:pinBackgroundIsSquare="true"
         app:pinCharacterSpacing="12dp"
@@ -75,7 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-
         android:foreground="?attr/selectableItemBackground"
         android:text="Verify"
         android:textColor="@color/white"

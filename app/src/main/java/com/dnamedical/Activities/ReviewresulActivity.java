@@ -11,13 +11,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
 import com.dnamedical.fragment.ReviewResultFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ReviewresulActivity extends FragmentActivity {
@@ -30,9 +33,9 @@ public class ReviewresulActivity extends FragmentActivity {
     int currentPosition;
     String userId;
     TextView leftTest, rightTest;
-     static int itemPosition;
-Button back_button;
-    private ArrayList<QuestionList> reviewResult;
+    static int itemPosition;
+    Button back_button;
+    private List<QuestionList> reviewResult;
 
 
     @Override
@@ -44,7 +47,7 @@ Button back_button;
         quesionCounter = findViewById(R.id.question_number);
 
         Intent intent = getIntent();
-        reviewResult = intent.getParcelableArrayListExtra("list");
+        reviewResult = DNAApplication.getInstance().getQuestionList();
         itemPosition = intent.getIntExtra("position", 0);
         if (reviewResult != null) {
             mAdapter = new MyAdapter(getSupportFragmentManager(), reviewResult, quesionCounter);
@@ -61,10 +64,10 @@ Button back_button;
             @Override
             public void onClick(View v) {
                 if (currentPosition > 0) {
-                    if (itemPosition<1){
-                        quesionCounter.setText("" + (itemPosition+1));
-                    }else{
-                        quesionCounter.setText("" + (currentPosition-1));
+                    if (itemPosition < 1) {
+                        quesionCounter.setText("" + (itemPosition + 1));
+                    } else {
+                        quesionCounter.setText("" + (currentPosition - 1));
                     }
                     //quesionCounter.setText((currentPosition - 1) + " of " + reviewResult.getDetail().size());
                     mPager.setCurrentItem(currentPosition - 1);
@@ -77,9 +80,9 @@ Button back_button;
         rightTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (itemPosition<1){
-                    quesionCounter.setText("" + (itemPosition+1));
-                }else{
+                if (itemPosition < 1) {
+                    quesionCounter.setText("" + (itemPosition + 1));
+                } else {
                     quesionCounter.setText("" + (currentPosition + 1));
                 }
                 // quesionCounter.setText((currentPosition + 1) + " of " + reviewResult.getDetail().size());
@@ -94,6 +97,14 @@ Button back_button;
                 finish();
             }
         });
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        DNAApplication.getInstance().setReviewList(new ArrayList<>());
 
     }
 
@@ -124,10 +135,10 @@ Button back_button;
     };
 
     public static class MyAdapter extends FragmentPagerAdapter {
-        ArrayList<QuestionList> reviewResult = null;
+        List<QuestionList> reviewResult = null;
         TextView quesionCounter;
 
-        public MyAdapter(FragmentManager fragmentManager, ArrayList<QuestionList> reviewResult, TextView quesionCounter) {
+        public MyAdapter(FragmentManager fragmentManager, List<QuestionList> reviewResult, TextView quesionCounter) {
             super(fragmentManager);
             this.reviewResult = reviewResult;
             this.quesionCounter = quesionCounter;
@@ -136,7 +147,7 @@ Button back_button;
 
         @Override
         public int getCount() {
-            if (reviewResult != null && reviewResult.size() > 0){
+            if (reviewResult != null && reviewResult.size() > 0) {
                 return reviewResult.size();
 
             }
@@ -146,7 +157,7 @@ Button back_button;
         @Override
         public Fragment getItem(int position) {
 
-                quesionCounter.setText("" + (position));
+            quesionCounter.setText("" + (position));
 
             //quesionCounter.setText((position) + " of " + reviewResult.getDetail().size());
             return ReviewResultFragment.init(reviewResult.get(position), position);

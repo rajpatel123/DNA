@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import com.dnamedical.Models.newqbankmodule.Detail;
+
+
 import java.util.List;
 
-import com.dnamedical.Models.qbank.Detail;
 import com.dnamedical.R;
 
 public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> {
@@ -42,16 +44,16 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         Detail detail = qbankDetailList.get(i);
-        holder.textName.setText(""+detail.getCatName());
-        holder.totalQuestion.setText(detail.getTotalcompletedmodules()+" / "+detail.getTotalmodules()+"Modules Completed");
-        Picasso.with(applicationContext).load(detail.getCatImage()).into(holder.imageView);
+        holder.textName.setText(""+detail.getSubjectName());
+        holder.totalQuestion.setText(detail.getTotalCompleted()+" / "+detail.getTotalModule()+" Modules Completed");
+        Picasso.with(applicationContext).load(detail.getSubjectImage()).into(holder.imageView);
         //Picasso.with(applicationContext).load(detail.getCatImage()).error(R.drawable.biology).into(holder.imageView);
 
        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (qbankClickListner != null) {
-                    qbankClickListner.onQbankClick(holder.getAdapterPosition(),detail.getCatId(),detail.getCatName());
+                    qbankClickListner.onQbankClick(holder.getAdapterPosition(),detail.getId(),detail.getSubjectName());
                 }
             }
         });
