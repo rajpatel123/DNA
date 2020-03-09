@@ -59,6 +59,15 @@ public class ForgetPasswordEmailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+
+
+        Intent in = getIntent();
+
+        if(in.hasExtra("email")){
+            editTextEmailId.setText(in.getStringExtra("email"));
+            editTextEmailId.setEnabled(false);
+        }
+
         btnchangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
