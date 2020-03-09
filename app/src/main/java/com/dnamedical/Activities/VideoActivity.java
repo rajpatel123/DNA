@@ -106,8 +106,9 @@ public class VideoActivity extends AppCompatActivity {
         adapter.addFrag(new BuynowFragment(), "Buy Now");
         adapter.addFrag(new FreeFragment(), "Free");
 
-  /*      adapter.addFrag(new UnattemptedFragment(), "Unattempted");
+  /*    adapter.addFrag(new UnattemptedFragment(), "Unattempted");
         adapter.addFrag(new CompleteFragment(), "Completed");*/
+
         adapter.addFrag(new PausedFragment(), "Paused");
         viewPager.setAdapter(adapter);
     }

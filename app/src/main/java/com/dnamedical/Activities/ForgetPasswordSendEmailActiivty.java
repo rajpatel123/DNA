@@ -82,6 +82,7 @@ public class ForgetPasswordSendEmailActiivty extends AppCompatActivity {
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("true")) {
                             Intent intent = new Intent(ForgetPasswordSendEmailActiivty.this, ForgetPasswordEmailActivity.class);
+                             intent.putExtra("email",emailId);
                             startActivity(intent);
                             finish();
                         } else {
