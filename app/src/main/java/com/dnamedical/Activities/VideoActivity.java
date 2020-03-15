@@ -31,6 +31,7 @@ public class VideoActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView subcategory;
     public static String subCatId;
+    public static int discountonfullpurchase;
     DisplayDataInterface displayDataInterface;
 
     @Override
@@ -44,7 +45,6 @@ public class VideoActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
 
@@ -67,6 +67,9 @@ public class VideoActivity extends AppCompatActivity {
 
         if (intent.hasExtra("subCatId")) {
             subCatId = intent.getStringExtra("subCatId");
+        }
+        if (intent.hasExtra("discountonfullpurchase")) {
+            discountonfullpurchase = intent.getIntExtra("discountonfullpurchase",0);
         }
 
 
@@ -103,8 +106,9 @@ public class VideoActivity extends AppCompatActivity {
         adapter.addFrag(new BuynowFragment(), "Buy Now");
         adapter.addFrag(new FreeFragment(), "Free");
 
-  /*      adapter.addFrag(new UnattemptedFragment(), "Unattempted");
+  /*    adapter.addFrag(new UnattemptedFragment(), "Unattempted");
         adapter.addFrag(new CompleteFragment(), "Completed");*/
+
         adapter.addFrag(new PausedFragment(), "Paused");
         viewPager.setAdapter(adapter);
     }

@@ -40,6 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dnamedical.Activities.VideoActivity.discountonfullpurchase;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoListPriceAdapter.OnBuyNowClick, VideoActivity.DisplayDataInterface {
@@ -230,6 +231,10 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
         intent.putExtra("title", title);
         intent.putExtra("discount", discount);
         intent.putExtra("price", price);
+        if (discountonfullpurchase > 0) {
+            intent.putExtra("discountonfullpurchase", 80);
+
+        }
         intent.putExtra("SHIPPING_CHARGE", shippingCharge);
         startActivity(intent);
 

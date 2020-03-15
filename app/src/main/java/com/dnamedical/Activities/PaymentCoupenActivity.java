@@ -93,6 +93,7 @@ public class PaymentCoupenActivity extends AppCompatActivity {
     String amount = "0";
     String totalValue = "0";
     String subchildcat;
+    int discountonfullpurchase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
