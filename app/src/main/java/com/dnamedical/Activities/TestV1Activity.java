@@ -919,7 +919,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         Button btn_yes = dialogView.findViewById(R.id.btn_done);
         if (count > 0) {
             TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
-            unuttempted.setText("You have " + count + " unattempted questions");
+            unuttempted.setText("You have " + count + " un  attempted questions");
             unuttempted.setVisibility(View.VISIBLE);
         }
 
