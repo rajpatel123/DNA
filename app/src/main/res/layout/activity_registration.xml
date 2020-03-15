@@ -61,6 +61,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 app:srcCompat="@mipmap/dna_log_new"
+                android:visibility="gone"
                 android:layout_centerHorizontal="true"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,11 +71,25 @@
                 android:layout_below="@+id/profileImage"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:inputType="text"
+                    android:text="SIGNUP"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:minHeight="44dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/Black" />
+
                 <EditText
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="25dp"
                     android:background="@drawable/edittextstyle"
                     android:drawableStart="@drawable/user"
                     android:drawablePadding="8dp"
@@ -158,6 +173,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
+
                     android:textColor="@color/Black" />
 
                 <Spinner
@@ -169,6 +185,8 @@
                     android:background="@drawable/edittextstyle"
                     android:drawablePadding="8dp"
                     android:inputType="textPassword"
+                    android:nextFocusDown="@+id/otherState"
+
                     android:minHeight="40dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -184,52 +202,131 @@
                     android:hint="Enter your state name"
                     android:minHeight="44dp"
                     android:paddingBottom="5dp"
+                    android:nextFocusDown="@+id/selectCourse"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
                     android:textColor="@color/Black" />
-
-
                 <Spinner
-                    android:id="@+id/selectCollege"
+                    android:id="@+id/selectCourse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
                     android:background="@drawable/edittextstyle"
                     android:drawablePadding="8dp"
-                    android:inputType="textPassword"
                     android:minHeight="40dp"
+                    android:layout_marginTop="25dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:textColor="@color/Black" />
-                <EditText
-                    android:id="@+id/otherCollege"
+
+                <LinearLayout
+                    android:id="@+id/ll_UG"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:drawablePadding="8dp"
                     android:visibility="gone"
-                    android:hint="Enter your college name"
-                    android:minHeight="44dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:textColor="@color/Black" />
+                    android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/academic"
+
+                    <EditText
+                        android:id="@+id/enterCollegeNameForUG"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittextstyle"
+                        android:drawablePadding="8dp"
+                        android:visibility="visible"
+                        android:hint="Enter your school name"
+                        android:minHeight="44dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:textColor="@color/Black" />
+
+                    <Spinner
+                        android:id="@+id/selectUGYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittextstyle"
+                        android:drawablePadding="8dp"
+                        android:minHeight="40dp"
+                        android:layout_marginTop="25dp"
+
+                        android:drawSelectorOnTop="true"
+                        android:entries="@array/years_ug"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/Black" />
+
+                    <EditText
+                        android:id="@+id/enterBoardName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittextstyle"
+                        android:drawablePadding="8dp"
+                        android:visibility="visible"
+                        android:layout_marginTop="25dp"
+
+                        android:hint="Board (CBSE/ICSE/NIOS/State Board )"
+                        android:minHeight="44dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:textColor="@color/Black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_PG"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:drawablePadding="8dp"
-                    android:inputType="textPassword"
-                    android:minHeight="40dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textColor="@color/Black" />
+                    android:visibility="gone"
+
+                    android:orientation="vertical">
+                    <Spinner
+                        android:id="@+id/selectCollege"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittextstyle"
+                        android:drawablePadding="8dp"
+                        android:inputType="textPassword"
+                        android:minHeight="40dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/Black" />
+                    <EditText
+                        android:id="@+id/otherCollege"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/edittextstyle"
+                        android:drawablePadding="8dp"
+                        android:visibility="gone"
+                        android:nextFocusDown="@+id/academic"
+
+                        android:hint="Enter your college name"
+                        android:minHeight="44dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:textColor="@color/Black" />
+
+                    <Spinner
+                        android:id="@+id/academic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/edittextstyle"
+                        android:drawablePadding="8dp"
+                        android:inputType="textPassword"
+                        android:minHeight="40dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/Black" />
+                </LinearLayout>
                 <Button
                     android:id="@+id/btn_signUp"
                     android:layout_width="match_parent"

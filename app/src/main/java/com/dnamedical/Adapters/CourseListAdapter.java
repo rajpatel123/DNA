@@ -47,10 +47,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         holder.title.setText("" + categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
 
-
-
-
-
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,23 +68,23 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                     }
                     onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
 
-////                        if (!(Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
-////                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 11
-////                                || Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId()) == 10){
+////                        if (!(Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
+////                                || Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) == 11
+////                                || Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) == 10){
 ////
-////                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+////                            onUserClickCallback.onCateClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId());
 ////
 ////                        }
 //                        if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID)) && !DnaPrefs.getString(applicationContext, Constants.INST_ID).equals("0")) {
-//                            if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
-//                                onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+//                            if (categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
+//                                onUserClickCallback.onInstituteClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatName());
 //                                return;
 //
 //                            }
 //                        }
 //
-//                        if (Integer.parseInt(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId())!=5){
-//                            onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+//                        if (Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId())!=5){
+//                            onUserClickCallback.onCateClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId());
 //
 //                        }
 //
@@ -135,11 +131,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         }
 
-//        if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
+//        if (categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
 //            holder.detailLL.setVisibility(View.GONE);
 //            holder.insImage.setVisibility(View.VISIBLE);
-////                if (!TextUtils.isEmpty(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())) {
-////                    Picasso.with(applicationContext).load(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getIns_logo())
+////                if (!TextUtils.isEmpty(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getIns_logo())) {
+////                    Picasso.with(applicationContext).load(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getIns_logo())
 ////                            .error(R.drawable.allins)
 ////                            .into(holder.insImage);
 ////                } else {
@@ -148,7 +144,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 ////                            .into(holder.insImage);
 ////                }
 //
-////            if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
+////            if (categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
 ////                Picasso.with(applicationContext)
 ////                        .load(R.drawable.allins)
 ////                        .into(holder.insImage);

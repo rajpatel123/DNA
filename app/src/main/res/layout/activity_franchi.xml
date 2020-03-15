@@ -27,7 +27,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/color_sub"
             android:textSize="16sp"
-            android:text="We would  like to hear from you. Please fill all the details"
+            android:text="We would  like to hear from you. Please fill all the courseDetails"
             />
 
         <TextView
@@ -197,7 +197,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/edittextstyle"
             android:drawablePadding="8dp"
-            android:hint="Pin Code"
+            android:hint="Pincode"
             android:maxLength="6"
             android:inputType="number"
             android:minHeight="44dp"

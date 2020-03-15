@@ -252,7 +252,6 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
             //options.put("amount", 1*100);
             options.put("order_id", orderId);
             //options.put("amount", 100);
-
             JSONObject preFill = new JSONObject();
             preFill.put("email", email);
             preFill.put("contact", mobile);

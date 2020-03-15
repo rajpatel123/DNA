@@ -16,6 +16,7 @@ import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
+import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.answer.SubmitAnswer;
@@ -91,8 +92,8 @@ public class RestClient {
         RetrofitClient.getClient().getAdditionalDiscount().enqueue(callback);
     }
 
-    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody, RequestBody platform, RequestBody acaademicYear_id, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody, platform, acaademicYear_id).enqueue(callback);
+    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody, RequestBody platform, RequestBody acaademicYear_id, RequestBody courseSlectedBody, RequestBody boardname,MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody, platform, acaademicYear_id,courseSlectedBody,boardname).enqueue(callback);
     }
 
     public static void updateUser(RequestBody name, RequestBody user_id, RequestBody password, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, RequestBody acaademicYear_id, Callback<UserUpdateResponse> callback) {
@@ -145,6 +146,11 @@ public class RestClient {
 
     public static void getAllAcademicYears(Callback<Academic> callback) {
         RetrofitClient.getClient().getAllAcademicYears().enqueue(callback);
+    }
+
+
+    public static void getAllCourse(Callback<CourseResponse> callback) {
+        RetrofitClient.getClient().getCourseList().enqueue(callback);
     }
 
 

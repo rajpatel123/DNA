@@ -1,6 +1,7 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -104,6 +105,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     private RecyclerView answersheetRecyclerView;
     private int questionIndex = 0;
     private TextView answer1, answer2, answer3, answer4;
+    private ImageView image1, image2, image3, image4;
     private long resultDate;
     private boolean isSubmitVisible = false;
     private boolean isDailyTest;
@@ -583,6 +585,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                 case 0:
                     View answerView = inflater.inflate(R.layout.item_answer, null, false);
                     answer1 = answerView.findViewById(R.id.answer);
+                    image1 = answerView.findViewById(R.id.image);
                     cardView1 = answerView.findViewById(R.id.cardView);
 
 
@@ -593,12 +596,38 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                         html1 = (Spannable) Html.fromHtml("(A) " + question.getOption1(), imageGetter, null);
                     }
                     answer1.setText(html1);
+
+
+
+                    if (!TextUtils.isEmpty(question.getOption_1_image())){
+                        Picasso.with(this).load(question.getOption_1_image())
+                                .into(image1, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+
+                                        image1.setVisibility(View.GONE);
+                                        //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+
+
+                                    }
+                                });
+                    }else{
+                        image1.setVisibility(View.GONE);
+
+                    }
+
+
                     answerList.addView(answerView);
 
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption1().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView1, answer1);
                     }
-                    answer1.setOnClickListener(new View.OnClickListener() {
+                    cardView1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
@@ -620,6 +649,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     View answerView1 = inflater.inflate(R.layout.item_answer,
                             null, false);
                     answer2 = answerView1.findViewById(R.id.answer);
+                    image2 = answerView1.findViewById(R.id.image);
+
                     cardView2 = answerView1.findViewById(R.id.cardView);
 
                     Spannable html2;
@@ -634,7 +665,30 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView2, answer2);
                     }
-                    answer2.setOnClickListener(new View.OnClickListener() {
+
+
+                    if (!TextUtils.isEmpty(question.getOption_2_image())){
+                        Picasso.with(this).load(question.getOption_2_image())
+                                .into(image2, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+
+                                        image2.setVisibility(View.GONE);
+                                        //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+
+
+                                    }
+                                });
+                    }else{
+                        image2.setVisibility(View.GONE);
+
+                    }
+                    cardView2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
@@ -654,6 +708,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     View answerView2 = inflater.inflate(R.layout.item_answer,
                             null, false);
                     answer3 = answerView2.findViewById(R.id.answer);
+                    image3 = answerView2.findViewById(R.id.image);
+
                     cardView3 = answerView2.findViewById(R.id.cardView);
 
                     Spannable html3;
@@ -666,10 +722,32 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     answer3.setText(html3);
 
                     answerList.addView(answerView2);
+
+                    if (!TextUtils.isEmpty(question.getOption_3_image())){
+                        Picasso.with(this).load(question.getOption_3_image())
+                                .into(image3, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+
+                                        image3.setVisibility(View.GONE);
+                                        //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+
+
+                                    }
+                                });
+                    }else{
+                        image3.setVisibility(View.GONE);
+
+                    }
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView3, answer3);
                     }
-                    answer3.setOnClickListener(new View.OnClickListener() {
+                    cardView3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
@@ -689,6 +767,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     View answerView4 = inflater.inflate(R.layout.item_answer,
                             null, false);
                     answer4 = answerView4.findViewById(R.id.answer);
+                    image4 = answerView4.findViewById(R.id.image);
+
                     cardView4 = answerView4.findViewById(R.id.cardView);
 
                     Spannable html4;
@@ -703,7 +783,30 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView4, answer4);
                     }
-                    answer4.setOnClickListener(new View.OnClickListener() {
+
+
+                    if (!TextUtils.isEmpty(question.getOption_4_image())){
+                        Picasso.with(this).load(question.getOption_4_image())
+                                .into(image4, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+
+                                        image4.setVisibility(View.GONE);
+                                        //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+
+
+                                    }
+                                });
+                    }else{
+                        image4.setVisibility(View.GONE);
+
+                    }
+                    cardView4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             answer = "4";
@@ -1108,10 +1211,10 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
 
     private void updateAnswer(CardView cardView, TextView answer) {
-        cardView1.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cardView2.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cardView3.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cardView4.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cardView1.setBackgroundResource(R.drawable.answer_selecter);
+        cardView2.setBackgroundResource(R.drawable.answer_selecter);
+        cardView3.setBackgroundResource(R.drawable.answer_selecter);
+        cardView4.setBackgroundResource(R.drawable.answer_selecter);
         if (questionIndex == (questionArrayList.size() - 1)) {
             nextBtn.setText("SUBMIT");
         } else {
@@ -1122,9 +1225,9 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         answer2.setTextColor(getResources().getColor(R.color.black));
         answer3.setTextColor(getResources().getColor(R.color.black));
         answer4.setTextColor(getResources().getColor(R.color.black));
-        answer.setTextColor(getResources().getColor(R.color.white));
+        //answer.setTextColor(getResources().getColor(R.color.white));
 
-        cardView.setCardBackgroundColor(getResources().getColor(R.color.test_fragment_card_bacckground));
+        cardView.setBackgroundResource(R.drawable.answer_selecter_selected);//;setCardBackgroundColor(getResources().getColor(R.color.test_fragment_card_bacckground));
     }
 
 

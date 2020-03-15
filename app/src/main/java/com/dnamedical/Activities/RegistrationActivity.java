@@ -35,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ import android.widget.Toast;
 import com.dnamedical.Adapters.AcademicListAdapter;
 import com.dnamedical.Adapters.CollegeCustomAdapter;
 import com.dnamedical.Adapters.CollegeListAdapter;
+import com.dnamedical.Adapters.CourseForRegistrationListAdapter;
 import com.dnamedical.Adapters.StateListAdapter;
 import com.dnamedical.BuildConfig;
 import com.dnamedical.FetchAddressIntentService;
@@ -51,6 +53,8 @@ import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.acadamic.Acdemic;
+import com.dnamedical.Models.acadamic.CourseDetail;
+import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.R;
@@ -165,6 +169,26 @@ public class RegistrationActivity extends AppCompatActivity implements
     @BindView(R.id.edit_phone)
     EditText edit_phone;
 
+    @BindView(R.id.selectCourse)
+    Spinner selectCourseSP;
+
+    @BindView(R.id.ll_UG)
+    LinearLayout ll_UG;
+
+
+    @BindView(R.id.enterCollegeNameForUG)
+    EditText enterCollegeNameForUG;
+
+    @BindView(R.id.enterBoardName)
+    EditText enterBoardName;
+
+    @BindView(R.id.selectUGYear)
+    Spinner selectUGYearSP;
+
+
+    @BindView(R.id.ll_PG)
+    LinearLayout ll_PG;
+
 
     @BindView(R.id.academic)
     Spinner academicSpinner;
@@ -176,7 +200,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     private StateListAdapter stateListAdapter;
     private String collegetext;
-    private String StateText, acadmicYear, acaademicYearId="0";
+    private String StateText, acadmicYear, acaademicYearId = "0";
     private String edit_phonetxt;
     Spinner spinnerCollege;
     CollegeCustomAdapter collegeCustomAdapter;
@@ -188,6 +212,10 @@ public class RegistrationActivity extends AppCompatActivity implements
     private String city;
     private Academic academic;
     private AcademicListAdapter academicAdapter;
+    private CourseResponse courseResponse;
+    private CourseForRegistrationListAdapter courseListAdapter;
+    private String courseSlected;
+    private String board_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,6 +230,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         mAddressRequested = false;
         mAddressOutput = "";
         getAcademicYear();
+        getCourseList();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fetchAddressButtonHandler();
         if (!checkPermissions()) {
@@ -210,7 +239,6 @@ public class RegistrationActivity extends AppCompatActivity implements
             getAddress();
         }
         spinnerCollege = (Spinner) findViewById(R.id.selectCollege);
-
 
         staticCollegeData();
         getStateList();
@@ -260,6 +288,18 @@ public class RegistrationActivity extends AppCompatActivity implements
         //state spinner
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         spinState = (Spinner) findViewById(R.id.selectState);
+
+        selectUGYearSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                acaademicYearId = getResources().getStringArray(R.array.years_ug)[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         //spinState.setOnItemSelectedListener(this);
         if (getIntent().hasExtra(Constants.LOGIN_ID) && !TextUtils.isEmpty(getIntent().getStringExtra(Constants.LOGIN_ID))) {
@@ -345,14 +385,14 @@ public class RegistrationActivity extends AppCompatActivity implements
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     if (stateListResponse.getDetails().get(position).getStateName().equalsIgnoreCase("--Select State--")) {
-                                        Toast.makeText(RegistrationActivity.this, "Please Select State", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(RegistrationActivity.this, "Please Select State", Toast.LENGTH_SHORT).show();
                                         staticCollegeData();
                                     } else {
                                         collegeList = stateListResponse.getDetails().get(position).getCollege();
                                         collegeList.add(new College("Others"));
                                         StateText = stateListResponse.getDetails().get(position).getStateName();
                                         DnaPrefs.putInt(getApplicationContext(), "statePosition", position);
-                                       // Log.d("StateName", StateText);
+                                        // Log.d("StateName", StateText);
                                         sendCollegeListData();
                                         if (StateText.equalsIgnoreCase("Others")) {
                                             otherState.setVisibility(View.VISIBLE);
@@ -450,10 +490,10 @@ public class RegistrationActivity extends AppCompatActivity implements
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                                        acadmicYear = academic.getAcdemics().get(position).getTitle();
-                                        acaademicYearId = academic.getAcdemics().get(position).getId();
-                                        DnaPrefs.putString(getApplicationContext(), "academic", acadmicYear);
-                                        //Log.d("Academin", StateText);
+                                    acadmicYear = academic.getAcdemics().get(position).getTitle();
+                                    acaademicYearId = academic.getAcdemics().get(position).getId();
+                                    DnaPrefs.putString(getApplicationContext(), "academic", acadmicYear);
+                                    //Log.d("Academin", StateText);
 
                                 }
 
@@ -471,6 +511,74 @@ public class RegistrationActivity extends AppCompatActivity implements
 
                     @Override
                     public void onFailure(Call<Academic> call, Throwable t) {
+
+                        Utils.dismissProgressDialog();
+                        Toast.makeText(RegistrationActivity.this, "Response Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        } else {
+            Toast.makeText(this, "Internet Connection Failed", Toast.LENGTH_SHORT).show();
+            Utils.dismissProgressDialog();
+        }
+    }
+
+
+    private void getCourseList() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            {
+                RestClient.getAllCourse(new Callback<CourseResponse>() {
+                    @Override
+                    public void onResponse(Call<CourseResponse> call, Response<CourseResponse> response) {
+                        Utils.dismissProgressDialog();
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                courseResponse = response.body();
+                                CourseDetail courseDetail = new CourseDetail();
+                                courseDetail.setCatName("--Select Course--");
+                                courseDetail.setCatId("0");
+                                courseResponse.getCourseDetails().add(0, courseDetail);
+                                if (courseResponse != null && courseResponse.getCourseDetails().size() > 0) {
+                                    courseSlected = courseResponse.getCourseDetails().get(0).getCatName();
+                                    courseListAdapter = new CourseForRegistrationListAdapter(getApplicationContext());
+                                    courseListAdapter.setAcademinList(courseResponse.getCourseDetails());
+                                }
+                            }
+                            selectCourseSP.setAdapter(courseListAdapter);
+                            selectCourseSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    courseSlected = courseResponse.getCourseDetails().get(position).getCatName();
+                                    DnaPrefs.putString(getApplicationContext(), "courseSlected", courseSlected);
+                                    if (!courseSlected.equalsIgnoreCase("--Select Course--")) {
+
+                                        if (courseSlected.equalsIgnoreCase("NEET-UG")) {
+                                            ll_UG.setVisibility(View.VISIBLE);
+                                            ll_PG.setVisibility(View.GONE);
+                                        } else {
+                                            ll_UG.setVisibility(View.GONE);
+                                            ll_PG.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
+                            // spinnerCollege.setAdapter(collegeCustomAdapter);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<CourseResponse> call, Throwable t) {
 
                         Utils.dismissProgressDialog();
                         Toast.makeText(RegistrationActivity.this, "Response Failed", Toast.LENGTH_SHORT).show();
@@ -575,14 +683,11 @@ public class RegistrationActivity extends AppCompatActivity implements
                 if (TextUtils.isEmpty(mAddressOutput)) {
                     getAddress();
 
+                } else {
+                    validation();
                 }
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        validation();
-                    }
-                }, 2 * 1000);
+
                 break;
 
             case R.id.text_login:
@@ -601,6 +706,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         edit_email = editEmailId.getText().toString();
         edit_phonetxt = edit_phone.getText().toString();
         edit_password = editPassword.getText().toString();
+        board_name = enterBoardName.getText().toString();
 
 
         if (TextUtils.isEmpty(edit_name.trim()) || edit_name.length() == 0) {
@@ -659,6 +765,13 @@ public class RegistrationActivity extends AppCompatActivity implements
         }
 
 
+        if (TextUtils.isEmpty(courseSlected) || courseSlected.equalsIgnoreCase("--Select Course--")) {
+            Utils.displayToast(getApplicationContext(), "Please select course");
+            return;
+
+        }
+
+
         if (acaademicYearId.equals("0")) {
             Utils.displayToast(getApplicationContext(), "Please select academic year");
             return;
@@ -670,15 +783,29 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
+
+        if (!TextUtils.isEmpty(courseSlected) && courseSlected.equalsIgnoreCase("NEET-UG")) {
+            collegetext = enterCollegeNameForUG.getText().toString();
+        }
+
         if (TextUtils.isEmpty(collegetext)) {
             Utils.displayToast(getApplicationContext(), "Please select College");
             return;
 
         }
+
         if (collegetext.equalsIgnoreCase("--Select College--")) {
             Utils.displayToast(getApplicationContext(), "Please select College");
             return;
 
+        }
+
+        if (!TextUtils.isEmpty(courseSlected) && courseSlected.equalsIgnoreCase("NEET-UG")) {
+            if (TextUtils.isEmpty(board_name)) {
+                Utils.displayToast(getApplicationContext(), "Please enter board name");
+                return;
+
+            }
         }
 
         if (StateText.equalsIgnoreCase("Others")) {
@@ -743,6 +870,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody states = RequestBody.create(MediaType.parse("text/plain"), StateText);
         RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
+        RequestBody courseSlectedBody = RequestBody.create(MediaType.parse("text/plain"), courseSlected);
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), "xyz");
         RequestBody acaademicYear_id = RequestBody.create(MediaType.parse("text/plain"), acaademicYearId);
         if (TextUtils.isEmpty(address)) {
@@ -753,6 +881,14 @@ public class RegistrationActivity extends AppCompatActivity implements
         }
         if (TextUtils.isEmpty(mCountry)) {
             mCountry = "India";
+        }
+        RequestBody boardname = null;
+        if (TextUtils.isEmpty(board_name)) {
+            boardname = RequestBody.create(MediaType.parse("text/plain"), "NA");
+
+        } else {
+            boardname = RequestBody.create(MediaType.parse("text/plain"), board_name);
+
         }
         RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), address);
 //        RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), "");
@@ -767,42 +903,44 @@ public class RegistrationActivity extends AppCompatActivity implements
             Utils.showProgressDialog(this);
             if (TextUtils.isEmpty(userId)) {
 
-                RestClient.registerUser(faceBookID, name, username, email, phone, states, password, college, addressBody, cityBody, countryBody, androidBody,acaademicYear_id, vFile, new Callback<CommonResponse>() {
-                    /* private Call<CommonResponse> call;
-                     private Response<CommonResponse> response;
-         */
-                    @Override
-                    public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                RestClient.registerUser(faceBookID, name, username, email, phone, states, password,
+                        college, addressBody, cityBody, countryBody, androidBody, acaademicYear_id, courseSlectedBody, boardname,
+                        vFile, new Callback<CommonResponse>() {
+                            /* private Call<CommonResponse> call;
+                             private Response<CommonResponse> response;
+                 */
+                            @Override
+                            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                /* this.call = call;
                 this.response = response;*/
-                        Utils.dismissProgressDialog();
-                        if (response.body() != null) {
-                            if (response.body().getStatus().equalsIgnoreCase("1")) {
-                                Utils.displayToast(getApplicationContext(), "Successfuly registered");
-                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                intent.putExtra("mobile", "");
-                                intent.putExtra("user_id", response.body().getUser_id());
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Utils.displayToast(getApplicationContext(), response.body().getMessage());
+                                Utils.dismissProgressDialog();
+                                if (response.body() != null) {
+                                    if (response.body().getStatus().equalsIgnoreCase("1")) {
+                                        Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        intent.putExtra("mobile", "");
+                                        intent.putExtra("user_id", response.body().getUser_id());
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Utils.displayToast(getApplicationContext(), response.body().getMessage());
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<CommonResponse> call, Throwable t) {
+                                Utils.dismissProgressDialog();
+                                Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
 
                             }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<CommonResponse> call, Throwable t) {
-                        Utils.dismissProgressDialog();
-                        Utils.displayToast(getApplicationContext(), "Unable to register, please try again later");
-
-                    }
-                });
+                        });
             } else {
                 RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
                 RequestBody passwordtxt = RequestBody.create(MediaType.parse("text/plain"), editPassword.getText().toString());
 
-                RestClient.updateUser(name, user_id, passwordtxt, username, phone, states, college, addressBody, cityBody, countryBody,acaademicYear_id, new Callback<UserUpdateResponse>() {
+                RestClient.updateUser(name, user_id, passwordtxt, username, phone, states, college, addressBody, cityBody, countryBody, acaademicYear_id, new Callback<UserUpdateResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */

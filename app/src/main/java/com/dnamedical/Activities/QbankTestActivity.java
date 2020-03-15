@@ -93,6 +93,7 @@ public class QbankTestActivity extends AppCompatActivity {
     private SeekBar timerProgressBar;
     CountDownTimer countDownTimer;
     private TextView qbank_answer1, qbank_answer2, qbank_answer3, qbank_answer4;
+    private ImageView image1, image2, image3, image4;
     private int questionTime = 10;
     private List<TextView> tvList = new ArrayList<>();
 
@@ -419,6 +420,7 @@ public class QbankTestActivity extends AppCompatActivity {
 
                         View answer1 = inflater.inflate(R.layout.qbank_item_test, null);
                         qbank_answer1 = answer1.findViewById(R.id.qbank_answer);
+                        image1 = answer1.findViewById(R.id.image);
                         cardView1 = answer1.findViewById(R.id.cardView);
                         qbank_answer1.setText("A. " + questionDetails.getOption1());
 
@@ -442,6 +444,8 @@ public class QbankTestActivity extends AppCompatActivity {
                     case 2:
                         View answer2 = inflater.inflate(R.layout.qbank_item_test, null);
                         qbank_answer2 = answer2.findViewById(R.id.qbank_answer);
+                        image2 = answer2.findViewById(R.id.image);
+
                         cardView2 = answer2.findViewById(R.id.cardView);
 
                         qbank_answer2.setText("B. " + questionDetails.getOption2());
@@ -465,6 +469,8 @@ public class QbankTestActivity extends AppCompatActivity {
 
                         View answer3 = inflater.inflate(R.layout.qbank_item_test, null);
                         qbank_answer3 = answer3.findViewById(R.id.qbank_answer);
+                        image3 = answer3.findViewById(R.id.image);
+
                         qbank_answer3.setText("C. " + questionDetails.getOption3());
                         cardView3 = answer3.findViewById(R.id.cardView);
 
@@ -487,6 +493,9 @@ public class QbankTestActivity extends AppCompatActivity {
                     case 4:
                         View answer4 = inflater.inflate(R.layout.qbank_item_test, null);
                         qbank_answer4 = answer4.findViewById(R.id.qbank_answer);
+                        image4 = answer4.findViewById(R.id.image);
+
+
                         cardView4 = answer4.findViewById(R.id.cardView);
 
                         qbank_answer4.setText("D. " + questionDetails.getOption4());

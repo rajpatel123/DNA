@@ -145,7 +145,7 @@ public class EnterMobileAndEmailActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<FacebookResponse> call, Throwable t) {
                         Utils.dismissProgressDialog();
-                        Utils.displayToast(EnterMobileAndEmailActivity.this, "Invalid login Detail");
+                        Utils.displayToast(EnterMobileAndEmailActivity.this, "Invalid login CourseDetail");
 
                     }
                 });

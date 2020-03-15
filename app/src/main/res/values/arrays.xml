@@ -9,4 +9,10 @@
         <item>INR 1,50,000</item>
         <item>INR 2,00,000</item>
     </string-array>
+    <string-array name="years_ug">
+        <item>Select Academic Year</item>
+        <item>Class XI Student</item>
+        <item>Class XII Student</item>
+        <item>12th Pass out Student</item>
+    </string-array>
 </resources>

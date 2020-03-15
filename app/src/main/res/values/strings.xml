@@ -139,7 +139,7 @@
     <string name="default_notification_channel_id">Notification</string>
     <string name="fcm_message">Notification</string>
     <string name="service_not_available">Service not available</string>
-    <string name="invalid_lat_long_used">Invalid location detail</string>
+    <string name="invalid_lat_long_used">Invalid location courseDetail</string>
     <string name="no_address_found">No address found</string>
     <string name="address_found">Address found</string>
 

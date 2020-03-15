@@ -1,5 +1,6 @@
-package com.dnamedical.fragment;
+package com.dnamedical.fragment.neetug;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,11 @@ import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.fragment.AllTestFragment;
+import com.dnamedical.fragment.DailyTestFragment;
+import com.dnamedical.fragment.GrandTestFragment;
+import com.dnamedical.fragment.MockTestFragment;
+import com.dnamedical.fragment.SubjectWiseTestFragment;
 import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
@@ -34,7 +40,7 @@ import retrofit2.Response;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class TestFragment extends Fragment implements FragmentLifecycle {
+public class NeetUGTestFragment extends Fragment implements FragmentLifecycle {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -102,7 +108,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (ModuleTestActivity) getActivity();
+            mainActivity = (ModuleTestActivity) getActivity();
 
 
     }
@@ -114,62 +120,19 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
 
         TextView tabOne = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-        if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("14")) {
-            tabOne.setText("Full Test (PCB)");
-
-        } else if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("3")) {
-            tabOne.setText("D.M Test");
-
-
-        } else {
-            tabOne.setText("Daily Test");
-
-        }
+        tabOne.setText("Daily Test");
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-
-        if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("14")) {
-            tabTwo.setText("Physics");
-
-        } else if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("3")) {
-            tabTwo.setText("General Medicine");
-        } else {
-            tabTwo.setText("Grand Test");
-
-        }
+        tabTwo.setText("Grand Test");
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-
-        if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("14")) {
-            tabThree.setText("Chemistry");
-
-        } else if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("3")) {
-            tabThree.setText("M. Ch Test");
-
-        } else {
-            tabThree.setText("Mock Test");
-
-        }
-
-
+        tabThree.setText("Mock Test");
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.test_custom_layout, null);
-
-        if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("14")) {
-            tabFour.setText("Biology");
-
-
-        } else if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("3")) {
-            tabFour.setText("General Surgery");
-
-        } else {
-            tabFour.setText("SWT");
-
-
-        }
+        tabFour.setText("SWT");
         tabLayout.getTabAt(3).setCustomView(tabFour);
     }
 

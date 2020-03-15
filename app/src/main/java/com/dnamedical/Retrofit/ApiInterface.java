@@ -16,6 +16,7 @@ import com.dnamedical.Models.TestReviewList.TestReviewResponse;
 import com.dnamedical.Models.UserUpdateResponse;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.acadamic.Academic;
+import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
@@ -96,7 +97,9 @@ public interface ApiInterface {
                                       @Part("city") RequestBody cityBody,
                                       @Part("country") RequestBody countryBody,
                                       @Part("platform") RequestBody plateform,
-                                      @Part("academic_year_id") RequestBody acaademicYear_id
+                                      @Part("academic_year_id") RequestBody acaademicYear_id,
+                                      @Part("course_type") RequestBody courseSlectedBody,
+                                      @Part("board_name") RequestBody boardname
     );
 
 
@@ -238,6 +241,10 @@ public interface ApiInterface {
 
     @GET("api/api.php?req=add_discount")
     Call<ResponseBody> getAdditionalDiscount();
+
+
+    @GET("api/api.php?req=course")
+    Call<CourseResponse> getCourseList();
 
     @Multipart
     @POST("api/api.php?req=update_user")
