@@ -7,7 +7,6 @@ import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.LoginDetailForDemo;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
-import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.RankResult;
 import com.dnamedical.Models.ResultData.ResultList;
@@ -19,9 +18,7 @@ import com.dnamedical.Models.acadamic.Academic;
 import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
-import com.dnamedical.Models.answer.SubmitAnswer;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
-import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
@@ -42,19 +39,18 @@ import com.dnamedical.Models.newqbankmodule.ModuleResponse;
 import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
-import com.dnamedical.Models.qbank.QbankResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
 import com.dnamedical.Models.subs.PlanResponse;
+import com.dnamedical.Models.subs.ssugplans.PlanResponseForSSAndUG;
 import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
-import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -63,9 +59,7 @@ import com.dnamedical.institute.InstituteDetails;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Callback;
 
 public class RestClient {
@@ -185,6 +179,12 @@ public class RestClient {
 
     public static void getVideos(RequestBody sub_child_cat, RequestBody fileType, RequestBody user_id, Callback<VideoList> callback) {
         RetrofitClient.getClient().getVideos(sub_child_cat, fileType, user_id).enqueue(callback);
+    }
+
+
+
+    public static void getnewPlansForSSUG(Callback<PlanResponseForSSAndUG> callback) {
+        RetrofitClient.getClient().getnewPlansForSSUG().enqueue(callback);
     }
 
 

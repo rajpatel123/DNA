@@ -85,7 +85,7 @@ public class TestStartDailyActivity extends AppCompatActivity {
             testStatus = intent.getStringExtra("testStatus");
             description = intent.getStringExtra("desc");
             testPaid = intent.getStringExtra("testPaid");
-
+            startTest();
             if (!testStatus.equalsIgnoreCase("open")) {
                 testTopic.setText(testName);
                 updateTestTypeText(type);
@@ -151,7 +151,7 @@ public class TestStartDailyActivity extends AppCompatActivity {
                         Intent intent = new Intent(TestStartDailyActivity.this, ResultActivity.class);
                         intent.putExtra("resultDate", resultDate);
                         intent.putExtra("testid", test_id);
-                        intent.putExtra(Constants.ISDAILY_TEST,true);
+                        intent.putExtra(Constants.ISDAILY_TEST, true);
 
                         startActivity(intent);
                         finish();
@@ -165,7 +165,6 @@ public class TestStartDailyActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void updateTestTypeText(String type) {
@@ -254,7 +253,7 @@ public class TestStartDailyActivity extends AppCompatActivity {
                 test_id = getIntent().getStringExtra("id");
                 testName = getIntent().getStringExtra("testName");
                 intent.putExtra("id", test_id);
-                intent.putExtra(Constants.ISDAILY_TEST,true);
+                intent.putExtra(Constants.ISDAILY_TEST, true);
                 intent.putExtra("duration", duration);
                 intent.putExtra("testName", testName);
                 intent.putExtra("resultDate", resultDate);

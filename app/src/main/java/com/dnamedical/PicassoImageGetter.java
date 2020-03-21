@@ -1,6 +1,5 @@
-package com.dnamedical.utils;
+package com.dnamedical;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,30 +7,27 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.widget.TextView;
 
-import com.dnamedical.DNAApplication;
-import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 public class PicassoImageGetter implements Html.ImageGetter {
 
     private TextView textView = null;
-    Context context;
 
+    public PicassoImageGetter() {
 
+    }
 
-    public PicassoImageGetter(TextView target,Context context) {
+    public PicassoImageGetter(TextView target) {
         textView = target;
-        this.context = context;
-
     }
 
     @Override
     public Drawable getDrawable(String source) {
         BitmapDrawablePlaceHolder drawable = new BitmapDrawablePlaceHolder();
-        Picasso.with(context)
+        Picasso.with(DNAApplication.getInstance())
                 .load(source)
-                .placeholder(R.drawable.logo_with_title)
+                .placeholder(R.drawable.dnalogo)
                 .into(drawable);
         return drawable;
     }
@@ -60,7 +56,7 @@ public class PicassoImageGetter implements Html.ImageGetter {
 
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            setDrawable(new BitmapDrawable(context.getResources(), bitmap));
+            setDrawable(new BitmapDrawable(DNAApplication.getInstance().getResources(), bitmap));
         }
 
         @Override

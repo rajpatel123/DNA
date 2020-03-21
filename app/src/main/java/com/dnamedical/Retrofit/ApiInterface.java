@@ -45,6 +45,7 @@ import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
 import com.dnamedical.Models.subs.PlanResponse;
+import com.dnamedical.Models.subs.ssugplans.PlanResponseForSSAndUG;
 import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.QustionDetails;
@@ -57,7 +58,6 @@ import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -283,6 +283,11 @@ public interface ApiInterface {
 
     @GET("api/api.php?req=getreleasedetail")
     Call<PlaystoreUpdateResponse> playstoreUpdate();
+
+
+
+    @GET("api/api.php?req=get_customsubs")
+    Call<PlanResponseForSSAndUG> getnewPlansForSSUG();
 
 
     @GET("api/api.php?req=get_subscription")
