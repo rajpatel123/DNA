@@ -163,8 +163,6 @@ public class ReviewResultFragment extends Fragment {
 
             }
 
-
-
             if (!TextUtils.isEmpty(question.getOption2())){
                 if (question.getOption2().contains("html")){
                     webView2.setVisibility(View.VISIBLE);
@@ -240,6 +238,8 @@ public class ReviewResultFragment extends Fragment {
                         }
 
                         optionAImg.setVisibility(View.VISIBLE);
+                        setMenuVisibility(optionAImg);
+
                         break;
                     case "2":
                         if (question.getCorrectAnswer().equalsIgnoreCase("2")) {
@@ -253,6 +253,7 @@ public class ReviewResultFragment extends Fragment {
 
                         }
                         optionBImg.setVisibility(View.VISIBLE);
+                        setMenuVisibility(optionBImg);
 
                         break;
                     case "3":
@@ -266,6 +267,7 @@ public class ReviewResultFragment extends Fragment {
 
                         }
                         optionCImg.setVisibility(View.VISIBLE);
+                        setMenuVisibility(optionCImg);
 
                         break;
                     case "4":
@@ -280,6 +282,7 @@ public class ReviewResultFragment extends Fragment {
                         }
 
                         optionDImg.setVisibility(View.VISIBLE);
+                        setMenuVisibility(optionDImg);
 
                         break;
                 }
@@ -357,6 +360,15 @@ public class ReviewResultFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void setMenuVisibility(ImageView optionImg) {
+        optionAImg.setVisibility(View.INVISIBLE);
+        optionAImg.setVisibility(View.INVISIBLE);
+        optionAImg.setVisibility(View.INVISIBLE);
+        optionAImg.setVisibility(View.INVISIBLE);
+
+        optionImg.setVisibility(View.VISIBLE);
     }
 
     @Override

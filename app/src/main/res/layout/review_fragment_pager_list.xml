@@ -17,7 +17,6 @@
             android:id="@+id/answerList1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:orientation="vertical">
 
             <TextView
@@ -79,7 +78,7 @@ android:visibility="gone"
                            android:id="@+id/optionAImg"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:visibility="invisible"
+                           android:visibility="visible"
                            app:srcCompat="@drawable/right_answer_icon" />
 
 
@@ -87,7 +86,6 @@ android:visibility="gone"
                            android:id="@+id/A"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:layout_marginStart="@dimen/margin_10dp"
                            android:textStyle="bold"
 
                            android:text="A." />
@@ -143,10 +141,9 @@ android:visibility="gone"
 
                         <TextView
                             android:id="@+id/B"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_10dp"
-                            android:layout_weight="2"
                             android:textStyle="bold"
 
                             android:text="B." />
@@ -199,10 +196,9 @@ android:visibility="gone"
 
                         <TextView
                             android:id="@+id/C"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_10dp"
-                            android:layout_weight="2"
                             android:textStyle="bold"
 
                             android:text="C." />
@@ -253,10 +249,10 @@ android:visibility="gone"
 
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:id="@+id/D"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_10dp"
-                            android:layout_weight="2"
                             android:textStyle="bold"
 
                             android:text="D." />
