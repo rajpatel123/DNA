@@ -96,7 +96,8 @@ public class TestStartDailyActivity extends AppCompatActivity {
                 start_desc.setVisibility(View.GONE);
 
             } else {
-                if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
+                //if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
+                if (true) {
                     btnStart.setText("Start The Test");
                     btnStart.setVisibility(View.VISIBLE);
 
@@ -247,7 +248,13 @@ public class TestStartDailyActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody testResult = response.body();
                 Utils.dismissProgressDialog();
-                Intent intent = new Intent(TestStartDailyActivity.this, TestUGV1Activity.class);
+                Intent intent =null;
+                if (DnaPrefs.getString(TestStartDailyActivity.this, Constants.CAT_ID).equalsIgnoreCase("14")){
+                    intent = new Intent(TestStartDailyActivity.this, TestUGV1Activity.class);
+                }else{
+                    intent = new Intent(TestStartDailyActivity.this, TestV1Activity.class);
+
+                }
                 DnaPrefs.putBoolean(TestStartDailyActivity.this, Constants.Resultsubmit, true);
                 test_id = getIntent().getStringExtra("id");
                 testName = getIntent().getStringExtra("testName");

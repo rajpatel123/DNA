@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -194,6 +195,21 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
             }
         });
 
+        guessCheck.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (guessCheck.isChecked()) {
+                    isGuess = "true";
+                    questionArrayList.get(questionIndex).setGues(true);
+                } else {
+                    questionArrayList.get(questionIndex).setGues(false);
+                    isGuess = "false";
+                }
+            }
+        });
+
+
+
         user_id = DnaPrefs.getString(TestUGV1Activity.this, Constants.LOGIN_ID);
 
         quesionCounter = findViewById(R.id.counter);
@@ -298,6 +314,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
             }
         });
 
+
         questionpannel.setVisibility(View.VISIBLE);
         answerSheet.setVisibility(View.GONE);
         closeSheet.setVisibility(View.GONE);
@@ -313,13 +330,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
     private void onNextQuestion() {
         timeSpend = System.currentTimeMillis() - tempTime;
-        if (guessCheck.isChecked()) {
-            isGuess = "true";
-            questionArrayList.get(questionIndex).setGues(true);
-        } else {
-            questionArrayList.get(questionIndex).setGues(false);
-            isGuess = "false";
-        }
+
 
         pauseTimer();
         submitTimeLogTest("switch_question", "" + 1);
@@ -593,7 +604,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
 
         for (int i = 0; i < 4; i++) {
-            Log.d("Question:",""+question.getOption1());
+            Log.d("QuestionO:",""+question.getOption1());
 
             switch (i) {
                 case 0:
@@ -865,7 +876,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
                     if (!TextUtils.isEmpty(question.getOption3()) && question.getOption3().contains("html")){
                         webView4.loadUrl(BuildConfig.API_SERVER_IP+"reviewOption.php?id="+question.getId()+"&option3=3");
-                        answer2.setVisibility(View.GONE);
+                        answer3.setVisibility(View.GONE);
                         image3.setVisibility(View.GONE);
 
                         webView4.setVisibility(View.VISIBLE);
@@ -877,7 +888,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                         } else {
                             html3 = (Spannable) Html.fromHtml("" + question.getOption3(), imageGetter, null);
                         }
-                        answer2.setVisibility(View.VISIBLE);
+                        answer3.setVisibility(View.VISIBLE);
                         image3.setVisibility(View.GONE);
 
                         webView4.setVisibility(View.GONE);
