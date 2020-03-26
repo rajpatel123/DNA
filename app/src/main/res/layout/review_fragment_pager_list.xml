@@ -17,6 +17,7 @@
             android:id="@+id/answerList1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:orientation="vertical">
 
             <TextView
@@ -28,6 +29,14 @@
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/qno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10dp"
+                android:textStyle="bold"
+android:visibility="gone"
+                android:text="A." />
             <WebView
                 android:id="@+id/qwebview"
                 android:layout_width="match_parent"
@@ -53,17 +62,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_15"
-                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+
+
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/optionAImg"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".3"
-                        android:visibility="invisible"
-                        app:srcCompat="@drawable/right_answer_icon" />
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_height="match_parent"
+                       android:layout_weight=".4"
+                       android:orientation="horizontal"
+                       >
+                       <ImageView
+                           android:id="@+id/optionAImg"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:visibility="invisible"
+                           app:srcCompat="@drawable/right_answer_icon" />
+
+
+                       <TextView
+                           android:id="@+id/A"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginStart="@dimen/margin_10dp"
+                           android:textStyle="bold"
+
+                           android:text="A." />
+                   </LinearLayout>
+
+
+
 
                     <TextView
                         android:id="@+id/optionA"
@@ -87,19 +118,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_15"
+                    android:padding="@dimen/margin_10dp"
                     android:layout_marginTop="@dimen/margin_10dp"
+
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/optionBImg"
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".3"
-                        android:visibility="invisible"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".4"
 
-                        app:srcCompat="@drawable/right_answer_icon" />
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:id="@+id/optionBImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/right_answer_icon" />
 
+
+                        <TextView
+                            android:id="@+id/B"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10dp"
+                            android:layout_weight="2"
+                            android:textStyle="bold"
+
+                            android:text="B." />
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/optionB"
                         android:layout_width="0dp"
@@ -122,17 +173,40 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_15"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/margin_10dp"
                     android:layout_marginTop="@dimen/margin_10dp"
+
+                    android:background="@color/white"
+
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/optionCImg"
+
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".3"
-                        android:visibility="invisible"
-                        app:srcCompat="@drawable/right_answer_icon" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".4"
+
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:id="@+id/optionCImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/right_answer_icon" />
+
+
+                        <TextView
+                            android:id="@+id/C"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10dp"
+                            android:layout_weight="2"
+                            android:textStyle="bold"
+
+                            android:text="C." />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/optionC"
@@ -155,18 +229,38 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_15"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/margin_10dp"
                     android:layout_marginTop="@dimen/margin_10dp"
+
+                    android:background="@color/white"
+
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/optionDImg"
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".3"
-                        android:visibility="invisible"
-                        app:srcCompat="@drawable/right_answer_icon" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".4"
 
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:id="@+id/optionDImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/right_answer_icon" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10dp"
+                            android:layout_weight="2"
+                            android:textStyle="bold"
+
+                            android:text="D." />
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/optionD"
                         android:layout_width="0dp"

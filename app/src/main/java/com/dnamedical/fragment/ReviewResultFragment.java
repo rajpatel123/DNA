@@ -58,7 +58,7 @@ public class ReviewResultFragment extends Fragment {
 
 
     LinearLayout answerList;
-    TextView questionTxt;
+    TextView questionTxt,qno;
     int fragNum;
     QuestionList question;
     ReviewresulActivity activity;
@@ -97,6 +97,7 @@ public class ReviewResultFragment extends Fragment {
         View view = inflater.inflate(R.layout.review_fragment_pager_list, container, false);
         question_image = view.findViewById(R.id.question_image);
         questionTxt = view.findViewById(R.id.questionTxt);
+        qno= view.findViewById(R.id.qno);
         explanationCard = view.findViewById(R.id.explanationCard);
         optionAImg = view.findViewById(R.id.optionAImg);
         optionBImg = view.findViewById(R.id.optionBImg);
@@ -132,9 +133,12 @@ public class ReviewResultFragment extends Fragment {
                 if (question.getTitle().contains("html")){
                     qwebView.setVisibility(View.VISIBLE);
                     questionTxt.setVisibility(GONE);
+                    qno.setVisibility(View.VISIBLE);
+                    qno.setText("Q " + (fragNum + 1)+".");
                   qwebView.loadUrl(BuildConfig.API_SERVER_IP + "reviewOption.php?id=" + question.getId() + "&Qid=5");
                 }else{
                     qwebView.setVisibility(GONE);
+                    qno.setVisibility(GONE);
                     questionTxt.setVisibility(View.VISIBLE);
                     Spanned sp =  Html.fromHtml("Q " + (fragNum + 1) + ". " + question.getTitle());
                     questionTxt.setText(sp);
@@ -153,7 +157,7 @@ public class ReviewResultFragment extends Fragment {
                 }else{
                     webView1.setVisibility(GONE);
                     optionA.setVisibility(View.VISIBLE);
-                    Spanned optionAtxt =  Html.fromHtml("A. " + question.getOption1());
+                    Spanned optionAtxt =  Html.fromHtml("" + question.getOption1());
                     optionA.setText(optionAtxt);
                 }
 
@@ -169,7 +173,7 @@ public class ReviewResultFragment extends Fragment {
                 }else{
                     webView2.setVisibility(GONE);
                     optionB.setVisibility(View.VISIBLE);
-                    Spanned optionAtxt =  Html.fromHtml("B. " + question.getOption2());
+                    Spanned optionAtxt =  Html.fromHtml("" + question.getOption2());
                     optionB.setText(optionAtxt);
                 }
 
@@ -185,7 +189,7 @@ public class ReviewResultFragment extends Fragment {
                 }else{
                     webView3.setVisibility(GONE);
                     optionC.setVisibility(View.VISIBLE);
-                    Spanned optionAtxt =  Html.fromHtml("C. " + question.getOption3());
+                    Spanned optionAtxt =  Html.fromHtml("" + question.getOption3());
                     optionC.setText(optionAtxt);
                 }
 
@@ -200,7 +204,7 @@ public class ReviewResultFragment extends Fragment {
                 }else{
                     webView4.setVisibility(GONE);
                     optionD.setVisibility(View.VISIBLE);
-                    Spanned optionAtxt =  Html.fromHtml("C. " + question.getOption4());
+                    Spanned optionAtxt =  Html.fromHtml("" + question.getOption4());
                     optionD.setText(optionAtxt);
                 }
 
@@ -208,8 +212,7 @@ public class ReviewResultFragment extends Fragment {
 
 
 
-            Spanned optionDtxt =  Html.fromHtml("D. " + question.getOption4());
-            optionD.setText(optionDtxt);
+
 
 
 
