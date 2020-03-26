@@ -22,7 +22,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 >
 
                 <TextView
@@ -31,15 +31,29 @@
                     android:textColor="@color/black"
                     android:layout_weight="1"
                     android:paddingStart="@dimen/margin_5"
+                    android:visibility="visible"
                     android:gravity="start"
                     android:id="@+id/txt_test_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="@dimen/margin_16"
-                    >
+                    />
 
-                </TextView>
+                <WebView
+                    android:id="@+id/txt_test_webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:visibility="gone"
+                    android:paddingStart="@dimen/margin_5"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/margin_16"/>
+
 
                 <ImageView
                     android:layout_weight="1"

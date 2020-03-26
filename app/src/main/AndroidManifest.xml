@@ -295,6 +295,13 @@
             android:label="Contact Us"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
+
+
+        <activity
+            android:name=".Activities.TestUGV1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+
         <activity android:name=".Activities.DNASettingActivity" />
         <activity
             android:name=".Activities.Noticeboard"

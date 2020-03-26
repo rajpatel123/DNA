@@ -27,8 +27,8 @@ android {
         applicationId "com.dnamedical"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 108
-        versionName "v6.2.7"
+        versionCode 109
+        versionName "v6.2.8"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -52,7 +52,7 @@ android {
     }
     buildTypes {
         release {
-            debuggable false
+            debuggable true
             def uatSigningKey = signingConfigs.dna
             signingConfig uatSigningKey
             multiDexEnabled true

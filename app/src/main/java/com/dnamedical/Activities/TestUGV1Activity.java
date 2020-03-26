@@ -1,5 +1,6 @@
 package com.dnamedical.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -17,8 +18,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -31,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.AnswerListAdapter;
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.Models.test.testp.QustionDetails;
@@ -104,8 +108,9 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
     private long timeSpend;
     private RecyclerView answersheetRecyclerView;
     private int questionIndex = 0;
-    private TextView answer1, answer2, answer3, answer4;
+    private TextView answer1, answer2, answer3, answer4,optionTag1,optionTag2,optionTag3,optionTag4;
     private ImageView image1, image2, image3, image4;
+    private WebView webView1, webView2, webView3, webView4,webView5;
     private long resultDate;
     private boolean isSubmitVisible = false;
     private boolean isDailyTest;
@@ -117,6 +122,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
         setContentView(R.layout.activity_test_v1);
         guessImage = findViewById(R.id.image_guess);
         guessCheck = findViewById(R.id.guessCheck);
+        webView1 = findViewById(R.id.qwebview);
         relative = findViewById(R.id.relative);
         submit = findViewById(R.id.submit);
         star = findViewById(R.id.star);
@@ -215,7 +221,6 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
             }
         }
-
 
 
 
@@ -525,6 +530,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void updateQuestionsFragment(int questionIndex) {
 
 
@@ -571,6 +577,12 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
             imageQuestion.setVisibility(View.GONE);
         }
 
+        if (!TextUtils.isEmpty(question.getTitle()) && question.getTitle().contains("html")){
+            webView1.loadUrl(BuildConfig.API_SERVER_IP+"reviewOption.php?id="+question.getId()+"&Qid=5");
+            questionTxt.setVisibility(View.GONE);
+            webView1.setVisibility(View.VISIBLE);
+        }
+
         Spannable html;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             html = (Spannable) Html.fromHtml("Q" + (questionIndex + 1) + ". " + question.getTitle(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
@@ -581,21 +593,19 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
 
         for (int i = 0; i < 4; i++) {
+            Log.d("Question:",""+question.getOption1());
+
             switch (i) {
                 case 0:
                     View answerView = inflater.inflate(R.layout.item_answer_ug, null, false);
                     answer1 = answerView.findViewById(R.id.answer);
+                    optionTag1 = answerView.findViewById(R.id.optiontag);
+                    webView2 = answerView.findViewById(R.id.webview);
                     image1 = answerView.findViewById(R.id.image);
                     cardView1 = answerView.findViewById(R.id.cardView);
 
+                    optionTag1.setText("(A)");
 
-                    Spannable html1;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html1 = (Spannable) Html.fromHtml("(A) " + question.getOption1(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
-                    } else {
-                        html1 = (Spannable) Html.fromHtml("(A) " + question.getOption1(), imageGetter, null);
-                    }
-                    answer1.setText(html1);
 
 
 
@@ -621,6 +631,24 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
                     }
 
+                    if (!TextUtils.isEmpty(question.getOption1()) && question.getOption1().contains("html")){
+                        webView2.loadUrl(BuildConfig.API_SERVER_IP+"reviewOption.php?id="+question.getId()+"&option1=1");
+                        answer1.setVisibility(View.GONE);
+                        image1.setVisibility(View.GONE);
+                        webView2.setVisibility(View.VISIBLE);
+                    }else{
+                        Spannable html1;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            html1 = (Spannable) Html.fromHtml(" "+question.getOption1(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        } else {
+                            html1 = (Spannable) Html.fromHtml(" " + question.getOption1(), imageGetter, null);
+                        }
+                        answer1.setText(html1);
+
+                        answer1.setVisibility(View.VISIBLE);
+                        image1.setVisibility(View.GONE);
+                        webView2.setVisibility(View.GONE);
+                    }
 
                     answerList.addView(answerView);
 
@@ -644,23 +672,59 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
                         }
                     });
+
+                    webView2.setOnTouchListener(new View.OnTouchListener() {
+
+                        public final static int FINGER_RELEASED = 0;
+                        public final static int FINGER_TOUCHED = 1;
+                        public final static int FINGER_DRAGGING = 2;
+                        public final static int FINGER_UNDEFINED = 3;
+
+                        private int fingerState = FINGER_RELEASED;
+
+
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                            switch (motionEvent.getAction()) {
+
+
+                                case MotionEvent.ACTION_UP:
+                                    if(fingerState != FINGER_DRAGGING) {
+                                        fingerState = FINGER_RELEASED;
+
+                                        answer = "1";
+                                        updateAnswer(cardView1, answer1);
+
+                                        if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                            updateToServerAnswerSelection();
+                                        } else {
+                                            updateMarkingOptionTime();
+                                        }
+                                        updateAnswer(cardView1, answer1);
+                                        question.setSelectedOption(question.getOption1());
+                                    }
+
+                                    break;
+                            }
+
+                            return false;
+                        }
+                    });
+
                     break;
                 case 1:
-                    View answerView1 = inflater.inflate(R.layout.item_answer,
+                    View answerView1 = inflater.inflate(R.layout.item_answer_ug,
                             null, false);
                     answer2 = answerView1.findViewById(R.id.answer);
+                    optionTag2 = answerView1.findViewById(R.id.optiontag);
                     image2 = answerView1.findViewById(R.id.image);
+                    webView3 = answerView1.findViewById(R.id.webview);
 
                     cardView2 = answerView1.findViewById(R.id.cardView);
+                    optionTag2.setText("(B) ");
 
-                    Spannable html2;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html2 = (Spannable) Html.fromHtml("(B) " + question.getOption2(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
-                    } else {
-                        html2 = (Spannable) Html.fromHtml("(B) " + question.getOption2(), imageGetter, null);
-                    }
 
-                    answer2.setText(html2);
                     answerList.addView(answerView1);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption2().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView2, answer2);
@@ -688,6 +752,28 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                         image2.setVisibility(View.GONE);
 
                     }
+
+                    if (!TextUtils.isEmpty(question.getOption2()) && question.getOption2().contains("html")){
+                        webView3.loadUrl(BuildConfig.API_SERVER_IP+"reviewOption.php?id="+question.getId()+"&option2=2");
+                        answer2.setVisibility(View.GONE);
+                        image2.setVisibility(View.GONE);
+
+                        webView3.setVisibility(View.VISIBLE);
+                    }else{
+                        Spannable html2;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            html2 = (Spannable) Html.fromHtml("" + question.getOption2(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        } else {
+                            html2 = (Spannable) Html.fromHtml("" + question.getOption2(), imageGetter, null);
+                        }
+
+                        answer2.setText(html2);
+
+                        answer2.setVisibility(View.VISIBLE);
+                        image2.setVisibility(View.GONE);
+
+                        webView3.setVisibility(View.GONE);
+                    }
                     cardView2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -703,23 +789,55 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
                         }
                     });
+
+                    webView3.setOnTouchListener(new View.OnTouchListener() {
+
+                        public final static int FINGER_RELEASED = 0;
+                        public final static int FINGER_TOUCHED = 1;
+                        public final static int FINGER_DRAGGING = 2;
+                        public final static int FINGER_UNDEFINED = 3;
+
+                        private int fingerState = FINGER_RELEASED;
+
+
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                            switch (motionEvent.getAction()) {
+
+
+                                case MotionEvent.ACTION_UP:
+                                    if(fingerState != FINGER_DRAGGING) {
+                                        fingerState = FINGER_RELEASED;
+                                        answer = "2";
+                                        if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                            updateToServerAnswerSelection();
+                                        } else {
+                                            updateMarkingOptionTime();
+                                        }
+                                        updateAnswer(cardView2, answer2);
+                                        question.setSelectedOption(question.getOption2());
+                                    }
+
+                                    break;
+                            }
+
+                            return false;
+                        }
+                    });
+
                     break;
                 case 2:
-                    View answerView2 = inflater.inflate(R.layout.item_answer,
+                    View answerView2 = inflater.inflate(R.layout.item_answer_ug,
                             null, false);
                     answer3 = answerView2.findViewById(R.id.answer);
+                    optionTag3 = answerView2.findViewById(R.id.optiontag);
                     image3 = answerView2.findViewById(R.id.image);
+                    webView4 = answerView2.findViewById(R.id.webview);
+                    optionTag3.setText("(C) ");
 
                     cardView3 = answerView2.findViewById(R.id.cardView);
 
-                    Spannable html3;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html3 = (Spannable) Html.fromHtml("(C) " + question.getOption3(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
-                    } else {
-                        html3 = (Spannable) Html.fromHtml("(C) " + question.getOption3(), imageGetter, null);
-                    }
-
-                    answer3.setText(html3);
 
                     answerList.addView(answerView2);
 
@@ -744,6 +862,28 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                         image3.setVisibility(View.GONE);
 
                     }
+
+                    if (!TextUtils.isEmpty(question.getOption3()) && question.getOption3().contains("html")){
+                        webView4.loadUrl(BuildConfig.API_SERVER_IP+"reviewOption.php?id="+question.getId()+"&option3=3");
+                        answer2.setVisibility(View.GONE);
+                        image3.setVisibility(View.GONE);
+
+                        webView4.setVisibility(View.VISIBLE);
+                    }else{
+
+                        Spannable html3;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            html3 = (Spannable) Html.fromHtml("" + question.getOption3(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        } else {
+                            html3 = (Spannable) Html.fromHtml("" + question.getOption3(), imageGetter, null);
+                        }
+                        answer2.setVisibility(View.VISIBLE);
+                        image3.setVisibility(View.GONE);
+
+                        webView4.setVisibility(View.GONE);
+
+                        answer3.setText(html3);
+                    }
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption3().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView3, answer3);
                     }
@@ -762,24 +902,56 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
                         }
                     });
+
+                    webView4.setOnTouchListener(new View.OnTouchListener() {
+
+                        public final static int FINGER_RELEASED = 0;
+                        public final static int FINGER_TOUCHED = 1;
+                        public final static int FINGER_DRAGGING = 2;
+                        public final static int FINGER_UNDEFINED = 3;
+
+                        private int fingerState = FINGER_RELEASED;
+
+
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                            switch (motionEvent.getAction()) {
+
+
+                                case MotionEvent.ACTION_UP:
+                                    if(fingerState != FINGER_DRAGGING) {
+                                        fingerState = FINGER_RELEASED;
+                                        answer = "3";
+                                        if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                            updateToServerAnswerSelection();
+                                        } else {
+                                            updateMarkingOptionTime();
+                                        }
+                                        question.setSelectedOption(question.getOption3());
+                                        updateAnswer(cardView3, answer3);
+                                    }
+
+                                    break;
+                            }
+
+                            return false;
+                        }
+                    });
+
                     break;
                 case 3:
-                    View answerView4 = inflater.inflate(R.layout.item_answer,
+                    View answerView4 = inflater.inflate(R.layout.item_answer_ug,
                             null, false);
                     answer4 = answerView4.findViewById(R.id.answer);
+                    optionTag4 = answerView4.findViewById(R.id.optiontag);
                     image4 = answerView4.findViewById(R.id.image);
+                    webView5 = answerView4.findViewById(R.id.webview);
+                    optionTag4.setText("(D) ");
 
                     cardView4 = answerView4.findViewById(R.id.cardView);
 
-                    Spannable html4;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html4 = (Spannable) Html.fromHtml("(D) " + question.getOption4(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
-                    } else {
-                        html4 = (Spannable) Html.fromHtml("(D) " + question.getOption4(), imageGetter, null);
-                    }
-
-                    answer4.setText(html4);
-                    answerList.addView(answerView4);
+                                        answerList.addView(answerView4);
                     if (!TextUtils.isEmpty(question.getSelectedOption()) && question.getOption4().equalsIgnoreCase(question.getSelectedOption())) {
                         updateAnswer(cardView4, answer4);
                     }
@@ -806,6 +978,27 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                         image4.setVisibility(View.GONE);
 
                     }
+
+                    if (!TextUtils.isEmpty(question.getOption4()) && question.getOption4().contains("html")){
+                        webView5.loadUrl(BuildConfig.API_SERVER_IP+"reviewOption.php?id="+question.getId()+"&option4=4");
+                        answer4.setVisibility(View.GONE);
+                        image4.setVisibility(View.GONE);
+
+                        webView5.setVisibility(View.VISIBLE);
+                    }else{
+                        Spannable html4;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            html4 = (Spannable) Html.fromHtml("" + question.getOption4(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        } else {
+                            html4 = (Spannable) Html.fromHtml("" + question.getOption4(), imageGetter, null);
+                        }
+                        answer4.setVisibility(View.VISIBLE);
+                        image4.setVisibility(View.GONE);
+
+                        webView5.setVisibility(View.GONE);
+                        answer4.setText(html4);
+
+                    }
                     cardView4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -820,6 +1013,43 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
                         }
                     });
+
+                    webView5.setOnTouchListener(new View.OnTouchListener() {
+
+                        public final static int FINGER_RELEASED = 0;
+                        public final static int FINGER_TOUCHED = 1;
+                        public final static int FINGER_DRAGGING = 2;
+                        public final static int FINGER_UNDEFINED = 3;
+
+                        private int fingerState = FINGER_RELEASED;
+
+
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                            switch (motionEvent.getAction()) {
+
+
+                                case MotionEvent.ACTION_UP:
+                                    if(fingerState != FINGER_DRAGGING) {
+                                        fingerState = FINGER_RELEASED;
+                                        answer = "4";
+                                        if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                                            updateToServerAnswerSelection();
+                                        } else {
+                                            updateMarkingOptionTime();
+                                        }
+                                        question.setSelectedOption(question.getOption4());
+                                        updateAnswer(cardView4, answer4);
+                                    }
+
+                                    break;
+                            }
+
+                            return false;
+                        }
+                    });
+
                     break;
             }
         }

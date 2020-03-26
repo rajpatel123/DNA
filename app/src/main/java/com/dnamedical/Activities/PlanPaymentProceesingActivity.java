@@ -633,7 +633,7 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
                     }
                 }
-                validTill.setText("This plan is Valid till 31 Dec 2020");
+                validTill.setText("This plan is Valid till "+Utils.dateFormat(Long.parseLong(plan.getPlan_expiry())));
                 valueOfPlane.setText("INR "+plan.getPlanPrice());
 
                 discountTitle.setText(" Coupon Code :" + plan.getCoupan_code());

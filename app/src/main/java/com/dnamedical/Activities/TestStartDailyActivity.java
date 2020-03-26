@@ -85,7 +85,6 @@ public class TestStartDailyActivity extends AppCompatActivity {
             testStatus = intent.getStringExtra("testStatus");
             description = intent.getStringExtra("desc");
             testPaid = intent.getStringExtra("testPaid");
-            startTest();
             if (!testStatus.equalsIgnoreCase("open")) {
                 testTopic.setText(testName);
                 updateTestTypeText(type);
@@ -248,7 +247,7 @@ public class TestStartDailyActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody testResult = response.body();
                 Utils.dismissProgressDialog();
-                Intent intent = new Intent(TestStartDailyActivity.this, TestV1Activity.class);
+                Intent intent = new Intent(TestStartDailyActivity.this, TestUGV1Activity.class);
                 DnaPrefs.putBoolean(TestStartDailyActivity.this, Constants.Resultsubmit, true);
                 test_id = getIntent().getStringExtra("id");
                 testName = getIntent().getStringExtra("testName");

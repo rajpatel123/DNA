@@ -28,6 +28,19 @@ public class Plan {
     @SerializedName("expiry_date")
     @Expose
     private String expiry_date;
+
+
+    public String getPlan_expiry() {
+        return plan_expiry;
+    }
+
+    public void setPlan_expiry(String plan_expiry) {
+        this.plan_expiry = plan_expiry;
+    }
+
+    @SerializedName("plan_expiry")
+    @Expose
+    private String plan_expiry;
     @SerializedName("plan_discount")
     @Expose
     private String planDiscount;

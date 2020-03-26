@@ -28,6 +28,14 @@
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold" />
 
+            <WebView
+                android:id="@+id/qwebview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold" />
             <ImageView
                 android:id="@+id/question_image"
                 android:layout_width="match_parent"
@@ -44,7 +52,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:orientation="horizontal">
@@ -65,11 +73,20 @@
                         android:layout_weight="2"
                         android:text="A. Tests" />
 
+                    <WebView
+                        android:id="@+id/webView1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_weight="2"
+                        android:text="A. Tests" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:orientation="horizontal">
@@ -91,11 +108,20 @@
                         android:layout_weight="2"
                         android:text="A. Tests" />
 
+                    <WebView
+                        android:id="@+id/webView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_weight="2"
+                        android:text="A. Tests" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:orientation="horizontal">
@@ -115,12 +141,20 @@
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
                         android:text="A. Tests" />
+                    <WebView
+                        android:id="@+id/webView3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_weight="2"
+                        android:text="A. Tests" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:orientation="horizontal">
@@ -137,6 +171,14 @@
                         android:id="@+id/optionD"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_weight="2"
+                        android:text="A. Tests" />
+                    <WebView
+                        android:id="@+id/webView4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
                         android:text="A. Tests" />

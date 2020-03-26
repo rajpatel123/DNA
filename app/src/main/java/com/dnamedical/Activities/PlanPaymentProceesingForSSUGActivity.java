@@ -111,7 +111,7 @@ public class PlanPaymentProceesingForSSUGActivity extends AppCompatActivity {
 
                     pack_key = dm.getPackKey();
                     //from plan detail api
-                    //priceTitle.setText(individualPlan.get());
+                    priceTitle.setText(dm.getName());
                     valueOfPlane.setText(dm.getPrice());
                     subscription_id = dm.getId();
                     getPlanList(dm.getId());
@@ -131,7 +131,7 @@ public class PlanPaymentProceesingForSSUGActivity extends AppCompatActivity {
 
                     pack_key = mch.getPackKey();
                     //from plan detail api
-                    //priceTitle.setText(individualPlan.get());
+                    priceTitle.setText(mch.getName());
                     valueOfPlane.setText(mch.getPrice());
                     subscription_id = mch.getId();
                     getPlanList(mch.getId());
@@ -151,7 +151,7 @@ public class PlanPaymentProceesingForSSUGActivity extends AppCompatActivity {
 
                     pack_key = neetugPlan.getPackKey();
                     //from plan detail api
-                    //priceTitle.setText(individualPlan.get());
+                    priceTitle.setText(neetugPlan.getName());
                     valueOfPlane.setText(neetugPlan.getPrice());
                     subscription_id = neetugPlan.getId();
                     getPlanList(neetugPlan.getId());
@@ -171,7 +171,7 @@ public class PlanPaymentProceesingForSSUGActivity extends AppCompatActivity {
 
                     pack_key = comboPack.getPackKey();
                     //from plan detail api
-                    //priceTitle.setText(individualPlan.get());
+                    priceTitle.setText(comboPack.getName());
                     valueOfPlane.setText(comboPack.getPrice());
                     subscription_id = comboPack.getId();
                     getPlanList(comboPack.getId());
@@ -383,16 +383,8 @@ public class PlanPaymentProceesingForSSUGActivity extends AppCompatActivity {
             if (plan != null) {
 
 
-                if (individualPlan != null) {
-                    priceTitle.setText(individualPlan.getName());
 
-                } else {
-                    if (comboPack != null) {
-                        priceTitle.setText(comboPack.getName());
-
-                    }
-                }
-                validTill.setText("This plan is Valid till 31 Dec 2020");
+                validTill.setText("This plan is Valid till "+Utils.dateFormat(Long.parseLong(plan.getPlan_expiry())));
                 valueOfPlane.setText("INR " + plan.getPlanPrice());
 
                 discountTitle.setText(" Coupon Code :" + plan.getCoupan_code());

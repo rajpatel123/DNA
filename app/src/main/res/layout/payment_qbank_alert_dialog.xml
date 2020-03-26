@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding_10"
-                    android:text="This Module is available only for PREMIUM SUBSCRIBER."
+                    android:text="This Q Bank Module is available only for PREMIUM SUBSCRIBER."
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/size_14" />
 

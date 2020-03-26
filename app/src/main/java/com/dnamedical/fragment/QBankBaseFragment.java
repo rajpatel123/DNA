@@ -29,7 +29,7 @@ public class QBankBaseFragment extends Fragment {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         // ...Irrelevant code for customizing the buttons and titl
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.payment_alert_dialog, null);
+        View dialogView = inflater.inflate(R.layout.payment_qbank_alert_dialog, null);
         dialogBuilder.setView(dialogView);
 
         final AlertDialog dialog = dialogBuilder.create();

@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.ReviewresulActivity;
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 import com.dnamedical.R;
 import com.dnamedical.utils.Constants;
@@ -62,7 +63,7 @@ public class ReviewResultFragment extends Fragment {
     QuestionList question;
     ReviewresulActivity activity;
     CardView explanationCard;
-    WebView webView;
+    WebView webView,webView1,webView2,webView3,webView4,qwebView;
     ProgressBar progressBar;
 
     public static Fragment init(QuestionList question, int position) {
@@ -104,6 +105,11 @@ public class ReviewResultFragment extends Fragment {
         refImage = view.findViewById(R.id.refImage);
         progressBar = view.findViewById(R.id.progressBar);
         webView = view.findViewById(R.id.dataWebView);
+        qwebView = view.findViewById(R.id.qwebview);
+        webView1 = view.findViewById(R.id.webView1);
+        webView2 = view.findViewById(R.id.webView2);
+        webView3 = view.findViewById(R.id.webView3);
+        webView4 = view.findViewById(R.id.webView4);
         //explanation_image = view.findViewById(R.id.explanation_image);
 
         optionA = view.findViewById(R.id.optionA);
@@ -121,21 +127,85 @@ public class ReviewResultFragment extends Fragment {
 //            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
 //
 
-            Spanned sp =  Html.fromHtml("Q " + (fragNum + 1) + ". " + question.getTitle());
-            questionTxt.setText(sp);
+
+            if (!TextUtils.isEmpty(question.getTitle())){
+                if (question.getTitle().contains("html")){
+                    qwebView.setVisibility(View.VISIBLE);
+                    questionTxt.setVisibility(GONE);
+                  qwebView.loadUrl(BuildConfig.API_SERVER_IP + "reviewOption.php?id=" + question.getId() + "&Qid=5");
+                }else{
+                    qwebView.setVisibility(GONE);
+                    questionTxt.setVisibility(View.VISIBLE);
+                    Spanned sp =  Html.fromHtml("Q " + (fragNum + 1) + ". " + question.getTitle());
+                    questionTxt.setText(sp);
+                }
+
+            }
 
 
 
-            Spanned optionAtxt =  Html.fromHtml("A. " + question.getOption1());
-            optionA.setText(optionAtxt);
+
+            if (!TextUtils.isEmpty(question.getOption1())){
+                if (question.getOption1().contains("html")){
+                    webView1.setVisibility(View.VISIBLE);
+                    optionA.setVisibility(GONE);
+                    webView1.loadUrl(BuildConfig.API_SERVER_IP + "reviewOption.php?id=" + question.getId() + "&option1=1");
+                }else{
+                    webView1.setVisibility(GONE);
+                    optionA.setVisibility(View.VISIBLE);
+                    Spanned optionAtxt =  Html.fromHtml("A. " + question.getOption1());
+                    optionA.setText(optionAtxt);
+                }
+
+            }
 
 
-            Spanned optionBtxt =  Html.fromHtml("B. " + question.getOption2());
-            optionB.setText(optionBtxt);
+
+            if (!TextUtils.isEmpty(question.getOption2())){
+                if (question.getOption2().contains("html")){
+                    webView2.setVisibility(View.VISIBLE);
+                    optionB.setVisibility(GONE);
+                    webView2.loadUrl(BuildConfig.API_SERVER_IP + "reviewOption.php?id=" + question.getId() + "&option2=2");
+                }else{
+                    webView2.setVisibility(GONE);
+                    optionB.setVisibility(View.VISIBLE);
+                    Spanned optionAtxt =  Html.fromHtml("B. " + question.getOption2());
+                    optionB.setText(optionAtxt);
+                }
+
+            }
 
 
-            Spanned optionCtxt =  Html.fromHtml("C. " + question.getOption3());
-            optionC.setText(optionCtxt);
+
+            if (!TextUtils.isEmpty(question.getOption3())){
+                if (question.getOption3().contains("html")){
+                    webView3.setVisibility(View.VISIBLE);
+                    optionC.setVisibility(GONE);
+                    webView3.loadUrl(BuildConfig.API_SERVER_IP + "reviewOption.php?id=" + question.getId() + "&option3=3");
+                }else{
+                    webView3.setVisibility(GONE);
+                    optionC.setVisibility(View.VISIBLE);
+                    Spanned optionAtxt =  Html.fromHtml("C. " + question.getOption3());
+                    optionC.setText(optionAtxt);
+                }
+
+            }
+
+
+            if (!TextUtils.isEmpty(question.getOption4())){
+                if (question.getOption4().contains("html")){
+                    webView4.setVisibility(View.VISIBLE);
+                    optionD.setVisibility(GONE);
+                    webView4.loadUrl(BuildConfig.API_SERVER_IP + "reviewOption.php?id=" + question.getId() + "&option4=4");
+                }else{
+                    webView4.setVisibility(GONE);
+                    optionD.setVisibility(View.VISIBLE);
+                    Spanned optionAtxt =  Html.fromHtml("C. " + question.getOption4());
+                    optionD.setText(optionAtxt);
+                }
+
+            }
+
 
 
             Spanned optionDtxt =  Html.fromHtml("D. " + question.getOption4());

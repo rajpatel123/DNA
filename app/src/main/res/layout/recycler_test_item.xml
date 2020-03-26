@@ -86,7 +86,7 @@
                         android:paddingLeft="2dp"
                         android:paddingTop="2dp"
                         android:paddingRight="2dp"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:text="NIMHANS Mock Exam"
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
