@@ -18,6 +18,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Hemant
+ */
 public class DNAApplication extends MultiDexApplication {
 
     static DNAApplication dnaApplication = null;
