@@ -37,6 +37,7 @@
                    android:layout_below="@id/qbank_answer"
                    android:layout_marginStart="20dp"
                    android:layout_marginEnd="20dp"
+                   android:visibility="gone"
                    android:layout_marginBottom="20dp"
                    android:background="@drawable/ic_launcher_background" />
            </RelativeLayout>
