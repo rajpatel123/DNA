@@ -244,6 +244,8 @@ public class QbankRatingActivity extends AppCompatActivity {
                 for (String sss : feedback) {
                     result.append(sss + ",");
                 }
+            }else{
+                result.append("  ");
             }
 
             String feedback = result.toString().substring(0, result.toString().length() - 1);

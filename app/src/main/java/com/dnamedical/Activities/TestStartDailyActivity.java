@@ -96,8 +96,7 @@ public class TestStartDailyActivity extends AppCompatActivity {
                 start_desc.setVisibility(View.GONE);
 
             } else {
-                //if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
-                if (true) {
+                if ((System.currentTimeMillis() - (startDate * 1000) >= 0)) {
                     btnStart.setText("Start The Test");
                     btnStart.setVisibility(View.VISIBLE);
 
