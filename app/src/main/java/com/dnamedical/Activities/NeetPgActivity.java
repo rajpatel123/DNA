@@ -70,6 +70,7 @@ public class NeetPgActivity extends AppCompatActivity {
                 catTitle.setText(categoryDetailData.getDetails().get(i).getCatName());
                 toolbarTitle.setText(categoryDetailData.getDetails().get(i).getCatName());
                 getSupportActionBar().setTitle(categoryDetailData.getDetails().get(i).getCatName());
+
                 for (int j = 0; j < categoryDetailData.getDetails().get(i).getSubCat().size(); j++) {
                     neetPg = new ArrayList<SubSubChild>();
                     listDataheader.add(categoryDetailData.getDetails().get(i).getSubCat().get(j).getSubCatName());
