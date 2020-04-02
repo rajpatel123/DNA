@@ -95,13 +95,16 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getResultDate())*1000));
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.vediobackground));
 
+
             if (holder.getAdapterPosition() > 0) {
-                if (!Objects.requireNonNull(test.getStartDate()).equals(test.getStartDate())) {
+                if (!Objects.requireNonNull(test.getStartDate()).equals(grandTests.get(holder.getAdapterPosition() - 1).getStartDate())) {
                     holder.textDate.setVisibility(View.VISIBLE);
                 } else {
                     holder.textDate.setVisibility(GONE);
                 }
             }
+
+
             if (test.getIsPaid().equalsIgnoreCase("1")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
                 holder.imageLock.setVisibility(View.VISIBLE);

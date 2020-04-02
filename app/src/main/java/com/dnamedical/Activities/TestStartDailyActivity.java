@@ -85,6 +85,8 @@ public class TestStartDailyActivity extends AppCompatActivity {
             testStatus = intent.getStringExtra("testStatus");
             description = intent.getStringExtra("desc");
             testPaid = intent.getStringExtra("testPaid");
+
+//            startTest();
             if (!testStatus.equalsIgnoreCase("open")) {
                 testTopic.setText(testName);
                 updateTestTypeText(type);

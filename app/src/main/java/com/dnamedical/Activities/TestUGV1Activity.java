@@ -91,7 +91,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
     String test_id;
     public String question_id;
     public String answer;
-    public String isGuess;
+    public String isGuess="false";
     ProgressBar progressBar;
     public Button nextBtn, prevBtn;
     boolean timeUp;
@@ -329,6 +329,11 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
     }
 
     private void onNextQuestion() {
+        if (!Utils.isInternetConnected(TestUGV1Activity.this)){
+            Toast.makeText(TestUGV1Activity.this,"Please check internet connection", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         timeSpend = System.currentTimeMillis() - tempTime;
 
 
@@ -590,17 +595,23 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
         if (!TextUtils.isEmpty(question.getTitle()) && question.getTitle().contains("html")){
             webView1.loadUrl(BuildConfig.API_SERVER_IP+"reviewOption.php?id="+question.getId()+"&Qid=5");
-            questionTxt.setVisibility(View.GONE);
+            questionTxt.setText("Q" + (questionIndex + 1));
+
+            questionTxt.setVisibility(View.VISIBLE);
             webView1.setVisibility(View.VISIBLE);
+        }else{
+            Spannable html;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                html = (Spannable) Html.fromHtml("Q" + (questionIndex + 1) + ". " + question.getTitle(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+            } else {
+                html = (Spannable) Html.fromHtml("Q" + (questionIndex + 1) + ". " + question.getTitle(), imageGetter, null);
+            }
+            questionTxt.setText(html);
+            questionTxt.setVisibility(View.VISIBLE);
+            webView1.setVisibility(View.GONE);
         }
 
-        Spannable html;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            html = (Spannable) Html.fromHtml("Q" + (questionIndex + 1) + ". " + question.getTitle(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
-        } else {
-            html = (Spannable) Html.fromHtml("Q" + (questionIndex + 1) + ". " + question.getTitle(), imageGetter, null);
-        }
-        questionTxt.setText(html);
+
 
 
         for (int i = 0; i < 4; i++) {

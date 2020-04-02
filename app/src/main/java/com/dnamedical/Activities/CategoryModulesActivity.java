@@ -162,7 +162,7 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
 
         }
 
-        DnaPrefs.putString(mainActivity, Constants.CAT_ID, catId);
+        DnaPrefs.putString(this, Constants.CAT_ID, catId);
         if (intent != null) {
             startActivity(intent);
         }
