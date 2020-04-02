@@ -147,6 +147,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @BindView(R.id.techer_name)
     TextView textTeacher;
 
+    @BindView(R.id.pdfDwnloadOptionImg)
+    ImageView pdfDwnloadOptionImg;
+
+//    ImageView pdfDownload;
+    String URL = "http://www.codeplayon.com/samples/resume.pdf";
+
+
 
     private Unbinder unbinder;
     private String title;
@@ -416,6 +423,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         unbinder = ButterKnife.bind(this);
 
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
@@ -572,6 +580,17 @@ public class VideoPlayerActivity extends AppCompatActivity {
         });
 
 
+        pdfDownload();
+
+    }
+
+    private void pdfDownload() {
+        pdfDwnloadOptionImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DownloadTask(getApplicationContext(), URL);
+            }
+        });
     }
 
     private int getTimeMillies(String source) {

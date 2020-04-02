@@ -111,6 +111,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             }
 
         }
+
         if (price.getSubTitle() != null) {
             holder.doctarName.setText("" + price.getSubTitle());
         }
@@ -292,6 +293,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.ratingandtime)
         TextView ratingandtime;
 
+        @BindView(R.id.pdfDwnloadImg)
+        ImageView pdfDwnloadImg;
 
         @BindView(R.id.image_doctor)
         ImageView imageViewDoctor;
@@ -317,6 +320,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         View lineView;
         @BindView(R.id.lineViewWithMargin)
         View lineViewWithMargin;
+
+
 
         public ViewHolder(View view) {
             super(view);

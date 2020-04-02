@@ -195,7 +195,9 @@
                         android:layout_width="@dimen/ts_20"
                         android:layout_height="@dimen/ts_20"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_star" />
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_star"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -204,14 +206,9 @@
                         android:layout_marginLeft="7dp"
                         android:layout_weight=".3"
                         android:text="(5.0)"
+                        android:visibility="gone"
                         android:textColor="@color/vedio_text_color"
                         android:textSize="@dimen/evp_text_size_small" />
-
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center"
-                        android:background="@color/colorAccent" />
 
                     <TextView
                         android:id="@+id/ratingandtime"
@@ -221,6 +218,37 @@
                         android:layout_marginLeft="7dp"
                         android:layout_weight="1"
                         android:text="20mits"
+                        android:textColor="@color/vedio_text_color"
+                        android:textSize="@dimen/evp_text_size_small"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorAccent" />
+
+                   <!-- <TextView
+                        android:id="@+id/ratingandtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:text="20mits"
+                        android:textColor="@color/vedio_text_color"
+                        android:textSize="@dimen/evp_text_size_small"
+                        android:textStyle="bold" />-->
+
+                    <ImageView
+                        android:id="@+id/pdfDwnloadImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:text="20mits"
+                        android:src="@drawable/pdf_dowanload_icon"
                         android:textColor="@color/vedio_text_color"
                         android:textSize="@dimen/evp_text_size_small"
                         android:textStyle="bold" />
