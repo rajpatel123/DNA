@@ -150,8 +150,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
-
             }
+
         } else {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
@@ -162,8 +162,29 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             } else {
                 holder.commingSoon.setVisibility(GONE);
             }
-
         }
+
+            ////////////////////////////////////////////////////
+//        if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) || (!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))) {
+//            holder.pdfloadImg.setVisibility(visible);
+//            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+//                holder.commingSoon.setVisibility(View.VISIBLE);
+//            } else {
+//                holder.commingSoon.setVisibility(GONE);
+//            }
+//
+//        } else {
+//            holder.buyNow.setVisibility(View.VISIBLE);
+//            holder.pdfloadImg.setVisibility(visible);
+//            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+//                holder.commingSoon.setVisibility(View.VISIBLE);
+//            } else {
+//                holder.commingSoon.setVisibility(GONE);
+//            }
+//
+//        }
+
+
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,11 +217,11 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
                 btn_yes_all.setText("Click Here To Buy All Topic");
 
-                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")){
+                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")) {
                     btn_yes.setVisibility(GONE);
                     ortxt.setVisibility(GONE);
 
-                }else{
+                } else {
                     btn_yes.setVisibility(View.VISIBLE);
                     ortxt.setVisibility(View.VISIBLE);
 
@@ -293,8 +314,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.ratingandtime)
         TextView ratingandtime;
 
-        @BindView(R.id.pdfDwnloadImg)
-        ImageView pdfDwnloadImg;
+        @BindView(R.id.pdfloadImg)
+        ImageView pdfloadImg;
 
         @BindView(R.id.image_doctor)
         ImageView imageViewDoctor;
@@ -320,7 +341,6 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         View lineView;
         @BindView(R.id.lineViewWithMargin)
         View lineViewWithMargin;
-
 
 
         public ViewHolder(View view) {

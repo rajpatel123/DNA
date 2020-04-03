@@ -241,14 +241,14 @@
                         android:textStyle="bold" />-->
 
                     <ImageView
-                        android:id="@+id/pdfDwnloadImg"
+                        android:id="@+id/pdfloadImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="7dp"
                         android:layout_weight="1"
                         android:text="20mits"
-                        android:src="@drawable/pdf_dowanload_icon"
+                        android:src="@drawable/pdf_icon"
                         android:textColor="@color/vedio_text_color"
                         android:textSize="@dimen/evp_text_size_small"
                         android:textStyle="bold" />

@@ -37,7 +37,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/dnalogo"
         android:padding="10dp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
         <ImageView
             android:id="@+id/pdfDwnloadOptionImg"
@@ -48,7 +48,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="@drawable/pdf_dowanload_icon"
+            android:background="@drawable/pdf_icon_white"
             android:padding="10dp"
             android:visibility="visible" />
 
