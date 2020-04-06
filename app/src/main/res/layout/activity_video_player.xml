@@ -28,14 +28,27 @@
             app:srcCompat="@drawable/back_arrow" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/dnalogo"
+        android:padding="10dp"
+        android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/pdfDwnloadOptionImg"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="@drawable/dnalogo"
+            android:background="@drawable/pdf_icon_white"
             android:padding="10dp"
             android:visibility="visible" />
 
