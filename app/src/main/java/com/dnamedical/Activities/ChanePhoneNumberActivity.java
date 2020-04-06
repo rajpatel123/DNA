@@ -55,11 +55,10 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
         });
 
 
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Payment");
+            getSupportActionBar().setTitle("Change Mobile No's");
         }
 
     }
@@ -105,11 +104,12 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
             RequestBody UserId = RequestBody.create(MediaType.parse("text/plane"), userId);
             RequestBody phoneNo = RequestBody.create(MediaType.parse("text/plane"), updatePhoneNumber);
 
+
             RestClient.changePhoneNumber(UserId, phoneNo, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
-                    if (response.code()==200) {
+                    if (response!=null && response.code()==200 && response.body()!=null) {
                             Intent intent = new Intent(getApplicationContext(), ChangePhoneNumberOtypVarification.class);
                             DnaPrefs.putString(getApplicationContext(), Constants.USERPHNUMBER, updatePhoneNumber);
                             //DnaPrefs.putString(getApplicationContext(), Constants.USERID, userId);
@@ -151,4 +151,10 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
         }, 2000);
     }
 
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        onBackPressed();
+        return super.onContextItemSelected(item);
+    }
 }
