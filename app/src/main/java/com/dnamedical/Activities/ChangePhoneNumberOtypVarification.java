@@ -32,17 +32,19 @@ import retrofit2.Response;
 
 public class ChangePhoneNumberOtypVarification extends AppCompatActivity implements SmsListener {
 
-  /*  @BindView(R.id.resendOtp)
-    TextView resendOtp;
-    @BindView(R.id.nextBtn)
-    Button btnVerify;*/
-  SmsReceiver smsReceiver = new SmsReceiver();
+    /*  @BindView(R.id.resendOtp)
+      TextView resendOtp;
+      @BindView(R.id.nextBtn)
+      Button btnVerify;*/
+    SmsReceiver smsReceiver = new SmsReceiver();
     public PinEntryEditText printVerifyPin;
     public TextView timerTV;
     public Button btnOtpVerify;
     String otpNumber;
     private TextView resendOtp;
     private String updatePhoneNumber;
+    private TextView changeNumber;
+    private TextView mobileNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,11 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
         printVerifyPin = findViewById(R.id.prntEdtChangePhoneOtp);
         btnOtpVerify = findViewById(R.id.btnVerify);
         resendOtp = findViewById(R.id.resend);
+        changeNumber = findViewById(R.id.changeNumber);
+        mobileNumber = findViewById(R.id.mobileNumber);
+
+        mobileNumber.setText(DnaPrefs.getString(getApplicationContext(),Constants.MOBILE));
+
         //timerTV = findViewById(R.id.otpTxtView);
 
 //        SpannableString spannableString = new SpannableString(resendOtp.getText().toString());
@@ -78,12 +85,21 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
             }
         });
 
+        changeNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChanePhoneNumberActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void resenOtpVerify() {
         Utils.showProgressDialog(this);
-        String userId = DnaPrefs.getString(getApplicationContext(),Constants.LOGIN_ID);
-        updatePhoneNumber = DnaPrefs.getString(getApplicationContext(),Constants.MOBILE);
+        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        updatePhoneNumber = DnaPrefs.getString(getApplicationContext(), Constants.MOBILE);
 
         RequestBody UserId = RequestBody.create(MediaType.parse("text/plane"), userId);
         RequestBody phoneNo = RequestBody.create(MediaType.parse("text/plane"), updatePhoneNumber);
@@ -92,7 +108,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Utils.dismissProgressDialog();
-                if (response!=null && response.code()==200 && response.body()!=null) {
+                if (response != null && response.code() == 200 && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "Otp resent your mobile no", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -124,7 +140,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
         boolean check = true;
         otpNumber = printVerifyPin.getText().toString().trim();
 
-        if (otpNumber.isEmpty() && printVerifyPin.length()==5) {
+        if (otpNumber.isEmpty() && printVerifyPin.length() == 5) {
             printVerifyPin.setError("enter a valid otp");
             check = false;
         } else {
@@ -133,24 +149,24 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
         return check;
     }
 
-    public void verifyPinOperation(){
-        if (inputPinOperation()){
+    public void verifyPinOperation() {
+        if (inputPinOperation()) {
 
-            String userId = DnaPrefs.getString(this,Constants.LOGIN_ID);
-            String phoneNumber =  DnaPrefs.getString(this,Constants.USERPHNUMBER);
+            String userId = DnaPrefs.getString(this, Constants.LOGIN_ID);
+            String phoneNumber = DnaPrefs.getString(this, Constants.USERPHNUMBER);
 
 
             RequestBody UserId = RequestBody.create(MediaType.parse("text/plane"), userId);
             RequestBody PhoneNo = RequestBody.create(MediaType.parse("text/plane"), phoneNumber);
-            RequestBody Otp = RequestBody.create(MediaType.parse("text/plane"),otpNumber);
+            RequestBody Otp = RequestBody.create(MediaType.parse("text/plane"), otpNumber);
 
             Utils.showProgressDialog(ChangePhoneNumberOtypVarification.this);
             RestClient.changePhoneNoOTPVerification(UserId, PhoneNo, Otp, new Callback<ChangePhoneNumberOtpResponse>() {
                 @Override
                 public void onResponse(Call<ChangePhoneNumberOtpResponse> call, Response<ChangePhoneNumberOtpResponse> response) {
                     Utils.dismissProgressDialog();
-                    if (response.body()!=null){
-                        if (response.body().getStatus()=="true"){
+                    if (response.body() != null) {
+                        if (response.body().getStatus() == "true") {
                             finish();
                             Toast.makeText(getApplicationContext(), "Phone number updated successfully", Toast.LENGTH_SHORT).show();
                         }
