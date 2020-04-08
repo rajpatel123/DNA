@@ -250,7 +250,16 @@
                             android:textColor="@color/vedio_text_color"
                             android:textSize="@dimen/evp_text_size_small"
                             android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/pdf_notes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
 
+                            app:srcCompat="@drawable/ic_pdf_notes_icon"
+                            android:layout_margin="7dp"
+                            android:layout_weight=".2"
+                            />
 
                         <TextView
                             android:id="@+id/buy_now"

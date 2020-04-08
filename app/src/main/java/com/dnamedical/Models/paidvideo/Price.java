@@ -104,6 +104,18 @@ public class Price implements Parcelable {
     @Expose
     private String drImg;
 
+    public String getPdf_url() {
+        return pdf_url;
+    }
+
+    public void setPdf_url(String pdf_url) {
+        this.pdf_url = pdf_url;
+    }
+
+    @SerializedName("pdf_url")
+    @Expose
+    private String pdf_url;
+
     public String getSubscription_status() {
         return subscription_status;
     }
@@ -138,6 +150,7 @@ public class Price implements Parcelable {
         userId = in.readString();
         paymentStatus = in.readString();
         drImg = in.readString();
+        pdf_url = in.readString();
         subscription_status = in.readString();
         url = in.readString();
     }
@@ -304,6 +317,7 @@ public class Price implements Parcelable {
         dest.writeString(userId);
         dest.writeString(paymentStatus);
         dest.writeString(drImg);
+        dest.writeString(pdf_url);
         dest.writeString(subscription_status);
         dest.writeString(url);
     }

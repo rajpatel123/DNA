@@ -45,12 +45,11 @@ public class VideoActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        setViews();
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void setViews() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -73,7 +72,12 @@ public class VideoActivity extends AppCompatActivity {
         }
 
 
+    }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void setupTabIcons() {

@@ -476,12 +476,17 @@ public interface ApiInterface {
                                                 @Part("is_guess") RequestBody guesStatus,
                                                 @Part("is_edit") RequestBody edit);
 
+
+
     @Multipart
     @POST("v1/index.php/api/test/submitselectedoption")
     Call<ResponseBody> submitTestAnswer(@Part("user_id") RequestBody userId,
                                         @Part("test_id") RequestBody testID,
                                         @Part("question_id") RequestBody qID,
                                         @Part("answer") RequestBody answerID);
+
+
+
 
 
     @Multipart
@@ -559,8 +564,10 @@ public interface ApiInterface {
                                         @Part("remove_bookmark") RequestBody remove_bookmark,
                                         @Part("type") RequestBody type);
 
+
+
     @Multipart
-    @POST("v1/index.php/api/test/timelogs")
+        @POST("v1/index.php/api/test/timelogs")
     Call<ResponseBody> submit_timeLog(@Part("user_id") RequestBody user_id,
                                       @Part("timespend") RequestBody timespend,
                                       @Part("event") RequestBody event,

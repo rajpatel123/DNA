@@ -120,6 +120,14 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.ratingandtime.setText("N/A");
 
         }
+
+
+        if (TextUtils.isEmpty(price.getPdf_url())){
+          holder.pdf_notes.setVisibility(GONE);
+        }else{
+            holder.pdf_notes.setVisibility(View.VISIBLE);
+
+        }
         holder.number.setText("" + (holder.getAdapterPosition() + 1));
 
         holder.ratingandtime.setText(price.getDuration() + " min video");
@@ -177,6 +185,20 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             }
         });
 
+
+        holder.pdf_notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/"))) {
+                    if (onDataClick!=null)
+                    {
+                        onDataClick.onNotesClick(price.getPdf_url());
+                    }
+                }
+
+            }
+        });
+
         holder.buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,11 +217,11 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
                 btn_yes_all.setText("Click Here To Buy All Topic");
 
-                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")){
+                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")) {
                     btn_yes.setVisibility(GONE);
                     ortxt.setVisibility(GONE);
 
-                }else{
+                } else {
                     btn_yes.setVisibility(View.VISIBLE);
                     ortxt.setVisibility(View.VISIBLE);
 
@@ -309,6 +331,9 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.txt_actual_price)
         TextView txtActualPrice;
 
+        @BindView(R.id.pdf_notes)
+        ImageView pdf_notes;
+
 
         @BindView(R.id.txt_total_price)
         TextView txtTotalPrice;
@@ -325,17 +350,19 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     }
 
     public interface OnCategoryClick {
-        public void onCateClick(Price price);
+         void onCateClick(Price price);
         //public void onNextActivityDataClick();
     }
 
     public interface OnDataClick {
         // public void ondataClick(PaidVideoResponse price);
-        public void onNextActivityDataClick();
+         void onNextActivityDataClick();
+         void onNotesClick(String url);
     }
 
     public interface OnBuyNowClick {
-        public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge);
+         void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge);
+
 
     }
 

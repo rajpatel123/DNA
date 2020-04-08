@@ -98,6 +98,10 @@
             android:name=".Activities.ForgetPasswordEmailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
+
+        <activity
+            android:name=".Activities.ViewerActivity"
+          />
         <activity
             android:name=".Activities.AddressListActivity"
             android:label="Shipping Address"

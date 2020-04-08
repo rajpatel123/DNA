@@ -102,6 +102,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @BindView(R.id.exoplayer)
     EasyExoVideoPlayer exoplayer;
 
+    @BindView(R.id.pdf_notes)
+    ImageView pdf_notes;
+
     @BindView(R.id.top_view)
     RelativeLayout top_view;
     @BindView(R.id.seekbarVideoo)
@@ -432,6 +435,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
         userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
 
+
+
         if (DnaPrefs.getString(getApplicationContext(), Constants.MOBILE) != null) {
             mobileTxt = DnaPrefs.getString(getApplicationContext(), Constants.MOBILE);
             if (!TextUtils.isEmpty(mobileTxt))
@@ -450,6 +455,23 @@ public class VideoPlayerActivity extends AppCompatActivity {
             textTeacher.setText(price.getSubTitle());
             video_title.setText(price.getDescription());
             text.setText("" + price.getDescription());
+
+            if (TextUtils.isEmpty(price.getPdf_url())){
+                pdf_notes.setImageResource(R.drawable.dnalogo);
+            }else{
+                pdf_notes.setImageResource(R.drawable.ic_pdf_notes_icon);
+                pdf_notes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(VideoPlayerActivity.this, ViewerActivity.class);
+                        intent.putExtra("url", price.getPdf_url());
+                        startActivity(intent);
+                    }
+                });
+
+            }
+
+
 
             if (!TextUtils.isEmpty(price.getTime())) {
                 progressPosition = Integer.parseInt(price.getTime());
@@ -527,6 +549,21 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             }
 
+
+            if (TextUtils.isEmpty(free.getPdf_url())){
+                pdf_notes.setImageResource(R.drawable.dnalogo);
+            }else{
+                pdf_notes.setImageResource(R.drawable.ic_pdf_notes_icon);
+                pdf_notes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(VideoPlayerActivity.this, ViewerActivity.class);
+                        intent.putExtra("url", free.getPdf_url());
+                        startActivity(intent);
+                    }
+                });
+
+            }
             if (free.getSourceTime() != null && free.getSourceTime().size() > 0) {
                 TimeListFreeAdapter videoListAdapter = new TimeListFreeAdapter(this);
                 videoListAdapter.setData(free.getSourceTime());
