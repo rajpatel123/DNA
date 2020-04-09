@@ -71,12 +71,10 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="10dp"
                 android:background="@color/transparent"
-
                 android:gravity="bottom|end"
-
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_10"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/left_arrow"
