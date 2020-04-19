@@ -17,7 +17,7 @@ public class Constants {
     //kuishiufifigrygr
 
 
-    public static final int CAPTURE_IMAGE =209 ;
+    public static final int CAPTURE_IMAGE =209;
     public static final String SOFT_UPGRADE_SKIP = "soft_upgrade_skip";
     public static final String ADD_DISCOUNT = "additionalDiscount";
     public static final String MOBILE = "mobile";
@@ -58,6 +58,7 @@ public class Constants {
     public static final String ISDAILY_TEST = "isDailytest";
     public static final String MODULE_ID ="module_id" ;
     public static final String MODULE_NAME = "module_name";
+    public static  boolean IS_NEET = false;
     public static final String PAUSE_POSITION = "cPosition";
     public static  boolean ISTEST = false;
 }

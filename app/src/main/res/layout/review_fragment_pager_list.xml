@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Tetsmfkfnldnv,  fjefwfnfuyfw"
+                android:text=""
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold" />
 
@@ -33,17 +33,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_10dp"
+                android:text="A."
                 android:textStyle="bold"
-android:visibility="gone"
-                android:text="A." />
+                android:visibility="gone" />
+
             <WebView
                 android:id="@+id/qwebview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:visibility="gone"
                 android:textSize="@dimen/text_large"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/question_image"
                 android:layout_width="match_parent"
@@ -61,37 +63,21 @@ android:visibility="gone"
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/margin_10dp"
-                    android:gravity="center_vertical"
                     android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
 
 
-                    android:orientation="horizontal">
+                    android:padding="@dimen/margin_10dp">
 
-                   <LinearLayout
-                       android:layout_width="0dp"
-                       android:layout_height="match_parent"
-                       android:layout_weight=".4"
-                       android:orientation="horizontal"
-                       >
-                       <ImageView
-                           android:id="@+id/optionAImg"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:visibility="visible"
-                           app:srcCompat="@drawable/right_answer_icon" />
-
-
-                       <TextView
-                           android:id="@+id/A"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:textStyle="bold"
-
-                           android:text="A." />
-                   </LinearLayout>
-
-
+                    <TextView
+                        android:id="@+id/A"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A"
+                        android:gravity="center"
+                        android:background="@drawable/circle_shape_border"
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -100,109 +86,77 @@ android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:text="Tests" />
 
                     <WebView
                         android:id="@+id/webView1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/margin_10dp"
-                    android:layout_marginTop="@dimen/margin_10dp"
-
-                    android:gravity="center_vertical"
                     android:background="@color/white"
-
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".4"
-
-                        android:orientation="horizontal"
-                        >
-                        <ImageView
-                            android:id="@+id/optionBImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="invisible"
-                            app:srcCompat="@drawable/right_answer_icon" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:padding="@dimen/margin_10dp">
 
 
-                        <TextView
-                            android:id="@+id/B"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_10dp"
-                            android:textStyle="bold"
+                    <TextView
+                        android:id="@+id/B"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="B"
+                        android:gravity="center"
+                        android:background="@drawable/circle_shape_border"
+                        android:textStyle="bold" />
 
-                            android:text="B." />
-                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/optionB"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:text="Tests" />
 
                     <WebView
                         android:id="@+id/webView2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/margin_10dp"
-                    android:layout_marginTop="@dimen/margin_10dp"
-
                     android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
 
-                    android:orientation="horizontal">
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".4"
-
-                        android:orientation="horizontal"
-                        >
-                        <ImageView
-                            android:id="@+id/optionCImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="invisible"
-                            app:srcCompat="@drawable/right_answer_icon" />
+                    android:orientation="horizontal"
 
 
-                        <TextView
-                            android:id="@+id/C"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_10dp"
-                            android:textStyle="bold"
+                    android:padding="@dimen/margin_10dp">
 
-                            android:text="C." />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/C"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="C"
+                        android:gravity="center"
+                        android:background="@drawable/circle_shape_border"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/optionC"
@@ -210,70 +164,58 @@ android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:text="Tests" />
+
                     <WebView
                         android:id="@+id/webView3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/margin_10dp"
-                    android:layout_marginTop="@dimen/margin_10dp"
-
                     android:background="@color/white"
-
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".4"
-
-                        android:orientation="horizontal"
-                        >
-                        <ImageView
-                            android:id="@+id/optionDImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="invisible"
-                            app:srcCompat="@drawable/right_answer_icon" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
 
 
-                        <TextView
-                            android:id="@+id/D"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_10dp"
-                            android:textStyle="bold"
+                    android:padding="@dimen/margin_10dp">
 
-                            android:text="D." />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="D"
+                        android:gravity="center"
+                        android:background="@drawable/circle_shape_border"
+                        android:textStyle="bold" />
+
+
                     <TextView
                         android:id="@+id/optionD"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:text="Tests" />
+
                     <WebView
                         android:id="@+id/webView4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:layout_marginStart="@dimen/margin_10dp"
                         android:layout_weight="2"
-                        android:text="A. Tests" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -297,62 +239,14 @@ android:visibility="gone"
                     android:text="71% of the people got this right" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_10"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:padding="@dimen/dp_10">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_attention"
-                        android:gravity="center_vertical"
-                        android:text="   Report error"
-                        android:textColor="@color/colorPrimary" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/ic_share"
-                        android:gravity="center_vertical"
-                        android:text="   Report error"
-                        android:textColor="@color/dark_gray" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@color/dark_light_gray" />
-
-                <TextView
-                    android:id="@+id/mcqId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="MCQ ID : ANOT000023"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    android:textColor="@color/dark_light_gray"/>
-
-
-            </LinearLayout>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/explanationCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:minHeight="50dp"
                 android:background="@color/card_gray"
+                android:minHeight="50dp"
                 app:cardUseCompatPadding="true">
 
 
@@ -408,7 +302,54 @@ android:visibility="gone"
                     android:layout_gravity="center"
                     android:visibility="visible" />
             </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_10"
+                android:visibility="visible">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_attention"
+                        android:gravity="center_vertical"
+                        android:text="   Report error"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableStart="@drawable/ic_share"
+                        android:gravity="center_vertical"
+                        android:text="   Report error"
+                        android:textColor="@color/dark_gray" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@color/dark_light_gray" />
+
+                <TextView
+                    android:id="@+id/mcqId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="MCQ ID : ANOT000023"
+                    android:textColor="@color/dark_light_gray" />
+
+
+            </LinearLayout>
 
 
             <TextView
@@ -416,16 +357,16 @@ android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20"
                 android:layout_marginTop="@dimen/margin_20"
-                android:visibility="gone"
-                android:text="References" />
+                android:text="References"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_10dp"
-                android:visibility="gone"
+                android:orientation="vertical"
 
-                android:orientation="vertical">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"

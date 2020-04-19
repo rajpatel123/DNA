@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.R;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -148,7 +149,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         }
 
-        if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) || (!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))) {
+
+        if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1"))) {
             holder.buyNow.setVisibility(View.GONE);
             holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
@@ -159,7 +161,30 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                 holder.commingSoon.setVisibility(GONE);
 
             }
-        } else {
+        }else if((!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))){
+           if (Constants.IS_NEET){
+               holder.buyNow.setVisibility(View.GONE);
+               holder.lockNew.setVisibility(GONE);
+               holder.txtActualPrice.setVisibility(View.GONE);
+               holder.txtTotalPrice.setVisibility(View.GONE);
+               if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+                   holder.commingSoon.setVisibility(View.VISIBLE);
+               } else {
+                   holder.commingSoon.setVisibility(GONE);
+
+               }
+           }else{
+               holder.buyNow.setVisibility(View.VISIBLE);
+               holder.txtActualPrice.setVisibility(View.VISIBLE);
+               holder.txtTotalPrice.setVisibility(View.VISIBLE);
+               holder.lockNew.setVisibility(View.VISIBLE);
+               if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+                   holder.commingSoon.setVisibility(View.VISIBLE);
+               } else {
+                   holder.commingSoon.setVisibility(GONE);
+               }
+           }
+        } else  {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
@@ -171,18 +196,38 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             }
 
         }
+
+
+
+        if (holder.buyNow.getVisibility()==View.VISIBLE || holder.pdf_notes.getVisibility()==View.VISIBLE){
+            holder.line_separator.setVisibility(View.VISIBLE);
+        }else{
+            holder.line_separator.setVisibility(GONE);
+
+        }
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/"))) {
+                if (((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")))) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     } else {
                         Utils.displayToast(applicationContext, "Coming Soon");
 
                     }
+                }else if((!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))) {
+                  if (Constants.IS_NEET){
+                      if (onUserClickCallback != null) {
+                          onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
+                      } else {
+                          Utils.displayToast(applicationContext, "Coming Soon");
+
+                      }
+                  }
                 }
-            }
+
+                }
+
         });
 
 
@@ -320,6 +365,10 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         @BindView(R.id.buy_now)
         TextView buyNow;
+
+
+        @BindView(R.id.line_separator)
+        View line_separator;
 
         @BindView(R.id.commingsoon)
         TextView commingSoon;

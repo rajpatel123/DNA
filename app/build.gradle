@@ -30,8 +30,8 @@ android {
         applicationId "com.dnamedical"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 116
-        versionName "v6.3.1"
+        versionCode 118
+        versionName "v6.3.2"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

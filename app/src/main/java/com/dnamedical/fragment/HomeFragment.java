@@ -192,6 +192,11 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 //            DnaPrefs.putString(mainActivity,Constants.CAT_ID,id);
 //            getActivity().startActivity(intent);
 
+            if (id.equalsIgnoreCase("1")){
+                Constants.IS_NEET=true;
+            }else{
+                Constants.IS_NEET=false;
+            }
 
             Intent intent = new Intent(getActivity(), CategoryModulesActivity.class);
             intent.putExtra("catData", new Gson().toJson(categoryDetailData));

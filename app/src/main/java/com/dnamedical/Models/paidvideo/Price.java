@@ -130,6 +130,7 @@ public class Price implements Parcelable {
     @SerializedName("source_time")
     @Expose
     private List<SourceTime> sourceTime = null;
+
     @SerializedName("url")
     @Expose
     private String url;

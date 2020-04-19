@@ -626,7 +626,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                     image1 = answerView.findViewById(R.id.image);
                     cardView1 = answerView.findViewById(R.id.cardView);
 
-                    optionTag1.setText("(A)");
+                    optionTag1.setText("A");
 
 
 
@@ -744,7 +744,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                     webView3 = answerView1.findViewById(R.id.webview);
 
                     cardView2 = answerView1.findViewById(R.id.cardView);
-                    optionTag2.setText("(B) ");
+                    optionTag2.setText("B");
 
 
                     answerList.addView(answerView1);
@@ -856,7 +856,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                     optionTag3 = answerView2.findViewById(R.id.optiontag);
                     image3 = answerView2.findViewById(R.id.image);
                     webView4 = answerView2.findViewById(R.id.webview);
-                    optionTag3.setText("(C) ");
+                    optionTag3.setText("C");
 
                     cardView3 = answerView2.findViewById(R.id.cardView);
 
@@ -969,7 +969,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                     optionTag4 = answerView4.findViewById(R.id.optiontag);
                     image4 = answerView4.findViewById(R.id.image);
                     webView5 = answerView4.findViewById(R.id.webview);
-                    optionTag4.setText("(D) ");
+                    optionTag4.setText("D");
 
                     cardView4 = answerView4.findViewById(R.id.cardView);
 

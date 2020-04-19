@@ -89,7 +89,9 @@ public class DailyTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate, String resultDate, String subjectCount) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid,
+                            String testStatus, String type, String startDate,
+                            String endDate, String resultDate, String subjectCount) {
 
         if (testPaid.equalsIgnoreCase("1")) {
             showTestPaidDialog();

@@ -58,7 +58,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
             holder.testStartTime.setText(Utils.startTimeFormat(Long.parseLong(test.getStartDate())*1000));
-            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getResultDate())*1000));
+            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getTest_valid_till_date())*1000));
 
             //holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.test_fragment_card_bacckground));
 
@@ -78,7 +78,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getDescription());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(),
+                                test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getDescription());
                     }
                 }
             });
@@ -92,7 +93,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
             holder.testStartTime.setText(Utils.startTimeFormat(Long.parseLong(test.getStartDate())*1000));
-            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getResultDate())*1000));
+            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getTest_valid_till_date())*1000));
             holder.cardview.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.vediobackground));
 
 
@@ -129,7 +130,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.questionTotal.setText((test.getQuestion_count()) + " Q's");
             holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
             holder.testStartTime.setText(Utils.startTimeFormat(Long.parseLong(test.getStartDate())*1000));
-            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getResultDate())*1000));
+            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getTest_valid_till_date())*1000));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
 
             if (miniTests.get(holder.getAdapterPosition()).getIsPaid().equals("1")) {
@@ -167,7 +168,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(test.getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(test.getStartDate())));
             holder.testStartTime.setText(Utils.startTimeFormat(Long.parseLong(test.getStartDate())*1000));
-            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getResultDate())*1000));
+            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getTest_valid_till_date())*1000));
 
             Log.d("time", "" + Utils.dateFormat(Long.parseLong(test.getStartDate())));
             if (allTests.get(holder.getAdapterPosition()).getIsPaid().equals("1")) {
@@ -214,7 +215,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.timeTotal.setText(Utils.getTestDurationDuration(Integer.parseInt(subjectTests.get(holder.getAdapterPosition()).getDuration())));
             holder.textDate.setText(Utils.dateFormat(Long.parseLong(subjectTests.get(holder.getAdapterPosition()).getStartDate())));
             holder.testStartTime.setText(Utils.startTimeFormat(Long.parseLong(test.getStartDate())*1000));
-            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getResultDate())*1000));
+            holder.testEndTime.setText(Utils.startTimeFormat(Long.parseLong(test.getTest_valid_till_date())*1000));
             if (subjectTests.get(holder.getAdapterPosition()).getIsPaid().equals("1")) {
                 holder.imageLock.setImageResource(R.drawable.test_lock);
                 holder.imageLock.setVisibility(View.VISIBLE);

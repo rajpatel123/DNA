@@ -59,7 +59,7 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Payment");
+            getSupportActionBar().setTitle("Update Mobile Number");
         }
 
     }

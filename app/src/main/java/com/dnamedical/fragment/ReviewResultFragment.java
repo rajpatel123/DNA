@@ -40,10 +40,10 @@ import static android.view.View.GONE;
 
 public class ReviewResultFragment extends Fragment {
     ImageView question_image;
-    ImageView optionAImg;
-    ImageView optionBImg;
-    ImageView optionCImg;
-    ImageView optionDImg;
+    TextView optionATag;
+    TextView optionBTag;
+    TextView optionCTag;
+    TextView optionDTag;
     ImageView refImage;
     ImageView explanation_image;
 
@@ -55,6 +55,7 @@ public class ReviewResultFragment extends Fragment {
     TextView percentage;
     TextView explannnation;
     TextView refText;
+    TextView mcqId;
 
 
     LinearLayout answerList;
@@ -99,10 +100,10 @@ public class ReviewResultFragment extends Fragment {
         questionTxt = view.findViewById(R.id.questionTxt);
         qno= view.findViewById(R.id.qno);
         explanationCard = view.findViewById(R.id.explanationCard);
-        optionAImg = view.findViewById(R.id.optionAImg);
-        optionBImg = view.findViewById(R.id.optionBImg);
-        optionCImg = view.findViewById(R.id.optionCImg);
-        optionDImg = view.findViewById(R.id.optionDImg);
+        optionATag = view.findViewById(R.id.A);
+        optionBTag = view.findViewById(R.id.B);
+        optionCTag = view.findViewById(R.id.C);
+        optionDTag = view.findViewById(R.id.D);
         refImage = view.findViewById(R.id.refImage);
         progressBar = view.findViewById(R.id.progressBar);
         webView = view.findViewById(R.id.dataWebView);
@@ -120,6 +121,7 @@ public class ReviewResultFragment extends Fragment {
         percentage = view.findViewById(R.id.percentage);
         //  explannnation = view.findViewById(R.id.explannnation);
         refText = view.findViewById(R.id.refText);
+        mcqId = view.findViewById(R.id.mcqId);
         PieChartView pieChartView = view.findViewById(R.id.chart);
         if (question != null) {
 //            optionA.setText("A. " + question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
@@ -127,7 +129,7 @@ public class ReviewResultFragment extends Fragment {
 //            optionC.setText("C. " + question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
 //            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
 //
-
+            mcqId.setText(""+question.get);
 
             if (!TextUtils.isEmpty(question.getTitle())){
                 if (question.getTitle().contains("html")){
@@ -230,59 +232,62 @@ public class ReviewResultFragment extends Fragment {
                     case "1":
                         if (question.getCorrectAnswer().equalsIgnoreCase("1")) {
                             optionA.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                            optionAImg.setImageResource(R.drawable.right_answer_icon);
+                            optionATag.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                            // optionAImg.setImageResource(R.drawable.right_answer_icon);
                         } else {
                             optionA.setTextColor(ContextCompat.getColor(activity, R.color.black));
-                            optionAImg.setImageResource(R.drawable.wrong_answer_icon);
+                            optionATag.setBackgroundResource(R.drawable.circle_shape_border_red);
+
 
                         }
 
-                        optionAImg.setVisibility(View.VISIBLE);
-                        setMenuVisibility(optionAImg);
+                      //  optionAImg.setVisibility(View.VISIBLE);
+                      //  setMenuVisibility(optionAImg);
 
                         break;
                     case "2":
                         if (question.getCorrectAnswer().equalsIgnoreCase("2")) {
                             optionB.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                            optionBImg.setImageResource(R.drawable.right_answer_icon);
+                            optionBTag.setBackgroundResource(R.drawable.circle_shape_border_green);
 
                         } else {
                             optionB.setTextColor(ContextCompat.getColor(activity, R.color.black));
-                            optionBImg.setImageResource(R.drawable.wrong_answer_icon);
+                            optionBTag.setBackgroundResource(R.drawable.circle_shape_border_red);
 
 
                         }
-                        optionBImg.setVisibility(View.VISIBLE);
-                        setMenuVisibility(optionBImg);
+                       // optionBImg.setVisibility(View.VISIBLE);
+                       // setMenuVisibility(optionBImg);
 
                         break;
                     case "3":
                         if (question.getCorrectAnswer().equalsIgnoreCase("3")) {
                             optionC.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                            optionCImg.setImageResource(R.drawable.right_answer_icon);
+                            optionCTag.setBackgroundResource(R.drawable.circle_shape_border_green);
 
                         } else {
                             optionC.setTextColor(ContextCompat.getColor(activity, R.color.black));
-                            optionCImg.setImageResource(R.drawable.wrong_answer_icon);
+                            optionCTag.setBackgroundResource(R.drawable.circle_shape_border_red);
 
                         }
-                        optionCImg.setVisibility(View.VISIBLE);
-                        setMenuVisibility(optionCImg);
+                       // optionCImg.setVisibility(View.VISIBLE);
+                       // setMenuVisibility(optionCImg);
 
                         break;
                     case "4":
                         if (question.getCorrectAnswer().equalsIgnoreCase("4")) {
                             optionD.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                            optionDImg.setImageResource(R.drawable.right_answer_icon);
+                            optionDTag.setBackgroundResource(R.drawable.circle_shape_border_green);
 
                         } else {
                             optionD.setTextColor(ContextCompat.getColor(activity, R.color.black));
-                            optionDImg.setImageResource(R.drawable.wrong_answer_icon);
+                            optionDTag.setBackgroundResource(R.drawable.circle_shape_border_red);
 
                         }
 
-                        optionDImg.setVisibility(View.VISIBLE);
-                        setMenuVisibility(optionDImg);
+                       // optionDImg.setVisibility(View.VISIBLE);
+                       // setMenuVisibility(optionDImg);
 
                         break;
                 }
@@ -334,25 +339,32 @@ public class ReviewResultFragment extends Fragment {
             switch (question.getCorrectAnswer()) {
                 case "1":
                     optionA.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                    optionAImg.setImageResource(R.drawable.right_answer_icon);
-                    optionAImg.setVisibility(View.VISIBLE);
+                    optionATag.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                    //optionAImg.setImageResource(R.drawable.right_answer_icon);
+                    //optionAImg.setVisibility(View.VISIBLE);
                     break;
                 case "2":
                     optionB.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                    optionBImg.setImageResource(R.drawable.right_answer_icon);
-                    optionBImg.setVisibility(View.VISIBLE);
+                   // optionBImg.setImageResource(R.drawable.right_answer_icon);
+                   // optionBImg.setVisibility(View.VISIBLE);
+                    optionBTag.setBackgroundResource(R.drawable.circle_shape_border_green);
 
                     break;
                 case "3":
                     optionC.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                    optionCImg.setImageResource(R.drawable.right_answer_icon);
-                    optionCImg.setVisibility(View.VISIBLE);
+                    optionCTag.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                    //optionCImg.setImageResource(R.drawable.right_answer_icon);
+                   // optionCImg.setVisibility(View.VISIBLE);
 
                     break;
                 case "4":
                     optionD.setTextColor(ContextCompat.getColor(activity, R.color.green));
-                    optionDImg.setImageResource(R.drawable.right_answer_icon);
-                    optionDImg.setVisibility(View.VISIBLE);
+                    optionDTag.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                    // optionDImg.setImageResource(R.drawable.right_answer_icon);
+                    //optionDImg.setVisibility(View.VISIBLE);
 
                     break;
             }
@@ -363,12 +375,12 @@ public class ReviewResultFragment extends Fragment {
     }
 
     private void setMenuVisibility(ImageView optionImg) {
-        optionAImg.setVisibility(View.INVISIBLE);
-        optionAImg.setVisibility(View.INVISIBLE);
-        optionAImg.setVisibility(View.INVISIBLE);
-        optionAImg.setVisibility(View.INVISIBLE);
+//        optionAImg.setVisibility(View.INVISIBLE);
+//        optionBImg.setVisibility(View.INVISIBLE);
+//        optionCImg.setVisibility(View.INVISIBLE);
+//        optionDImg.setVisibility(View.INVISIBLE);
 
-        optionImg.setVisibility(View.VISIBLE);
+       // optionImg.setVisibility(View.VISIBLE);
     }
 
     @Override

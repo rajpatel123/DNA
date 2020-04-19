@@ -53,6 +53,19 @@ public class Test implements Comparable<Test>{
     @SerializedName("end_date")
     @Expose
     private String end_date;
+
+
+    public String getTest_valid_till_date() {
+        return test_valid_till_date;
+    }
+
+    public void setTest_valid_till_date(String test_valid_till_date) {
+        this.test_valid_till_date = test_valid_till_date;
+    }
+
+    @SerializedName("test_valid_till_date")
+    @Expose
+    private String test_valid_till_date;
     @SerializedName("duration")
     @Expose
     private String duration;

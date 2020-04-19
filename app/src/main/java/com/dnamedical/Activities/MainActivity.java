@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dnamedical.Models.test.testp.Test;
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -84,11 +84,10 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgOnlineIcon;
     private TextView onlineTitle;
     private NavigationView navigationView;
-    private TextView tvName, tvEmail, tvSetting;
+    private TextView tvName, tvEmail, tvSetting, tvversion;
     private CircleImageView circleImageView;
     String name, image, email;
     TestDataResponse testDataResponse;
-
 
 
     @Override
@@ -105,6 +104,7 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
+        tvversion = headerView.findViewById(R.id.version);
         circleImageView = headerView.findViewById(R.id.profile_image);
         tvSetting = headerView.findViewById(R.id.setting);
         pager = findViewById(R.id.vp_pages);
@@ -120,12 +120,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         String text = "<font color=#000000>Subscribe</font> <font color=#ff3824>For 2020</font>";
-        MenuItem menuItem =  navigationView.getMenu().getItem(4);
+        MenuItem menuItem = navigationView.getMenu().getItem(4);
 
         menuItem.setTitle(Html.fromHtml(text));
 
         String textFr = "<font color=#000000>Franchise Query</font> <font color=#ff3824>For 2020</font>";
-        MenuItem menuItemFR =  navigationView.getMenu().getItem(10);
+        MenuItem menuItemFR = navigationView.getMenu().getItem(10);
 
         menuItemFR.setTitle(Html.fromHtml(textFr));
 
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private void checkUserExistance() {
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             return;
         }
 
@@ -182,13 +182,13 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
 
-                    if (!TextUtils.isEmpty(response.body().string())){
+                    if (!TextUtils.isEmpty(response.body().string())) {
                         JSONObject obj = new JSONObject(response.body().string());
 
-                        if (obj.getString("status").equals("2")){
+                        if (obj.getString("status").equals("2")) {
 
                             DnaPrefs.clear(MainActivity.this);
-                            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+                            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
@@ -209,9 +209,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
-
     private void updateNavViewHeader() {
         Intent intent = getIntent();
 
@@ -221,6 +218,7 @@ public class MainActivity extends AppCompatActivity
 
         tvName.setText(name);
         tvEmail.setText(email);
+        tvversion.setText(BuildConfig.VERSION_NAME);
         if (!TextUtils.isEmpty(image)) {
             Picasso.with(this).load(image)
                     .error(R.drawable.dnalogo)
@@ -424,10 +422,10 @@ public class MainActivity extends AppCompatActivity
                 dialog.dismiss();
 
                 DnaPrefs.clear(MainActivity.this);
-               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
-               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-               startActivity(intent);
-               finish();
+                Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -566,11 +564,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
-        if (TextUtils.isEmpty(userId)){
+        if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
-            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
