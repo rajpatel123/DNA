@@ -437,7 +437,7 @@ public class MainActivity extends AppCompatActivity
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+            String user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
             RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
 
             RestClient.logOut(userId, new Callback<LogOutResponse>() {
