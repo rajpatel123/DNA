@@ -27,7 +27,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dnamedical.Models.log_out.LogOutResponse;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity
     private CircleImageView circleImageView;
     String name, image, email;
     TestDataResponse testDataResponse;
-
+    private String userId;
 
 
     @Override
@@ -120,12 +122,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         String text = "<font color=#000000>Subscribe</font> <font color=#ff3824>For 2020</font>";
-        MenuItem menuItem =  navigationView.getMenu().getItem(4);
+        MenuItem menuItem = navigationView.getMenu().getItem(4);
 
         menuItem.setTitle(Html.fromHtml(text));
 
         String textFr = "<font color=#000000>Franchise Query</font> <font color=#ff3824>For 2020</font>";
-        MenuItem menuItemFR =  navigationView.getMenu().getItem(10);
+        MenuItem menuItemFR = navigationView.getMenu().getItem(10);
 
         menuItemFR.setTitle(Html.fromHtml(textFr));
 
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private void checkUserExistance() {
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             return;
         }
 
@@ -182,13 +184,13 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
 
-                    if (!TextUtils.isEmpty(response.body().string())){
+                    if (!TextUtils.isEmpty(response.body().string())) {
                         JSONObject obj = new JSONObject(response.body().string());
 
-                        if (obj.getString("status").equals("2")){
+                        if (obj.getString("status").equals("2")) {
 
                             DnaPrefs.clear(MainActivity.this);
-                            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+                            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
@@ -207,9 +209,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
-
-
 
 
     private void updateNavViewHeader() {
@@ -368,7 +367,8 @@ public class MainActivity extends AppCompatActivity
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "Hello friends, the best app for medicos is now available at: https://play.google.com/store/apps/details?id=com.dnamedical");
+                    "Hello friends, the best app for medicos is now available at: " +
+                            "https://play.google.com/store/apps/details?id=com.dnamedical");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } else if (id == R.id.about) {
@@ -399,41 +399,73 @@ public class MainActivity extends AppCompatActivity
 
     public void userlogout() {
 
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        // ...Irrelevant code for customizing the buttons and titl
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
-        dialogBuilder.setView(dialogView);
+//        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+//        // ...Irrelevant code for customizing the buttons and titl
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
+//        dialogBuilder.setView(dialogView);
+//
+//        final AlertDialog dialog = dialogBuilder.create();
+//        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+//        TextView text_logout = dialogView.findViewById(R.id.text_logout);
+//        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//
+//
+//            }
+//        });
+//
+//
+//        text_logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//
+//                DnaPrefs.clear(MainActivity.this);
+//               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+//               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//               startActivity(intent);
+//               finish();
+//
+//            }
+//        });
+//
+//
+//        dialog.show();
 
-        final AlertDialog dialog = dialogBuilder.create();
-        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-        TextView text_logout = dialogView.findViewById(R.id.text_logout);
-        btn_Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+            RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
 
+            RestClient.logOut(userId, new Callback<LogOutResponse>() {
+                @Override
+                public void onResponse(Call<LogOutResponse> call, Response<LogOutResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response != null && response.code() == 200 && response.body() != null) {
+                        if (response.body().getStatus() == "true") {
+                            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Status " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
+                        }
 
-            }
-        });
+                    } else {
+                        Toast.makeText(MainActivity.this, "response = " + response, Toast.LENGTH_SHORT).show();
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<LogOutResponse> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
 
-        text_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-
-                DnaPrefs.clear(MainActivity.this);
-               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
-               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-               startActivity(intent);
-               finish();
-
-            }
-        });
-
-
-        dialog.show();
+                }
+            });
+        }
 
     }
 
@@ -566,11 +598,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
-        if (TextUtils.isEmpty(userId)){
+        if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
-            Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();

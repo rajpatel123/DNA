@@ -29,6 +29,7 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
+import com.dnamedical.Models.log_out.LogOutResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -635,6 +636,11 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=get_institute")
     Call<AllInstituteResponseModel> getAllInstitute(@Part("user_id") RequestBody user_id);
+
+    @Multipart
+    @POST("api/api.php?req=logout")
+    Call<LogOutResponse> LOG_OUT_RESPONSE_CALL (@Part("userId") RequestBody userId);
+
 
 }
 

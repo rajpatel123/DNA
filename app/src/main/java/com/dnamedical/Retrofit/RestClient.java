@@ -28,6 +28,7 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
+import com.dnamedical.Models.log_out.LogOutResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -469,6 +470,11 @@ public class RestClient {
 
     public static void getAllInstitute(RequestBody user_id, Callback<AllInstituteResponseModel> callback) {
         RetrofitClient.getClient().getAllInstitute(user_id).enqueue(callback);
+    }
+
+
+    public static void logOut(RequestBody userId, Callback<LogOutResponse> callback) {
+        RetrofitClient.getClient().LOG_OUT_RESPONSE_CALL(userId).enqueue(callback);
     }
 
 }
