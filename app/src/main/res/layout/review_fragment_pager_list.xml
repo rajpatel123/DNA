@@ -309,7 +309,7 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="@dimen/dp_10"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

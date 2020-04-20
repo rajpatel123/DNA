@@ -129,7 +129,7 @@ public class ReviewResultFragment extends Fragment {
 //            optionC.setText("C. " + question.getOption3() + " [" + question.getOption3Percenatge() + "%]");
 //            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
 //
-            mcqId.setText(""+question.get);
+            mcqId.setText(""+question.getId());
 
             if (!TextUtils.isEmpty(question.getTitle())){
                 if (question.getTitle().contains("html")){
