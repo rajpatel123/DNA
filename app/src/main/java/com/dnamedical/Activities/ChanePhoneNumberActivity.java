@@ -109,7 +109,7 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
-                    if (response.code()==200) {
+                    if (response!=null && response.code()==200 && response.body()!=null) {
                             Intent intent = new Intent(getApplicationContext(), ChangePhoneNumberOtypVarification.class);
                             DnaPrefs.putString(getApplicationContext(), Constants.USERPHNUMBER, updatePhoneNumber);
                             //DnaPrefs.putString(getApplicationContext(), Constants.USERID, userId);
@@ -151,4 +151,10 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
         }, 2000);
     }
 
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        onBackPressed();
+        return super.onContextItemSelected(item);
+    }
 }

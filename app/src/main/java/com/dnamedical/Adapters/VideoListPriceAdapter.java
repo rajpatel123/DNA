@@ -112,6 +112,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             }
 
         }
+
         if (price.getSubTitle() != null) {
             holder.doctarName.setText("" + price.getSubTitle());
         }

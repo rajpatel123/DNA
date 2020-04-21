@@ -57,6 +57,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     String userId;
     String subcatid;
     private boolean loadedOnce;
+    RequestBody file_type,user_id,sub_child_cat;
 
     public BuynowFragment() {
 
@@ -144,9 +145,9 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
         subcatid = activity.subCatId;
 
 
-        RequestBody file_type = RequestBody.create(MediaType.parse("text/plain"), type);
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"), subcatid);
+        file_type = RequestBody.create(MediaType.parse("text/plain"), type);
+        user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
+        sub_child_cat = RequestBody.create(MediaType.parse("text/plain"), subcatid);
 
 
         if (Utils.isInternetConnected(getActivity())) {
@@ -161,7 +162,9 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
                             loadedOnce = true;
                         }
-                        showVideos();
+                         //showVideos();
+
+                      showVideosOrPdf();
                     }
                 }
 
@@ -178,6 +181,24 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
             Toast.makeText(activity, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void showVideosOrPdf() {
+
+        if ("pdf_url".equals(file_type)) {
+            showVideos();
+        } else if ("url".equals(file_type)) {
+            showPdf();
+        } else {
+            Toast.makeText(activity, "Nothing find ", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showPdf() {
+        if (paidVideoResponseList!=null && paidVideoResponseList.getPrice()!=null && paidVideoResponseList.getPrice().size()>0){
+
+        }
+    }
+
 
     public void showVideos() {
         if (paidVideoResponseList != null && paidVideoResponseList.getPrice() != null && paidVideoResponseList.getPrice().size() > 0) {
