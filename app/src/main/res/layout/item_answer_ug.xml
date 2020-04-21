@@ -20,9 +20,11 @@
             android:background="@drawable/answer_selecter"
             app:cardElevation="4sp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/optiontag"
@@ -42,8 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/optiontag"
-                    android:padding="@dimen/dp_10"
-                    android:text="fdffjd"
+                    android:text=""
                     android:visibility="gone" />
 
                 <WebView
@@ -63,7 +64,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp" />
-            </RelativeLayout>
+            </LinearLayout>
 
 
         </android.support.v7.widget.CardView>
