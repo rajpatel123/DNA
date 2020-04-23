@@ -162,9 +162,9 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
                             loadedOnce = true;
                         }
-                         //showVideos();
+                         showVideos();
 
-                      showVideosOrPdf();
+                    //  showVideosOrPdf();
                     }
                 }
 

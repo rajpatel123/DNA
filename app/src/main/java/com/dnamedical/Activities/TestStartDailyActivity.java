@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
@@ -48,6 +49,13 @@ public class TestStartDailyActivity extends AppCompatActivity {
 
     @BindView(R.id.card_view)
     CardView cardView;
+
+    @BindView(R.id.bookmark_card)
+    CardView bookmark_card;
+
+
+    @BindView(R.id.totalBookmark)
+    TextView totalBookmark;
 
     String test_id, duration, testName, testQuestion = "0", testPaid;
     String description;
@@ -136,6 +144,17 @@ public class TestStartDailyActivity extends AppCompatActivity {
             });
         }*/
 
+
+        bookmark_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TestStartDailyActivity.this, TestReviewResultActivity.class);
+                intent.putExtra("testid", test_id);
+                intent.putExtra("isBookmark", true);
+                startActivity(intent);
+            }
+        });
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +186,12 @@ public class TestStartDailyActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getReviewData();
+    }
 
     private void updateTestTypeText(String type) {
         switch (type) {
@@ -249,10 +274,10 @@ public class TestStartDailyActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody testResult = response.body();
                 Utils.dismissProgressDialog();
-                Intent intent =null;
-                if (DnaPrefs.getString(TestStartDailyActivity.this, Constants.CAT_ID).equalsIgnoreCase("14")){
+                Intent intent = null;
+                if (DnaPrefs.getString(TestStartDailyActivity.this, Constants.CAT_ID).equalsIgnoreCase("14")) {
                     intent = new Intent(TestStartDailyActivity.this, TestUGV1Activity.class);
-                }else{
+                } else {
                     intent = new Intent(TestStartDailyActivity.this, TestV1Activity.class);
 
                 }
@@ -277,6 +302,45 @@ public class TestStartDailyActivity extends AppCompatActivity {
                 Utils.dismissProgressDialog();
             }
         });
+
+    }
+
+    private void getReviewData() {
+//        if (getIntent().hasExtra("userId")) {
+//            user_Id = getIntent().getStringExtra("userId");
+//            question_id = getIntent().getStringExtra("qmodule_id");
+//        }
+//
+//
+
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.getTestReviewListData(test_id, user_id, "", "", "", "test", new Callback<TestReviewListResponse>() {
+                @Override
+                public void onResponse(Call<TestReviewListResponse> call, Response<TestReviewListResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200 && response.body() != null && response.body().getData() != null
+                            && response.body().getData().getQuestionList() != null) {
+                        totalBookmark.setText(response.body().getData().getQuestionList().size() + " Bookmarks");
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<TestReviewListResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    // Toast.makeText(TestReviewResultActivity.this, "Something Went Wrong!!!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(this, "Internet Connections Failed!!!", Toast.LENGTH_SHORT).show();
+
+        }
+
 
     }
 

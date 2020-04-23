@@ -5,10 +5,12 @@ import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.LoginDetailForDemo;
+import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.RankResult;
+import com.dnamedical.Models.ReportErrorResponse;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
@@ -469,6 +471,16 @@ public class RestClient {
 
     public static void getAllInstitute(RequestBody user_id, Callback<AllInstituteResponseModel> callback) {
         RetrofitClient.getClient().getAllInstitute(user_id).enqueue(callback);
+    }
+
+
+    public static void logout(RequestBody user_id, Callback<LogoutResponse> callback) {
+        RetrofitClient.getClient().logout(user_id).enqueue(callback);
+    }
+
+
+ public static void reportError(RequestBody user_id,RequestBody q_t_id,RequestBody question_id,RequestBody comment,RequestBody module,RequestBody issue_type, Callback<ReportErrorResponse> callback) {
+        RetrofitClient.getClient().reportError(user_id,q_t_id,question_id,comment,module,issue_type).enqueue(callback);
     }
 
 }

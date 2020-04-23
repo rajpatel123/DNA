@@ -82,6 +82,19 @@ public class QuestionList implements Parcelable{
     @Expose
     private Integer percentage;
 
+
+    public String getQuestion_id() {
+        return question_id;
+    }
+
+    public void setQuestion_id(String question_id) {
+        this.question_id = question_id;
+    }
+
+    @SerializedName("question_id")
+    @Expose
+    private String question_id;
+
     protected QuestionList(Parcel in) {
         id = in.readString();
         categoryId = in.readString();
@@ -125,7 +138,11 @@ public class QuestionList implements Parcelable{
         } else {
             percentage = in.readInt();
         }
+
+
         refernce = in.readParcelable(Refernce.class.getClassLoader());
+        question_id = in.readString();
+
     }
 
     public static final Creator<QuestionList> CREATOR = new Creator<QuestionList>() {
@@ -408,5 +425,8 @@ public class QuestionList implements Parcelable{
             dest.writeInt(percentage);
         }
         dest.writeParcelable(refernce, flags);
+
+        dest.writeString(question_id);
+
     }
 }

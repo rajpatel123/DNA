@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,38 +8,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
-            app:cardElevation="4sp"
-            android:layout_marginLeft="15sp"
-            android:layout_marginRight="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15sp"
+            app:cardElevation="4sp">
 
-               <TextView
-                   android:id="@+id/qbank_answer"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:padding="20dp"
-                   android:textStyle="bold"
-                   />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
 
-               <ImageView
-                   android:id="@+id/image"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:layout_below="@id/qbank_answer"
-                   android:layout_marginStart="20dp"
-                   android:layout_marginEnd="20dp"
-                   android:visibility="gone"
-                   android:layout_marginBottom="20dp"
-                   android:background="@drawable/ic_launcher_background" />
-           </RelativeLayout>
+                <TextView
+                    android:id="@+id/tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/circle_shape_border"
+                    android:gravity="center"
+                    android:text="A"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/qbank_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center_vertical"
+                    android:text="Rwaj patel going to noida"
+                    android:textColor="@color/Black" />
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/qbank_answer"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/ic_launcher_background"
+                    android:visibility="gone" />
+            </LinearLayout>
         </android.support.v7.widget.CardView>
 
 

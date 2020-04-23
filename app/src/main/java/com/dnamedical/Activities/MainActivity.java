@@ -27,8 +27,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.BuildConfig;
+import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -59,8 +61,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public LinearLayout tabBar;
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity
     private CircleImageView circleImageView;
     String name, image, email;
     TestDataResponse testDataResponse;
+    private String userId;
 
 
     @Override
@@ -421,17 +422,53 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 dialog.dismiss();
 
-                DnaPrefs.clear(MainActivity.this);
-                Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                logoutapiCall();
+
 
             }
         });
 
 
         dialog.show();
+
+    }
+
+    private void logoutapiCall() {
+
+        if (Utils.isInternetConnected(this)){
+            Utils.isInternetConnected(this);
+            RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+            RestClient.logout(user_Id, new Callback<LogoutResponse>() {
+                @Override
+                public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200) {
+
+                        if (response.body() != null && response.body().getStatus().equalsIgnoreCase("1")) {
+                            Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+
+                            DnaPrefs.clear(MainActivity.this);
+                            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else {
+                        Toast.makeText(MainActivity.this, "Unable to logout, please try again later!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        }else{
+            Toast.makeText(MainActivity.this, "Please check internet connection!", Toast.LENGTH_LONG).show();
+
+        }
 
     }
 
@@ -564,7 +601,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);

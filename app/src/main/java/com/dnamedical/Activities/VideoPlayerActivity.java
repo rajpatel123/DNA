@@ -150,8 +150,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @BindView(R.id.techer_name)
     TextView textTeacher;
 
-    @BindView(R.id.pdfDwnloadOptionImg)
-    ImageView pdfDwnloadOptionImg;
+
 
 //    ImageView pdfDownload;
     String URL = "http://www.codeplayon.com/samples/resume.pdf";
@@ -617,18 +616,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
         });
 
 
-        pdfDownload();
 
     }
 
-    private void pdfDownload() {
-        pdfDwnloadOptionImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DownloadTask(getApplicationContext(), URL);
-            }
-        });
-    }
+
 
     private int getTimeMillies(String source) {
         String[] tokens = source.split(":");

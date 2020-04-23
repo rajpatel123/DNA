@@ -287,6 +287,7 @@
                     <WebView
                         android:id="@+id/dataWebView"
                         android:layout_width="match_parent"
+                        
                         android:layout_height="match_parent"
                         android:background="@color/app_bg" />
 
@@ -300,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </android.support.v7.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -309,7 +310,7 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="@dimen/dp_10"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -321,13 +322,15 @@
                         android:drawableStart="@drawable/ic_attention"
                         android:gravity="center_vertical"
                         android:text="   Report error"
+                        android:visibility="gone"
                         android:textColor="@color/colorPrimary" />
 
                     <TextView
+                        android:id="@+id/errorSend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/ic_share"
+                        android:drawableStart="@drawable/ic_attention"
                         android:gravity="center_vertical"
                         android:text="   Report error"
                         android:textColor="@color/dark_gray" />
@@ -345,8 +348,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="MCQ ID : ANOT000023"
-                    android:textColor="@color/dark_light_gray" />
+                    android:textColor="@color/colorPrimary" />
 
 
             </LinearLayout>
