@@ -193,7 +193,7 @@ public class QbankReviewListAdapter extends RecyclerView.Adapter<QbankReviewList
 
                 Utils.dismissProgressDialog();
                 holder.webView.setVisibility(View.VISIBLE);
-                // Toast.makeText(MainActivity.this, "Page Loaded", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(LiveChannelPlayer.this, "Page Loaded", Toast.LENGTH_SHORT).show();
             }
         });
         holder.webView.loadUrl(detail.getDescriptionUrl());

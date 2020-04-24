@@ -29,6 +29,7 @@ import com.dnamedical.Models.maincat.SubCat;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.livemodule.LiveOnliveClassListActity;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
@@ -184,6 +185,9 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
             getActivity().startActivity(intent);
         } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("12")) {
             Intent intent = new Intent(getActivity(), FranchiActivity.class);
+            getActivity().startActivity(intent);
+        }else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("5")) {
+            Intent intent = new Intent(getActivity(), LiveOnliveClassListActity.class);
             getActivity().startActivity(intent);
         } else {
 //            Intent intent = new Intent(getActivity(), NeetPgActivity.class);
