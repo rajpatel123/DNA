@@ -59,6 +59,7 @@ import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
+import com.dnamedical.livemodule.LiveChannelData;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -328,6 +329,10 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/testquestions")
     Call<QustionDetails> getQuestion(@Query("user_id") String user_id,
                                      @Query("test_id") String test_id);
+
+
+ @GET("api/api.php?req=get_live_info")
+    Call<LiveChannelData> getAllCgannels();
 
     @Multipart
     @POST("v1/index.php/api/test/testresult")

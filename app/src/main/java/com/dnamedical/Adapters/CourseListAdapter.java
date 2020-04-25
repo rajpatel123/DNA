@@ -47,6 +47,18 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         holder.title.setText("" + categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
 
+
+        if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName().contains("Live Online")){
+            holder.live.setVisibility(View.VISIBLE);
+            holder.detailLL.setVisibility(View.GONE);
+
+        }else{
+            holder.live.setVisibility(View.GONE);
+            holder.detailLL.setVisibility(View.VISIBLE);
+
+        }
+
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,6 +203,10 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         @BindView(R.id.title)
         TextView title;
+
+
+        @BindView(R.id.live)
+        ImageView live;
 
 
 //        @BindView(R.id.insImage)

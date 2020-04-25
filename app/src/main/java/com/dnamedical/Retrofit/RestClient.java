@@ -58,6 +58,7 @@ import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
+import com.dnamedical.livemodule.LiveChannelData;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -471,6 +472,11 @@ public class RestClient {
 
     public static void getAllInstitute(RequestBody user_id, Callback<AllInstituteResponseModel> callback) {
         RetrofitClient.getClient().getAllInstitute(user_id).enqueue(callback);
+    }
+
+
+ public static void getChannels(Callback<LiveChannelData> callback) {
+        RetrofitClient.getClient().getAllCgannels().enqueue(callback);
     }
 
 

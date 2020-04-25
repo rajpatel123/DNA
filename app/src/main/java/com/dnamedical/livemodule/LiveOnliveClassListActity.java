@@ -11,16 +11,22 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Adapters.CourseListAdapter;
 import com.dnamedical.Adapters.CourseModuleListAdapter;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
+import com.dnamedical.Models.maincat.SubCat;
 import com.dnamedical.Models.modulesforcat.CatModuleResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
+import com.dnamedical.fragment.HomeFragment;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +46,7 @@ public class LiveOnliveClassListActity extends AppCompatActivity  {
     private CatModuleResponse catModuleResponse;
     private CategoryDetailData categoryDetailData;
     private String catId;
+    private LiveChannelData channelData;
 
 
     @Override
@@ -74,6 +81,51 @@ public class LiveOnliveClassListActity extends AppCompatActivity  {
     private void getCourse() {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
+            RestClient.getChannels(new Callback<LiveChannelData>() {
+                @Override
+                public void onResponse(Call<LiveChannelData> call, Response<LiveChannelData> response) {
+                    if (response.code() == 200) {
+                        Utils.dismissProgressDialog();
+                        channelData = response.body();
+                        if (channelData != null && channelData.getChat().size() > 0) {
+                            Log.d("Api Response :", "Got Success from Api");
+
+
+                            LiveListAdapter courseListAdapter = new LiveListAdapter(LiveOnliveClassListActity.this);
+                            courseListAdapter.setData(channelData);
+                            recyclerView.setAdapter(courseListAdapter);
+                            Log.d("Api Response :", "Got Success from Api");
+                            // noInternet.setVisibility(View.GONE);
+                            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(LiveOnliveClassListActity.this, 2) {
+                                @Override
+                                public boolean canScrollVertically() {
+                                    return true;
+                                }
+
+                            };
+                            recyclerView.setLayoutManager(layoutManager);
+                            recyclerView.setVisibility(View.VISIBLE);
+                        } else {
+                            Log.d("Api Response :", "Got Success from Api");
+                            // noInternet.setVisibility(View.VISIBLE);
+                            // noInternet.setText(getString(R.string.no_project));
+                            recyclerView.setVisibility(View.GONE);
+                            textInternet.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<LiveChannelData> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
 
 
         } else {

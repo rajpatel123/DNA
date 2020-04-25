@@ -22,16 +22,15 @@ apply plugin: 'com.google.gms.google-services'
 
 def uatKeystorePropertiesFile = rootProject.file("release_signing.properties")
 def uatKeystoreProperties = new Properties()
-def htextview_version = "0.1.6"
 uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.dnamedical"
         minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 121
-        versionName "v6.3.3"
+        targetSdkVersion 28
+        versionCode 125
+        versionName "v6.3.4"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -71,8 +70,8 @@ android {
         }
     }
     repositories {
-        jcenter();
-        mavenCentral();
+        jcenter()
+        mavenCentral()
     }
     compileOptions {
         targetCompatibility 1.8

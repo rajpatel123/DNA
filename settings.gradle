@@ -1,1 +1,1 @@
-include ':app', ':easy-player', ':indicatorseekbar', ':pinentryedittext', ':library', ':theoplayer-android'
+include ':app', ':easy-player', ':indicatorseekbar', ':pinentryedittext', ':library', ':theoplayer-android', ':theoplayer-android-release'

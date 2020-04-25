@@ -188,6 +188,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
             getActivity().startActivity(intent);
         }else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("5")) {
             Intent intent = new Intent(getActivity(), LiveOnliveClassListActity.class);
+            intent.putExtra("catData", new Gson().toJson(categoryDetailData));
+            intent.putExtra("catId", id);
             getActivity().startActivity(intent);
         } else {
 //            Intent intent = new Intent(getActivity(), NeetPgActivity.class);

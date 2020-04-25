@@ -1,22 +1,20 @@
 package com.dnamedical.livemodule;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LiveChannelResponse {
+public class Chat {
 
-@SerializedName("id")
-@Expose
-private String id;
 @SerializedName("channel_id")
 @Expose
 private String channelId;
 @SerializedName("channel_name")
 @Expose
 private String channelName;
-@SerializedName("dr_name")
+@SerializedName("doctor_name")
 @Expose
-private String drName;
+private String doctorName;
 @SerializedName("live_started_time")
 @Expose
 private String liveStartedTime;
@@ -26,26 +24,12 @@ private String liveEndTime;
 @SerializedName("live_subject")
 @Expose
 private String liveSubject;
-@SerializedName("live_date")
+@SerializedName("doctor_image")
 @Expose
-private String liveDate;
+private String doctorImage;
 @SerializedName("thumbnail")
 @Expose
 private String thumbnail;
-@SerializedName("status")
-@Expose
-private String status;
-@SerializedName("createdOn")
-@Expose
-private String createdOn;
-
-public String getId() {
-return id;
-}
-
-public void setId(String id) {
-this.id = id;
-}
 
 public String getChannelId() {
 return channelId;
@@ -63,12 +47,12 @@ public void setChannelName(String channelName) {
 this.channelName = channelName;
 }
 
-public String getDrName() {
-return drName;
+public String getDoctorName() {
+return doctorName;
 }
 
-public void setDrName(String drName) {
-this.drName = drName;
+public void setDoctorName(String doctorName) {
+this.doctorName = doctorName;
 }
 
 public String getLiveStartedTime() {
@@ -95,12 +79,12 @@ public void setLiveSubject(String liveSubject) {
 this.liveSubject = liveSubject;
 }
 
-public String getLiveDate() {
-return liveDate;
+public String getDoctorImage() {
+return doctorImage;
 }
 
-public void setLiveDate(String liveDate) {
-this.liveDate = liveDate;
+public void setDoctorImage(String doctorImage) {
+this.doctorImage = doctorImage;
 }
 
 public String getThumbnail() {
@@ -109,22 +93,6 @@ return thumbnail;
 
 public void setThumbnail(String thumbnail) {
 this.thumbnail = thumbnail;
-}
-
-public String getStatus() {
-return status;
-}
-
-public void setStatus(String status) {
-this.status = status;
-}
-
-public String getCreatedOn() {
-return createdOn;
-}
-
-public void setCreatedOn(String createdOn) {
-this.createdOn = createdOn;
 }
 
 }
