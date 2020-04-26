@@ -35,7 +35,12 @@ public class LiveChannelPlayer extends AppCompatActivity {
                         ConstraintLayout.LayoutParams.MATCH_PARENT
                 )
         );
-        layout.addView(player.getView());
+        try{
+            layout.addView(player.getView());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
