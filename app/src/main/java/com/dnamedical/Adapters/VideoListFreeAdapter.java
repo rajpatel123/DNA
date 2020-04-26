@@ -104,7 +104,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.number.setText("" + (holder.getAdapterPosition() + 1));
         Picasso.with(applicationContext)
                 .load(freeList.get(holder.getAdapterPosition()).getDr_img())
-                .error(R.drawable.profile_image_know_more)
+                .error(R.drawable.dnalogo)
                 .into(holder.imageDoctor);
         holder.doctorName.setText(freeList.get(holder.getAdapterPosition()).getSubTitle());
 

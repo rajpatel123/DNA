@@ -268,9 +268,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
         <activity
-            android:name=".Activities.VedioClassesActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activities.VerifyOTPActivity"
             android:screenOrientation="portrait" />
 
@@ -286,9 +283,6 @@
             android:name=".Activities.NeetPgActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"/>
-        <activity
-            android:name=".Activities.ShoppingActivty"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LiveActivity"
             android:screenOrientation="portrait" />
@@ -321,12 +315,6 @@
 
         <activity android:name=".Activities.DNASettingActivity" />
         <activity
-            android:name=".Activities.Noticeboard"
-            android:label="Notice Board"
-            android:parentActivityName=".Activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
-        <activity
             android:name=".Activities.DNAProfileActivity"
             android:label="Profile"
             android:parentActivityName=".Activities.MainActivity"
@@ -350,9 +338,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Mobilenumber"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.TestQuestionExamActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ResultActivity"

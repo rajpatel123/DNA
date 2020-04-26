@@ -1,6 +1,5 @@
 package com.dnamedical.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -35,14 +34,12 @@ import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.fragment.HomeFragment;
-import com.dnamedical.fragment.OnlineFragment;
 import com.dnamedical.fragment.QbankFragment;
 import com.dnamedical.fragment.TestFragment;
 import com.dnamedical.fragment.videoFragment;
 import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
-import com.dnamedical.utils.ImageUtils;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity
     private videoFragment dashboardvideoFragment;
     private QbankFragment dashboardQbankFragment;
     private TestFragment dashboardTestFragment;
-    private OnlineFragment dashboardOnlineFragment;
+   // private OnlineFragment dashboardOnlineFragment;
     private ViewPagerAdapter adapter;
     private TextView myDeviceTitle;
     private ImageView imgDeviceIcon;
@@ -238,7 +235,7 @@ public class MainActivity extends AppCompatActivity
     private void setUpFragments() {
         setupViewPager(pager);
         tabLayout.setupWithViewPager(pager);
-        setupTabIcons();
+        //setupTabIcons();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -246,7 +243,7 @@ public class MainActivity extends AppCompatActivity
         //  dashboardvideoFragment = new videoFragment();
         dashboardQbankFragment = new QbankFragment();
         dashboardTestFragment = new TestFragment();
-        dashboardOnlineFragment = new OnlineFragment();
+        //dashboardOnlineFragment = new OnlineFragment();
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
@@ -254,7 +251,7 @@ public class MainActivity extends AppCompatActivity
         //  adapter.addFragment(dashboardvideoFragment, "Video");
         adapter.addFragment(dashboardQbankFragment, "Q Bank");
         adapter.addFragment(dashboardTestFragment, "Test");
-        adapter.addFragment(dashboardOnlineFragment, "Online");
+    //    adapter.addFragment(dashboardOnlineFragment, "Online");
 
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(pageChangeListener);
@@ -262,65 +259,65 @@ public class MainActivity extends AppCompatActivity
         pager.setOffscreenPageLimit(4);
     }
 
-    private void setupTabIcons() {
-        @SuppressLint("InflateParams") View deviceTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        myDeviceTitle = deviceTab.findViewById(R.id.tab);
-        myDeviceTitle.setText("Home");
-        imgDeviceIcon = deviceTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_home, imgDeviceIcon, R.color.white);
-
-        TabLayout.Tab tab = tabLayout.getTabAt(0);
-
-        if (tab != null) {
-            tab.setCustomView(deviceTab);
-        }
-
-      /*  @SuppressLint("InflateParams") View mapTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        videoText = mapTab.findViewById(R.id.tab);
-        videoText.setText("Video");
-        imgVideoViewIcon = mapTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_video, imgVideoViewIcon, R.color.white);
-
-        tab = tabLayout.getTabAt(1);
-
-        if (tab != null) {
-
-            tab.setCustomView(mapTab);
-        }*/
-
-        @SuppressLint("InflateParams") View alertTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        qbTitle = alertTab.findViewById(R.id.tab);
-        qbTitle.setText("Q Bank");
-
-        imgQBIcon = alertTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_qbank, imgQBIcon, R.color.white);
-
-        tab = tabLayout.getTabAt(1);
-        if (tab != null) {
-            tab.setCustomView(alertTab);
-        }
-
-        @SuppressLint("InflateParams") View recordingTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        testTitle = recordingTab.findViewById(R.id.tab);
-        testTitle.setText("Test");
-        testIcon = recordingTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_text, testIcon, R.color.white);
-        tab = tabLayout.getTabAt(2);
-        if (tab != null) {
-            tab.setCustomView(recordingTab);
-        }
-
-        @SuppressLint("InflateParams") View accountTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        onlineTitle = accountTab.findViewById(R.id.tab);
-        onlineTitle.setText("Online");
-        imgOnlineIcon = accountTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_live, imgOnlineIcon, R.color.white);
-
-        tab = tabLayout.getTabAt(3);
-        if (tab != null) {
-            tab.setCustomView(accountTab);
-        }
-    }
+//    private void setupTabIcons() {
+//        @SuppressLint("InflateParams") View deviceTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        myDeviceTitle = deviceTab.findViewById(R.id.tab);
+//        myDeviceTitle.setText("Home");
+//        imgDeviceIcon = deviceTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_home, imgDeviceIcon, R.color.white);
+//
+//        TabLayout.Tab tab = tabLayout.getTabAt(0);
+//
+//        if (tab != null) {
+//            tab.setCustomView(deviceTab);
+//        }
+//
+//      /*  @SuppressLint("InflateParams") View mapTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        videoText = mapTab.findViewById(R.id.tab);
+//        videoText.setText("Video");
+//        imgVideoViewIcon = mapTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_video, imgVideoViewIcon, R.color.white);
+//
+//        tab = tabLayout.getTabAt(1);
+//
+//        if (tab != null) {
+//
+//            tab.setCustomView(mapTab);
+//        }*/
+//
+//        @SuppressLint("InflateParams") View alertTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        qbTitle = alertTab.findViewById(R.id.tab);
+//        qbTitle.setText("Q Bank");
+//
+//        imgQBIcon = alertTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_qbank, imgQBIcon, R.color.white);
+//
+//        tab = tabLayout.getTabAt(1);
+//        if (tab != null) {
+//            tab.setCustomView(alertTab);
+//        }
+//
+//        @SuppressLint("InflateParams") View recordingTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        testTitle = recordingTab.findViewById(R.id.tab);
+//        testTitle.setText("Test");
+//        testIcon = recordingTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_text, testIcon, R.color.white);
+//        tab = tabLayout.getTabAt(2);
+//        if (tab != null) {
+//            tab.setCustomView(recordingTab);
+//        }
+//
+//        @SuppressLint("InflateParams") View accountTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        onlineTitle = accountTab.findViewById(R.id.tab);
+//        onlineTitle.setText("Online");
+//        imgOnlineIcon = accountTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_live, imgOnlineIcon, R.color.white);
+//
+//        tab = tabLayout.getTabAt(3);
+//        if (tab != null) {
+//            tab.setCustomView(accountTab);
+//        }
+//    }
 
     @Override
     public void onBackPressed() {
@@ -347,8 +344,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.notice_board) {
 
-            Intent intent = new Intent(this, Noticeboard.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, Noticeboard.class);
+//            startActivity(intent);
         } else if (id == R.id.dna_faculy) {
             Intent intent = new Intent(this, DNAFacultyActivity.class);
             startActivity(intent);

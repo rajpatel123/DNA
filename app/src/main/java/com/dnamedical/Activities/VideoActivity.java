@@ -18,10 +18,8 @@ import java.util.List;
 
 import com.dnamedical.R;
 import com.dnamedical.fragment.BuynowFragment;
-import com.dnamedical.fragment.CompleteFragment;
 import com.dnamedical.fragment.FreeFragment;
 import com.dnamedical.fragment.PausedFragment;
-import com.dnamedical.fragment.UnattemptedFragment;
 
 public class VideoActivity extends AppCompatActivity {
 

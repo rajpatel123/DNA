@@ -57,3 +57,4 @@
 
 -keep class com.dnamedical.Models.** { *; }
 -keep class com.dnamedical.livemodule.** { *; }
+-keep class com.dnamedical.livemodule.DacastPlayer { *; }

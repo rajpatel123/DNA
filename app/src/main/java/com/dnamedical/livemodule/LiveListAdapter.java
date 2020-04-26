@@ -44,7 +44,7 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         holder.subjectName.setText("By \n" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getChannelName());
         holder.timer.setText(""+ Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime())*1000));
         Picasso.with(applicationContext).load(categoryDetailData.getChat().get(position).getDoctorImage())
-                .error(R.drawable.profile_image_know_more)
+                .error(R.drawable.dnalogo)
                 .into(holder.drImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

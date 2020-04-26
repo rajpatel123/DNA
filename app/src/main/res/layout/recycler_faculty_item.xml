@@ -39,7 +39,7 @@
                             android:layout_height="90dp"
                             android:paddingLeft="10sp"
                             android:paddingTop="15sp"
-                            app:srcCompat="@drawable/profile_pictures" />
+                            app:srcCompat="@drawable/dnalogo" />
 
                         <ProgressBar
                             android:visibility="gone"

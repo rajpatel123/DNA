@@ -26,17 +26,19 @@ import com.dnamedical.utils.CameraUtils;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+//import com.karumi.dexter.Dexter;
+//import com.karumi.dexter.MultiplePermissionsReport;
+//import com.karumi.dexter.PermissionToken;
+//import com.karumi.dexter.listener.PermissionRequest;
+//import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+//
+//import java.io.ByteArrayOutputStream;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.FileOutputStream;
+//import java.util.List;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,7 +113,7 @@ public class IdVerificationActivitty extends AppCompatActivity {
                 if (CameraUtils.checkPermissions(getApplicationContext())) {
                     captureImage();
                 } else {
-                    requestCameraPermission(MEDIA_TYPE_IMAGE);
+                   // requestCameraPermission(MEDIA_TYPE_IMAGE);
                 }
 
             }
@@ -195,33 +197,33 @@ public class IdVerificationActivitty extends AppCompatActivity {
     }
 
 
-    private void requestCameraPermission(final int type) {
-        Dexter.withActivity(this)
-                .withPermissions(Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        if (report.areAllPermissionsGranted()) {
-
-                            if (type == MEDIA_TYPE_IMAGE) {
-                                // capture picture
-                                captureImage();
-                            } else {
-
-                            }
-
-                        } else if (report.isAnyPermissionPermanentlyDenied()) {
-                            showPermissionsAlert();
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
-    }
+//    private void requestCameraPermission(final int type) {
+//        Dexter.withActivity(this)
+//                .withPermissions(Manifest.permission.CAMERA,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                .withListener(new MultiplePermissionsListener() {
+//                    @Override
+//                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                        if (report.areAllPermissionsGranted()) {
+//
+//                            if (type == MEDIA_TYPE_IMAGE) {
+//                                // capture picture
+//                                captureImage();
+//                            } else {
+//
+//                            }
+//
+//                        } else if (report.isAnyPermissionPermanentlyDenied()) {
+//                            showPermissionsAlert();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                        token.continuePermissionRequest();
+//                    }
+//                }).check();
+//    }
 
     private void captureImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

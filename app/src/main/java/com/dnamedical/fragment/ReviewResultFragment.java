@@ -41,9 +41,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.PieChartData;
-import lecho.lib.hellocharts.model.SliceValue;
-import lecho.lib.hellocharts.view.PieChartView;
+//import lecho.lib.hellocharts.model.PieChartData;
+//import lecho.lib.hellocharts.model.SliceValue;
+//import lecho.lib.hellocharts.view.PieChartView;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.Util;
@@ -142,7 +142,7 @@ public class ReviewResultFragment extends Fragment {
         //  explannnation = view.findViewById(R.id.explannnation);
         refText = view.findViewById(R.id.refText);
         mcqId = view.findViewById(R.id.mcqId);
-        PieChartView pieChartView = view.findViewById(R.id.chart);
+       // PieChartView pieChartView = view.findViewById(R.id.chart);
         if (question != null) {
 //            optionA.setText("A. " + question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
 //            optionB.setText("B. " + question.getOption2() + " [" + question.getOption2Percenatge() + "%]");
@@ -231,11 +231,11 @@ public class ReviewResultFragment extends Fragment {
             if (!TextUtils.isEmpty(question.getTitleImage())) {
                 Picasso.with(activity).load(question.getTitleImage()).into(question_image);
             }
-            List<SliceValue> pieData = new ArrayList<>();
-            pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));
-            pieData.add(new SliceValue(100 - question.getPercentage(), R.color.colorPrimary));
-            PieChartData pieChartData = new PieChartData(pieData);
-            pieChartView.setPieChartData(pieChartData);
+//            List<SliceValue> pieData = new ArrayList<>();
+//            pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));
+//            pieData.add(new SliceValue(100 - question.getPercentage(), R.color.colorPrimary));
+//            PieChartData pieChartData = new PieChartData(pieData);
+//            pieChartView.setPieChartData(pieChartData);
 
 
             if (!question.getGivenAnswer().equalsIgnoreCase("0")) {

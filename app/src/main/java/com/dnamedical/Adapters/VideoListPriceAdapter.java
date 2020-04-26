@@ -135,7 +135,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         holder.ratingandtime.setText(price.getDuration() + " min video");
         //Log.i("Thumb",  price.getUrl());
         Picasso.with(applicationContext).load(price.getDrImg())
-                .error(R.drawable.profile_image_know_more)
+                .error(R.drawable.dnalogo)
                 .into(holder.imageViewDoctor);
 
         if (price.getPrice() != null) {
