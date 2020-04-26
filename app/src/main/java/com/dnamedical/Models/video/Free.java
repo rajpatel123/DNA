@@ -22,6 +22,20 @@ public class Free implements  Parcelable {
     @Expose
     private String time;
 
+
+
+    public String getPdf_url() {
+        return pdf_url;
+    }
+
+    public void setPdf_url(String pdf_url) {
+        this.pdf_url = pdf_url;
+    }
+
+    @SerializedName("pdf_url")
+    @Expose
+    private String pdf_url;
+
     public String getTime() {
         return time;
     }
@@ -45,6 +59,8 @@ public class Free implements  Parcelable {
         description = in.readString();
         sourceTime = in.createTypedArrayList(SourceTime.CREATOR);
         url = in.readString();
+        pdf_url = in.readString();
+
     }
 
     @Override
@@ -59,6 +75,8 @@ public class Free implements  Parcelable {
         dest.writeString(description);
         dest.writeTypedList(sourceTime);
         dest.writeString(url);
+        dest.writeString(pdf_url);
+
     }
 
     @Override

@@ -29,8 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Models.log_out.LogOutResponse;
-import com.dnamedical.Models.test.testp.Test;
+import com.dnamedical.BuildConfig;
+import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -61,8 +61,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public LinearLayout tabBar;
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgOnlineIcon;
     private TextView onlineTitle;
     private NavigationView navigationView;
-    private TextView tvName, tvEmail, tvSetting;
+    private TextView tvName, tvEmail, tvSetting, tvversion;
     private CircleImageView circleImageView;
     String name, image, email;
     TestDataResponse testDataResponse;
@@ -107,6 +105,7 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
+        tvversion = headerView.findViewById(R.id.version);
         circleImageView = headerView.findViewById(R.id.profile_image);
         tvSetting = headerView.findViewById(R.id.setting);
         pager = findViewById(R.id.vp_pages);
@@ -220,6 +219,7 @@ public class MainActivity extends AppCompatActivity
 
         tvName.setText(name);
         tvEmail.setText(email);
+        tvversion.setText(BuildConfig.VERSION_NAME);
         if (!TextUtils.isEmpty(image)) {
             Picasso.with(this).load(image)
                     .error(R.drawable.dnalogo)
@@ -367,8 +367,7 @@ public class MainActivity extends AppCompatActivity
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "Hello friends, the best app for medicos is now available at: " +
-                            "https://play.google.com/store/apps/details?id=com.dnamedical");
+                    "Hello friends, the best app for medicos is now available at: https://play.google.com/store/apps/details?id=com.dnamedical");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } else if (id == R.id.about) {
@@ -399,72 +398,76 @@ public class MainActivity extends AppCompatActivity
 
     public void userlogout() {
 
-//        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//        // ...Irrelevant code for customizing the buttons and titl
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
-//        dialogBuilder.setView(dialogView);
-//
-//        final AlertDialog dialog = dialogBuilder.create();
-//        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-//        TextView text_logout = dialogView.findViewById(R.id.text_logout);
-//        btn_Cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//
-//
-//            }
-//        });
-//
-//
-//        text_logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//
-//                DnaPrefs.clear(MainActivity.this);
-//               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
-//               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//               startActivity(intent);
-//               finish();
-//
-//            }
-//        });
-//
-//
-//        dialog.show();
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
+        dialogBuilder.setView(dialogView);
 
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-            String user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-            RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
+        final AlertDialog dialog = dialogBuilder.create();
+        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+        TextView text_logout = dialogView.findViewById(R.id.text_logout);
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
 
-            RestClient.logOut(userId, new Callback<LogOutResponse>() {
+
+            }
+        });
+
+
+        text_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                logoutapiCall();
+
+
+            }
+        });
+
+
+        dialog.show();
+
+    }
+
+    private void logoutapiCall() {
+
+        if (Utils.isInternetConnected(this)){
+            Utils.isInternetConnected(this);
+            RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+            RestClient.logout(user_Id, new Callback<LogoutResponse>() {
                 @Override
-                public void onResponse(Call<LogOutResponse> call, Response<LogOutResponse> response) {
+                public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
                     Utils.dismissProgressDialog();
-                    if (response != null && response.code() == 200 && response.body() != null) {
-                        if (response.body().getStatus() == "true") {
+                    if (response.code() == 200) {
+
+                        if (response.body() != null && response.body().getStatus().equalsIgnoreCase("1")) {
+                            Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+
+                            DnaPrefs.clear(MainActivity.this);
                             Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Status " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
-                        Toast.makeText(MainActivity.this, "response = " + response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Unable to logout, please try again later!", Toast.LENGTH_LONG).show();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<LogOutResponse> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
 
                 }
             });
+        }else{
+            Toast.makeText(MainActivity.this, "Please check internet connection!", Toast.LENGTH_LONG).show();
+
         }
 
     }
@@ -598,7 +601,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);

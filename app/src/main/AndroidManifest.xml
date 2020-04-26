@@ -45,6 +45,12 @@
 
 
         <activity
+            android:name=".livemodule.LiveOnliveClassListActity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+
+
+        <activity
             android:name=".Activities.AllInstituteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
@@ -78,7 +84,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Activities.EnterMobileAndEmailActivity" />
+        <activity android:name=".Activities.EnterMobileAndEmailActivity"
+            />
         <activity
             android:name=".Activities.UpdateAddressActivity"
             android:label="Edit Address"
@@ -98,6 +105,10 @@
             android:name=".Activities.ForgetPasswordEmailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
+
+        <activity
+            android:name=".Activities.ViewerActivity"
+          />
         <activity
             android:name=".Activities.AddressListActivity"
             android:label="Shipping Address"
@@ -116,6 +127,12 @@
             android:name=".Activities.PaymentAddressSaveActivity"
             android:label="Address"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme5" />
+
+
+        <activity
+            android:name=".livemodule.LiveChannelPlayer"
+            android:label="DNA Live"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.ChangePasswordActivity"

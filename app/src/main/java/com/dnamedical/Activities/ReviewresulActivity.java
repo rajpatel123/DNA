@@ -44,7 +44,7 @@ public class ReviewresulActivity extends FragmentActivity {
         setContentView(R.layout.activity_reviewresul);
 
         //  getReviewTest();
-        quesionCounter = findViewById(R.id.question_number);
+        quesionCounter = findViewById(R.id.pageNumber);
 
         Intent intent = getIntent();
         reviewResult = DNAApplication.getInstance().getQuestionList();

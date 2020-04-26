@@ -5,11 +5,13 @@ import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.LoginDetailForDemo;
+import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.RankResult;
+import com.dnamedical.Models.ReportErrorResponse;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
@@ -58,6 +60,7 @@ import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
+import com.dnamedical.livemodule.LiveChannelData;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -157,7 +160,7 @@ public interface ApiInterface {
                                                @Part("grandTotal") RequestBody grandTotal,
                                                @Part("totalAmount") RequestBody totalAmount,
                                                @Part("order_id") RequestBody order_id
-                                               );
+    );
 
     @Multipart
     @POST("api/api.php?req=save_order")
@@ -233,8 +236,6 @@ public interface ApiInterface {
     );
 
 
-
-
     @Multipart
     @POST("api/api.php?req=get_address")
     Call<GetDataAddressResponse> getAddressData(@Part("user_id") RequestBody user_id);
@@ -266,6 +267,7 @@ public interface ApiInterface {
     @GET("api/api.php?req=category")
     Call<CategoryDetailData> getCourse();
 
+
     @Multipart
     @POST("api/api.php?req=allfile")
     Call<VideoList> getVideos(
@@ -284,7 +286,6 @@ public interface ApiInterface {
 
     @GET("api/api.php?req=getreleasedetail")
     Call<PlaystoreUpdateResponse> playstoreUpdate();
-
 
 
     @GET("api/api.php?req=get_customsubs")
@@ -329,6 +330,10 @@ public interface ApiInterface {
     @GET("v1/index.php/api/test/testquestions")
     Call<QustionDetails> getQuestion(@Query("user_id") String user_id,
                                      @Query("test_id") String test_id);
+
+
+ @GET("api/api.php?req=get_live_info")
+    Call<LiveChannelData> getAllCgannels();
 
     @Multipart
     @POST("v1/index.php/api/test/testresult")
@@ -477,6 +482,7 @@ public interface ApiInterface {
                                                 @Part("is_guess") RequestBody guesStatus,
                                                 @Part("is_edit") RequestBody edit);
 
+
     @Multipart
     @POST("v1/index.php/api/test/submitselectedoption")
     Call<ResponseBody> submitTestAnswer(@Part("user_id") RequestBody userId,
@@ -560,6 +566,7 @@ public interface ApiInterface {
                                         @Part("remove_bookmark") RequestBody remove_bookmark,
                                         @Part("type") RequestBody type);
 
+
     @Multipart
     @POST("v1/index.php/api/test/timelogs")
     Call<ResponseBody> submit_timeLog(@Part("user_id") RequestBody user_id,
@@ -637,9 +644,23 @@ public interface ApiInterface {
     @POST("api/api.php?req=get_institute")
     Call<AllInstituteResponseModel> getAllInstitute(@Part("user_id") RequestBody user_id);
 
+
     @Multipart
     @POST("api/api.php?req=logout")
-    Call<LogOutResponse> LOG_OUT_RESPONSE_CALL (@Part("userId") RequestBody userId);
+    Call<LogoutResponse> logout(@Part("userId") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=add_modulesfeedback")
+    Call<ReportErrorResponse> reportError(
+            @Part("user_id") RequestBody user_id,
+            @Part("q_t_id") RequestBody q_t_id,
+            @Part("question_id") RequestBody question_id,
+            @Part("comment") RequestBody comment,
+            @Part("module") RequestBody module,
+            @Part("issue_type") RequestBody issue_type
+
+    );
 
 
 }

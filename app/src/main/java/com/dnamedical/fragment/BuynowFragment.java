@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.dnamedical.Activities.PaymentCoupenActivity;
 import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Activities.VideoPlayerActivity;
+import com.dnamedical.Activities.ViewerActivity;
 import com.dnamedical.Adapters.VideoListPriceAdapter;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
@@ -82,6 +83,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
         View view = inflater.inflate(R.layout.fragment_buynow, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         noVid = view.findViewById(R.id.noVid);
+        getVideos();
 
         return view;
     }
@@ -123,7 +125,6 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     @Override
     public void onResume() {
         super.onResume();
-        getVideos();
     }
 
 
@@ -161,9 +162,9 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
                             loadedOnce = true;
                         }
-                         //showVideos();
+                         showVideos();
 
-                      showVideosOrPdf();
+                    //  showVideosOrPdf();
                     }
                 }
 
@@ -214,6 +215,13 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                     intent.putExtra("PRICE", paidVideoResponseList);
                     startActivity(intent);
 
+                }
+
+                @Override
+                public void onNotesClick(String url) {
+                    Intent intent = new Intent(getActivity(), ViewerActivity.class);
+                    intent.putExtra("url", url);
+                    startActivity(intent);
                 }
             });
             recyclerView.setAdapter(videoListAdapter);

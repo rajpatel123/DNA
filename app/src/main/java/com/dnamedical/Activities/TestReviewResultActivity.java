@@ -60,7 +60,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
     private List<Subject> filterSubjectList = new ArrayList<>();
     private Filters filters;
     private Button applyFilters;
-    String level, subject, answer,filter_bookmark;
+    String level, subject, answer, filter_bookmark;
     RadioGroup anRadioGroup;
     RadioGroup subjectGroup;
     RadioGroup levelGroup;
@@ -81,9 +81,14 @@ public class TestReviewResultActivity extends AppCompatActivity {
         noContent = findViewById(R.id.noContent);
         levelGroup = findViewById(R.id.levelGroup);
 
-
         mTopToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
+        if (getIntent().hasExtra("isBookmark")) {
+            mTopToolbar.setTitle("Test Bookmarks");
+        } else {
+            mTopToolbar.setTitle("Review Test");
+
+        }
 
 
         anRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -91,11 +96,15 @@ public class TestReviewResultActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton answerSected = findViewById(checkedId);
                 String str = answerSected.getText().toString();
-                if (str.equalsIgnoreCase("Bookmarked")){
-                    filter_bookmark ="test";
-                }else{
-                    answer = getAnswerId(str);
-                    filter_bookmark="";
+                if (str.equalsIgnoreCase("Bookmarked")) {
+                    filter_bookmark = "test";
+                } else {
+                    if (str.equalsIgnoreCase("all")) {
+                        answer = "";
+                    } else {
+                        answer = getAnswerId(str);
+                    }
+                    filter_bookmark = "";
 
                 }
 
@@ -107,6 +116,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton subjectSected = findViewById(checkedId);
                 subject = getSubjectId(subjectSected.getText().toString());
+
 
             }
         });
@@ -176,7 +186,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
             Answer answerb = new Answer();
             answerb.setId("test");
             answerb.setName("Bookmarked");
-            filterAnswersList.add(1,answerb);
+            filterAnswersList.add(1, answerb);
             if (filterAnswersList.size() > 0) {
                 isFilterAdded = true;
 
@@ -223,6 +233,9 @@ public class TestReviewResultActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (testReviewListResponse == null) {
+            if (getIntent().hasExtra("isBookmark")) {
+                filter_bookmark = "test";
+            }
             getReviewData();
         }
 
@@ -236,16 +249,18 @@ public class TestReviewResultActivity extends AppCompatActivity {
 //
 //
 
-            user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         if (getIntent().hasExtra("testid")) {
             test_Id = getIntent().getStringExtra("testid");
+            DnaPrefs.putString(getApplicationContext(), Constants.TEST_ID, test_Id);
+            DnaPrefs.putString(getApplicationContext(), Constants.MODULE, "Test");
 
         }
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getTestReviewListData(test_Id, user_Id, level, subject, answer,filter_bookmark, new Callback<TestReviewListResponse>() {
+            RestClient.getTestReviewListData(test_Id, user_Id, level, subject, answer, filter_bookmark, new Callback<TestReviewListResponse>() {
                 @Override
                 public void onResponse(Call<TestReviewListResponse> call, Response<TestReviewListResponse> response) {
                     Utils.dismissProgressDialog();
@@ -293,6 +308,8 @@ public class TestReviewResultActivity extends AppCompatActivity {
 
                                         if (questionList != null) {
                                             if (!TextUtils.isEmpty(user_Id) && !TextUtils.isEmpty(test_Id)) {
+
+                                                Log.d("data", "TestID  : "+test_Id+"   user_id ---"+user_Id+" qid : "+questionList.getId()+"  Type: "+"test"+" bookmark"+ 0);
                                                 RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
                                                 RequestBody testID = RequestBody.create(MediaType.parse("text/plain"), test_Id);
                                                 RequestBody q_id = RequestBody.create(MediaType.parse("text/plain"), questionList.getId());
@@ -304,7 +321,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
                                                     remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
                                                 }
 
-                                                RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark,type, new Callback<ResponseBody>() {
+                                                RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, type, new Callback<ResponseBody>() {
                                                     @Override
                                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                         if (response != null && response.code() == 200) {
@@ -385,6 +402,12 @@ public class TestReviewResultActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbarmenu, menu);
 
+
+        if (getIntent().hasExtra("isBookmark")) {
+            menu.findItem(R.id.action_favorite).setVisible(false);
+        } else {
+            menu.findItem(R.id.action_favorite).setVisible(true);
+        }
 //        final MenuItem menuItem = menu.findItem(R.id.action_favorite);
 //        View actionView = menuItem.getActionView();
 //        TextView badge = actionView.findViewById(R.id.badge);

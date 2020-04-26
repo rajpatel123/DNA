@@ -29,6 +29,7 @@ import com.dnamedical.Models.maincat.SubCat;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.livemodule.LiveOnliveClassListActity;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
@@ -185,6 +186,11 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("12")) {
             Intent intent = new Intent(getActivity(), FranchiActivity.class);
             getActivity().startActivity(intent);
+        }else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("5")) {
+            Intent intent = new Intent(getActivity(), LiveOnliveClassListActity.class);
+            intent.putExtra("catData", new Gson().toJson(categoryDetailData));
+            intent.putExtra("catId", id);
+            getActivity().startActivity(intent);
         } else {
 //            Intent intent = new Intent(getActivity(), NeetPgActivity.class);
 //            intent.putExtra("catData", new Gson().toJson(categoryDetailData));
@@ -192,6 +198,11 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 //            DnaPrefs.putString(mainActivity,Constants.CAT_ID,id);
 //            getActivity().startActivity(intent);
 
+            if (id.equalsIgnoreCase("1")){
+                Constants.IS_NEET=true;
+            }else{
+                Constants.IS_NEET=false;
+            }
 
             Intent intent = new Intent(getActivity(), CategoryModulesActivity.class);
             intent.putExtra("catData", new Gson().toJson(categoryDetailData));

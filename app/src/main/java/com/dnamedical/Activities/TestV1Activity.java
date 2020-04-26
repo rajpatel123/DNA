@@ -586,14 +586,16 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                     View answerView = inflater.inflate(R.layout.item_answer, null, false);
                     answer1 = answerView.findViewById(R.id.answer);
                     image1 = answerView.findViewById(R.id.image);
+                    TextView tag1 =  answerView.findViewById(R.id.tag);
+                    tag1.setText("A");
                     cardView1 = answerView.findViewById(R.id.cardView);
 
 
                     Spannable html1;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html1 = (Spannable) Html.fromHtml("(A) " + question.getOption1(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        html1 = (Spannable) Html.fromHtml("" + question.getOption1(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
                     } else {
-                        html1 = (Spannable) Html.fromHtml("(A) " + question.getOption1(), imageGetter, null);
+                        html1 = (Spannable) Html.fromHtml("" + question.getOption1(), imageGetter, null);
                     }
                     answer1.setText(html1);
 
@@ -650,14 +652,15 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             null, false);
                     answer2 = answerView1.findViewById(R.id.answer);
                     image2 = answerView1.findViewById(R.id.image);
-
+                    TextView tag2 =  answerView1.findViewById(R.id.tag);
+                    tag2.setText("B");
                     cardView2 = answerView1.findViewById(R.id.cardView);
 
                     Spannable html2;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html2 = (Spannable) Html.fromHtml("(B) " + question.getOption2(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        html2 = (Spannable) Html.fromHtml("" + question.getOption2(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
                     } else {
-                        html2 = (Spannable) Html.fromHtml("(B) " + question.getOption2(), imageGetter, null);
+                        html2 = (Spannable) Html.fromHtml("" + question.getOption2(), imageGetter, null);
                     }
 
                     answer2.setText(html2);
@@ -709,14 +712,15 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             null, false);
                     answer3 = answerView2.findViewById(R.id.answer);
                     image3 = answerView2.findViewById(R.id.image);
-
+                    TextView tag3 =  answerView2.findViewById(R.id.tag);
+                    tag3.setText("C");
                     cardView3 = answerView2.findViewById(R.id.cardView);
 
                     Spannable html3;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html3 = (Spannable) Html.fromHtml("(C) " + question.getOption3(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        html3 = (Spannable) Html.fromHtml("" + question.getOption3(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
                     } else {
-                        html3 = (Spannable) Html.fromHtml("(C) " + question.getOption3(), imageGetter, null);
+                        html3 = (Spannable) Html.fromHtml("" + question.getOption3(), imageGetter, null);
                     }
 
                     answer3.setText(html3);
@@ -768,14 +772,15 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
                             null, false);
                     answer4 = answerView4.findViewById(R.id.answer);
                     image4 = answerView4.findViewById(R.id.image);
-
+                    TextView tag4 =  answerView4.findViewById(R.id.tag);
+                    tag4.setText("D");
                     cardView4 = answerView4.findViewById(R.id.cardView);
 
                     Spannable html4;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        html4 = (Spannable) Html.fromHtml("(D) " + question.getOption4(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
+                        html4 = (Spannable) Html.fromHtml("" + question.getOption4(), Html.FROM_HTML_MODE_LEGACY, imageGetter, null);
                     } else {
-                        html4 = (Spannable) Html.fromHtml("(D) " + question.getOption4(), imageGetter, null);
+                        html4 = (Spannable) Html.fromHtml("" + question.getOption4(), imageGetter, null);
                     }
 
                     answer4.setText(html4);

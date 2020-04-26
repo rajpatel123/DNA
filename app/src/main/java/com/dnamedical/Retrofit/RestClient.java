@@ -5,10 +5,12 @@ import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
 import com.dnamedical.Models.LoginDetailForDemo;
+import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.RankResult;
+import com.dnamedical.Models.ReportErrorResponse;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
@@ -28,7 +30,6 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
-import com.dnamedical.Models.log_out.LogOutResponse;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -57,6 +58,7 @@ import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
+import com.dnamedical.livemodule.LiveChannelData;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -473,8 +475,18 @@ public class RestClient {
     }
 
 
-    public static void logOut(RequestBody userId, Callback<LogOutResponse> callback) {
-        RetrofitClient.getClient().LOG_OUT_RESPONSE_CALL(userId).enqueue(callback);
+ public static void getChannels(Callback<LiveChannelData> callback) {
+        RetrofitClient.getClient().getAllCgannels().enqueue(callback);
+    }
+
+
+    public static void logout(RequestBody user_id, Callback<LogoutResponse> callback) {
+        RetrofitClient.getClient().logout(user_id).enqueue(callback);
+    }
+
+
+ public static void reportError(RequestBody user_id,RequestBody q_t_id,RequestBody question_id,RequestBody comment,RequestBody module,RequestBody issue_type, Callback<ReportErrorResponse> callback) {
+        RetrofitClient.getClient().reportError(user_id,q_t_id,question_id,comment,module,issue_type).enqueue(callback);
     }
 
 }

@@ -55,10 +55,11 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
         });
 
 
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Change Mobile No's");
+            getSupportActionBar().setTitle("Update Mobile Number");
         }
 
     }
@@ -103,7 +104,6 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
 
             RequestBody UserId = RequestBody.create(MediaType.parse("text/plane"), userId);
             RequestBody phoneNo = RequestBody.create(MediaType.parse("text/plane"), updatePhoneNumber);
-
 
             RestClient.changePhoneNumber(UserId, phoneNo, new Callback<ResponseBody>() {
                 @Override
