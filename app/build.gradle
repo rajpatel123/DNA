@@ -23,6 +23,7 @@ def htextview_version = "0.1.6"
 uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
 android {
     compileSdkVersion 28
+    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.dnamedical"
         minSdkVersion 19
