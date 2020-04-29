@@ -69,6 +69,13 @@
         <activity
             android:name=".Activities.RemarksActivity"
             android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".livemodule.LiveVideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+
+            />
         <activity
             android:name=".Activities.SubscriptionPaymentActivity"
             android:screenOrientation="portrait"

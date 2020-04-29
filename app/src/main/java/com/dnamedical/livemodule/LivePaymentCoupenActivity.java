@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +16,6 @@ import android.widget.Toast;
 
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.R;
-import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 
 import butterknife.BindView;
@@ -27,14 +28,9 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
     @BindView(R.id.img_cancel)
     ImageView imageViewCancel;
 
-    @BindView(R.id.txt_coupon_code)
-    TextView textViewCouponCode;
 
     @BindView(R.id.totalDiscountOfVideos)
     TextView totalDiscountOfVideos;
-
-    @BindView(R.id.totalAddDiscountOfVideos)
-    TextView totalAddDiscountOfVideos;
 
 
     @BindView(R.id.totalPriceOfVideoTV)
@@ -62,10 +58,8 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
     @BindView(R.id.actual_price)
     TextView txtActualPrice;
 
-    @BindView(R.id.image_coupon_apply)
-    ImageView imageViewCouponApply;
 
-    @BindView(R.id.img_coupon_cancel)
+    @BindView(R.id.crossBtn)
     ImageView imageViewCouponCancle;
 
 
@@ -75,16 +69,13 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
     @BindView(R.id.linear_coupon)
     LinearLayout linearLayoutCoupon;
 
-    @BindView(R.id.linear_coupon_add)
-    LinearLayout linearLayoutCoupon_add;
 
-
-    @BindView(R.id.txt_apply_coupon)
+    @BindView(R.id.applyNow)
     TextView textViewCouponApply;
 
 
-    @BindView(R.id.discount_message)
-    EditText textViewDiscountMessage;
+    @BindView(R.id.coupanCodeEdt)
+    EditText coupanCodeEdt;
     String couponCode, id, couponValue, subTitle, testName, totalPriceValue = "0", totalDiscountValue = "0", totalDiscountFinalValue = "0", totalAddDiscountFinalValue = "0", finalPriceValue = "0", vedioId, shippingCharge;
 
     PaidVideoResponse paidVideoResponse;
@@ -108,65 +99,26 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
             }
         });
 
-
-        Intent intent = getIntent();
-        if (getIntent().hasExtra("PRICE")) {
-            paidVideoResponse = intent.getParcelableExtra("PRICE");
-            if (paidVideoResponse != null) {
-
-                String addDiscount = DnaPrefs.getString(this, Constants.ADD_DISCOUNT);
-                for (int i = 0; i < paidVideoResponse.getPrice().size(); i++) {
-                    if (paidVideoResponse.getPrice().get(i).getPrice() != null
-                            && paidVideoResponse.getPrice().get(i).getPaymentStatus().equalsIgnoreCase("0")) {
-                        totalPriceValue = String.valueOf(Integer.parseInt(totalPriceValue) + (Integer.parseInt(paidVideoResponse.getPrice().get(i).getPrice())));
-                        if (paidVideoResponse.getPrice().get(i).getPrice() != null
-                                && paidVideoResponse.getPrice().get(i).getCoupanValue() != null
-                                && paidVideoResponse.getPrice().get(i).getPaymentStatus().equalsIgnoreCase("0")) {
-                            totalDiscountValue = String.valueOf(Integer.parseInt(totalDiscountValue) +
-                                    (Integer.parseInt(paidVideoResponse.getPrice().get(i).getPrice())
-                                            * Integer.parseInt(paidVideoResponse.getPrice().get(i).getCoupanValue()
-                                    ) / 100));
-
-                            totalAddDiscountFinalValue = String.valueOf(Integer.parseInt(totalAddDiscountFinalValue) +
-                                    (Integer.parseInt(paidVideoResponse.getPrice().get(i).getPrice())
-                                            * Integer.parseInt(addDiscount)
-                                    ) / 100);
-                        }
-                    }
-                }
-
-
-               /* for (int i = 0; i < paidVideoResponse.getPrice().size(); i++) {
-                    if (paidVideoResponse.getPrice().get(i).getCoupanValue() != null
-                            && paidVideoResponse.getPrice().get(i).getPaymentStatus().equalsIgnoreCase("0")) {
-
-                        discountValue = String.valueOf(((Integer.parseInt(discountValue) * Integer.parseInt(couponValue)) / 100));
-
-                    }
-
-
-                }*/
-                linearLayoutCoupon.setVisibility(GONE);
-                linearLayoutCoupon_add.setVisibility(View.VISIBLE);
-
-                totalDiscountOfVideos.setText("" + "\u20B9 " + Integer.parseInt(totalDiscountValue));
-                totalAddDiscountOfVideos.setText("" + "\u20B9 " + Integer.parseInt(totalAddDiscountFinalValue));
-                textViewDiscountMessage.setText("Yay! You will get " + "\u20B9 " + totalDiscountValue + " OFF on this transaction as per coupon applied on each video.");
-                totalDiscountFinalValue = totalDiscountValue;
-                finalPriceValue = String.valueOf(Integer.parseInt(totalPriceValue) -
-                        (Integer.parseInt(totalDiscountValue) + Integer.parseInt(totalAddDiscountFinalValue)));
-                totalPriceOfVideoTV.setText("" + "\u20B9 " + totalPriceValue);
-                finalPriceOfVideosTV.setText("" + "\u20B9 " + (Integer.parseInt(totalPriceValue)));
-                shippingCharge = paidVideoResponse.getPrice().get(0).getShippingCharge();
-                subchildcat = paidVideoResponse.getPrice().get(0).getSubChildCat();
-                txtsubTitle.setText("Buy All Video");
-                textViewTestName.setText("");
-
+        coupanCodeEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
-        }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    coupanCodeEdt.setSelection(coupanCodeEdt.getText().length());
+
+                }
+
+            }
+        });
 
         if (getIntent().hasExtra("coupon_code")) {
             couponCode = getIntent().getStringExtra("coupon_code");
@@ -179,9 +131,6 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
             shippingCharge = getIntent().getStringExtra("SHIPPING_CHARGE");
             id = getIntent().getStringExtra("id");
 
-            if (couponCode != null) {
-                textViewCouponCode.setText("Coupon: " + couponCode);
-            }
             if (couponValue != null) {
                 totalDiscountOfVideos.setText("" + "\u20B9 " + "" + ((Integer.parseInt(totalPriceValue) * Integer.parseInt(couponValue)) / 100));
             }
@@ -201,12 +150,10 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
             if (couponValue != null) {
                 totalDiscountValue = String.valueOf((Integer.parseInt(totalPriceValue) * Integer.parseInt(couponValue)) / 100);
                 totalDiscountFinalValue = totalDiscountValue;
-                textViewDiscountMessage.setHint("Enter Coupon code");
             } else {
                 totalDiscountFinalValue = "0";
             }
 
-            linearLayoutCoupon_add.setVisibility(GONE);
             linearLayoutCoupon.setVisibility(GONE);
             finalPriceValue = String.valueOf(Integer.parseInt(totalPriceValue));
 
@@ -218,14 +165,11 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
         textViewCouponApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                if (couponCode.equalsIgnoreCase(textViewDiscountMessage.getText().toString().trim())) {
-
+                if (couponCode.equalsIgnoreCase(coupanCodeEdt.getText().toString().trim())) {
                     imageViewCouponCancle.setVisibility(View.VISIBLE);
+                    coupanCodeEdt.setEnabled(false);
                     textViewCouponApply.setVisibility(GONE);
                     linearLayoutCoupon.setVisibility(View.VISIBLE);
-                    linearLayoutCoupon_add.setVisibility(View.VISIBLE);
                     finalPriceValue = String.valueOf(Integer.parseInt(totalPriceValue) -
                             (Integer.parseInt(totalDiscountValue) + Integer.parseInt(totalAddDiscountFinalValue)));
                     totalDiscountFinalValue = totalDiscountValue;
@@ -233,11 +177,10 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
                     finalPriceOfVideosTV.setText("" + "\u20B9 " + finalPriceValue);
                     totalDiscountOfVideos.setText("" + "\u20B9 " + "" + totalDiscountFinalValue);
                 } else {
-
                     imageViewCouponCancle.setVisibility(GONE);
                     textViewCouponApply.setVisibility(View.VISIBLE);
+                    coupanCodeEdt.setEnabled(true);
                     linearLayoutCoupon.setVisibility(GONE);
-                    linearLayoutCoupon_add.setVisibility(GONE);
 
                     Toast.makeText(getApplicationContext(), "Enter currect coupon", Toast.LENGTH_SHORT).show();
                     totalDiscountFinalValue = "0";
@@ -254,7 +197,6 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 linearLayoutCoupon.setVisibility(GONE);
-                linearLayoutCoupon_add.setVisibility(GONE);
                 textViewCouponApply.setVisibility(View.VISIBLE);
                 imageViewCouponCancle.setVisibility(GONE);
                 finalPriceValue = totalPriceValue;

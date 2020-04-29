@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -108,7 +109,7 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
                             recyclerView.setAdapter(courseListAdapter);
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.GONE);
-                            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(LiveOnliveClassListActity.this, 2) {
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(LiveOnliveClassListActity.this) {
                                 @Override
                                 public boolean canScrollVertically() {
                                     return true;

@@ -87,6 +87,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':easy-player')
     implementation project(':indicatorseekbar')
+    implementation project(':YouTubePlayer')
     //    implementation project(':pinentryedittext')
 
 
