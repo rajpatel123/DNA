@@ -195,7 +195,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
     public interface onClickAddress {
         void deleteAddress(String add_id);
-        public void onAddressClick(String name,String mobile,String email,String address1,String address2,String state,String city,String pincode);
+        public void onAddressClick( String name,String mobile,String email,String address1,String address2,String state,String city,String pincode);
     }
 
 

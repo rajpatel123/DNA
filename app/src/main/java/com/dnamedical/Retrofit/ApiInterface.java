@@ -184,6 +184,19 @@ public interface ApiInterface {
 //                                           @Part("sub_cat_id") RequestBody sub_cat_id
     );
 
+
+    @Multipart
+    @POST("/v1/index.php/api/ordersdetails/updatechatpayment")
+    Call<SaveOrderResponse> updatechatpayment(@Part("user_id") RequestBody user_id,
+                                           @Part("payment_id") RequestBody payment_id,
+                                           @Part("order_id") RequestBody order_id
+
+//                                           @Part("cat_id") RequestBody cat_id,
+//                                           @Part("sub_cat_id") RequestBody sub_cat_id
+    );
+
+
+
     @Multipart
     @POST("api/api.php?req=order_subscription")
     Call<ResponseBody> addOrderForSubsDetail(@Part("user_id") RequestBody userid,
@@ -204,6 +217,19 @@ public interface ApiInterface {
                                                 @Part("product_id") RequestBody product_id,
                                                 @Part("product_type") RequestBody product_type
     );
+
+
+    @Multipart
+    @POST("/v1/index.php/api/ordersdetails/savechatorderdetail")
+    Call<CreateOrderResponse> savechatorderdetail(@Part("user_id") RequestBody user_id,
+                                                @Part("amount") RequestBody amount,
+                                                @Part("currency") RequestBody currency,
+                                                @Part("product_id") RequestBody product_id,
+                                                @Part("product_type") RequestBody product_type
+    );
+
+
+
 
     @Multipart
     @POST("api/api.php?req=token_verify")
@@ -331,8 +357,8 @@ public interface ApiInterface {
                                      @Query("test_id") String test_id);
 
 
- @GET("api/api.php?req=get_live_info")
-    Call<LiveChannelData> getAllCgannels();
+    @GET("api/api.php")
+    Call<LiveChannelData> getAllCgannels(@Query("req") String req, @Query("user_id") String user_id);
 
     @Multipart
     @POST("v1/index.php/api/test/testresult")

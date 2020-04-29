@@ -142,6 +142,7 @@
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginRight="5dp"
                     android:padding="5dp"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/lock"
                     android:paddingRight="1dp" />
 
