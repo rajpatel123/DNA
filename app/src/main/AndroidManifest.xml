@@ -246,6 +246,10 @@
             android:name=".Activities.AddressForSubscriptionListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
+        <activity android:name=".livemodule.LivePaymentDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"></activity>
+
         <activity
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait" />
@@ -253,9 +257,16 @@
             android:name=".Activities.RegistrationActivity"
             android:parentActivityName=".Activities.FirstloginActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.TheorybookActivity"
-            android:screenOrientation="portrait" />
+
+        <activity android:name=".livemodule.LivePaymentCoupenActivity"
+            android:parentActivityName=".livemodule.LiveOnliveClassListActity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".livemodule.LiveAddressListActivity"
+            android:parentActivityName=".livemodule.LivePaymentCoupenActivity"
+            android:screenOrientation="portrait"></activity>
+
+
         <activity
             android:name=".Activities.PaymentActivity"
             android:screenOrientation="portrait" />
@@ -289,9 +300,7 @@
         <activity
             android:name=".Activities.ShoppingActivty"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.LiveActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.DNAFacultyActivity"
             android:label="Faculty"
@@ -319,7 +328,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
 
-        <activity android:name=".Activities.DNASettingActivity" />
         <activity
             android:name=".Activities.Noticeboard"
             android:label="Notice Board"

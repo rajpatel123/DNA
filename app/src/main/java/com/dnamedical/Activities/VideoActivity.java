@@ -13,15 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.dnamedical.R;
 import com.dnamedical.fragment.BuynowFragment;
-import com.dnamedical.fragment.CompleteFragment;
 import com.dnamedical.fragment.FreeFragment;
 import com.dnamedical.fragment.PausedFragment;
-import com.dnamedical.fragment.UnattemptedFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -38,7 +36,7 @@ public class VideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_vedio);
-        subcategory=findViewById(R.id.subcategory_name);
+        subcategory = findViewById(R.id.subcategory_name);
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,10 +56,9 @@ public class VideoActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        Intent intent=getIntent();
-        if(intent.hasExtra("SubCategoryName"))
-        {
-            String subcategoryname=intent.getStringExtra("SubCategoryName");
+        Intent intent = getIntent();
+        if (intent.hasExtra("SubCategoryName")) {
+            String subcategoryname = intent.getStringExtra("SubCategoryName");
             subcategory.setText(subcategoryname);
         }
 
@@ -69,7 +66,7 @@ public class VideoActivity extends AppCompatActivity {
             subCatId = intent.getStringExtra("subCatId");
         }
         if (intent.hasExtra("discountonfullpurchase")) {
-            discountonfullpurchase = intent.getIntExtra("discountonfullpurchase",0);
+            discountonfullpurchase = intent.getIntExtra("discountonfullpurchase", 0);
         }
 
 
@@ -153,9 +150,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
 
-
-
-    public interface DisplayDataInterface{
+    public interface DisplayDataInterface {
         public void showVideos();
     }
 

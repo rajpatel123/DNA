@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.dnamedical.Activities.VideoActivity.discountonfullpurchase;
+
 /**
  * Created by rbpatel on 9/29/2017.
  */
@@ -42,20 +44,54 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
 
         holder.drName.setText("" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getDoctorName());
         holder.subjectName.setText("By \n" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getChannelName());
-        holder.timer.setText(""+ Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime())*1000));
+        holder.timer.setText("" + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));
         Picasso.with(applicationContext).load(categoryDetailData.getChat().get(position).getDoctorImage())
                 .error(R.drawable.profile_image_know_more)
                 .into(holder.drImage);
 
+        if (categoryDetailData.getChat().get(position).getPaidStatus() == 1) {
+
+            holder.buynow.setVisibility(View.INVISIBLE);
+
+        } else {
+
+            holder.buynow.setVisibility(View.VISIBLE);
+
+        }
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(applicationContext, LiveChannelPlayer.class);
-                intent.putExtra("contentId", categoryDetailData.getChat().get(position).getChannelId());
-                intent.putExtra("dr_name", categoryDetailData.getChat().get(position).getDoctorName());
-                applicationContext.startActivity(intent);
+
+                if (categoryDetailData.getChat().get(position).getPaidStatus() == 1) {
+
+                    Intent intent = new Intent(applicationContext, LiveChannelPlayer.class);
+                    intent.putExtra("contentId", categoryDetailData.getChat().get(position).getChannelId());
+                    intent.putExtra("dr_name", categoryDetailData.getChat().get(position).getDoctorName());
+                    applicationContext.startActivity(intent);
+
+                } else {
 
 
+                    Intent intent = new Intent(applicationContext, LivePaymentCoupenActivity.class);
+
+                    intent.putExtra("id", categoryDetailData.getChat().get(position).getId());
+                    intent.putExtra("channel_id", categoryDetailData.getChat().get(position).getChannelId());
+                    intent.putExtra("coupon_code", categoryDetailData.getChat().get(position).getCoupanCode());
+                    intent.putExtra("coupon_value", categoryDetailData.getChat().get(position).getCoupanValue());
+                    intent.putExtra("sub_title", "");
+                    intent.putExtra("title", "Live Online");
+                    intent.putExtra("discount", "25");
+                    intent.putExtra("price", categoryDetailData.getChat().get(position).getPrice());
+                    if (discountonfullpurchase > 0) {
+                        intent.putExtra("discountonfullpurchase", 80);
+
+                    }
+                    intent.putExtra("SHIPPING_CHARGE", "0");
+                    applicationContext.startActivity(intent);
+
+                }
             }
         });
 
@@ -92,6 +128,10 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
 
         @BindView(R.id.timer)
         TextView timer;
+
+        @BindView(R.id.buy_now)
+        TextView buynow;
+
 
         @BindView(R.id.drImage)
         ImageView drImage;

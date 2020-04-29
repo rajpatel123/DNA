@@ -1,3 +1,4 @@
+
 package com.dnamedical.livemodule;
 
 import java.util.List;
@@ -6,38 +7,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class LiveChannelData {
 
-@SerializedName("status")
-@Expose
-private String status;
-@SerializedName("message")
-@Expose
-private String message;
-@SerializedName("chat")
-@Expose
-private List<Chat> chat = null;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("chat")
+    @Expose
+    private List<Chat> chat = null;
 
-public String getStatus() {
-return status;
-}
+    public String getStatus() {
+        return status;
+    }
 
-public void setStatus(String status) {
-this.status = status;
-}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-public String getMessage() {
-return message;
-}
+    public String getMessage() {
+        return message;
+    }
 
-public void setMessage(String message) {
-this.message = message;
-}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-public List<Chat> getChat() {
-return chat;
-}
+    public List<Chat> getChat() {
+        return chat;
+    }
 
-public void setChat(List<Chat> chat) {
-this.chat = chat;
-}
+    public void setChat(List<Chat> chat) {
+        this.chat = chat;
+    }
 
 }

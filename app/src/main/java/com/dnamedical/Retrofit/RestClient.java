@@ -340,6 +340,15 @@ public class RestClient {
                 video_id, test_id, status).enqueue(callback);
     }
 
+
+    public static void updatechatpayment(RequestBody user_id, RequestBody payment_id,
+                                      RequestBody order_id,
+                                      Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().updatechatpayment(user_id, payment_id, order_id).enqueue(callback);
+    }
+
+
+
 //    public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id,RequestBody cat_id,RequestBody sub_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
 //        RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id,cat_id,sub_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
 //    }
@@ -358,6 +367,14 @@ public class RestClient {
                                          Callback<CreateOrderResponse> callback) {
         RetrofitClient.getClient().createOrderDetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
     }
+
+
+    public static void savechatorderdetail(RequestBody user_id, RequestBody amount, RequestBody currency,
+                                         RequestBody video_id, RequestBody product_type,
+                                         Callback<CreateOrderResponse> callback) {
+        RetrofitClient.getClient().savechatorderdetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
+    }
+
 
 
     public static void invoiceOrderDetail(RequestBody user_id, RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal, RequestBody totalAmount, RequestBody orderID, Callback<SaveOrderResponse> callback) {
@@ -475,8 +492,8 @@ public class RestClient {
     }
 
 
- public static void getChannels(Callback<LiveChannelData> callback) {
-        RetrofitClient.getClient().getAllCgannels().enqueue(callback);
+ public static void getChannels(String get_live_info,String userID, Callback<LiveChannelData> callback) {
+        RetrofitClient.getClient().getAllCgannels(get_live_info, userID).enqueue(callback);
     }
 
 
