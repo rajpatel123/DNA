@@ -271,7 +271,9 @@
 
         <activity android:name=".livemodule.LiveAddressListActivity"
             android:parentActivityName=".livemodule.LivePaymentCoupenActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"
+            ></activity>
 
 
         <activity
