@@ -52,6 +52,42 @@ public class Chat {
     @Expose
     private Integer paidStatus;
 
+    @SerializedName("chapter_name")
+    @Expose
+    private String chaptername;
+
+    @SerializedName("category_name")
+    @Expose
+    private String categoryname;
+
+    @SerializedName("batch_name")
+    @Expose
+    private String batchname;
+
+    public String getBatchname() {
+        return batchname;
+    }
+
+    public void setBatchname(String batchname) {
+        this.batchname = batchname;
+    }
+
+    public String getChaptername() {
+        return chaptername;
+    }
+
+    public String getCategoryname() {
+        return categoryname;
+    }
+
+    public void setCategoryname(String categoryname) {
+        this.categoryname = categoryname;
+    }
+
+    public void setChaptername(String chaptername) {
+        this.chaptername = chaptername;
+    }
+
     public String getId() {
         return id;
     }

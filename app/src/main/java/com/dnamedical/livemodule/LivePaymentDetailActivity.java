@@ -335,7 +335,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
     }
 
-    private void uploadPaymentData(String orderId) {
+    private void uploadPaymentData(String paymentID) {
 
 
         String productId = "0";
@@ -350,13 +350,19 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
         String testId = "0";
         String payment_status = "1";
-        userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        }
+
 
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody order_id = RequestBody.create(MediaType.parse("text/plain"), createOrderID);
-        RequestBody  payment_id = RequestBody.create(MediaType.parse("text/plain"), orderId);
+        RequestBody  payment_id = RequestBody.create(MediaType.parse("text/plain"), paymentID);
 
 
 
@@ -371,13 +377,18 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
                     if (response.body() != null) {
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         Log.e("UploadPaymentData Resp", gson.toJson(response.body()));
-                        Toast.makeText(getApplicationContext(), "Payment successfully", Toast.LENGTH_SHORT).show();
-                        finish();
+                        if (response.body().getStatus().equalsIgnoreCase("true")) {
+
+                            Toast.makeText(getApplicationContext(), "Payment successfully", Toast.LENGTH_SHORT).show();
+                            finish();
                       /*  uploadPaymentDetailForInvoices(orderId);
 
                         if (response.body().getStatus().equalsIgnoreCase("true")) {
                             finish();
                         }*/
+                        }else {
+                            Toast.makeText(getApplicationContext(), "Payment updatechatpayment fail", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 }
@@ -399,68 +410,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
     }
 
 
-    private void uploadPaymentDetailForInvoices(String orderId) {
 
-
-        String productId = "0";
-        if (vedioId != null) {
-            videoId = vedioId;
-            subchildcat = "0";
-        }
-        if (subchildCat != null) {
-            subchildcat = subchildCat;
-            videoId = "0";
-        }
-
-        String testId = "0";
-        String payment_status = "1";
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        }
-
-
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody orderId_forInvoice = RequestBody.create(MediaType.parse("text/plain"), this.orderId);
-
-        RequestBody pramotoin = RequestBody.create(MediaType.parse("text/plain"), totalDiscountGiven);
-        RequestBody addDiscount = RequestBody.create(MediaType.parse("text/plain"), totalADDDiscountGiven);
-        RequestBody totalAmountBeforeTax = RequestBody.create(MediaType.parse("text/plain"), befortaxValue);
-        RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), "" + totalValue);
-        RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
-        RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"), shippingCharge);
-        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
-
-
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount, orderId_forInvoice, new Callback<SaveOrderResponse>() {
-                @Override
-                public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
-                    Utils.dismissProgressDialog();
-                    if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("true")) {
-                            Toast.makeText(LivePaymentDetailActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<SaveOrderResponse> call, Throwable t) {
-
-                    Utils.dismissProgressDialog();
-//                    Toast.makeText(PaymentDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            Utils.dismissProgressDialog();
-            Toast.makeText(this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

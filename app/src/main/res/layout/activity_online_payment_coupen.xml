@@ -226,7 +226,7 @@
                                         android:cursorVisible="true"
                                         android:hint="Enter Code"
                                         android:padding="@dimen/dp_5"
-                                        android:textAllCaps="true"
+                                        android:inputType="textCapWords"
                                         android:background="@drawable/payment_txt_design"
 
                                         />

@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,24 +47,45 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
     public void onBindViewHolder(final LiveListAdapter.ViewHolder holder, final int position) {
 
 
-        holder.drName.setText("" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getDoctorName());
+      /*  holder.drName.setText("" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getDoctorName());
         holder.subjectName.setText("By \n" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getChannelName());
-        holder.timer.setText("" + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));
-        Picasso.with(applicationContext).load(categoryDetailData.getChat().get(position).getThumbnail())
+        holder.timer.setText("" + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));*/
+
+
+        holder.subjectName.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveSubject());
+
+        holder.tvTopic1.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getChaptername());
+
+
+        holder.tvcategory1.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getCategoryname());
+
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date todayDate = new Date();
+        String thisDate = currentDate.format(todayDate);
+
+        holder.tvDate1.setText(thisDate);
+        holder.tveducator1.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getDoctorName());
+
+        holder.tvBatchName.setText(categoryDetailData.getChat().get(position).getBatchname());
+
+        holder.tvTime1.setText("" + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));
+
+
+        Picasso.with(applicationContext).load(categoryDetailData.getChat().get(position).getDoctorImage())
                 .error(R.drawable.dnalogo)
                 .into(holder.thumbnail);
 
 
-        if (categoryDetailData.getChat().get(position).getPaid().equalsIgnoreCase("1")){
-            if ( categoryDetailData.getChat().get(position).getPaidStatus() == 1) {
+        if (categoryDetailData.getChat().get(position).getPaid().equalsIgnoreCase("1")) {
+            if (categoryDetailData.getChat().get(position).getPaidStatus() == 1) {
                 holder.buynow.setText("Watch Live");
             } else {
-                holder.buynow.setText("Buy Now for INR "+ categoryDetailData.getChat().get(position).getPrice());
+                holder.buynow.setText("Buy Now for INR " + categoryDetailData.getChat().get(position).getPrice());
             }
-        }else{
+        } else {
             holder.buynow.setText("Watch Live");
         }
-
 
 
         holder.buynow.setOnClickListener(new View.OnClickListener() {
@@ -69,18 +93,18 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
             public void onClick(View v) {
                 if (categoryDetailData.getChat().get(position).getPaid().equalsIgnoreCase("1")) {
                     if (categoryDetailData.getChat().get(position).getPaidStatus() == 1) {
-                       playStream(holder.getAdapterPosition());
-                    }else{
-                      buyContent(holder.getAdapterPosition());
+                        playStream(holder.getAdapterPosition());
+                    } else {
+                        buyContent(holder.getAdapterPosition());
                     }
-                }else{
+                } else {
                     playStream(holder.getAdapterPosition());
                 }
 
             }
         });
 
-
+        holder.llRight.setVisibility(View.VISIBLE);
     }
 
     private void buyContent(int position) {
@@ -102,16 +126,15 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
     }
 
     private void playStream(int pos) {
-        if (System.currentTimeMillis()<Long.parseLong(categoryDetailData.getChat().get(pos).getLiveStartedTime()) * 1000) {
+        if (System.currentTimeMillis() < Long.parseLong(categoryDetailData.getChat().get(pos).getLiveStartedTime()) * 1000) {
             Toast.makeText(applicationContext, "Live streaming will be available from " + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(pos).getLiveStartedTime()) * 1000), Toast.LENGTH_LONG).show();
 
-        }else{
+        } else {
             Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
             intent.putExtra("contentId", categoryDetailData.getChat().get(pos).getChannelId());
             intent.putExtra("dr_name", categoryDetailData.getChat().get(pos).getDoctorName());
             applicationContext.startActivity(intent);
         }
-
 
 
     }
@@ -138,17 +161,32 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.subjectName)
+        @BindView(R.id.ll_right)
+        LinearLayout llRight;
+
+        @BindView(R.id.tvSubjectNa)
         TextView subjectName;
 
-        @BindView(R.id.drName)
-        TextView drName;
+        @BindView(R.id.tvTopic1)
+        TextView tvTopic1;
 
-        @BindView(R.id.timer)
-        TextView timer;
+        @BindView(R.id.tvcategory1)
+        TextView tvcategory1;
+
+        @BindView(R.id.tveducator1)
+        TextView tveducator1;
+
+
+        @BindView(R.id.tvDate1)
+        TextView tvDate1;
+
+        @BindView(R.id.tvTime1)
+        TextView tvTime1;
 
         @BindView(R.id.buy_now)
         TextView buynow;
+        @BindView(R.id.tvBatchName)
+        TextView tvBatchName;
 
 
         @BindView(R.id.thumbnail)

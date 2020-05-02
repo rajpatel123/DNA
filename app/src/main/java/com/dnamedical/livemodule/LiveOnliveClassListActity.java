@@ -24,6 +24,7 @@ import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.fragment.HomeFragment;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.EqualSpacingItemDecoration;
 import com.dnamedical.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -109,14 +110,17 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
                             recyclerView.setAdapter(courseListAdapter);
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.GONE);
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(LiveOnliveClassListActity.this) {
+                           /* RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(LiveOnliveClassListActity.this) {
                                 @Override
                                 public boolean canScrollVertically() {
                                     return true;
                                 }
 
-                            };
-                            recyclerView.setLayoutManager(layoutManager);
+                            };*/
+                        //    recyclerView.addItemDecoration(new EqualSpacingItemDecoration(8, EqualSpacingItemDecoration.HORIZONTAL));
+
+
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             recyclerView.setVisibility(View.VISIBLE);
                         } else {
                             Log.d("Api Response :", "Got Success from Api");
