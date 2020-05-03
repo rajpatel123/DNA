@@ -171,7 +171,7 @@
     <string name="pincode">Please enter 6 digit pincode</string>
     <string name="mpincode">Please enter 6 digit medical college pincode</string>
     <string name="select_amount">Select amount to be invested per year</string>
-
+    <string name="what_s_on_your_mind">Enter your query</string>
     <string name="file_view">File View</string>
     <string name="file_download">File Download</string>
     <string name="file_request">Request Access Again</string>

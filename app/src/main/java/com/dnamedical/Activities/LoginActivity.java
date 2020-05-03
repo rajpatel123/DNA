@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                             String college = loginResponse.getLoginDetails().get(0).getCollege();
                             String username = loginResponse.getLoginDetails().get(0).getName();
 
-
+                            DnaPrefs.putString(getApplicationContext(), Constants.f_id, loginResponse.getLoginDetails().get(0).getF_id());
                             DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, id);
                             DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                             DnaPrefs.putString(getApplicationContext(), "STATE", state);
@@ -259,6 +259,9 @@ public class LoginActivity extends AppCompatActivity {
                                             if (TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getState()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getEmailId()) || TextUtils.isEmpty(facebookLoginResponse.getLoginDetails().get(0).getMobileNo())) {
                                                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
 
+
+
+
                                                 intent.putExtra(Constants.LOGIN_ID, facebookLoginResponse.getLoginDetails().get(0).getId());
                                                 intent.putExtra(Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
                                                 intent.putExtra(Constants.NAME, facebookLoginResponse.getLoginDetails().get(0).getName());
@@ -268,6 +271,7 @@ public class LoginActivity extends AppCompatActivity {
                                             } else {
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                 DnaPrefs.putBoolean(LoginActivity.this, Constants.LoginCheck, true);
+                                                DnaPrefs.putString(getApplicationContext(), Constants.f_id, facebookLoginResponse.getLoginDetails().get(0).getF_id());
                                                 DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, facebookLoginResponse.getLoginDetails().get(0).getId());
                                                 DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, facebookLoginResponse.getLoginDetails().get(0).getMobileNo());
                                                 DnaPrefs.putString(getApplicationContext(), "NAME", name);

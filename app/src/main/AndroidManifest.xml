@@ -70,6 +70,8 @@
             android:name=".Activities.RemarksActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".Activities.FacultyChatActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".livemodule.LiveVideoActivity"
@@ -168,6 +170,8 @@
         <activity
             android:name=".Activities.TestReviewResultActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".Activities.FacultyChatChannelActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activities.QBankReviewResultActivity"
             android:screenOrientation="portrait" />

@@ -24,6 +24,18 @@ public class LoginDetail {
     @Expose
     private String state;
 
+    @SerializedName("f_id")
+    @Expose
+    private String f_id;
+
+    public String getF_id() {
+        return f_id;
+    }
+
+    public void setF_id(String f_id) {
+        this.f_id = f_id;
+    }
+
     public String getCollege() {
         return college;
     }

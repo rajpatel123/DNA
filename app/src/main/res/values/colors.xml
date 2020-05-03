@@ -64,6 +64,5 @@
     <color name="review_bg">#F5F2F2</color>
     <color name="black_titles">#2b2b2b</color>
     <color name="text_name_color">#0f0f8a</color>
-
-
+    <color name="bg_bubble_chat">#ecf0f1</color>
 </resources>

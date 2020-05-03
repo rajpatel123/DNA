@@ -30,6 +30,8 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
+import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
+import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -494,6 +496,13 @@ public class RestClient {
 
  public static void getChannels(String get_live_info,String userID, Callback<LiveChannelData> callback) {
         RetrofitClient.getClient().getAllCgannels(get_live_info, userID).enqueue(callback);
+    }
+    public static void getchathistory(String get_live_info,String channel_id, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().get_chat_history(get_live_info, channel_id).enqueue(callback);
+    }
+
+    public static void get_faculty_channel(String get_live_info,String channel_id, Callback<RetFacultyChannel> callback) {
+        RetrofitClient.getClient().get_faculty_channel(get_live_info, channel_id).enqueue(callback);
     }
 
 

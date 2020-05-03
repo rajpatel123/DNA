@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.dnamedical.Activities.AllInstituteActivity;
 import com.dnamedical.Activities.CategoryModulesActivity;
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
+import com.dnamedical.Activities.FacultyChatChannelActivity;
 import com.dnamedical.Activities.FranchiActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Adapters.CourseListAdapter;
@@ -49,6 +51,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
     @BindView(R.id.noInternet)
     TextView textInternet;
+    @BindView(R.id.llfaculty)
+    LinearLayout llfaculty;
 
     MainActivity mainActivity;
     @BindView(R.id.recyclerView)
@@ -83,6 +87,17 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
         getCourse();
+
+        llfaculty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent ii = new Intent(getActivity(), FacultyChatChannelActivity.class);
+                startActivity(ii);
+
+            }
+        });
+
         return view;
 
     }
@@ -134,12 +149,23 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                             };
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setVisibility(View.VISIBLE);
+
+
+                            String f_id = DnaPrefs.getString(getActivity(), Constants.f_id);
+                            if (f_id.trim().length() > 0) {
+
+                                llfaculty.setVisibility(View.VISIBLE);
+                            } else {
+                                llfaculty.setVisibility(View.GONE);
+                            }
+
                         } else {
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.VISIBLE);
                             // noInternet.setText(getString(R.string.no_project));
                             recyclerView.setVisibility(View.GONE);
                             textInternet.setVisibility(View.VISIBLE);
+                            llfaculty.setVisibility(View.GONE);
 
                         }
                     } else {
@@ -186,7 +212,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("12")) {
             Intent intent = new Intent(getActivity(), FranchiActivity.class);
             getActivity().startActivity(intent);
-        }else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("5")) {
+        } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("5")) {
             Intent intent = new Intent(getActivity(), LiveOnliveClassListActity.class);
             intent.putExtra("catData", new Gson().toJson(categoryDetailData));
             intent.putExtra("catId", id);
@@ -198,10 +224,10 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 //            DnaPrefs.putString(mainActivity,Constants.CAT_ID,id);
 //            getActivity().startActivity(intent);
 
-            if (id.equalsIgnoreCase("1")){
-                Constants.IS_NEET=true;
-            }else{
-                Constants.IS_NEET=false;
+            if (id.equalsIgnoreCase("1")) {
+                Constants.IS_NEET = true;
+            } else {
+                Constants.IS_NEET = false;
             }
 
             Intent intent = new Intent(getActivity(), CategoryModulesActivity.class);
@@ -218,10 +244,10 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public void onInstituteClick(String name) {
         Intent intent = new Intent(mainActivity, AllInstituteActivity.class);
         intent.putExtra(Constants.ISDAILY_TEST, false);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         DnaPrefs.putBoolean(mainActivity, Constants.FROM_INSTITUTE, true);
 
-        Constants.ISTEST=true;
+        Constants.ISTEST = true;
 
         startActivity(intent);
 

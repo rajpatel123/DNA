@@ -31,6 +31,8 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
+import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
+import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -359,6 +361,14 @@ public interface ApiInterface {
 
     @GET("api/api.php")
     Call<LiveChannelData> getAllCgannels(@Query("req") String req, @Query("user_id") String user_id);
+
+
+    @GET("api/api.php")
+    Call<GetChatHistoryResp> get_chat_history(@Query("req") String req, @Query("channel_id") String channel_id);
+
+    @GET("api/api.php")
+    Call<RetFacultyChannel> get_faculty_channel(@Query("req") String req, @Query("faculty_id") String faculty_id);
+
 
     @Multipart
     @POST("v1/index.php/api/test/testresult")
