@@ -48,6 +48,7 @@ public class LiveVideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_live_video);
         ButterKnife.bind(this);
         liveVideoId = getIntent().getStringExtra("contentId");
