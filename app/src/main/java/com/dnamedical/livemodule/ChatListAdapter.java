@@ -57,7 +57,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         } else {
             holder.llRight.setVisibility(View.GONE);
             holder.llLeft.setVisibility(View.VISIBLE);
-            holder.tvDoctName.setVisibility(View.GONE);
+            holder.tvDoctName.setVisibility(View.VISIBLE);
+            holder.tvDoctName.setText(messageArrayList.get(holder.getAdapterPosition()).getUsername());
             holder.messageLeft.setText(messageArrayList.get(holder.getAdapterPosition()).getMessage());
 
         }

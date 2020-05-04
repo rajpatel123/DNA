@@ -4,6 +4,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dp_130"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"></ImageView>
+
     <TextView
         android:id="@+id/tvChannel"
         android:layout_width="fill_parent"

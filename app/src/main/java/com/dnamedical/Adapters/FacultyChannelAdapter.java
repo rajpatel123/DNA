@@ -17,6 +17,7 @@ import com.dnamedical.Models.get_faculty_channel.Chat;
 import com.dnamedical.R;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -43,9 +44,13 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
     @Override
     public void onBindViewHolder(final FacultyChannelAdapter.ViewHolder holder, final int position) {
         String userId;
-        holder.tvChannel.setText(messageArrayList.get(holder.getAdapterPosition()).getChannelName());
+        holder.tvChannel.setText(messageArrayList.get(holder.getAdapterPosition()).getDoctorName());
 
-        holder.tvChannel.setOnClickListener(new View.OnClickListener() {
+        Picasso.with(applicationContext).load(messageArrayList.get(holder.getAdapterPosition()).getThumbnail())
+                .error(R.drawable.dnalogo)
+                .into(holder.ivImage);
+
+       holder.ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -77,6 +82,9 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
 
         @BindView(R.id.tvChannel)
         TextView tvChannel;
+
+        @BindView(R.id.ivImage)
+                ImageView ivImage;
 
 
         View itemView;
