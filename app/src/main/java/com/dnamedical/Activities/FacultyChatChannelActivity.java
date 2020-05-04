@@ -68,7 +68,7 @@ public class FacultyChatChannelActivity extends AppCompatActivity {
 
         facultyChatChannelActivity = new FacultyChannelAdapter(this, messageArrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setStackFromEnd(true);
+       // layoutManager.setStackFromEnd(true);
         recyclerViewChat.setLayoutManager(layoutManager);
         recyclerViewChat.setItemAnimator(new DefaultItemAnimator());
         recyclerViewChat.setAdapter(facultyChatChannelActivity);
@@ -83,16 +83,20 @@ public class FacultyChatChannelActivity extends AppCompatActivity {
             RestClient.get_faculty_channel("get_faculty_channel", f_id, new Callback<RetFacultyChannel>() {
                 @Override
                 public void onResponse(Call<RetFacultyChannel> call, Response<RetFacultyChannel> response) {
+
+                  try {
+
+
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
 
                         RetFacultyChannel getChatHistory = response.body();
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         Log.e("RetFacultyChannel Resp", gson.toJson(getChatHistory));
+                        messageArrayList.clear();
+                        messageArrayList.addAll(getChatHistory.getChat());
+                        if (messageArrayList != null && messageArrayList.size() > 0) {
 
-                        if (getChatHistory != null && getChatHistory.getChat().size() > 0) {
-                            messageArrayList.clear();
-                            messageArrayList.addAll(getChatHistory.getChat());
                             onsetdapter();
                             recyclerViewChat.setVisibility(View.VISIBLE);
                         } else {
@@ -102,7 +106,9 @@ public class FacultyChatChannelActivity extends AppCompatActivity {
 
 
                     }
-
+                  }catch (Exception e){
+                      e.printStackTrace();
+                  }
                 }
 
                 @Override
@@ -121,6 +127,9 @@ public class FacultyChatChannelActivity extends AppCompatActivity {
 
         }
     }
+
+
+
 
 
 }

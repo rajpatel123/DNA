@@ -97,7 +97,14 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
             }
         });
+      //  llfaculty.setVisibility(View.VISIBLE);
+        String f_id = DnaPrefs.getString(getActivity(), Constants.f_id);
+        if (f_id.trim().length() > 0) {
 
+            llfaculty.setVisibility(View.VISIBLE);
+        } else {
+           llfaculty.setVisibility(View.GONE);
+        }
         return view;
 
     }
@@ -151,13 +158,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                             recyclerView.setVisibility(View.VISIBLE);
 
 
-                            String f_id = DnaPrefs.getString(getActivity(), Constants.f_id);
-                            if (f_id.trim().length() > 0) {
 
-                                llfaculty.setVisibility(View.VISIBLE);
-                            } else {
-                                llfaculty.setVisibility(View.GONE);
-                            }
 
                         } else {
                             Log.d("Api Response :", "Got Success from Api");

@@ -33,6 +33,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        Log.e("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
+
+
         customFacebook = findViewById(R.id.custom_login);
         ButterKnife.bind(this);
         callbackManager = CallbackManager.Factory.create();

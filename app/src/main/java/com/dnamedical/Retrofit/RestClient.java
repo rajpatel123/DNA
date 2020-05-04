@@ -57,6 +57,7 @@ import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
+import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
@@ -501,9 +502,21 @@ public class RestClient {
         RetrofitClient.getClient().get_chat_history(get_live_info, channel_id).enqueue(callback);
     }
 
-    public static void get_faculty_channel(String get_live_info,String channel_id, Callback<RetFacultyChannel> callback) {
-        RetrofitClient.getClient().get_faculty_channel(get_live_info, channel_id).enqueue(callback);
+    public static void send_chat_message(RequestBody channel_id,RequestBody user_id,RequestBody message, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().send_chat_message( channel_id, user_id,message).enqueue(callback);
     }
+
+
+
+    public static void get_faculty_channel(String get_live_info,String faculty_id, Callback<RetFacultyChannel> callback) {
+        RetrofitClient.getClient().get_faculty_channel(get_live_info, faculty_id).enqueue(callback);
+    }
+
+
+    public static void updte_chat_status(String get_live_info,String channel_id,String f_id,String status, Callback<UpdteChatstatusRes> callback) {
+        RetrofitClient.getClient().updte_chat_status(get_live_info, channel_id,f_id,status).enqueue(callback);
+    }
+
 
 
     public static void logout(RequestBody user_id, Callback<LogoutResponse> callback) {

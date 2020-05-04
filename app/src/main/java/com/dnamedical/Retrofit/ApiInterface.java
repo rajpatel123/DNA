@@ -58,6 +58,7 @@ import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
+import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
@@ -369,6 +370,15 @@ public interface ApiInterface {
     @GET("api/api.php")
     Call<RetFacultyChannel> get_faculty_channel(@Query("req") String req, @Query("faculty_id") String faculty_id);
 
+
+    @GET("api/api.php")
+    Call<UpdteChatstatusRes> updte_chat_status(@Query("req") String req, @Query("channel_id") String channel_id, @Query("f_id") String f_id, @Query("status") String status);
+
+    @Multipart
+    @POST("api/api.php?req=send_chat_message")
+    Call<GetChatHistoryResp> send_chat_message(@Part("channel_id") RequestBody channel_id,
+                                @Part("user_id") RequestBody user_id,
+                                @Part("message") RequestBody message);
 
     @Multipart
     @POST("v1/index.php/api/test/testresult")

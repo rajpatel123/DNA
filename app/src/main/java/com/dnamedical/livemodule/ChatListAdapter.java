@@ -57,15 +57,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         } else {
             holder.llRight.setVisibility(View.GONE);
             holder.llLeft.setVisibility(View.VISIBLE);
-
+            holder.tvDoctName.setVisibility(View.GONE);
             holder.messageLeft.setText(messageArrayList.get(holder.getAdapterPosition()).getMessage());
 
         }
 
 
-      /*  holder.drName.setText("" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getDoctorName());
-        holder.subjectName.setText("By \n" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getChannelName());
-        holder.timer.setText("" + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));*/
 
 
     }
@@ -99,9 +96,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
         @BindView(R.id.messageLeft)
         TextView messageLeft;
+        @BindView(R.id.tvDoctName)
+        TextView tvDoctName;
 
         @BindView(R.id.ivImage)
         ImageView ivImage;
+
 
 
         View itemView;

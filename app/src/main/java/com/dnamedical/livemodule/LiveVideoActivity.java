@@ -27,6 +27,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +56,11 @@ public class LiveVideoActivity extends AppCompatActivity {
         liveVideoId = getIntent().getStringExtra("contentId");
         initYouTubePlayerView();
         getChatList();
-
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        }
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,20 +82,16 @@ public class LiveVideoActivity extends AppCompatActivity {
 
     private void sendMessage() {
 
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        }
 
         final String inputmessage = this.message.getText().toString().trim();
-
-        Chat inputMessage = new com.dnamedical.Models.get_chat_history.Chat();
+        setChatMessage(inputmessage);
+        message.setText("");
+        /*Chat inputMessage = new com.dnamedical.Models.get_chat_history.Chat();
         inputMessage.setMessage(inputmessage);
         inputMessage.setUserId(userId);
         messageArrayList.add(inputMessage);
         message.setText("");
-        chatListAdapter.notifyDataSetChanged();
+        chatListAdapter.notifyDataSetChanged();*/
 
 
     }
@@ -146,11 +148,12 @@ public class LiveVideoActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         Utils.dismissProgressDialog();
 
-                        getChatHistory = response.body();
+                        GetChatHistoryResp getChatHistory = response.body();
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         Log.e("liveVideoId Resp", gson.toJson(getChatHistory));
 
-                        if (getChatHistory != null && getChatHistory.getChat().size() > 0) {
+
+                        if (getChatHistory.getStatus().equalsIgnoreCase("1")) {
                             messageArrayList.clear();
                             messageArrayList.addAll(getChatHistory.getChat());
                             onsetdapter();
@@ -168,6 +171,59 @@ public class LiveVideoActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<GetChatHistoryResp> call, Throwable t) {
                     Utils.dismissProgressDialog();
+
+                }
+            });
+
+
+        } else {
+            Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+
+    private void setChatMessage(String message11) {
+
+        RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), liveVideoId);
+        RequestBody message = RequestBody.create(MediaType.parse("text/plain"), message11);
+
+
+        if (Utils.isInternetConnected(this)) {
+            //  Utils.showProgressDialog(this);
+            RestClient.send_chat_message(channelId, userId12, message, new Callback<GetChatHistoryResp>() {
+                @Override
+                public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
+                    if (response.code() == 200) {
+                        //   Utils.dismissProgressDialog();
+
+                        GetChatHistoryResp getChatHistory = response.body();
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Log.e("liveVideoId Resp", gson.toJson(getChatHistory));
+
+
+                        if (getChatHistory.getStatus().equalsIgnoreCase("1")) {
+                            messageArrayList.clear();
+                            messageArrayList.addAll(getChatHistory.getChat());
+                            onsetdapter();
+                            recyclerViewChat.setVisibility(View.VISIBLE);
+                        } else {
+
+                            recyclerViewChat.setVisibility(View.GONE);
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<GetChatHistoryResp> call, Throwable t) {
+                    //   Utils.dismissProgressDialog();
 
                 }
             });
