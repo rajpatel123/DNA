@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -48,7 +49,7 @@ public class FacultyChatActivity extends AppCompatActivity {
     @BindView(R.id.iv_back)
     ImageView ivback;
     @BindView(R.id.toggle)
-    ToggleButton toggle;
+    Switch toggle;
 
 
     @BindView(R.id.btn_send)
@@ -59,6 +60,7 @@ public class FacultyChatActivity extends AppCompatActivity {
     private ArrayList<Chat> messageArrayList = new ArrayList();
     String channelID;
     String f_id, userId;
+    Boolean condition = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +86,17 @@ public class FacultyChatActivity extends AppCompatActivity {
             }
         });
 
-
+        starthandler();
         getonlineoffline("0", channelID);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    getonlineoffline("1", channelID);
+
+
+                    stophandler(true);
+
                 } else {
-                    getonlineoffline("0", channelID);
+                    stophandler(false);
                 }
             }
         });
@@ -113,6 +118,29 @@ public class FacultyChatActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    public void starthandler() {
+        Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+
+                if (condition) {
+                    getChatList();
+                }
+
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        handler.postDelayed(r, 5000);
+
+    }
+
+    public void stophandler(Boolean status) {
+        condition = status;
     }
 
     @Override
@@ -203,22 +231,22 @@ public class FacultyChatActivity extends AppCompatActivity {
                             Gson gson = new GsonBuilder().setPrettyPrinting().create();
                             Log.e("liveVideoId Resp", gson.toJson(getChatHistory));
 
-                           if (messageArrayList.size() !=getChatHistory.getChat().size()){
+                            if (messageArrayList.size() != getChatHistory.getChat().size()) {
 
-                               messageArrayList.clear();
-                               messageArrayList.addAll(getChatHistory.getChat());
-                               if (messageArrayList != null && messageArrayList.size() > 0) {
+                                messageArrayList.clear();
+                                messageArrayList.addAll(getChatHistory.getChat());
+                                if (messageArrayList != null && messageArrayList.size() > 0) {
 
-                                   onsetdapter();
-                                   recyclerViewChat.setVisibility(View.VISIBLE);
-                               } else {
+                                    onsetdapter();
+                                    recyclerViewChat.setVisibility(View.VISIBLE);
+                                } else {
 
-                                   recyclerViewChat.setVisibility(View.GONE);
-                               }
-                           }else {
+                                    recyclerViewChat.setVisibility(View.GONE);
+                                }
+                            } else {
 
 
-                           }
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -237,7 +265,7 @@ public class FacultyChatActivity extends AppCompatActivity {
 
 
         } else {
-           // Utils.dismissProgressDialog();
+            // Utils.dismissProgressDialog();
 
             Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
@@ -299,10 +327,10 @@ public class FacultyChatActivity extends AppCompatActivity {
         }
     }
 
-      @Override
+    @Override
     public void onResume() {
         super.onResume();
-        Handler handler = new Handler();
+       /* Handler handler = new Handler();
 
         final Runnable r = new Runnable() {
             public void run() {
@@ -311,13 +339,14 @@ public class FacultyChatActivity extends AppCompatActivity {
             }
         };
 
-        handler.postDelayed(r, 5000);
+        handler.postDelayed(r, 5000);*/
     }
+
     Handler handler = new Handler();
 
     @Override
     protected void onPause() {
         super.onPause();
-        handler.removeCallbacksAndMessages(null);
+
     }
 }

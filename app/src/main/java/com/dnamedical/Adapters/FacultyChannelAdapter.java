@@ -17,9 +17,12 @@ import com.dnamedical.Models.get_faculty_channel.Chat;
 import com.dnamedical.R;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
+import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,13 +47,32 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
     @Override
     public void onBindViewHolder(final FacultyChannelAdapter.ViewHolder holder, final int position) {
         String userId;
-        holder.tvChannel.setText(messageArrayList.get(holder.getAdapterPosition()).getDoctorName());
+        holder.subjectName.setText(messageArrayList.get(holder.getAdapterPosition()).getLiveSubject());
 
-        Picasso.with(applicationContext).load(messageArrayList.get(holder.getAdapterPosition()).getThumbnail())
+        holder.tvTopic1.setText(messageArrayList.get(holder.getAdapterPosition()).getCategoryName());
+
+
+        holder.tvcategory1.setText(messageArrayList.get(holder.getAdapterPosition()).getCategoryName());
+
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date todayDate = new Date();
+        String thisDate = currentDate.format(todayDate);
+
+        holder.tvDate1.setText(thisDate);
+        holder.tveducator1.setText(messageArrayList.get(holder.getAdapterPosition()).getDoctorName());
+
+        holder.tvBatchName.setText(messageArrayList.get(position).getBatchName());
+
+        holder.tvTime1.setText("" + Utils.startTimeFormat(Long.parseLong(messageArrayList.get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));
+
+
+        Picasso.with(applicationContext).load(messageArrayList.get(position).getDoctorImage())
                 .error(R.drawable.dnalogo)
-                .into(holder.ivImage);
+                .into(holder.thumbnail);
 
-       holder.ivImage.setOnClickListener(new View.OnClickListener() {
+
+        holder.watchNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -79,13 +101,36 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
+        @BindView(R.id.ll_right)
+        LinearLayout llRight;
 
-        @BindView(R.id.tvChannel)
-        TextView tvChannel;
+        @BindView(R.id.tvSubjectNa)
+        TextView subjectName;
 
-        @BindView(R.id.ivImage)
-                ImageView ivImage;
+        @BindView(R.id.tvTopic1)
+        TextView tvTopic1;
 
+        @BindView(R.id.tvcategory1)
+        TextView tvcategory1;
+
+        @BindView(R.id.tveducator1)
+        TextView tveducator1;
+
+
+        @BindView(R.id.tvDate1)
+        TextView tvDate1;
+
+        @BindView(R.id.tvTime1)
+        TextView tvTime1;
+
+        @BindView(R.id.watchNow)
+        TextView watchNow;
+        @BindView(R.id.tvBatchName)
+        TextView tvBatchName;
+
+
+        @BindView(R.id.thumbnail)
+        ImageView thumbnail;
 
         View itemView;
 

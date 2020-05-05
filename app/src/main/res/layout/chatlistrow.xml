@@ -45,6 +45,7 @@
             android:layout_marginLeft="-3dp"
             android:padding="4dp"
             android:layout_width="30dp"
+            android:visibility="gone"
             android:layout_height="30dp"
             android:src="@drawable/com_facebook_profile_picture_blank_square" />
 
@@ -57,11 +58,11 @@
               android:id="@+id/tvDoctName"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="1dp"
               android:visibility="gone"
-
-              android:fontFamily="sans-serif"
-              android:padding="7dp"
+              android:textStyle="bold"
+              android:layout_marginLeft="7dp"
+              android:layout_marginRight="7dp"
+              android:layout_marginTop="3dp"
               android:textColor="@color/colorAccent"
               android:textIsSelectable="true"
               android:textSize="14sp" />
@@ -69,10 +70,11 @@
             android:id="@+id/messageLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
 
             android:fontFamily="sans-serif"
-            android:padding="7dp"
+            android:layout_marginTop="2dp"
             android:textColor="@android:color/black"
             android:textIsSelectable="true"
             android:textSize="11sp" />
