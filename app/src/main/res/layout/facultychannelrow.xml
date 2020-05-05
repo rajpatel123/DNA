@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/dp_130"
         android:src="@mipmap/ic_launcher"
-        android:scaleType="centerCrop"></ImageView>
+        android:scaleType="fitXY"></ImageView>
 
     <TextView
         android:id="@+id/tvChannel"

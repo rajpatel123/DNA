@@ -1,6 +1,7 @@
 package com.dnamedical.Activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -94,7 +95,7 @@ public class FacultyChatActivity extends AppCompatActivity {
                 }
             }
         });
-
+        messageArrayList.clear();
         getChatList();
 
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +146,7 @@ public class FacultyChatActivity extends AppCompatActivity {
         recyclerViewChat.setLayoutManager(layoutManager);
         recyclerViewChat.setItemAnimator(new DefaultItemAnimator());
         recyclerViewChat.setAdapter(chatListAdapter);
-        message.setText("");
+
     }
 
     private void getonlineoffline(String status, String channelID11) {
@@ -201,16 +202,23 @@ public class FacultyChatActivity extends AppCompatActivity {
                             GetChatHistoryResp getChatHistory = response.body();
                             Gson gson = new GsonBuilder().setPrettyPrinting().create();
                             Log.e("liveVideoId Resp", gson.toJson(getChatHistory));
-                            messageArrayList.clear();
-                            messageArrayList.addAll(getChatHistory.getChat());
-                            if (messageArrayList != null && messageArrayList.size() > 0) {
 
-                                onsetdapter();
-                                recyclerViewChat.setVisibility(View.VISIBLE);
-                            } else {
+                           if (messageArrayList.size() !=getChatHistory.getChat().size()){
 
-                                recyclerViewChat.setVisibility(View.GONE);
-                            }
+                               messageArrayList.clear();
+                               messageArrayList.addAll(getChatHistory.getChat());
+                               if (messageArrayList != null && messageArrayList.size() > 0) {
+
+                                   onsetdapter();
+                                   recyclerViewChat.setVisibility(View.VISIBLE);
+                               } else {
+
+                                   recyclerViewChat.setVisibility(View.GONE);
+                               }
+                           }else {
+
+
+                           }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -229,7 +237,7 @@ public class FacultyChatActivity extends AppCompatActivity {
 
 
         } else {
-            Utils.dismissProgressDialog();
+           // Utils.dismissProgressDialog();
 
             Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
@@ -289,5 +297,27 @@ public class FacultyChatActivity extends AppCompatActivity {
 
 
         }
+    }
+
+      @Override
+    public void onResume() {
+        super.onResume();
+        Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                getChatList();
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        handler.postDelayed(r, 5000);
+    }
+    Handler handler = new Handler();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
     }
 }

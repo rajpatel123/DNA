@@ -1,6 +1,7 @@
 package com.dnamedical.livemodule;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,13 +56,13 @@ public class LiveVideoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         liveVideoId = getIntent().getStringExtra("contentId");
         initYouTubePlayerView();
-        getChatList();
+
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
-
+        getChatList();
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,17 +137,17 @@ public class LiveVideoActivity extends AppCompatActivity {
         recyclerViewChat.setLayoutManager(layoutManager);
         recyclerViewChat.setItemAnimator(new DefaultItemAnimator());
         recyclerViewChat.setAdapter(chatListAdapter);
-        message.setText("");
+      //  message.setText("");
     }
 
     private void getChatList() {
         if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
+           // Utils.showProgressDialog(this);
             RestClient.getchathistory("get_chat_history", liveVideoId, new Callback<GetChatHistoryResp>() {
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {
-                        Utils.dismissProgressDialog();
+                   //     Utils.dismissProgressDialog();
 
                         GetChatHistoryResp getChatHistory = response.body();
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -154,13 +155,22 @@ public class LiveVideoActivity extends AppCompatActivity {
 
 
                         if (getChatHistory.getStatus().equalsIgnoreCase("1")) {
-                            messageArrayList.clear();
-                            messageArrayList.addAll(getChatHistory.getChat());
-                            onsetdapter();
-                            recyclerViewChat.setVisibility(View.VISIBLE);
-                        } else {
+                            if (messageArrayList.size() != getChatHistory.getChat().size()) {
 
-                            recyclerViewChat.setVisibility(View.GONE);
+                                messageArrayList.clear();
+                                messageArrayList.addAll(getChatHistory.getChat());
+                                if (messageArrayList != null && messageArrayList.size() > 0) {
+
+                                    onsetdapter();
+                                    recyclerViewChat.setVisibility(View.VISIBLE);
+                                } else {
+
+                                    recyclerViewChat.setVisibility(View.GONE);
+                                }
+                            } else {
+
+
+                            }
                         }
 
 
@@ -170,7 +180,7 @@ public class LiveVideoActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<GetChatHistoryResp> call, Throwable t) {
-                    Utils.dismissProgressDialog();
+                  //  Utils.dismissProgressDialog();
 
                 }
             });
@@ -239,4 +249,25 @@ public class LiveVideoActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                getChatList();
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        handler.postDelayed(r, 5000);
+    }
+    Handler handler = new Handler();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+    }
 }
