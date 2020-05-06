@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.get_chat_history.Chat;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
@@ -168,7 +169,7 @@ public class FacultyChatActivity extends AppCompatActivity {
     private void onsetdapter() {
 
 
-        chatListAdapter = new ChatListAdapter(this, messageArrayList);
+        chatListAdapter = new ChatListAdapter(FacultyChatActivity.this, messageArrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         recyclerViewChat.setLayoutManager(layoutManager);
@@ -218,7 +219,7 @@ public class FacultyChatActivity extends AppCompatActivity {
     private void getChatList() {
         if (Utils.isInternetConnected(this)) {
             // Utils.showProgressDialog(this);
-            RestClient.getchathistory("get_chat_history", channelID, new Callback<GetChatHistoryResp>() {
+            RestClient.getchathistory("get_chat_history", channelID,userId,f_id, new Callback<GetChatHistoryResp>() {
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {
@@ -278,11 +279,11 @@ public class FacultyChatActivity extends AppCompatActivity {
         RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), channelID);
         RequestBody message = RequestBody.create(MediaType.parse("text/plain"), message11);
-
+        RequestBody faculty_id = RequestBody.create(MediaType.parse("text/plain"), f_id);
 
         if (Utils.isInternetConnected(this)) {
             //  Utils.showProgressDialog(this);
-            RestClient.send_chat_message(channelId, userId12, message, new Callback<GetChatHistoryResp>() {
+            RestClient.send_chat_message(channelId, userId12, message,faculty_id, new Callback<GetChatHistoryResp>() {
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {
@@ -327,6 +328,50 @@ public class FacultyChatActivity extends AppCompatActivity {
         }
     }
 
+    public void getDeleteChatMessage(String id) {
+        if (Utils.isInternetConnected(this)) {
+            // Utils.showProgressDialog(this);
+            RestClient.delete_chat_message("delete_chat_message", id, new Callback<DeletechatmessageResp>() {
+                @Override
+                public void onResponse(Call<DeletechatmessageResp> call, Response<DeletechatmessageResp> response) {
+                    if (response.code() == 200) {
+                        //  Utils.dismissProgressDialog();
+
+                        try {
+
+
+                            DeletechatmessageResp deletechatmessageResp = response.body();
+                            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                            Log.e("Deletecha Resp", gson.toJson(deletechatmessageResp));
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<DeletechatmessageResp> call, Throwable t) {
+                    //   Utils.dismissProgressDialog();
+
+                }
+            });
+
+
+        } else {
+            // Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -349,4 +394,13 @@ public class FacultyChatActivity extends AppCompatActivity {
         super.onPause();
 
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stophandler(false);
+    }
+
+
+
+
 }

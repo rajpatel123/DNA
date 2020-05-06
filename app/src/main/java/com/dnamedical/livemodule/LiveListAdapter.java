@@ -128,10 +128,10 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
     private void playStream(int pos) {
         if (System.currentTimeMillis() < Long.parseLong(categoryDetailData.getChat().get(pos).getLiveStartedTime()) * 1000) {
             Toast.makeText(applicationContext, "Live streaming will be available from " + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(pos).getLiveStartedTime()) * 1000), Toast.LENGTH_LONG).show();
-          /*  Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
+            Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
             intent.putExtra("contentId", categoryDetailData.getChat().get(pos).getChannelId());
             intent.putExtra("dr_name", categoryDetailData.getChat().get(pos).getDoctorName());
-            applicationContext.startActivity(intent);*/
+            applicationContext.startActivity(intent);
         } else {
             Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
             intent.putExtra("contentId", categoryDetailData.getChat().get(pos).getChannelId());

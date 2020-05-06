@@ -22,6 +22,7 @@ import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
+import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
@@ -56,6 +57,7 @@ import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
+import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -498,12 +500,24 @@ public class RestClient {
  public static void getChannels(String get_live_info,String userID, Callback<LiveChannelData> callback) {
         RetrofitClient.getClient().getAllCgannels(get_live_info, userID).enqueue(callback);
     }
-    public static void getchathistory(String get_live_info,String channel_id, Callback<GetChatHistoryResp> callback) {
-        RetrofitClient.getClient().get_chat_history(get_live_info, channel_id).enqueue(callback);
+    public static void getchathistory(String get_live_info,String channel_id,String user_id, String facultyId, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().get_chat_history(get_live_info, channel_id, user_id, facultyId).enqueue(callback);
     }
 
-    public static void send_chat_message(RequestBody channel_id,RequestBody user_id,RequestBody message, Callback<GetChatHistoryResp> callback) {
-        RetrofitClient.getClient().send_chat_message( channel_id, user_id,message).enqueue(callback);
+
+    public static void delete_chat_message(String get_live_info,String id, Callback<DeletechatmessageResp> callback) {
+        RetrofitClient.getClient().delete_chat_message(get_live_info, id).enqueue(callback);
+    }
+
+
+
+
+    public static void send_chat_message(RequestBody channel_id,RequestBody user_id,RequestBody message,RequestBody faculty_id, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().send_chat_message( channel_id, user_id,message,faculty_id).enqueue(callback);
+    }
+
+    public static void send_chat_messagefaculty(RequestBody channel_id,RequestBody user_id,RequestBody message, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().getsend_chat_messagefaculty( channel_id, user_id,message).enqueue(callback);
     }
 
 
@@ -511,6 +525,14 @@ public class RestClient {
     public static void get_faculty_channel(String get_live_info,String faculty_id, Callback<RetFacultyChannel> callback) {
         RetrofitClient.getClient().get_faculty_channel(get_live_info, faculty_id).enqueue(callback);
     }
+
+
+
+    public static void update_token(RequestBody user_id,RequestBody fcm_token, Callback<UpdateToken> callback) {
+        RetrofitClient.getClient().update_token(user_id, fcm_token).enqueue(callback);
+    }
+
+
 
 
     public static void updte_chat_status(String get_live_info,String channel_id,String f_id,String status, Callback<UpdteChatstatusRes> callback) {

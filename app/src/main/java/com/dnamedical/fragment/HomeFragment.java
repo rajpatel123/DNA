@@ -28,6 +28,7 @@ import com.dnamedical.Adapters.CourseListAdapter;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
 import com.dnamedical.Models.maincat.SubCat;
+import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
@@ -35,13 +36,17 @@ import com.dnamedical.livemodule.LiveOnliveClassListActity;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,6 +91,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
+        uploadToken();
         getCourse();
 
         llfaculty.setOnClickListener(new View.OnClickListener() {
@@ -97,13 +103,13 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
             }
         });
-      //  llfaculty.setVisibility(View.VISIBLE);
+        //  llfaculty.setVisibility(View.VISIBLE);
         String f_id = DnaPrefs.getString(getActivity(), Constants.f_id);
         if (f_id.trim().length() > 0) {
 
             llfaculty.setVisibility(View.VISIBLE);
         } else {
-           llfaculty.setVisibility(View.GONE);
+            llfaculty.setVisibility(View.GONE);
         }
         return view;
 
@@ -156,8 +162,6 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                             };
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setVisibility(View.VISIBLE);
-
-
 
 
                         } else {
@@ -253,4 +257,54 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         startActivity(intent);
 
     }
+
+    String userId;
+
+    private void uploadToken() {
+
+        if (DnaPrefs.getBoolean(getActivity(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getActivity(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getActivity(), Constants.LOGIN_ID);
+        }
+
+        String tokennn=  FirebaseInstanceId.getInstance().getToken();
+
+        Log.e("token","::"+tokennn);
+
+
+        RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody token = RequestBody.create(MediaType.parse("text/plain"), tokennn);
+
+
+        if (Utils.isInternetConnected(getContext())) {
+            //  Utils.showProgressDialog(getActivity());
+            RestClient.update_token(userId12, token, new Callback<UpdateToken>() {
+                @Override
+                public void onResponse(Call<UpdateToken> call, Response<UpdateToken> response) {
+                    if (response.code() == 200) {
+                        // Utils.dismissProgressDialog();
+                        UpdateToken  updateToken = response.body();
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Log.e("updateToken Resp", gson.toJson(updateToken));
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UpdateToken> call, Throwable t) {
+                    //     Utils.dismissProgressDialog();
+
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            textInternet.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+
 }
