@@ -208,7 +208,7 @@ public class FacultyChatActivity extends AppCompatActivity {
         } else {
             Utils.dismissProgressDialog();
 
-            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -267,7 +267,7 @@ public class FacultyChatActivity extends AppCompatActivity {
         } else {
             // Utils.dismissProgressDialog();
 
-            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -321,7 +321,7 @@ public class FacultyChatActivity extends AppCompatActivity {
         } else {
             Utils.dismissProgressDialog();
 
-            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
 
         }

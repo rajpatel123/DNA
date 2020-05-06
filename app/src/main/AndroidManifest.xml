@@ -383,6 +383,7 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".Activities.MyMessagingService"
+            android:exported="true"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

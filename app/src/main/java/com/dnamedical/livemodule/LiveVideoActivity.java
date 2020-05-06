@@ -1,5 +1,6 @@
 package com.dnamedical.livemodule;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,15 @@ public class LiveVideoActivity extends AppCompatActivity {
     EditText message;
     ChatListAdapter chatListAdapter;
     private ArrayList<Chat> messageArrayList = new ArrayList();
+    Handler handler = new Handler();
+
+    final Runnable runnable = new Runnable() {
+        public void run() {
+            getChatList();
+            handler.postDelayed(this, 3000);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,18 +262,17 @@ public class LiveVideoActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Handler handler = new Handler();
+       listenForMessages();
 
-        final Runnable r = new Runnable() {
-            public void run() {
-                getChatList();
-                handler.postDelayed(this, 5000);
-            }
-        };
-
-        handler.postDelayed(r, 5000);
     }
-    Handler handler = new Handler();
+
+    private void listenForMessages() {
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+            handler.postDelayed(runnable, 5000);
+        }
+    }
+
 
     @Override
     protected void onPause() {
