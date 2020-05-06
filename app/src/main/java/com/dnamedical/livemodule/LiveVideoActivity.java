@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dnamedical.Adapters.ChatListAdapterLatest;
+import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.get_chat_history.Chat;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.R;
@@ -45,7 +47,7 @@ public class LiveVideoActivity extends AppCompatActivity {
     android.support.v7.widget.AppCompatImageButton btnSend;
     @BindView(R.id.message)
     EditText message;
-    ChatListAdapter chatListAdapter;
+    ChatListAdapterLatest chatListAdapter;
     private ArrayList<Chat> messageArrayList = new ArrayList();
 
     @Override
@@ -55,6 +57,9 @@ public class LiveVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_live_video);
         ButterKnife.bind(this);
         liveVideoId = getIntent().getStringExtra("contentId");
+
+        Log.e("Channel", "::" + liveVideoId);
+
         initYouTubePlayerView();
 
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
@@ -131,23 +136,71 @@ public class LiveVideoActivity extends AppCompatActivity {
     private void onsetdapter() {
 
 
-        chatListAdapter = new ChatListAdapter(LiveVideoActivity.this, messageArrayList);
+        chatListAdapter = new ChatListAdapterLatest(LiveVideoActivity.this, messageArrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         recyclerViewChat.setLayoutManager(layoutManager);
         recyclerViewChat.setItemAnimator(new DefaultItemAnimator());
         recyclerViewChat.setAdapter(chatListAdapter);
-      //  message.setText("");
+        //  message.setText("");
     }
+
+
+    public void getDeleteChatMessage(String id) {
+        if (Utils.isInternetConnected(this)) {
+            // Utils.showProgressDialog(this);
+            RestClient.delete_chat_message("delete_chat_message", id, new Callback<DeletechatmessageResp>() {
+                @Override
+                public void onResponse(Call<DeletechatmessageResp> call, Response<DeletechatmessageResp> response) {
+                    if (response.code() == 200) {
+                        //  Utils.dismissProgressDialog();
+
+                        try {
+
+
+                            DeletechatmessageResp deletechatmessageResp = response.body();
+                            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                            Log.e("Deletecha Resp", gson.toJson(deletechatmessageResp));
+
+                            if (deletechatmessageResp.getStatus().equalsIgnoreCase("1")){
+                                //stophandler(true);
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<DeletechatmessageResp> call, Throwable t) {
+                    //   Utils.dismissProgressDialog();
+
+                }
+            });
+
+
+        } else {
+            // Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
 
     private void getChatList() {
         if (Utils.isInternetConnected(this)) {
-           // Utils.showProgressDialog(this);
-            RestClient.getchathistory("get_chat_history", liveVideoId, new Callback<GetChatHistoryResp>() {
+            // Utils.showProgressDialog(this);
+            RestClient.getchathistory("get_chat_history", liveVideoId,userId,"", new Callback<GetChatHistoryResp>() {
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {
-                   //     Utils.dismissProgressDialog();
+                        //     Utils.dismissProgressDialog();
 
                         GetChatHistoryResp getChatHistory = response.body();
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -180,7 +233,7 @@ public class LiveVideoActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<GetChatHistoryResp> call, Throwable t) {
-                  //  Utils.dismissProgressDialog();
+                    //  Utils.dismissProgressDialog();
 
                 }
             });
@@ -198,14 +251,14 @@ public class LiveVideoActivity extends AppCompatActivity {
 
     private void setChatMessage(String message11) {
 
-        RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+
         RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), liveVideoId);
         RequestBody message = RequestBody.create(MediaType.parse("text/plain"), message11);
-
-
+        RequestBody facultyID = RequestBody.create(MediaType.parse("text/plain"), "");
+        RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
         if (Utils.isInternetConnected(this)) {
             //  Utils.showProgressDialog(this);
-            RestClient.send_chat_message(channelId, userId12, message, new Callback<GetChatHistoryResp>() {
+            RestClient.send_chat_message(channelId, userId12, message,facultyID, new Callback<GetChatHistoryResp>() {
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {
@@ -252,7 +305,9 @@ public class LiveVideoActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Handler handler = new Handler();
+
+        starthandler();
+      /*  Handler handler = new Handler();
 
         final Runnable r = new Runnable() {
             public void run() {
@@ -261,13 +316,48 @@ public class LiveVideoActivity extends AppCompatActivity {
             }
         };
 
-        handler.postDelayed(r, 5000);
+        handler.postDelayed(r, 5000);*/
+        stophandler(true);
     }
+
     Handler handler = new Handler();
 
     @Override
     protected void onPause() {
         super.onPause();
-        handler.removeCallbacksAndMessages(null);
+        stophandler(false);
     }
+
+    public void starthandler() {
+        Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+
+                if (condition) {
+                    getChatList();
+                }
+
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        handler.postDelayed(r, 5000);
+
+    }
+
+    public void stophandler(Boolean status) {
+        condition = status;
+    }
+
+    Boolean condition = true;
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stophandler(false);
+    }
+
+
 }

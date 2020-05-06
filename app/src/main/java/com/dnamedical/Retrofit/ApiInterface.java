@@ -23,6 +23,7 @@ import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
+import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
@@ -57,6 +58,7 @@ import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
+import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
@@ -191,13 +193,12 @@ public interface ApiInterface {
     @Multipart
     @POST("/v1/index.php/api/ordersdetails/updatechatpayment")
     Call<SaveOrderResponse> updatechatpayment(@Part("user_id") RequestBody user_id,
-                                           @Part("payment_id") RequestBody payment_id,
-                                           @Part("order_id") RequestBody order_id
+                                              @Part("payment_id") RequestBody payment_id,
+                                              @Part("order_id") RequestBody order_id
 
 //                                           @Part("cat_id") RequestBody cat_id,
 //                                           @Part("sub_cat_id") RequestBody sub_cat_id
     );
-
 
 
     @Multipart
@@ -225,13 +226,11 @@ public interface ApiInterface {
     @Multipart
     @POST("/v1/index.php/api/ordersdetails/savechatorderdetail")
     Call<CreateOrderResponse> savechatorderdetail(@Part("user_id") RequestBody user_id,
-                                                @Part("amount") RequestBody amount,
-                                                @Part("currency") RequestBody currency,
-                                                @Part("product_id") RequestBody product_id,
-                                                @Part("product_type") RequestBody product_type
+                                                  @Part("amount") RequestBody amount,
+                                                  @Part("currency") RequestBody currency,
+                                                  @Part("product_id") RequestBody product_id,
+                                                  @Part("product_type") RequestBody product_type
     );
-
-
 
 
     @Multipart
@@ -365,7 +364,13 @@ public interface ApiInterface {
 
 
     @GET("api/api.php")
-    Call<GetChatHistoryResp> get_chat_history(@Query("req") String req, @Query("channel_id") String channel_id);
+    Call<GetChatHistoryResp> get_chat_history(@Query("req") String req, @Query("channel_id") String channel_id, @Query("user_id") String user_id, @Query("faculty_id") String faculty_id);
+
+    @GET("api/api.php")
+    Call<DeletechatmessageResp> delete_chat_message(@Query("req") String req, @Query("id") String id);
+
+
+
 
     @GET("api/api.php")
     Call<RetFacultyChannel> get_faculty_channel(@Query("req") String req, @Query("faculty_id") String faculty_id);
@@ -374,11 +379,26 @@ public interface ApiInterface {
     @GET("api/api.php")
     Call<UpdteChatstatusRes> updte_chat_status(@Query("req") String req, @Query("channel_id") String channel_id, @Query("f_id") String f_id, @Query("status") String status);
 
+
+    @Multipart
+    @POST("api/api.php?req=update_token")
+    Call<UpdateToken> update_token(@Part("user_id") RequestBody user_id,
+                                   @Part("fcm_token") RequestBody fcm_token);
+
+
     @Multipart
     @POST("api/api.php?req=send_chat_message")
     Call<GetChatHistoryResp> send_chat_message(@Part("channel_id") RequestBody channel_id,
-                                @Part("user_id") RequestBody user_id,
-                                @Part("message") RequestBody message);
+                                               @Part("user_id") RequestBody user_id,
+                                               @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=send_chat_message")
+    Call<GetChatHistoryResp> getsend_chat_messagefaculty(@Part("channel_id") RequestBody channel_id,
+                                                         @Part("faculty_id") RequestBody user_id,
+                                                         @Part("message") RequestBody message);
+
 
     @Multipart
     @POST("v1/index.php/api/test/testresult")

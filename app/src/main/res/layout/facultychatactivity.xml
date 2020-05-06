@@ -60,7 +60,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:maxLines="1"
-
+                    android:theme="@style/SCBSwitch"
                     android:singleLine="true"
                     android:padding="10dp"
 

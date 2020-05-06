@@ -1,9 +1,10 @@
-package com.dnamedical.livemodule;
+package com.dnamedical.Adapters;
 
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dnamedical.Activities.FacultyChatActivity;
 import com.dnamedical.Models.get_chat_history.Chat;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.R;
+import com.dnamedical.livemodule.LiveVideoActivity;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 
@@ -23,25 +24,25 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
-    private FacultyChatActivity applicationContext;
+public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterLatest.ViewHolder> {
+    private LiveVideoActivity applicationContext;
     private GetChatHistoryResp getChatHistoryResp;
-    ChatListAdapter.OnCategoryClick onUserClickCallback;
+    ChatListAdapterLatest.OnCategoryClick onUserClickCallback;
     private ArrayList<Chat> messageArrayList;
 
-    public ChatListAdapter(FacultyChatActivity applicationContext, ArrayList<Chat> messageArrayList) {
+    public ChatListAdapterLatest(LiveVideoActivity applicationContext, ArrayList<Chat> messageArrayList) {
         this.applicationContext = applicationContext;
         this.messageArrayList = messageArrayList;
     }
 
     @Override
-    public ChatListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
+    public ChatListAdapterLatest.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.chatlistrow, viewGroup, false);
-        return new ChatListAdapter.ViewHolder(view);
+        return new ChatListAdapterLatest.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ChatListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ChatListAdapterLatest.ViewHolder holder, final int position) {
         String userId;
         if (DnaPrefs.getBoolean(applicationContext, "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(applicationContext, "fB_ID", 0));
@@ -65,11 +66,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
         }
 
+
         holder.message.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
                 applicationContext.stophandler(false);
+
 
 
                 new AlertDialog.Builder(applicationContext)
@@ -89,7 +92,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
                         })
 
                         // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(android.R.string.no,  new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 applicationContext.stophandler(true);
                             }
@@ -100,7 +103,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
                 return false;
             }
         });
-
 
     }
 
@@ -159,3 +161,4 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
 }
+
