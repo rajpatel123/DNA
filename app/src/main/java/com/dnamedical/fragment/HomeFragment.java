@@ -267,12 +267,13 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         } else {
             userId = DnaPrefs.getString(getActivity(), Constants.LOGIN_ID);
         }
+           String tokennn = DnaPrefs.getString(mainActivity, "device_token");
 
-        String tokennn=  FirebaseInstanceId.getInstance().getToken();
+        Log.e("token", "::" + tokennn);
 
-        Log.e("token","::"+tokennn);
-
-
+        if (TextUtils.isEmpty(tokennn)) {
+            return;
+        }
         RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody token = RequestBody.create(MediaType.parse("text/plain"), tokennn);
 
@@ -284,7 +285,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                 public void onResponse(Call<UpdateToken> call, Response<UpdateToken> response) {
                     if (response.code() == 200) {
                         // Utils.dismissProgressDialog();
-                        UpdateToken  updateToken = response.body();
+                        UpdateToken updateToken = response.body();
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         Log.e("updateToken Resp", gson.toJson(updateToken));
 

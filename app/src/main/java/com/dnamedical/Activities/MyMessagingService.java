@@ -11,8 +11,10 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dnamedical.R;
+import com.dnamedical.utils.DnaPrefs;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -58,8 +60,8 @@ public class MyMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        Log.d(TAG, "Refreshed token: " + token);
-
+        Toast.makeText(this, " Token:"+token, Toast.LENGTH_LONG).show();
+        DnaPrefs.putString(this, "device_token", token);
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.

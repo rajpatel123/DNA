@@ -383,8 +383,8 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".Activities.MyMessagingService"
-            android:exported="true"
-            android:stopWithTask="false">
+            android:stopWithTask="false"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -425,6 +425,17 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dfe8483de641ade0780acac1920014763432dd86" />
+
+
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_with_title" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
     </application>
 
 </manifest>
