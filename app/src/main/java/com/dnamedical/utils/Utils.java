@@ -159,6 +159,8 @@ public class Utils {
     public static String getDviceID(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+
+        Log.d("DeviceID",androidId);
         return androidId;
     }
 

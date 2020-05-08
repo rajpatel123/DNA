@@ -34,6 +34,7 @@ import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
+import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -713,6 +714,13 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=logout")
     Call<LogoutResponse> logout(@Part("userId") RequestBody user_id);
+
+
+
+
+    @Multipart
+    @POST("api/api.php?req=get_profile_data")
+    Call<User> getProfileData(@Part("user_id") RequestBody user_id);
 
 
     @Multipart

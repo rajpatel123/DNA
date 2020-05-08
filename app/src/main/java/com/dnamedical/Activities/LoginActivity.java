@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-
+        Utils.getDviceID(LoginActivity.this);
         customFacebook = findViewById(R.id.custom_login);
         ButterKnife.bind(this);
         callbackManager = CallbackManager.Factory.create();

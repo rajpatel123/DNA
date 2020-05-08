@@ -107,7 +107,12 @@ public class LiveVideoActivity extends AppCompatActivity {
         youTubePlayerView.getPlayerUIController().showFullscreenButton(true);
         youTubePlayerView.getPlayerUIController().enableLiveVideoUI(true);
         youTubePlayerView.getPlayerUIController().showDuration(true);
-
+        youTubePlayerView.getPlayerUIController().setCustomMenuButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                youTubePlayerView.getPlayerUIController().showUI(true);
+            }
+        });
         youTubePlayerView.getPlayerUIController().showPlayPauseButton(true);
         youTubePlayerView.getPlayerUIController().showYouTubeButton(false);
 

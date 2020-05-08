@@ -29,7 +29,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.BuildConfig;
+import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.LogoutResponse;
+import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -595,11 +597,45 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+    public void getProfileData() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+            RestClient.getProfileData(user_Id,new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        User user = response.body();
+                        if (user!=null && user.getData()!=null){
+                            if (Integer.parseInt(user.getData().getMobileVerified())!=1){
+                                Intent intent2 = new Intent(MainActivity.this, ChanePhoneNumberActivity.class);
+                                startActivity(intent2);
+                            }
+                            DNAApplication.getInstance().setUserData(user);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        }
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
+        getProfileData();
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
             Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);

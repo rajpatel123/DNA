@@ -9,6 +9,7 @@ import android.support.multidex.MultiDexApplication;
 import android.util.Base64;
 import android.util.Log;
 
+import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 
@@ -33,7 +34,7 @@ public class DNAApplication extends MultiDexApplication {
 
     public static TestQuestionData testQuestionData;
 
-
+    User user;
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -88,5 +89,14 @@ public class DNAApplication extends MultiDexApplication {
 
     public List<QuestionList> getQuestionList(){
         return questionList;
+    }
+
+    public void setUserData(User user) {
+        this.user=user;
+    }
+
+
+    public User getUserData() {
+    return user;
     }
 }

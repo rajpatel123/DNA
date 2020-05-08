@@ -113,18 +113,10 @@ public class VerifyOTPActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<VerifyOtpResponse> call, Response<VerifyOtpResponse> response) {
                 Utils.dismissProgressDialog();
-                if (response.body().getStatus().equalsIgnoreCase("1")) {
-                    Utils.displayToast(getApplicationContext(), response.body().getMessage());
-                    String id=response.body().getLoginDetails().get(0).getId();
-                    DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID,response.body().getLoginDetails().get(0).getId());
-                    DnaPrefs.putBoolean(getApplicationContext(),"isFacebook",false);
+                if (response.body().getStatus().equalsIgnoreCase("true")) {
+                    Utils.displayToast(getApplicationContext(),"Successfully updated mobile number");
+                    finish();
 
-                    DnaPrefs.putString(getApplicationContext(),"NAME",response.body().getLoginDetails().get(0).getName());
-                    DnaPrefs.putString(getApplicationContext(),"URL","");
-                    DnaPrefs.putString(getApplicationContext(),"EMAIL",response.body().getLoginDetails().get(0).getEmailId());
-                    startActivity(new Intent(VerifyOTPActivity.this,MainActivity.class));
-                    finish();
-                    finish();
                 }
             }
 

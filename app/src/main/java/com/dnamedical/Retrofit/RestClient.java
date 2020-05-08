@@ -33,6 +33,7 @@ import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
+import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -543,6 +544,12 @@ public class RestClient {
 
     public static void logout(RequestBody user_id, Callback<LogoutResponse> callback) {
         RetrofitClient.getClient().logout(user_id).enqueue(callback);
+    }
+
+
+
+    public static void getProfileData(RequestBody user_id, Callback<User> callback) {
+        RetrofitClient.getClient().getProfileData(user_id).enqueue(callback);
     }
 
 

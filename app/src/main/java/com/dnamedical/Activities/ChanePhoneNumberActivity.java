@@ -69,8 +69,8 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
 
         updatePhoneNumber = edtChangPhoneNo.getText().toString();
 
-        if (updatePhoneNumber.isEmpty() && edtChangPhoneNo.length() == 10) {
-            edtChangPhoneNo.setError(" enter a valid phone number ");
+        if (updatePhoneNumber.isEmpty() || edtChangPhoneNo.length() < 10) {
+            edtChangPhoneNo.setError(" Enter a valid phone number ");
             check = false;
         } else {
             edtChangPhoneNo.setError(null);
@@ -99,7 +99,6 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
 
             Utils.showProgressDialog(this);
 
-            String phoneNumber = getIntent().getStringExtra("phoneNo");
             String userId = DnaPrefs.getString(getApplicationContext(),Constants.LOGIN_ID);
 
             RequestBody UserId = RequestBody.create(MediaType.parse("text/plane"), userId);
