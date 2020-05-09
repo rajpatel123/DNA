@@ -150,6 +150,8 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.change_phone:
                 Intent intent2 = new Intent(this, ChanePhoneNumberActivity.class);
+                intent2.putExtra("title", "Update Mobile Number");
+
                 startActivity(intent2);
                 break;
 

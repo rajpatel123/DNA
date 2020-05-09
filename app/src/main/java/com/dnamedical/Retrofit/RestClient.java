@@ -119,9 +119,9 @@ public class RestClient {
     public static void franchiesRegister(RequestBody username, RequestBody usermail, RequestBody phoneno, RequestBody whatsppNumber,
                                          RequestBody pCity, RequestBody pState, RequestBody pAddress, RequestBody pLandmark, RequestBody pPincode,
                                          RequestBody collegaeFrenchise, RequestBody cMedicalCollegae, RequestBody sMedicalCollege, RequestBody pinMedicalCollege,
-                                         RequestBody comment, RequestBody amount,RequestBody canCall,Callback<FranchiesResponse> callback) {
+                                         RequestBody comment, RequestBody amount,RequestBody canCall,RequestBody otp,Callback<FranchiesResponse> callback) {
         RetrofitClient.getClient().franchiRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress, pLandmark, pPincode, collegaeFrenchise,
-                                                   cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,amount,canCall).enqueue(callback);
+                                                   cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,amount,canCall,otp).enqueue(callback);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -484,6 +484,12 @@ public class RestClient {
     // Change phone Number
     public static void changePhoneNumber(RequestBody user_id, RequestBody phoneNo, Callback<ResponseBody> callback) {
         RetrofitClient.getClient().changePhoneNumber(user_id, phoneNo).enqueue(callback);
+    }
+
+
+    // franchise otp phone Number
+    public static void sendOTPFrenchise(RequestBody name, RequestBody phoneNo, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().sendOTPFrenchise(name, phoneNo).enqueue(callback);
     }
 
     // change phone no otp Response

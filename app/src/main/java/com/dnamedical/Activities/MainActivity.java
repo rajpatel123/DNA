@@ -612,6 +612,8 @@ public class MainActivity extends AppCompatActivity
                         if (user!=null && user.getData()!=null){
                             if (Integer.parseInt(user.getData().getMobileVerified())!=1){
                                 Intent intent2 = new Intent(MainActivity.this, ChanePhoneNumberActivity.class);
+                                intent2.putExtra("title", "Verify Mobile Number");
+
                                 startActivity(intent2);
                             }
                             DNAApplication.getInstance().setUserData(user);

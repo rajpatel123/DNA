@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,8 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
     public Button btnOtpVerify;
     String otpNumber;
     private TextView resendOtp;
+    private ImageView crossBtn;
+
     private String updatePhoneNumber;
     private TextView changeNumber;
     private TextView mobileNumber;
@@ -59,6 +62,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
         printVerifyPin = findViewById(R.id.prntEdtChangePhoneOtp);
         btnOtpVerify = findViewById(R.id.btnVerify);
         resendOtp = findViewById(R.id.resend);
+        crossBtn = findViewById(R.id.crossBtn);
         changeNumber = findViewById(R.id.changeNumber);
         mobileNumber = findViewById(R.id.mobileNumber);
         resendTimer = findViewById(R.id.resendTimer);
@@ -83,6 +87,14 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
             }
         });
 
+
+        crossBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
+
         resendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +106,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ChanePhoneNumberActivity.class);
+                intent.putExtra("title", "Change Mobile Number");
                 startActivity(intent);
                 finish();
             }

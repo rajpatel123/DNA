@@ -1,6 +1,8 @@
 package com.dnamedical.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -13,13 +15,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,11 +33,11 @@ public class FranchiActivity extends AppCompatActivity {
 
     private CheckBox canCall;
     private Spinner amountToInvest;
-    String username1, email, mobile, comment1="NA", whatsppNumbertxt, pCitytxt, pStatetxt, pAddresstxt, pLandmarktxt, pPincodetxt,
+    String username1, email, mobile, comment1 = "NA", whatsppNumbertxt, pCitytxt, pStatetxt, pAddresstxt, pLandmarktxt, pPincodetxt,
             collegaeFrenchisetxt, cMedicalCollegaetxt, sMedicalCollegetxt, pinMedicalCollegetxt;
 
     private Button btnSubmit;
-    private String amountToInveststr="select how much you can invest yearly";
+    private String amountToInveststr = "select how much you can invest yearly";
     private String canCallStr;
 
     @Override
@@ -78,8 +80,9 @@ public class FranchiActivity extends AppCompatActivity {
         amountToInvest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                amountToInveststr =getResources().getStringArray(R.array.amounttobeinvested)[position];
+                amountToInveststr = getResources().getStringArray(R.array.amounttobeinvested)[position];
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -180,7 +183,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         collegaeFrenchisetxt = collegaeFrenchise.getText().toString().trim();
 
-        if (TextUtils.isEmpty(collegaeFrenchisetxt) ) {
+        if (TextUtils.isEmpty(collegaeFrenchisetxt)) {
             collegaeFrenchise.setError(getString(R.string.clgname));
             Utils.displayToast(getApplicationContext(), getString(R.string.clgname));
             return;
@@ -188,14 +191,14 @@ public class FranchiActivity extends AppCompatActivity {
 
         cMedicalCollegaetxt = cMedicalCollegae.getText().toString().trim();
 
-        if (TextUtils.isEmpty(cMedicalCollegaetxt) ) {
+        if (TextUtils.isEmpty(cMedicalCollegaetxt)) {
             cMedicalCollegae.setError(getString(R.string.medicalclg));
             Utils.displayToast(getApplicationContext(), getString(R.string.medicalclg));
             return;
         }
 
         sMedicalCollegetxt = sMedicalCollege.getText().toString().trim();
-        if (TextUtils.isEmpty(sMedicalCollegetxt) ) {
+        if (TextUtils.isEmpty(sMedicalCollegetxt)) {
             sMedicalCollege.setError(getString(R.string.smedicalcollege));
             Utils.displayToast(getApplicationContext(), getString(R.string.smedicalcollege));
             return;
@@ -215,10 +218,10 @@ public class FranchiActivity extends AppCompatActivity {
             return;
         }
 
-        if (canCall.isChecked()){
+        if (canCall.isChecked()) {
             canCallStr = "Yes";
-        }else{
-            canCallStr = "Yes";
+        } else {
+            canCallStr = "No";
 
         }
 
@@ -243,56 +246,53 @@ public class FranchiActivity extends AppCompatActivity {
             }
         }*/
 
+        sendOtp();
 
-        RequestBody username = RequestBody.create(MediaType.parse("text/plain"), username1);
-        RequestBody usermail = RequestBody.create(MediaType.parse("text/plain"), email);
-        RequestBody phoneno = RequestBody.create(MediaType.parse("text/plain"), mobile);
-        RequestBody whatsppNumber = RequestBody.create(MediaType.parse("text/plain"), whatsppNumbertxt);
-
-        RequestBody pCity = RequestBody.create(MediaType.parse("text/plain"), pCitytxt);
-        RequestBody pState = RequestBody.create(MediaType.parse("text/plain"), pStatetxt);
-        RequestBody pAddress = RequestBody.create(MediaType.parse("text/plain"), pAddresstxt);
-        RequestBody pLandmark = RequestBody.create(MediaType.parse("text/plain"), pLandmarktxt);
-
-        RequestBody pPincode = RequestBody.create(MediaType.parse("text/plain"), pPincodetxt);
-        RequestBody collegaeFrenchise = RequestBody.create(MediaType.parse("text/plain"), collegaeFrenchisetxt);
-        RequestBody cMedicalCollegae = RequestBody.create(MediaType.parse("text/plain"), cMedicalCollegaetxt);
-
-        RequestBody sMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), sMedicalCollegetxt);
-        RequestBody pinMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), pinMedicalCollegetxt);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), amountToInveststr);
-        RequestBody canCallfromdna = RequestBody.create(MediaType.parse("text/plain"), canCallStr);
-        RequestBody comment = RequestBody.create(MediaType.parse("text/plain"), comment1);
-
-
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-            RestClient.franchiesRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress,
-                    pLandmark, pPincode, collegaeFrenchise, cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,amount,canCallfromdna,
-                    new Callback<FranchiesResponse>() {
-                        @Override
-                        public void onResponse(Call<FranchiesResponse> call, Response<FranchiesResponse> response) {
-                            Utils.dismissProgressDialog();
-                            if (response.body() != null) {
-
-                                if (response.body().getStatus().equalsIgnoreCase("1")) {
-                                    Toast.makeText(FranchiActivity.this, "Successfully Send", Toast.LENGTH_SHORT).show();
-                                }
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<FranchiesResponse> call, Throwable t) {
-                            Utils.dismissProgressDialog();
-                            Toast.makeText(FranchiActivity.this, "Query submitted successfully", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-
-        } else {
-            Utils.dismissProgressDialog();
-            Toast.makeText(this, " Internet Connection Failed!!!", Toast.LENGTH_SHORT).show();
-        }
     }
+
+
+    private void sendOtp() {
+        Utils.showProgressDialog(this);
+
+        RequestBody name = RequestBody.create(MediaType.parse("text/plane"), username1);
+        RequestBody phoneNo = RequestBody.create(MediaType.parse("text/plane"), mobile);
+
+        RestClient.sendOTPFrenchise(name, phoneNo, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Utils.dismissProgressDialog();
+                if (response != null && response.code() == 200 && response.body() != null) {
+                    Toast.makeText(getApplicationContext(), "OTP sent on your mobile number", Toast.LENGTH_SHORT).show();
+                    SubmitQueryWithOTPActivity.start(FranchiActivity.this,username1,email,mobile,whatsppNumbertxt,pCitytxt,
+                            pStatetxt,pAddresstxt,pLandmarktxt,pPincodetxt,collegaeFrenchisetxt,cMedicalCollegaetxt,sMedicalCollegetxt,pinMedicalCollegetxt,
+                            amountToInveststr,canCallStr,comment1);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            finish();
+        } else if (resultCode == RESULT_CANCELED) {
+            return;
+
+        }
+
+
+    }
+
 }

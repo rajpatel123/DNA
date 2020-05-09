@@ -259,7 +259,8 @@ public interface ApiInterface {
                                             @Part("pincode_of_college") RequestBody pinMedicalCollege,
                                             @Part("comment") RequestBody comment,
                                             @Part("invested_ammount") RequestBody amount,
-                                            @Part("is_recievecall") RequestBody canCall
+                                            @Part("is_recievecall") RequestBody canCall,
+                                            @Part("otp") RequestBody otp
 
     );
 
@@ -689,6 +690,13 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=send_otp")
     Call<ResponseBody> changePhoneNumber(@Part("user_id") RequestBody name,
+                                         @Part("mobile") RequestBody phoneNo);
+
+
+ // Change phone No
+    @Multipart
+    @POST("api/api.php?req=franchise_otp")
+    Call<ResponseBody> sendOTPFrenchise(@Part("name") RequestBody name,
                                          @Part("mobile") RequestBody phoneNo);
 
 

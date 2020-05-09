@@ -20,6 +20,11 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
@@ -59,7 +64,7 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Update Mobile Number");
+            getSupportActionBar().setTitle(getIntent().getStringExtra("title"));
         }
 
     }
@@ -109,12 +114,31 @@ public class ChanePhoneNumberActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();
                     if (response!=null && response.code()==200 && response.body()!=null) {
-                            Intent intent = new Intent(getApplicationContext(), ChangePhoneNumberOtypVarification.class);
-                            DnaPrefs.putString(getApplicationContext(), Constants.USERPHNUMBER, updatePhoneNumber);
-                            //DnaPrefs.putString(getApplicationContext(), Constants.USERID, userId);
-                            startActivity(intent);
-                            finish();
-                            Toast.makeText(getApplicationContext(), "Otp sent successfully", Toast.LENGTH_SHORT).show();
+                        try {
+                            String data = response.body().string();
+                            if (data.contains("\"status\":\"2\"")){
+
+                                JSONObject object = new JSONObject(data);
+                                Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+
+
+                            }else{
+                                Intent intent = new Intent(getApplicationContext(), ChangePhoneNumberOtypVarification.class);
+                                DnaPrefs.putString(getApplicationContext(), Constants.USERPHNUMBER, updatePhoneNumber);
+                                //DnaPrefs.putString(getApplicationContext(), Constants.USERID, userId);
+                                startActivity(intent);
+                                finish();
+                                Toast.makeText(getApplicationContext(), "Otp sent successfully", Toast.LENGTH_SHORT).show();
+                            }
+
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }
 
