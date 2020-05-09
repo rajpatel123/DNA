@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_rootView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/contentDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#fff"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_marginTop="3dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:layout_height="450dp">
+
+            <ImageView
+                android:id="@+id/ivImageZoom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/com_facebook_profile_picture_blank_square"
+
+                />
+            <ImageView
+                android:id="@+id/ivCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_close"
+                android:tint="#000"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

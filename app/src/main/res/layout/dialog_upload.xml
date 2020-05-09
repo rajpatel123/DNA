@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_rootView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/contentDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_no_padding"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_marginTop="3dp"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_close"
+                android:tint="#000"
+                />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Upload Photo"
+
+            android:textSize="@dimen/dp_14"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                android:background="@color/grew999"></View>
+            <TextView
+                android:id="@+id/btncamera"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:gravity="center"
+                android:visibility="visible"
+                android:layout_marginLeft="5dp"
+                android:textAllCaps="false"
+
+                android:text="Camera"
+                android:textSize="@dimen/dp_14" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="1dp"
+                android:background="@color/grew999"></View>
+            <TextView
+                android:id="@+id/btnGallery"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:padding="10dp"
+
+                android:textAllCaps="false"
+                android:text="Gallery"
+
+                android:textSize="14sp" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/grew999"></View>
+            <TextView
+                android:id="@+id/btnDocument"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:padding="10dp"
+
+                android:textAllCaps="false"
+                android:text="Document"
+
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

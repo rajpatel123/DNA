@@ -41,6 +41,9 @@ import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -93,6 +96,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String mToken = instanceIdResult.getToken();
+                Log.e("Token",mToken);
+                DnaPrefs.putString(getApplicationContext(), Constants.MTOKEN, mToken);
+            }
+        });
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -218,11 +231,11 @@ public class MainActivity extends AppCompatActivity
         tvEmail.setText(email);
         tvversion.setText(BuildConfig.VERSION_NAME);
         if (!TextUtils.isEmpty(image)) {
-            Picasso.with(this).load(image)
+            Picasso.with(getApplicationContext()).load(image)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
         } else {
-            Picasso.with(this)
+            Picasso.with(getApplicationContext())
                     .load(R.drawable.dnalogo)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);

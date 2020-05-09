@@ -206,6 +206,16 @@
             android:label="MCQ Bookmarks"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
+
+      <!--  <service
+            android:name="com.dnamedical.notification.LatestFirebaseMessagingService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+-->
+
         <activity
             android:name=".Activities.QbankStartTestActivity"
             android:label="Amino acid:Metabolism"
@@ -294,9 +304,9 @@
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
-        <activity
+        <!--<activity
             android:name=".Activities.VedioClassesActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name=".Activities.VerifyOTPActivity"
             android:screenOrientation="portrait" />
@@ -313,12 +323,12 @@
             android:name=".Activities.NeetPgActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"/>
-        <activity
+       <!-- <activity
             android:name=".Activities.ShoppingActivty"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LiveActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name=".Activities.DNAFacultyActivity"
             android:label="Faculty"
@@ -346,13 +356,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
 
-        <activity android:name=".Activities.DNASettingActivity" />
+       <!-- <activity android:name=".Activities.DNASettingActivity" />
         <activity
             android:name=".Activities.Noticeboard"
             android:label="Notice Board"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2" />-->
         <activity
             android:name=".Activities.DNAProfileActivity"
             android:label="Profile"

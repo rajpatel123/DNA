@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "579996763568",
-    "firebase_url": "https://dnaapp-c78bc.firebaseio.com",
-    "project_id": "dnaapp-c78bc",
-    "storage_bucket": "dnaapp-c78bc.appspot.com"
+    "project_number": "564596481080",
+    "firebase_url": "https://dna-classes-8f976.firebaseio.com",
+    "project_id": "dna-classes-8f976",
+    "storage_bucket": "dna-classes-8f976.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:579996763568:android:0df3870471d7e4eb",
+        "mobilesdk_app_id": "1:564596481080:android:0d9eca27a8780f3aa25acd",
         "android_client_info": {
           "package_name": "com.dnamedical"
         }
       },
       "oauth_client": [
         {
-          "client_id": "579996763568-tsgv7ulc972aojl5hje3k24ribrddsj2.apps.googleusercontent.com",
+          "client_id": "564596481080-oemfgee9q3i7v8cc7392fg20oqi712fh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.dnamedical",
-            "certificate_hash": "65d6addb5003b9c66f11e03d8eb72891c7101ad5"
+            "certificate_hash": "644b46334365262769e0a57215230ed85976389d"
           }
         },
         {
-          "client_id": "579996763568-3p5ptkm0vkeluaaas1j35gb6edhjgd60.apps.googleusercontent.com",
+          "client_id": "564596481080-ae7t51vbo70jjnrg12un3obdm33gb7ef.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAYYPkLAEOAqcXzdf2fLCenGUjjdqtaSqU"
+          "current_key": "AIzaSyDNJfCfph1ppn-ZCkg8mrI2wCnkLaZYVTQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "579996763568-3p5ptkm0vkeluaaas1j35gb6edhjgd60.apps.googleusercontent.com",
+              "client_id": "564596481080-ae7t51vbo70jjnrg12un3obdm33gb7ef.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

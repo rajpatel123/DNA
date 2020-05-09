@@ -34,7 +34,7 @@ public class FacultyChatChannelActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerViewChat;
-
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
     FacultyChannelAdapter facultyChatChannelActivity;
     private ArrayList<Chat> messageArrayList = new ArrayList();
@@ -51,6 +51,12 @@ public class FacultyChatChannelActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
         /*Intent ii = new Intent(getActivity(), FacultyChatActivity.class);
         startActivity(ii);*/
         getChatChannelList();
