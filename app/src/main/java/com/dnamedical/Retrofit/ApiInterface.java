@@ -385,16 +385,20 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=update_token")
     Call<UpdateToken> update_token(@Part("user_id") RequestBody user_id,
-                                   @Part("fcm_token") RequestBody fcm_token);
+                                   @Part("fcm_token") RequestBody fcm_token,@Part("faculty_id") RequestBody faculty_id);
 
 
     @Multipart
-    @POST("api/api.php?req=send_chat_message")
-    Call<GetChatHistoryResp> send_chat_message(@Part("channel_id") RequestBody channel_id,
+    @POST("api/api.php?req=send_chat_messages")
+    Call<GetChatHistoryResp> send_chat_message( @Part MultipartBody.Part file,  @Part("channel_id") RequestBody channel_id,
                                                @Part("user_id") RequestBody user_id,
                                                @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
 
-
+    @Multipart
+    @POST("api/api.php?req=send_chat_messages")
+    Call<GetChatHistoryResp> send_chat_messageText( @Part("channel_id") RequestBody channel_id,
+                                                @Part("user_id") RequestBody user_id,
+                                                @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
     @Multipart
     @POST("api/api.php?req=send_chat_message")
     Call<GetChatHistoryResp> getsend_chat_messagefaculty(@Part("channel_id") RequestBody channel_id,

@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
-        uploadToken();
+
         getCourse();
 
         llfaculty.setOnClickListener(new View.OnClickListener() {
@@ -106,10 +106,11 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         //  llfaculty.setVisibility(View.VISIBLE);
         String f_id = DnaPrefs.getString(getActivity(), Constants.f_id);
         if (f_id.trim().length() > 0) {
-
+            uploadToken(f_id);
             llfaculty.setVisibility(View.VISIBLE);
         } else {
             llfaculty.setVisibility(View.GONE);
+            uploadToken("");
         }
         return view;
 
@@ -260,32 +261,32 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
     String userId;
 
-    private void uploadToken() {
+    private void uploadToken(String f_id) {
 
         if (DnaPrefs.getBoolean(getActivity(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getActivity(), "fB_ID", 0));
         } else {
             userId = DnaPrefs.getString(getActivity(), Constants.LOGIN_ID);
         }
-           String tokennn = DnaPrefs.getString(mainActivity, "device_token");
 
-        Log.e("token", "::" + tokennn);
+        String tokennn= DnaPrefs.getString(getActivity(), Constants.MTOKEN);
 
-        if (TextUtils.isEmpty(tokennn)) {
-            return;
-        }
+        Log.e("MTOKENcsd","::"+tokennn);
+
+
         RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody token = RequestBody.create(MediaType.parse("text/plain"), tokennn);
+        RequestBody fff_id = RequestBody.create(MediaType.parse("text/plain"), f_id);
 
 
         if (Utils.isInternetConnected(getContext())) {
             //  Utils.showProgressDialog(getActivity());
-            RestClient.update_token(userId12, token, new Callback<UpdateToken>() {
+            RestClient.update_token(userId12, token,fff_id, new Callback<UpdateToken>() {
                 @Override
                 public void onResponse(Call<UpdateToken> call, Response<UpdateToken> response) {
                     if (response.code() == 200) {
                         // Utils.dismissProgressDialog();
-                        UpdateToken updateToken = response.body();
+                        UpdateToken  updateToken = response.body();
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         Log.e("updateToken Resp", gson.toJson(updateToken));
 

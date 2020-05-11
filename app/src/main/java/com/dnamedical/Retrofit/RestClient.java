@@ -519,9 +519,14 @@ public class RestClient {
 
 
 
-    public static void send_chat_message(RequestBody channel_id,RequestBody user_id,RequestBody message,RequestBody faculty_id, Callback<GetChatHistoryResp> callback) {
-        RetrofitClient.getClient().send_chat_message( channel_id, user_id,message,faculty_id).enqueue(callback);
+    public static void send_chat_message(MultipartBody.Part file,  RequestBody channel_id,RequestBody user_id,RequestBody message,RequestBody faculty_id, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().send_chat_message(file, channel_id, user_id,message,faculty_id).enqueue(callback);
     }
+
+    public static void send_chat_messageText(  RequestBody channel_id,RequestBody user_id,RequestBody message,RequestBody faculty_id, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().send_chat_messageText( channel_id, user_id,message,faculty_id).enqueue(callback);
+    }
+
 
     public static void send_chat_messagefaculty(RequestBody channel_id,RequestBody user_id,RequestBody message, Callback<GetChatHistoryResp> callback) {
         RetrofitClient.getClient().getsend_chat_messagefaculty( channel_id, user_id,message).enqueue(callback);
@@ -535,8 +540,8 @@ public class RestClient {
 
 
 
-    public static void update_token(RequestBody user_id,RequestBody fcm_token, Callback<UpdateToken> callback) {
-        RetrofitClient.getClient().update_token(user_id, fcm_token).enqueue(callback);
+    public static void update_token(RequestBody user_id,RequestBody fcm_token,RequestBody fccc_id, Callback<UpdateToken> callback) {
+        RetrofitClient.getClient().update_token(user_id, fcm_token,fccc_id).enqueue(callback);
     }
 
 

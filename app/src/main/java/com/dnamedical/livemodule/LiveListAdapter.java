@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,11 +73,13 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         holder.tvTime1.setText("" + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));
 
 
+
         Picasso.with(applicationContext).load(categoryDetailData.getChat().get(position).getDoctorImage())
                 .error(R.drawable.dnalogo)
                 .into(holder.thumbnail);
 
 
+        Log.e("Image",categoryDetailData.getChat().get(position).getDoctorImage());
         if (categoryDetailData.getChat().get(position).getPaid().equalsIgnoreCase("1")) {
             if (categoryDetailData.getChat().get(position).getPaidStatus() == 1) {
                 holder.buynow.setText("Watch Live");
@@ -128,13 +131,15 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
     private void playStream(int pos) {
         if (System.currentTimeMillis() < Long.parseLong(categoryDetailData.getChat().get(pos).getLiveStartedTime()) * 1000) {
             Toast.makeText(applicationContext, "Live streaming will be available from " + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(pos).getLiveStartedTime()) * 1000), Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
+           /* Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
             intent.putExtra("contentId", categoryDetailData.getChat().get(pos).getChannelId());
+            intent.putExtra("id", categoryDetailData.getChat().get(pos).getId());
             intent.putExtra("dr_name", categoryDetailData.getChat().get(pos).getDoctorName());
-            applicationContext.startActivity(intent);
+            applicationContext.startActivity(intent);*/
         } else {
             Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
             intent.putExtra("contentId", categoryDetailData.getChat().get(pos).getChannelId());
+            intent.putExtra("id", categoryDetailData.getChat().get(pos).getId());
             intent.putExtra("dr_name", categoryDetailData.getChat().get(pos).getDoctorName());
             applicationContext.startActivity(intent);
         }

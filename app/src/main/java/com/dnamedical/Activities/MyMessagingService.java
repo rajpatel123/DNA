@@ -9,18 +9,17 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.dnamedical.R;
-import com.dnamedical.utils.DnaPrefs;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import static com.facebook.AccessTokenManager.TAG;
 
 public class MyMessagingService extends FirebaseMessagingService {
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -29,11 +28,11 @@ public class MyMessagingService extends FirebaseMessagingService {
         sendNotification(remoteMessage.getNotification().getBody());
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.e(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Log.e(TAG, "Message data payload: " + remoteMessage.getData());
 
             sendNotification(remoteMessage.getNotification().getBody());
             if (true) {
@@ -48,9 +47,25 @@ public class MyMessagingService extends FirebaseMessagingService {
 
 // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             sendNotification(remoteMessage.getNotification().getBody());
 
+            String user_id = remoteMessage.getData().get("user_id");
+            String time = remoteMessage.getData().get("time");
+            String user_name = remoteMessage.getData().get("user_name");
+            String message = remoteMessage.getData().get("message");
+            String doctor_image = remoteMessage.getData().get("doctor_image");
+
+
+            Log.d("sender", "Broadcasting message");
+            Intent intent = new Intent("custom-event-name");
+            // You can also include some extra data.
+            intent.putExtra("message", message);
+            intent.putExtra("user_id", user_id);
+            intent.putExtra("time", time);
+            intent.putExtra("user_name", user_name);
+            intent.putExtra("doctor_image", doctor_image);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -60,8 +75,8 @@ public class MyMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        Toast.makeText(this, " Token:"+token, Toast.LENGTH_LONG).show();
-        DnaPrefs.putString(this, "device_token", token);
+        Log.e(TAG, "Refreshed token: " + token);
+
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedical.Models.get_chat_history.Chat;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.R;
@@ -52,19 +53,116 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
 
 
         if (messageArrayList.get(holder.getAdapterPosition()).getUserId().equalsIgnoreCase(userId)) {
-
+            Log.e("PrintFacID", "" + userId);
             holder.llRight.setVisibility(View.VISIBLE);
             holder.llLeft.setVisibility(View.GONE);
-            holder.message.setText(messageArrayList.get(holder.getAdapterPosition()).getMessage());
+
+            if (messageArrayList.get(holder.getAdapterPosition()).getDoctorImage().trim().length() == 0) {
+
+                holder.message.setVisibility(View.VISIBLE);
+                holder.message.setText(messageArrayList.get(holder.getAdapterPosition()).getMessage());
+                holder.ivImageRight.setVisibility(View.GONE);
+            } else {
+                holder.ivImageRight.setVisibility(View.VISIBLE);
+                Log.e("TestRight", "::" + messageArrayList.get(holder.getAdapterPosition()).getDoctorImage());
+                holder.message.setVisibility(View.GONE);
+             /*   Picasso.with(applicationContext)
+                        .load(messageArrayList.get(holder.getAdapterPosition()).getDoctorImage())
+                        .into(holder.ivImageRight);*/
+                Glide.with(applicationContext)
+                        .load(messageArrayList.get(holder.getAdapterPosition()).getDoctorImage())
+                        .into(holder.ivImageRight);
+            }
 
         } else {
             holder.llRight.setVisibility(View.GONE);
             holder.llLeft.setVisibility(View.VISIBLE);
-            holder.tvDoctName.setVisibility(View.VISIBLE);
-            holder.tvDoctName.setText(messageArrayList.get(holder.getAdapterPosition()).getUsername());
-            holder.messageLeft.setText(messageArrayList.get(holder.getAdapterPosition()).getMessage());
+            try {
+                holder.tvDoctName.setVisibility(View.VISIBLE);
+                holder.tvDoctName.setText(messageArrayList.get(holder.getAdapterPosition()).getUsername());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+
+            if (messageArrayList.get(position).getDoctorImage().trim().length() == 0) {
+                holder.ivImageLeft.setVisibility(View.GONE);
+                holder.messageLeft.setVisibility(View.VISIBLE);
+                holder.messageLeft.setText(messageArrayList.get(holder.getAdapterPosition()).getMessage());
+
+
+            } else {
+                holder.ivImageLeft.setVisibility(View.VISIBLE);
+                holder.messageLeft.setVisibility(View.GONE);
+                Log.e("TestLeft", "::" + messageArrayList.get(holder.getAdapterPosition()).getDoctorImage());
+              /*  Picasso.with(applicationContext)
+                        .load( messageArrayList.get(holder.getAdapterPosition()).getDoctorImage())
+                        .into(holder.ivImageLeft);*/
+            /*    Picasso.with(applicationContext).load(messageArrayList.get(position).getDoctorImage())
+                        .error(R.drawable.dnalogo)
+                        .into(holder.ivImageLeft);*/
+                Glide.with(applicationContext)
+                        .load(messageArrayList.get(holder.getAdapterPosition()).getDoctorImage())
+                        .into(holder.ivImageLeft);
+            }
         }
+
+        holder.ivImageRight.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                applicationContext.stophandler(false);
+
+
+                new AlertDialog.Builder(applicationContext)
+                        //.setTitle("Delete Chat text")
+                        .setMessage("Are you sure you want to delete this image?")
+
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                applicationContext.getDeleteChatMessage(messageArrayList.get(holder.getAdapterPosition()).getId());
+
+                                messageArrayList.remove(holder.getAdapterPosition());
+                                notifyDataSetChanged();
+
+                                applicationContext.stophandler(true);
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                applicationContext.stophandler(true);
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setCancelable(false)
+                        .show();
+                return false;
+            }
+        });
+
+
+        holder.ivImageLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                applicationContext.openChatPopUp(messageArrayList.get(holder.getAdapterPosition()).getDoctorImage());
+
+
+            }
+        });
+
+        holder.ivImageRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                applicationContext.openChatPopUp(messageArrayList.get(holder.getAdapterPosition()).getDoctorImage());
+
+
+            }
+        });
 
 
         holder.message.setOnLongClickListener(new View.OnLongClickListener() {
@@ -72,7 +170,6 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
             public boolean onLongClick(View v) {
 
                 applicationContext.stophandler(false);
-
 
 
                 new AlertDialog.Builder(applicationContext)
@@ -92,7 +189,7 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
                         })
 
                         // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(android.R.string.no,  new DialogInterface.OnClickListener() {
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 applicationContext.stophandler(true);
                             }
@@ -103,6 +200,7 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
                 return false;
             }
         });
+
 
     }
 
@@ -138,8 +236,11 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
         @BindView(R.id.tvDoctName)
         TextView tvDoctName;
 
-        @BindView(R.id.ivImage)
-        ImageView ivImage;
+        @BindView(R.id.ivImageLeft)
+        ImageView ivImageLeft;
+
+        @BindView(R.id.ivImageRight)
+        ImageView ivImageRight;
 
 
         View itemView;

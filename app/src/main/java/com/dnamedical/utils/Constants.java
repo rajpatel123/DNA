@@ -22,6 +22,8 @@ public class Constants {
     public static final String ADD_DISCOUNT = "additionalDiscount";
     public static final String MOBILE = "mobile";
     public static final String LOGIN_ID = "user_id";
+    public static final String MTOKEN = "MTOKEN";
+
 
     public static final String f_id = "f_id";
 
