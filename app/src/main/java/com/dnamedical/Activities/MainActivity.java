@@ -1,6 +1,7 @@
 package com.dnamedical.Activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.test.testp.TestDataResponse;
+import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.fragment.HomeFragment;
@@ -40,12 +42,15 @@ import com.dnamedical.fragment.QbankFragment;
 import com.dnamedical.fragment.TestFragment;
 import com.dnamedical.fragment.videoFragment;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.popup.EmailVerifyDialog;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -64,7 +69,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, EmailVerifyDialog.onEmailVerifyDialog {
     public LinearLayout tabBar;
     public TabLayout tabLayout;
     private Toolbar toolbar;
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity
     private videoFragment dashboardvideoFragment;
     private QbankFragment dashboardQbankFragment;
     private TestFragment dashboardTestFragment;
-   // private OnlineFragment dashboardOnlineFragment;
+    // private OnlineFragment dashboardOnlineFragment;
     private ViewPagerAdapter adapter;
     private TextView myDeviceTitle;
     private ImageView imgDeviceIcon;
@@ -91,18 +96,19 @@ public class MainActivity extends AppCompatActivity
     String name, image, email;
     TestDataResponse testDataResponse;
     private String userId;
-
+    Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+        ctx = this;
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String mToken = instanceIdResult.getToken();
-                Log.e("Token",mToken);
+                Log.e("Token", mToken);
                 DnaPrefs.putString(getApplicationContext(), Constants.MTOKEN, mToken);
             }
         });
@@ -266,7 +272,7 @@ public class MainActivity extends AppCompatActivity
         //  adapter.addFragment(dashboardvideoFragment, "Video");
         adapter.addFragment(dashboardQbankFragment, "Q Bank");
         adapter.addFragment(dashboardTestFragment, "Test");
-    //    adapter.addFragment(dashboardOnlineFragment, "Online");
+        //    adapter.addFragment(dashboardOnlineFragment, "Online");
 
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(pageChangeListener);
@@ -447,7 +453,7 @@ public class MainActivity extends AppCompatActivity
 
     private void logoutapiCall() {
 
-        if (Utils.isInternetConnected(this)){
+        if (Utils.isInternetConnected(this)) {
             Utils.isInternetConnected(this);
             RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
@@ -477,7 +483,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
             });
-        }else{
+        } else {
             Toast.makeText(MainActivity.this, "Please check internet connection!", Toast.LENGTH_LONG).show();
 
         }
@@ -528,6 +534,11 @@ public class MainActivity extends AppCompatActivity
         public void onPageScrollStateChanged(int arg0) {
         }
     };
+
+    @Override
+    public void emailverfy(String type) {
+        onVerifEmail(type);
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -610,24 +621,29 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     public void getProfileData() {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
+
+
             RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
-            RestClient.getProfileData(user_Id,new Callback<User>() {
+            RestClient.getProfileData(user_Id, new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     Utils.dismissProgressDialog();
                     if (response.code() == 200) {
                         User user = response.body();
-                        if (user!=null && user.getData()!=null){
-                            if (Integer.parseInt(user.getData().getMobileVerified())!=1){
+                        if (user != null && user.getData() != null) {
+                            if (Integer.parseInt(user.getData().getMobileVerified()) != 1) {
                                 Intent intent2 = new Intent(MainActivity.this, ChanePhoneNumberActivity.class);
                                 intent2.putExtra("title", "Verify Mobile Number");
 
                                 startActivity(intent2);
+                            } else if (Integer.parseInt(user.getData().getEmailVerified()) != 1) {
+
+                                new EmailVerifyDialog(ctx, MainActivity.this).show();
+
                             }
                             DNAApplication.getInstance().setUserData(user);
                         }
@@ -648,7 +664,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        }
+
 
         getProfileData();
         if (TextUtils.isEmpty(userId)) {
@@ -664,4 +685,67 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public void onVerifEmail(String email) {
+        if (Utils.isInternetConnected(this)) {
+            // Utils.showProgressDialog(this);
+            String userNamemm = DnaPrefs.getString(getApplicationContext(), Constants.NAME);
+
+            Log.e("Chaeck","::"+userNamemm);
+
+            Log.e("userId","::"+userId);
+            Log.e("email","::"+email);
+
+            RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+            RequestBody userName = RequestBody.create(MediaType.parse("text/plain"), "rak");
+            RequestBody email12 = RequestBody.create(MediaType.parse("text/plain"), email);
+
+
+            RestClient.verify_mail(email12, userName, userId12, new Callback<VerifyMailResp>() {
+                @Override
+                public void onResponse(Call<VerifyMailResp> call, Response<VerifyMailResp> response) {
+                    if (response.code() == 200) {
+                        //  Utils.dismissProgressDialog();
+
+                        try {
+
+
+                            VerifyMailResp verifyMailResp = response.body();
+                            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                            Log.e("verifyMailResp Resp", gson.toJson(verifyMailResp));
+
+                            if (verifyMailResp.getStatus()){
+
+                                Toast.makeText(getApplicationContext(),verifyMailResp.getMessage(),Toast.LENGTH_SHORT).show();
+
+                            }else {
+
+                                Toast.makeText(getApplicationContext(),verifyMailResp.getMessage(),Toast.LENGTH_SHORT).show();
+                                new EmailVerifyDialog(ctx, MainActivity.this).show();
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<VerifyMailResp> call, Throwable t) {
+                    //   Utils.dismissProgressDialog();
+
+                }
+            });
+
+
+        } else {
+            // Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
 }

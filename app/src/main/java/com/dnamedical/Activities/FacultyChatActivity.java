@@ -101,7 +101,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
         setContentView(R.layout.facultychatactivity);
         ButterKnife.bind(this);
         channelID = getIntent().getStringExtra("channelID");
-
+      String  channelName  = getIntent().getStringExtra("channelName");
         f_id = DnaPrefs.getString(getApplicationContext(), Constants.f_id);
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
@@ -109,7 +109,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
             userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
         isStoragePermissionGranted();
-        tvtitle.setText("Chat");
+        tvtitle.setText(channelName);
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -5,11 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -30,9 +32,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.ChatListAdapterLatest;
+import com.dnamedical.Models.chat_users_history.ChatUsersHistoryResp;
 import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.get_chat_history.Chat;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
@@ -43,6 +48,17 @@ import com.dnamedical.popup.UploadFileDialog;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
@@ -65,11 +81,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class LiveVideoActivity extends AppCompatActivity implements UploadFileDialog.onUploadFileDialog, FullScreenImagePopup.onFullScreenImagePopup {
+public class LiveVideoActivity extends AppCompatActivity implements UploadFileDialog.onUploadFileDialog, FullScreenImagePopup.onFullScreenImagePopup,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
     GetChatHistoryResp getChatHistory;
     private String liveVideoId = "C6CjT3ndhN0";
     @BindView(R.id.recycler_view)
     RecyclerView recyclerViewChat;
+    @BindView(R.id.tv_title)
+    TextView tvtitle;
+    @BindView(R.id.iv_back)
+    ImageView ivback;
 
     @BindView(R.id.btn_send)
     android.support.v7.widget.AppCompatImageButton btnSend;
@@ -85,6 +108,17 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     private List<String> imagePathList = new ArrayList<>();
     Context ctx;
     String channel = "C6CjT3ndhN0";
+    String lati, longi;
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private double currentLatitude;
+    private double currentLongitude;
+
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    String[] mPermission = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +134,53 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
+        try {
+            if (ActivityCompat.checkSelfPermission(this, mPermission[0])
+                    != getPackageManager().PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(this, mPermission[1])
+                            != getPackageManager().PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(this, mPermission[2])
+                            != getPackageManager().PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(this, mPermission[3])
+                            != getPackageManager().PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this,
+                        mPermission, REQUEST_CODE_PERMISSION);
+
+                // If any permission aboe not allowed by user, this condition will execute every tim, else your else part will work
+            }
+
+            Intent i = new
+                    Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        enableLoc();
+
 
         ctx = this;
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                // The next two lines tell the new client that “this” current class will handle connection stuff
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                //fourth line adds the LocationServices API endpoint from GooglePlayServices
+                .addApi(LocationServices.API)
+                .build();
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
+
         liveVideoId = getIntent().getStringExtra("id");
         isStoragePermissionGranted();
         channel = getIntent().getStringExtra("contentId");
+        String channelName = getIntent().getStringExtra("channelName");
+        tvtitle.setText(channelName);
         f_id = DnaPrefs.getString(getApplicationContext(), Constants.f_id);
         Log.e("Channel", "::" + channel);
 
@@ -137,9 +213,28 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
                 new UploadFileDialog(ctx, LiveVideoActivity.this).show();
             }
         });
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-event-name"));
+
+
+
     }
+
+    private void userUpdateTime(String status){
+
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+
+        userVerify(ts,status);
+
+    }
+
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -455,8 +550,9 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     @Override
     public void onResume() {
         super.onResume();
-
+        mGoogleApiClient.connect();
         starthandler();
+
       /*  Handler handler = new Handler();
 
         final Runnable r = new Runnable() {
@@ -475,6 +571,14 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     @Override
     protected void onPause() {
         super.onPause();
+        Log.v(this.getClass().getSimpleName(), "onPause()");
+
+        //Disconnect from API onPause()
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+        userUpdateTime("0");
         stophandler(false);
     }
 
@@ -485,7 +589,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
             public void run() {
 
                 if (condition) {
-                   //  getChatList();
+                    //  getChatList();
                 }
 
                 handler.postDelayed(this, 5000);
@@ -501,8 +605,6 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     }
 
     Boolean condition = true;
-
-
 
 
     private static final int PICK_FROM_GALLERY = 100;
@@ -791,17 +893,206 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
     }
 
-    public void openChatPopUp(String url){
+    public void openChatPopUp(String url) {
 
 
-        new FullScreenImagePopup(url,ctx, LiveVideoActivity.this).show();
+        new FullScreenImagePopup(url, ctx, LiveVideoActivity.this).show();
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         stophandler(false);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 
+    }
+
+
+    public void userVerify(String time,String status12) {
+        if (Utils.isInternetConnected(this)) {
+            Log.e("time","::"+time);
+            Log.e("lati","::"+lati);
+            Log.e("longi","::"+longi);
+            RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), liveVideoId);
+            RequestBody lat = RequestBody.create(MediaType.parse("text/plain"), lati);
+            RequestBody lng = RequestBody.create(MediaType.parse("text/plain"), longi);
+            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), status12);
+            RequestBody timestamp = RequestBody.create(MediaType.parse("text/plain"), time);
+            RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+
+            // Utils.showProgressDialog(this);
+            RestClient.chat_users_history(userId12, channelId, lat, lng, status, timestamp, new Callback<ChatUsersHistoryResp>() {
+                @Override
+                public void onResponse(Call<ChatUsersHistoryResp> call, Response<ChatUsersHistoryResp> response) {
+                    if (response.code() == 200) {
+                        //  Utils.dismissProgressDialog();
+
+                        try {
+
+
+                            ChatUsersHistoryResp chatUsersHistoryResp = response.body();
+                            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                            Log.e("chatUsersHistoryRes", gson.toJson(chatUsersHistoryResp));
+
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ChatUsersHistoryResp> call, Throwable t) {
+                    //   Utils.dismissProgressDialog();
+
+                }
+            });
+
+
+        } else {
+            // Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        try {
+
+
+            if (location == null) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+            } else {
+                //If everything went fine lets get latitude and longitude
+                currentLatitude = location.getLatitude();
+                currentLongitude = location.getLongitude();
+                lati = "" + currentLatitude;
+                longi = "" + currentLongitude;
+                userUpdateTime("1");
+               // Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onConnectionSuspended(int i) {
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        /*
+         * Google Play services can resolve some errors it detects.
+         * If the error has a resolution, try sending an Intent to
+         * start a Google Play services activity that can resolve
+         * error.
+         */
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                /*
+                 * Thrown if Google Play services canceled the original
+                 * PendingIntent
+                 */
+            } catch (IntentSender.SendIntentException e) {
+                // Log the error
+                e.printStackTrace();
+            }
+        } else {
+            /*
+             * If no resolution is available, display a dialog to the
+             * user with the error.
+             */
+            Log.e("Error", "Location services connection failed with code " + connectionResult.getErrorCode());
+        }
+    }
+
+    /**
+     * If locationChanges change lat and long
+     *
+     * @param location
+     */
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+
+        Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+    }
+
+    private GoogleApiClient googleApiClient;
+    final static int REQUEST_LOCATION = 199;
+
+    private void enableLoc() {
+
+        if (googleApiClient == null) {
+            googleApiClient = new GoogleApiClient.Builder(LiveVideoActivity.this)
+                    .addApi(LocationServices.API)
+                    .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                        @Override
+                        public void onConnected(Bundle bundle) {
+
+                        }
+
+                        @Override
+                        public void onConnectionSuspended(int i) {
+                            googleApiClient.connect();
+                        }
+                    })
+                    .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(ConnectionResult connectionResult) {
+
+                            Log.d("Location error", "Location error " + connectionResult.getErrorCode());
+                        }
+                    }).build();
+            googleApiClient.connect();
+        }
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(30 * 1000);
+        locationRequest.setFastestInterval(5 * 1000);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            status.startResolutionForResult(LiveVideoActivity.this, REQUEST_LOCATION);
+                        } catch (IntentSender.SendIntentException e) {
+                            // Ignore the error.
+                        }
+                        break;
+                }
+            }
+        });
     }
 }

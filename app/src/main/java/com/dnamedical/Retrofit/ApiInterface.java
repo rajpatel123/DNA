@@ -22,6 +22,7 @@ import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
+import com.dnamedical.Models.chat_users_history.ChatUsersHistoryResp;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.facebook.FacebookResponse;
@@ -62,6 +63,7 @@ import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
+import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
@@ -371,7 +373,15 @@ public interface ApiInterface {
     @GET("api/api.php")
     Call<DeletechatmessageResp> delete_chat_message(@Query("req") String req, @Query("id") String id);
 
+    @Multipart
+    @POST("api/api.php?req=verify_mail")
+    Call<VerifyMailResp> verify_mail(@Part("email") RequestBody email,
+                                     @Part("name") RequestBody name, @Part("user_id") RequestBody user_id);
 
+    @Multipart
+    @POST("api/api.php?req=chat_users_history")
+    Call<ChatUsersHistoryResp> chat_users_history(@Part("user_id") RequestBody user_id,
+                                                  @Part("channel_id") RequestBody channel_id, @Part("lat") RequestBody lat, @Part("lng") RequestBody lng, @Part("status") RequestBody status, @Part("timestamp") RequestBody timestamp);
 
 
     @GET("api/api.php")

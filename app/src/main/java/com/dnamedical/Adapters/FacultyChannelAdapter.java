@@ -78,6 +78,7 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
 
 
                 Intent ii = new Intent(v.getContext(), FacultyChatActivity.class);
+                ii.putExtra("channelName",messageArrayList.get(holder.getAdapterPosition()).getChannelName() );
                 ii.putExtra("channelID",messageArrayList.get(holder.getAdapterPosition()).getId() );
                 v.getContext().startActivity(ii);
             }

@@ -76,7 +76,14 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerVertical="true"
+            android:alpha="0.3"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo_with_title"
+            ></ImageView>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
