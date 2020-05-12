@@ -11,6 +11,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -70,6 +72,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -226,12 +229,12 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
     }
 
-    private void userUpdateTime(String status){
+    private void userUpdateTime(String status,  String state,String city, String country){
 
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
 
-        userVerify(ts,status);
+        userVerify(ts,status,state, city,country);
 
     }
 
@@ -578,7 +581,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
-        userUpdateTime("0");
+        userUpdateTime("0",state,city,country);
         stophandler(false);
     }
 
@@ -909,7 +912,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     }
 
 
-    public void userVerify(String time,String status12) {
+    public void userVerify(String time,String status12,String state,String city, String country) {
         if (Utils.isInternetConnected(this)) {
             Log.e("time","::"+time);
             Log.e("lati","::"+lati);
@@ -921,9 +924,15 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
             RequestBody timestamp = RequestBody.create(MediaType.parse("text/plain"), time);
             RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
 
+            RequestBody state1 = RequestBody.create(MediaType.parse("text/plain"), state);
+            RequestBody city1 = RequestBody.create(MediaType.parse("text/plain"), city);
+            RequestBody country1 = RequestBody.create(MediaType.parse("text/plain"), country);
+
+
+
 
             // Utils.showProgressDialog(this);
-            RestClient.chat_users_history(userId12, channelId, lat, lng, status, timestamp, new Callback<ChatUsersHistoryResp>() {
+            RestClient.chat_users_history(state1,city1,country1, userId12, channelId, lat, lng, status, timestamp, new Callback<ChatUsersHistoryResp>() {
                 @Override
                 public void onResponse(Call<ChatUsersHistoryResp> call, Response<ChatUsersHistoryResp> response) {
                     if (response.code() == 200) {
@@ -980,7 +989,13 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
                 currentLongitude = location.getLongitude();
                 lati = "" + currentLatitude;
                 longi = "" + currentLongitude;
-                userUpdateTime("1");
+
+
+
+
+               Log.e("Get address",""+getAddressFromLatLng(getApplicationContext(), location.getLatitude(),location.getLongitude()));
+
+                userUpdateTime("1",state,city,country);
                // Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
 
 
@@ -990,7 +1005,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         }
     }
 
-
+   String state="",city="",country="";
     @Override
     public void onConnectionSuspended(int i) {
     }
@@ -1094,5 +1109,24 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
                 }
             }
         });
+    }
+    public String getAddressFromLatLng(Context context, Double latitude,Double longitude ) {
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(context, Locale.getDefault());
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+            city =addresses.get(0).getLocality();
+
+            state =addresses.get(0).getAdminArea();
+
+            country =addresses.get(0).getCountryName();
+
+            return addresses.get(0).getAddressLine(0)+", "/*+addresses.get(0).getLocality()+", " + addresses.get(0).getSubLocality()+" "+addresses.get(0).getAdminArea()+", "+addresses.get(0).getCountryName()*/;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

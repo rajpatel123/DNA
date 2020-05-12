@@ -525,8 +525,8 @@ public class RestClient {
 
 
 
-    public static void chat_users_history  ( RequestBody user_id,RequestBody channel_id,RequestBody lat,RequestBody lng,RequestBody status,RequestBody timestamp, Callback<ChatUsersHistoryResp> callback) {
-        RetrofitClient.getClient().chat_users_history(user_id, channel_id,lat,lng,status,timestamp).enqueue(callback);
+    public static void chat_users_history  (RequestBody state1,RequestBody city1,RequestBody country1, RequestBody user_id,RequestBody channel_id,RequestBody lat,RequestBody lng,RequestBody status,RequestBody timestamp, Callback<ChatUsersHistoryResp> callback) {
+        RetrofitClient.getClient().chat_users_history(state1, city1,country1, user_id, channel_id,lat,lng,status,timestamp).enqueue(callback);
     }
 
 

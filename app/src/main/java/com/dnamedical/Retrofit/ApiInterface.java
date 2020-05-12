@@ -380,7 +380,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=chat_users_history")
-    Call<ChatUsersHistoryResp> chat_users_history(@Part("user_id") RequestBody user_id,
+    Call<ChatUsersHistoryResp> chat_users_history(@Part("state") RequestBody state,@Part("city") RequestBody city,@Part("country") RequestBody country,@Part("user_id") RequestBody user_id,
                                                   @Part("channel_id") RequestBody channel_id, @Part("lat") RequestBody lat, @Part("lng") RequestBody lng, @Part("status") RequestBody status, @Part("timestamp") RequestBody timestamp);
 
 
