@@ -18,6 +18,7 @@ import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -159,6 +160,8 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
 
     public void setData(LiveChannelData CourseLists) {
         this.categoryDetailData = CourseLists;
+        Collections.sort(this.categoryDetailData.getChat());
+
     }
 
 

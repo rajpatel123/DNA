@@ -56,6 +56,7 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
             Log.e("PrintFacID", "" + userId);
             holder.llRight.setVisibility(View.VISIBLE);
             holder.llLeft.setVisibility(View.GONE);
+            holder.messagerName.setText(messageArrayList.get(holder.getAdapterPosition()).getUsername());
 
             if (messageArrayList.get(holder.getAdapterPosition()).getDoctorImage().trim().length() == 0) {
 
@@ -235,6 +236,9 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
         TextView messageLeft;
         @BindView(R.id.tvDoctName)
         TextView tvDoctName;
+
+        @BindView(R.id.messagerName)
+        TextView messagerName;
 
         @BindView(R.id.ivImageLeft)
         ImageView ivImageLeft;

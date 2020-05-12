@@ -1,10 +1,13 @@
 
 package com.dnamedical.livemodule;
 
+import com.dnamedical.Models.test.testp.Test;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Chat {
+import java.util.Date;
+
+public class Chat  implements Comparable<Chat>{
 
     @SerializedName("id")
     @Expose
@@ -208,4 +211,11 @@ public class Chat {
         this.paidStatus = paidStatus;
     }
 
+    @Override
+    public int compareTo(Chat o) {
+        if (Long.parseLong(getLiveStartedTime()) == 0 || Long.parseLong(o.getLiveStartedTime()) == 0) {
+            return 0;
+        }
+        return new Date(Long.parseLong(getLiveStartedTime())).compareTo(new Date(Long.parseLong(o.getLiveStartedTime())));
+    }
 }
