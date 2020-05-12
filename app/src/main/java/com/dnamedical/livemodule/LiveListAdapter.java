@@ -141,6 +141,8 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
             Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
             intent.putExtra("contentId", categoryDetailData.getChat().get(pos).getChannelId());
             intent.putExtra("id", categoryDetailData.getChat().get(pos).getId());
+            intent.putExtra("channelName", categoryDetailData.getChat().get(pos).getChannelName());
+
             intent.putExtra("dr_name", categoryDetailData.getChat().get(pos).getDoctorName());
             applicationContext.startActivity(intent);
         }

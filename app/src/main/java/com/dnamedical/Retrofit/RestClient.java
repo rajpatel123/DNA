@@ -21,6 +21,7 @@ import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
+import com.dnamedical.Models.chat_users_history.ChatUsersHistoryResp;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
 import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.facebook.FacebookResponse;
@@ -61,6 +62,7 @@ import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
+import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
@@ -517,6 +519,15 @@ public class RestClient {
     }
 
 
+    public static void verify_mail( RequestBody email,RequestBody name,RequestBody user_id, Callback<VerifyMailResp> callback) {
+        RetrofitClient.getClient().verify_mail(email, name,user_id).enqueue(callback);
+    }
+
+
+
+    public static void chat_users_history  ( RequestBody user_id,RequestBody channel_id,RequestBody lat,RequestBody lng,RequestBody status,RequestBody timestamp, Callback<ChatUsersHistoryResp> callback) {
+        RetrofitClient.getClient().chat_users_history(user_id, channel_id,lat,lng,status,timestamp).enqueue(callback);
+    }
 
 
     public static void send_chat_message(MultipartBody.Part file,  RequestBody channel_id,RequestBody user_id,RequestBody message,RequestBody faculty_id, Callback<GetChatHistoryResp> callback) {

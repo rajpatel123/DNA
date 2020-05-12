@@ -94,8 +94,6 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
     private int GALLERY = 1, CAMERA = 2;
     private static final int STORAGE_PERMISSION_CODE = 123;
     private List<String> imagePathList = new ArrayList<>();
-    private String drName;
-    private String cName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +101,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
         setContentView(R.layout.facultychatactivity);
         ButterKnife.bind(this);
         channelID = getIntent().getStringExtra("channelID");
-        cName = getIntent().getStringExtra("cName");
-        drName = getIntent().getStringExtra("drName");
-        //Log.d("Name", cName);
-       // tvtitle.setText("" + cName);
+      String  channelName  = getIntent().getStringExtra("channelName");
         f_id = DnaPrefs.getString(getApplicationContext(), Constants.f_id);
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
@@ -114,7 +109,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
             userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         }
         isStoragePermissionGranted();
-        tvtitle.setText(cName);
+        tvtitle.setText(channelName);
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,7 +243,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
         inputMessage.setDoctorImage("");
         messageArrayList.add(inputMessage);
         onsetdapter();
-        //  chatListAdapter.notifyDataSetChanged();
+      //  chatListAdapter.notifyDataSetChanged();
         message.setText("");
         setChatMessagesendText(inputmessage);
 
@@ -257,7 +252,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
     private void onsetdapter() {
 
 
-        chatListAdapter = new ChatListAdapter(FacultyChatActivity.this, messageArrayList, drName);
+        chatListAdapter = new ChatListAdapter(FacultyChatActivity.this, messageArrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         recyclerViewChat.setLayoutManager(layoutManager);
@@ -356,7 +351,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
         } else {
             // Utils.dismissProgressDialog();
 
-            // Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -476,7 +471,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
         } else {
             Utils.dismissProgressDialog();
 
-            // Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
 
 
         }

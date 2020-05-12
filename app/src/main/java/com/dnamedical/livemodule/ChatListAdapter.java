@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,16 +26,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
-    private final String drName;
     private FacultyChatActivity applicationContext;
     private GetChatHistoryResp getChatHistoryResp;
     ChatListAdapter.OnCategoryClick onUserClickCallback;
     private ArrayList<Chat> messageArrayList;
 
-    public ChatListAdapter(FacultyChatActivity applicationContext, ArrayList<Chat> messageArrayList, String drName) {
+    public ChatListAdapter(FacultyChatActivity applicationContext, ArrayList<Chat> messageArrayList) {
         this.applicationContext = applicationContext;
         this.messageArrayList = messageArrayList;
-        this.drName = drName;
     }
 
     @Override
@@ -60,12 +57,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             Log.e("PrintFacID", "" + userId);
             holder.llRight.setVisibility(View.VISIBLE);
             holder.llLeft.setVisibility(View.GONE);
-            if (!TextUtils.isEmpty(messageArrayList.get(holder.getAdapterPosition()).getUsername())){
-                holder.messagerName.setText(messageArrayList.get(holder.getAdapterPosition()).getUsername());
-            }else{
-                holder.messagerName.setText(drName);
-
-            }
+            holder.tvUserName.setText(messageArrayList.get(holder.getAdapterPosition()).getUsername());
             if (messageArrayList.get(holder.getAdapterPosition()).getDoctorImage().trim().length() == 0) {
 
                 holder.message.setVisibility(View.VISIBLE);
@@ -243,8 +235,11 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         @BindView(R.id.tvDoctName)
         TextView tvDoctName;
 
-        @BindView(R.id.messagerName)
-        TextView messagerName;
+        @BindView(R.id.tvUserName)
+        TextView tvUserName;
+
+
+
         @BindView(R.id.ivImageLeft)
         ImageView ivImageLeft;
 
