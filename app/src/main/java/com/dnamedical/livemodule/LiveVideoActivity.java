@@ -39,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Adapters.ChatListAdapterLatest;
+import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.chat_users_history.ChatUsersHistoryResp;
 import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.get_chat_history.Chat;
@@ -108,7 +109,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     private int GALLERY = 1, CAMERA = 2;
     private List<String> imagePathList = new ArrayList<>();
     Context ctx;
-    String channel = "C6CjT3ndhN0";
+    String channelKey = "";
     String lati, longi;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
@@ -120,6 +121,8 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     String[] mPermission = {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private long joiningTime;
+    private Chanel chanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,32 +131,32 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         setContentView(R.layout.activity_live_video);
         ButterKnife.bind(this);
 
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-//        getWindow().addFlags(
-//                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-//                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-//                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-//                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
+        if (getIntent().hasExtra("chanel")){
+            chanel= getIntent().getParcelableExtra("chanel");
+        }
+        joiningTime = System.currentTimeMillis();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         try {
             if (ActivityCompat.checkSelfPermission(this, mPermission[0])
                     != getPackageManager().PERMISSION_GRANTED ||
                     ActivityCompat.checkSelfPermission(this, mPermission[1])
-                            != getPackageManager().PERMISSION_GRANTED ||
-                    ActivityCompat.checkSelfPermission(this, mPermission[2])
-                            != getPackageManager().PERMISSION_GRANTED ||
-                    ActivityCompat.checkSelfPermission(this, mPermission[3])
-                            != getPackageManager().PERMISSION_GRANTED) {
-
+                            != getPackageManager().PERMISSION_GRANTED ) {
                 ActivityCompat.requestPermissions(this,
                         mPermission, REQUEST_CODE_PERMISSION);
 
                 // If any permission aboe not allowed by user, this condition will execute every tim, else your else part will work
             }
 
-            Intent i = new
-                    Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(i);
+//            Intent i = new
+//                    Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//            startActivity(i);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -179,10 +182,10 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
         liveVideoId = getIntent().getStringExtra("id");
         isStoragePermissionGranted();
-        channel = getIntent().getStringExtra("contentId");
+        channelKey = chanel.getChannelId();
         String channelName = getIntent().getStringExtra("channelName");
         f_id = DnaPrefs.getString(getApplicationContext(), Constants.f_id);
-        Log.e("Channel", "::" + channel);
+        Log.e("Channel", "::" + channelKey);
 
         initYouTubePlayerView();
 
@@ -226,7 +229,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
 
-        //userVerify(ts,status,state, city,country);
+        userVerify(ts,status,state, city,country);
 
     }
 
@@ -245,7 +248,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
             String doctor_image = intent.getStringExtra("doctor_image");
 
 
-            Chat inputMessage = new com.dnamedical.Models.get_chat_history.Chat();
+            Chat inputMessage = new Chat();
             inputMessage.setMessage(message);
             inputMessage.setUserId(user_id);
             inputMessage.setUsername(user_name);
@@ -267,7 +270,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         final String inputmessage = this.message.getText().toString().trim();
 
 
-        Chat inputMessage = new com.dnamedical.Models.get_chat_history.Chat();
+        Chat inputMessage = new Chat();
         inputMessage.setMessage(inputmessage);
         inputMessage.setUserId(userId);
         inputMessage.setUsername("");
@@ -303,7 +306,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    youTubePlayer.loadVideo(channel, 0f);
+                    youTubePlayer.loadVideo(channelKey, 0f);
                 }
             });
         }, true);
@@ -380,7 +383,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     private void getChatList() {
         if (Utils.isInternetConnected(this)) {
             // Utils.showProgressDialog(this);
-            RestClient.getchathistory("get_chat_historys", liveVideoId, userId, "", new Callback<GetChatHistoryResp>() {
+            RestClient.getchathistory("get_chat_historys", chanel.getId(), userId, "", new Callback<GetChatHistoryResp>() {
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {
@@ -417,7 +420,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
                 @Override
                 public void onFailure(Call<GetChatHistoryResp> call, Throwable t) {
-                    //  Utils.dismissProgressDialog();
+                     Utils.dismissProgressDialog();
 
                 }
             });
@@ -434,7 +437,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
     private void setChatMessageText(String message11) {
 
-        RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), liveVideoId);
+        RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), chanel.getChannelId());
         RequestBody message = RequestBody.create(MediaType.parse("text/plain"), message11);
         RequestBody facultyID = RequestBody.create(MediaType.parse("text/plain"), "");
         RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
@@ -546,19 +549,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     public void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
-        starthandler();
 
-      /*  Handler handler = new Handler();
-
-        final Runnable r = new Runnable() {
-            public void run() {
-                getChatList();
-                handler.postDelayed(this, 5000);
-            }
-        };
-
-        handler.postDelayed(r, 5000);*/
-        stophandler(true);
     }
 
     Handler handler = new Handler();
@@ -574,32 +565,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
             mGoogleApiClient.disconnect();
         }
         userUpdateTime("0",state,city,country);
-        stophandler(false);
     }
-
-    public void starthandler() {
-        Handler handler = new Handler();
-
-        final Runnable r = new Runnable() {
-            public void run() {
-
-                if (condition) {
-                    //  getChatList();
-                }
-
-                handler.postDelayed(this, 5000);
-            }
-        };
-
-        handler.postDelayed(r, 5000);
-
-    }
-
-    public void stophandler(Boolean status) {
-        condition = status;
-    }
-
-    Boolean condition = true;
 
 
     private static final int PICK_FROM_GALLERY = 100;
@@ -898,7 +864,6 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stophandler(false);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 
     }
@@ -906,25 +871,44 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
     public void userVerify(String time,String status12,String state,String city, String country) {
         if (Utils.isInternetConnected(this)) {
-            Log.e("time","::"+time);
-            Log.e("lati","::"+lati);
-            Log.e("longi","::"+longi);
-            RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), liveVideoId);
-            RequestBody lat = RequestBody.create(MediaType.parse("text/plain"), lati);
-            RequestBody lng = RequestBody.create(MediaType.parse("text/plain"), longi);
-            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), status12);
-            RequestBody timestamp = RequestBody.create(MediaType.parse("text/plain"), time);
-            RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
 
-            RequestBody state1 = RequestBody.create(MediaType.parse("text/plain"), state);
-            RequestBody city1 = RequestBody.create(MediaType.parse("text/plain"), city);
-            RequestBody country1 = RequestBody.create(MediaType.parse("text/plain"), country);
+
+            Log.e("cID","::"+chanel.getId());
+            Log.e("cID","::"+chanel.getLiveStartedTime());
+            Log.e("cID","::"+joiningTime);
+            Log.e("cID","::"+System.currentTimeMillis());
+            Log.e("userId","::"+userId);
+            Log.e("getFaculty_id","::"+chanel.getFaculty_id());
+            Log.e("getDoctorName","::"+chanel.getDoctorName());
+            Log.e("state","::"+state);
+            Log.e("city","::"+city);
+            Log.e("country","::"+country);
+            Log.e("status12","::"+status12);
+            Log.e("mobile","::"+DNAApplication.getInstance().getUserData().getData().getMobileNo());
+            Log.e("email","::"+DNAApplication.getInstance().getUserData().getData().getEmailId());
+
+            RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), chanel.getId());
+            RequestBody date = RequestBody.create(MediaType.parse("text/plain"), ""+chanel.getLiveStartedTime());
+            RequestBody join_time = RequestBody.create(MediaType.parse("text/plain"), ""+joiningTime);
+            RequestBody leaving_Time = RequestBody.create(MediaType.parse("text/plain"), ""+System.currentTimeMillis());
+            RequestBody batch = RequestBody.create(MediaType.parse("text/plain"),chanel.getBatchname() );
+            RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+            RequestBody educator = RequestBody.create(MediaType.parse("text/plain"), chanel.getFaculty_id());
+            RequestBody educatorName = RequestBody.create(MediaType.parse("text/plain"), chanel.getDoctorName());
+            RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), DNAApplication.getInstance().getUserData().getData().getEmailId());
+            RequestBody mobileBody = RequestBody.create(MediaType.parse("text/plain"), DNAApplication.getInstance().getUserData().getData().getMobileNo() );
+            RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), city);
+            RequestBody stateBody = RequestBody.create(MediaType.parse("text/plain"), state);
+            RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), country);
+            RequestBody statusBody = RequestBody.create(MediaType.parse("text/plain"), status12);
+            RequestBody chaneleName = RequestBody.create(MediaType.parse("text/plain"), chanel.getCategoryname());
 
 
 
 
             // Utils.showProgressDialog(this);
-            RestClient.chat_users_history(state1,city1,country1, userId12, channelId, lat, lng, status, timestamp, new Callback<ChatUsersHistoryResp>() {
+            RestClient.chat_users_history(channelId,date,join_time, userId12, leaving_Time,
+                    batch, educator, educatorName, emailBody,mobileBody,cityBody,stateBody,countryBody,statusBody,chaneleName, new Callback<ChatUsersHistoryResp>() {
                 @Override
                 public void onResponse(Call<ChatUsersHistoryResp> call, Response<ChatUsersHistoryResp> response) {
                     if (response.code() == 200) {
@@ -1041,7 +1025,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
 
-        Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
     }
 
     private GoogleApiClient googleApiClient;

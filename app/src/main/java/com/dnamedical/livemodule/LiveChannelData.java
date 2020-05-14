@@ -1,11 +1,14 @@
 
 package com.dnamedical.livemodule;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LiveChannelData {
+public class LiveChannelData implements Parcelable {
 
     @SerializedName("status")
     @Expose
@@ -15,7 +18,24 @@ public class LiveChannelData {
     private String message;
     @SerializedName("chat")
     @Expose
-    private List<Chat> chat = null;
+    private List<Chanel> chat = null;
+
+    protected LiveChannelData(Parcel in) {
+        status = in.readString();
+        message = in.readString();
+    }
+
+    public static final Creator<LiveChannelData> CREATOR = new Creator<LiveChannelData>() {
+        @Override
+        public LiveChannelData createFromParcel(Parcel in) {
+            return new LiveChannelData(in);
+        }
+
+        @Override
+        public LiveChannelData[] newArray(int size) {
+            return new LiveChannelData[size];
+        }
+    };
 
     public String getStatus() {
         return status;
@@ -33,12 +53,22 @@ public class LiveChannelData {
         this.message = message;
     }
 
-    public List<Chat> getChat() {
+    public List<Chanel> getChat() {
         return chat;
     }
 
-    public void setChat(List<Chat> chat) {
+    public void setChat(List<Chanel> chat) {
         this.chat = chat;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(status);
+        dest.writeString(message);
+    }
 }

@@ -33,6 +33,10 @@ public class LoginDetail {
     @Expose
     private String f_id;
 
+    @SerializedName("login_token")
+    @Expose
+    private String login_token;
+
     public String getF_id() {
         return f_id;
     }
@@ -60,6 +64,14 @@ public class LoginDetail {
     @SerializedName("institute_id")
     @Expose
     private String institute_id;
+
+    public String getLogin_token() {
+        return login_token;
+    }
+
+    public void setLogin_token(String login_token) {
+        this.login_token = login_token;
+    }
 
 
     @SerializedName("institute_name")

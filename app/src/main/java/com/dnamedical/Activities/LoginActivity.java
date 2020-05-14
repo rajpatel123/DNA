@@ -164,6 +164,8 @@ public class LoginActivity extends AppCompatActivity {
                             String state = loginResponse.getLoginDetails().get(0).getState();
                             String college = loginResponse.getLoginDetails().get(0).getCollege();
                             String username = loginResponse.getLoginDetails().get(0).getName();
+                            String login_token = loginResponse.getLoginDetails().get(0).getLogin_token();
+                            DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_TOKEN,login_token);
 
                             DnaPrefs.putString(getApplicationContext(), Constants.f_id, loginResponse.getLoginDetails().get(0).getF_id());
                             DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_ID, id);
@@ -171,6 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                             DnaPrefs.putString(getApplicationContext(), "STATE", state);
                             DnaPrefs.putString(getApplicationContext(), "COLLEGE", college);
                             DnaPrefs.putString(getApplicationContext(), Constants.MOBILE, loginResponse.getLoginDetails().get(0).getMobileNo());
+
 
 
                             if (!TextUtils.isEmpty(loginResponse.getLoginDetails().get(0).getInstitute_id())) {
@@ -296,6 +299,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                                 }
+
+                                                String login_token = facebookLoginResponse.getLoginDetails().get(0).getLogin_token();
+                                                DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_TOKEN,login_token);
 
                                                 DnaPrefs.putString(getApplicationContext(), "EMAIL", facebookLoginResponse.getLoginDetails().get(0).getEmailId());
                                                 DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);

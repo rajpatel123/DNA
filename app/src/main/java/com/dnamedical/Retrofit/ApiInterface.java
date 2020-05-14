@@ -4,6 +4,7 @@ import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
+import com.dnamedical.Models.LoginCheckResponse;
 import com.dnamedical.Models.LoginDetailForDemo;
 import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.PromoVideo;
@@ -379,9 +380,25 @@ public interface ApiInterface {
                                      @Part("name") RequestBody name, @Part("user_id") RequestBody user_id);
 
     @Multipart
-    @POST("api/api.php?req=chat_users_history")
-    Call<ChatUsersHistoryResp> chat_users_history(@Part("state") RequestBody state,@Part("city") RequestBody city,@Part("country") RequestBody country,@Part("user_id") RequestBody user_id,
-                                                  @Part("channel_id") RequestBody channel_id, @Part("lat") RequestBody lat, @Part("lng") RequestBody lng, @Part("status") RequestBody status, @Part("timestamp") RequestBody timestamp);
+    @POST("api/api.php?req=chat_channel_eta")
+    Call<ChatUsersHistoryResp> chat_users_history(
+            @Part("channel_id") RequestBody channel_id,
+            @Part("data_time") RequestBody date,
+            @Part("join_time") RequestBody join_time,
+            @Part("user_id") RequestBody userId12,
+            @Part("leave_time") RequestBody leaving_Time,
+            @Part("batch") RequestBody user_id,
+            @Part("faculty_id") RequestBody educator,
+            @Part("educator") RequestBody educatorName,
+            @Part("email") RequestBody emailBody,
+            @Part("mobile") RequestBody mobileBody,
+            @Part("city") RequestBody cityBody,
+            @Part("state") RequestBody stateBody,
+            @Part("country") RequestBody countryBody,
+            @Part("status") RequestBody status,
+            @Part("channel_name") RequestBody channel_name
+
+    );
 
 
     @GET("api/api.php")
@@ -395,20 +412,21 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=update_token")
     Call<UpdateToken> update_token(@Part("user_id") RequestBody user_id,
-                                   @Part("fcm_token") RequestBody fcm_token,@Part("faculty_id") RequestBody faculty_id);
+                                   @Part("fcm_token") RequestBody fcm_token, @Part("faculty_id") RequestBody faculty_id);
 
 
     @Multipart
     @POST("api/api.php?req=send_chat_messages")
-    Call<GetChatHistoryResp> send_chat_message( @Part MultipartBody.Part file,  @Part("channel_id") RequestBody channel_id,
+    Call<GetChatHistoryResp> send_chat_message(@Part MultipartBody.Part file, @Part("channel_id") RequestBody channel_id,
                                                @Part("user_id") RequestBody user_id,
                                                @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
 
     @Multipart
     @POST("api/api.php?req=send_chat_messages")
-    Call<GetChatHistoryResp> send_chat_messageText( @Part("channel_id") RequestBody channel_id,
-                                                @Part("user_id") RequestBody user_id,
-                                                @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
+    Call<GetChatHistoryResp> send_chat_messageText(@Part("channel_id") RequestBody channel_id,
+                                                   @Part("user_id") RequestBody user_id,
+                                                   @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
+
     @Multipart
     @POST("api/api.php?req=send_chat_message")
     Call<GetChatHistoryResp> getsend_chat_messagefaculty(@Part("channel_id") RequestBody channel_id,
@@ -707,11 +725,11 @@ public interface ApiInterface {
                                          @Part("mobile") RequestBody phoneNo);
 
 
- // Change phone No
+    // Change phone No
     @Multipart
     @POST("api/api.php?req=franchise_otp")
     Call<ResponseBody> sendOTPFrenchise(@Part("name") RequestBody name,
-                                         @Part("mobile") RequestBody phoneNo);
+                                        @Part("mobile") RequestBody phoneNo);
 
 
     // Change phone No
@@ -738,11 +756,14 @@ public interface ApiInterface {
     Call<LogoutResponse> logout(@Part("userId") RequestBody user_id);
 
 
-
-
     @Multipart
     @POST("api/api.php?req=get_profile_data")
     Call<User> getProfileData(@Part("user_id") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=check_login_token")
+    Call<LoginCheckResponse> checkLogin(@Part("user_id") RequestBody user_id, @Part("login_token") RequestBody token);
 
 
     @Multipart

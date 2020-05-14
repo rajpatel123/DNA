@@ -111,7 +111,6 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
             @Override
             public boolean onLongClick(View v) {
 
-                applicationContext.stophandler(false);
 
 
                 new AlertDialog.Builder(applicationContext)
@@ -126,14 +125,12 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
                                 messageArrayList.remove(holder.getAdapterPosition());
                                 notifyDataSetChanged();
 
-                                applicationContext.stophandler(true);
                             }
                         })
 
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                applicationContext.stophandler(true);
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -169,7 +166,6 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
             @Override
             public boolean onLongClick(View v) {
 
-                applicationContext.stophandler(false);
 
 
                 new AlertDialog.Builder(applicationContext)
@@ -184,14 +180,12 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
                                 messageArrayList.remove(holder.getAdapterPosition());
                                 notifyDataSetChanged();
 
-                                applicationContext.stophandler(true);
                             }
                         })
 
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                applicationContext.stophandler(true);
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)

@@ -1,6 +1,9 @@
 
 package com.dnamedical.Models.get_chat_history;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -29,6 +32,9 @@ public class Chat {
     @SerializedName("id")
     @Expose
     private String id;
+
+
+
 
     public String getId() {
         return id;
@@ -85,5 +91,6 @@ public class Chat {
     public void setDoctorImage(String doctorImage) {
         this.doctorImage = doctorImage;
     }
+
 
 }

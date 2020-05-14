@@ -2,6 +2,7 @@ package com.dnamedical.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 
 import com.dnamedical.BuildConfig;
 import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.LoginCheckResponse;
 import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.test.testp.TestDataResponse;
@@ -660,6 +662,36 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void getLoginCheck() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+
+
+            RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
+            RequestBody login_token =  RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_TOKEN));
+
+            RestClient.checkLogin(user_Id, login_token,new Callback<LoginCheckResponse>() {
+                @Override
+                public void onResponse(Call<LoginCheckResponse> call, Response<LoginCheckResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        LoginCheckResponse loginCheckResponse = response.body();
+                        if (loginCheckResponse.getStatus().equalsIgnoreCase("2")){
+                            showLoginfailedDialog(loginCheckResponse.getMessage());
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginCheckResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -672,6 +704,7 @@ public class MainActivity extends AppCompatActivity
 
 
         getProfileData();
+        getLoginCheck();
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
             Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
@@ -748,4 +781,25 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+
+    private void showLoginfailedDialog(String message) {
+        new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+                .setTitle("Multiple login detected")
+                .setMessage(message)
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        logoutapiCall();
+                        dialog.dismiss();
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
 }

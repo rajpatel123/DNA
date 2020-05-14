@@ -135,7 +135,6 @@ dependencies {
     implementation project(path: ':pinentryedittext')
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation project(path: ':library')
-    implementation project(path: ':theoplayer-android')
     implementation 'com.commit451:PhotoView:1.2.4'
 }
 repositories {

@@ -143,10 +143,6 @@
 
 
         <activity
-            android:name=".livemodule.LiveChannelPlayer"
-            android:label="DNA Live"
-            android:theme="@style/AppTheme5" />
-        <activity
             android:name=".Activities.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity

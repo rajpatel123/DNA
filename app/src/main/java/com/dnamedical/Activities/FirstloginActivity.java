@@ -214,6 +214,9 @@ public class FirstloginActivity extends AppCompatActivity {
                                                         DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, "");
 
                                                     }
+
+                                                    String login_token = facebookLoginResponse.getLoginDetails().get(0).getLogin_token();
+                                                    DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_TOKEN,login_token);
                                                     DnaPrefs.putString(getApplicationContext(), "EMAIL", facebookLoginResponse.getLoginDetails().get(0).getEmailId());
                                                     DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                                                     DnaPrefs.putString(getApplicationContext(), "STATE", facebookLoginResponse.getLoginDetails().get(0).getState());
