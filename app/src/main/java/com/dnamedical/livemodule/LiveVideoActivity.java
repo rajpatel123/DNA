@@ -226,7 +226,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
 
-        userVerify(ts,status,state, city,country);
+        //userVerify(ts,status,state, city,country);
 
     }
 
