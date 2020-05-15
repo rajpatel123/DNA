@@ -123,6 +123,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private long joiningTime;
     private Chanel chanel;
+    String ChannelId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +135,9 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
         if (getIntent().hasExtra("chanel")){
             chanel= getIntent().getParcelableExtra("chanel");
+
         }
+
         joiningTime = System.currentTimeMillis();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         getWindow().addFlags(
@@ -183,7 +186,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         liveVideoId = getIntent().getStringExtra("id");
         isStoragePermissionGranted();
         channelKey = chanel.getChannelId();
-        String channelName = getIntent().getStringExtra("channelName");
+      //  String channelName = getIntent().getStringExtra("channelName");
         f_id = DnaPrefs.getString(getApplicationContext(), Constants.f_id);
         Log.e("Channel", "::" + channelKey);
 
@@ -277,7 +280,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         inputMessage.setTime("");
         inputMessage.setDoctorImage("");
         messageArrayList.add(inputMessage);
-        onsetdapter();
+       // onsetdapter();
         setChatMessageText(inputmessage);
         message.setText("");
 
@@ -383,7 +386,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     private void getChatList() {
         if (Utils.isInternetConnected(this)) {
             // Utils.showProgressDialog(this);
-            RestClient.getchathistory("get_chat_historys", chanel.getId(), userId, "", new Callback<GetChatHistoryResp>() {
+            RestClient.getchathistory("get_chat_historys", liveVideoId, userId, "", new Callback<GetChatHistoryResp>() {
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {
@@ -420,7 +423,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
                 @Override
                 public void onFailure(Call<GetChatHistoryResp> call, Throwable t) {
-                     Utils.dismissProgressDialog();
+                    //  Utils.dismissProgressDialog();
 
                 }
             });
@@ -435,15 +438,18 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         }
     }
 
+
     private void setChatMessageText(String message11) {
 
-        RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), chanel.getChannelId());
+
+        RequestBody channelId = RequestBody.create(MediaType.parse("text/plain"), liveVideoId);
         RequestBody message = RequestBody.create(MediaType.parse("text/plain"), message11);
         RequestBody facultyID = RequestBody.create(MediaType.parse("text/plain"), "");
         RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
         if (Utils.isInternetConnected(this)) {
             //  Utils.showProgressDialog(this);
             RestClient.send_chat_messageText(channelId, userId12, message, facultyID, new Callback<GetChatHistoryResp>() {
+
                 @Override
                 public void onResponse(Call<GetChatHistoryResp> call, Response<GetChatHistoryResp> response) {
                     if (response.code() == 200) {

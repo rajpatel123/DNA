@@ -8,6 +8,7 @@ public class Constants {
     public static final String EMAILID ="emailid" ;
     public static final String LoginCheck ="logincheck" ;
     public static final String Resultsubmit ="resultsubmit" ;
+    public static final String DoctorName ="DoctorName" ;
 
     public static final String UN_ATTEMPTED ="UnAttempted" ;
     public static final String ATTEMPTED ="Attempted" ;

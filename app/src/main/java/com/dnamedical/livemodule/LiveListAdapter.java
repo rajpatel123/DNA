@@ -140,7 +140,7 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         } else {
             Intent intent = new Intent(applicationContext, LiveVideoActivity.class);
             intent.putExtra("chanel", categoryDetailData.getChat().get(pos));
-
+            intent.putExtra("id", categoryDetailData.getChat().get(pos).getId());
             applicationContext.startActivity(intent);
         }
 

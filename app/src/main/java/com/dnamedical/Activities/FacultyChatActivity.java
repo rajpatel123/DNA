@@ -88,7 +88,7 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
     EditText message;
     ChatListAdapter chatListAdapter;
     private ArrayList<Chat> messageArrayList = new ArrayList();
-    String channelID;
+    String channelID,DoctorName;
     String f_id, userId;
     Boolean condition = false;
     private int GALLERY = 1, CAMERA = 2;
@@ -101,6 +101,9 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
         setContentView(R.layout.facultychatactivity);
         ButterKnife.bind(this);
         channelID = getIntent().getStringExtra("channelID");
+        DoctorName = getIntent().getStringExtra("drName");
+
+        DnaPrefs.putString(getApplicationContext(), Constants.DoctorName, DoctorName);
       String  channelName  = getIntent().getStringExtra("channelName");
         f_id = DnaPrefs.getString(getApplicationContext(), Constants.f_id);
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
@@ -237,13 +240,13 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
 
         Chat inputMessage = new com.dnamedical.Models.get_chat_history.Chat();
         inputMessage.setMessage(inputmessage);
-        inputMessage.setUserId(f_id);
-        inputMessage.setUsername("");
+        inputMessage.setUserId(DnaPrefs.getString(getApplicationContext(), Constants.f_id));
+        inputMessage.setUsername(DoctorName);
         inputMessage.setTime("");
         inputMessage.setDoctorImage("");
         messageArrayList.add(inputMessage);
         onsetdapter();
-      //  chatListAdapter.notifyDataSetChanged();
+        chatListAdapter.notifyDataSetChanged();
         message.setText("");
         setChatMessagesendText(inputmessage);
 

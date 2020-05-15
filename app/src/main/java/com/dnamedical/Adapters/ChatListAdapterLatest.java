@@ -162,7 +162,7 @@ public class ChatListAdapterLatest extends RecyclerView.Adapter<ChatListAdapterL
         });
 
 
-        holder.message.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.llRight.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 

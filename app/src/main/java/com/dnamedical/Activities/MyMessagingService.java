@@ -25,7 +25,7 @@ public class MyMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...
 
-        sendNotification(remoteMessage.getNotification().getBody());
+        /*sendNotification(remoteMessage.getNotification().getBody());
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.e(TAG, "From: " + remoteMessage.getFrom());
@@ -43,12 +43,12 @@ public class MyMessagingService extends FirebaseMessagingService {
             }
 
 
-        }
+        }*/
 
 // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            sendNotification(remoteMessage.getNotification().getBody());
+           // sendNotification(remoteMessage.getNotification().getBody());
 
             String user_id = remoteMessage.getData().get("user_id");
             String time = remoteMessage.getData().get("time");

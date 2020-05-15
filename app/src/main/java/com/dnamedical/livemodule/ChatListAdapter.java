@@ -57,7 +57,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             Log.e("PrintFacID", "" + userId);
             holder.llRight.setVisibility(View.VISIBLE);
             holder.llLeft.setVisibility(View.GONE);
-            holder.tvUserName.setText(messageArrayList.get(holder.getAdapterPosition()).getUsername());
+            holder.tvUserName.setText(DnaPrefs.getString(applicationContext, Constants.DoctorName));
             if (messageArrayList.get(holder.getAdapterPosition()).getDoctorImage().trim().length() == 0) {
 
                 holder.message.setVisibility(View.VISIBLE);
@@ -164,7 +164,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             }
         });
 
-        holder.message.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.llRight.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
