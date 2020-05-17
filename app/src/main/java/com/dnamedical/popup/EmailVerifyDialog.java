@@ -66,7 +66,7 @@ public class EmailVerifyDialog extends Dialog {
             else {
 
                 onEmailVerifyDialog.emailverfy(etemail.getText().toString());
-                EmailVerifyDialog.this.dismiss();
+                dismiss();
             }
 
 

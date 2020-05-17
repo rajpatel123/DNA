@@ -115,10 +115,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getProfileData();
 
         navigationView = findViewById(R.id.nav_view);
         getAdditionalDiscount();
@@ -696,14 +702,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
-        } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-        }
 
 
-        getProfileData();
         getLoginCheck();
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
@@ -729,7 +729,7 @@ public class MainActivity extends AppCompatActivity
             Log.e("email","::"+email);
 
             RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
-            RequestBody userName = RequestBody.create(MediaType.parse("text/plain"), "rak");
+            RequestBody userName = RequestBody.create(MediaType.parse("text/plain"), "APP");
             RequestBody email12 = RequestBody.create(MediaType.parse("text/plain"), email);
 
 
@@ -740,21 +740,10 @@ public class MainActivity extends AppCompatActivity
                         //  Utils.dismissProgressDialog();
 
                         try {
-
-
                             VerifyMailResp verifyMailResp = response.body();
                             Gson gson = new GsonBuilder().setPrettyPrinting().create();
                             Log.e("verifyMailResp Resp", gson.toJson(verifyMailResp));
-
-                            if (verifyMailResp.getStatus()){
-
-                                Toast.makeText(getApplicationContext(),verifyMailResp.getMessage(),Toast.LENGTH_SHORT).show();
-
-                            }else {
-
-                                Toast.makeText(getApplicationContext(),verifyMailResp.getMessage(),Toast.LENGTH_SHORT).show();
-                                new EmailVerifyDialog(ctx, MainActivity.this).show();
-                            }
+                            Toast.makeText(getApplicationContext(),verifyMailResp.getMessage(),Toast.LENGTH_SHORT).show();
 
 
                         } catch (Exception e) {
