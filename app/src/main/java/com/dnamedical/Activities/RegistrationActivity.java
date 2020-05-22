@@ -922,7 +922,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                                         intent.putExtra("user_id", response.body().getUser_id());
                                         startActivity(intent);
                                         finish();
-                                    } else {
+                                     } else {
                                         Utils.displayToast(getApplicationContext(), response.body().getMessage());
 
                                     }
@@ -951,7 +951,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                         Utils.dismissProgressDialog();
                         if (response.body() != null) {
                             if (response.body().getStatus().equalsIgnoreCase("true")) {
-                                Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                                Utils.displayToast(getApplicationContext(), "Successfully registered");
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                 intent.putExtra("mobile", "");
                                 intent.putExtra("user_id", response.body().getUpdateDetail().get(0).getId());

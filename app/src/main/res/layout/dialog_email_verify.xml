@@ -70,16 +70,15 @@
             <TextView
                 android:id="@+id/btnGallery"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
-                android:gravity="right"
+                android:gravity="left"
                 android:textColor="@color/vedio_text_color"
                 android:padding="10dp"
-                android:text="* The verification link will be send on email"
+                android:text="* Email id must be valid as the verification link will be send on email"
                 android:textAllCaps="false"
-
                 android:textSize="14sp" />
 
     <Button
