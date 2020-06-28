@@ -248,7 +248,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
             options.put("currency", "INR");
-            options.put("amount", 1 * 100);
+            options.put("amount", orderValue * 100);
             //options.put("amount", 1*100);
             options.put("order_id", orderId);
             //options.put("amount", 100);
@@ -290,7 +290,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + 1 * 100);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
         RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), "" + 123);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "video");
@@ -306,7 +306,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
                     if (response.body() != null) {
                         CreateOrderResponse createOrderResponse = response.body();
                         if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
-                            if ((1 * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
                                 startPayment(createOrderResponse.getData().getOrderId());
                             }
                         }
@@ -434,7 +434,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), "" + totalValue);
         RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
         RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"), shippingCharge);
-        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + 1);
+        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
 
 
         if (Utils.isInternetConnected(this)) {

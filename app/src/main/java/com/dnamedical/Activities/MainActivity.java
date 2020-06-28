@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Crashlytics.getInstance().crash(); // Force a crash
+        //Crashlytics.getInstance().crash(); // Force a crash
         setContentView(R.layout.activity_main);
         ctx = this;
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {

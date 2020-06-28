@@ -246,7 +246,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
 
             options.put("currency", "INR");
-            options.put("amount", 1 * 100);
+            options.put("amount", orderValue * 100);
             //options.put("amount", 1*100);
             options.put("order_id", orderId);
             //options.put("amount", 100);
@@ -288,7 +288,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + 1 * 100);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
         RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), id);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "live");
@@ -308,7 +308,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
 
                         if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
-                            if ((1 * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
 
                                 createOrderID=createOrderResponse.getData().getOrderId();
                                 startPayment(createOrderResponse.getData().getOrderId());
