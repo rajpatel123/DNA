@@ -42,7 +42,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="8dp"
             android:paddingTop="3dp"
-            android:text="dnahelpgroup@gmail.com"
+            android:text="support@dnamedicalapp.com"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

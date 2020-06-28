@@ -106,7 +106,7 @@ public class PromoActivity extends AppCompatActivity {
 //
 //                } else {
 //                    if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
-//                        Intent i = new Intent(PromoActivity.this, MainActivity.class);
+//                        Intent i = new Intent(PromoActivity.this, LiveChannelPlayer.class);
 //                        startActivity(i);
 //                        // close this activity
 //                        finish();
@@ -125,7 +125,7 @@ public class PromoActivity extends AppCompatActivity {
 //            public void onFailure(Call<PromoVideo> call, Throwable t) {
 //                Utils.dismissProgressDialog();
 //                if (DnaPrefs.getBoolean(PromoActivity.this, Constants.LoginCheck)) {
-//                    Intent i = new Intent(PromoActivity.this, MainActivity.class);
+//                    Intent i = new Intent(PromoActivity.this, LiveChannelPlayer.class);
 //                    startActivity(i);
 //                    // close this activity
 //                    finish();

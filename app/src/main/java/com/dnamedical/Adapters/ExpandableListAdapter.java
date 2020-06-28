@@ -108,6 +108,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 Intent intent=new Intent(context,VideoActivity.class);
                 intent.putExtra("SubCategoryName",subSubChild.getSubChildName());
                 intent.putExtra("subCatId",subSubChild.getId());
+                DnaPrefs.putString(context,"is_full"+subSubChild.getSubChildName(),subSubChild.getIsFull());
+                DnaPrefs.putString(context,"admin_discount",subSubChild.getAdmin_discount());
                 intent.putExtra("discountonfullpurchase",80);
                 DnaPrefs.putString(context, Constants.SUB_CAT_ID,subSubChild.getId());
 

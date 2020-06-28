@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,25 +21,32 @@ import com.dnamedical.Activities.AllInstituteActivity;
 import com.dnamedical.Activities.CategoryModulesActivity;
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Activities.DNASuscribeActivity;
+import com.dnamedical.Activities.FacultyChatChannelActivity;
 import com.dnamedical.Activities.FranchiActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Adapters.CourseListAdapter;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
 import com.dnamedical.Models.maincat.SubCat;
+import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.livemodule.LiveOnliveClassListActity;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +56,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
     @BindView(R.id.noInternet)
     TextView textInternet;
+    @BindView(R.id.llfaculty)
+    LinearLayout llfaculty;
 
     MainActivity mainActivity;
     @BindView(R.id.recyclerView)
@@ -81,7 +91,27 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
+
         getCourse();
+
+        llfaculty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent ii = new Intent(getActivity(), FacultyChatChannelActivity.class);
+                startActivity(ii);
+
+            }
+        });
+        //  llfaculty.setVisibility(View.VISIBLE);
+        String f_id = DnaPrefs.getString(getActivity(), Constants.f_id);
+        if (f_id.trim().length() > 0) {
+            uploadToken(f_id);
+            llfaculty.setVisibility(View.VISIBLE);
+        } else {
+            llfaculty.setVisibility(View.GONE);
+            uploadToken("");
+        }
         return view;
 
     }
@@ -133,12 +163,15 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                             };
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setVisibility(View.VISIBLE);
+
+
                         } else {
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.VISIBLE);
                             // noInternet.setText(getString(R.string.no_project));
                             recyclerView.setVisibility(View.GONE);
                             textInternet.setVisibility(View.VISIBLE);
+                            llfaculty.setVisibility(View.GONE);
 
                         }
                     } else {
@@ -185,6 +218,11 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("12")) {
             Intent intent = new Intent(getActivity(), FranchiActivity.class);
             getActivity().startActivity(intent);
+        } else if (!TextUtils.isEmpty(id) && id.equalsIgnoreCase("5")) {
+            Intent intent = new Intent(getActivity(), LiveOnliveClassListActity.class);
+            intent.putExtra("catData", new Gson().toJson(categoryDetailData));
+            intent.putExtra("catId", id);
+            getActivity().startActivity(intent);
         } else {
 //            Intent intent = new Intent(getActivity(), NeetPgActivity.class);
 //            intent.putExtra("catData", new Gson().toJson(categoryDetailData));
@@ -192,6 +230,11 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 //            DnaPrefs.putString(mainActivity,Constants.CAT_ID,id);
 //            getActivity().startActivity(intent);
 
+            if (id.equalsIgnoreCase("1")) {
+                Constants.IS_NEET = true;
+            } else {
+                Constants.IS_NEET = false;
+            }
 
             Intent intent = new Intent(getActivity(), CategoryModulesActivity.class);
             intent.putExtra("catData", new Gson().toJson(categoryDetailData));
@@ -207,12 +250,63 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public void onInstituteClick(String name) {
         Intent intent = new Intent(mainActivity, AllInstituteActivity.class);
         intent.putExtra(Constants.ISDAILY_TEST, false);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         DnaPrefs.putBoolean(mainActivity, Constants.FROM_INSTITUTE, true);
 
-        Constants.ISTEST=true;
+        Constants.ISTEST = true;
 
         startActivity(intent);
 
     }
+
+    String userId;
+
+    private void uploadToken(String f_id) {
+
+        if (DnaPrefs.getBoolean(getActivity(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getActivity(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getActivity(), Constants.LOGIN_ID);
+        }
+
+        String tokennn= DnaPrefs.getString(getActivity(), Constants.MTOKEN);
+
+        Log.e("MTOKENcsd","::"+tokennn);
+
+
+        RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+        RequestBody token = RequestBody.create(MediaType.parse("text/plain"), tokennn);
+        RequestBody fff_id = RequestBody.create(MediaType.parse("text/plain"), f_id);
+
+
+        if (Utils.isInternetConnected(getContext())) {
+            //  Utils.showProgressDialog(getActivity());
+            RestClient.update_token(userId12, token,fff_id, new Callback<UpdateToken>() {
+                @Override
+                public void onResponse(Call<UpdateToken> call, Response<UpdateToken> response) {
+                    if (response.code() == 200) {
+                        // Utils.dismissProgressDialog();
+                        UpdateToken  updateToken = response.body();
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Log.e("updateToken Resp", gson.toJson(updateToken));
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UpdateToken> call, Throwable t) {
+                    //     Utils.dismissProgressDialog();
+
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            textInternet.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+
 }

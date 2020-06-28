@@ -1,25 +1,37 @@
 package com.dnamedical.Activities;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,11 +43,11 @@ public class FranchiActivity extends AppCompatActivity {
 
     private CheckBox canCall;
     private Spinner amountToInvest;
-    String username1, email, mobile, comment1="NA", whatsppNumbertxt, pCitytxt, pStatetxt, pAddresstxt, pLandmarktxt, pPincodetxt,
+    String username1, email, mobile, comment1 = "NA", whatsppNumbertxt, pCitytxt, pStatetxt, pAddresstxt, pLandmarktxt, pPincodetxt,
             collegaeFrenchisetxt, cMedicalCollegaetxt, sMedicalCollegetxt, pinMedicalCollegetxt;
 
     private Button btnSubmit;
-    private String amountToInveststr="select how much you can invest yearly";
+    private String amountToInveststr = "select how much you can invest yearly";
     private String canCallStr;
 
     @Override
@@ -78,8 +90,9 @@ public class FranchiActivity extends AppCompatActivity {
         amountToInvest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                amountToInveststr =getResources().getStringArray(R.array.amounttobeinvested)[position];
+                amountToInveststr = getResources().getStringArray(R.array.amounttobeinvested)[position];
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -180,7 +193,7 @@ public class FranchiActivity extends AppCompatActivity {
 
         collegaeFrenchisetxt = collegaeFrenchise.getText().toString().trim();
 
-        if (TextUtils.isEmpty(collegaeFrenchisetxt) ) {
+        if (TextUtils.isEmpty(collegaeFrenchisetxt)) {
             collegaeFrenchise.setError(getString(R.string.clgname));
             Utils.displayToast(getApplicationContext(), getString(R.string.clgname));
             return;
@@ -188,14 +201,14 @@ public class FranchiActivity extends AppCompatActivity {
 
         cMedicalCollegaetxt = cMedicalCollegae.getText().toString().trim();
 
-        if (TextUtils.isEmpty(cMedicalCollegaetxt) ) {
+        if (TextUtils.isEmpty(cMedicalCollegaetxt)) {
             cMedicalCollegae.setError(getString(R.string.medicalclg));
             Utils.displayToast(getApplicationContext(), getString(R.string.medicalclg));
             return;
         }
 
         sMedicalCollegetxt = sMedicalCollege.getText().toString().trim();
-        if (TextUtils.isEmpty(sMedicalCollegetxt) ) {
+        if (TextUtils.isEmpty(sMedicalCollegetxt)) {
             sMedicalCollege.setError(getString(R.string.smedicalcollege));
             Utils.displayToast(getApplicationContext(), getString(R.string.smedicalcollege));
             return;
@@ -215,10 +228,10 @@ public class FranchiActivity extends AppCompatActivity {
             return;
         }
 
-        if (canCall.isChecked()){
+        if (canCall.isChecked()) {
             canCallStr = "Yes";
-        }else{
-            canCallStr = "Yes";
+        } else {
+            canCallStr = "No";
 
         }
 
@@ -243,6 +256,145 @@ public class FranchiActivity extends AppCompatActivity {
             }
         }*/
 
+        sendOtp();
+
+    }
+
+
+    private void sendOtp() {
+        Utils.showProgressDialog(this);
+
+        RequestBody name = RequestBody.create(MediaType.parse("text/plane"), username1);
+        RequestBody phoneNo = RequestBody.create(MediaType.parse("text/plane"), mobile);
+
+        RestClient.sendOTPFrenchise(name, phoneNo, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Utils.dismissProgressDialog();
+                if (response != null && response.code() == 200 && response.body() != null) {
+                    Toast.makeText(getApplicationContext(), "OTP sent on your mobile number", Toast.LENGTH_SHORT).show();
+//                    SubmitQueryWithOTPActivity.start(FranchiActivity.this,username1,email,mobile,whatsppNumbertxt,pCitytxt,
+//                            pStatetxt,pAddresstxt,pLandmarktxt,pPincodetxt,collegaeFrenchisetxt,cMedicalCollegaetxt,sMedicalCollegetxt,pinMedicalCollegetxt,
+//                            amountToInveststr,canCallStr,comment1);
+                             verifyOTPDialog();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            finish();
+        } else if (resultCode == RESULT_CANCELED) {
+            return;
+
+        }
+
+
+    }
+
+
+    public void verifyOTPDialog() {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_change_phone_number_otyp_varification, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+
+        PinEntryEditText printVerifyPin = dialogView.findViewById(R.id.prntEdtChangePhoneOtp);
+        ImageView crossBtn = dialogView.findViewById(R.id.crossBtn);
+        Button btnOtpVerify = dialogView.findViewById(R.id.btnVerify);
+        TextView resendOtp = dialogView.findViewById(R.id.resend);
+        TextView changeNumber = dialogView.findViewById(R.id.changeNumber);
+        TextView mobileNumber = dialogView.findViewById(R.id.mobileNumber);
+        TextView resendTimer = dialogView.findViewById(R.id.resendTimer);
+
+
+        CountDownTimer countDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String text =
+                        "<font color=#565656>OTP Valid for:</font> <font color=#80272525>" + TimeUnit.MILLISECONDS.toSeconds(
+                                millisUntilFinished
+                        ) + "</font>";
+                resendTimer.setText(Html.fromHtml(text));
+                resendTimer.setVisibility(View.VISIBLE);
+
+
+            }
+
+            @Override
+            public void onFinish() {
+                resendOtp.setAlpha(1);
+                resendOtp.setEnabled(true);
+                resendTimer.setVisibility(View.GONE);
+
+            }
+        }.start();
+        crossBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countDownTimer.cancel();
+                dialog.dismiss();
+            }
+        });
+
+        mobileNumber.setText(""+mobile);
+        resendOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countDownTimer.start();
+                sendOtp();
+                dialog.dismiss();
+
+            }
+        });
+
+        changeNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countDownTimer.cancel();
+              dialog.dismiss();
+            }
+        });
+        btnOtpVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(printVerifyPin.getText().toString())){
+                    dialog.dismiss();
+                    countDownTimer.cancel();
+
+                    submitFrenchiesQuery(printVerifyPin.getText().toString());
+                }else{
+                    Toast.makeText(FranchiActivity.this, "Please enter otp!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        dialog.show();
+
+    }
+
+
+    private void submitFrenchiesQuery(String otp) {
+        RequestBody Otp = RequestBody.create(MediaType.parse("text/plane"), otp);
 
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"), username1);
         RequestBody usermail = RequestBody.create(MediaType.parse("text/plain"), email);
@@ -268,16 +420,16 @@ public class FranchiActivity extends AppCompatActivity {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
             RestClient.franchiesRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress,
-                    pLandmark, pPincode, collegaeFrenchise, cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,amount,canCallfromdna,
+                    pLandmark, pPincode, collegaeFrenchise, cMedicalCollegae, sMedicalCollege,
+                    pinMedicalCollege, comment, amount, canCallfromdna, Otp,
                     new Callback<FranchiesResponse>() {
                         @Override
                         public void onResponse(Call<FranchiesResponse> call, Response<FranchiesResponse> response) {
                             Utils.dismissProgressDialog();
-                            if (response.body() != null) {
-
-                                if (response.body().getStatus().equalsIgnoreCase("1")) {
-                                    Toast.makeText(FranchiActivity.this, "Successfully Send", Toast.LENGTH_SHORT).show();
-                                }
+                            if (response.code() == 200 && response.body() != null) {
+                                Toast.makeText(FranchiActivity.this, "Query submitted Successfully", Toast.LENGTH_SHORT).show();
+                                Intent data = new Intent();
+                                setResult(RESULT_OK, data);
                                 finish();
                             }
                         }
@@ -285,8 +437,8 @@ public class FranchiActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<FranchiesResponse> call, Throwable t) {
                             Utils.dismissProgressDialog();
-                            Toast.makeText(FranchiActivity.this, "Query submitted successfully", Toast.LENGTH_SHORT).show();
                             finish();
+                            //Toast.makeText(FranchiActivity.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -295,4 +447,6 @@ public class FranchiActivity extends AppCompatActivity {
             Toast.makeText(this, " Internet Connection Failed!!!", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

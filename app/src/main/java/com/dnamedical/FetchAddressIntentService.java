@@ -61,7 +61,7 @@ public class FetchAddressIntentService extends IntentService {
     /**
      * Tries to get the location address using a Geocoder. If successful, sends an address to a
      * result receiver. If unsuccessful, sends an error message instead.
-     * Note: We define a {@link ResultReceiver} in * MainActivity to process content
+     * Note: We define a {@link ResultReceiver} in * LiveChannelPlayer to process content
      * sent from this service.
      * <p>
      * This service calls this method from the default worker thread with the intent that started

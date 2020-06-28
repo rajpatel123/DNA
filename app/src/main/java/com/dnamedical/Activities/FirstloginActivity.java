@@ -91,11 +91,11 @@ public class FirstloginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginwithFb();
 
-        if (ContextCompat.checkSelfPermission(FirstloginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
-
-        }
+//        if (ContextCompat.checkSelfPermission(FirstloginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+//                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+//
+//        }
 
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +214,9 @@ public class FirstloginActivity extends AppCompatActivity {
                                                         DnaPrefs.putString(getApplicationContext(), Constants.INST_IMAGE, "");
 
                                                     }
+
+                                                    String login_token = facebookLoginResponse.getLoginDetails().get(0).getLogin_token();
+                                                    DnaPrefs.putString(getApplicationContext(), Constants.LOGIN_TOKEN,login_token);
                                                     DnaPrefs.putString(getApplicationContext(), "EMAIL", facebookLoginResponse.getLoginDetails().get(0).getEmailId());
                                                     DnaPrefs.putBoolean(getApplicationContext(), "isFacebook", false);
                                                     DnaPrefs.putString(getApplicationContext(), "STATE", facebookLoginResponse.getLoginDetails().get(0).getState());

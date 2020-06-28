@@ -161,18 +161,15 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
 
     public void showTest() {
 
-
         if (activity instanceof ModuleTestActivity) {
             mainActivity = (ModuleTestActivity) activity;
             if (mainActivity != null && mainActivity.getGrandTests() != null && mainActivity.getGrandTests().size() > 0) {
                 grandTest = mainActivity.getGrandTests();
-
             }
         } else {
             instituteTestActivity = (InstituteTestActivity) activity;
             if (instituteTestActivity != null && instituteTestActivity.getGrandTests() != null && instituteTestActivity.getGrandTests().size() > 0) {
                 grandTest = instituteTestActivity.getGrandTests();
-
             }
         }
 
@@ -187,9 +184,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
             recyclerView.setAdapter(testAdapter);
             recyclerView.setVisibility(View.VISIBLE);
             notext.setVisibility(View.GONE);
-
-
-            // noInternet.setVisibility(View.GONE);
+            //noInternet.setVisibility(View.GONE);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()) {
                 @Override
                 public boolean canScrollVertically() {

@@ -417,9 +417,9 @@ public class ResultActivity extends AppCompatActivity {
 
 
         subject.setText(" SUBJECT ");
-        rightAnswer.setText(" Correct(+4) ");
+        rightAnswer.setText(" Correct(+"+testResult.getData().getCorrectAnswerMark()+") ");
 
-        wrongAnswer.setText(" Incorrect(-1) ");
+        wrongAnswer.setText(" Incorrect(-"+testResult.getData().getWrongAnswerMark()+") ");
 
         skipped.setText("Skipped");
         score.setText(" Score  ");
@@ -474,12 +474,14 @@ public class ResultActivity extends AppCompatActivity {
             subjectTv.setPadding(5, 0, 15, 5);
             subjectTv.setMaxLines(3);
             subjectTv.setTextSize(14f);
-            subjectTv.setMaxWidth(300);
+            subjectTv.setMaxWidth(200);
             rightAnswerTv.setPadding(5, 0, 5, 5);
             skippedTv.setPadding(0, 0, 5, 5);
             wrongAnswerTv.setPadding(5, 0, 5, 5);
             scoreTv.setPadding(5, 0, 5, 5);
-
+            subjectTv.setSingleLine(false);
+            subjectTv.setEllipsize(TextUtils.TruncateAt.END);
+            subjectTv.setLines(1);
             if (!TextUtils.isEmpty(scoreAnalysi.get(i).getCategoryName())){
                 if (scoreAnalysi.get(i).getCategoryName().contains("MICROBIOLOGY")) {
                     subjectTv.setText("MICRO");
@@ -522,6 +524,9 @@ public class ResultActivity extends AppCompatActivity {
 
                 } else if (scoreAnalysi.get(i).getCategoryName().contains("ANESTHESIA")) {
                     subjectTv.setText("ANESTH");
+
+                }else if (scoreAnalysi.get(i).getCategoryName().contains("ENDOCRINOLOGY")) {
+                    subjectTv.setText("ENDOCRINO");
 
                 } else {
                     subjectTv.setText("" + scoreAnalysi.get(i).getCategoryName());

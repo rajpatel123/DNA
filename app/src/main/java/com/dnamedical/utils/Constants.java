@@ -8,6 +8,7 @@ public class Constants {
     public static final String EMAILID ="emailid" ;
     public static final String LoginCheck ="logincheck" ;
     public static final String Resultsubmit ="resultsubmit" ;
+    public static final String DoctorName ="DoctorName" ;
 
     public static final String UN_ATTEMPTED ="UnAttempted" ;
     public static final String ATTEMPTED ="Attempted" ;
@@ -17,11 +18,16 @@ public class Constants {
     //kuishiufifigrygr
 
 
-    public static final int CAPTURE_IMAGE =209 ;
+    public static final int CAPTURE_IMAGE =209;
     public static final String SOFT_UPGRADE_SKIP = "soft_upgrade_skip";
     public static final String ADD_DISCOUNT = "additionalDiscount";
     public static final String MOBILE = "mobile";
     public static final String LOGIN_ID = "user_id";
+    public static final String MTOKEN = "MTOKEN";
+
+
+    public static final String f_id = "f_id";
+
     public static final String CAT_ID = "cat_id";
     public static final String SUB_CAT_ID = "sub_cat_id";
     public static final String FB_ID = "fb_id";
@@ -58,6 +64,13 @@ public class Constants {
     public static final String ISDAILY_TEST = "isDailytest";
     public static final String MODULE_ID ="module_id" ;
     public static final String MODULE_NAME = "module_name";
+    public static final String TEST_ID = "test_id";
+    public static final String MODULE ="module" ;
+    public static final String LOGIN_TOKEN = "login_token";
+    public static final String REFERL_COUPN = "REFERAL_COUPAN";
+    public static final String REFERL_COUPN_ID = "REFERAL_COUPAN_ID";
+    public static final String REFERL_COUPN_VALUE_FOR = "REFERAL_COUPAN_FOR";
+    public static  boolean IS_NEET = false;
     public static final String PAUSE_POSITION = "cPosition";
     public static  boolean ISTEST = false;
 }

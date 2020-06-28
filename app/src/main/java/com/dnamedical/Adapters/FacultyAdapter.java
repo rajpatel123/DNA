@@ -53,7 +53,7 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
 */
         Picasso.with(context)
                 .load(faculty.getFImage())
-                .error(R.drawable.profile_pictures)
+                .error(R.drawable.dnalogo)
                 .into(holder.facultyImage, new Callback() {
                     @Override
                     public void onSuccess() {

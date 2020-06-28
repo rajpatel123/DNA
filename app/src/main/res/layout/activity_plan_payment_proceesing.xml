@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/packCard"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="15sp"
                 android:padding="@dimen/margin_5"
                 app:cardUseCompatPadding="true">
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/priceCard"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="15sp"
                 android:padding="@dimen/margin_5"
                 app:cardUseCompatPadding="true">
@@ -215,11 +215,79 @@
 
             </android.support.v7.widget.CardView>
 
+            <LinearLayout
+                android:id="@+id/havePromo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/payment_txt_design"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_below="@id/discountCard"
+
+                android:padding="@dimen/dp_10">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+
+                        android:id="@+id/coupanLl"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Have Promo code?" />
+
+                        <EditText
+                            android:id="@+id/coupanCodeEdt"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:cursorVisible="true"
+                            android:hint="Enter Code"
+                            android:padding="@dimen/dp_5"
+                            android:inputType="textCapWords"
+                            android:background="@drawable/payment_txt_design"
+
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/applyNowReferal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:text="Apply"
+                        android:textStyle="bold"
+                        android:textColor="@color/orange"
+                        android:visibility="visible"/>
+
+                    <ImageView
+                        android:id="@+id/crossBtnReferl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/cross_icn"
+                        android:visibility="gone"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        />
+                </RelativeLayout>
+
+            </LinearLayout>
+
             <android.support.v7.widget.CardView
                 android:id="@+id/planPriceDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/discountCard"
+                android:layout_below="@+id/havePromo"
                 android:layout_marginLeft="15sp"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_marginRight="15sp"

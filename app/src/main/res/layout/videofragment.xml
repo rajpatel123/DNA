@@ -133,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
-                        app:srcCompat="@drawable/chemistry" />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -183,7 +183,7 @@
                         android:layout_height="64dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/phycology" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -229,7 +229,7 @@
                         android:layout_height="64dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/microbiology" />
+                      />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -279,7 +279,7 @@
                         android:layout_height="64dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/pharmacology" />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -329,7 +329,7 @@
                         android:layout_height="64dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/biochemistry" />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"

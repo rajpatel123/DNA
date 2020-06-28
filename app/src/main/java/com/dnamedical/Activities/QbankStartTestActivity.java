@@ -109,8 +109,10 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
         bookmarLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                Intent intent = new Intent(QbankStartTestActivity.this, QBankReviewResultActivity.class);
+                intent.putExtra("module_id", moduleID);
+                intent.putExtra("isBookmark", true);
+                startActivity(intent);
             }
         });
 
@@ -184,7 +186,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             testTotalQuestion.setText(module.getTotalMcq() + " MCQ's");
             totalBookmark.setText(module.getTotal_bookmarks() + " MCQ's Bookmarked");
             linearLayoutStatus.setVisibility(View.GONE);
-            if (module.getTotalMcq() <= module.getTotalAttemptedmcq()) {
+            if (module.getTotalMcq() == module.getTotalAttemptedmcq()) {
                 btnStart.setText("REVIEW");
                 testCompletedQuestion.setText("All Completed");
                 Picasso.with(this).load(R.drawable.qbank_right_answer).into(pauseImage);
@@ -199,7 +201,6 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                     testTime.setText("You have paused this mudule on " + Utils.dateFormatForPlan(attemptedTime));
                     linearLayoutStatus.setVisibility(View.VISIBLE);
                     Picasso.with(this).load(R.drawable.paused_icon).into(pauseImage);
-
                 }
             }
 

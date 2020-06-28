@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#b5000000">
+
+
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#ffff"
+        android:columnCount="20"
+        android:padding="10dp">
+
+
+        <Button
+            android:id="@+id/btcross"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_row="0"
+            android:layout_column="19"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right|top"
+            android:text="X" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/btcross"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvcamraclick"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/edittextstyle"
+                android:gravity="center"
+                android:text="Camra"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"></TextView>
+
+
+            <TextView
+                android:id="@+id/tvgalleryclick"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittextstyle"
+                android:gravity="center"
+                android:text="Gallery"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="normal"></TextView>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

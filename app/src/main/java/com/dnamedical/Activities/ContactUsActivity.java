@@ -54,7 +54,7 @@ public class ContactUsActivity extends AppCompatActivity implements View.OnClick
             case R.id.contact_us_email:
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"dnahelpgroup@gmail.com"});
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"support@dnamedicalapp.com"});
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Any subject if you want");
                 intent.setPackage("com.google.android.gm");
                 if (intent.resolveActivity(getPackageManager()) != null)
@@ -65,7 +65,7 @@ public class ContactUsActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.contact_us_call:
                 Intent intent1 = new Intent(Intent.ACTION_DIAL);
-                intent1.setData(Uri.parse("tel:9800691244"));
+                intent1.setData(Uri.parse("tel:8420224581"));
                 startActivity(intent1);
                 break;
 

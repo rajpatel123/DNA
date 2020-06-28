@@ -1,14 +1,16 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,8 @@ import com.dnamedical.messageReceiver.SmsReceiver;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
@@ -42,9 +46,12 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
     public Button btnOtpVerify;
     String otpNumber;
     private TextView resendOtp;
+    private ImageView crossBtn;
+
     private String updatePhoneNumber;
     private TextView changeNumber;
     private TextView mobileNumber;
+    private TextView resendTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +62,12 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
         printVerifyPin = findViewById(R.id.prntEdtChangePhoneOtp);
         btnOtpVerify = findViewById(R.id.btnVerify);
         resendOtp = findViewById(R.id.resend);
+        crossBtn = findViewById(R.id.crossBtn);
         changeNumber = findViewById(R.id.changeNumber);
         mobileNumber = findViewById(R.id.mobileNumber);
-
-        mobileNumber.setText(DnaPrefs.getString(getApplicationContext(),Constants.MOBILE));
+        resendTimer = findViewById(R.id.resendTimer);
+        startTimer();
+        mobileNumber.setText(DnaPrefs.getString(getApplicationContext(), Constants.USERPHNUMBER));
 
         //timerTV = findViewById(R.id.otpTxtView);
 
@@ -78,10 +87,18 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
             }
         });
 
+
+        crossBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
+
         resendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resenOtpVerify();
+                resendOtpVerify();
             }
         });
 
@@ -89,6 +106,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ChanePhoneNumberActivity.class);
+                intent.putExtra("title", "Change Mobile Number");
                 startActivity(intent);
                 finish();
             }
@@ -96,7 +114,32 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
 
     }
 
-    private void resenOtpVerify() {
+
+    private void startTimer() {
+        new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String text =
+                        "<font color=#565656>OTP Valid for:</font> <font color=#80272525>" + TimeUnit.MILLISECONDS.toSeconds(
+                                millisUntilFinished
+                        ) + "</font>";
+                resendTimer.setText(Html.fromHtml(text));
+                resendTimer.setVisibility(View.VISIBLE);
+
+
+            }
+
+            @Override
+            public void onFinish() {
+                resendOtp.setAlpha(1);
+                resendOtp.setEnabled(true);
+                resendTimer.setVisibility(View.GONE);
+
+            }
+        }.start();
+    }
+
+    private void resendOtpVerify() {
         Utils.showProgressDialog(this);
         String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
         updatePhoneNumber = DnaPrefs.getString(getApplicationContext(), Constants.MOBILE);
@@ -110,6 +153,8 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
                 Utils.dismissProgressDialog();
                 if (response != null && response.code() == 200 && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "Otp resent your mobile no", Toast.LENGTH_SHORT).show();
+                    startTimer();
+                    resendTimer.setEnabled(false);
                 }
             }
 
@@ -166,7 +211,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
                 public void onResponse(Call<ChangePhoneNumberOtpResponse> call, Response<ChangePhoneNumberOtpResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.body() != null) {
-                        if (response.body().getStatus() == "true") {
+                        if (response.body().getStatus().equalsIgnoreCase("true")) {
                             finish();
                             Toast.makeText(getApplicationContext(), "Phone number updated successfully", Toast.LENGTH_SHORT).show();
                         }

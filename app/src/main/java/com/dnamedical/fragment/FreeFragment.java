@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Activities.VideoPlayerActivity;
+import com.dnamedical.Activities.ViewerActivity;
 import com.dnamedical.Adapters.VideoListFreeAdapter;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.Models.video.VideoList;
@@ -166,5 +167,12 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
         intent.putExtra("free",free);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onPdfClick(Free free) {
+        Intent intent = new Intent(getActivity(), ViewerActivity.class);
+        intent.putExtra("url", free.getPdf_url());
+        startActivity(intent);
     }
 }

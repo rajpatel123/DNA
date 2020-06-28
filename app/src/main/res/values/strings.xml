@@ -130,6 +130,7 @@
     <string name="billing_txt">Enter Billing/Shipping</string>
     <string name="billing_txt_one">Information</string>
 
+    <string name="coupen_live_txt">I Have already watched the FREE contents like Videos and other things of this App and I am fully satisfied.</string>
     <string name="coupen_txt">I Have already watched the FREE contents like Video | Test | Q-Bank | Notes and other things of this App and I am fully satisfied.</string>
     <string name="coupen_txt_one">I am agree that my purchase is final and I will not ask for refund under any circumstances.</string>
     <string name="coupen_txt_two">I have gone through FAQs, Terms &amp; Conditions of this App and will follow.</string>
@@ -170,7 +171,7 @@
     <string name="pincode">Please enter 6 digit pincode</string>
     <string name="mpincode">Please enter 6 digit medical college pincode</string>
     <string name="select_amount">Select amount to be invested per year</string>
-
+    <string name="what_s_on_your_mind">Enter your query</string>
     <string name="file_view">File View</string>
     <string name="file_download">File Download</string>
     <string name="file_request">Request Access Again</string>

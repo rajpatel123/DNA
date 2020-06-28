@@ -4,11 +4,14 @@ import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
+import com.dnamedical.Models.LoginCheckResponse;
 import com.dnamedical.Models.LoginDetailForDemo;
+import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.RankResult;
+import com.dnamedical.Models.ReportErrorResponse;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
@@ -19,7 +22,9 @@ import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
+import com.dnamedical.Models.chat_users_history.ChatUsersHistoryResp;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
+import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
@@ -28,7 +33,9 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
-import com.dnamedical.Models.log_out.LogOutResponse;
+import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
+import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
+import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -41,6 +48,7 @@ import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
+import com.dnamedical.Models.referal.ApplyCopan;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
@@ -53,10 +61,14 @@ import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
+import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
+import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
+import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
+import com.dnamedical.livemodule.LiveChannelData;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -87,8 +99,8 @@ public class RestClient {
         RetrofitClient.getClient().getAdditionalDiscount().enqueue(callback);
     }
 
-    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody, RequestBody platform, RequestBody acaademicYear_id, RequestBody courseSlectedBody, RequestBody boardname,MultipartBody.Part vFile, Callback<CommonResponse> callback) {
-        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody, platform, acaademicYear_id,courseSlectedBody,boardname).enqueue(callback);
+    public static void registerUser(RequestBody fb_id, RequestBody name, RequestBody username, RequestBody email_id, RequestBody phone, RequestBody statetxt, RequestBody password, RequestBody college, RequestBody addressBody, RequestBody cityBody, RequestBody countryBody, RequestBody platform, RequestBody acaademicYear_id, RequestBody courseSlectedBody, RequestBody boardname, MultipartBody.Part vFile, Callback<CommonResponse> callback) {
+        RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody, platform, acaademicYear_id, courseSlectedBody, boardname).enqueue(callback);
     }
 
     public static void updateUser(RequestBody name, RequestBody user_id, RequestBody password, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, RequestBody acaademicYear_id, Callback<UserUpdateResponse> callback) {
@@ -111,9 +123,9 @@ public class RestClient {
     public static void franchiesRegister(RequestBody username, RequestBody usermail, RequestBody phoneno, RequestBody whatsppNumber,
                                          RequestBody pCity, RequestBody pState, RequestBody pAddress, RequestBody pLandmark, RequestBody pPincode,
                                          RequestBody collegaeFrenchise, RequestBody cMedicalCollegae, RequestBody sMedicalCollege, RequestBody pinMedicalCollege,
-                                         RequestBody comment, RequestBody amount,RequestBody canCall,Callback<FranchiesResponse> callback) {
+                                         RequestBody comment, RequestBody amount, RequestBody canCall, RequestBody otp, Callback<FranchiesResponse> callback) {
         RetrofitClient.getClient().franchiRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress, pLandmark, pPincode, collegaeFrenchise,
-                                                   cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment,amount,canCall).enqueue(callback);
+                cMedicalCollegae, sMedicalCollege, pinMedicalCollege, comment, amount, canCall, otp).enqueue(callback);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +193,6 @@ public class RestClient {
     public static void getVideos(RequestBody sub_child_cat, RequestBody fileType, RequestBody user_id, Callback<VideoList> callback) {
         RetrofitClient.getClient().getVideos(sub_child_cat, fileType, user_id).enqueue(callback);
     }
-
 
 
     public static void getnewPlansForSSUG(Callback<PlanResponseForSSAndUG> callback) {
@@ -332,11 +343,20 @@ public class RestClient {
                                       RequestBody user_id, RequestBody product_id,
                                       RequestBody video_id, RequestBody test_id,
                                       RequestBody status, RequestBody cat_id,
-                                      RequestBody sub_cat_id,
+                                      RequestBody sub_cat_id,RequestBody coupan_id,RequestBody coupanCode,RequestBody type,
                                       Callback<SaveOrderResponse> callback) {
         RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id, user_id, product_id,
-                video_id, test_id, status).enqueue(callback);
+                video_id, test_id, status,coupan_id,coupanCode,type).enqueue(callback);
     }
+
+
+    public static void updatechatpayment(RequestBody user_id, RequestBody payment_id,
+                                         RequestBody order_id,RequestBody coupan_id, RequestBody coupan_code,
+                                         RequestBody type,
+                                         Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().updatechatpayment(user_id, payment_id, order_id,coupan_id,coupan_code,type).enqueue(callback);
+    }
+
 
 //    public static void addOrderDetail(RequestBody order_id, RequestBody sub_child_cat_id,RequestBody cat_id,RequestBody sub_cat_id, RequestBody user_id, RequestBody product_id, RequestBody video_id, RequestBody test_id, RequestBody status, Callback<SaveOrderResponse> callback) {
 //        RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id,cat_id,sub_cat_id, user_id, product_id, video_id, test_id, status).enqueue(callback);
@@ -346,8 +366,8 @@ public class RestClient {
     public static void addOrderForSubsDetail(RequestBody user_id, RequestBody order_id,
                                              RequestBody planId, RequestBody subscriptioId,
                                              RequestBody packKey, RequestBody month,
-                                             RequestBody status, RequestBody price, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().addOrderForSubsDetail(user_id, order_id, planId, subscriptioId, packKey, month, status, price).enqueue(callback);
+                                             RequestBody status, RequestBody price,RequestBody coupan_id,RequestBody coupanCode,RequestBody type, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().addOrderForSubsDetail(user_id, order_id, planId, subscriptioId, packKey, month, status, price,coupan_id,coupanCode,type).enqueue(callback);
     }
 
 
@@ -355,6 +375,13 @@ public class RestClient {
                                          RequestBody video_id, RequestBody product_type,
                                          Callback<CreateOrderResponse> callback) {
         RetrofitClient.getClient().createOrderDetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
+    }
+
+
+    public static void savechatorderdetail(RequestBody user_id, RequestBody amount, RequestBody currency,
+                                           RequestBody video_id, RequestBody product_type,
+                                           Callback<CreateOrderResponse> callback) {
+        RetrofitClient.getClient().savechatorderdetail(user_id, amount, currency, video_id, product_type).enqueue(callback);
     }
 
 
@@ -461,6 +488,12 @@ public class RestClient {
         RetrofitClient.getClient().changePhoneNumber(user_id, phoneNo).enqueue(callback);
     }
 
+
+    // franchise otp phone Number
+    public static void sendOTPFrenchise(RequestBody name, RequestBody phoneNo, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().sendOTPFrenchise(name, phoneNo).enqueue(callback);
+    }
+
     // change phone no otp Response
 
     public static void changePhoneNoOTPVerification(RequestBody user_id, RequestBody mobile, RequestBody otp, Callback<ChangePhoneNumberOtpResponse> callback) {
@@ -473,8 +506,86 @@ public class RestClient {
     }
 
 
-    public static void logOut(RequestBody userId, Callback<LogOutResponse> callback) {
-        RetrofitClient.getClient().LOG_OUT_RESPONSE_CALL(userId).enqueue(callback);
+    public static void getChannels(String get_live_info, String userID, Callback<LiveChannelData> callback) {
+        RetrofitClient.getClient().getAllCgannels(get_live_info, userID).enqueue(callback);
+    }
+
+    public static void getchathistory(String get_live_info, String channel_id, String user_id, String facultyId, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().get_chat_history(get_live_info, channel_id, user_id, facultyId).enqueue(callback);
+    }
+
+
+    public static void delete_chat_message(String get_live_info, String id, Callback<DeletechatmessageResp> callback) {
+        RetrofitClient.getClient().delete_chat_message(get_live_info, id).enqueue(callback);
+    }
+
+
+    public static void verify_mail(RequestBody email, RequestBody name, RequestBody user_id, Callback<VerifyMailResp> callback) {
+        RetrofitClient.getClient().verify_mail(email, name, user_id).enqueue(callback);
+    }
+
+
+    public static void chat_users_history(RequestBody channelId, RequestBody date, RequestBody join_time, RequestBody userId12,
+                                          RequestBody leaving_Time, RequestBody batch,
+                                          RequestBody educator, RequestBody educatorName, RequestBody emailBody, RequestBody mobileBody,
+                                          RequestBody cityBody, RequestBody stateBody,
+                                          RequestBody countryBody, RequestBody status, RequestBody chanelName, Callback<ChatUsersHistoryResp> callback) {
+
+        RetrofitClient.getClient().chat_users_history(channelId, date, join_time, userId12, leaving_Time, batch, educator,
+                educatorName, emailBody, mobileBody, cityBody, stateBody, countryBody, status, chanelName).enqueue(callback);
+    }
+
+
+    public static void send_chat_message(MultipartBody.Part file, RequestBody channel_id, RequestBody user_id, RequestBody message, RequestBody faculty_id, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().send_chat_message(file, channel_id, user_id, message, faculty_id).enqueue(callback);
+    }
+
+    public static void send_chat_messageText(RequestBody channel_id, RequestBody user_id, RequestBody message, RequestBody faculty_id, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().send_chat_messageText(channel_id, user_id, message, faculty_id).enqueue(callback);
+    }
+
+
+    public static void send_chat_messagefaculty(RequestBody channel_id, RequestBody user_id, RequestBody message, Callback<GetChatHistoryResp> callback) {
+        RetrofitClient.getClient().getsend_chat_messagefaculty(channel_id, user_id, message).enqueue(callback);
+    }
+
+
+    public static void get_faculty_channel(String get_live_info, String faculty_id, Callback<RetFacultyChannel> callback) {
+        RetrofitClient.getClient().get_faculty_channel(get_live_info, faculty_id).enqueue(callback);
+    }
+
+
+    public static void update_token(RequestBody user_id, RequestBody fcm_token, RequestBody fccc_id, Callback<UpdateToken> callback) {
+        RetrofitClient.getClient().update_token(user_id, fcm_token, fccc_id).enqueue(callback);
+    }
+
+
+    public static void updte_chat_status(String get_live_info, String channel_id, String f_id, String status, Callback<UpdteChatstatusRes> callback) {
+        RetrofitClient.getClient().updte_chat_status(get_live_info, channel_id, f_id, status).enqueue(callback);
+    }
+
+
+    public static void logout(RequestBody user_id, Callback<LogoutResponse> callback) {
+        RetrofitClient.getClient().logout(user_id).enqueue(callback);
+    }
+
+
+    public static void getProfileData(RequestBody user_id, Callback<User> callback) {
+        RetrofitClient.getClient().getProfileData(user_id).enqueue(callback);
+    }
+
+
+    public static void applyCoupan(RequestBody code,RequestBody type,RequestBody cat_id,RequestBody user_id, Callback<ApplyCopan> callback) {
+        RetrofitClient.getClient().applyReferral(code,type,cat_id,user_id).enqueue(callback);
+    }
+
+    public static void checkLogin(RequestBody user_id, RequestBody login_check, Callback<LoginCheckResponse> callback) {
+        RetrofitClient.getClient().checkLogin(user_id, login_check).enqueue(callback);
+    }
+
+
+    public static void reportError(RequestBody user_id, RequestBody q_t_id, RequestBody question_id, RequestBody comment, RequestBody module, RequestBody issue_type, Callback<ReportErrorResponse> callback) {
+        RetrofitClient.getClient().reportError(user_id, q_t_id, question_id, comment, module, issue_type).enqueue(callback);
     }
 
 }

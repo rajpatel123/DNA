@@ -26,6 +26,31 @@ public class Data implements Parcelable {
     @SerializedName("your_score")
     @Expose
     private String yourScore;
+
+    public Integer getCorrectAnswerMark() {
+        return correctAnswerMark;
+    }
+
+    public void setCorrectAnswerMark(Integer correctAnswerMark) {
+        this.correctAnswerMark = correctAnswerMark;
+    }
+
+    public Integer getWrongAnswerMark() {
+        return wrongAnswerMark;
+    }
+
+    public void setWrongAnswerMark(Integer wrongAnswerMark) {
+        this.wrongAnswerMark = wrongAnswerMark;
+    }
+
+    @SerializedName("correctAnswerMark")
+    @Expose
+    private Integer correctAnswerMark;
+
+    @SerializedName("wrongAnswerMark")
+    @Expose
+    private Integer wrongAnswerMark;
+
     @SerializedName("total_marks")
     @Expose
     private String totalMarks;

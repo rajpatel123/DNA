@@ -3,6 +3,7 @@ package com.dnamedical.Adapters;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,9 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.R;
+import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +37,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     private Context applicationContext;
     private List<Price> priceList;
     ArrayList<Price> priceArrayList;
-
+  String isFull;
     PaidVideoResponse paidVideoResponse;
 
 
@@ -43,9 +46,12 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     VideoListPriceAdapter.OnDataClick onDataClick;
     private int visible;
 
-    public VideoListPriceAdapter(Context applicationContext) {
+    public VideoListPriceAdapter(Context applicationContext,String isfull) {
         this.applicationContext = applicationContext;
+        this.isFull=isfull;
     }
+
+
 
     public void setPaidVideoResponse(PaidVideoResponse paidVideoResponse) {
         this.paidVideoResponse = paidVideoResponse;
@@ -121,12 +127,20 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.ratingandtime.setText("N/A");
 
         }
+
+
+        if (TextUtils.isEmpty(price.getPdf_url())){
+          holder.pdf_notes.setVisibility(GONE);
+        }else{
+            holder.pdf_notes.setVisibility(View.VISIBLE);
+
+        }
         holder.number.setText("" + (holder.getAdapterPosition() + 1));
 
         holder.ratingandtime.setText(price.getDuration() + " min video");
         //Log.i("Thumb",  price.getUrl());
         Picasso.with(applicationContext).load(price.getDrImg())
-                .error(R.drawable.profile_image_know_more)
+                .error(R.drawable.dnalogo)
                 .into(holder.imageViewDoctor);
 
         if (price.getPrice() != null) {
@@ -141,61 +155,98 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         }
 
-        if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) || (!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))) {
+
+        if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1"))) {
             holder.buyNow.setVisibility(View.GONE);
             holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
-            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
-            }
 
-        } else {
+            }
+        }else if((!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))){
+           if (Constants.IS_NEET){
+               holder.buyNow.setVisibility(View.GONE);
+               holder.lockNew.setVisibility(GONE);
+               holder.txtActualPrice.setVisibility(View.GONE);
+               holder.txtTotalPrice.setVisibility(View.GONE);
+               if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
+                   holder.commingSoon.setVisibility(View.VISIBLE);
+               } else {
+                   holder.commingSoon.setVisibility(GONE);
+
+               }
+           }else{
+               holder.buyNow.setVisibility(View.VISIBLE);
+               holder.txtActualPrice.setVisibility(View.VISIBLE);
+               holder.txtTotalPrice.setVisibility(View.VISIBLE);
+               holder.lockNew.setVisibility(View.VISIBLE);
+               if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
+                   holder.commingSoon.setVisibility(View.VISIBLE);
+               } else {
+                   holder.commingSoon.setVisibility(GONE);
+               }
+           }
+        } else  {
             holder.buyNow.setVisibility(View.VISIBLE);
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
             holder.lockNew.setVisibility(View.VISIBLE);
-            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
             }
+
         }
 
-            ////////////////////////////////////////////////////
-//        if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) || (!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))) {
-//            holder.pdfloadImg.setVisibility(visible);
-//            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
-//                holder.commingSoon.setVisibility(View.VISIBLE);
-//            } else {
-//                holder.commingSoon.setVisibility(GONE);
-//            }
-//
-//        } else {
-//            holder.buyNow.setVisibility(View.VISIBLE);
-//            holder.pdfloadImg.setVisibility(visible);
-//            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
-//                holder.commingSoon.setVisibility(View.VISIBLE);
-//            } else {
-//                holder.commingSoon.setVisibility(GONE);
-//            }
-//
-//        }
 
 
+        if (holder.buyNow.getVisibility()==View.VISIBLE || holder.pdf_notes.getVisibility()==View.VISIBLE){
+            holder.line_separator.setVisibility(View.VISIBLE);
+        }else{
+            holder.line_separator.setVisibility(GONE);
+
+        }
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/"))) {
+                if (((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")))) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     } else {
                         Utils.displayToast(applicationContext, "Coming Soon");
 
                     }
+                }else if((!TextUtils.isEmpty(price.getSubscription_status()) && price.getSubscription_status().equalsIgnoreCase("1"))) {
+                  if (Constants.IS_NEET){
+                      if (onUserClickCallback != null) {
+                          onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
+                      } else {
+                          Utils.displayToast(applicationContext, "Coming Soon");
+
+                      }
+                  }
                 }
+
+                }
+
+        });
+
+
+        holder.pdf_notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/"))) {
+                    if (onDataClick!=null)
+                    {
+                        onDataClick.onNotesClick(price.getPdf_url());
+                    }
+                }
+
             }
         });
 
@@ -217,7 +268,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
                 btn_yes_all.setText("Click Here To Buy All Topic");
 
-                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")) {
+                if (isFull.equalsIgnoreCase("1")) {
                     btn_yes.setVisibility(GONE);
                     ortxt.setVisibility(GONE);
 
@@ -240,7 +291,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                     public void onClick(View v) {
                         if (onDataClick != null) {
 
-                            onDataClick.onNextActivityDataClick();
+                            onDataClick.onBuyAllVideo();
                         }
                         dialog.dismiss();
                     }
@@ -314,14 +365,16 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.ratingandtime)
         TextView ratingandtime;
 
-        @BindView(R.id.pdfloadImg)
-        ImageView pdfloadImg;
 
         @BindView(R.id.image_doctor)
         ImageView imageViewDoctor;
 
         @BindView(R.id.buy_now)
         TextView buyNow;
+
+
+        @BindView(R.id.line_separator)
+        View line_separator;
 
         @BindView(R.id.commingsoon)
         TextView commingSoon;
@@ -333,6 +386,9 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.txt_actual_price)
         TextView txtActualPrice;
 
+        @BindView(R.id.pdf_notes)
+        ImageView pdf_notes;
+
 
         @BindView(R.id.txt_total_price)
         TextView txtTotalPrice;
@@ -342,7 +398,6 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         @BindView(R.id.lineViewWithMargin)
         View lineViewWithMargin;
 
-
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -350,17 +405,19 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     }
 
     public interface OnCategoryClick {
-        public void onCateClick(Price price);
+         void onCateClick(Price price);
         //public void onNextActivityDataClick();
     }
 
     public interface OnDataClick {
         // public void ondataClick(PaidVideoResponse price);
-        public void onNextActivityDataClick();
+         void onBuyAllVideo();
+         void onNotesClick(String url);
     }
 
     public interface OnBuyNowClick {
-        public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge);
+         void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge);
+
 
     }
 

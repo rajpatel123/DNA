@@ -86,6 +86,13 @@ public class QBankReviewResultActivity extends AppCompatActivity {
         mTopToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
 
+        if (getIntent().hasExtra("isBookmark")){
+            mTopToolbar.setTitle("QBank Bookmarks");
+        }else{
+            mTopToolbar.setTitle("Review MCQ's");
+
+        }
+
 
         anRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -93,9 +100,13 @@ public class QBankReviewResultActivity extends AppCompatActivity {
                 RadioButton answerSected = findViewById(checkedId);
                 String str = answerSected.getText().toString();
                 if (str.equalsIgnoreCase("Bookmarked")) {
-                    filter_bookmark = "test";
+                    filter_bookmark = "qbank";
                 } else {
-                    answer = getAnswerId(str);
+                    if (str.equalsIgnoreCase("All")) {
+                        answer = "";
+                    } else {
+                        answer = getAnswerId(str);
+                    }
                     filter_bookmark = "";
 
                 }
@@ -117,7 +128,6 @@ public class QBankReviewResultActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton levelSected = findViewById(checkedId);
-
                 level = getLevelId(levelSected.getText().toString());
 
             }
@@ -223,8 +233,14 @@ public class QBankReviewResultActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if (testReviewListResponse == null) {
+            if (getIntent().hasExtra("isBookmark")) {
+                filter_bookmark = "qbank";
+            }
+
             getReviewData();
+
         }
 
     }
@@ -239,8 +255,8 @@ public class QBankReviewResultActivity extends AppCompatActivity {
 
         moduleID = getIntent().getStringExtra("module_id");
         user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-
-
+        DnaPrefs.putString(getApplicationContext(), Constants.TEST_ID,moduleID);
+        DnaPrefs.putString(getApplicationContext(), Constants.MODULE,"QBank");
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
@@ -383,6 +399,11 @@ public class QBankReviewResultActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbarmenu, menu);
 
+        if (getIntent().hasExtra("isBookmark")) {
+            menu.findItem(R.id.action_favorite).setVisible(false);
+        } else {
+            menu.findItem(R.id.action_favorite).setVisible(true);
+        }
 //        final MenuItem menuItem = menu.findItem(R.id.action_favorite);
 //        View actionView = menuItem.getActionView();
 //        TextView badge = actionView.findViewById(R.id.badge);

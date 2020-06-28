@@ -1,7 +1,8 @@
 package com.dnamedical.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,21 +30,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Models.log_out.LogOutResponse;
-import com.dnamedical.Models.test.testp.Test;
+import com.crashlytics.android.Crashlytics;
+import com.dnamedical.BuildConfig;
+import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.LoginCheckResponse;
+import com.dnamedical.Models.LogoutResponse;
+import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.test.testp.TestDataResponse;
+import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.fragment.HomeFragment;
-import com.dnamedical.fragment.OnlineFragment;
 import com.dnamedical.fragment.QbankFragment;
 import com.dnamedical.fragment.TestFragment;
 import com.dnamedical.fragment.videoFragment;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.popup.EmailVerifyDialog;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
-import com.dnamedical.utils.ImageUtils;
 import com.dnamedical.utils.Utils;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -61,10 +71,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, EmailVerifyDialog.onEmailVerifyDialog {
     public LinearLayout tabBar;
     public TabLayout tabLayout;
     private Toolbar toolbar;
@@ -73,7 +81,7 @@ public class MainActivity extends AppCompatActivity
     private videoFragment dashboardvideoFragment;
     private QbankFragment dashboardQbankFragment;
     private TestFragment dashboardTestFragment;
-    private OnlineFragment dashboardOnlineFragment;
+    // private OnlineFragment dashboardOnlineFragment;
     private ViewPagerAdapter adapter;
     private TextView myDeviceTitle;
     private ImageView imgDeviceIcon;
@@ -83,30 +91,50 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgQBIcon;
     private TextView testTitle;
     private ImageView testIcon;
-    private ImageView imgOnlineIcon;
+    private ImageView imgOnlineIcon,ambesderIV;
     private TextView onlineTitle;
     private NavigationView navigationView;
-    private TextView tvName, tvEmail, tvSetting;
+    private TextView tvName, tvEmail, tvSetting, tvversion;
     private CircleImageView circleImageView;
     String name, image, email;
     TestDataResponse testDataResponse;
     private String userId;
-
+    Context ctx;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //Crashlytics.getInstance().crash(); // Force a crash
         setContentView(R.layout.activity_main);
+        ctx = this;
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String mToken = instanceIdResult.getToken();
+                Log.e("Token", mToken);
+                DnaPrefs.putString(getApplicationContext(), Constants.MTOKEN, mToken);
+            }
+        });
+
+        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        }
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getProfileData();
 
         navigationView = findViewById(R.id.nav_view);
         getAdditionalDiscount();
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
+        ambesderIV = headerView.findViewById(R.id.ambesderIV);
+        tvversion = headerView.findViewById(R.id.version);
         circleImageView = headerView.findViewById(R.id.profile_image);
         tvSetting = headerView.findViewById(R.id.setting);
         pager = findViewById(R.id.vp_pages);
@@ -220,12 +248,13 @@ public class MainActivity extends AppCompatActivity
 
         tvName.setText(name);
         tvEmail.setText(email);
+        tvversion.setText(BuildConfig.VERSION_NAME);
         if (!TextUtils.isEmpty(image)) {
-            Picasso.with(this).load(image)
+            Picasso.with(getApplicationContext()).load(image)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
         } else {
-            Picasso.with(this)
+            Picasso.with(getApplicationContext())
                     .load(R.drawable.dnalogo)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
@@ -238,7 +267,7 @@ public class MainActivity extends AppCompatActivity
     private void setUpFragments() {
         setupViewPager(pager);
         tabLayout.setupWithViewPager(pager);
-        setupTabIcons();
+        //setupTabIcons();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -246,7 +275,7 @@ public class MainActivity extends AppCompatActivity
         //  dashboardvideoFragment = new videoFragment();
         dashboardQbankFragment = new QbankFragment();
         dashboardTestFragment = new TestFragment();
-        dashboardOnlineFragment = new OnlineFragment();
+        //dashboardOnlineFragment = new OnlineFragment();
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
@@ -254,7 +283,7 @@ public class MainActivity extends AppCompatActivity
         //  adapter.addFragment(dashboardvideoFragment, "Video");
         adapter.addFragment(dashboardQbankFragment, "Q Bank");
         adapter.addFragment(dashboardTestFragment, "Test");
-        adapter.addFragment(dashboardOnlineFragment, "Online");
+        //    adapter.addFragment(dashboardOnlineFragment, "Online");
 
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(pageChangeListener);
@@ -262,65 +291,65 @@ public class MainActivity extends AppCompatActivity
         pager.setOffscreenPageLimit(4);
     }
 
-    private void setupTabIcons() {
-        @SuppressLint("InflateParams") View deviceTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        myDeviceTitle = deviceTab.findViewById(R.id.tab);
-        myDeviceTitle.setText("Home");
-        imgDeviceIcon = deviceTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_home, imgDeviceIcon, R.color.white);
-
-        TabLayout.Tab tab = tabLayout.getTabAt(0);
-
-        if (tab != null) {
-            tab.setCustomView(deviceTab);
-        }
-
-      /*  @SuppressLint("InflateParams") View mapTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        videoText = mapTab.findViewById(R.id.tab);
-        videoText.setText("Video");
-        imgVideoViewIcon = mapTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_video, imgVideoViewIcon, R.color.white);
-
-        tab = tabLayout.getTabAt(1);
-
-        if (tab != null) {
-
-            tab.setCustomView(mapTab);
-        }*/
-
-        @SuppressLint("InflateParams") View alertTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        qbTitle = alertTab.findViewById(R.id.tab);
-        qbTitle.setText("Q Bank");
-
-        imgQBIcon = alertTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_qbank, imgQBIcon, R.color.white);
-
-        tab = tabLayout.getTabAt(1);
-        if (tab != null) {
-            tab.setCustomView(alertTab);
-        }
-
-        @SuppressLint("InflateParams") View recordingTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        testTitle = recordingTab.findViewById(R.id.tab);
-        testTitle.setText("Test");
-        testIcon = recordingTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_text, testIcon, R.color.white);
-        tab = tabLayout.getTabAt(2);
-        if (tab != null) {
-            tab.setCustomView(recordingTab);
-        }
-
-        @SuppressLint("InflateParams") View accountTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        onlineTitle = accountTab.findViewById(R.id.tab);
-        onlineTitle.setText("Online");
-        imgOnlineIcon = accountTab.findViewById(R.id.imgTab);
-        ImageUtils.setTintedDrawable(this, R.drawable.nav_live, imgOnlineIcon, R.color.white);
-
-        tab = tabLayout.getTabAt(3);
-        if (tab != null) {
-            tab.setCustomView(accountTab);
-        }
-    }
+//    private void setupTabIcons() {
+//        @SuppressLint("InflateParams") View deviceTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        myDeviceTitle = deviceTab.findViewById(R.id.tab);
+//        myDeviceTitle.setText("Home");
+//        imgDeviceIcon = deviceTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_home, imgDeviceIcon, R.color.white);
+//
+//        TabLayout.Tab tab = tabLayout.getTabAt(0);
+//
+//        if (tab != null) {
+//            tab.setCustomView(deviceTab);
+//        }
+//
+//      /*  @SuppressLint("InflateParams") View mapTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        videoText = mapTab.findViewById(R.id.tab);
+//        videoText.setText("Video");
+//        imgVideoViewIcon = mapTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_video, imgVideoViewIcon, R.color.white);
+//
+//        tab = tabLayout.getTabAt(1);
+//
+//        if (tab != null) {
+//
+//            tab.setCustomView(mapTab);
+//        }*/
+//
+//        @SuppressLint("InflateParams") View alertTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        qbTitle = alertTab.findViewById(R.id.tab);
+//        qbTitle.setText("Q Bank");
+//
+//        imgQBIcon = alertTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_qbank, imgQBIcon, R.color.white);
+//
+//        tab = tabLayout.getTabAt(1);
+//        if (tab != null) {
+//            tab.setCustomView(alertTab);
+//        }
+//
+//        @SuppressLint("InflateParams") View recordingTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        testTitle = recordingTab.findViewById(R.id.tab);
+//        testTitle.setText("Test");
+//        testIcon = recordingTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_text, testIcon, R.color.white);
+//        tab = tabLayout.getTabAt(2);
+//        if (tab != null) {
+//            tab.setCustomView(recordingTab);
+//        }
+//
+//        @SuppressLint("InflateParams") View accountTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        onlineTitle = accountTab.findViewById(R.id.tab);
+//        onlineTitle.setText("Online");
+//        imgOnlineIcon = accountTab.findViewById(R.id.imgTab);
+//        ImageUtils.setTintedDrawable(this, R.drawable.nav_live, imgOnlineIcon, R.color.white);
+//
+//        tab = tabLayout.getTabAt(3);
+//        if (tab != null) {
+//            tab.setCustomView(accountTab);
+//        }
+//    }
 
     @Override
     public void onBackPressed() {
@@ -347,8 +376,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.notice_board) {
 
-            Intent intent = new Intent(this, Noticeboard.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, Noticeboard.class);
+//            startActivity(intent);
         } else if (id == R.id.dna_faculy) {
             Intent intent = new Intent(this, DNAFacultyActivity.class);
             startActivity(intent);
@@ -364,13 +393,21 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_share) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "Hello friends, the best app for medicos is now available at: " +
-                            "https://play.google.com/store/apps/details?id=com.dnamedical");
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
+
+            if (user!=null && !TextUtils.isEmpty(user.getData().getReferral_code())){
+               ReferalActivity.start(MainActivity.this,user.getData().getReferral_code());
+            }else{
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hello friends, the best app for medicos is now available at: https://play.google.com/store/apps/details?id=com.dnamedical");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+
+
+
+
         } else if (id == R.id.about) {
             Intent intent = new Intent(MainActivity.this, AboutUsActivit.class);
             intent.putExtra("title", "About Us");
@@ -399,72 +436,67 @@ public class MainActivity extends AppCompatActivity
 
     public void userlogout() {
 
-//        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//        // ...Irrelevant code for customizing the buttons and titl
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
-//        dialogBuilder.setView(dialogView);
-//
-//        final AlertDialog dialog = dialogBuilder.create();
-//        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-//        TextView text_logout = dialogView.findViewById(R.id.text_logout);
-//        btn_Cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//
-//
-//            }
-//        });
-//
-//
-//        text_logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//
-//                DnaPrefs.clear(MainActivity.this);
-//               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
-//               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//               startActivity(intent);
-//               finish();
-//
-//            }
-//        });
-//
-//
-//        dialog.show();
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+        TextView text_logout = dialogView.findViewById(R.id.text_logout);
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        text_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                logoutapiCall();
+
+
+            }
+        });
+
+
+        dialog.show();
+
+    }
+
+    private void logoutapiCall() {
 
         if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-            String user_Id = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
-            RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), user_Id);
+            Utils.isInternetConnected(this);
+            RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
 
-            RestClient.logOut(userId, new Callback<LogOutResponse>() {
+            RestClient.logout(user_Id, new Callback<LogoutResponse>() {
                 @Override
-                public void onResponse(Call<LogOutResponse> call, Response<LogOutResponse> response) {
+                public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
                     Utils.dismissProgressDialog();
-                    if (response != null && response.code() == 200 && response.body() != null) {
-                        if (response.body().getStatus() == "true") {
-                            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Status " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
-                        }
-
-                    } else {
-                        Toast.makeText(MainActivity.this, "response = " + response, Toast.LENGTH_SHORT).show();
-                    }
+                    DnaPrefs.clear(MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
                 }
 
                 @Override
-                public void onFailure(Call<LogOutResponse> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
 
                 }
             });
+        } else {
+            Toast.makeText(MainActivity.this, "Please check internet connection!", Toast.LENGTH_LONG).show();
+
         }
 
     }
@@ -513,6 +545,11 @@ public class MainActivity extends AppCompatActivity
         public void onPageScrollStateChanged(int arg0) {
         }
     };
+
+    @Override
+    public void emailverfy(String type) {
+        onVerifEmail(type);
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -595,11 +632,90 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public void getProfileData() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+
+
+            RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
+
+            RestClient.getProfileData(user_Id, new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200) {
+                         user = response.body();
+                        if (user != null && user.getData() != null) {
+
+                            if (user.getData().getIs_ambassador().equalsIgnoreCase("1")){
+                                tvName.setText(user.getData().getName());
+                                ambesderIV.setVisibility(View.VISIBLE);
+                            }else{
+                                ambesderIV.setVisibility(View.GONE);
+
+                            }
+                            if (Integer.parseInt(user.getData().getMobileVerified()) != 1) {
+                                Intent intent2 = new Intent(MainActivity.this, ChanePhoneNumberActivity.class);
+                                intent2.putExtra("title", "Verify Mobile Number");
+
+                                startActivity(intent2);
+                            } else if (Integer.parseInt(user.getData().getEmailVerified()) != 1) {
+
+                                new EmailVerifyDialog(ctx, MainActivity.this).show();
+
+                            }
+                            DNAApplication.getInstance().setUserData(user);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        }
+    }
+
+    public void getLoginCheck() {
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+
+
+            RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
+            RequestBody login_token =  RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_TOKEN));
+
+            RestClient.checkLogin(user_Id, login_token,new Callback<LoginCheckResponse>() {
+                @Override
+                public void onResponse(Call<LoginCheckResponse> call, Response<LoginCheckResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        LoginCheckResponse loginCheckResponse = response.body();
+                        if (loginCheckResponse.getStatus().equalsIgnoreCase("2")){
+                            showLoginfailedDialog(loginCheckResponse.getMessage());
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginCheckResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        }
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
-        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
 
+
+        getLoginCheck();
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
             Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
@@ -612,5 +728,79 @@ public class MainActivity extends AppCompatActivity
         checkUserExistance();
     }
 
+
+    public void onVerifEmail(String email) {
+        if (Utils.isInternetConnected(this)) {
+            // Utils.showProgressDialog(this);
+            String userNamemm = DnaPrefs.getString(getApplicationContext(), Constants.NAME);
+
+            Log.e("Chaeck","::"+userNamemm);
+
+            Log.e("userId","::"+userId);
+            Log.e("email","::"+email);
+
+            RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
+            RequestBody userName = RequestBody.create(MediaType.parse("text/plain"), "APP");
+            RequestBody email12 = RequestBody.create(MediaType.parse("text/plain"), email);
+
+
+            RestClient.verify_mail(email12, userName, userId12, new Callback<VerifyMailResp>() {
+                @Override
+                public void onResponse(Call<VerifyMailResp> call, Response<VerifyMailResp> response) {
+                    if (response.code() == 200) {
+                        //  Utils.dismissProgressDialog();
+
+                        try {
+                            VerifyMailResp verifyMailResp = response.body();
+                            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                            Log.e("verifyMailResp Resp", gson.toJson(verifyMailResp));
+                            Toast.makeText(getApplicationContext(),verifyMailResp.getMessage(),Toast.LENGTH_SHORT).show();
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<VerifyMailResp> call, Throwable t) {
+                    //   Utils.dismissProgressDialog();
+
+                }
+            });
+
+
+        } else {
+            // Utils.dismissProgressDialog();
+
+            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+    private void showLoginfailedDialog(String message) {
+        new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+                .setTitle("Multiple login detected")
+                .setMessage(message)
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        logoutapiCall();
+                        dialog.dismiss();
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .show();
+    }
 
 }

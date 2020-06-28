@@ -58,7 +58,7 @@ public class QbankUnattemptedFragment extends QBankBaseFragment {
             @Override
             public void onQbankSubClick(int position, String id, String moduleName, int total_bookmarks,String isPaid) {
 
-                if (qbankSubActivity.qBankAll.get(position).getIsPaid().equalsIgnoreCase("1")){
+                if (qbankSubActivity.qBankUnAttempted.get(position).getIsPaid().equalsIgnoreCase("1")){
                     showPlanDialog(qbankSubActivity);
                 }else{
 

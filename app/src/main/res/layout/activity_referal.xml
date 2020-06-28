@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_sub"
+    android:orientation="vertical"
+    tools:context=".Activities.ReferalActivity">
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Invite your friends"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="130dp"
+
+        android:textColor="@color/white"/>
+
+
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:text="Invite your colleagues to India's \nBest online Learning App for NEET- PG I NEET- SS I FMGE I MBBS PROF I NEXT "
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/whatsapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:textColor="@color/white"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginStart="30dp"
+        android:padding="@dimen/dp_15"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="start|center_vertical"
+        android:drawableStart="@drawable/ic_whatsapp"
+        android:text="     Invite Via WhatsApp"/>
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkwhite"
+        android:textColor="@color/white"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginStart="30dp"
+        android:padding="@dimen/dp_15"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="start|center_vertical"
+        android:drawableStart="@drawable/email_contact_us"
+        android:text="     Invite Via Email"/>
+
+
+    <TextView
+        android:id="@+id/shareBtnByOthers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gradStart"
+        android:textColor="@color/white"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginStart="30dp"
+        android:padding="@dimen/dp_15"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="start|center_vertical"
+        android:drawableStart="@drawable/ic_share_app"
+        android:text="     Invite another way"/>
+
+</LinearLayout>

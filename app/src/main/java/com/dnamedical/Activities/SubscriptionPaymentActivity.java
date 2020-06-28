@@ -148,7 +148,7 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
             shippingCharge = getIntent().getStringExtra("SHIPPING_CHARGE");
             totalDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_GIVEN");
             coupanValue = getIntent().getStringExtra("COUPON_VALUE");
-            totalADDDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_ADD");
+            //totalADDDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_ADD");
             totalValue = getIntent().getStringExtra("AMOUNT");
 
 
@@ -334,11 +334,18 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
         RequestBody status = RequestBody.create(MediaType.parse("text/plain"), payment_status);
         RequestBody orderVl = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
 
+        RequestBody  coupan_id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(this, Constants.REFERL_COUPN_ID));
+        RequestBody  coupanCode = RequestBody.create(MediaType.parse("text/plain"),  DnaPrefs.getString(this, Constants.REFERL_COUPN));
+        RequestBody  type = RequestBody.create(MediaType.parse("text/plain"),  DnaPrefs.getString(this, Constants.REFERL_COUPN_VALUE_FOR));
+
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.addOrderForSubsDetail(user_id, order_id, planId, subscriptioId, packKey, month, status, orderVl, new Callback<ResponseBody>() {
+            RestClient.addOrderForSubsDetail(user_id, order_id, planId, subscriptioId,
+                    packKey, month, status, orderVl,
+                    coupan_id,coupanCode,type,
+                    new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Utils.dismissProgressDialog();

@@ -32,6 +32,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModulesMcq;
 import com.dnamedical.R;
@@ -81,7 +82,8 @@ public class QbankTestActivity extends AppCompatActivity {
     public ProgressBar progressBar, progressbarForImage;
     LinearLayout questionList, questionListDescription, questionmarking;
     TextView qustion, aTV, aTVPer, bTV, bTVPer, cTV, cTVPer, dTV, dTVPer, rTV, barChart;
-    ImageView imgA, imgB, imgC, imgD;
+    TextView tagA, tagB, tagC, tagD;
+    //ImageView imgA, imgB, imgC, imgD;
     ProgressBar progressBarChart;
     WebView webView;
     LayoutInflater inflater;
@@ -95,6 +97,7 @@ public class QbankTestActivity extends AppCompatActivity {
     private TextView qbank_answer1, qbank_answer2, qbank_answer3, qbank_answer4;
     private ImageView image1, image2, image3, image4;
     private int questionTime = 10;
+
     private List<TextView> tvList = new ArrayList<>();
 
     @Override
@@ -143,9 +146,9 @@ public class QbankTestActivity extends AppCompatActivity {
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user_answer="0";
-                updateAnswer(questionDetails, questionDetails.getCorrectAnswer(), questionDetails.getId(), isLast);
-                            }
+                user_answer = "0";
+                updateAnswer(tagA, questionDetails, questionDetails.getCorrectAnswer(), questionDetails.getId(), isLast);
+            }
         });
 
 
@@ -175,23 +178,27 @@ public class QbankTestActivity extends AppCompatActivity {
 
         timerProgressBar.setMax(10);
         timerProgressBar.setPadding(0, 0, 0, 0);
-        imgA = findViewById(R.id.imga);
-        imgB = findViewById(R.id.imgb);
-        imgC = findViewById(R.id.imgc);
-        imgD = findViewById(R.id.imgd);
+//        imgA = findViewById(R.id.imga);
+//        imgB = findViewById(R.id.imgb);
+//        imgC = findViewById(R.id.imgc);
+//        imgD = findViewById(R.id.imgd);
 
 
+        tagA = findViewById(R.id.A);
         aTV = findViewById(R.id.optionA);
-        aTVPer = findViewById(R.id.optionAPer);
+        //aTVPer = findViewById(R.id.optionAPer);
 
         bTV = findViewById(R.id.optionB);
-        bTVPer = findViewById(R.id.optionBPer);
+        tagB = findViewById(R.id.B);
+        // bTVPer = findViewById(R.id.optionBPer);
 
         cTV = findViewById(R.id.optionC);
-        cTVPer = findViewById(R.id.optionCPer);
+        tagC = findViewById(R.id.C);
+//        cTVPer = findViewById(R.id.optionCPer);
 
         dTV = findViewById(R.id.optionD);
-        dTVPer = findViewById(R.id.optionDPer);
+        tagD = findViewById(R.id.D);
+        // dTVPer = findViewById(R.id.optionDPer);
         barChart = findViewById(R.id.bar_chart_percentage);
         rTV = findViewById(R.id.reference);
 
@@ -213,24 +220,24 @@ public class QbankTestActivity extends AppCompatActivity {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "1");
                         questionDetail.get(questionNo).setBookmarked(false);
                         Log.d("BookMark", "" + 1);
-                        Utils.setTintForImage(QbankTestActivity.this,bookmark,R.color.dark_gray);
+                        Utils.setTintForImage(QbankTestActivity.this, bookmark, R.color.dark_gray);
 
 
                     } else {
                         remove_bookmark = RequestBody.create(MediaType.parse("text/plain"), "0");
                         questionDetail.get(questionNo).setBookmarked(true);
-                        Utils.setTintForImage(QbankTestActivity.this,bookmark,R.color.colorPrimary);
+                        Utils.setTintForImage(QbankTestActivity.this, bookmark, R.color.colorPrimary);
 
                         Log.d("BookMark", "" + 0);
 
 
                     }
 
-                   // Utils.showProgressDialog(QbankTestActivity.this);
+                    // Utils.showProgressDialog(QbankTestActivity.this);
                     RestClient.bookMarkQuestion(userId, testID, q_id, remove_bookmark, type, new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                          //  Utils.dismissProgressDialog();
+                            //  Utils.dismissProgressDialog();
                             if (response != null && response.code() == 200) {
 
                             }
@@ -374,14 +381,14 @@ public class QbankTestActivity extends AppCompatActivity {
             ImageView iv = new ImageView(getApplicationContext());
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 540);
             iv.setLayoutParams(lp);
-            Utils.setTintForImage(QbankTestActivity.this,bookmark,R.color.dark_gray);
+            Utils.setTintForImage(QbankTestActivity.this, bookmark, R.color.dark_gray);
 
 
             answerList.removeAllViews();
             answerList.addView(questionText);
             if (!TextUtils.isEmpty(questionDetails.getTitleImage())) {
                 if (Utils.isInternetConnected(QbankTestActivity.this)) {
-                   // question_image.setVisibility(View.VISIBLE);
+                    // question_image.setVisibility(View.VISIBLE);
                     progressbarForImage.setVisibility(View.VISIBLE);
 
                     Picasso.with(this).load(questionDetails.getTitleImage())
@@ -406,7 +413,7 @@ public class QbankTestActivity extends AppCompatActivity {
                             });
                 }
 
-            }else{
+            } else {
                 progressbarForImage.setVisibility(GONE);
             }
 
@@ -421,9 +428,12 @@ public class QbankTestActivity extends AppCompatActivity {
                         View answer1 = inflater.inflate(R.layout.qbank_item_test, null);
                         qbank_answer1 = answer1.findViewById(R.id.qbank_answer);
                         image1 = answer1.findViewById(R.id.image);
-                        cardView1 = answer1.findViewById(R.id.cardView);
-                        qbank_answer1.setText("A. " + questionDetails.getOption1());
 
+                        TextView tagA = answer1.findViewById(R.id.tag);
+                        tagA.setText("A");
+
+                        cardView1 = answer1.findViewById(R.id.cardView);
+                        qbank_answer1.setText("" + questionDetails.getOption1());
                         answerList.addView(answer1);
                         cardView1.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -434,7 +444,7 @@ public class QbankTestActivity extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        updateAnswer(questionDetails, "1", questionDetails.getId(), isLast);
+                                        updateAnswer(tagA,questionDetails, "1", questionDetails.getId(), isLast);
                                     }
                                 }, 1 * 1000);
 
@@ -445,10 +455,11 @@ public class QbankTestActivity extends AppCompatActivity {
                         View answer2 = inflater.inflate(R.layout.qbank_item_test, null);
                         qbank_answer2 = answer2.findViewById(R.id.qbank_answer);
                         image2 = answer2.findViewById(R.id.image);
-
+                        TextView tagB = answer2.findViewById(R.id.tag);
+                        tagB.setText("B");
                         cardView2 = answer2.findViewById(R.id.cardView);
 
-                        qbank_answer2.setText("B. " + questionDetails.getOption2());
+                        qbank_answer2.setText("" + questionDetails.getOption2());
                         answerList.addView(answer2);
                         cardView2.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -457,7 +468,7 @@ public class QbankTestActivity extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        updateAnswer(questionDetails,"2", questionDetails.getId(), isLast);
+                                        updateAnswer(tagB, questionDetails, "2", questionDetails.getId(), isLast);
                                     }
                                 }, 1 * 1000);
 
@@ -470,8 +481,9 @@ public class QbankTestActivity extends AppCompatActivity {
                         View answer3 = inflater.inflate(R.layout.qbank_item_test, null);
                         qbank_answer3 = answer3.findViewById(R.id.qbank_answer);
                         image3 = answer3.findViewById(R.id.image);
-
-                        qbank_answer3.setText("C. " + questionDetails.getOption3());
+                        TextView tagC = answer3.findViewById(R.id.tag);
+                        tagC.setText("C");
+                        qbank_answer3.setText("" + questionDetails.getOption3());
                         cardView3 = answer3.findViewById(R.id.cardView);
 
                         answerList.addView(answer3);
@@ -484,7 +496,7 @@ public class QbankTestActivity extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        updateAnswer(questionDetails, "3", questionDetails.getId(), isLast);
+                                        updateAnswer(tagC, questionDetails, "3", questionDetails.getId(), isLast);
                                     }
                                 }, 1 * 1000);
                             }
@@ -495,10 +507,11 @@ public class QbankTestActivity extends AppCompatActivity {
                         qbank_answer4 = answer4.findViewById(R.id.qbank_answer);
                         image4 = answer4.findViewById(R.id.image);
 
-
+                        TextView tagD = answer4.findViewById(R.id.tag);
+                        tagD.setText("D");
                         cardView4 = answer4.findViewById(R.id.cardView);
 
-                        qbank_answer4.setText("D. " + questionDetails.getOption4());
+                        qbank_answer4.setText("" + questionDetails.getOption4());
                         answerList.addView(answer4);
                         cardView4.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -508,7 +521,7 @@ public class QbankTestActivity extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        updateAnswer(questionDetails, "4", questionDetails.getId(), isLast);
+                                        updateAnswer(tagD, questionDetails, "4", questionDetails.getId(), isLast);
                                     }
                                 }, 1 * 1000);
 
@@ -523,54 +536,61 @@ public class QbankTestActivity extends AppCompatActivity {
     }
 
 
-    private void updateAnswer(ModulesMcq modulesMcq, String answervalue, String questionId, boolean isLast) {
-        cardView1.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cardView2.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cardView3.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cardView4.setCardBackgroundColor(getResources().getColor(R.color.white));
+    private void updateAnswer(TextView tagA, ModulesMcq modulesMcq, String answervalue, String questionId, boolean isLast) {
+        // cardView1.setBackgroundResource(R.drawable.answer_selecter);
+
+        cardView1.setBackgroundResource(R.drawable.answer_selecter);
+        cardView2.setBackgroundResource(R.drawable.answer_selecter);
+        cardView3.setBackgroundResource(R.drawable.answer_selecter);
+        cardView4.setBackgroundResource(R.drawable.answer_selecter);
 
 
         if (answervalue.equalsIgnoreCase("1")) {
             if (answervalue.equalsIgnoreCase(modulesMcq.getCorrectAnswer())) {
-                cardView1.setCardBackgroundColor(getResources().getColor(R.color.green));
+                cardView1.setBackgroundResource(R.drawable.answer_selecter_selected);
+
             } else {
-                cardView1.setCardBackgroundColor(getResources().getColor(R.color.red));
+                cardView1.setBackgroundResource(R.drawable.answer_selecter_selected_red);
 
             }
-            qbank_answer1.setTextColor(getResources().getColor(R.color.white));
+            // qbank_answer1.setTextColor(getResources().getColor(R.color.white));
 
 
         }
         if (answervalue.equalsIgnoreCase("2")) {
             if (answervalue.equalsIgnoreCase(modulesMcq.getCorrectAnswer())) {
-                cardView2.setCardBackgroundColor(getResources().getColor(R.color.green));
+                cardView2.setBackgroundResource(R.drawable.answer_selecter_selected);
+
             } else {
-                cardView2.setCardBackgroundColor(getResources().getColor(R.color.red));
+                cardView2.setBackgroundResource(R.drawable.answer_selecter_selected_red);
+
             }
-            qbank_answer2.setTextColor(getResources().getColor(R.color.white));
+//            qbank_answer2.setTextColor(getResources().getColor(R.color.white));
 
         }
         if (answervalue.equalsIgnoreCase("3")) {
             if (answervalue.equalsIgnoreCase(modulesMcq.getCorrectAnswer())) {
-                cardView3.setCardBackgroundColor(getResources().getColor(R.color.green));
+                cardView3.setBackgroundResource(R.drawable.answer_selecter_selected);
             } else {
-                cardView3.setCardBackgroundColor(getResources().getColor(R.color.red));
+                cardView3.setBackgroundResource(R.drawable.answer_selecter_selected_red);
+
             }
-            qbank_answer3.setTextColor(getResources().getColor(R.color.white));
+//            qbank_answer3.setTextColor(getResources().getColor(R.color.white));
 
         }
         if (answervalue.equalsIgnoreCase("4")) {
             if (answervalue.equalsIgnoreCase(modulesMcq.getCorrectAnswer())) {
-                cardView4.setCardBackgroundColor(getResources().getColor(R.color.green));
+                cardView4.setBackgroundResource(R.drawable.answer_selecter_selected);
 
             } else {
-                cardView4.setCardBackgroundColor(getResources().getColor(R.color.red));
+                cardView4.setBackgroundResource(R.drawable.answer_selecter_selected_red);
+
             }
-            qbank_answer4.setTextColor(getResources().getColor(R.color.white));
+//            qbank_answer4.setTextColor(getResources().getColor(R.color.white));
 
 
         }
-
+//
         if (answervalue.equalsIgnoreCase(modulesMcq.getCorrectAnswer())) {
             if (questionNo >= questionDetail.size()) {
                 changeMarkingolor(tvList.get(questionNo - 1), getResources().getColor(R.color.green));
@@ -586,26 +606,24 @@ public class QbankTestActivity extends AppCompatActivity {
             }
         }
 
+
+
         switch (modulesMcq.getCorrectAnswer()) {
             case "1":
-                cardView1.setCardBackgroundColor(getResources().getColor(R.color.green));
-                qbank_answer1.setTextColor(getResources().getColor(R.color.white));
+                cardView1.setBackgroundResource(R.drawable.answer_selecter_selected);
+
                 break;
             case "2":
-                cardView2.setCardBackgroundColor(getResources().getColor(R.color.green));
-                qbank_answer2.setTextColor(getResources().getColor(R.color.white));
-
+                cardView2.setBackgroundResource(R.drawable.answer_selecter_selected);
 
                 break;
             case "3":
-                cardView3.setCardBackgroundColor(getResources().getColor(R.color.green));
-                qbank_answer3.setTextColor(getResources().getColor(R.color.white));
-
+                cardView3.setBackgroundResource(R.drawable.answer_selecter_selected);
 
                 break;
             case "4":
-                cardView4.setCardBackgroundColor(getResources().getColor(R.color.green));
-                qbank_answer4.setTextColor(getResources().getColor(R.color.white));
+                cardView4.setBackgroundResource(R.drawable.answer_selecter_selected);
+
                 break;
         }
 
@@ -669,10 +687,10 @@ public class QbankTestActivity extends AppCompatActivity {
 //            optionD.setText("D. " + question.getOption4() + " [" + question.getOption4Percenatge() + "%]");
 //
 
-            aTV.setText("A. " + modulesMcq.getOption1());
-            bTV.setText("B. " + modulesMcq.getOption2());
-            cTV.setText("C. " + modulesMcq.getOption3());
-            dTV.setText("D. " + modulesMcq.getOption4());
+            aTV.setText("" + modulesMcq.getOption1());
+            bTV.setText("" + modulesMcq.getOption2());
+            cTV.setText("" + modulesMcq.getOption3());
+            dTV.setText("" + modulesMcq.getOption4());
 
 
             if (questionNo == questionDetail.size()) {
@@ -682,106 +700,141 @@ public class QbankTestActivity extends AppCompatActivity {
 
             }
 
-//            if (!TextUtils.isEmpty(modulesMcq.getTitleImage())) {
-//                Picasso.with(this).load(modulesMcq.getTitleImage()).into(modulesMcq);
-//            }
 //            List<SliceValue> pieData = new ArrayList<>();
 //            pieData.add(new SliceValue(modulesMcq.getPercentage(), R.color.colorPrimary));
 //            pieData.add(new SliceValue(100 - question.getPercentage(), R.color.colorPrimary));
 //            PieChartData pieChartData = new PieChartData(pieData);
 //            pieChartView.setPieChartData(pieChartData);
-            imgA.setVisibility(GONE);
-            imgB.setVisibility(GONE);
-            imgC.setVisibility(GONE);
-            imgD.setVisibility(GONE);
+//            imgA.setVisibility(GONE);
+//            imgB.setVisibility(GONE);
+//            imgC.setVisibility(GONE);
+//            imgD.setVisibility(GONE);
 
             skipLayout.setVisibility(GONE);
+
+            tagA.setBackgroundResource(R.drawable.circle_shape_border);
+            tagB.setBackgroundResource(R.drawable.circle_shape_border);
+            tagC.setBackgroundResource(R.drawable.circle_shape_border);
+            tagD.setBackgroundResource(R.drawable.circle_shape_border);
 
             if (!givenAnswer.equalsIgnoreCase("0")) {
                 switch (givenAnswer) {
                     case "1":
                         if (modulesMcq.getCorrectAnswer().equalsIgnoreCase("1")) {
-                            aTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                            imgA.setImageResource(R.drawable.right_answer_icon);
+                            tagA.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+//                            aTV.setTextColor(ContextCompat.getColor(this, R.color.green));
+//                            imgA.setImageResource(R.drawable.right_answer_icon);
                         } else {
-                            aTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-                            imgA.setImageResource(R.drawable.wrong_answer_icon);
+                            tagA.setBackgroundResource(R.drawable.circle_shape_border_red);
+
+                            //                            aTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+//                            imgA.setImageResource(R.drawable.wrong_answer_icon);
 
                         }
 
-                        imgA.setVisibility(View.VISIBLE);
+                        //imgA.setVisibility(View.VISIBLE);
                         break;
                     case "2":
                         if (modulesMcq.getCorrectAnswer().equalsIgnoreCase("2")) {
-                            bTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                            imgB.setImageResource(R.drawable.right_answer_icon);
+                            tagB.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+//                            bTV.setTextColor(ContextCompat.getColor(this, R.color.green));
+//                            imgB.setImageResource(R.drawable.right_answer_icon);
                         } else {
-                            bTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-                            imgB.setImageResource(R.drawable.wrong_answer_icon);
+                            tagB.setBackgroundResource(R.drawable.circle_shape_border_red);
+
+//                            bTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+//                            imgB.setImageResource(R.drawable.wrong_answer_icon);
 
                         }
-                        imgB.setVisibility(View.VISIBLE);
+                        // imgB.setVisibility(View.VISIBLE);
 
                         break;
                     case "3":
                         if (modulesMcq.getCorrectAnswer().equalsIgnoreCase("3")) {
-                            cTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                            imgC.setImageResource(R.drawable.right_answer_icon);
+                            tagC.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                            //cTV.setTextColor(ContextCompat.getColor(this, R.color.green));
+                            //imgC.setImageResource(R.drawable.right_answer_icon);
                         } else {
-                            cTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-                            imgC.setImageResource(R.drawable.wrong_answer_icon);
+                            tagC.setBackgroundResource(R.drawable.circle_shape_border_red);
+
+//                            cTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+//                            imgC.setImageResource(R.drawable.wrong_answer_icon);
 
                         }
-                        imgC.setVisibility(View.VISIBLE);
+                        //imgC.setVisibility(View.VISIBLE);
 
                         break;
                     case "4":
                         if (modulesMcq.getCorrectAnswer().equalsIgnoreCase("4")) {
-                            dTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                            imgD.setImageResource(R.drawable.right_answer_icon);
+                            tagD.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                            //dTV.setTextColor(ContextCompat.getColor(this, R.color.green));
+//                            imgD.setImageResource(R.drawable.right_answer_icon);
                         } else {
-                            dTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-                            imgD.setImageResource(R.drawable.wrong_answer_icon);
+                            tagD.setBackgroundResource(R.drawable.circle_shape_border_red);
+
+//
+//                            dTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+//                            imgD.setImageResource(R.drawable.wrong_answer_icon);
 
                         }
 
-                        imgD.setVisibility(View.VISIBLE);
+                        //imgD.setVisibility(View.VISIBLE);
+
+                        break;
+                }
+            }else{
+                aTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+                bTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+                cTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+                dTV.setTextColor(ContextCompat.getColor(this, R.color.black));
+
+                switch (modulesMcq.getCorrectAnswer()) {
+                    case "1":
+                        tagA.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                        break;
+                    case "2":
+                        tagB.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+
+                        break;
+                    case "3":
+                        tagC.setBackgroundResource(R.drawable.circle_shape_border_green);
+
+                        break;
+                    case "4":
+                        tagD.setBackgroundResource(R.drawable.circle_shape_border_green);
 
                         break;
                 }
             }
 
-
-            aTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-            bTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-            cTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-            dTV.setTextColor(ContextCompat.getColor(this, R.color.black));
-
             switch (modulesMcq.getCorrectAnswer()) {
                 case "1":
-                    aTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                    imgA.setImageResource(R.drawable.right_answer_icon);
-                    imgA.setVisibility(View.VISIBLE);
+                    tagA.setBackgroundResource(R.drawable.circle_shape_border_green);
+
                     break;
                 case "2":
-                    bTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                    imgB.setImageResource(R.drawable.right_answer_icon);
-                    imgB.setVisibility(View.VISIBLE);
+                    tagB.setBackgroundResource(R.drawable.circle_shape_border_green);
+
 
                     break;
                 case "3":
-                    cTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                    imgC.setImageResource(R.drawable.right_answer_icon);
-                    imgC.setVisibility(View.VISIBLE);
+                    tagC.setBackgroundResource(R.drawable.circle_shape_border_green);
 
                     break;
                 case "4":
-                    dTV.setTextColor(ContextCompat.getColor(this, R.color.green));
-                    imgD.setImageResource(R.drawable.right_answer_icon);
-                    imgD.setVisibility(View.VISIBLE);
+                    tagD.setBackgroundResource(R.drawable.circle_shape_border_green);
 
                     break;
+                    default:
+
             }
+
             if (Utils.isInternetConnected(this)) {
                 try {
                     loadView(modulesMcq.getId());
@@ -824,7 +877,7 @@ public class QbankTestActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         progressBar.setVisibility(View.VISIBLE);
-        webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
+        webView.loadUrl(BuildConfig.API_SERVER_IP+"/reviewqbank.php?id=" + qID);
 
 
     }
@@ -854,10 +907,10 @@ public class QbankTestActivity extends AppCompatActivity {
     private void showDialog(String user_id, String module_id, String complete_status, String subject_id, String chapter_id) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (complete_status.equalsIgnoreCase("0")){
+        if (complete_status.equalsIgnoreCase("0")) {
             builder.setTitle("Pause");
             builder.setMessage("Do you want to pause?");
-        }else{
+        } else {
             builder.setTitle("Submit");
             builder.setMessage("Your module will be submitted");
 
@@ -875,10 +928,10 @@ public class QbankTestActivity extends AppCompatActivity {
             RestClient.completeMCQ(userId, moduleId, complete, subID, chapId, new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (complete_status.equalsIgnoreCase("0")){
-                      finish();
-                    }else{
-                        Intent    intent = new Intent(QbankTestActivity.this, QbankRatingActivity.class);
+                    if (complete_status.equalsIgnoreCase("0")) {
+                        finish();
+                    } else {
+                        Intent intent = new Intent(QbankTestActivity.this, QbankRatingActivity.class);
                         intent.putExtra("module_id", module_id);
                         intent.putExtra("userId", user_id);
                         startActivity(intent);

@@ -50,7 +50,7 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:9800691244"));
+                intent.setData(Uri.parse("tel:8420224581"));
                 startActivity(intent);
             }
         });
@@ -59,7 +59,7 @@ public class DNAKnowmoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"dnahelpgroup@gmail.com"});
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"support@dnamedicalapp.com"});
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Any subject if you want");
                 intent.setPackage("com.google.android.gm");
                 if (intent.resolveActivity(getPackageManager()) != null)

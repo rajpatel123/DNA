@@ -27,7 +27,7 @@
                     android:layout_height="108dp"
                     android:scaleType="fitXY"
                     android:layout_gravity="center_horizontal"
-                    app:srcCompat="@drawable/profile_image_know_more" />
+                     />
 
                 <ProgressBar
                     android:visibility="gone"

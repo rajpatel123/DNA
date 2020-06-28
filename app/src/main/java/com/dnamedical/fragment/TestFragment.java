@@ -208,7 +208,14 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
         if (allTestFragment == null) {
             return;
         }
-        dailyTestFragment.showTest(true);
+
+        if (DnaPrefs.getString(getActivity(), Constants.CAT_ID).equalsIgnoreCase("3")) {
+            dailyTestFragment.showTest(false);
+
+        }else{
+            dailyTestFragment.showTest(true);
+
+        }
         //allTestFragment.showTest();
         mockTestFragment.showTest();
         grandTestFragment.showTest();

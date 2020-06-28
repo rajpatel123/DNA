@@ -4,12 +4,15 @@ import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
 import com.dnamedical.Models.Enter_Mobile.EnterMobileresponce;
+import com.dnamedical.Models.LoginCheckResponse;
 import com.dnamedical.Models.LoginDetailForDemo;
+import com.dnamedical.Models.LogoutResponse;
 import com.dnamedical.Models.PromoVideo;
 import com.dnamedical.Models.QbankSubCat.QbankSubResponse;
 import com.dnamedical.Models.QbankSubTest.QbankTestResponse;
 import com.dnamedical.Models.QbannkReviewList.ReviewListResponse;
 import com.dnamedical.Models.RankResult;
+import com.dnamedical.Models.ReportErrorResponse;
 import com.dnamedical.Models.ResultData.ResultList;
 import com.dnamedical.Models.StateList.StateListResponse;
 import com.dnamedical.Models.TestReviewList.TestReviewResponse;
@@ -20,7 +23,9 @@ import com.dnamedical.Models.acadamic.CourseResponse;
 import com.dnamedical.Models.addressDetail.AddressDetailResponse;
 import com.dnamedical.Models.allinstitutes.AllInstituteResponseModel;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
+import com.dnamedical.Models.chat_users_history.ChatUsersHistoryResp;
 import com.dnamedical.Models.collegelist.CollegeListResponse;
+import com.dnamedical.Models.delete_chat_message.DeletechatmessageResp;
 import com.dnamedical.Models.facebook.FacebookResponse;
 import com.dnamedical.Models.facebookloginnew.FacebookLoginResponse;
 import com.dnamedical.Models.faculties.FacultyDetail;
@@ -29,7 +34,9 @@ import com.dnamedical.Models.forgetpassword.ForgetPasswordResponse;
 import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
-import com.dnamedical.Models.log_out.LogOutResponse;
+import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
+import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
+import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -42,6 +49,7 @@ import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
+import com.dnamedical.Models.referal.ApplyCopan;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
@@ -54,10 +62,14 @@ import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.Models.test.testresult.TestResult;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
+import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
+import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
+import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.institute.InstituteDetails;
+import com.dnamedical.livemodule.LiveChannelData;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -157,7 +169,7 @@ public interface ApiInterface {
                                                @Part("grandTotal") RequestBody grandTotal,
                                                @Part("totalAmount") RequestBody totalAmount,
                                                @Part("order_id") RequestBody order_id
-                                               );
+    );
 
     @Multipart
     @POST("api/api.php?req=save_order")
@@ -177,10 +189,28 @@ public interface ApiInterface {
                                            @Part("product_id") RequestBody product_id,
                                            @Part("video_id") RequestBody video_id,
                                            @Part("test_id") RequestBody test_id,
-                                           @Part("status") RequestBody status
+                                           @Part("status") RequestBody status,
+                                           @Part("coupon_id") RequestBody coupon_id,
+                                           @Part("coupon_code") RequestBody coupon_code,
+                                           @Part("type") RequestBody type
 //                                           @Part("cat_id") RequestBody cat_id,
 //                                           @Part("sub_cat_id") RequestBody sub_cat_id
     );
+
+
+    @Multipart
+    @POST("/v1/index.php/api/ordersdetails/updatechatpayment")
+    Call<SaveOrderResponse> updatechatpayment(@Part("user_id") RequestBody user_id,
+                                              @Part("payment_id") RequestBody payment_id,
+                                              @Part("order_id") RequestBody order_id,
+                                              @Part("coupon_id") RequestBody coupon_id,
+                                              @Part("coupon_code") RequestBody coupon_code,
+                                              @Part("type") RequestBody type
+
+//                                           @Part("cat_id") RequestBody cat_id,
+//                                           @Part("sub_cat_id") RequestBody sub_cat_id
+    );
+
 
     @Multipart
     @POST("api/api.php?req=order_subscription")
@@ -191,7 +221,12 @@ public interface ApiInterface {
                                              @Part("pack_key") RequestBody pack,
                                              @Part("months") RequestBody month,
                                              @Part("status") RequestBody status,
-                                             @Part("price") RequestBody price);
+                                             @Part("price") RequestBody price,
+                                             @Part("coupon_id") RequestBody coupon_id,
+                                             @Part("coupon_code") RequestBody coupon_code,
+                                             @Part("type") RequestBody type
+
+    );
 
 
     @Multipart
@@ -202,6 +237,17 @@ public interface ApiInterface {
                                                 @Part("product_id") RequestBody product_id,
                                                 @Part("product_type") RequestBody product_type
     );
+
+
+    @Multipart
+    @POST("/v1/index.php/api/ordersdetails/savechatorderdetail")
+    Call<CreateOrderResponse> savechatorderdetail(@Part("user_id") RequestBody user_id,
+                                                  @Part("amount") RequestBody amount,
+                                                  @Part("currency") RequestBody currency,
+                                                  @Part("product_id") RequestBody product_id,
+                                                  @Part("product_type") RequestBody product_type
+    );
+
 
     @Multipart
     @POST("api/api.php?req=token_verify")
@@ -228,11 +274,10 @@ public interface ApiInterface {
                                             @Part("pincode_of_college") RequestBody pinMedicalCollege,
                                             @Part("comment") RequestBody comment,
                                             @Part("invested_ammount") RequestBody amount,
-                                            @Part("is_recievecall") RequestBody canCall
+                                            @Part("is_recievecall") RequestBody canCall,
+                                            @Part("otp") RequestBody otp
 
     );
-
-
 
 
     @Multipart
@@ -266,6 +311,7 @@ public interface ApiInterface {
     @GET("api/api.php?req=category")
     Call<CategoryDetailData> getCourse();
 
+
     @Multipart
     @POST("api/api.php?req=allfile")
     Call<VideoList> getVideos(
@@ -284,7 +330,6 @@ public interface ApiInterface {
 
     @GET("api/api.php?req=getreleasedetail")
     Call<PlaystoreUpdateResponse> playstoreUpdate();
-
 
 
     @GET("api/api.php?req=get_customsubs")
@@ -330,8 +375,79 @@ public interface ApiInterface {
     Call<QustionDetails> getQuestion(@Query("user_id") String user_id,
                                      @Query("test_id") String test_id);
 
+
+    @GET("api/api.php")
+    Call<LiveChannelData> getAllCgannels(@Query("req") String req, @Query("user_id") String user_id);
+
+
+    @GET("api/api.php")
+    Call<GetChatHistoryResp> get_chat_history(@Query("req") String req, @Query("channel_id") String channel_id, @Query("user_id") String user_id, @Query("faculty_id") String faculty_id);
+
+    @GET("api/api.php")
+    Call<DeletechatmessageResp> delete_chat_message(@Query("req") String req, @Query("id") String id);
+
     @Multipart
-    @POST("v1/index.php/api/test/testresult")
+    @POST("api/api.php?req=verify_mail")
+    Call<VerifyMailResp> verify_mail(@Part("email") RequestBody email,
+                                     @Part("name") RequestBody name, @Part("user_id") RequestBody user_id);
+
+    @Multipart
+    @POST("api/api.php?req=chat_channel_eta")
+    Call<ChatUsersHistoryResp> chat_users_history(
+            @Part("channel_id") RequestBody channel_id,
+            @Part("data_time") RequestBody date,
+            @Part("join_time") RequestBody join_time,
+            @Part("user_id") RequestBody userId12,
+            @Part("leave_time") RequestBody leaving_Time,
+            @Part("batch") RequestBody user_id,
+            @Part("faculty_id") RequestBody educator,
+            @Part("educator") RequestBody educatorName,
+            @Part("email") RequestBody emailBody,
+            @Part("mobile") RequestBody mobileBody,
+            @Part("city") RequestBody cityBody,
+            @Part("state") RequestBody stateBody,
+            @Part("country") RequestBody countryBody,
+            @Part("status") RequestBody status,
+            @Part("channel_name") RequestBody channel_name
+
+    );
+
+
+    @GET("api/api.php")
+    Call<RetFacultyChannel> get_faculty_channel(@Query("req") String req, @Query("faculty_id") String faculty_id);
+
+
+    @GET("api/api.php")
+    Call<UpdteChatstatusRes> updte_chat_status(@Query("req") String req, @Query("channel_id") String channel_id, @Query("f_id") String f_id, @Query("status") String status);
+
+
+    @Multipart
+    @POST("api/api.php?req=update_token")
+    Call<UpdateToken> update_token(@Part("user_id") RequestBody user_id,
+                                   @Part("fcm_token") RequestBody fcm_token, @Part("faculty_id") RequestBody faculty_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=send_chat_messages")
+    Call<GetChatHistoryResp> send_chat_message(@Part MultipartBody.Part file, @Part("channel_id") RequestBody channel_id,
+                                               @Part("user_id") RequestBody user_id,
+                                               @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
+
+    @Multipart
+    @POST("api/api.php?req=send_chat_messages")
+    Call<GetChatHistoryResp> send_chat_messageText(@Part("channel_id") RequestBody channel_id,
+                                                   @Part("user_id") RequestBody user_id,
+                                                   @Part("message") RequestBody message, @Part("faculty_id") RequestBody faculty_id);
+
+    @Multipart
+    @POST("api/api.php?req=send_chat_message")
+    Call<GetChatHistoryResp> getsend_chat_messagefaculty(@Part("channel_id") RequestBody channel_id,
+                                                         @Part("faculty_id") RequestBody user_id,
+                                                         @Part("message") RequestBody message);
+
+
+    @Multipart
+    @POST("v1/index.php/api/test/testresults ")
     Call<TestResult> submitTest(@Part("user_id") RequestBody userId,
                                 @Part("test_id") RequestBody testID,
                                 @Part("is_submit") RequestBody isSubmit);
@@ -359,6 +475,15 @@ public interface ApiInterface {
     @POST("api/api.php?req=get_testrank")
     Call<RankResult> getStudentRank(@Part("user_id") RequestBody userId,
                                     @Part("test_id") RequestBody testID
+    );
+
+
+    @Multipart
+    @POST("api/api.php?req=apply_coupon")
+    Call<ApplyCopan> applyReferral(@Part("coupan_code") RequestBody userId,
+                                   @Part("type") RequestBody testID,
+                                   @Part("category_id") RequestBody category_id,
+                                   @Part("user_id") RequestBody user_id
     );
 
     @Multipart
@@ -477,6 +602,7 @@ public interface ApiInterface {
                                                 @Part("is_guess") RequestBody guesStatus,
                                                 @Part("is_edit") RequestBody edit);
 
+
     @Multipart
     @POST("v1/index.php/api/test/submitselectedoption")
     Call<ResponseBody> submitTestAnswer(@Part("user_id") RequestBody userId,
@@ -560,6 +686,7 @@ public interface ApiInterface {
                                         @Part("remove_bookmark") RequestBody remove_bookmark,
                                         @Part("type") RequestBody type);
 
+
     @Multipart
     @POST("v1/index.php/api/test/timelogs")
     Call<ResponseBody> submit_timeLog(@Part("user_id") RequestBody user_id,
@@ -621,6 +748,13 @@ public interface ApiInterface {
 
     // Change phone No
     @Multipart
+    @POST("api/api.php?req=franchise_otp")
+    Call<ResponseBody> sendOTPFrenchise(@Part("name") RequestBody name,
+                                        @Part("mobile") RequestBody phoneNo);
+
+
+    // Change phone No
+    @Multipart
     @POST("api/api.php?req=get_catsubmodules")
     Call<CatModuleResponse> getAllModulesForCategory(@Part("cat_id") RequestBody catId);
 
@@ -637,9 +771,33 @@ public interface ApiInterface {
     @POST("api/api.php?req=get_institute")
     Call<AllInstituteResponseModel> getAllInstitute(@Part("user_id") RequestBody user_id);
 
+
     @Multipart
     @POST("api/api.php?req=logout")
-    Call<LogOutResponse> LOG_OUT_RESPONSE_CALL (@Part("userId") RequestBody userId);
+    Call<LogoutResponse> logout(@Part("userId") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=get_profile_data")
+    Call<User> getProfileData(@Part("user_id") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=check_login_token")
+    Call<LoginCheckResponse> checkLogin(@Part("user_id") RequestBody user_id, @Part("login_token") RequestBody token);
+
+
+    @Multipart
+    @POST("api/api.php?req=add_modulesfeedback")
+    Call<ReportErrorResponse> reportError(
+            @Part("user_id") RequestBody user_id,
+            @Part("q_t_id") RequestBody q_t_id,
+            @Part("question_id") RequestBody question_id,
+            @Part("comment") RequestBody comment,
+            @Part("module") RequestBody module,
+            @Part("issue_type") RequestBody issue_type
+
+    );
 
 
 }

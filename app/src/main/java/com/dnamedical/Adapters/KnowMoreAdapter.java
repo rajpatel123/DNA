@@ -47,7 +47,7 @@ public class KnowMoreAdapter extends RecyclerView.Adapter<KnowMoreAdapter.ViewHo
 
         Picasso.with(context)
                 .load(faculty.getFImage())
-                .error(R.drawable.profile_image_know_more)
+                .error(R.drawable.dnalogo)
                 .into(holder.facultyImage, new Callback() {
                     @Override
                     public void onSuccess() {

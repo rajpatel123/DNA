@@ -1353,10 +1353,9 @@
                     <TextView
                         android:id="@+id/read_gmail"
                         android:layout_width="match_parent"
-
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="dnahelpgroup@gmail.com"
+                        android:text="support@dnamedicalapp.com"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
 

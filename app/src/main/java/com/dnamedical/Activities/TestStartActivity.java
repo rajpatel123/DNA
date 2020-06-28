@@ -5,13 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.Adapters.TestReviewListAdapter;
+import com.dnamedical.DNAApplication;
+import com.dnamedical.Models.testReviewlistnew.Filters;
+import com.dnamedical.Models.testReviewlistnew.QuestionList;
+import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
@@ -48,6 +56,13 @@ public class TestStartActivity extends AppCompatActivity {
 
     @BindView(R.id.card_view)
     CardView cardView;
+
+   @BindView(R.id.bookmark_card)
+    CardView bookmark_card;
+
+
+   @BindView(R.id.totalBookmark)
+    TextView totalBookmark;
 
     String test_id, duration, testName, testQuestion = "0", testPaid;
     String description;
@@ -156,6 +171,18 @@ public class TestStartActivity extends AppCompatActivity {
             });
         }*/
 
+
+
+        bookmark_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TestStartActivity.this, TestReviewResultActivity.class);
+                intent.putExtra("testid", test_id);
+                intent.putExtra("isBookmark", true);
+                startActivity(intent);
+            }
+        });
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,6 +281,13 @@ public class TestStartActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getReviewData();
+    }
+
     private void startTest() {
         if (!Utils.isInternetConnected(this)) {
             Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
@@ -296,6 +330,45 @@ public class TestStartActivity extends AppCompatActivity {
                 Utils.dismissProgressDialog();
             }
         });
+
+    }
+    private void getReviewData() {
+//        if (getIntent().hasExtra("userId")) {
+//            user_Id = getIntent().getStringExtra("userId");
+//            question_id = getIntent().getStringExtra("qmodule_id");
+//        }
+//
+//
+
+
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.getTestReviewListData(test_id, user_id, "", "", "","test", new Callback<TestReviewListResponse>() {
+                @Override
+                public void onResponse(Call<TestReviewListResponse> call, Response<TestReviewListResponse> response) {
+                    Utils.dismissProgressDialog();
+                    if (response.code() == 200 && response.body() != null && response.body().getData()!=null
+                            && response.body().getData().getQuestionList()!=null) {
+                        totalBookmark.setText(response.body().getData().getQuestionList().size()+" Bookmarks");
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<TestReviewListResponse> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+                    // Toast.makeText(TestReviewResultActivity.this, "Something Went Wrong!!!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(this, "Internet Connections Failed!!!", Toast.LENGTH_SHORT).show();
+
+        }
+
 
     }
 
