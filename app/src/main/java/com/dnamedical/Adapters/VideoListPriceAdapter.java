@@ -3,6 +3,7 @@ package com.dnamedical.Adapters;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.R;
@@ -35,7 +37,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     private Context applicationContext;
     private List<Price> priceList;
     ArrayList<Price> priceArrayList;
-
+  String isFull;
     PaidVideoResponse paidVideoResponse;
 
 
@@ -44,9 +46,12 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     VideoListPriceAdapter.OnDataClick onDataClick;
     private int visible;
 
-    public VideoListPriceAdapter(Context applicationContext) {
+    public VideoListPriceAdapter(Context applicationContext,String isfull) {
         this.applicationContext = applicationContext;
+        this.isFull=isfull;
     }
+
+
 
     public void setPaidVideoResponse(PaidVideoResponse paidVideoResponse) {
         this.paidVideoResponse = paidVideoResponse;
@@ -156,7 +161,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.lockNew.setVisibility(GONE);
             holder.txtActualPrice.setVisibility(View.GONE);
             holder.txtTotalPrice.setVisibility(View.GONE);
-            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
@@ -168,7 +173,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                holder.lockNew.setVisibility(GONE);
                holder.txtActualPrice.setVisibility(View.GONE);
                holder.txtTotalPrice.setVisibility(View.GONE);
-               if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+               if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
                    holder.commingSoon.setVisibility(View.VISIBLE);
                } else {
                    holder.commingSoon.setVisibility(GONE);
@@ -179,7 +184,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                holder.txtActualPrice.setVisibility(View.VISIBLE);
                holder.txtTotalPrice.setVisibility(View.VISIBLE);
                holder.lockNew.setVisibility(View.VISIBLE);
-               if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+               if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
                    holder.commingSoon.setVisibility(View.VISIBLE);
                } else {
                    holder.commingSoon.setVisibility(GONE);
@@ -190,7 +195,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
             holder.txtActualPrice.setVisibility(View.VISIBLE);
             holder.txtTotalPrice.setVisibility(View.VISIBLE);
             holder.lockNew.setVisibility(View.VISIBLE);
-            if (price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+            if (price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
                 holder.commingSoon.setVisibility(View.VISIBLE);
             } else {
                 holder.commingSoon.setVisibility(GONE);
@@ -209,7 +214,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")))) {
+                if (((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")))) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(priceList.get(holder.getAdapterPosition()));
                     } else {
@@ -235,7 +240,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
         holder.pdf_notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/"))) {
+                if ((!TextUtils.isEmpty(price.getPaymentStatus()) && price.getPaymentStatus().equalsIgnoreCase("1")) && (!TextUtils.isEmpty(price.getUrl()) && !price.getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/"))) {
                     if (onDataClick!=null)
                     {
                         onDataClick.onNotesClick(price.getPdf_url());
@@ -263,7 +268,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
                 btn_yes_all.setText("Click Here To Buy All Topic");
 
-                if (priceList.get(holder.getAdapterPosition()).getIsbuyall().trim().equalsIgnoreCase("1")) {
+                if (isFull.equalsIgnoreCase("1")) {
                     btn_yes.setVisibility(GONE);
                     ortxt.setVisibility(GONE);
 
@@ -286,7 +291,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                     public void onClick(View v) {
                         if (onDataClick != null) {
 
-                            onDataClick.onNextActivityDataClick();
+                            onDataClick.onBuyAllVideo();
                         }
                         dialog.dismiss();
                     }
@@ -406,7 +411,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
     public interface OnDataClick {
         // public void ondataClick(PaidVideoResponse price);
-         void onNextActivityDataClick();
+         void onBuyAllVideo();
          void onNotesClick(String url);
     }
 

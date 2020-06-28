@@ -12,6 +12,32 @@ private String id;
 @Expose
 private String subChildName;
 
+
+    public String getAdmin_discount() {
+        return admin_discount;
+    }
+
+    public void setAdmin_discount(String admin_discount) {
+        this.admin_discount = admin_discount;
+    }
+
+    public String getIsFull() {
+        return isFull;
+    }
+
+    public void setIsFull(String isFull) {
+        this.isFull = isFull;
+    }
+
+    @SerializedName("admin_discount")
+@Expose
+private String admin_discount;
+
+
+@SerializedName("is_full")
+@Expose
+private String isFull;
+
 public String getId() {
 return id;
 }

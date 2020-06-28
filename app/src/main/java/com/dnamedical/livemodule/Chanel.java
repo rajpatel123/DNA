@@ -37,6 +37,18 @@ public class Chanel implements Comparable<Chanel>, Parcelable {
     @SerializedName("live_subject")
     @Expose
     private String liveSubject;
+
+    public String getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
+    }
+
+    @SerializedName("category_id")
+    @Expose
+    private String category_id;
     @SerializedName("doctor_image")
     @Expose
     private String doctorImage;

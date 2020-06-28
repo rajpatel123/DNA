@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.dnamedical.BuildConfig;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
@@ -95,12 +97,12 @@ public class WebViewActivity extends AppCompatActivity {
         switch (title) {
             case "Terms & Conditions":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.232.100.13/termsncondition.php");
+                mWebView.loadUrl(BuildConfig.API_SERVER_IP+"/termsncondition.php");
                 break;
 
             case "Privacy Policy":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.232.100.13/privacy-policy.php");
+                mWebView.loadUrl(BuildConfig.API_SERVER_IP+"/privacy-policy.php");
                 break;
 
             case "Read More":
@@ -114,7 +116,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             case "FAQ":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.232.100.13/dnafaq.php");
+                mWebView.loadUrl(BuildConfig.API_SERVER_IP+"/dnafaq.php");
                 break;
             case "Report":
                 progressBar.setVisibility(View.VISIBLE);

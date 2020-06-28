@@ -145,7 +145,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
             //
             shippingCharge = getIntent().getStringExtra("SHIPPING_CHARGE");
             totalDiscountGiven = getIntent().getStringExtra("COUPON_VALUE");
-            totalADDDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_ADD");
+           // totalADDDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_ADD");
             totalValue = getIntent().getStringExtra("TOTAL_VALUE");
 
 
@@ -185,7 +185,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
             }
 //            } else {
             textViewCouponApplied.setText("" + "\u20B9 " + "" + totalDiscountGiven);
-            textViewCouponAppliedAdd.setText("" + "\u20B9 " + "" + totalADDDiscountGiven);
+            //textViewCouponAppliedAdd.setText("" + "\u20B9 " + "" + totalADDDiscountGiven);
 
             // }
 
@@ -195,11 +195,11 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
             textViewShipping.setText("\u20B9 " + shippingCharge);
             if (!TextUtils.isEmpty(befortaxValue)){
-                taxValue = String.valueOf((Integer.parseInt(befortaxValue) * 18) / 100);
+                taxValue = String.valueOf((Integer.parseInt(befortaxValue.trim()) * 18) / 100);
             }
             textViewTax.setText("" + "\u20B9 " + taxValue);
 //            orderValue = 1;//((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
-            orderValue = ((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
+            orderValue = ((Integer.parseInt(befortaxValue.trim()) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
             textViewOrderTotal.setText("" + "\u20B9 " + " " + orderValue);
 
 
@@ -248,7 +248,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
             options.put("currency", "INR");
-            options.put("amount", orderValue * 100);
+            options.put("amount", 1 * 100);
             //options.put("amount", 1*100);
             options.put("order_id", orderId);
             //options.put("amount", 100);
@@ -290,7 +290,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + 1 * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
         RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), "" + 123);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "video");
@@ -306,7 +306,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
                     if (response.body() != null) {
                         CreateOrderResponse createOrderResponse = response.body();
                         if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
-                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                            if ((1 * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
                                 startPayment(createOrderResponse.getData().getOrderId());
                             }
                         }
@@ -362,11 +362,17 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         RequestBody sub_cat_id = RequestBody.create(MediaType.parse("text/plain"), subCatID);
         RequestBody cat_id = RequestBody.create(MediaType.parse("text/plain"), catID);
 
+        RequestBody  coupan_id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(this, Constants.REFERL_COUPN_ID));
+        RequestBody  coupanCode = RequestBody.create(MediaType.parse("text/plain"),  DnaPrefs.getString(this, Constants.REFERL_COUPN));
+        RequestBody  type = RequestBody.create(MediaType.parse("text/plain"),  DnaPrefs.getString(this, Constants.REFERL_COUPN_VALUE_FOR));
+
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.addOrderDetail(order_id, sub_child_cat_id,user_id, product_id, video_id, test_id, status,cat_id,sub_cat_id, new Callback<SaveOrderResponse>() {
+            RestClient.addOrderDetail(order_id, sub_child_cat_id,user_id, product_id, video_id, test_id,
+                    status,cat_id,sub_cat_id,coupan_id,coupanCode,type,
+                    new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();
@@ -428,7 +434,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         RequestBody totalAmount = RequestBody.create(MediaType.parse("text/plain"), "" + totalValue);
         RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
         RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"), shippingCharge);
-        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
+        RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + 1);
 
 
         if (Utils.isInternetConnected(this)) {

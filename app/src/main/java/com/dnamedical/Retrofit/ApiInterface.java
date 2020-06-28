@@ -49,6 +49,7 @@ import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
+import com.dnamedical.Models.referal.ApplyCopan;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
@@ -188,7 +189,10 @@ public interface ApiInterface {
                                            @Part("product_id") RequestBody product_id,
                                            @Part("video_id") RequestBody video_id,
                                            @Part("test_id") RequestBody test_id,
-                                           @Part("status") RequestBody status
+                                           @Part("status") RequestBody status,
+                                           @Part("coupon_id") RequestBody coupon_id,
+                                           @Part("coupon_code") RequestBody coupon_code,
+                                           @Part("type") RequestBody type
 //                                           @Part("cat_id") RequestBody cat_id,
 //                                           @Part("sub_cat_id") RequestBody sub_cat_id
     );
@@ -198,7 +202,10 @@ public interface ApiInterface {
     @POST("/v1/index.php/api/ordersdetails/updatechatpayment")
     Call<SaveOrderResponse> updatechatpayment(@Part("user_id") RequestBody user_id,
                                               @Part("payment_id") RequestBody payment_id,
-                                              @Part("order_id") RequestBody order_id
+                                              @Part("order_id") RequestBody order_id,
+                                              @Part("coupon_id") RequestBody coupon_id,
+                                              @Part("coupon_code") RequestBody coupon_code,
+                                              @Part("type") RequestBody type
 
 //                                           @Part("cat_id") RequestBody cat_id,
 //                                           @Part("sub_cat_id") RequestBody sub_cat_id
@@ -214,7 +221,12 @@ public interface ApiInterface {
                                              @Part("pack_key") RequestBody pack,
                                              @Part("months") RequestBody month,
                                              @Part("status") RequestBody status,
-                                             @Part("price") RequestBody price);
+                                             @Part("price") RequestBody price,
+                                             @Part("coupon_id") RequestBody coupon_id,
+                                             @Part("coupon_code") RequestBody coupon_code,
+                                             @Part("type") RequestBody type
+
+    );
 
 
     @Multipart
@@ -435,7 +447,7 @@ public interface ApiInterface {
 
 
     @Multipart
-    @POST("v1/index.php/api/test/testresult")
+    @POST("v1/index.php/api/test/testresults ")
     Call<TestResult> submitTest(@Part("user_id") RequestBody userId,
                                 @Part("test_id") RequestBody testID,
                                 @Part("is_submit") RequestBody isSubmit);
@@ -463,6 +475,15 @@ public interface ApiInterface {
     @POST("api/api.php?req=get_testrank")
     Call<RankResult> getStudentRank(@Part("user_id") RequestBody userId,
                                     @Part("test_id") RequestBody testID
+    );
+
+
+    @Multipart
+    @POST("api/api.php?req=apply_coupon")
+    Call<ApplyCopan> applyReferral(@Part("coupan_code") RequestBody userId,
+                                   @Part("type") RequestBody testID,
+                                   @Part("category_id") RequestBody category_id,
+                                   @Part("user_id") RequestBody user_id
     );
 
     @Multipart

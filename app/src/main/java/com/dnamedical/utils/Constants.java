@@ -67,6 +67,9 @@ public class Constants {
     public static final String TEST_ID = "test_id";
     public static final String MODULE ="module" ;
     public static final String LOGIN_TOKEN = "login_token";
+    public static final String REFERL_COUPN = "REFERAL_COUPAN";
+    public static final String REFERL_COUPN_ID = "REFERAL_COUPAN_ID";
+    public static final String REFERL_COUPN_VALUE_FOR = "REFERAL_COUPAN_FOR";
     public static  boolean IS_NEET = false;
     public static final String PAUSE_POSITION = "cPosition";
     public static  boolean ISTEST = false;

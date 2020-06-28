@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.dnamedical.Activities.LoginActivity;
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
@@ -58,7 +59,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         }
 
-        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
             holder.commingsoon.setVisibility(View.VISIBLE);
         }else{
             holder.commingsoon.setVisibility(GONE);
@@ -80,7 +81,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.pdf_notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getPdf_url()) && onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getPdf_url().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+                if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getPdf_url()) && onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getPdf_url().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
                     onUserClickCallback.onPdfClick(freeList.get(holder.getAdapterPosition()));
                 }
             }
@@ -112,7 +113,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
                     onUserClickCallback.onCateClick(free);
                 }else{
                     Utils.displayToast(applicationContext, "Coming Soon");

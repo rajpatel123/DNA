@@ -329,7 +329,7 @@ public class PlanPaymentProceesingForSSUGActivity extends AppCompatActivity {
                 intent.putExtra("plan_id", plan_id);
                 intent.putExtra("months", months);
                 intent.putExtra("pack_key", pack_key);
-                intent.putExtra("COUPON_VALUE_ADD", DnaPrefs.getString(PlanPaymentProceesingForSSUGActivity.this, Constants.ADD_DISCOUNT));
+                //intent.putExtra("COUPON_VALUE_ADD", DnaPrefs.getString(PlanPaymentProceesingForSSUGActivity.this, Constants.ADD_DISCOUNT));
                 intent.putExtra("COUPON_VALUE", plan.getCoupan_value());
                 intent.putExtra("COUPON_VALUE_GIVEN", "" + discountAmount);
 

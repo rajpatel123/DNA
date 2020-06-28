@@ -20,6 +20,7 @@ import com.dnamedical.R;
 import com.dnamedical.fragment.BuynowFragment;
 import com.dnamedical.fragment.FreeFragment;
 import com.dnamedical.fragment.PausedFragment;
+import com.dnamedical.utils.DnaPrefs;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -29,8 +30,11 @@ public class VideoActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView subcategory;
     public static String subCatId;
+    public static String adminDiscount;
+    public static String isfull;
     public static int discountonfullpurchase;
     DisplayDataInterface displayDataInterface;
+    private String subcategoryname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +63,19 @@ public class VideoActivity extends AppCompatActivity {
         Intent intent=getIntent();
         if(intent.hasExtra("SubCategoryName"))
         {
-            String subcategoryname=intent.getStringExtra("SubCategoryName");
+             subcategoryname=intent.getStringExtra("SubCategoryName");
             subcategory.setText(subcategoryname);
         }
 
         if (intent.hasExtra("subCatId")) {
             subCatId = intent.getStringExtra("subCatId");
         }
-        if (intent.hasExtra("discountonfullpurchase")) {
-            discountonfullpurchase = intent.getIntExtra("discountonfullpurchase",0);
-        }
+
+            adminDiscount = DnaPrefs.getString(this,"admin_discount");
+
+            isfull = DnaPrefs.getString(this,"is_full"+subcategoryname);
+            //discountonfullpurchase = intent.getIntExtra("discountonfullpurchase",0);
+
 
 
     }

@@ -41,7 +41,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dnamedical.Activities.VideoActivity.adminDiscount;
 import static com.dnamedical.Activities.VideoActivity.discountonfullpurchase;
+import static com.dnamedical.Activities.VideoActivity.isfull;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoListPriceAdapter.OnBuyNowClick, VideoActivity.  DisplayDataInterface {
@@ -125,6 +127,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     @Override
     public void onResume() {
         super.onResume();
+            getVideos();
     }
 
 
@@ -159,7 +162,6 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                     if (response.body() != null) {
                         if (response.body().getStatus().equalsIgnoreCase("1")) {
                             paidVideoResponseList = response.body();
-
                             loadedOnce = true;
                         }
                          showVideos();
@@ -203,16 +205,17 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     public void showVideos() {
         if (paidVideoResponseList != null && paidVideoResponseList.getPrice() != null && paidVideoResponseList.getPrice().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            VideoListPriceAdapter videoListAdapter = new VideoListPriceAdapter(getActivity());
+            VideoListPriceAdapter videoListAdapter = new VideoListPriceAdapter(getActivity(),isfull);
             //videoListAdapter.setPaidVideoResponse(paidVideoResponseList);
             videoListAdapter.setPriceList(paidVideoResponseList.getPrice());
             videoListAdapter.setOnUserClickCallback(BuynowFragment.this);
             videoListAdapter.setOnBuyNowClick(BuynowFragment.this);
             videoListAdapter.setOnDataClick(new VideoListPriceAdapter.OnDataClick() {
                 @Override
-                public void onNextActivityDataClick() {
+                public void onBuyAllVideo() {
                     Intent intent = new Intent(getActivity(), PaymentCoupenActivity.class);
                     intent.putExtra("PRICE", paidVideoResponseList);
+                    intent.putExtra("discount", adminDiscount);
                     startActivity(intent);
 
                 }

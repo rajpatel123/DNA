@@ -871,7 +871,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody college = RequestBody.create(MediaType.parse("text/plain"), collegetext);
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), edit_password);
         RequestBody courseSlectedBody = RequestBody.create(MediaType.parse("text/plain"), courseSlected);
-        RequestBody username = RequestBody.create(MediaType.parse("text/plain"), "xyz");
+        RequestBody username = RequestBody.create(MediaType.parse("text/plain"),edit_name);
         RequestBody acaademicYear_id = RequestBody.create(MediaType.parse("text/plain"), acaademicYearId);
         if (TextUtils.isEmpty(address)) {
             address = "Unable to get Address";

@@ -111,7 +111,7 @@
                 android:background="@color/green"
                 android:gravity="center"
                 android:minHeight="48dp"
-                android:text="NEET-PG / NExT / MBBS"
+                android:text="NEET-PG / NExT / MBBS / FMGE"
                 android:textColor="@color/white"
                 android:textSize="@dimen/ts_16"
                 android:textStyle="bold" />

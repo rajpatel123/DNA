@@ -427,9 +427,9 @@ public class ReviewResultFragment extends Fragment {
        // progressBar.setVisibility(View.VISIBLE);
 
         if (Constants.ISTEST) {
-            webView.loadUrl("http://13.232.100.13/review.php?id=" + qID);
+            webView.loadUrl(BuildConfig.API_SERVER_IP+"/review.php?id=" + qID);
         } else {
-            webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
+            webView.loadUrl(BuildConfig.API_SERVER_IP+"/reviewqbank.php?id=" + qID);
         }
 
 

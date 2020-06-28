@@ -1,23 +1,33 @@
 package com.dnamedical.Activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alimuzaffar.lib.pin.PinEntryEditText;
+import com.dnamedical.Models.franchies.FranchiesResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
+
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -263,10 +273,10 @@ public class FranchiActivity extends AppCompatActivity {
                 Utils.dismissProgressDialog();
                 if (response != null && response.code() == 200 && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "OTP sent on your mobile number", Toast.LENGTH_SHORT).show();
-                    SubmitQueryWithOTPActivity.start(FranchiActivity.this,username1,email,mobile,whatsppNumbertxt,pCitytxt,
-                            pStatetxt,pAddresstxt,pLandmarktxt,pPincodetxt,collegaeFrenchisetxt,cMedicalCollegaetxt,sMedicalCollegetxt,pinMedicalCollegetxt,
-                            amountToInveststr,canCallStr,comment1);
-
+//                    SubmitQueryWithOTPActivity.start(FranchiActivity.this,username1,email,mobile,whatsppNumbertxt,pCitytxt,
+//                            pStatetxt,pAddresstxt,pLandmarktxt,pPincodetxt,collegaeFrenchisetxt,cMedicalCollegaetxt,sMedicalCollegetxt,pinMedicalCollegetxt,
+//                            amountToInveststr,canCallStr,comment1);
+                             verifyOTPDialog();
                 }
             }
 
@@ -294,5 +304,149 @@ public class FranchiActivity extends AppCompatActivity {
 
 
     }
+
+
+    public void verifyOTPDialog() {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_change_phone_number_otyp_varification, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+
+        PinEntryEditText printVerifyPin = dialogView.findViewById(R.id.prntEdtChangePhoneOtp);
+        ImageView crossBtn = dialogView.findViewById(R.id.crossBtn);
+        Button btnOtpVerify = dialogView.findViewById(R.id.btnVerify);
+        TextView resendOtp = dialogView.findViewById(R.id.resend);
+        TextView changeNumber = dialogView.findViewById(R.id.changeNumber);
+        TextView mobileNumber = dialogView.findViewById(R.id.mobileNumber);
+        TextView resendTimer = dialogView.findViewById(R.id.resendTimer);
+
+
+        CountDownTimer countDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String text =
+                        "<font color=#565656>OTP Valid for:</font> <font color=#80272525>" + TimeUnit.MILLISECONDS.toSeconds(
+                                millisUntilFinished
+                        ) + "</font>";
+                resendTimer.setText(Html.fromHtml(text));
+                resendTimer.setVisibility(View.VISIBLE);
+
+
+            }
+
+            @Override
+            public void onFinish() {
+                resendOtp.setAlpha(1);
+                resendOtp.setEnabled(true);
+                resendTimer.setVisibility(View.GONE);
+
+            }
+        }.start();
+        crossBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countDownTimer.cancel();
+                dialog.dismiss();
+            }
+        });
+
+        mobileNumber.setText(""+mobile);
+        resendOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countDownTimer.start();
+                sendOtp();
+                dialog.dismiss();
+
+            }
+        });
+
+        changeNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countDownTimer.cancel();
+              dialog.dismiss();
+            }
+        });
+        btnOtpVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(printVerifyPin.getText().toString())){
+                    dialog.dismiss();
+                    countDownTimer.cancel();
+
+                    submitFrenchiesQuery(printVerifyPin.getText().toString());
+                }else{
+                    Toast.makeText(FranchiActivity.this, "Please enter otp!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        dialog.show();
+
+    }
+
+
+    private void submitFrenchiesQuery(String otp) {
+        RequestBody Otp = RequestBody.create(MediaType.parse("text/plane"), otp);
+
+        RequestBody username = RequestBody.create(MediaType.parse("text/plain"), username1);
+        RequestBody usermail = RequestBody.create(MediaType.parse("text/plain"), email);
+        RequestBody phoneno = RequestBody.create(MediaType.parse("text/plain"), mobile);
+        RequestBody whatsppNumber = RequestBody.create(MediaType.parse("text/plain"), whatsppNumbertxt);
+
+        RequestBody pCity = RequestBody.create(MediaType.parse("text/plain"), pCitytxt);
+        RequestBody pState = RequestBody.create(MediaType.parse("text/plain"), pStatetxt);
+        RequestBody pAddress = RequestBody.create(MediaType.parse("text/plain"), pAddresstxt);
+        RequestBody pLandmark = RequestBody.create(MediaType.parse("text/plain"), pLandmarktxt);
+
+        RequestBody pPincode = RequestBody.create(MediaType.parse("text/plain"), pPincodetxt);
+        RequestBody collegaeFrenchise = RequestBody.create(MediaType.parse("text/plain"), collegaeFrenchisetxt);
+        RequestBody cMedicalCollegae = RequestBody.create(MediaType.parse("text/plain"), cMedicalCollegaetxt);
+
+        RequestBody sMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), sMedicalCollegetxt);
+        RequestBody pinMedicalCollege = RequestBody.create(MediaType.parse("text/plain"), pinMedicalCollegetxt);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), amountToInveststr);
+        RequestBody canCallfromdna = RequestBody.create(MediaType.parse("text/plain"), canCallStr);
+        RequestBody comment = RequestBody.create(MediaType.parse("text/plain"), comment1);
+
+
+        if (Utils.isInternetConnected(this)) {
+            Utils.showProgressDialog(this);
+            RestClient.franchiesRegister(username, usermail, phoneno, whatsppNumber, pCity, pState, pAddress,
+                    pLandmark, pPincode, collegaeFrenchise, cMedicalCollegae, sMedicalCollege,
+                    pinMedicalCollege, comment, amount, canCallfromdna, Otp,
+                    new Callback<FranchiesResponse>() {
+                        @Override
+                        public void onResponse(Call<FranchiesResponse> call, Response<FranchiesResponse> response) {
+                            Utils.dismissProgressDialog();
+                            if (response.code() == 200 && response.body() != null) {
+                                Toast.makeText(FranchiActivity.this, "Query submitted Successfully", Toast.LENGTH_SHORT).show();
+                                Intent data = new Intent();
+                                setResult(RESULT_OK, data);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<FranchiesResponse> call, Throwable t) {
+                            Utils.dismissProgressDialog();
+                            finish();
+                            //Toast.makeText(FranchiActivity.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        } else {
+            Utils.dismissProgressDialog();
+            Toast.makeText(this, " Internet Connection Failed!!!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

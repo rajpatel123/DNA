@@ -17,11 +17,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dnamedical.Adapters.PlanListAdapter;
+import com.dnamedical.Models.referal.ApplyCopan;
 import com.dnamedical.Models.subs.ComboPack;
 import com.dnamedical.Models.subs.IndividualPlan;
 import com.dnamedical.Models.subs.Plan;
@@ -43,6 +46,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
+
 public class PlanPaymentProceesingActivity extends AppCompatActivity {
     LinearLayout packDetailLayout, testLL, videoLL;
     ImageView cancelDiscount, crossBtn;
@@ -62,6 +67,10 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
     private PlanPoints planPoints;
     private LayoutInflater inflater;
 
+    TextView applyNowReferal;
+    ImageView crossBtnReferal;
+    EditText coupanEdt;
+    private String referalCoupan,referalCoupanId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +79,9 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
 
         packDetailLayout = findViewById(R.id.packDetailLayout);
 
+        applyNowReferal = findViewById(R.id.applyNowReferal);
+        crossBtnReferal = findViewById(R.id.crossBtnReferl);
+        coupanEdt = findViewById(R.id.coupanCodeEdt);
         planName = findViewById(R.id.planName);
         subPlanaName = findViewById(R.id.subPlanName);
         priceTitle = findViewById(R.id.priceTitle);
@@ -513,8 +525,32 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
                 if (plan != null) {
                     cancelDiscount.setVisibility(View.GONE);
                     applyDiscount.setVisibility(View.VISIBLE);
+                    discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this\n transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
+                    discount.setText("-" + 0);
                     discountAmount = 0;
-                    discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
+
+                    finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice())));
+                    pricefinalInBottom.setText("Buy for: INR " + (Integer.parseInt(plan.getPlanPrice())));
+
+                }
+
+
+            }
+        });
+
+
+
+        crossBtnReferal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (plan != null) {
+                    crossBtnReferal.setVisibility(GONE);
+                    applyNowReferal.setVisibility(View.VISIBLE);
+                    coupanEdt.setEnabled(true);
+                    coupanEdt.setText("");
+
+                    discountAmount = 0;
+                    discountDetail.setText("Use code " + plan.getCoupan_code() + " " + "to get " + discountAmount + " on this\n transaction till "+ Utils.dateFormatForPlanCoupon(plan.getExpiry_date()));
                     discount.setText("-" + 0);
                     finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice())));
                     pricefinalInBottom.setText("Buy for: INR " + (Integer.parseInt(plan.getPlanPrice())));
@@ -525,6 +561,67 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
             }
         });
 
+
+
+        applyNowReferal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (TextUtils.isEmpty(coupanEdt.getText().toString())) {
+                    Toast.makeText(PlanPaymentProceesingActivity.this, "Please enter coupan", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (Utils.isInternetConnected(PlanPaymentProceesingActivity.this)) {
+                    Utils.showProgressDialog(PlanPaymentProceesingActivity.this);
+
+
+                    RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "3");
+                    RequestBody user_ids = RequestBody.create(MediaType.parse("text/plain"), user_id);
+                    RequestBody coupanCode = RequestBody.create(MediaType.parse("text/plain"), coupanEdt.getText().toString().trim());
+                    RequestBody categoryId = RequestBody.create(MediaType.parse("text/plain"), "0");//Raj unable to send blank
+
+
+                    RestClient.applyCoupan(coupanCode, type, categoryId,user_ids, new Callback<ApplyCopan>() {
+                        @Override
+                        public void onResponse(Call<ApplyCopan> call, Response<ApplyCopan> response) {
+                            Utils.dismissProgressDialog();
+                            if (response.code() == 200) {
+                                if (response.body() != null) {
+                                    if (!TextUtils.isEmpty(response.body().getData().getCoupanValue())){
+                                        referalCoupanId = response.body().getData().getCouponId();
+                                        referalCoupan = response.body().getData().getCouponCode();
+                                        crossBtnReferal.setVisibility(View.VISIBLE);
+                                        applyNowReferal.setVisibility(GONE);
+                                        coupanEdt.setEnabled(false);
+
+                                        if (!TextUtils.isEmpty(plan.getCoupan_code())) {
+                                            discountAmount = Integer.parseInt(plan.getPlanPrice()) * Integer.parseInt(response.body().getData().getCoupanValue()) / 100;
+                                        }
+                                        discount.setText("-" + discountAmount);
+                                        finalPrice.setText("" + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+                                        pricefinalInBottom.setText("Buy for: INR " + (Integer.parseInt(plan.getPlanPrice()) - discountAmount));
+
+                                        cancelDiscount.setVisibility(View.GONE);
+                                        applyDiscount.setVisibility(View.VISIBLE);
+
+                                    }else {
+                                        Toast.makeText(PlanPaymentProceesingActivity.this,""+response.body().getMessage(),Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ApplyCopan> call, Throwable t) {
+                            Utils.dismissProgressDialog();
+
+                        }
+                    });
+                }
+
+            }
+        });
 
     }
 
@@ -565,12 +662,18 @@ public class PlanPaymentProceesingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PlanPaymentProceesingActivity.this, AddressForSubscriptionListActivity.class);
 
+                if (!TextUtils.isEmpty(referalCoupan)) {
+                    DnaPrefs.putString(PlanPaymentProceesingActivity.this, Constants.REFERL_COUPN, referalCoupan);
+                    DnaPrefs.putString(PlanPaymentProceesingActivity.this, Constants.REFERL_COUPN_ID, referalCoupanId);
+                    DnaPrefs.putString(PlanPaymentProceesingActivity.this, Constants.REFERL_COUPN_VALUE_FOR, "Subscription");
+
+                }
                 intent.putExtra("AMOUNT", price);
                 intent.putExtra("subscription_id", subscription_id);
                 intent.putExtra("plan_id", plan_id);
                 intent.putExtra("months", months);
                 intent.putExtra("pack_key", pack_key);
-                intent.putExtra("COUPON_VALUE_ADD", DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT));
+                //intent.putExtra("COUPON_VALUE_ADD", DnaPrefs.getString(PlanPaymentProceesingActivity.this, Constants.ADD_DISCOUNT));
                 intent.putExtra("COUPON_VALUE", plan.getCoupan_value());
                 intent.putExtra("COUPON_VALUE_GIVEN", "" + discountAmount);
 

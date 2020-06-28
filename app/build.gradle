@@ -30,10 +30,10 @@ android {
         applicationId "com.dnamedical"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 149
-        versionName "v6.4.0"
+        versionCode 153
+        versionName "v6.4.3"
         multiDexEnabled true
-        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+        ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         vectorDrawables.useSupportLibrary = true
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -56,7 +56,7 @@ android {
     }
     buildTypes {
         release {
-         //   debuggable true
+            debuggable false
             def uatSigningKey = signingConfigs.dna
             signingConfig uatSigningKey
             multiDexEnabled true
@@ -67,7 +67,7 @@ android {
         debug {
             minifyEnabled false
             multiDexEnabled true
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://13.233.193.90/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -96,7 +96,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
-  //  implementation 'me.tankery.lib:circularSeekBar:1.1.5'
+    //  implementation 'me.tankery.lib:circularSeekBar:1.1.5'
     implementation 'com.facebook.android:facebook-login:[4,5)'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.0.0'

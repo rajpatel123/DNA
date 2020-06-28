@@ -103,6 +103,42 @@ private String createdOn;
 @Expose
 private String isrealuser;
 
+@SerializedName("expire")
+@Expose
+private String expire;
+
+    public String getExpire() {
+        return expire;
+    }
+
+    public void setExpire(String expire) {
+        this.expire = expire;
+    }
+
+    public String getIs_ambassador() {
+        return is_ambassador;
+    }
+
+    public void setIs_ambassador(String is_ambassador) {
+        this.is_ambassador = is_ambassador;
+    }
+
+    public String getReferral_code() {
+        return referral_code;
+    }
+
+    public void setReferral_code(String referral_code) {
+        this.referral_code = referral_code;
+    }
+
+    @SerializedName("is_ambassador")
+@Expose
+private String is_ambassador;
+
+@SerializedName("referral_code")
+@Expose
+private String referral_code;
+
 public String getId() {
 return id;
 }

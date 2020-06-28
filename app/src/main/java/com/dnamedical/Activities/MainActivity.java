@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dnamedical.BuildConfig;
 import com.dnamedical.DNAApplication;
 import com.dnamedical.Models.LoginCheckResponse;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgQBIcon;
     private TextView testTitle;
     private ImageView testIcon;
-    private ImageView imgOnlineIcon;
+    private ImageView imgOnlineIcon,ambesderIV;
     private TextView onlineTitle;
     private NavigationView navigationView;
     private TextView tvName, tvEmail, tvSetting, tvversion;
@@ -99,11 +100,12 @@ public class MainActivity extends AppCompatActivity
     TestDataResponse testDataResponse;
     private String userId;
     Context ctx;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Crashlytics.getInstance().crash(); // Force a crash
         setContentView(R.layout.activity_main);
         ctx = this;
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
+        ambesderIV = headerView.findViewById(R.id.ambesderIV);
         tvversion = headerView.findViewById(R.id.version);
         circleImageView = headerView.findViewById(R.id.profile_image);
         tvSetting = headerView.findViewById(R.id.setting);
@@ -390,12 +393,21 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_share) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "Hello friends, the best app for medicos is now available at: https://play.google.com/store/apps/details?id=com.dnamedical");
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
+
+            if (user!=null && !TextUtils.isEmpty(user.getData().getReferral_code())){
+               ReferalActivity.start(MainActivity.this,user.getData().getReferral_code());
+            }else{
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hello friends, the best app for medicos is now available at: https://play.google.com/store/apps/details?id=com.dnamedical");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+
+
+
+
         } else if (id == R.id.about) {
             Intent intent = new Intent(MainActivity.this, AboutUsActivit.class);
             intent.putExtra("title", "About Us");
@@ -469,20 +481,11 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
                     Utils.dismissProgressDialog();
-                    if (response.code() == 200) {
-
-                        if (response.body() != null && response.body().getStatus().equalsIgnoreCase("1")) {
-                            Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-
-                            DnaPrefs.clear(MainActivity.this);
-                            Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
-                        }
-                    } else {
-                        Toast.makeText(MainActivity.this, "Unable to logout, please try again later!", Toast.LENGTH_LONG).show();
-                    }
+                    DnaPrefs.clear(MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
                 }
 
                 @Override
@@ -641,8 +644,16 @@ public class MainActivity extends AppCompatActivity
                 public void onResponse(Call<User> call, Response<User> response) {
                     Utils.dismissProgressDialog();
                     if (response.code() == 200) {
-                        User user = response.body();
+                         user = response.body();
                         if (user != null && user.getData() != null) {
+
+                            if (user.getData().getIs_ambassador().equalsIgnoreCase("1")){
+                                tvName.setText(user.getData().getName());
+                                ambesderIV.setVisibility(View.VISIBLE);
+                            }else{
+                                ambesderIV.setVisibility(View.GONE);
+
+                            }
                             if (Integer.parseInt(user.getData().getMobileVerified()) != 1) {
                                 Intent intent2 = new Intent(MainActivity.this, ChanePhoneNumberActivity.class);
                                 intent2.putExtra("title", "Verify Mobile Number");
@@ -788,6 +799,7 @@ public class MainActivity extends AppCompatActivity
                 // A null listener allows the button to dismiss the dialog and take no further action.
 
                 .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
                 .show();
     }
 

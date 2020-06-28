@@ -48,6 +48,7 @@ import com.dnamedical.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paymentmodel.CreateOrderResponse;
 import com.dnamedical.Models.qbankstart.QbankstartResponse;
+import com.dnamedical.Models.referal.ApplyCopan;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.Models.saveOrder.SaveOrderResponse;
 import com.dnamedical.Models.subs.PlanDetailResponse;
@@ -342,17 +343,18 @@ public class RestClient {
                                       RequestBody user_id, RequestBody product_id,
                                       RequestBody video_id, RequestBody test_id,
                                       RequestBody status, RequestBody cat_id,
-                                      RequestBody sub_cat_id,
+                                      RequestBody sub_cat_id,RequestBody coupan_id,RequestBody coupanCode,RequestBody type,
                                       Callback<SaveOrderResponse> callback) {
         RetrofitClient.getClient().addOrderDetail(order_id, sub_child_cat_id, user_id, product_id,
-                video_id, test_id, status).enqueue(callback);
+                video_id, test_id, status,coupan_id,coupanCode,type).enqueue(callback);
     }
 
 
     public static void updatechatpayment(RequestBody user_id, RequestBody payment_id,
-                                         RequestBody order_id,
+                                         RequestBody order_id,RequestBody coupan_id, RequestBody coupan_code,
+                                         RequestBody type,
                                          Callback<SaveOrderResponse> callback) {
-        RetrofitClient.getClient().updatechatpayment(user_id, payment_id, order_id).enqueue(callback);
+        RetrofitClient.getClient().updatechatpayment(user_id, payment_id, order_id,coupan_id,coupan_code,type).enqueue(callback);
     }
 
 
@@ -364,8 +366,8 @@ public class RestClient {
     public static void addOrderForSubsDetail(RequestBody user_id, RequestBody order_id,
                                              RequestBody planId, RequestBody subscriptioId,
                                              RequestBody packKey, RequestBody month,
-                                             RequestBody status, RequestBody price, Callback<ResponseBody> callback) {
-        RetrofitClient.getClient().addOrderForSubsDetail(user_id, order_id, planId, subscriptioId, packKey, month, status, price).enqueue(callback);
+                                             RequestBody status, RequestBody price,RequestBody coupan_id,RequestBody coupanCode,RequestBody type, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().addOrderForSubsDetail(user_id, order_id, planId, subscriptioId, packKey, month, status, price,coupan_id,coupanCode,type).enqueue(callback);
     }
 
 
@@ -570,6 +572,11 @@ public class RestClient {
 
     public static void getProfileData(RequestBody user_id, Callback<User> callback) {
         RetrofitClient.getClient().getProfileData(user_id).enqueue(callback);
+    }
+
+
+    public static void applyCoupan(RequestBody code,RequestBody type,RequestBody cat_id,RequestBody user_id, Callback<ApplyCopan> callback) {
+        RetrofitClient.getClient().applyReferral(code,type,cat_id,user_id).enqueue(callback);
     }
 
     public static void checkLogin(RequestBody user_id, RequestBody login_check, Callback<LoginCheckResponse> callback) {

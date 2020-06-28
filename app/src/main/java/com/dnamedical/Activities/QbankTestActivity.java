@@ -32,6 +32,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModulesMcq;
 import com.dnamedical.R;
@@ -876,7 +877,7 @@ public class QbankTestActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         progressBar.setVisibility(View.VISIBLE);
-        webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
+        webView.loadUrl(BuildConfig.API_SERVER_IP+"/reviewqbank.php?id=" + qID);
 
 
     }

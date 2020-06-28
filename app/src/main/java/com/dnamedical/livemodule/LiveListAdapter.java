@@ -120,10 +120,10 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         intent.putExtra("sub_title", "");
         intent.putExtra("title", "Live Online");
         intent.putExtra("discount", "25");
+        intent.putExtra("category_id",categoryDetailData.getChat().get(position).getCategory_id() );
         intent.putExtra("price", categoryDetailData.getChat().get(position).getPrice());
         if (discountonfullpurchase > 0) {
             intent.putExtra("discountonfullpurchase", 80);
-
         }
         intent.putExtra("SHIPPING_CHARGE", "0");
         applicationContext.startActivity(intent);

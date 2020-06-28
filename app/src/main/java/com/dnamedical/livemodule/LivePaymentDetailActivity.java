@@ -142,7 +142,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
             //
             shippingCharge = getIntent().getStringExtra("SHIPPING_CHARGE");
             totalDiscountGiven = getIntent().getStringExtra("COUPON_VALUE");
-            totalADDDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_ADD");
+            //totalADDDiscountGiven = getIntent().getStringExtra("COUPON_VALUE_ADD");
             totalValue = getIntent().getStringExtra("TOTAL_VALUE");
             id = getIntent().getStringExtra("id");
             Log.e("LivePy",""+id);
@@ -197,8 +197,8 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
             }
             textViewTax.setText("" + "\u20B9 " + taxValue);
 //            orderValue = 1;//((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
-            orderValue = ((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
-            textViewOrderTotal.setText("" + "\u20B9 " + " " + orderValue);
+              orderValue = ((Integer.parseInt(befortaxValue) + Integer.parseInt(taxValue)) + Integer.parseInt(shippingCharge));
+              textViewOrderTotal.setText("" + "\u20B9 " + " " + orderValue);
 
 
 
@@ -246,7 +246,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
 
             options.put("currency", "INR");
-            options.put("amount", orderValue * 100);
+            options.put("amount", 1 * 100);
             //options.put("amount", 1*100);
             options.put("order_id", orderId);
             //options.put("amount", 100);
@@ -288,7 +288,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue * 100);
+        RequestBody amount = RequestBody.create(MediaType.parse("text/plain"), "" + 1 * 100);
         RequestBody currency = RequestBody.create(MediaType.parse("text/plain"), "INR");
         RequestBody videoids = RequestBody.create(MediaType.parse("text/plain"), id);
         RequestBody product_type = RequestBody.create(MediaType.parse("text/plain"), "live");
@@ -308,7 +308,7 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
 
 
                         if (createOrderResponse.getData() != null && createOrderResponse.getData().getOrderDetails() != null) {
-                            if ((orderValue * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
+                            if ((1 * 100 + "").equalsIgnoreCase(createOrderResponse.getData().getOrderDetails().getAmount())) {
 
                                 createOrderID=createOrderResponse.getData().getOrderId();
                                 startPayment(createOrderResponse.getData().getOrderId());
@@ -365,12 +365,17 @@ public class LivePaymentDetailActivity extends AppCompatActivity implements Paym
         RequestBody  payment_id = RequestBody.create(MediaType.parse("text/plain"), paymentID);
 
 
+        RequestBody  coupan_id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(this, Constants.REFERL_COUPN_ID));
+        RequestBody  coupanCode = RequestBody.create(MediaType.parse("text/plain"),  DnaPrefs.getString(this, Constants.REFERL_COUPN));
+        RequestBody  type = RequestBody.create(MediaType.parse("text/plain"),  DnaPrefs.getString(this, Constants.REFERL_COUPN_VALUE_FOR));
+
+
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
 
-            RestClient.updatechatpayment(user_id,payment_id,order_id, new Callback<SaveOrderResponse>() {
+            RestClient.updatechatpayment(user_id,payment_id,order_id, coupan_id,coupanCode,type,new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();
