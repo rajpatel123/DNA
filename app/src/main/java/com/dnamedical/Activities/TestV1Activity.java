@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -86,7 +87,7 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
     String test_id;
     public String question_id;
     public String answer;
-    public String isGuess;
+    public String isGuess="false";
     ProgressBar progressBar;
     public Button nextBtn, prevBtn;
     boolean timeUp;
@@ -297,7 +298,18 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
         answerSheet.setVisibility(View.GONE);
         closeSheet.setVisibility(View.GONE);
 
-
+        guessCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (guessCheck.isChecked()) {
+                    isGuess = "true";
+                    questionArrayList.get(questionIndex).setGues(true);
+                } else {
+                    questionArrayList.get(questionIndex).setGues(false);
+                    isGuess = "false";
+                }
+            }
+        });
         closeSheet.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,13 +320,8 @@ public class TestV1Activity extends FragmentActivity implements PopupMenu.OnMenu
 
     private void onNextQuestion() {
         timeSpend = System.currentTimeMillis() - tempTime;
-        if (guessCheck.isChecked()) {
-            isGuess = "true";
-            questionArrayList.get(questionIndex).setGues(true);
-        } else {
-            questionArrayList.get(questionIndex).setGues(false);
-            isGuess = "false";
-        }
+
+        questionArrayList.get(questionIndex).setVisited(true);
 
         pauseTimer();
         submitTimeLogTest("switch_question", "" + 1);

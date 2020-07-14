@@ -1,7 +1,6 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,18 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import com.dnamedical.Activities.ContactUsActivity;
-import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.R;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by rbpatel on 9/29/2017.
@@ -44,13 +40,34 @@ public class AnswerListAdapter extends RecyclerView.Adapter<AnswerListAdapter.Vi
 
     @Override
     public void onBindViewHolder(final AnswerListAdapter.ViewHolder holder, final int position) {
-        holder.questionNumber.setText("" + (1+holder.getAdapterPosition()));
-        if (!TextUtils.isEmpty(questionArrayList.get(holder.getAdapterPosition()).getSelectedOption())) {
+        holder.questionNumber.setText("" + (1 + holder.getAdapterPosition()));
+        if(!TextUtils.isEmpty(questionArrayList.get(holder.getAdapterPosition()).getSelectedOption())
+                && questionArrayList.get(holder.getAdapterPosition()).isGues()){
+            holder.questionNumber.setTextColor(applicationContext.getResources().getColor(R.color.white));
+            holder.cardView.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.blue));
+            holder.star.setVisibility(View.VISIBLE);
+
+            //Add Image View
+        }else if (!TextUtils.isEmpty(questionArrayList.get(holder.getAdapterPosition()).getSelectedOption())) {
+            holder.questionNumber.setTextColor(applicationContext.getResources().getColor(R.color.white));
+            holder.cardView.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.green));
+            holder.star.setVisibility(View.GONE);
+
+        }else if (questionArrayList.get(holder.getAdapterPosition()).isGues()){
+            holder.questionNumber.setTextColor(applicationContext.getResources().getColor(R.color.white));
+            holder.cardView.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.blue));
+            holder.star.setVisibility(View.GONE);
+
+        }else if(questionArrayList.get(holder.getAdapterPosition()).isVisited() && TextUtils.isEmpty(questionArrayList.get(holder.getAdapterPosition()).getSelectedOption()) && !questionArrayList.get(holder.getAdapterPosition()).isGues()){
             holder.questionNumber.setTextColor(applicationContext.getResources().getColor(R.color.white));
             holder.cardView.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.colorPrimary));
+            holder.star.setVisibility(View.GONE);
+
         }else{
             holder.questionNumber.setTextColor(applicationContext.getResources().getColor(R.color.black));
             holder.cardView.setCardBackgroundColor(applicationContext.getResources().getColor(R.color.white));
+            holder.star.setVisibility(View.GONE);
+
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

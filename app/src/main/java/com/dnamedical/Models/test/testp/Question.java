@@ -65,6 +65,16 @@ public class Question implements Parcelable {
 
     private boolean isGues;
 
+    public boolean isVisited() {
+        return isVisited;
+    }
+
+    public void setVisited(boolean visited) {
+        isVisited = visited;
+    }
+
+    private boolean isVisited;
+
     @SerializedName("option_1_image")
     @Expose
     private String option_1_image;
