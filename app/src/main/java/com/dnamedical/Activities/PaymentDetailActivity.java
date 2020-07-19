@@ -435,11 +435,12 @@ public class PaymentDetailActivity extends AppCompatActivity implements PaymentR
         RequestBody tax = RequestBody.create(MediaType.parse("text/plain"), taxValue);
         RequestBody shippingCharges = RequestBody.create(MediaType.parse("text/plain"), shippingCharge);
         RequestBody grandTotal = RequestBody.create(MediaType.parse("text/plain"), "" + orderValue);
+        RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), "" + DnaPrefs.getString(PaymentDetailActivity.this,"email"));
 
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount,orderId_forInvoice, new Callback<SaveOrderResponse>() {
+            RestClient.invoiceOrderDetail(user_id, pramotoin, addDiscount, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount,orderId_forInvoice,emailBody, new Callback<SaveOrderResponse>() {
                 @Override
                 public void onResponse(Call<SaveOrderResponse> call, Response<SaveOrderResponse> response) {
                     Utils.dismissProgressDialog();

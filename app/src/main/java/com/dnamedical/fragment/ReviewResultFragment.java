@@ -77,6 +77,8 @@ public class ReviewResultFragment extends Fragment {
 
 
     LinearLayout answerList;
+    LinearLayout referenceLL;
+    TextView refHead;
     TextView questionTxt, qno;
     int fragNum;
     QuestionList question;
@@ -125,6 +127,9 @@ public class ReviewResultFragment extends Fragment {
         optionBTag = view.findViewById(R.id.B);
         optionCTag = view.findViewById(R.id.C);
         optionDTag = view.findViewById(R.id.D);
+        referenceLL = view.findViewById(R.id.referenceLL);
+        refText = view.findViewById(R.id.refText);
+        refHead = view.findViewById(R.id.refHead);
         refImage = view.findViewById(R.id.refImage);
         progressBar = view.findViewById(R.id.progressBar);
         webView = view.findViewById(R.id.dataWebView);
@@ -145,6 +150,17 @@ public class ReviewResultFragment extends Fragment {
         //  explannnation = view.findViewById(R.id.explannnation);
         refText = view.findViewById(R.id.refText);
         mcqId = view.findViewById(R.id.mcqId);
+
+
+        if (question.getRefernce()!=null && !TextUtils.isEmpty(question.getRefernce().getTitle())){
+            referenceLL.setVisibility(View.VISIBLE);
+            refHead.setVisibility(View.VISIBLE);
+            refText.setText(question.getRefernce().getTitle());
+        }else{
+            referenceLL.setVisibility(GONE);
+            refHead.setVisibility(GONE);
+
+        }
         PieChartView pieChartView = view.findViewById(R.id.chart);
         if (question != null) {
 //            optionA.setText("A. " + question.getOption1() + " [" + question.getOption1Percenatge() + "%]");
@@ -342,7 +358,7 @@ public class ReviewResultFragment extends Fragment {
 
             percentage.setText(question.getPercentage() + "%     of the people got this right");
 
-//            Picasso.with(activity).load(question.getRefernce().getImage()).into(refImage);
+           Picasso.with(activity).load(R.drawable.dnalogo).into(refImage);
 //            refText.setText(question.getRefernce().getTitle());
             optionA.setTextColor(ContextCompat.getColor(activity, R.color.black));
             optionB.setTextColor(ContextCompat.getColor(activity, R.color.black));

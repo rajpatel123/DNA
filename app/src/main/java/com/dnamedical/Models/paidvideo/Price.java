@@ -104,6 +104,31 @@ public class Price implements Parcelable {
     @Expose
     private String drImg;
 
+    @SerializedName("faculty_email")
+    @Expose
+    private String faculty_email;
+
+    public String getFaculty_email() {
+        return faculty_email;
+    }
+
+    public void setFaculty_email(String faculty_email) {
+        this.faculty_email = faculty_email;
+    }
+
+    public String getSalereport() {
+        return salereport;
+    }
+
+    public void setSalereport(String salereport) {
+        this.salereport = salereport;
+    }
+
+    @SerializedName("salereport")
+    @Expose
+    private String salereport;
+
+
     public String getPdf_url() {
         return pdf_url;
     }
@@ -151,6 +176,8 @@ public class Price implements Parcelable {
         userId = in.readString();
         paymentStatus = in.readString();
         drImg = in.readString();
+        faculty_email = in.readString();
+        salereport = in.readString();
         pdf_url = in.readString();
         subscription_status = in.readString();
         url = in.readString();
@@ -318,6 +345,8 @@ public class Price implements Parcelable {
         dest.writeString(userId);
         dest.writeString(paymentStatus);
         dest.writeString(drImg);
+        dest.writeString(faculty_email);
+        dest.writeString(salereport);
         dest.writeString(pdf_url);
         dest.writeString(subscription_status);
         dest.writeString(url);

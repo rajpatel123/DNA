@@ -3,12 +3,10 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,15 +23,11 @@ import com.dnamedical.Activities.ViewerActivity;
 import com.dnamedical.Adapters.VideoListPriceAdapter;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
-import com.dnamedical.Models.video.VideoList;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -214,6 +208,12 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                 @Override
                 public void onBuyAllVideo() {
                     Intent intent = new Intent(getActivity(), PaymentCoupenActivity.class);
+                    if (paidVideoResponseList.getPrice().get(0).getSalereport().equalsIgnoreCase("1")){
+                        DnaPrefs.putString(activity,"email",paidVideoResponseList.getPrice().get(0).getFaculty_email());
+                    }else{
+                        DnaPrefs.putString(activity,"email","");
+
+                    }
                     intent.putExtra("PRICE", paidVideoResponseList);
                     intent.putExtra("discount", adminDiscount);
                     startActivity(intent);
@@ -254,7 +254,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
 
     @Override
-    public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge) {
+    public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price,String salesReport,String fEmail, String shippingCharge) {
         Intent intent = new Intent(getActivity(), PaymentCoupenActivity.class);
         intent.putExtra("vedioId", id);
         intent.putExtra("coupon_code", couponCode);
@@ -263,6 +263,12 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
         intent.putExtra("title", title);
         intent.putExtra("discount", discount);
         intent.putExtra("price", price);
+        if (salesReport.equalsIgnoreCase("1")){
+            DnaPrefs.putString(activity,"email",fEmail);
+        }else{
+            DnaPrefs.putString(activity,"email","");
+
+        }
         if (discountonfullpurchase > 0) {
             intent.putExtra("discountonfullpurchase", 80);
 
