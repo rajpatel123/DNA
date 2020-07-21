@@ -1166,20 +1166,51 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.submit_alert_diolog, null);
         dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(false);
+        TextView totalQuestionTv = dialogView.findViewById(R.id.totalQuestionTv);
+        TextView attemptedTV = dialogView.findViewById(R.id.attemptedTV);
+        TextView unAttemptedTV = dialogView.findViewById(R.id.unAttemptedTV);
+        TextView markForReviewWithAnswer = dialogView.findViewById(R.id.markForReviewWithAnswer);
+        TextView markForReviewWithoutAnswer = dialogView.findViewById(R.id.markForReviewWithoutAnswer);
+        TextView notVisited = dialogView.findViewById(R.id.notVisited);
+
+        if (qustionDetails != null && qustionDetails.getData() != null
+                && qustionDetails.getData().getQuestionList() != null && qustionDetails.getData().getQuestionList().size() > 0) {
+
+            totalQuestionTv.setText(""+qustionDetails.getData().getQuestionList().size());
+            int markReviewWithAnsewer=0;
+            int markReviewWithoutAnsewer=0;
+            int attempted=0;
+            int unattempted=0;
+            int notAttempted=0;
+            for (Question question : qustionDetails.getData().getQuestionList()) {
+                if(!TextUtils.isEmpty(question.getSelectedOption()) && question.isGues()){
+                    markReviewWithAnsewer++;
+                }else if (!TextUtils.isEmpty(question.getSelectedOption())) {
+                    attempted++;
+                }else if (TextUtils.isEmpty(question.getSelectedOption()) && question.isGues()){
+                    markReviewWithoutAnsewer++;
+                }else if(question.isVisited() && TextUtils.isEmpty(question.getSelectedOption()) && !question.isGues()){
+                    unattempted++;
+                }else{
+                    notAttempted++;
+                }
+            }
+            attemptedTV.setText(""+attempted);
+            unAttemptedTV.setText(""+unattempted);
+            markForReviewWithAnswer.setText(""+markReviewWithAnsewer);
+            markForReviewWithoutAnswer.setText(""+markReviewWithoutAnsewer);
+            notVisited.setText(""+notAttempted);
+
+
+        }
+
 
         final android.app.AlertDialog dialog = dialogBuilder.create();
         Button btn_yes = dialogView.findViewById(R.id.btn_done);
-        if (count > 0) {
-            TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
-            unuttempted.setText("You have " + count + " un  attempted questions");
-            unuttempted.setVisibility(View.VISIBLE);
-        }
 
-        if (!TextUtils.isEmpty(message)) {
-            TextView unuttempted = dialogView.findViewById(R.id.unuttempted);
-            unuttempted.setText(message);
-            unuttempted.setVisibility(View.VISIBLE);
-        }
+
+
         TextView text_cancel = dialogView.findViewById(R.id.text_cancel);
         text_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1211,6 +1242,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
 
     }
+
 
     private void displayRemark(RankResultRemarks resultRemarks, TestResult testResult) {
 

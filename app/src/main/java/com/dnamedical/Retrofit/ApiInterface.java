@@ -168,7 +168,9 @@ public interface ApiInterface {
                                                @Part("shippingCharges") RequestBody shippingCharges,
                                                @Part("grandTotal") RequestBody grandTotal,
                                                @Part("totalAmount") RequestBody totalAmount,
-                                               @Part("order_id") RequestBody order_id
+                                               @Part("order_id") RequestBody order_id,
+                                               @Part("email") RequestBody email
+
     );
 
     @Multipart

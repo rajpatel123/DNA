@@ -113,7 +113,17 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="Review"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white" >
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_toEndOf="@+id/back_button"
+                android:background="@drawable/dnalogo"
+                android:elevation="@dimen/dp_2" />
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

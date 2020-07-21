@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class QbankRatingActivity extends AppCompatActivity {
 
-
+///Commented by Raj1
     private TextView textViewToomuch, textViewToolittle, textViewToohard, textViewTooEasy, textViewNotNeet, textViewNeedmore,
             textViewExplanations, textViewlacksConcept,
             textViewPoorly, textViewOthers, textViewAddFeedback;

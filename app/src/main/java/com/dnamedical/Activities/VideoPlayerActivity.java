@@ -456,6 +456,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         if (intent.hasExtra("price")) {
             price = intent.getParcelableExtra("price");
             url = price.getUrl();
+            //url = "https://dna-testing.s3.ap-south-1.amazonaws.com/s.mp4";
             videoId = price.getId();
             title = price.getTitle();
             textHeading.setText(price.getTitle());

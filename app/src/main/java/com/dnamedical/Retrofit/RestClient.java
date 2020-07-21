@@ -385,8 +385,8 @@ public class RestClient {
     }
 
 
-    public static void invoiceOrderDetail(RequestBody user_id, RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal, RequestBody totalAmount, RequestBody orderID, Callback<SaveOrderResponse> callback) {
-        RetrofitClient.getClient().invoiceOrderDetail(user_id, pramotion, additional, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount, orderID).enqueue(callback);
+    public static void invoiceOrderDetail(RequestBody user_id, RequestBody pramotion, RequestBody additional, RequestBody totalAmountBeforeTax, RequestBody tax, RequestBody shippingCharges, RequestBody grandTotal, RequestBody totalAmount, RequestBody orderID,RequestBody email, Callback<SaveOrderResponse> callback) {
+        RetrofitClient.getClient().invoiceOrderDetail(user_id, pramotion, additional, totalAmountBeforeTax, tax, shippingCharges, grandTotal, totalAmount, orderID,email).enqueue(callback);
     }
 
 

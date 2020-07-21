@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -119,6 +121,13 @@ public class QbankSubActivity extends AppCompatActivity {
         getAllChapterByModule();
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logomenu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void setupTabIcons() {

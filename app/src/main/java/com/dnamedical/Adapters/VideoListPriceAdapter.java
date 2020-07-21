@@ -3,7 +3,6 @@ package com.dnamedical.Adapters;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -308,6 +307,8 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
                                     priceList.get(holder.getAdapterPosition()).getSubTitle(),
                                     priceList.get(holder.getAdapterPosition()).getDiscount(),
                                     priceList.get(holder.getAdapterPosition()).getPrice(),
+                                    priceList.get(holder.getAdapterPosition()).getSalereport(),
+                                    priceList.get(holder.getAdapterPosition()).getFaculty_email(),
 
                                     priceList.get(holder.getAdapterPosition()).getShippingCharge());
                         }
@@ -416,7 +417,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
     }
 
     public interface OnBuyNowClick {
-         void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String shippingCharge);
+         void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price,String salesReport, String fEmail,  String shippingCharge);
 
 
     }
