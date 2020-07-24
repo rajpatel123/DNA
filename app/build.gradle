@@ -67,7 +67,7 @@ android {
         debug {
             minifyEnabled false
             multiDexEnabled true
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://apidev.dnamedicalapp.com/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
