@@ -91,7 +91,7 @@ public class FirstloginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginwithFb();
 
-//        if (ContextCompat.checkSelfPermission(FirstloginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//      if (ContextCompat.checkSelfPermission(FirstloginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
 //                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 //
@@ -144,9 +144,7 @@ public class FirstloginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -277,7 +275,7 @@ public class FirstloginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                Toast.makeText(FirstloginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(FirstloginActivity.this, "Login Cancel: " + getString(R.string.login_cancel), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -293,8 +291,6 @@ public class FirstloginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void showLoginfailedDialog(String message) {
         new AlertDialog.Builder(FirstloginActivity.this)

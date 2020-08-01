@@ -2,7 +2,7 @@
     android:shape="rectangle"
     android:thickness="20dp">
 
-    <corners android:radius="10dp"
+    <corners android:radius="5dp"
 
         />
     <gradient

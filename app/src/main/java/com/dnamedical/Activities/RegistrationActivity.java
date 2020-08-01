@@ -1272,7 +1272,6 @@ public class RegistrationActivity extends AppCompatActivity implements
         }
     };
 
-
 }
 
 
