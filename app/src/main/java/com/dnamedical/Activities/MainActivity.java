@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     if (!TextUtils.isEmpty(response.body().string())) {
-                        JSONObject obj = new JSONObject(response.body().string());
+                             JSONObject obj = new JSONObject(response.body().string());
 
                         if (obj.getString("status").equals("2")) {
 

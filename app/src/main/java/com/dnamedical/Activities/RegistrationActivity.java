@@ -305,14 +305,16 @@ public class RegistrationActivity extends AppCompatActivity implements
         if (getIntent().hasExtra(Constants.LOGIN_ID) && !TextUtils.isEmpty(getIntent().getStringExtra(Constants.LOGIN_ID))) {
             userId = getIntent().getStringExtra(Constants.LOGIN_ID);
 
+
+            fb_id = getIntent().getStringExtra(Constants.FB_ID);
+
+                editPassword.setVisibility(View.GONE);
+
+
             editEmailId.setText(getIntent().getStringExtra(Constants.EMAILID));
             edit_phone.setText(getIntent().getStringExtra(Constants.MOBILE));
             editName.setText(getIntent().getStringExtra(Constants.NAME));
-            if (TextUtils.isEmpty(getIntent().getStringExtra(Constants.EMAILID))) {
-                editEmailId.setEnabled(true);
-            } else {
-                editEmailId.setEnabled(false);
-            }
+
 
             btnSignUp.setText("Update");
             if (TextUtils.isEmpty(getIntent().getStringExtra(Constants.MOBILE))) {
@@ -321,22 +323,6 @@ public class RegistrationActivity extends AppCompatActivity implements
                 edit_phone.setEnabled(false);
             }
 
-        } else {
-
-            fb_id = getIntent().getStringExtra(Constants.FB_ID);
-
-            if (!TextUtils.isEmpty(fb_id)) {
-                editPassword.setVisibility(View.GONE);
-
-            } else {
-                editPassword.setVisibility(View.VISIBLE);
-
-            }
-
-
-            editEmailId.setText(getIntent().getStringExtra(Constants.EMAILID));
-            edit_phone.setText(getIntent().getStringExtra(Constants.MOBILE));
-            editName.setText(getIntent().getStringExtra(Constants.NAME));
         }
 
     }
@@ -747,7 +733,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         if (TextUtils.isEmpty(edit_phonetxt)) {
 
-            edit_phone.setError(getString(R.string.invalid_email));
+            edit_phone.setError(getString(R.string.valid_phone));
 
             return;
         } else {
@@ -874,13 +860,13 @@ public class RegistrationActivity extends AppCompatActivity implements
         RequestBody username = RequestBody.create(MediaType.parse("text/plain"),edit_name);
         RequestBody acaademicYear_id = RequestBody.create(MediaType.parse("text/plain"), acaademicYearId);
         if (TextUtils.isEmpty(address)) {
-            address = "Unable to get Address";
+            address = "NA";
         }
         if (TextUtils.isEmpty(city)) {
-            city = "Unable to get City";
+            city = "NA";
         }
         if (TextUtils.isEmpty(mCountry)) {
-            mCountry = "India";
+            mCountry = "NA";
         }
         RequestBody boardname = null;
         if (TextUtils.isEmpty(board_name)) {
@@ -916,7 +902,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                                 Utils.dismissProgressDialog();
                                 if (response.body() != null) {
                                     if (response.body().getStatus().equalsIgnoreCase("1")) {
-                                        Utils.displayToast(getApplicationContext(), "Successfuly registered");
+                                        Utils.displayToast(getApplicationContext(), "Successfully registered");
                                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                         intent.putExtra("mobile", "");
                                         intent.putExtra("user_id", response.body().getUser_id());
@@ -926,6 +912,9 @@ public class RegistrationActivity extends AppCompatActivity implements
                                         Utils.displayToast(getApplicationContext(), response.body().getMessage());
 
                                     }
+                                }else{
+                                    Utils.displayToast(getApplicationContext(), ""+response.errorBody());
+
                                 }
                             }
 
@@ -940,7 +929,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                 RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), userId);
                 RequestBody passwordtxt = RequestBody.create(MediaType.parse("text/plain"), editPassword.getText().toString());
 
-                RestClient.updateUser(name, user_id, passwordtxt, username, phone, states, college, addressBody, cityBody, countryBody, acaademicYear_id, new Callback<UserUpdateResponse>() {
+                RestClient.updateUser(email,name, user_id, passwordtxt, username, phone, states, college, addressBody, cityBody, countryBody, acaademicYear_id, new Callback<UserUpdateResponse>() {
                     /* private Call<CommonResponse> call;
                      private Response<CommonResponse> response;
          */
@@ -1285,3 +1274,6 @@ public class RegistrationActivity extends AppCompatActivity implements
 
 
 }
+
+
+

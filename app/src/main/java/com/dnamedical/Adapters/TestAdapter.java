@@ -79,7 +79,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
                                 , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(),
-                                test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getDescription());
+                                test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getTest_valid_till_date(),test.getDescription());
                     }
                 }
             });
@@ -118,7 +118,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getDescription());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getTest_valid_till_date(),test.getDescription());
                     }
                 }
             });
@@ -156,7 +156,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getDescription());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getTest_valid_till_date(),test.getDescription());
                     }
                 }
             });
@@ -195,7 +195,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getDescription());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getTest_valid_till_date(),test.getDescription());
                     }
                 }
             });
@@ -238,7 +238,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (onUserClickCallback != null) {
                         onUserClickCallback.onCateClick(test.getId(), test.getDuration()
-                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getDescription());
+                                , test.getTitle(), test.getQuestion_count(), test.getIsPaid(), test.getTest_status(), test.getType(), test.getStartDate(), test.getResultDate(),test.getEnd_date(),test.getTest_valid_till_date(),test.getDescription());
                     }
                 }
             });
@@ -296,7 +296,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     public interface OnCategoryClick {
 
-        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid, String TestStatus, String type, String startDate, String endDate,String resultDate,String subjectCount);
+        public void onCateClick(String id, String time, String testName, String textQuestion, String testPaid, String TestStatus, String type, String startDate, String endDate,String resultDate,String testValidityDate,String subjectCount);
 
     }
 
