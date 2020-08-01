@@ -117,7 +117,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                             String testQuestion, String testPaid,
                             String testStatus, String type, String startDate,
                             String endDate,
-                            String resultDate,String subjectCount) {
+                            String resultDate,String validDate,String subjectCount) {
 
 
             if (testPaid.equalsIgnoreCase("Yes")) {
@@ -130,6 +130,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                 intent.putExtra("startDate", startDate);
                 intent.putExtra("endDate", endDate);
                 intent.putExtra("resultDate", resultDate);
+                intent.putExtra("valid", validDate);
 
                 intent.putExtra("testName", testName);
                 intent.putExtra("type", type);

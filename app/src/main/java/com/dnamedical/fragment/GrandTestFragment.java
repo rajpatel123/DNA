@@ -95,7 +95,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
     }
 
     @Override
-    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate, String resultDate,String subjectCount) {
+    public void onCateClick(String id, String time, String testName, String testQuestion, String testPaid, String testStatus, String type, String startDate, String endDate, String resultDate,String validDtae, String subjectCount) {
 
 
         if (testPaid.equalsIgnoreCase("1")) {
@@ -108,6 +108,7 @@ public class GrandTestFragment extends Fragment implements TestAdapter.OnCategor
             intent.putExtra("endDate", endDate);
             intent.putExtra("resultDate", resultDate);
             intent.putExtra("no_of_sub", subjectCount);
+            intent.putExtra("valid", validDtae);
 
             intent.putExtra("testName", testName);
             intent.putExtra("type", type);

@@ -60,6 +60,7 @@ public class TestStartDailyActivity extends AppCompatActivity {
     String test_id, duration, testName, testQuestion = "0", testPaid;
     String description;
     private long startDate;
+    private long validDate;
     private long resultDate, endDate;
     private String testStatus;
     private String subjectName = "19 Subjects of MBBS";
@@ -80,6 +81,8 @@ public class TestStartDailyActivity extends AppCompatActivity {
             test_id = intent.getStringExtra("id");
             duration = intent.getStringExtra("duration");
             startDate = Long.parseLong(intent.getStringExtra("startDate"));
+            validDate = Long.parseLong(intent.getStringExtra("valid"));
+
             resultDate = Long.parseLong(intent.getStringExtra("resultDate"));
             endDate = Long.parseLong(intent.getStringExtra("endDate"));
             no_of_sub = intent.getStringExtra("no_of_sub");
@@ -94,8 +97,18 @@ public class TestStartDailyActivity extends AppCompatActivity {
             description = intent.getStringExtra("desc");
             testPaid = intent.getStringExtra("testPaid");
 
+
+
 //            startTest();
-            if (!testStatus.equalsIgnoreCase("open")) {
+
+            if (validDate * 1000 < System.currentTimeMillis()) {
+                btnStart.setText("EXAM VALIDITY HAS BEEN OVER. YOU CAN NOT ATTEMPT THE TEST.\n Subscribe Now");
+                testTopic.setText(testName);
+                updateTestTypeText(type);
+                bookmark_card.setEnabled(false);
+                btnStart.setVisibility(View.VISIBLE);
+
+            }else if (!testStatus.equalsIgnoreCase("open")) {
                 testTopic.setText(testName);
                 updateTestTypeText(type);
                 testTopic.setText(testName);
@@ -158,6 +171,12 @@ public class TestStartDailyActivity extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (validDate * 1000 < System.currentTimeMillis()) {
+                    Intent intent = new Intent(TestStartDailyActivity.this, DNASuscribeActivity.class);
+                    startActivity(intent);
+                    return;
+                }
 
                 if (testStatus.equalsIgnoreCase("open")) {
                     if (testQuestion.equalsIgnoreCase("0")) {

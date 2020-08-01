@@ -118,17 +118,19 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=update_user")
-    Call<UserUpdateResponse> updateUser(@Part("name") RequestBody name,
-                                        @Part("id") RequestBody user_id,
-                                        @Part("password") RequestBody password,
-                                        @Part("username") RequestBody username,
-                                        @Part("mobile_no") RequestBody phone,
-                                        @Part("state") RequestBody state,
-                                        @Part("college") RequestBody college,
-                                        @Part("address") RequestBody addressBody,
-                                        @Part("city") RequestBody cityBody,
-                                        @Part("country") RequestBody countryBody,
-                                        @Part("academic_year_id") RequestBody acaademicYear_id
+    Call<UserUpdateResponse> updateUser(
+            @Part("email_id") RequestBody email,
+            @Part("name") RequestBody name,
+            @Part("id") RequestBody user_id,
+            @Part("password") RequestBody password,
+            @Part("username") RequestBody username,
+            @Part("mobile_no") RequestBody phone,
+            @Part("state") RequestBody state,
+            @Part("college") RequestBody college,
+            @Part("address") RequestBody addressBody,
+            @Part("city") RequestBody cityBody,
+            @Part("country") RequestBody countryBody,
+            @Part("academic_year_id") RequestBody acaademicYear_id
     );
 
 
@@ -297,7 +299,7 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=update_user")
     Call<EditProfileResponse> editProfile(@Part("id") RequestBody id,
-                                          @Part("username") RequestBody username,
+                                          @Part("name") RequestBody username,
                                           @Part("mobile_no") RequestBody mobile_no,
                                           @Part("state") RequestBody state,
                                           @Part("college") RequestBody college);

@@ -103,8 +103,8 @@ public class RestClient {
         RetrofitClient.getClient().registerUser(fb_id, name, username, email_id, phone, statetxt, password, college, addressBody, cityBody, countryBody, platform, acaademicYear_id, courseSlectedBody, boardname).enqueue(callback);
     }
 
-    public static void updateUser(RequestBody name, RequestBody user_id, RequestBody password, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, RequestBody acaademicYear_id, Callback<UserUpdateResponse> callback) {
-        RetrofitClient.getClient().updateUser(name, user_id, password, username, phone, statetxt, college, address, city, country, acaademicYear_id).enqueue(callback);
+    public static void updateUser(RequestBody email,RequestBody name, RequestBody user_id, RequestBody password, RequestBody username, RequestBody phone, RequestBody statetxt, RequestBody college, RequestBody address, RequestBody city, RequestBody country, RequestBody acaademicYear_id, Callback<UserUpdateResponse> callback) {
+        RetrofitClient.getClient().updateUser(email,name, user_id, password, username, phone, statetxt, college, address, city, country, acaademicYear_id).enqueue(callback);
     }
 
     public static void addressDetail(RequestBody user_id, RequestBody name, RequestBody mobile, RequestBody email, RequestBody address_line1, RequestBody address_line2, RequestBody state, RequestBody city, RequestBody pin_code, Callback<AddressDetailResponse> callback) {
