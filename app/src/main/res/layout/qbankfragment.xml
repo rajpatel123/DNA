@@ -37,12 +37,20 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative_one"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
 
+    </LinearLayout>
         <LinearLayout
             android:id="@+id/linear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/relative_one"
+            android:layout_below="@+id/linear1"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
