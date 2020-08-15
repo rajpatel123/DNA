@@ -19,6 +19,7 @@ import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -243,6 +244,9 @@ public class RegistrationActivity extends AppCompatActivity implements
         staticCollegeData();
         getStateList();
         sendCollegeListData();
+
+        getAddress();
+
         btnSignUp.setOnClickListener(this);
         textLogin.setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -664,14 +668,16 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         switch (view.getId()) {
             case R.id.btn_signUp:
-                initGoogleAPIClient();//Init Google API Client
-                checkPermissionsOnPhone();
-                if (TextUtils.isEmpty(mAddressOutput)) {
-                    getAddress();
+                //initGoogleAPIClient();//Init Google API Client
+               // checkPermissionsOnPhone();
+                validation();
 
-                } else {
-                    validation();
-                }
+
+                //                if (TextUtils.isEmpty(mAddressOutput)) {
+//                    getAddress();
+//
+//                } else {
+//                }
 
 
                 break;
@@ -685,6 +691,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     private void validation() {
 
         edit_name = editName.getText().toString();
@@ -816,25 +823,25 @@ public class RegistrationActivity extends AppCompatActivity implements
 
         }
 
-        if (TextUtils.isEmpty(mAddressOutput)) {
-            showSnackbar(R.string.permission_denied_explanation, R.string.settings,
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Build intent that displays the App settings screen.
-                            Intent intent = new Intent();
-                            intent.setAction(
-                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package",
-                                    BuildConfig.APPLICATION_ID, null);
-                            intent.setData(uri);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    });
-            return;
-
-        }
+//        if (TextUtils.isEmpty(mAddressOutput)) {
+//            showSnackbar(R.string.permission_denied_explanation, R.string.settings,
+//                    new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            // Build intent that displays the App settings screen.
+//                            Intent intent = new Intent();
+//                            intent.setAction(
+//                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                            Uri uri = Uri.fromParts("package",
+//                                    BuildConfig.APPLICATION_ID, null);
+//                            intent.setData(uri);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            startActivity(intent);
+//                        }
+//                    });
+//            return;
+//
+//        }
 
         Uri uri = Uri.parse("android.resource://com.dnamedical/drawable/dna_log_new");
         File videoFile = new File(getRealPath(uri));
