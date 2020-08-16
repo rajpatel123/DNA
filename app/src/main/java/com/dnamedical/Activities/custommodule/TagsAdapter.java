@@ -2,61 +2,74 @@ package com.dnamedical.Activities.custommodule;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dnamedical.R;
+import com.squareup.picasso.Picasso;
+
+import com.dnamedical.Activities.custommodule.Detail;
+
 
 import java.util.List;
 
-public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHolder> {
+import com.dnamedical.R;
+
+public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
 
 
     private Context applicationContext;
     private List<Detail> subjectList;
-    private OnCheckClickListener onCheckClickListener;
+    private OnTagClickListener onCheckClickListener;
 
     public void setQbankDetailList(List<Detail> subjectList) {
         this.subjectList = subjectList;
     }
 
-    public SubjectsAdapter(Context applicationContext) {
+    public TagsAdapter(Context applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(applicationContext).inflate(R.layout.recycler_subjects_item, viewGroup, false);
+        View view = LayoutInflater.from(applicationContext).inflate(R.layout.recycler_tags_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         Detail detail = subjectList.get(i);
-        holder.subjectChek.setText("" + detail.getSubjectName());
+        holder.tagName.setText(""+detail.getName());
 
         if (detail.isAll()) {
-            holder.subjectChek.setEnabled(false);
+            holder.tagName.setEnabled(false);
         } else {
-            holder.subjectChek.setEnabled(true);
+            holder.tagName.setEnabled(true);
 
         }
 
         if (detail.isSelected()) {
-            holder.subjectChek.setChecked(true);
-        } else {
-            holder.subjectChek.setChecked(false);
+            holder.tagName.setBackgroundResource(R.drawable.rzp_green_button);
+            holder.tagName.setTextColor(applicationContext.getResources().getColor(R.color.white));
+        }else{
+            holder.tagName.setBackgroundResource(R.drawable.rzp_border);
+            holder.tagName.setTextColor(applicationContext.getResources().getColor(R.color.black));
+
         }
-        holder.subjectChek.setOnClickListener(new View.OnClickListener() {
+
+
+
+       holder.tagName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onCheckClickListener != null) {
-                    onCheckClickListener.onCheckClick(holder.getAdapterPosition());
+                    onCheckClickListener.onTagClick(holder.getAdapterPosition());
                 }
             }
         });
@@ -72,23 +85,23 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
         }
     }
 
-    public void setQbankClickListner(OnCheckClickListener onCheckClickListener) {
+    public void setQbankClickListner(OnTagClickListener onCheckClickListener) {
         this.onCheckClickListener = onCheckClickListener;
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textName, totalQuestion;
-        CheckBox subjectChek;
+        TextView textName,totalQuestion;
+        TextView tagName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            subjectChek = itemView.findViewById(R.id.subCheckbox);
+            tagName = itemView.findViewById(R.id.tagName);
         }
     }
 
-    public interface OnCheckClickListener {
-        public void onCheckClick(int postion);
+    public interface OnTagClickListener {
+        public void onTagClick(int postion);
 
     }
 }

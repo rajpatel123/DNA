@@ -1,5 +1,7 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Activities.custommodule.CustomModuleResponse;
+import com.dnamedical.Activities.custommodule.CustomtestModel;
 import com.dnamedical.Activities.custommodule.SubjectListForCustomModule;
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
@@ -188,16 +190,16 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=add_order")
-    Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
-                                           @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
-                                           @Part("user_id") RequestBody user_id,
-                                           @Part("product_id") RequestBody product_id,
-                                           @Part("video_id") RequestBody video_id,
-                                           @Part("test_id") RequestBody test_id,
-                                           @Part("status") RequestBody status,
-                                           @Part("coupon_id") RequestBody coupon_id,
-                                           @Part("coupon_code") RequestBody coupon_code,
-                                           @Part("type") RequestBody type
+        Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
+                                               @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
+                                               @Part("user_id") RequestBody user_id,
+                                               @Part("product_id") RequestBody product_id,
+                                               @Part("video_id") RequestBody video_id,
+                                               @Part("test_id") RequestBody test_id,
+                                               @Part("status") RequestBody status,
+                                               @Part("coupon_id") RequestBody coupon_id,
+                                               @Part("coupon_code") RequestBody coupon_code,
+                                               @Part("type") RequestBody type
 //                                           @Part("cat_id") RequestBody cat_id,
 //                                           @Part("sub_cat_id") RequestBody sub_cat_id
     );
@@ -536,7 +538,7 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=qbank_subjects")
     Call<ModuleListResponse> checkForCustomModule(@Part("user_id") RequestBody user_id,
-                                         @Part("cat_id") RequestBody catid);
+                                                  @Part("cat_id") RequestBody catid);
 
     @Multipart
     @POST("api/api.php?req=getall_modulescopy")
@@ -605,6 +607,22 @@ public interface ApiInterface {
 
 
     @Multipart
+    @POST("api/api.php?req=get_module_byuserid")
+    Call<CustomModuleResponse> getCustomModuleById(@Part("user_id") RequestBody user_id);
+
+
+    @Multipart
+    @POST("api/api.php?req=get_module_info_byuserid")
+    Call<CustomtestModel> getCustomtestDetail(@Part("user_id") RequestBody user_id, @Part("test_id") RequestBody test_id);
+
+
+
+ @Multipart
+    @POST("api/api.php?req=delete_module_byuserid")
+    Call<ResponseBody> deleteCustomModule(@Part("user_id") RequestBody user_id, @Part("test_id") RequestBody test_id);
+
+
+    @Multipart
     @POST("api/api.php?req=get_score")
     Call<QBankResultResponse> getMCQResult(@Part("user_id") RequestBody user_id,
                                            @Part("module_id") RequestBody module_id);
@@ -665,6 +683,19 @@ public interface ApiInterface {
 
 
     @Multipart
+    @POST("api/api.php?req=create_custom_module")
+    Call<CustomModuleResponse> createCustomModule(@Part("cat_id") RequestBody cat_id,
+                                                  @Part("user_id") RequestBody user_idBody,
+                                                  @Part("totalQn") RequestBody totalQn,
+                                                  @Part("level") RequestBody level,
+                                                  @Part("subjects") RequestBody subjects,
+                                                  @Part("type") RequestBody type,
+                                                  @Part("tags") RequestBody tags
+
+    );
+
+
+    @Multipart
     @POST("/api/api.php?req=email_login")
     Call<LoginDetailForDemo> getUserByEmail(@Part("email_id") RequestBody email_id);
 
@@ -721,6 +752,9 @@ public interface ApiInterface {
             @Query("filter_category") String filter_category,
             @Query("filter_bookmark") String filter_bookmark);
 
+
+    @POST("api/api.php?req=get_qbank_tags")
+    Call<SubjectListForCustomModule> getAllTags();
 
     // New Api's Integrate
     @GET("v1/index.php/api/test/reviewqbankquestionlist")

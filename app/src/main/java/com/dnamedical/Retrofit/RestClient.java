@@ -1,5 +1,7 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Activities.custommodule.CustomModuleResponse;
+import com.dnamedical.Activities.custommodule.CustomtestModel;
 import com.dnamedical.Activities.custommodule.SubjectListForCustomModule;
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
@@ -295,12 +297,37 @@ public class RestClient {
     }
 
 
+ public static void getCustomModuleById(RequestBody userId, Callback<CustomModuleResponse> callback) {
+        RetrofitClient.getClient().getCustomModuleById(userId).enqueue(callback);
+    }
+
+
+    public static void getCustomtestDetail(RequestBody userId,RequestBody testId, Callback<CustomtestModel> callback) {
+        RetrofitClient.getClient().getCustomtestDetail(userId,testId).enqueue(callback);
+    }
+
+
+    public static void deleteCustomModule(RequestBody userId,RequestBody testId, Callback<ResponseBody> callback) {
+        RetrofitClient.getClient().deleteCustomModule(userId,testId).enqueue(callback);
+    }
+
+
     public static void getAllSubject(RequestBody userId, RequestBody catId, Callback<SubjectListForCustomModule> callback) {
         RetrofitClient.getClient().getAllSubject(userId, catId).enqueue(callback);
     }
 
+    public static void getAllTags(Callback<SubjectListForCustomModule> callback) {
+        RetrofitClient.getClient().getAllTags().enqueue(callback);
+    }
+
     public static void checkForCustomModule(RequestBody userId, RequestBody catId, Callback<ModuleListResponse> callback) {
         RetrofitClient.getClient().qbankDetail(userId, catId).enqueue(callback);
+    }
+
+
+ public static void createCustomModule(RequestBody catId, RequestBody userId, RequestBody totalQn,
+                                       RequestBody label, RequestBody subjects, RequestBody type, RequestBody tags,Callback<CustomModuleResponse> callback) {
+        RetrofitClient.getClient().createCustomModule(catId, userId,totalQn,label,subjects,type,tags).enqueue(callback);
     }
 
 

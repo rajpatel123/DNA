@@ -278,6 +278,16 @@
             android:name=".Activities.NeetPgActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
+
+        <activity
+            android:name=".Activities.custommodule.CustomTestStartDailyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+
+        <activity
+            android:name=".Activities.custommodule.CustomtestV1TestV1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNAFacultyActivity"
             android:label="Faculty"

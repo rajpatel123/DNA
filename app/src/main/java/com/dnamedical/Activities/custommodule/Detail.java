@@ -6,27 +6,60 @@ import com.google.gson.annotations.SerializedName;
 
 public class Detail {
 
-@SerializedName("id")
-@Expose
-private String id;
-@SerializedName("subject_name")
-@Expose
-private String subjectName;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("subject_name")
+    @Expose
+    private String subjectName;
 
-public String getId() {
-return id;
-}
+    @SerializedName("name")
+    @Expose
+    private String name;
 
-public void setId(String id) {
-this.id = id;
-}
+    private boolean isSelected;
 
-public String getSubjectName() {
-return subjectName;
-}
+    public boolean isAll() {
+        return isAll;
+    }
 
-public void setSubjectName(String subjectName) {
-this.subjectName = subjectName;
-}
+    public void setAll(boolean all) {
+        isAll = all;
+    }
+
+    private boolean isAll;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
 
 }
