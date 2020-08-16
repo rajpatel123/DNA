@@ -1,5 +1,6 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Activities.custommodule.SubjectListForCustomModule;
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
@@ -290,6 +291,15 @@ public class RestClient {
 
 
     public static void qbankDetail(RequestBody userId, RequestBody catId, Callback<ModuleListResponse> callback) {
+        RetrofitClient.getClient().qbankDetail(userId, catId).enqueue(callback);
+    }
+
+
+    public static void getAllSubject(RequestBody userId, RequestBody catId, Callback<SubjectListForCustomModule> callback) {
+        RetrofitClient.getClient().getAllSubject(userId, catId).enqueue(callback);
+    }
+
+    public static void checkForCustomModule(RequestBody userId, RequestBody catId, Callback<ModuleListResponse> callback) {
         RetrofitClient.getClient().qbankDetail(userId, catId).enqueue(callback);
     }
 

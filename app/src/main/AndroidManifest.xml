@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dnamedical">
-    <!-- hi -->
+
     <application
         android:name=".DNAApplication"
         android:allowBackup="true"
@@ -14,9 +14,15 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="m">
-        <activity android:name=".Activities.ReferalActivity"
+        <activity android:name=".Activities.custommodule.CustomModuleActivity"
             android:theme="@style/AppTheme2"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:label="Create Custom Module"
+            />
+        <activity
+            android:name=".Activities.ReferalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.ModuleQBankActivity"
             android:label="QBank"
@@ -68,9 +74,7 @@
         <activity
             android:name=".Activities.TestV1Activity"
             android:screenOrientation="portrait" />
-
         <activity android:name=".Activities.EnterMobileAndEmailActivity" />
-
         <activity
             android:name=".Activities.UpdateAddressActivity"
             android:label="Edit Address"
@@ -80,12 +84,10 @@
             android:name=".Activities.ForgetPasswordSendEmailActiivty"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
-
         <activity
             android:name=".Activities.ForgetPasswordEmailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
-
         <activity android:name=".Activities.ViewerActivity" />
         <activity
             android:name=".Activities.AddressListActivity"
@@ -204,8 +206,8 @@
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="open"
                     android:scheme="dnaapp" />
@@ -282,11 +284,9 @@
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
-
         <activity
             android:name=".Activities.DNASuscribeActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Activities.DNAKnowmoreActivity"
             android:label="Know More"
@@ -347,6 +347,7 @@
         <activity
             android:name=".Activities.ResultActivity"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -356,11 +357,9 @@
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_GPmJIkGzNlDISO" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dfe8483de641ade0780acac1920014763432dd86" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo_with_title" />
@@ -383,7 +382,6 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".messageReceiver.PushNavigateReceiver"
             android:exported="false">
@@ -391,6 +389,7 @@
                 <action android:name="custom.notification.navigation" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".Activities.MyService"
             android:enabled="true"
@@ -412,17 +411,17 @@
             android:name=".FetchAddressIntentService"
             android:exported="false" />
     </application>
+
     <uses-feature
         android:name="android.hardware.Camera"
         android:required="false" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

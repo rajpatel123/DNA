@@ -1,5 +1,6 @@
 package com.dnamedical.Retrofit;
 
+import com.dnamedical.Activities.custommodule.SubjectListForCustomModule;
 import com.dnamedical.Models.Directors;
 import com.dnamedical.Models.EditProfileResponse.EditProfileResponse;
 import com.dnamedical.Models.Enter_Mobile.EmailByFBResponse;
@@ -524,6 +525,17 @@ public interface ApiInterface {
     @Multipart
     @POST("api/api.php?req=qbank_subjects")
     Call<ModuleListResponse> qbankDetail(@Part("user_id") RequestBody user_id,
+                                         @Part("cat_id") RequestBody catid);
+
+    @Multipart
+    @POST("api/api.php?req=get_qbank_suject_by_cid")
+    Call<SubjectListForCustomModule> getAllSubject(@Part("user_id") RequestBody user_id,
+                                                   @Part("cat_id") RequestBody catid);
+
+
+    @Multipart
+    @POST("api/api.php?req=qbank_subjects")
+    Call<ModuleListResponse> checkForCustomModule(@Part("user_id") RequestBody user_id,
                                          @Part("cat_id") RequestBody catid);
 
     @Multipart

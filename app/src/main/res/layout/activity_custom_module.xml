@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.custommodule.CustomModuleActivity">
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/tab1"
+            android:layout_width="@dimen/margin_top_40dp"
+            android:layout_height="8dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tab2"
+            android:layout_width="@dimen/margin_top_40dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="@dimen/dp_5"
+            android:background="@color/dark_gray" />
+
+        <TextView
+            android:id="@+id/tab3"
+            android:layout_width="@dimen/margin_top_40dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="@dimen/dp_5"
+
+            android:background="@color/dark_gray" />
+
+        <TextView
+            android:id="@+id/tab4"
+            android:layout_width="@dimen/margin_top_40dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="@dimen/dp_5"
+
+            android:background="@color/dark_gray" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/actionBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_20">
+
+        <Button
+            android:id="@+id/prevBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/back_arrow"
+            android:drawableTint="@color/colorPrimary"
+            android:text="   Previous"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@drawable/exo_icon_next"
+            android:drawableTint="@color/colorPrimary"
+            android:text="NEXT"
+            android:textColor="@color/colorPrimary" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollViewV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/actionBtns"
+        android:layout_below="@+id/top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/tab1LL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/knowmorebck"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_10">
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:entries="@array/number_of_qn"
+                        android:padding="5dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Number of Questions"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@color/knowmorebck"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/allLevel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="All" />
+
+
+                            <RadioButton
+                                android:id="@+id/chooseLebel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_20"
+                                android:text="Chose label" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Difficulty Level"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@color/knowmorebck"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_20">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/allQBank"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="All Question Banks"
+                                android:textStyle="bold" />
+
+
+                            <RadioButton
+                                android:id="@+id/bookbarked"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:text="Bookmarked QBank MCQs"
+
+                                android:textStyle="bold" />
+
+                            <RadioButton
+                                android:id="@+id/incorrectView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:text="Incorrect QBank MCQs"
+
+                                android:textStyle="bold" />
+
+
+                            <RadioButton
+                                android:id="@+id/attempted"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:text="Attempted QBank MCQs"
+
+                                android:textStyle="bold" />
+
+                            <RadioButton
+                                android:id="@+id/unattempted"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:text="Unattempted QBank MCQs"
+
+                                android:textStyle="bold" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Pick Questions From"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab2LL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/allSubjectReadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  All "
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/chooseSubjectReadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  Choose Subjects "
+
+                        android:textStyle="bold" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select subjects"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/subjectRecyclerView"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/noInternetTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No internet connection"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+</RelativeLayout>
