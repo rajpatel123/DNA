@@ -2,8 +2,8 @@ package com.dnamedical.Adapters;
 
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.dnamedical.Activities.LoginActivity;
 import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.R;

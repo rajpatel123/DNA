@@ -22,7 +22,7 @@
         android:layout_below="@+id/closePlanList"
         android:textStyle="bold"
         android:textSize="18sp"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/planrecycler"
         android:layout_below="@+id/selectPlan"
         android:layout_margin="@dimen/margin_20dp"

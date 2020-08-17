@@ -1,35 +1,27 @@
 package com.dnamedical.livemodule;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Activities.TestUGV1Activity;
-import com.dnamedical.Adapters.CourseListAdapter;
-import com.dnamedical.Adapters.CourseModuleListAdapter;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
-import com.dnamedical.Models.maincat.SubCat;
 import com.dnamedical.Models.modulesforcat.CatModuleResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
-import com.dnamedical.fragment.HomeFragment;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
-import com.dnamedical.utils.EqualSpacingItemDecoration;
 import com.dnamedical.utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,13 +36,8 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;

@@ -3,20 +3,17 @@ package com.dnamedical.Activities.custommodule;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.text.TextUtils;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.ResultActivity;
 import com.dnamedical.Activities.TestReviewResultActivity;
-import com.dnamedical.Activities.TestUGV1Activity;
-import com.dnamedical.Activities.TestV1Activity;
 import com.dnamedical.Models.testReviewlistnew.TestReviewListResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
