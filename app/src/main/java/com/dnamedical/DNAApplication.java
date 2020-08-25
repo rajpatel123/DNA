@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 import android.util.Base64;
 import android.util.Log;
 
@@ -13,7 +13,6 @@ import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
 
-import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;

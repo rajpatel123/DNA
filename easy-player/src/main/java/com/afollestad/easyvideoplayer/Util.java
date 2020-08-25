@@ -4,13 +4,18 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.AttrRes;
+import android.os.Build;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.RequiresApi;
+
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /** @author Aidan Follestad (afollestad) */
 class Util {
 
+  @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
   static String getDurationString(long durationMs, boolean negativePrefix) {
     return String.format(
         Locale.getDefault(),

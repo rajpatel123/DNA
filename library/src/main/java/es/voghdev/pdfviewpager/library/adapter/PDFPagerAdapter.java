@@ -20,7 +20,9 @@ import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.view.ViewPager;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -123,7 +125,7 @@ public class PDFPagerAdapter extends BasePDFPagerAdapter {
             return this;
         }
 
-        public PDFPagerAdapter create() {
+        public PagerAdapter create() {
             PDFPagerAdapter adapter = new PDFPagerAdapter(context, pdfPath);
             adapter.scale.setScale(scale);
             adapter.scale.setCenterX(centerX);

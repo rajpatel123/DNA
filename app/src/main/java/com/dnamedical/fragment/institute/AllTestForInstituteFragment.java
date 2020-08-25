@@ -1,34 +1,25 @@
 package com.dnamedical.fragment.institute;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.InstituteTestActivity;
-import com.dnamedical.Activities.MainActivity;
-import com.dnamedical.Activities.TestStartActivity;
-import com.dnamedical.Adapters.TestAdapter;
-import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
@@ -38,13 +29,11 @@ import com.dnamedical.fragment.DailyTestFragment;
 import com.dnamedical.fragment.GrandTestFragment;
 import com.dnamedical.fragment.MockTestFragment;
 import com.dnamedical.fragment.SubjectWiseTestFragment;
-import com.dnamedical.fragment.TestFragment;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;

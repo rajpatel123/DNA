@@ -7,13 +7,13 @@
     android:scrollbars="none"
 
     tools:context=".Activities.PaymentDetailActivity">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -26,7 +26,7 @@
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="Payment"
             app:titleTextColor="@color/white" />
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <ScrollView
@@ -431,7 +431,7 @@
 
                 >
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -533,7 +533,7 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </RelativeLayout>

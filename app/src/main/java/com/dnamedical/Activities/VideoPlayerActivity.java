@@ -23,10 +23,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -58,7 +58,6 @@ import com.warkiz.widget.DotIndicatorSeekBar;
 import com.warkiz.widget.DotOnSeekChangeListener;
 import com.warkiz.widget.DotSeekParams;
 
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -641,23 +640,23 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
     }
 
-    public static String convertSecondsToHMS(long timeInMilliSeconds) {
-        if (timeInMilliSeconds > 0) {
-            long seconds = timeInMilliSeconds / 1000;
-            long minutes = seconds / 60;
-            long hours = minutes / 60;
-
-            String hms;
-            if (hours > 0) {
-                hms = String.format(Locale.getDefault(), "%02d:%02d:%02d", (hours % 24), (minutes % 60), (seconds % 60));
-            } else {
-                hms = String.format(Locale.getDefault(), "%02d:%02d", (minutes % 60), (seconds % 60));
-            }
-            return hms;
-        } else {
-            return "";
-        }
-    }
+//    public static String convertSecondsToHMS(long timeInMilliSeconds) {
+//        if (timeInMilliSeconds > 0) {
+//            long seconds = timeInMilliSeconds / 1000;
+//            long minutes = seconds / 60;
+//            long hours = minutes / 60;
+//
+//            String hms;
+//            if (hours > 0) {
+//                hms = String.format(Locale.getDefault(), "%02d:%02d:%02d", (hours % 24), (minutes % 60), (seconds % 60));
+//            } else {
+//                hms = String.format(Locale.getDefault(), "%02d:%02d", (minutes % 60), (seconds % 60));
+//            }
+//            return hms;
+//        } else {
+//            return "";
+//        }
+//    }
 
     /*
      * Seek Handling VIEWS

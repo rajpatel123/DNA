@@ -17,14 +17,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -79,11 +79,11 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
     Switch toggle;
 
     @BindView(R.id.btnImage)
-    android.support.v7.widget.AppCompatImageView btnImage;
+    androidx.appcompat.widget.AppCompatImageView btnImage;
 
 
     @BindView(R.id.btn_send)
-    android.support.v7.widget.AppCompatImageButton btnSend;
+    androidx.appcompat.widget.AppCompatImageButton btnSend;
     @BindView(R.id.message)
     EditText message;
     ChatListAdapter chatListAdapter;
