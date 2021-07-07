@@ -13,14 +13,14 @@ def uatKeystorePropertiesFile = rootProject.file("release_signing.properties")
 def uatKeystoreProperties = new Properties()
 uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.dnamedical"
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 162
-        versionName "v6.4.7"
+        targetSdkVersion 29
+        versionCode 164
+        versionName "v6.4.9"
         multiDexEnabled true
         ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         vectorDrawables.useSupportLibrary = true
@@ -45,18 +45,18 @@ android {
     }
     buildTypes {
         release {
-            debuggable true
+            debuggable false
             def uatSigningKey = signingConfigs.dna
             signingConfig uatSigningKey
             multiDexEnabled true
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://65.2.1.107/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
             multiDexEnabled true
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://65.2.1.107/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

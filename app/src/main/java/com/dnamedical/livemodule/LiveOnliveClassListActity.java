@@ -163,6 +163,7 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
                             // noInternet.setVisibility(View.VISIBLE);
                             // noInternet.setText(getString(R.string.no_project));
                             recyclerView.setVisibility(View.GONE);
+                            textInternet.setText("No live class available for now!");
                             textInternet.setVisibility(View.VISIBLE);
 
                         }

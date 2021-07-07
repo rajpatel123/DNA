@@ -122,7 +122,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
 
         } else {
-            tabOne.setText("Daily Test");
+            tabOne.setText("Free Test");
 
         }
         tabLayout.getTabAt(0).setCustomView(tabOne);
@@ -182,7 +182,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
         //adapter.addFrag(allTestFragment, "All Test");
-        adapter.addFrag(dailyTestFragment, "Daily Test");
+        adapter.addFrag(dailyTestFragment, "Free Test");
         adapter.addFrag(grandTestFragment, "Grand Test");
         adapter.addFrag(mockTestFragment, "Mock Test");
         adapter.addFrag(subjectWiseTestFragment, "SWT");

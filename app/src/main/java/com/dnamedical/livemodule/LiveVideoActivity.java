@@ -107,7 +107,7 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
     private int GALLERY = 1, CAMERA = 2;
     private List<String> imagePathList = new ArrayList<>();
     Context ctx;
-    String channelKey = "";
+    String channelKey = "oM5RuzNIMNs";
     String lati, longi;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
@@ -181,7 +181,8 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
 
-        liveVideoId = getIntent().getStringExtra("id");
+        liveVideoId = "oM5RuzNIMNs";
+//        liveVideoId = getIntent().getStringExtra("id");
         isStoragePermissionGranted();
         channelKey = chanel.getChannelId();
       //  String channelName = getIntent().getStringExtra("channelName");

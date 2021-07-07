@@ -391,6 +391,8 @@ public class QbankTestActivity extends AppCompatActivity {
                     // question_image.setVisibility(View.VISIBLE);
                     progressbarForImage.setVisibility(View.VISIBLE);
 
+                    answerList.addView(iv);
+
                     Picasso.with(this).load(questionDetails.getTitleImage())
                             .into(iv, new com.squareup.picasso.Callback() {
                                 @Override
