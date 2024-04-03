@@ -19,164 +19,206 @@
             android:theme="@style/AppTheme2"
             android:screenOrientation="portrait"
             android:label="Create Custom Module"
+            android:exported="false"
             />
         <activity
             android:name=".Activities.ReferalActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.ModuleQBankActivity"
+            android:exported="false"
             android:label="QBank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.ModuleTestActivity"
+            android:exported="false"
             android:label="Test"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.CategoryModulesActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".livemodule.LiveOnliveClassListActity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.AllInstituteActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.ChangePhoneNumberOtypVarification"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ChanePhoneNumberActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.InstituteTestActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.RemarksActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.FacultyChatActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".livemodule.LiveVideoActivity"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
         <activity
             android:name=".Activities.SubscriptionPaymentActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.PlanPaymentProceesingActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.TestV1Activity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.EnterMobileAndEmailActivity" />
         <activity
             android:name=".Activities.UpdateAddressActivity"
+            android:exported="false"
             android:label="Edit Address"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.ForgetPasswordSendEmailActiivty"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.ForgetPasswordEmailActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
-        <activity android:name=".Activities.ViewerActivity" />
+        <activity android:name=".Activities.ViewerActivity"
+            android:exported="false"/>
         <activity
             android:name=".Activities.AddressListActivity"
+            android:exported="false"
             android:label="Shipping Address"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.PaymentCoupenActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme6" />
         <activity
             android:name=".Activities.PaymentDetailActivity"
+            android:exported="false"
             android:label="Payment"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.PaymentAddressSaveActivity"
+            android:exported="false"
             android:label="Address"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.ChangePasswordActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.IdVerificationActivitty"
+            android:exported="false"
             android:label="Verification "
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.EditProfileActivity"
+            android:exported="false"
             android:label="Edit Profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
-        <activity android:name=".Activities.AboutUsActivit" />
+        <activity android:name=".Activities.AboutUsActivit"
+            android:exported="false"/>
         <activity
             android:name=".Activities.FranchiActivity"
+            android:exported="false"
             android:label="Query"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.AttemptingQuestionActivity"
+            android:exported="false"
             android:label="Query"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.TestReviewResultActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.FacultyChatChannelActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.QBankReviewResultActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.PromoActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme6" />
         <activity
             android:name=".Activities.QbankReviewResult"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankResultActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankRatingActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankTestActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme6" />
         <activity
             android:name=".Activities.BookmarkActivity"
+            android:exported="false"
             android:label="MCQ Bookmarks"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.QbankStartTestActivity"
+            android:exported="false"
             android:label="Amino acid:Metabolism"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankSubActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <!--
   <service
@@ -189,14 +231,17 @@
         -->
         <activity
             android:name=".Activities.ReviewQuestionList"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ReviewresulActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme6">
+            android:theme="@style/AppTheme6"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -226,49 +271,81 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name="com.razorpay.RzpTokenReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="rzp.device_token.share" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.razorpay.CheckoutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@style/CheckoutTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <data
+                    android:host="rzp.io"
+                    android:scheme="io.rzp" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.FirstloginActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddressForSubscriptionListActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".livemodule.LivePaymentDetailActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.LoginActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.RegistrationActivity"
+            android:exported="false"
             android:parentActivityName=".Activities.FirstloginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".livemodule.LivePaymentCoupenActivity"
+            android:exported="false"
             android:parentActivityName=".livemodule.LiveOnliveClassListActity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".livemodule.LiveAddressListActivity"
+            android:exported="false"
             android:parentActivityName=".livemodule.LivePaymentCoupenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.PaymentActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.PhoneloginActivity"
+            android:exported="false"
             android:parentActivityName=".Activities.FirstloginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.MainActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
         <activity
             android:name=".Activities.VerifyOTPActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.PlanPaymentProceesingForSSUGActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <!--
 <activity
@@ -277,30 +354,36 @@
         -->
         <activity
             android:name=".Activities.NeetPgActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
 
         <activity
             android:name=".Activities.custommodule.CustomTestStartDailyActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
 
         <activity
             android:name=".Activities.custommodule.CustomtestV1TestV1Activity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNAFacultyActivity"
+            android:exported="false"
             android:label="Faculty"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNASuscribeActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.DNAKnowmoreActivity"
             android:label="Know More"
+            android:exported="false"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
@@ -315,23 +398,28 @@
         <activity
             android:name=".Activities.ContactUsActivity"
             android:label="Contact Us"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.TestUGV1Activity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNAProfileActivity"
             android:label="Profile"
+            android:exported="false"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.WebViewActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.VideoActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <!--
  <activity android:name=".Activities.DNASettingActivity" />
@@ -344,19 +432,24 @@
         -->
         <activity
             android:name=".Activities.VideoPlayerActivity"
+            android:exported="false"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.TestStartActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.TestStartDailyActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Mobilenumber"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ResultActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -388,7 +481,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <receiver android:name=".messageReceiver.SmsReceiver">
+        <receiver android:name=".messageReceiver.SmsReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
