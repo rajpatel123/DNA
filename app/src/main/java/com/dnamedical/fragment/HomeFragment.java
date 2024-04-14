@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     private void getCourse() {
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.getCourses(new Callback<CategoryDetailData>() {
+            RestClient.getCourses("category_clone","14",new Callback<CategoryDetailData>() {
                 @Override
                 public void onResponse(Call<CategoryDetailData> call, Response<CategoryDetailData> response) {
                     if (response.code() == 200) {

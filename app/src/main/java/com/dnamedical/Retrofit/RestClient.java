@@ -136,8 +136,8 @@ public class RestClient {
         RetrofitClient.getClient().facebookRegister(name, email_id, fb_id).enqueue(callback);
     }
 
-    public static void getCourses(Callback<CategoryDetailData> callback) {
-        RetrofitClient.getClient().getCourse().enqueue(callback);
+    public static void getCourses(String req, String id,Callback<CategoryDetailData> callback) {
+        RetrofitClient.getClient().getCourse(req,id).enqueue(callback);
     }
 
 

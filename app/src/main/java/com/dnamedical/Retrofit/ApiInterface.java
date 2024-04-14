@@ -315,8 +315,8 @@ public interface ApiInterface {
                                             @Part("fb_id") RequestBody facebookbId);
 
 
-    @GET("api/api.php?req=category")
-    Call<CategoryDetailData> getCourse();
+    @GET("api/api.php")
+    Call<CategoryDetailData> getCourse(@Query("req") String req, @Query("category_id") String id);
 
 
     @Multipart
