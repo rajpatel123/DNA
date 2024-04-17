@@ -384,7 +384,7 @@ public interface ApiInterface {
 
 
     @GET("api/api.php")
-    Call<LiveChannelData> getAllCgannels(@Query("req") String req, @Query("user_id") String user_id);
+    Call<LiveChannelData> getAllCgannels(@Query("req") String req, @Query("user_id") String user_id,@Query("category_id") String category_id);
 
 
     @GET("api/api.php")

@@ -714,7 +714,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
 
-        getLoginCheck();
+       // getLoginCheck();
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
             Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);

@@ -543,8 +543,8 @@ public class RestClient {
     }
 
 
-    public static void getChannels(String get_live_info, String userID, Callback<LiveChannelData> callback) {
-        RetrofitClient.getClient().getAllCgannels(get_live_info, userID).enqueue(callback);
+    public static void getChannels(String get_live_info, String userID,String category_id, Callback<LiveChannelData> callback) {
+        RetrofitClient.getClient().getAllCgannels(get_live_info, userID,category_id).enqueue(callback);
     }
 
     public static void getchathistory(String get_live_info, String channel_id, String user_id, String facultyId, Callback<GetChatHistoryResp> callback) {

@@ -12,6 +12,17 @@ private String id;
 @Expose
 private String subChildName;
 
+    public String getFile_upload() {
+        return file_upload;
+    }
+
+    public void setFile_upload(String file_upload) {
+        this.file_upload = file_upload;
+    }
+
+    @SerializedName("file_upload")
+    @Expose
+    private String file_upload;
 
     public String getAdmin_discount() {
         return admin_discount;

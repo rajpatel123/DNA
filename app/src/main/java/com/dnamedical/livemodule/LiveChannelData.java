@@ -4,6 +4,7 @@ package com.dnamedical.livemodule;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -18,7 +19,7 @@ public class LiveChannelData implements Parcelable {
     private String message;
     @SerializedName("chat")
     @Expose
-    private List<Chanel> chat = null;
+    private List<Chanel> chat = new ArrayList<>();
 
     protected LiveChannelData(Parcel in) {
         status = in.readString();

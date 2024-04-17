@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final LiveListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final LiveListAdapter.ViewHolder holder,  int position) {
 
 
       /*  holder.drName.setText("" + categoryDetailData.getChat().get(holder.getAdapterPosition()).getDoctorName());
@@ -54,19 +55,18 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         holder.timer.setText("" + Utils.startTimeFormat(Long.parseLong(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));*/
 
 
-        holder.subjectName.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveSubject());
-
-        holder.tvTopic1.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getChaptername());
+        holder.subjectName.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getLiveSubject()+"("+categoryDetailData.getChat().get(holder.getAdapterPosition()).getChaptername()+")");
 
 
-        holder.tvcategory1.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getCategoryname());
+
+       // holder.tvcategory1.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getCategoryname());
 
 
         SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
         Date todayDate = new Date();
         String thisDate = currentDate.format(todayDate);
 
-        holder.tvDate1.setText(thisDate);
+        holder.tvTime1.setText(thisDate);
         holder.tveducator1.setText(categoryDetailData.getChat().get(holder.getAdapterPosition()).getDoctorName());
 
         holder.tvBatchName.setText(categoryDetailData.getChat().get(position).getBatchname());
@@ -85,7 +85,7 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
             if (categoryDetailData.getChat().get(position).getPaidStatus() == 1) {
                 holder.buynow.setText("Watch Live");
             } else {
-                holder.buynow.setText("Buy Now for INR " + categoryDetailData.getChat().get(position).getPrice());
+                holder.buynow.setText("Join @ \\u20B9 " + categoryDetailData.getChat().get(position).getPrice());
             }
         } else {
             holder.buynow.setText("Watch Live");
@@ -177,24 +177,21 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         @BindView(R.id.tvSubjectNa)
         TextView subjectName;
 
-        @BindView(R.id.tvTopic1)
-        TextView tvTopic1;
 
-        @BindView(R.id.tvcategory1)
-        TextView tvcategory1;
+
+
 
         @BindView(R.id.tveducator1)
         TextView tveducator1;
 
 
-        @BindView(R.id.tvDate1)
-        TextView tvDate1;
+
 
         @BindView(R.id.tvTime1)
         TextView tvTime1;
 
         @BindView(R.id.buy_now)
-        TextView buynow;
+        Button buynow;
         @BindView(R.id.tvBatchName)
         TextView tvBatchName;
 

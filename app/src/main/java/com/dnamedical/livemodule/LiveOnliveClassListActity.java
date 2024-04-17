@@ -127,7 +127,7 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
     private void getCourse() {
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);
-            RestClient.getChannels("get_live_info", user_id, new Callback<LiveChannelData>() {
+            RestClient.getChannels("get_live_info", user_id,"14", new Callback<LiveChannelData>() {
                 @Override
                 public void onResponse(Call<LiveChannelData> call, Response<LiveChannelData> response) {
                     if (response.code() == 200) {

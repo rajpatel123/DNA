@@ -1,20 +1,24 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.TextUtils;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dnamedical.Activities.ContactUsActivity;
-import com.dnamedical.Models.maincat.CategoryDetailData;
+import com.bumptech.glide.Glide;
+import com.dnamedical.Models.maincat.SubCat;
+import com.dnamedical.Models.maincat.SubSubChild;
 import com.dnamedical.R;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +29,7 @@ import butterknife.ButterKnife;
 
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
     private Context applicationContext;
-    private CategoryDetailData categoryDetailData;
+    private List<SubSubChild> categoryDetailData;
     OnCategoryClick onUserClickCallback;
 
     public CourseListAdapter(Context applicationContext) {
@@ -42,103 +46,82 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     public void onBindViewHolder(final CourseListAdapter.ViewHolder holder, final int position) {
 
 
-        holder.title.setText("" + categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
-
-
-        if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName().contains("Live Online")){
-            holder.live.setVisibility(View.VISIBLE);
-            holder.detailLL.setVisibility(View.GONE);
-
-        }else{
-            holder.live.setVisibility(View.GONE);
-            holder.detailLL.setVisibility(View.VISIBLE);
-
-        }
-
-
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName()
-                        .equalsIgnoreCase("Contact")) {
-                    Intent intent = new Intent(applicationContext, ContactUsActivity.class);
-                    applicationContext.startActivity(intent);
-                }
-            }
-        });
-
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onUserClickCallback != null) {
-                    if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
-                        onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
-                        return;
-                    }
-                    onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
-
-////                        if (!(Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
-////                                || Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) == 11
-////                                || Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) == 10){
+        holder.title.setText("" + categoryDetailData.get(holder.getAdapterPosition()).getSubChildName());
+        Glide.with(applicationContext)
+                .load(categoryDetailData.get(holder.getAdapterPosition()).getFile_upload())
+                .into(holder.image);
+//        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (onUserClickCallback != null) {
+//                    if (categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
+//                        onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
+//                        return;
+//                    }
+//                    onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
+//
+//////                        if (!(Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
+//////                                || Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) == 11
+//////                                || Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) == 10){
+//////
+//////                            onUserClickCallback.onCateClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId());
+//////
+//////                        }
+////                        if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID)) && !DnaPrefs.getString(applicationContext, Constants.INST_ID).equals("0")) {
+////                            if (categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
+////                                onUserClickCallback.onInstituteClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatName());
+////                                return;
 ////
+////                            }
+////                        }
+////
+////                        if (Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId())!=5){
 ////                            onUserClickCallback.onCateClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId());
 ////
 ////                        }
-//                        if (!TextUtils.isEmpty(DnaPrefs.getString(applicationContext, Constants.INST_ID)) && !DnaPrefs.getString(applicationContext, Constants.INST_ID).equals("0")) {
-//                            if (categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId().equals(DnaPrefs.getString(applicationContext, Constants.INST_ID) + "432")) {
-//                                onUserClickCallback.onInstituteClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatName());
-//                                return;
-//
-//                            }
-//                        }
-//
-//                        if (Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId())!=5){
-//                            onUserClickCallback.onCateClick(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId());
-//
-//                        }
+////
+////
+////
+////
 //
 //
+//                }
+//
+//            }
 //
 //
+//        });
 
 
-                }
-
-            }
-
-
-        });
-
-
-        if (categoryDetailData != null && categoryDetailData.getDetails() != null && categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
-                && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat() != null
-                && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size() > 0) {
-            StringBuilder stringBuilder = new StringBuilder();
-            String subcats = "";
-            for (int i = 0; i < categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size(); i++) {
-                stringBuilder.append(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().get(i).getSubCatName() + "/");
-            }
-            subcats = stringBuilder.substring(0, stringBuilder.length() - 1);
-
-
-            if (!TextUtils.isEmpty(subcats)) {
-                holder.desc.setText("" + subcats);
-                if (categoryDetailData.getDetails().get(holder.getAdapterPosition())
-                        .getCatName().equalsIgnoreCase("MBBS PROF.")) {
-                    holder.desc.setText("University Exam");
-                }
-                holder.desc.setVisibility(View.VISIBLE);
-
-            } else {
-                holder.desc.setText("");
-                holder.desc.setVisibility(View.GONE);
-            }
-
-        } else {
-            holder.desc.setText("");
-            holder.desc.setVisibility(View.GONE);
-
-        }
+//        if (categoryDetailData != null && categoryDetailData.getDetails() != null && categoryDetailData.getDetails().get(holder.getAdapterPosition()) != null
+//                && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat() != null
+//                && categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size() > 0) {
+//            StringBuilder stringBuilder = new StringBuilder();
+//            String subcats = "";
+//            for (int i = 0; i < categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().size(); i++) {
+//                stringBuilder.append(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getSubCat().get(i).getSubCatName() + "/");
+//            }
+//            subcats = stringBuilder.substring(0, stringBuilder.length() - 1);
+//
+//
+//            if (!TextUtils.isEmpty(subcats)) {
+//                holder.desc.setText("" + subcats);
+//                if (categoryDetailData.getDetails().get(holder.getAdapterPosition())
+//                        .getCatName().equalsIgnoreCase("MBBS PROF.")) {
+//                    holder.desc.setText("University Exam");
+//                }
+//                holder.desc.setVisibility(View.VISIBLE);
+//
+//            } else {
+//                holder.desc.setText("");
+//                holder.desc.setVisibility(View.GONE);
+//            }
+//
+//        } else {
+//            holder.desc.setText("");
+//            holder.desc.setVisibility(View.GONE);
+//
+//        }
 
 //        if (categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId().equals("432")) {
 //            holder.detailLL.setVisibility(View.GONE);
@@ -169,14 +152,14 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
     @Override
     public int getItemCount() {
-        if (categoryDetailData != null && categoryDetailData.getDetails() != null) {
-            return categoryDetailData.getDetails().size();
+        if (categoryDetailData != null && categoryDetailData != null) {
+            return categoryDetailData.size();
         } else {
             return 0;
         }
     }
 
-    public void setData(CategoryDetailData CourseLists) {
+    public void setData(List<SubSubChild> CourseLists) {
         this.categoryDetailData = CourseLists;
     }
 
@@ -193,24 +176,19 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
 
         @BindView(R.id.linearNeet_Ss)
-        LinearLayout linearLayout;
+        FrameLayout linearLayout;
 
         @BindView(R.id.detailLL)
-        LinearLayout detailLL;
+        RelativeLayout detailLL;
 
         @BindView(R.id.title)
         TextView title;
 
+        @BindView(R.id.image)
+        ImageView image;
 
-        @BindView(R.id.live)
-        ImageView live;
 
 
-//        @BindView(R.id.insImage)
-//        ImageView insImage;
-
-        @BindView(R.id.desc)
-        TextView desc;
 
         public ViewHolder(View view) {
             super(view);

@@ -1,13 +1,23 @@
 package com.dnamedical.fragment;
 
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +35,7 @@ import com.dnamedical.Activities.FacultyChatChannelActivity;
 import com.dnamedical.Activities.FranchiActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Adapters.CourseListAdapter;
+import com.dnamedical.Adapters.HorizontalItemDecoration;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
 import com.dnamedical.Models.maincat.SubCat;
@@ -32,10 +43,22 @@ import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.interfaces.FragmentLifecycle;
+import com.dnamedical.livemodule.LiveChannelData;
+import com.dnamedical.livemodule.LiveListAdapter;
 import com.dnamedical.livemodule.LiveOnliveClassListActity;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -46,21 +69,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements FragmentLifecycle, CourseListAdapter.OnCategoryClick {
 
-
+    private LiveChannelData channelData;
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    String[] mPermission = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private GoogleApiClient googleApiClient;
+    final static int REQUEST_LOCATION = 199;
     @BindView(R.id.noInternet)
     TextView textInternet;
-    @BindView(R.id.llfaculty)
-    LinearLayout llfaculty;
+    String userId;
 
     MainActivity mainActivity;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R.id.subjectsLL)
+    LinearLayout subjectsLL;
+
+    @BindView(R.id.LiveRecyclerView)
+    RecyclerView liveRecyclerView;
     private CategoryDetailData categoryDetailData;
 /*
 
@@ -90,27 +123,25 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
-
+        if (DnaPrefs.getBoolean(getActivity(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(getActivity(), "fB_ID", 0));
+        } else {
+            userId = DnaPrefs.getString(getActivity(), Constants.LOGIN_ID);
+        }
+        getLiveCourse();
         getCourse();
 
-        llfaculty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent ii = new Intent(getActivity(), FacultyChatChannelActivity.class);
-                startActivity(ii);
-
-            }
-        });
+//        llfaculty.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent ii = new Intent(getActivity(), FacultyChatChannelActivity.class);
+//                startActivity(ii);
+//
+//            }
+//        });
         //  llfaculty.setVisibility(View.VISIBLE);
-        String f_id = DnaPrefs.getString(getActivity(), Constants.f_id);
-        if (f_id.trim().length() > 0) {
-            uploadToken(f_id);
-            llfaculty.setVisibility(View.VISIBLE);
-        } else {
-            llfaculty.setVisibility(View.GONE);
-            uploadToken("");
-        }
+
         return view;
 
     }
@@ -119,12 +150,19 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @Override
     public void onResume() {
         super.onResume();
+
+        if (isStoragePermissionGranted()) {
+
+            requestLocationPermission();
+        } else {
+            enableLoc();
+        }
     }
 
     private void getCourse() {
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.getCourses("category_clone","14",new Callback<CategoryDetailData>() {
+            RestClient.getCourses("category_clone", "14", new Callback<CategoryDetailData>() {
                 @Override
                 public void onResponse(Call<CategoryDetailData> call, Response<CategoryDetailData> response) {
                     if (response.code() == 200) {
@@ -133,44 +171,53 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
-                            Detail obj = new Detail();
-                            obj.setCatName("COACHING INSTITUTES");
-                            obj.setType(Constants.TYPE);
-                            obj.setIns_logo(DnaPrefs.getString(mainActivity, Constants.INST_IMAGE));
+//                            Detail obj = new Detail();
+//                            obj.setCatName("COACHING INSTITUTES");
+//                            obj.setType(Constants.TYPE);
+//                            obj.setIns_logo(DnaPrefs.getString(mainActivity, Constants.INST_IMAGE));
+//
+//                            SubCat subCat = new SubCat();
+//                            subCat.setSubCatName("");
+//                            List<SubCat> list = new ArrayList<>();
+//                            list.add(subCat);
+//                            obj.setSubCat(list);
+//                            obj.setCatId("432");
+//                            categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(), obj);
+                              Detail details = categoryDetailData.getDetails().get(0);
 
-                            SubCat subCat = new SubCat();
-                            subCat.setSubCatName("");
-                            List<SubCat> list = new ArrayList<>();
-                            list.add(subCat);
-                            obj.setSubCat(list);
-                            obj.setCatId("432");
-                            categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(), obj);
+                            for (SubCat subCat : details.getSubCat()) {
+                                View viewList = LayoutInflater.from(mainActivity).inflate(R.layout.course_list, null);
+                                CourseListAdapter courseListAdapter = new CourseListAdapter(getActivity());
+                                courseListAdapter.setData(subCat.getSubSubChild());
+                                courseListAdapter.setListener(HomeFragment.this);
+                                RecyclerView recyclerView = viewList.findViewById(R.id.recyclerView);
+                                TextView title = viewList.findViewById(R.id.courseTitle);
+                                TextView subtitle = viewList.findViewById(R.id.courseSubTitle);
+                                recyclerView.setAdapter(courseListAdapter);
+                                title.setText(subCat.getSubCatName());
+                                subtitle.setText(details.getCatName() + " covered end to end");
+                                Log.d("Api Response :", "Got Success from Api");
+                                // noInternet.setVisibility(View.GONE);
+                                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2) {
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return true;
+                                    }
 
+                                };
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setVisibility(View.VISIBLE);
+                               subjectsLL.addView(viewList);
 
-                            CourseListAdapter courseListAdapter = new CourseListAdapter(getActivity());
-                            courseListAdapter.setData(categoryDetailData);
-                            courseListAdapter.setListener(HomeFragment.this);
-                            recyclerView.setAdapter(courseListAdapter);
-                            Log.d("Api Response :", "Got Success from Api");
-                            // noInternet.setVisibility(View.GONE);
-                            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2) {
-                                @Override
-                                public boolean canScrollVertically() {
-                                    return true;
-                                }
-
-                            };
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setVisibility(View.VISIBLE);
+                            }
 
 
                         } else {
                             Log.d("Api Response :", "Got Success from Api");
                             // noInternet.setVisibility(View.VISIBLE);
                             // noInternet.setText(getString(R.string.no_project));
-                            recyclerView.setVisibility(View.GONE);
+                            subjectsLL.setVisibility(View.GONE);
                             textInternet.setVisibility(View.VISIBLE);
-                            llfaculty.setVisibility(View.GONE);
 
                         }
                     } else {
@@ -258,7 +305,6 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
     }
 
-    String userId;
 
     private void uploadToken(String f_id) {
 
@@ -268,9 +314,9 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
             userId = DnaPrefs.getString(getActivity(), Constants.LOGIN_ID);
         }
 
-        String tokennn= DnaPrefs.getString(getActivity(), Constants.MTOKEN);
+        String tokennn = DnaPrefs.getString(getActivity(), Constants.MTOKEN);
 
-        Log.e("MTOKENcsd","::"+tokennn);
+        Log.e("MTOKENcsd", "::" + tokennn);
 
 
         RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
@@ -280,12 +326,12 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
 
         if (Utils.isInternetConnected(getContext())) {
             //  Utils.showProgressDialog(getActivity());
-            RestClient.update_token(userId12, token,fff_id, new Callback<UpdateToken>() {
+            RestClient.update_token(userId12, token, fff_id, new Callback<UpdateToken>() {
                 @Override
                 public void onResponse(Call<UpdateToken> call, Response<UpdateToken> response) {
                     if (response.code() == 200) {
                         // Utils.dismissProgressDialog();
-                        UpdateToken  updateToken = response.body();
+                        UpdateToken updateToken = response.body();
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         Log.e("updateToken Resp", gson.toJson(updateToken));
 
@@ -307,5 +353,207 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         }
     }
 
+
+    private void getLiveCourse() {
+        if (Utils.isInternetConnected(getActivity())) {
+            Utils.showProgressDialog(getActivity());
+            RestClient.getChannels("get_live_info", userId, "1", new Callback<LiveChannelData>() {
+                @Override
+                public void onResponse(Call<LiveChannelData> call, Response<LiveChannelData> response) {
+                    if (response.code() == 200) {
+                        Utils.dismissProgressDialog();
+                        channelData = response.body();
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Log.e("channelData Resp", gson.toJson(channelData));
+
+
+                        if (channelData != null && channelData.getChat() != null && channelData.getChat().size() > 0) {
+                            Log.d("Api Response :", "Got Success from Api");
+
+
+                            LiveListAdapter courseListAdapter = new LiveListAdapter(getActivity());
+                            courseListAdapter.setData(channelData);
+                            liveRecyclerView.setAdapter(courseListAdapter);
+                            //  liveRecyclerView.addItemDecoration(new HorizontalItemDecoration(requireContext()));
+                            Log.d("Api Response :", "Got Success from Api");
+                            // noInternet.setVisibility(View.GONE);
+                           /* RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(LiveOnliveClassListActity.this) {
+                                @Override
+                                public boolean canScrollVertically() {
+                                    return true;
+                                }
+
+                            };*/
+                            //    recyclerView.addItemDecoration(new EqualSpacingItemDecoration(8, EqualSpacingItemDecoration.HORIZONTAL));
+
+
+                            liveRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
+                            liveRecyclerView.setVisibility(View.VISIBLE);
+                        } else {
+                            Log.d("Api Response :", "Got Success from Api");
+                            // noInternet.setVisibility(View.VISIBLE);
+                            // noInternet.setText(getString(R.string.no_project));
+                            liveRecyclerView.setVisibility(View.GONE);
+                            textInternet.setText("No live class available for now!");
+                            textInternet.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<LiveChannelData> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+
+
+        } else {
+            Utils.dismissProgressDialog();
+            textInternet.setVisibility(View.VISIBLE);
+            Toast.makeText(getActivity(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+    private void enableLoc() {
+
+        if (googleApiClient == null) {
+            googleApiClient = new GoogleApiClient.Builder(mainActivity)
+                    .addApi(LocationServices.API)
+                    .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                        @Override
+                        public void onConnected(Bundle bundle) {
+                            Log.e("success", "success");
+                        }
+
+                        @Override
+                        public void onConnectionSuspended(int i) {
+                            Log.e("Suspended", "Suspended");
+                            googleApiClient.connect();
+                        }
+                    })
+                    .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(ConnectionResult connectionResult) {
+                            Log.e("LocationCancel", "LocationCancel");
+                            Log.e("Location error", "Location error " + connectionResult.getErrorCode());
+                        }
+                    }).build();
+            googleApiClient.connect();
+        }
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(30 * 1000);
+        locationRequest.setFastestInterval(5 * 1000);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            Log.e("success", "success");
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            status.startResolutionForResult(mainActivity, REQUEST_LOCATION);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.e("fail", "fail");
+                        }
+                        break;
+                   /* case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        // Location settings are not satisfied. But could be fixed by showing the user
+                        // a dialog.
+                        try {
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            status.startResolutionForResult(this, REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.d(TAG, "", e);
+                            // Ignore the error.
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        showManualInputDialog();
+                        break;*/
+                }
+            }
+        });
+    }
+
+    public boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(mainActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.e("", "Permission is granted");
+                Log.e("", "isStoragePermissionGranted No");
+                return true;
+            } else {
+
+                Log.e("", "Permission is revoked");
+                Log.e("", "isStoragePermissionGranted cancel");
+                ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.e("", "Permission is granted");
+            Log.e("", "isStoragePermissionGranted No1");
+            return true;
+        }
+
+
+    }
+
+    private final int REQUEST_LOCATION_PERMISSION = 1;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @AfterPermissionGranted(REQUEST_LOCATION_PERMISSION)
+    public void requestLocationPermission() {
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
+        if (EasyPermissions.hasPermissions(mainActivity, perms)) {
+            getCourse();
+
+        } else {
+            //  Toast.makeText(this, "Please allow the permissions", Toast.LENGTH_SHORT).show();
+
+            try {
+                if (checkSelfPermission(mainActivity, mPermission[0])
+                        != mainActivity.getPackageManager().PERMISSION_GRANTED ||
+                        checkSelfPermission(mainActivity, mPermission[1])
+                                != mainActivity.getPackageManager().PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(mainActivity,
+                            mPermission, REQUEST_CODE_PERMISSION);
+
+                    // If any permission aboe not allowed by user, this condition will execute every tim, else your else part will work
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // isStoragePermissionGranted();
+            //  EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
+        }
+    }
 
 }

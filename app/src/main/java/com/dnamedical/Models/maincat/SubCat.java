@@ -10,6 +10,8 @@ public class SubCat {
 @SerializedName("sub_cat_id")
 @Expose
 private String subCatId;
+
+
 @SerializedName("sub_cat_name")
 @Expose
 private String subCatName;
