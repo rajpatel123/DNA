@@ -39,6 +39,7 @@ import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
+import com.dnamedical.Models.login.SendOtpResponse;
 import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
@@ -68,6 +69,7 @@ import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
+import com.dnamedical.Models.verify.VerifyOtpModel;
 import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
@@ -190,16 +192,16 @@ public interface ApiInterface {
 
     @Multipart
     @POST("api/api.php?req=add_order")
-        Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
-                                               @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
-                                               @Part("user_id") RequestBody user_id,
-                                               @Part("product_id") RequestBody product_id,
-                                               @Part("video_id") RequestBody video_id,
-                                               @Part("test_id") RequestBody test_id,
-                                               @Part("status") RequestBody status,
-                                               @Part("coupon_id") RequestBody coupon_id,
-                                               @Part("coupon_code") RequestBody coupon_code,
-                                               @Part("type") RequestBody type
+    Call<SaveOrderResponse> addOrderDetail(@Part("order_id") RequestBody order_id,
+                                           @Part("sub_child_cat_id") RequestBody sub_child_cat_id,
+                                           @Part("user_id") RequestBody user_id,
+                                           @Part("product_id") RequestBody product_id,
+                                           @Part("video_id") RequestBody video_id,
+                                           @Part("test_id") RequestBody test_id,
+                                           @Part("status") RequestBody status,
+                                           @Part("coupon_id") RequestBody coupon_id,
+                                           @Part("coupon_code") RequestBody coupon_code,
+                                           @Part("type") RequestBody type
 //                                           @Part("cat_id") RequestBody cat_id,
 //                                           @Part("sub_cat_id") RequestBody sub_cat_id
     );
@@ -384,7 +386,7 @@ public interface ApiInterface {
 
 
     @GET("api/api.php")
-    Call<LiveChannelData> getAllCgannels(@Query("req") String req, @Query("user_id") String user_id,@Query("category_id") String category_id);
+    Call<LiveChannelData> getAllCgannels(@Query("req") String req, @Query("user_id") String user_id, @Query("category_id") String category_id);
 
 
     @GET("api/api.php")
@@ -509,6 +511,10 @@ public interface ApiInterface {
     @POST("api/api.php?req=mobilelogin")
     Call<CommonResponse> sendOtp(@Part("mobile") RequestBody phone);
 
+
+    @POST("api/api.php?req=sendOtpCode")
+    Call<SendOtpResponse> sendOtp(@Query("mobile") String phone, @Query("course_type") String course_type);
+
     @POST("api/api.php?req=faculty")
     Call<FacultyDetail> facultyData();
 
@@ -616,8 +622,7 @@ public interface ApiInterface {
     Call<CustomtestModel> getCustomtestDetail(@Part("user_id") RequestBody user_id, @Part("test_id") RequestBody test_id);
 
 
-
- @Multipart
+    @Multipart
     @POST("api/api.php?req=delete_module_byuserid")
     Call<ResponseBody> deleteCustomModule(@Part("user_id") RequestBody user_id, @Part("test_id") RequestBody test_id);
 
@@ -656,6 +661,14 @@ public interface ApiInterface {
             @Part("user_id") RequestBody user_id,
             @Part("code") RequestBody code
     );
+
+    @POST("api/api.php?req=verifyOtpCode")
+    Call<VerifyOtpModel> verifyOtp(
+            @Query("mobile") String mobile,
+            @Query("otp") String code,
+            @Query("course_type") String course_type
+    );
+
 
     @GET("api/api.php?req=promotionvideo")
     Call<PromoVideo> getVideo();

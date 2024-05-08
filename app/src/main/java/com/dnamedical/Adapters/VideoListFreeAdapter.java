@@ -2,8 +2,10 @@ package com.dnamedical.Adapters;
 
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
      * Created by rbpatel on 9/29/2017.
      */
 
+    int contentType;
     private Context applicationContext;
     private List<Free> freeList;
     VideoListFreeAdapter.OnCategoryClick onUserClickCallback;
@@ -47,7 +50,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
     @Override
     public void onBindViewHolder(final VideoListFreeAdapter.ViewHolder holder, final int position) {
-       Free free = freeList.get(holder.getAdapterPosition());
+        Free free = freeList.get(holder.getAdapterPosition());
 
         holder.title.setText(freeList.get(holder.getAdapterPosition()).getTitle());
         if (Integer.parseInt(freeList.get(holder.getAdapterPosition()).getDuration()) > 0) {
@@ -58,9 +61,9 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         }
 
-        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
+        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP + "/img/file/")) {
             holder.commingsoon.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.commingsoon.setVisibility(GONE);
 
         }
@@ -70,9 +73,9 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
             holder.chapter.setText("Not Assigned Chapter");
         }
 
-        if (TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getPdf_url())){
+        if (TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getPdf_url())) {
             holder.pdf_notes.setVisibility(GONE);
-        }else{
+        } else {
             holder.pdf_notes.setVisibility(View.VISIBLE);
 
         }
@@ -80,7 +83,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.pdf_notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getPdf_url()) && onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getPdf_url().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
+                if (!TextUtils.isEmpty(freeList.get(holder.getAdapterPosition()).getPdf_url()) && onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getPdf_url().equalsIgnoreCase(BuildConfig.API_SERVER_IP + "/img/file/")) {
                     onUserClickCallback.onPdfClick(freeList.get(holder.getAdapterPosition()));
                 }
             }
@@ -112,9 +115,20 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP+"/img/file/")) {
-                    onUserClickCallback.onCateClick(free);
-                }else{
+                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase(BuildConfig.API_SERVER_IP + "/img/file/")) {
+
+                    switch (contentType) {
+                        case 1:
+                            onUserClickCallback.onCateClick(free);
+                            break;
+                        case 2:
+                            onUserClickCallback.onPdfClick(free);
+                            break;
+                        case 3:
+                            onUserClickCallback.onEbookClick(free);
+                            break;
+                    }
+                } else {
                     Utils.displayToast(applicationContext, "Coming Soon");
                 }
 
@@ -141,6 +155,10 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         this.onUserClickCallback = onUserClickCallback;
     }
 
+    public void setContentType(int contentType) {
+        this.contentType = contentType;
+    }
+
 
     /**
      * View Holder for CONFIG LIST
@@ -156,7 +174,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         @BindView(R.id.progress)
         SeekBar progress;
- @BindView(R.id.pdf_notes)
+        @BindView(R.id.pdf_notes)
         ImageView pdf_notes;
 
 
@@ -188,8 +206,10 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
 
     public interface OnCategoryClick {
-         void onCateClick(Free free);
-         void onPdfClick(Free free);
+        void onCateClick(Free free);
+
+        void onPdfClick(Free free);
+        void onEbookClick(Free free);
     }
 
 }

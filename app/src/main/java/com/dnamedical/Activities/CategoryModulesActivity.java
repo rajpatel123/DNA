@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dnamedical.Adapters.CourseModuleListAdapter;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
@@ -30,14 +34,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryModulesActivity extends AppCompatActivity implements CourseModuleListAdapter.OnModuleClick {
+public class CategoryModulesActivity extends AppCompatActivity  {
 
-    @BindView(R.id.noInternet)
-    TextView textInternet;
+    @BindView(R.id.image)
+    ImageView image;
+
+    @BindView(R.id.subjectName)
+    TextView subjectName;
+
+    @BindView(R.id.videosRL)
+    RelativeLayout videosRL;
+
+    @BindView(R.id.notesRl)
+    RelativeLayout notesRl;
+
+    @BindView(R.id.eBookRl)
+    RelativeLayout eBookRl;
 
     MainActivity mainActivity;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+
     private CatModuleResponse catModuleResponse;
     private CategoryDetailData categoryDetailData;
     private String catId;
@@ -51,127 +66,85 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
 
         catId = getIntent().getStringExtra("catId");
         categoryDetailData = new Gson().fromJson(getIntent().getStringExtra("catData"), CategoryDetailData.class);
-        if (getSupportActionBar() != null) {
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-            for (Detail detail:categoryDetailData.getDetails()){
-                if (detail.getCatId().equalsIgnoreCase(catId)){
-                    getSupportActionBar().setTitle(detail.getCatName());
-                    break;
-
-                }
-            }
-        }
+//        if (getSupportActionBar() != null) {
+//
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//
+//            for (Detail detail:categoryDetailData.getDetails()){
+//                if (detail.getCatId().equalsIgnoreCase(catId)){
+//                    getSupportActionBar().setTitle(detail.getCatName());
+//                    break;
+//
+//                }
+//            }
+//        }
 
         ButterKnife.bind(this);
-        getCourse();
+       // getCourse();
 
-
-    }
-
-
-    private void getCourse() {
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
-            RequestBody catID = RequestBody.create(MediaType.parse("text/plain"), catId);
-
-
-            RestClient.getAllModulesForCategory(catID, new Callback<CatModuleResponse>() {
-                @Override
-                public void onResponse(Call<CatModuleResponse> call, Response<CatModuleResponse> response) {
-                    if (response.code() == 200) {
-                        Utils.dismissProgressDialog();
-                        catModuleResponse = response.body();
-                        if (catModuleResponse != null && catModuleResponse.getModules()!=null && catModuleResponse.getModules().size() > 0) {
-                            Log.d("Api Response :", "Got Success from Api");
-
-
-                            CourseModuleListAdapter courseListAdapter = new CourseModuleListAdapter(CategoryModulesActivity.this);
-                            courseListAdapter.setData(catModuleResponse);
-                            courseListAdapter.setListener(CategoryModulesActivity.this);
-                            recyclerView.setAdapter(courseListAdapter);
-                            Log.d("Api Response :", "Got Success from Api");
-                            // noInternet.setVisibility(View.GONE);
-                            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(CategoryModulesActivity.this, 2) {
-                                @Override
-                                public boolean canScrollVertically() {
-                                    return true;
-                                }
-
-                            };
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setVisibility(View.VISIBLE);
-                            textInternet.setVisibility(View.GONE);
-
-                        } else {
-                            Log.d("Api Response :", "Got Success from Api");
-                            // noInternet.setVisibility(View.VISIBLE);
-                            // noInternet.setText(getString(R.string.no_project));
-                            recyclerView.setVisibility(View.GONE);
-                            textInternet.setText("No Module found!");
-                            textInternet.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-
-                    }
-
-
-                }
-
-                @Override
-                public void onFailure(Call<CatModuleResponse> call, Throwable t) {
-                    Utils.dismissProgressDialog();
-
-                }
-            });
-        } else {
-            Utils.dismissProgressDialog();
-            textInternet.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+        if (getIntent().hasExtra("image")){
+            Glide.with(this)
+                    .load(getIntent().getStringExtra("image"))
+                    .into(image);
 
 
         }
+
+        getSupportActionBar().setTitle(getIntent().getStringExtra("SubCategoryName"));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        subjectName.setText(getIntent().getStringExtra("SubCategoryName"));
+
+
+        videosRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(CategoryModulesActivity.this, VideoActivity.class);
+                intent.putExtra("SubCategoryName",getIntent().getStringExtra("SubCategoryName"));
+                intent.putExtra("image",getIntent().getStringExtra("image"));
+                intent.putExtra("subCatId",getIntent().getStringExtra("subCatId"));
+                intent.putExtra("discountonfullpurchase",80);
+                intent.putExtra(Constants.CONTENT_TYPE,1);
+                startActivity(intent);
+            }
+        });
+
+        notesRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(CategoryModulesActivity.this, VideoActivity.class);
+                intent.putExtra("SubCategoryName",getIntent().getStringExtra("SubCategoryName"));
+                intent.putExtra("image",getIntent().getStringExtra("image"));
+                intent.putExtra("subCatId",getIntent().getStringExtra("subCatId"));
+                intent.putExtra("discountonfullpurchase",80);
+                intent.putExtra(Constants.CONTENT_TYPE,2);
+                startActivity(intent);
+            }
+        });
+
+        eBookRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(CategoryModulesActivity.this, VideoActivity.class);
+                intent.putExtra("SubCategoryName",getIntent().getStringExtra("SubCategoryName"));
+                intent.putExtra("image",getIntent().getStringExtra("image"));
+                intent.putExtra("subCatId",getIntent().getStringExtra("subCatId"));
+                intent.putExtra("discountonfullpurchase",80);
+                intent.putExtra(Constants.CONTENT_TYPE,3);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 
     @Override
-    public void OnModuleClick(String title) {
-
-        Intent intent = null;
-
-        switch (title) {
-            case "VIDEOS":
-                intent = new Intent(this, NeetPgActivity.class);
-                intent.putExtra("catData", new Gson().toJson(categoryDetailData));
-                intent.putExtra("catId", catId);
-                break;
-            case "TEST":
-                Constants.ISTEST=true;
-                intent = new Intent(this, ModuleTestActivity.class);
-                intent.putExtra("catId", catId);
-                break;
-            case "Q BANK":
-                Constants.ISTEST=false;
-                intent = new Intent(this, ModuleQBankActivity.class);
-                intent.putExtra("catId", catId);
-                break;
-            case "ONLINE":
-                break;
-
-        }
-
-        DnaPrefs.putString(this, Constants.CAT_ID, catId);
-        if (intent != null) {
-            startActivity(intent);
-        }
-
-    }
-
-    @Override
-    public void onInstituteClick(String name) {
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

@@ -3,11 +3,13 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,19 +35,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCategoryClick  {
+public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCategoryClick {
 
 
+    RecyclerView recyclerView;
 
-     RecyclerView recyclerView;
-
+    int contentType;
     TextView noVid;
     VideoActivity activity;
     private VideoList videoList;
 
 
-    public FreeFragment()
-    {
+    public FreeFragment(int contentType) {
+        this.contentType = contentType;
 
     }
 
@@ -65,9 +67,9 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_free,container,false);
-         recyclerView = view.findViewById(R.id.recyclerView);
-         noVid = view.findViewById(R.id.noVid);
+        View view = inflater.inflate(R.layout.fragment_free, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        noVid = view.findViewById(R.id.noVid);
 
         return view;
     }
@@ -96,11 +98,11 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
 
             RequestBody file_type = RequestBody.create(MediaType.parse("text/plain"), "video");
             RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(activity, Constants.LOGIN_ID));
-            RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"),activity.subCatId);
+            RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"), activity.subCatId);
 
 
             Utils.showProgressDialog(activity);
-            RestClient.getVideos(sub_child_cat,file_type,user_id,new Callback<VideoList>() {
+            RestClient.getVideos(sub_child_cat, file_type, user_id, new Callback<VideoList>() {
                 @Override
                 public void onResponse(Call<VideoList> call, Response<VideoList> response) {
                     if (response.code() == 200) {
@@ -116,8 +118,7 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
 
                 }
             });
-        }
-        else {
+        } else {
             Utils.dismissProgressDialog();
             recyclerView.setVisibility(View.GONE);
             noVid.setVisibility(View.VISIBLE);
@@ -132,12 +133,14 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
     }
 
     public void showVideos() {
-        if (videoList != null && videoList.getFree()!=null && videoList.getFree().size() > 0) {
+        if (videoList != null && videoList.getFree() != null && videoList.getFree().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
+
 
             VideoListFreeAdapter videoListAdapter = new VideoListFreeAdapter(getActivity());
             videoListAdapter.setData(videoList.getFree());
             videoListAdapter.setListener(FreeFragment.this);
+            videoListAdapter.setContentType(contentType);
             recyclerView.setAdapter(videoListAdapter);
             recyclerView.setVisibility(View.VISIBLE);
             noVid.setVisibility(View.GONE);
@@ -164,7 +167,7 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
     @Override
     public void onCateClick(Free free) {
         Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-        intent.putExtra("free",free);
+        intent.putExtra("free", free);
         startActivity(intent);
 
     }
@@ -173,6 +176,15 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
     public void onPdfClick(Free free) {
         Intent intent = new Intent(getActivity(), ViewerActivity.class);
         intent.putExtra("url", free.getPdf_url());
+        intent.putExtra("title", "Notes");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onEbookClick(Free free) {
+        Intent intent = new Intent(getActivity(), ViewerActivity.class);
+        intent.putExtra("url", free.getEbook_url());
+        intent.putExtra("title", "E-Book");
         startActivity(intent);
     }
 }

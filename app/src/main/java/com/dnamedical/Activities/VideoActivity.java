@@ -2,6 +2,8 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.dnamedical.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,10 +38,13 @@ public class VideoActivity extends AppCompatActivity {
     DisplayDataInterface displayDataInterface;
     private String subcategoryname;
 
+    private  int contentType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_vedio);
+        contentType = getIntent().getIntExtra(Constants.CONTENT_TYPE,1);
+
         subcategory=findViewById(R.id.subcategory_name);
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -66,6 +71,7 @@ public class VideoActivity extends AppCompatActivity {
              subcategoryname=intent.getStringExtra("SubCategoryName");
             subcategory.setText(subcategoryname);
         }
+
 
         if (intent.hasExtra("subCatId")) {
             subCatId = intent.getStringExtra("subCatId");
@@ -113,8 +119,8 @@ public class VideoActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new BuynowFragment(), "Buy Now");
-        adapter.addFrag(new FreeFragment(), "Free");
+        adapter.addFrag(new BuynowFragment(contentType), "Buy Now");
+        adapter.addFrag(new FreeFragment(contentType), "Free");
 
   /*    adapter.addFrag(new UnattemptedFragment(), "Unattempted");
         adapter.addFrag(new CompleteFragment(), "Completed");*/

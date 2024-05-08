@@ -38,6 +38,7 @@ import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
 import com.dnamedical.Models.get_Mobile_number.MobileResponse;
 import com.dnamedical.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedical.Models.get_faculty_channel.RetFacultyChannel;
+import com.dnamedical.Models.login.SendOtpResponse;
 import com.dnamedical.Models.login.User;
 import com.dnamedical.Models.login.loginResponse;
 import com.dnamedical.Models.mailsent.ForgetMailSentResponse;
@@ -67,6 +68,7 @@ import com.dnamedical.Models.updateAddress.UpdateAddressResponse;
 import com.dnamedical.Models.updateToken.UpdateToken;
 import com.dnamedical.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedical.Models.updte_chat_status.UpdteChatstatusRes;
+import com.dnamedical.Models.verify.VerifyOtpModel;
 import com.dnamedical.Models.verify_mail.VerifyMailResp;
 import com.dnamedical.Models.verifyid.VerifyIdResponse;
 import com.dnamedical.Models.video.VideoList;
@@ -91,6 +93,10 @@ public class RestClient {
 
     public static void loginUser(RequestBody email, RequestBody password, RequestBody deviceId, Callback<loginResponse> callback) {
         RetrofitClient.getClient().loginUser(email, password, deviceId).enqueue(callback);
+    }
+
+    public static void sendOtp(String phone, String course, Callback<SendOtpResponse> callback) {
+        RetrofitClient.getClient().sendOtp(phone, course).enqueue(callback);
     }
 
     public static void getInstituteDetail(RequestBody userId, RequestBody instituteId, Callback<InstituteDetails> callback) {
@@ -355,8 +361,12 @@ public class RestClient {
         RetrofitClient.getClient().sendOtp(phone).enqueue(callback);
     }
 
-    public static void verifyOtp(RequestBody userid, RequestBody code, Callback<VerifyOtpResponse> callback) {
-        RetrofitClient.getClient().verifyOTP(userid, code).enqueue(callback);
+    public static void verifyOTP(RequestBody user_id, RequestBody code, Callback<VerifyOtpResponse> callback) {
+        RetrofitClient.getClient().verifyOTP(user_id, code).enqueue(callback);
+
+    }
+    public static void verifyOtp(String phone, String code,String course, Callback<VerifyOtpModel> callback) {
+        RetrofitClient.getClient().verifyOtp(phone, code,course).enqueue(callback);
 
     }
 

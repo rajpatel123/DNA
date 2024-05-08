@@ -3,12 +3,14 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +42,7 @@ import static com.dnamedical.Activities.VideoActivity.discountonfullpurchase;
 import static com.dnamedical.Activities.VideoActivity.isfull;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoListPriceAdapter.OnBuyNowClick, VideoActivity.  DisplayDataInterface {
+public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoListPriceAdapter.OnBuyNowClick, VideoActivity.DisplayDataInterface {
 
 
     RecyclerView recyclerView;
@@ -50,13 +52,14 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
     private String type = "video";
 
+    int contentType;
     String userId;
     String subcatid;
     private boolean loadedOnce;
-    RequestBody file_type,user_id,sub_child_cat;
+    RequestBody file_type, user_id, sub_child_cat;
 
-    public BuynowFragment() {
-
+    public BuynowFragment(int contentType) {
+        this.contentType = contentType;
     }
 
     @Override
@@ -121,7 +124,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     @Override
     public void onResume() {
         super.onResume();
-            getVideos();
+        getVideos();
     }
 
 
@@ -158,9 +161,9 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                             paidVideoResponseList = response.body();
                             loadedOnce = true;
                         }
-                         showVideos();
+                        showVideos();
 
-                    //  showVideosOrPdf();
+                        //  showVideosOrPdf();
                     }
                 }
 
@@ -190,7 +193,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     }
 
     private void showPdf() {
-        if (paidVideoResponseList!=null && paidVideoResponseList.getPrice()!=null && paidVideoResponseList.getPrice().size()>0){
+        if (paidVideoResponseList != null && paidVideoResponseList.getPrice() != null && paidVideoResponseList.getPrice().size() > 0) {
 
         }
     }
@@ -199,19 +202,20 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
     public void showVideos() {
         if (paidVideoResponseList != null && paidVideoResponseList.getPrice() != null && paidVideoResponseList.getPrice().size() > 0) {
             Log.d("Api Response :", "Got Success from Api");
-            VideoListPriceAdapter videoListAdapter = new VideoListPriceAdapter(getActivity(),isfull);
+            VideoListPriceAdapter videoListAdapter = new VideoListPriceAdapter(getActivity(), isfull);
             //videoListAdapter.setPaidVideoResponse(paidVideoResponseList);
             videoListAdapter.setPriceList(paidVideoResponseList.getPrice());
             videoListAdapter.setOnUserClickCallback(BuynowFragment.this);
+            videoListAdapter.setContentType(contentType);
             videoListAdapter.setOnBuyNowClick(BuynowFragment.this);
             videoListAdapter.setOnDataClick(new VideoListPriceAdapter.OnDataClick() {
                 @Override
                 public void onBuyAllVideo() {
                     Intent intent = new Intent(getActivity(), PaymentCoupenActivity.class);
-                    if (paidVideoResponseList.getPrice().get(0).getSalereport().equalsIgnoreCase("1")){
-                        DnaPrefs.putString(activity,"email",paidVideoResponseList.getPrice().get(0).getFaculty_email());
-                    }else{
-                        DnaPrefs.putString(activity,"email","");
+                    if (paidVideoResponseList.getPrice().get(0).getSalereport().equalsIgnoreCase("1")) {
+                        DnaPrefs.putString(activity, "email", paidVideoResponseList.getPrice().get(0).getFaculty_email());
+                    } else {
+                        DnaPrefs.putString(activity, "email", "");
 
                     }
                     intent.putExtra("PRICE", paidVideoResponseList);
@@ -224,6 +228,17 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
                 public void onNotesClick(String url) {
                     Intent intent = new Intent(getActivity(), ViewerActivity.class);
                     intent.putExtra("url", url);
+                    intent.putExtra("title", "Notes");
+
+                    startActivity(intent);
+                }
+
+                @Override
+                public void eBookClick(String url) {
+                    Intent intent = new Intent(getActivity(), ViewerActivity.class);
+                    intent.putExtra("url", url);
+                    intent.putExtra("title", "E-Book");
+
                     startActivity(intent);
                 }
             });
@@ -254,7 +269,7 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
 
     @Override
-    public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price,String salesReport,String fEmail, String shippingCharge) {
+    public void onBuyNowCLick(String couponCode, String id, String title, String couponValue, String subTitle, String discount, String price, String salesReport, String fEmail, String shippingCharge) {
         Intent intent = new Intent(getActivity(), PaymentCoupenActivity.class);
         intent.putExtra("vedioId", id);
         intent.putExtra("coupon_code", couponCode);
@@ -263,10 +278,10 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
         intent.putExtra("title", title);
         intent.putExtra("discount", discount);
         intent.putExtra("price", price);
-        if (salesReport.equalsIgnoreCase("1")){
-            DnaPrefs.putString(activity,"email",fEmail);
-        }else{
-            DnaPrefs.putString(activity,"email","");
+        if (salesReport.equalsIgnoreCase("1")) {
+            DnaPrefs.putString(activity, "email", fEmail);
+        } else {
+            DnaPrefs.putString(activity, "email", "");
 
         }
         if (discountonfullpurchase > 0) {

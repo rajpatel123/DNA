@@ -79,7 +79,7 @@ public class ViewerActivity extends AppCompatActivity implements DownloadFile.Li
         pageNumber = findViewById(R.id.pageNumber);
 
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Notes");
+        toolbar.setTitle(getIntent().getStringExtra("title"));
 
         try {
             openDocument();

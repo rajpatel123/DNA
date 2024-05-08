@@ -11,6 +11,9 @@ public class Price {
     @SerializedName("title")
     @Expose
     private String title;
+    @SerializedName("ebook_url")
+    @Expose
+    private String ebook_url;
 
     public String getDuration() {
         return duration;

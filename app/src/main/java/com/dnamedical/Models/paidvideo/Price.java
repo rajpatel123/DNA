@@ -77,6 +77,18 @@ public class Price implements Parcelable {
     @Expose
     private String price;
 
+    public String getEbook_url() {
+        return ebook_url;
+    }
+
+    public void setEbook_url(String ebook_url) {
+        this.ebook_url = ebook_url;
+    }
+
+    @SerializedName("ebook_url")
+    @Expose
+    private String ebook_url;
+
     public String getDuration() {
         return duration;
     }

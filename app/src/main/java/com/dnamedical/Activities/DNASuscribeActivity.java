@@ -168,7 +168,7 @@ public class DNASuscribeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         }
-        getPlanList();
+      //  getPlanList(); As app is for US only so commenting other plans
         getnewPlansForSSUG();
 
     }
@@ -191,8 +191,6 @@ public class DNASuscribeActivity extends AppCompatActivity {
                         planResponse = response.body();
                         individual = true;
                         addPlans();
-
-
                     }
 
                 }
@@ -224,16 +222,18 @@ public class DNASuscribeActivity extends AppCompatActivity {
                         individualSS = true;
                         individualUG = true;
 
-                        if (planResponseForSSAndUG != null && planResponseForSSAndUG.getNEETSSPlan()!=null && planResponseForSSAndUG.getNEETSSPlan().get(0)!=null){
 
-                            listofDMPlan = planResponseForSSAndUG.getNEETSSPlan().get(0).getDM();
-                            listofMCHPlan = planResponseForSSAndUG.getNEETSSPlan().get(0).getMCH();
-
-                            addPlansSS();
-
-
-
-                        }
+                        // 27th April 2024 commenting ss plans because this ug APP only
+//                        if (planResponseForSSAndUG != null && planResponseForSSAndUG.getNEETSSPlan()!=null && planResponseForSSAndUG.getNEETSSPlan().get(0)!=null){
+//
+//                            listofDMPlan = planResponseForSSAndUG.getNEETSSPlan().get(0).getDM();
+//                            listofMCHPlan = planResponseForSSAndUG.getNEETSSPlan().get(0).getMCH();
+//
+//                            addPlansSS();
+//
+//
+//
+//                        }
 
 
                         if (planResponseForSSAndUG != null && planResponseForSSAndUG.getNEETUGPlan()!=null

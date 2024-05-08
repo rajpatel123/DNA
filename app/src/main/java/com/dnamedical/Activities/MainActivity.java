@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -17,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -61,6 +64,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgQBIcon;
     private TextView testTitle;
     private ImageView testIcon;
-    private ImageView imgOnlineIcon,ambesderIV;
+    private ImageView imgOnlineIcon, ambesderIV;
     private TextView onlineTitle;
     private NavigationView navigationView;
     private TextView tvName, tvEmail, tvSetting, tvversion;
@@ -107,14 +111,14 @@ public class MainActivity extends AppCompatActivity
         //Crashlytics.getInstance().crash(); // Force a crash
         setContentView(R.layout.activity_main);
         ctx = this;
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String mToken = instanceIdResult.getToken();
-                Log.e("Token", mToken);
-                DnaPrefs.putString(getApplicationContext(), Constants.MTOKEN, mToken);
-            }
-        });
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
+//            @Override
+//            public void onSuccess(InstanceIdResult instanceIdResult) {
+//                String mToken = instanceIdResult.getToken();
+//                Log.e("Token", mToken);
+//                DnaPrefs.putString(getApplicationContext(), Constants.MTOKEN, mToken);
+//            }
+//        });
 
         if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
@@ -124,7 +128,18 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView subscribeTv = toolbar.findViewById(R.id.subscribeTv);
+        subscribeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DNASuscribeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getProfileData();
 
         navigationView = findViewById(R.id.nav_view);
@@ -212,7 +227,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     if (!TextUtils.isEmpty(response.body().string())) {
-                             JSONObject obj = new JSONObject(response.body().string());
+                        JSONObject obj = new JSONObject(response.body().string());
 
                         if (obj.getString("status").equals("2")) {
 
@@ -393,9 +408,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-            if (user!=null && !TextUtils.isEmpty(user.getData().getReferral_code())){
-               ReferalActivity.start(MainActivity.this,user.getData().getReferral_code());
-            }else{
+            if (user != null && !TextUtils.isEmpty(user.getData().getReferral_code())) {
+                ReferalActivity.start(MainActivity.this, user.getData().getReferral_code());
+            } else {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
@@ -403,8 +418,6 @@ public class MainActivity extends AppCompatActivity
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             }
-
-
 
 
         } else if (id == R.id.about) {
@@ -580,13 +593,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.toolbar_logo, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.toolbar_logo, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -643,13 +656,13 @@ public class MainActivity extends AppCompatActivity
                 public void onResponse(Call<User> call, Response<User> response) {
                     Utils.dismissProgressDialog();
                     if (response.code() == 200) {
-                         user = response.body();
+                        user = response.body();
                         if (user != null && user.getData() != null) {
 
-                            if (user.getData().getIs_ambassador().equalsIgnoreCase("1")){
+                            if (user.getData().getIs_ambassador().equalsIgnoreCase("1")) {
                                 tvName.setText(user.getData().getName());
                                 ambesderIV.setVisibility(View.VISIBLE);
-                            }else{
+                            } else {
                                 ambesderIV.setVisibility(View.GONE);
 
                             }
@@ -684,15 +697,15 @@ public class MainActivity extends AppCompatActivity
 
 
             RequestBody user_Id = RequestBody.create(MediaType.parse("text/plain"), userId);
-            RequestBody login_token =  RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_TOKEN));
+            RequestBody login_token = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_TOKEN));
 
-            RestClient.checkLogin(user_Id, login_token,new Callback<LoginCheckResponse>() {
+            RestClient.checkLogin(user_Id, login_token, new Callback<LoginCheckResponse>() {
                 @Override
                 public void onResponse(Call<LoginCheckResponse> call, Response<LoginCheckResponse> response) {
                     Utils.dismissProgressDialog();
                     if (response.code() == 200) {
                         LoginCheckResponse loginCheckResponse = response.body();
-                        if (loginCheckResponse.getStatus().equalsIgnoreCase("2")){
+                        if (loginCheckResponse.getStatus().equalsIgnoreCase("2")) {
                             showLoginfailedDialog(loginCheckResponse.getMessage());
                         }
 
@@ -714,7 +727,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
 
-       // getLoginCheck();
+         getLoginCheck();
         if (TextUtils.isEmpty(userId)) {
             DnaPrefs.clear(MainActivity.this);
             Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
@@ -724,7 +737,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
-        checkUserExistance();
+        //checkUserExistance();
     }
 
 
@@ -733,10 +746,10 @@ public class MainActivity extends AppCompatActivity
             // Utils.showProgressDialog(this);
             String userNamemm = DnaPrefs.getString(getApplicationContext(), Constants.NAME);
 
-            Log.e("Chaeck","::"+userNamemm);
+            Log.e("Chaeck", "::" + userNamemm);
 
-            Log.e("userId","::"+userId);
-            Log.e("email","::"+email);
+            Log.e("userId", "::" + userId);
+            Log.e("email", "::" + email);
 
             RequestBody userId12 = RequestBody.create(MediaType.parse("text/plain"), userId);
             RequestBody userName = RequestBody.create(MediaType.parse("text/plain"), "APP");
@@ -753,7 +766,7 @@ public class MainActivity extends AppCompatActivity
                             VerifyMailResp verifyMailResp = response.body();
                             Gson gson = new GsonBuilder().setPrettyPrinting().create();
                             Log.e("verifyMailResp Resp", gson.toJson(verifyMailResp));
-                            Toast.makeText(getApplicationContext(),verifyMailResp.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), verifyMailResp.getMessage(), Toast.LENGTH_SHORT).show();
 
 
                         } catch (Exception e) {

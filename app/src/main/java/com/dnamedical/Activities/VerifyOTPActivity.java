@@ -107,7 +107,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
         RequestBody otp = RequestBody.create(MediaType.parse("text/plain"), code);
         Utils.showProgressDialog(this);
         //showProgressDialog(this);
-        RestClient.verifyOtp(userid,otp, new Callback<VerifyOtpResponse>() {
+        RestClient.verifyOTP(userid,otp, new Callback<VerifyOtpResponse>() {
             @Override
             public void onResponse(Call<VerifyOtpResponse> call, Response<VerifyOtpResponse> response) {
                 Utils.dismissProgressDialog();

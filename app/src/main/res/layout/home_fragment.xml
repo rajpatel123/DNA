@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fillViewport="true"
-    >
+    android:fillViewport="true">
 
 
     <RelativeLayout
@@ -44,6 +43,7 @@
                 tools:listitem="@layout/live_row" />
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/subjectsLL"
             android:layout_width="match_parent"
@@ -62,33 +62,138 @@
             android:textSize="20dp"
             android:visibility="gone" />
 
+       <LinearLayout
+           android:id="@+id/testQbankRL"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/subjectsLL"
+
+           android:orientation="vertical">
+           <RelativeLayout
+               android:id="@+id/qbankRL"
+               android:layout_width="match_parent"
+               android:layout_height="62dp"
+               android:layout_margin="@dimen/dp_10"
+               android:background="@drawable/items_bg">
+
+               <ImageView
+                   android:id="@+id/icon1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_margin="@dimen/dp_10"
+                   android:background="@drawable/qbank" />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_toEndOf="@+id/icon1"
+                   android:orientation="vertical">
+
+                   <TextView
+                       android:id="@+id/title"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Question Bank"
+                       android:textSize="14sp"
+                       android:textColor="#2B348F"
+                       android:textStyle="bold" />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="NEET-UG"
+                       android:textSize="12sp"
+                       android:textStyle="normal" />
+               </LinearLayout>
+
+               <ImageView
+                   android:id="@+id/arrow"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginEnd="@dimen/dp_20"
+                   android:background="@drawable/next_arrow" />
+           </RelativeLayout>
+
+           <RelativeLayout
+               android:id="@+id/testRl"
+               android:layout_width="match_parent"
+               android:layout_height="62dp"
+               android:layout_below="@+id/subjectsLL"
+               android:layout_margin="@dimen/dp_10"
+               android:background="@drawable/items_bg">
+
+               <ImageView
+                   android:id="@+id/icon2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_margin="@dimen/dp_10"
+                   android:background="@drawable/test" />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_toEndOf="@+id/icon2"
+                   android:orientation="vertical">
+
+                   <TextView
+                       android:id="@+id/title2"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Tests"
+                       android:textSize="14sp"
+                       android:textColor="#2B348F"
+                       android:textStyle="bold" />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="NEET-UG"
+                       android:textSize="12sp"
+                       android:textStyle="normal" />
+               </LinearLayout>
+
+               <ImageView
+                   android:id="@+id/arrow1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginEnd="@dimen/dp_20"
+                   android:background="@drawable/next_arrow" />
+           </RelativeLayout>
+       </LinearLayout>
+
         <ImageView
             android:id="@+id/bottomImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/subjectsLL"
-            android:layout_marginStart="@dimen/dp_10"
+            android:layout_height="130dp"
+            android:layout_below="@+id/testQbankRL"
+            android:layout_marginStart="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_50"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:visibility="visible"
+            android:layout_marginEnd="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_10"
-            android:background="@drawable/neet_ug_best_app" />
-
-
+            android:background="@drawable/neet_ug_best_app"
+            android:visibility="visible" />
 
 
         <TextView
             android:id="@+id/appVersion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/bottomImage"
             android:layout_marginStart="@dimen/dp_10"
             android:layout_marginEnd="@dimen/dp_10"
-            android:visibility="visible"
-            android:layout_below="@+id/bottomImage"
             android:layout_marginBottom="@dimen/dp_15"
             android:gravity="center"
             android:text="App Version: v1.0"
-            android:textColor="@color/green" />
+            android:textColor="@color/green"
+            android:visibility="visible" />
     </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

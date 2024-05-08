@@ -43,6 +43,12 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
+
+        <activity
+            android:name=".Activities.VerifyNewOTPActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".livemodule.LiveOnliveClassListActity"
             android:exported="false"

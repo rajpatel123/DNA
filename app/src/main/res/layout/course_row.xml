@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/dp_15"
     android:layout_margin="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center">
+    android:gravity="center"
+    app:cardCornerRadius="@dimen/dp_15">
 
     <FrameLayout
         android:id="@+id/linearNeet_Ss"
         android:layout_width="150dp"
         android:layout_height="180dp"
-        android:gravity="center"
         android:background="@drawable/home_border"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
             android:layout_gravity="center"
+            android:scaleType="centerCrop"
 
             />
 
@@ -31,21 +31,20 @@
             android:id="@+id/detailLL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="@dimen/dp_5"
+            android:elevation="@dimen/dp_1"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_gravity="bottom|center"
-            android:elevation="@dimen/dp_1"
-            android:layout_margin="@dimen/dp_5"
-            android:visibility="visible"
-           >
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="NEET- SS"
                 android:gravity="center"
+                android:text="NEET- SS"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/ts_13"
                 android:textStyle="bold" />
@@ -54,12 +53,11 @@
                 android:id="@+id/imageNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_3"
-                app:srcCompat="@drawable/next_arrrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_3"
                 android:layout_toEndOf="@+id/title"
-
-                />
+                android:visibility="gone"
+                app:srcCompat="@drawable/next_arrrow" />
 
 
         </RelativeLayout>

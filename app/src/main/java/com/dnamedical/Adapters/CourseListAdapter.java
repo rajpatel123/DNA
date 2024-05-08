@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.dnamedical.Activities.CategoryModulesActivity;
+import com.dnamedical.Activities.VideoActivity;
 import com.dnamedical.Models.maincat.SubCat;
 import com.dnamedical.Models.maincat.SubSubChild;
 import com.dnamedical.R;
+import com.dnamedical.utils.Constants;
+import com.dnamedical.utils.DnaPrefs;
 
 import java.util.List;
 
@@ -46,10 +51,31 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     public void onBindViewHolder(final CourseListAdapter.ViewHolder holder, final int position) {
 
 
-        holder.title.setText("" + categoryDetailData.get(holder.getAdapterPosition()).getSubChildName());
+        SubSubChild data = categoryDetailData.get(holder.getAdapterPosition());
+
+        holder.title.setText("" + data.getSubChildName());
         Glide.with(applicationContext)
                 .load(categoryDetailData.get(holder.getAdapterPosition()).getFile_upload())
                 .into(holder.image);
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(applicationContext, CategoryModulesActivity.class);
+                intent.putExtra("SubCategoryName",data.getSubChildName());
+                intent.putExtra("image",data.getFile_upload());
+                intent.putExtra("subCatId",data.getId());
+                DnaPrefs.putString(applicationContext,"is_full"+data.getSubChildName(),data.getIsFull());
+                DnaPrefs.putString(applicationContext,"admin_discount",data.getAdmin_discount());
+                intent.putExtra("discountonfullpurchase",80);
+                DnaPrefs.putString(applicationContext, Constants.SUB_CAT_ID,data.getId());
+
+                applicationContext.startActivity(intent);
+
+            }
+        });
+
+
 //        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,20 +7,196 @@
     android:background="@color/app_bg"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-    <TextView
-        android:id="@+id/noInternet"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:text="@string/no_internet"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        android:layout_margin="@dimen/dp_10"
+        app:cardCornerRadius="@dimen/dp_10">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/image"/>
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SubjectName"
+                android:layout_gravity="bottom"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/dp_20"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/subjectName"/>
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:id="@+id/testQbankRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@+id/subjectsLL"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/videosRL"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/items_bg">
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@drawable/vid" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Videos"
+                    android:textSize="14sp"
+                    android:textColor="#2B348F"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NEET-UG"
+                    android:visibility="gone"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/next_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/notesRl"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_below="@+id/subjectsLL"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/items_bg">
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@drawable/test" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notes"
+                    android:textSize="14sp"
+                    android:textColor="#2B348F"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NEET-UG"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/next_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/eBookRl"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_below="@+id/subjectsLL"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/items_bg">
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@drawable/test" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="E-Book"
+                    android:textSize="14sp"
+                    android:textColor="#2B348F"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NEET-UG"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/next_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

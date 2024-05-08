@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +35,11 @@ import com.dnamedical.Activities.DNASuscribeActivity;
 import com.dnamedical.Activities.FacultyChatChannelActivity;
 import com.dnamedical.Activities.FranchiActivity;
 import com.dnamedical.Activities.MainActivity;
+import com.dnamedical.Activities.ModuleQBankActivity;
+import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Adapters.CourseListAdapter;
 import com.dnamedical.Adapters.HorizontalItemDecoration;
+import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.maincat.CategoryDetailData;
 import com.dnamedical.Models.maincat.Detail;
 import com.dnamedical.Models.maincat.SubCat;
@@ -92,9 +96,15 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @BindView(R.id.subjectsLL)
     LinearLayout subjectsLL;
 
+    @BindView(R.id.qbankRL)
+    RelativeLayout qbankRL;
+    @BindView(R.id.testRl)
+    RelativeLayout testRl;
+
     @BindView(R.id.LiveRecyclerView)
     RecyclerView liveRecyclerView;
     private CategoryDetailData categoryDetailData;
+    private String catId="14";
 /*
 
     @BindView(R.id.noInternet)
@@ -131,6 +141,36 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         getLiveCourse();
         getCourse();
 
+
+        qbankRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Constants.ISTEST=false;
+                Intent intent = new Intent(mainActivity, ModuleQBankActivity.class);
+                intent.putExtra("catId", catId);
+                DnaPrefs.putString(mainActivity, Constants.CAT_ID, catId);
+
+                startActivity(intent);
+            }
+        });
+
+        testRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Constants.ISTEST=true;
+                Intent intent = new Intent(mainActivity, ModuleTestActivity.class);
+                intent.putExtra("catId", catId);
+                DnaPrefs.putString(mainActivity, Constants.CAT_ID, catId);
+
+                startActivity(intent);
+
+            }
+        });
+
+        TextView appVersion = view.findViewById(R.id.appVersion);
+
+        appVersion.setText("Version--" + BuildConfig.VERSION_NAME);
+
 //        llfaculty.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -151,18 +191,18 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     public void onResume() {
         super.onResume();
 
-        if (isStoragePermissionGranted()) {
-
-            requestLocationPermission();
-        } else {
-            enableLoc();
-        }
+//        if (isStoragePermissionGranted()) {
+//
+//            requestLocationPermission();
+//        } else {
+//            enableLoc();
+//        }
     }
 
     private void getCourse() {
         if (Utils.isInternetConnected(getContext())) {
             Utils.showProgressDialog(getActivity());
-            RestClient.getCourses("category_clone", "14", new Callback<CategoryDetailData>() {
+            RestClient.getCourses("category_clone", catId, new Callback<CategoryDetailData>() {
                 @Override
                 public void onResponse(Call<CategoryDetailData> call, Response<CategoryDetailData> response) {
                     if (response.code() == 200) {
@@ -171,19 +211,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                         if (categoryDetailData != null && categoryDetailData.getDetails().size() > 0) {
                             Log.d("Api Response :", "Got Success from Api");
 
-//                            Detail obj = new Detail();
-//                            obj.setCatName("COACHING INSTITUTES");
-//                            obj.setType(Constants.TYPE);
-//                            obj.setIns_logo(DnaPrefs.getString(mainActivity, Constants.INST_IMAGE));
-//
-//                            SubCat subCat = new SubCat();
-//                            subCat.setSubCatName("");
-//                            List<SubCat> list = new ArrayList<>();
-//                            list.add(subCat);
-//                            obj.setSubCat(list);
-//                            obj.setCatId("432");
-//                            categoryDetailData.getDetails().add(categoryDetailData.getDetails().size(), obj);
-                              Detail details = categoryDetailData.getDetails().get(0);
+                            Detail details = categoryDetailData.getDetails().get(0);
 
                             for (SubCat subCat : details.getSubCat()) {
                                 View viewList = LayoutInflater.from(mainActivity).inflate(R.layout.course_list, null);
@@ -201,13 +229,13 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
                                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2) {
                                     @Override
                                     public boolean canScrollVertically() {
-                                        return true;
+                                        return false;
                                     }
 
                                 };
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setVisibility(View.VISIBLE);
-                               subjectsLL.addView(viewList);
+                                subjectsLL.addView(viewList);
 
                             }
 

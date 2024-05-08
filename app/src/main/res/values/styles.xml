@@ -75,7 +75,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay"></style>
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/red</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay"></style>
 
