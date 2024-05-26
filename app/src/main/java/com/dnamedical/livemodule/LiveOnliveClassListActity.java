@@ -94,6 +94,9 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
         user_id = DnaPrefs.getString(LiveOnliveClassListActity.this, Constants.LOGIN_ID);
         catId = getIntent().getStringExtra("catId");
         categoryDetailData = new Gson().fromJson(getIntent().getStringExtra("catData"), CategoryDetailData.class);
+
+        getCourse();
+
         if (getSupportActionBar() != null) {
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -117,11 +120,11 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-      if (  isStoragePermissionGranted()) {
-
-          requestLocationPermission();
-      }
-      enableLoc();
+//      if (  isStoragePermissionGranted()) {
+//
+//          requestLocationPermission();
+//      }
+    //  enableLoc();
     }
 
     private void getCourse() {
@@ -236,39 +239,39 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
 
         PendingResult<LocationSettingsResult> result =
                 LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
-        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
-            @Override
-            public void onResult(LocationSettingsResult result) {
-                final Status status = result.getStatus();
-                switch (status.getStatusCode()) {
-                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        try {
-                            Log.e("success", "success");
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            status.startResolutionForResult(LiveOnliveClassListActity.this, REQUEST_LOCATION);
-                        } catch (IntentSender.SendIntentException e) {
-                            Log.e("fail", "fail");
-                        }
-                        break;
-                   /* case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        // Location settings are not satisfied. But could be fixed by showing the user
-                        // a dialog.
-                        try {
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            status.startResolutionForResult(this, REQUEST_CHECK_SETTINGS);
-                        } catch (IntentSender.SendIntentException e) {
-                            Log.d(TAG, "", e);
-                            // Ignore the error.
-                        }
-                        break;
-                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        showManualInputDialog();
-                        break;*/
-                }
-            }
-        });
+//        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+//            @Override
+//            public void onResult(LocationSettingsResult result) {
+//                final Status status = result.getStatus();
+//                switch (status.getStatusCode()) {
+//                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+//                        try {
+//                            Log.e("success", "success");
+//                            // Show the dialog by calling startResolutionForResult(),
+//                            // and check the result in onActivityResult().
+//                            status.startResolutionForResult(LiveOnliveClassListActity.this, REQUEST_LOCATION);
+//                        } catch (IntentSender.SendIntentException e) {
+//                            Log.e("fail", "fail");
+//                        }
+//                        break;
+//                   /* case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+//                        // Location settings are not satisfied. But could be fixed by showing the user
+//                        // a dialog.
+//                        try {
+//                            // Show the dialog by calling startResolutionForResult(),
+//                            // and check the result in onActivityResult().
+//                            status.startResolutionForResult(this, REQUEST_CHECK_SETTINGS);
+//                        } catch (IntentSender.SendIntentException e) {
+//                            Log.d(TAG, "", e);
+//                            // Ignore the error.
+//                        }
+//                        break;
+//                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+//                        showManualInputDialog();
+//                        break;*/
+//                }
+//            }
+//        });
     }
 
     public boolean isStoragePermissionGranted() {

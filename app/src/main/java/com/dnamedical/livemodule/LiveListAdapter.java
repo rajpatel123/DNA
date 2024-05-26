@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -194,7 +195,7 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         TextView tvTime1;
 
         @BindView(R.id.buy_now)
-        TextView buynow;
+        Button buynow;
         @BindView(R.id.tvBatchName)
         TextView tvBatchName;
 

@@ -330,7 +330,7 @@
   </RelativeLayout>
 
 
-    <TextView
+    <Button
         android:id="@+id/buy_now"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
