@@ -1,403 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Activities.LoginActivity">
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:gravity="center"
    >
 
-    <RelativeLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:minHeight="?attr/actionBarSize">
-
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            app:srcCompat="@drawable/ic_left_arrow"
-            android:tint="@color/colorPrimary" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_15"
+            app:srcCompat="@drawable/medef_full_logo" />
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="10dp"
-            app:srcCompat="@drawable/dnalogo"
-            android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/std_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/image_students" />
 
-    </RelativeLayout>
-
-
-    <ScrollView
-        android:scrollbars="none"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25sp"
-            android:layout_marginTop="10sp">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/std_img"
+            android:padding="25dp"
+            android:orientation="vertical"
+            android:background="@drawable/login_bg">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                app:srcCompat="@mipmap/dna_log_new"
-                android:visibility="gone"
-                android:layout_centerHorizontal="true"/>
             <LinearLayout
+                android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/profileImage"
-                android:orientation="vertical">
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                >
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:inputType="text"
-                    android:text="SIGNUP"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:minHeight="44dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textColor="@color/Black" />
+                <View
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="5dp"
+                    android:background="#F26922" />
 
-                <EditText
-                    android:id="@+id/edit_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:paddingStart="@dimen/dp_10"
-
-                    android:hint="Name"
-                    android:inputType="text"
-                    android:minHeight="44dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textColor="@color/Black" />
-
-                <EditText
-                    android:visibility="gone"
-                    android:id="@+id/edit_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:drawableStart="@drawable/user"
-
-                    android:drawablePadding="8dp"
-                    android:hint="Username"
-                    android:inputType="text"
-                    android:minHeight="44dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:textColor="@color/Black" />
-
-                <EditText
-                    android:id="@+id/edit_emailId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:paddingStart="@dimen/dp_10"
-
-                    android:hint="Email ID"
-                    android:inputType="textEmailAddress"
-                    android:minHeight="44dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:textColor="@color/Black" />
-
-                <EditText
-                    android:id="@+id/edit_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:paddingStart="@dimen/dp_10"
-
-                    android:drawableTint="@color/colorPrimary"
-                    android:hint="Mobile"
-                    android:inputType="number"
-                    android:maxLength="12"
-                    android:minHeight="44dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:textColor="@color/Black" />
-
-                <EditText
-                    android:id="@+id/edit_Passwword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:hint="Password"
-                    android:paddingStart="@dimen/dp_10"
-                    android:inputType="textPassword"
-                    android:minHeight="44dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-
-                    android:textColor="@color/Black" />
-
-                <Spinner
-                    android:pointerIcon="arrow"
-                    android:id="@+id/selectState"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:drawablePadding="8dp"
-                    android:inputType="textPassword"
-                    android:nextFocusDown="@+id/otherState"
-
-                    android:minHeight="40dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textColor="@color/Black" />
-                <EditText
-                    android:id="@+id/otherState"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/edittextstyle"
-                    android:drawablePadding="8dp"
-                    android:visibility="gone"
-                    android:hint="Enter your state name"
-                    android:minHeight="44dp"
-                    android:paddingBottom="5dp"
-                    android:nextFocusDown="@+id/selectCourse"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:textColor="@color/Black" />
-                <Spinner
-                    android:id="@+id/selectCourse"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edittextstyle"
-                    android:drawablePadding="8dp"
-                    android:minHeight="40dp"
-                    android:layout_marginTop="25dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textColor="@color/Black" />
-
-                <LinearLayout
-                    android:id="@+id/ll_UG"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:visibility="gone"
-                    android:orientation="vertical">
-
-
-                    <EditText
-                        android:id="@+id/enterCollegeNameForUG"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittextstyle"
-                        android:drawablePadding="8dp"
-                        android:visibility="visible"
-                        android:hint="Enter your school name"
-                        android:minHeight="44dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingTop="5dp"
-                        android:textColor="@color/Black" />
-
-                    <Spinner
-                        android:id="@+id/selectUGYear"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittextstyle"
-                        android:drawablePadding="8dp"
-                        android:minHeight="40dp"
-                        android:layout_marginTop="25dp"
-
-                        android:drawSelectorOnTop="true"
-                        android:entries="@array/years_ug"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:textColor="@color/Black" />
-
-                    <EditText
-                        android:id="@+id/enterBoardName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittextstyle"
-                        android:drawablePadding="8dp"
-                        android:visibility="visible"
-                        android:layout_marginTop="25dp"
-
-                        android:hint="Board (CBSE/ICSE/NIOS/State Board )"
-                        android:minHeight="44dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingTop="5dp"
-                        android:textColor="@color/Black" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_PG"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:visibility="gone"
-
-                    android:orientation="vertical">
-                    <Spinner
-                        android:id="@+id/selectCollege"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittextstyle"
-                        android:drawablePadding="8dp"
-                        android:inputType="textPassword"
-                        android:minHeight="40dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:textColor="@color/Black" />
-                    <EditText
-                        android:id="@+id/otherCollege"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:background="@drawable/edittextstyle"
-                        android:drawablePadding="8dp"
-                        android:visibility="gone"
-                        android:nextFocusDown="@+id/academic"
-
-                        android:hint="Enter your college name"
-                        android:minHeight="44dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingTop="5dp"
-                        android:textColor="@color/Black" />
-
-                    <Spinner
-                        android:id="@+id/academic"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:background="@drawable/edittextstyle"
-                        android:drawablePadding="8dp"
-                        android:inputType="textPassword"
-                        android:minHeight="40dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:textColor="@color/Black" />
-                </LinearLayout>
-                <Button
-                    android:id="@+id/btn_signUp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/buttonlogin"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:text="Sign Up"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
-
-                <TextView
-                    android:id="@+id/text_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:text="Already member? Log In"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/ts_16" />
-
-
-                <TextView
-                    android:id="@+id/text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"
-                    android:text="By Signing up, you accept the"
-                    android:textColor="@color/black_titles"
-                    android:textSize="@dimen/ts_16" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/terms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/terms"
-                        android:textColor="@color/black_titles"
-                        android:textSize="@dimen/ts_16" />
-
-                    <TextView
-                        android:id="@+id/privacy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="3dp"
-                        android:gravity="center"
-                        android:text="@string/privacy"
-                        android:textColor="@color/black_titles"
-                        android:textSize="@dimen/ts_16" />
-
-
-                </LinearLayout>
-
+                <View
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:background="#39B54A" />
             </LinearLayout>
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/indicator"
+                android:text="Fill Details"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    </ScrollView>
 
 
-</RelativeLayout>
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/input_box_bg"
+                android:paddingStart="@dimen/dp_10"
+                android:hint="Name"
+                android:inputType="text"
+                android:minHeight="44dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/Black" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/edit_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/input_box_bg"
+                android:drawableStart="@drawable/user"
+
+                android:drawablePadding="8dp"
+                android:hint="Username"
+                android:inputType="text"
+                android:minHeight="44dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/Black" />
+
+            <EditText
+                android:id="@+id/edit_emailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/input_box_bg"
+
+                android:paddingStart="@dimen/dp_10"
+
+                android:hint="Email ID"
+                android:inputType="textEmailAddress"
+                android:minHeight="44dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/Black" />
+
+
+
+
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/resendOtp"
+                android:layout_marginStart="@dimen/margin_25"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="@dimen/margin_25"
+                android:background="@drawable/next_btn"
+                android:text="Submit"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</ScrollView>

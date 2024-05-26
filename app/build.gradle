@@ -2,11 +2,11 @@ buildscript {
 
 }
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.crashlytics'
+//apply plugin: 'com.google.firebase.crashlytics'
 
 
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 
 
 def uatKeystorePropertiesFile = rootProject.file("release_signing.properties")
@@ -15,8 +15,9 @@ uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
 android {
     compileSdkVersion 33
     buildToolsVersion "29.0.3"
+    namespace 'com.dnamedeg'
     defaultConfig {
-        applicationId "com.dnamedical"
+        applicationId "com.dnamedeg"
         minSdkVersion 26
         targetSdkVersion 33
         versionCode 180

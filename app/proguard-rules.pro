@@ -55,6 +55,6 @@
 -keepattributes Exceptions
 
 
--keep class com.dnamedical.Models.** { *; }
--keep class com.dnamedical.livemodule.** { *; }
--keep class com.dnamedical.livemodule.DacastPlayer { *; }
+-keep class com.dnamedeg.Models.** { *; }
+-keep class com.dnamedeg.livemodule.** { *; }
+-keep class com.dnamedeg.livemodule.DacastPlayer { *; }

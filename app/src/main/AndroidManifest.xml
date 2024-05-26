@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.dnamedical">
+    package="com.dnamedeg">
 
     <application
         android:name=".DNAApplication"
         android:allowBackup="true"
-        android:icon="@drawable/dnalogo"
+        android:icon="@drawable/medef_full_logo"
         android:label="DNA"
-        android:roundIcon="@drawable/dnalogo"
+        android:roundIcon="@drawable/medef_full_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -48,7 +48,7 @@
             android:name=".Activities.VerifyNewOTPActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
+                               />
         <activity
             android:name=".livemodule.LiveOnliveClassListActity"
             android:exported="false"
@@ -228,7 +228,7 @@
             android:screenOrientation="portrait" />
         <!--
   <service
-            android:name="com.dnamedical.notification.LatestFirebaseMessagingService"
+            android:name="com.dnamedeg.notification.LatestFirebaseMessagingService"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
