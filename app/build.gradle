@@ -40,7 +40,7 @@ android {
             keyPassword uatKeystoreProperties['KEY_PASSWORD']
             storeFile file(uatKeystoreProperties['STORE_FILE'])
             storePassword uatKeystoreProperties['STORE_PASSWORD']
-            v2SigningEnabled false
+            v2SigningEnabled true
         }
 
     }
@@ -62,7 +62,7 @@ android {
         }
     }
     repositories {
-        jcenter()
+        mavenCentral()
         mavenCentral()
     }
     compileOptions {

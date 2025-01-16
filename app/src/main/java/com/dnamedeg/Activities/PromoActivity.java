@@ -42,7 +42,7 @@ public class PromoActivity extends AppCompatActivity {
                 // close this activity
                 finish();
             } else {
-                Intent i = new Intent(PromoActivity.this, FirstloginActivity.class);
+                Intent i = new Intent(PromoActivity.this, LoginActivity.class);
                 startActivity(i);
                 // close this activity
                 finish();

@@ -250,7 +250,7 @@ public class SplashActivity extends AppCompatActivity {
         TextView title = view.findViewById(R.id.title);
         TextView message = view.findViewById(R.id.message);
         title.setText("New Version Available       "+ BuildConfig.VERSION_NAME);
-        message.setText("In order to continue, you must update the DNA  application. This should only take a few moments.\n");
+        message.setText("In order to continue, you must update the application. This should only take a few moments.\n");
         builder.setView(view);
 
         //builder.setMessage("In order to continue, you must update the DNA  application. This should only take a few moments.\n");
@@ -318,19 +318,10 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                if (!BuildConfig.DEBUG){
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(i);
-                    // close this activity
-                    finish();
-
-                }else{
-                    Intent i = new Intent(SplashActivity.this, PromoActivity.class);
-                    startActivity(i);
-                    // close this activity
-                    finish();
-
-                }
+                Intent i = new Intent(SplashActivity.this, PromoActivity.class);
+                startActivity(i);
+                // close this activity
+                finish();
                             }
         }, SPLASH_TIME_OUT);
     }

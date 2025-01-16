@@ -492,7 +492,7 @@ public class MainActivity extends AppCompatActivity
                 public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
                     Utils.dismissProgressDialog();
                     DnaPrefs.clear(MainActivity.this);
-                    Intent intent = new Intent(MainActivity.this, FirstloginActivity.class);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();

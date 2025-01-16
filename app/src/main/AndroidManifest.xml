@@ -7,7 +7,7 @@
         android:name=".DNAApplication"
         android:allowBackup="true"
         android:icon="@drawable/medef_full_logo"
-        android:label="DNA"
+        android:label="NEET-UG"
         android:roundIcon="@drawable/medef_full_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
