@@ -124,31 +124,31 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.alimuzaffar.lib.pin.PinEntryEditText
-                    android:id="@+id/prntEdtChangePhoneOtp"
-                    android:layout_width="164dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/otpTxt"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
-                    android:background="@android:color/transparent"
-                    android:cursorVisible="false"
-                    android:digits="1234567890"
-                    android:focusable="true"
-                    android:gravity="center_horizontal"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:textIsSelectable="false"
-                    android:textSize="20sp"
-                    app:pinAnimationType="popIn"
-                    app:pinBackgroundIsSquare="true"
-                    app:pinCharacterSpacing="12dp"
-                    app:pinLineColors="@color/black_disabled"
-                    app:pinLineStroke="2dp"
-                    app:pinLineStrokeSelected="2dp"
-                    app:pinTextBottomPadding="4dp" />
+<!--                <com.alimuzaffar.lib.pin.PinEntryEditText-->
+<!--                    android:id="@+id/prntEdtChangePhoneOtp"-->
+<!--                    android:layout_width="164dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/otpTxt"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:layout_marginTop="50dp"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:cursorVisible="false"-->
+<!--                    android:digits="1234567890"-->
+<!--                    android:focusable="true"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:imeOptions="actionDone"-->
+<!--                    android:inputType="number"-->
+<!--                    android:maxLength="5"-->
+<!--                    android:textIsSelectable="false"-->
+<!--                    android:textSize="20sp"-->
+<!--                    app:pinAnimationType="popIn"-->
+<!--                    app:pinBackgroundIsSquare="true"-->
+<!--                    app:pinCharacterSpacing="12dp"-->
+<!--                    app:pinLineColors="@color/black_disabled"-->
+<!--                    app:pinLineStroke="2dp"-->
+<!--                    app:pinLineStrokeSelected="2dp"-->
+<!--                    app:pinTextBottomPadding="4dp" />-->
 
             </LinearLayout>
 

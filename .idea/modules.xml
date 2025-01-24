@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DNA.iml" filepath="$PROJECT_DIR$/DNA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/easy-player/easy-player.iml" filepath="$PROJECT_DIR$/easy-player/easy-player.iml" />
-      <module fileurl="file://$PROJECT_DIR$/indicatorseekbar/indicatorseekbar.iml" filepath="$PROJECT_DIR$/indicatorseekbar/indicatorseekbar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraryMobilePaymentSDK/libraryMobilePaymentSDK.iml" filepath="$PROJECT_DIR$/libraryMobilePaymentSDK/libraryMobilePaymentSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pinentryedittext/pinentryedittext.iml" filepath="$PROJECT_DIR$/pinentryedittext/pinentryedittext.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DNA.iml" filepath="$PROJECT_DIR$/.idea/DNA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.main.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-player/DNA.easy-player.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/indicatorseekbar/DNA.indicatorseekbar.iml" filepath="$PROJECT_DIR$/.idea/modules/indicatorseekbar/DNA.indicatorseekbar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pinentryedittext/DNA.pinentryedittext.iml" filepath="$PROJECT_DIR$/.idea/modules/pinentryedittext/DNA.pinentryedittext.iml" />
     </modules>
   </component>
 </project>

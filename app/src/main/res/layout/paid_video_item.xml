@@ -233,7 +233,8 @@
                             android:layout_weight=".3"
                             android:text="(5.0)  "
                             android:textColor="@color/vedio_text_color"
-                            android:textSize="@dimen/evp_text_size_small" />
+                            />
+<!--                        android:textSize=" "-->
 
                         <View
                             android:layout_width="2dp"
@@ -250,8 +251,9 @@
                             android:layout_weight="1"
                             android:text="20mits"
                             android:textColor="@color/vedio_text_color"
-                            android:textSize="@dimen/evp_text_size_small"
+                            
                             android:textStyle="bold" />
+<!--                        android:textSize="@dimen/ "-->
 
                         <TextView
                             android:id="@+id/buy_now"

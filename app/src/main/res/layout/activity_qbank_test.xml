@@ -172,7 +172,11 @@
                                 android:layout_toRightOf="@+id/optionA"
 
                                 android:textColor="@color/black_titles"
-                                android:textSize="@dimen/evp_text_size_medium" />
+
+                                 />
+<!--                            android:textSize="@dimen/evp_text_size_medium"-->
+
+
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -224,7 +228,10 @@
                                 android:layout_toRightOf="@+id/optionB"
 
                                 android:textColor="@color/black_titles"
-                                android:textSize="@dimen/evp_text_size_medium" />
+
+                                 />
+<!--                            android:textSize="@dimen/evp_text_size_medium"-->
+
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -274,7 +281,10 @@
                                 android:layout_toRightOf="@+id/optionC"
 
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/evp_text_size_medium" />
+
+                                 />
+<!--                            android:textSize="@dimen/evp_text_size_medium"-->
+
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -326,7 +336,10 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_toRightOf="@+id/optionD"
                                 android:textColor="@color/black_titles"
-                                android:textSize="@dimen/evp_text_size_medium" />
+
+                                 />
+<!--                            android:textSize="@dimen/evp_text_size_medium"-->
+
                         </LinearLayout>
 
 
@@ -422,7 +435,10 @@
         android:orientation="horizontal"
         android:visibility="gone"
         android:elevation="5dp"
-        android:background="@color/color_text">
+
+        >
+<!--        android:background="@color/color_text"-->
+
         <Button
             android:id="@+id/skipBtn"
             android:layout_width="wrap_content"
@@ -446,9 +462,11 @@
         android:paddingBottom="@dimen/dp_5"
         android:elevation="5dp"
         android:orientation="horizontal"
-        android:background="@color/color_text"
+
         android:visibility="gone"
         tools:visibility="visible">
+
+<!--        android:background="@color/color_text"-->
 
         <ImageView
             android:id="@+id/bookmark"

@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:tint="@color/white"
+
             app:srcCompat="@drawable/back_arrow" />
 
         <ImageView
@@ -61,7 +61,8 @@
         android:layout_below="@+id/toolbar"
         android:background="@color/black_titles"
         android:clickable="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
 
         <RelativeLayout
@@ -86,20 +87,20 @@
                 tools:visibility="visible" />
 
 
-            <com.dnamedical.player.EasyExoVideoPlayer
-                android:id="@+id/exoplayer"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:visibility="visible"
-                app:evp_autoFullscreen="false"
-                app:evp_autoPlay="true"
-                app:evp_disableControls="true"
-                app:evp_hideControlsOnPlay="true"
-                app:evp_leftAction="none"
-                app:evp_loop="false"
-                app:evp_rightAction="none"
-                tools:visibility="visible" />
+<!--            <com.dnamedical.player.EasyExoVideoPlayer-->
+<!--                android:id="@+id/exoplayer"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:visibility="visible"-->
+<!--                app:evp_autoFullscreen="false"-->
+<!--                app:evp_autoPlay="true"-->
+<!--                app:evp_disableControls="true"-->
+<!--                app:evp_hideControlsOnPlay="true"-->
+<!--                app:evp_leftAction="none"-->
+<!--                app:evp_loop="false"-->
+<!--                app:evp_rightAction="none"-->
+<!--                tools:visibility="visible" />-->
 
             <LinearLayout
 
@@ -158,36 +159,37 @@
             android:visibility="visible"
             tools:visibility="visible">
 
-            <com.warkiz.widget.DotIndicatorSeekBar
-                android:id="@+id/seekbarVideoo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:background="@color/transparent"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:visibility="gone"
-                app:isb_indicator_color="@color/transparent"
-                app:isb_indicator_text_color="@color/colorPrimary"
-                app:isb_seek_smoothly="true"
-                app:isb_show_indicator="none"
-                app:isb_thumb_color="@color/black"
-                app:isb_thumb_drawable="@drawable/ic_seekbar_thumb"
-                app:isb_track_background_color="@color/dark_gray"
-                app:isb_track_progress_color="@color/white"
-                app:isb_user_seekable="true" />
+<!--            <com.warkiz.widget.DotIndicatorSeekBar-->
+<!--                android:id="@+id/seekbarVideoo"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/dp_5"-->
+<!--                android:layout_marginEnd="@dimen/dp_5"-->
+<!--                android:background="@color/transparent"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingBottom="5dp"-->
+<!--                android:visibility="gone"-->
+<!--                app:isb_indicator_color="@color/transparent"-->
+<!--                app:isb_indicator_text_color="@color/colorPrimary"-->
+<!--                app:isb_seek_smoothly="true"-->
+<!--                app:isb_show_indicator="none"-->
+<!--                app:isb_thumb_color="@color/black"-->
+<!--                app:isb_thumb_drawable="@drawable/ic_seekbar_thumb"-->
+<!--                app:isb_track_background_color="@color/dark_gray"-->
+<!--                app:isb_track_progress_color="@color/white"-->
+<!--                app:isb_user_seekable="true" />-->
 
 
             <LinearLayout
                 android:id="@+id/llControllerWrapperFlexible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/seekbarVideoo"
+
                 android:background="@color/black"
                 android:orientation="horizontal"
                 android:padding="10dp"
                 android:visibility="gone">
+<!--                android:layout_below="@+id/seekbarVideoo"-->
 
 
                 <ImageView
@@ -249,24 +251,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10"
-                    android:tint="@color/white"
+
                     android:translationZ="3dp"
                     android:paddingBottom="5dp"
                     android:visibility="visible"
                     app:srcCompat="@drawable/exo_icon_rewind"
-                    tools:visibility="visible" />
+                    tools:visibility="visible"
+
+                    />
+<!--                android:tint="@color/white"-->
 
                 <ImageView
                     android:id="@+id/fast_forward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10"
-                    android:tint="@color/white"
+
                     android:translationZ="3dp"
                     android:paddingBottom="5dp"
                     android:visibility="visible"
                     app:srcCompat="@drawable/exo_icon_fastforward"
                     tools:visibility="visible" />
+<!--                android:tint="@color/white"-->
 
                 <RelativeLayout
                     android:id="@+id/progress_rl"
@@ -341,7 +347,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
-                    android:textSize="@dimen/evp_text_size_medium" />
+                     />
+<!--                android:textSize="@dimen/evp_text_size_medium"-->
 
                 <TextView
                     android:id="@+id/video_title"

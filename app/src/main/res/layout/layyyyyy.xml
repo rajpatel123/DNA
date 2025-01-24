@@ -208,7 +208,9 @@
                         android:text="(5.0)"
                         android:visibility="gone"
                         android:textColor="@color/vedio_text_color"
-                        android:textSize="@dimen/evp_text_size_small" />
+                       />
+
+<!--                    android:textSize=" "-->
 
                     <TextView
                         android:id="@+id/ratingandtime"
@@ -219,8 +221,10 @@
                         android:layout_weight="1"
                         android:text="20mits"
                         android:textColor="@color/vedio_text_color"
-                        android:textSize="@dimen/evp_text_size_small"
+
                         android:textStyle="bold" />
+
+<!--                    android:textSize=" "-->
 
                     <View
                         android:layout_width="3dp"
@@ -237,7 +241,7 @@
                         android:layout_weight="1"
                         android:text="20mits"
                         android:textColor="@color/vedio_text_color"
-                        android:textSize="@dimen/evp_text_size_small"
+                        android:textSize="@dimen/ "
                         android:textStyle="bold" />-->
 
                     <ImageView
@@ -250,8 +254,9 @@
                         android:text="20mits"
                         android:src="@drawable/pdf_icon"
                         android:textColor="@color/vedio_text_color"
-                        android:textSize="@dimen/evp_text_size_small"
+
                         android:textStyle="bold" />
+<!--                    android:textSize=""-->
 
 
                     <TextView
