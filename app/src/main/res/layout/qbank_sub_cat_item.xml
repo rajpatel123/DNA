@@ -87,9 +87,10 @@
                             android:paddingStart="12dp"
                             android:paddingEnd="10dp"
                             android:text="Introduction to Anotomy"
-                            android:textColor="@color/com_facebook_likeview_text_color"
+
                             android:textSize="14sp"
                             android:textStyle="bold" />
+<!--                    android:textColor="@color/com_facebook_likeview_text_color"-->
 
 
                     <LinearLayout
