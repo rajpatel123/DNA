@@ -2,9 +2,9 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,8 +22,8 @@ import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.google.gson.Gson;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -32,11 +32,11 @@ import retrofit2.Response;
 
 public class CategoryModulesActivity extends AppCompatActivity implements CourseModuleListAdapter.OnModuleClick {
 
-    @BindView(R.id.noInternet)
+//    @BindView(R.id.noInternet)
     TextView textInternet;
 
     MainActivity mainActivity;
-    @BindView(R.id.recyclerView)
+//    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private CatModuleResponse catModuleResponse;
     private CategoryDetailData categoryDetailData;
@@ -47,6 +47,8 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_modules);
+        textInternet=findViewById(R.id.noInternet);
+        recyclerView=findViewById(R.id.recyclerView);
 
 
         catId = getIntent().getStringExtra("catId");
@@ -65,7 +67,7 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
             }
         }
 
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
         getCourse();
 
 

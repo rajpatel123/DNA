@@ -2,9 +2,11 @@ package com.dnamedical.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+//import android.support.v7.widget.CardView;
+//import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -89,17 +91,21 @@ public class AnswerListAdapter extends RecyclerView.Adapter<AnswerListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.cardView)
+       // @BindView(R.id.cardView)
         CardView cardView;
-        @BindView(R.id.star)
+       // @BindView(R.id.star)
         ImageView star;
-        @BindView(R.id.questionNumber)
+       // @BindView(R.id.questionNumber)
         TextView questionNumber;
 
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            //ButterKnife.bind(this, view);
+            cardView=view.findViewById(R.id.cardView);
+            star=view.findViewById(R.id.star);
+            questionNumber=view.findViewById(R.id.questionNumber);
+
         }
     }
 

@@ -3,6 +3,7 @@ package com.dnamedical.Activities;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+//import android.content.Context;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,8 +12,10 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
+//import android.view.ContextThemeWrapper;
 import android.widget.Toast;
+
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.dnamedical.R;
 
@@ -64,32 +67,32 @@ class DownloadTask {
             try {
                 if (outputFile != null) {
                     progressDialog.dismiss();
-                    ContextThemeWrapper ctw = new ContextThemeWrapper(context, R.style.Theme_AppCompat_Dialog_Alert);
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctw);
-                    alertDialogBuilder.setTitle("Document  ");
-                    alertDialogBuilder.setMessage("Document Downloaded Successfully ");
-                    alertDialogBuilder.setCancelable(false);
-                    alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+                   // ContextThemeWrapper ctw = new ContextThemeWrapper(context, R.style.Theme_AppCompat_Dialog_Alert);
+//                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctw);
+//                    alertDialogBuilder.setTitle("Document  ");
+//                    alertDialogBuilder.setMessage("Document Downloaded Successfully ");
+//                    alertDialogBuilder.setCancelable(false);
+//                    alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//
+//                        }
+//                    });
 
-                        }
-                    });
-
-                    alertDialogBuilder.setNegativeButton("Open report", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            File pdfFile = new File(Environment.getExternalStorageDirectory() + "/CodePlayon/" + downloadFileName);  // -> filename = maven.pdf
-                            Uri path = Uri.fromFile(pdfFile);
-                            Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-                            pdfIntent.setDataAndType(path, "application/pdf");
-                            pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            try {
-                                context.startActivity(pdfIntent);
-                            } catch (ActivityNotFoundException e) {
-                                Toast.makeText(context, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                    alertDialogBuilder.show();
+//                    alertDialogBuilder.setNegativeButton("Open report", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            File pdfFile = new File(Environment.getExternalStorageDirectory() + "/CodePlayon/" + downloadFileName);  // -> filename = maven.pdf
+//                            Uri path = Uri.fromFile(pdfFile);
+//                            Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+//                            pdfIntent.setDataAndType(path, "application/pdf");
+//                            pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            try {
+//                                context.startActivity(pdfIntent);
+//                            } catch (ActivityNotFoundException e) {
+//                                Toast.makeText(context, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+  //                  alertDialogBuilder.show();
 //                    Toast.makeText(context, "Document Downloaded Successfully", Toast.LENGTH_SHORT).show();
                 } else {
 

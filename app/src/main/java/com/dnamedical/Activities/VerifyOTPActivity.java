@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageView;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,15 +15,18 @@ import android.text.style.UnderlineSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+//import com.alimuzaffar.lib.pin.PinEntryEditText;
+//
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
+//import butterknife.OnClick;
 import com.dnamedical.Models.VerifyOtpResponse;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.R;
@@ -40,18 +42,18 @@ import retrofit2.Response;
 
 
 public class VerifyOTPActivity extends AppCompatActivity {
-    @BindView(R.id.crossBtn)
-    AppCompatImageView crossBtn;
+   // @BindView(R.id.crossBtn)
+    ImageView crossBtn;
 
-    @BindView(R.id.otpTxt)
+    //@BindView(R.id.otpTxt)
     TextView otpTxt;
-    @BindView(R.id.pin_layout)
-    PinEntryEditText pinLayout;
-    @BindView(R.id.resendOtp)
+   // @BindView(R.id.pin_layout)
+    EditText pinLayout;
+   // @BindView(R.id.resendOtp)
     TextView resendOtp;
-    @BindView(R.id.nextBtn)
-    AppCompatButton nextBtn;
-    @BindView(R.id.pin_content_layout)
+    //@BindView(R.id.nextBtn)
+    Button nextBtn;
+    //@BindView(R.id.pin_content_layout)
     RelativeLayout pinContentLayout;
 
 
@@ -68,7 +70,13 @@ public class VerifyOTPActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_otp);
-        ButterKnife.bind(this);
+       // ButterKnife.bind(this);
+        crossBtn=findViewById(R.id.crossBtn);
+        otpTxt=findViewById(R.id.otpTxt);
+        pinLayout=findViewById(R.id.pin_layout);
+        resendOtp=findViewById(R.id.resendOtp);
+        nextBtn=findViewById(R.id.nextBtn);
+        pinContentLayout=findViewById(R.id.pin_content_layout);
 
 
         SpannableString spannableString = new SpannableString(resendOtp.getText().toString());
@@ -136,45 +144,45 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.crossBtn)
-    public void onCrossBtnClick() { finish();
-    }
-
-
-    @OnClick(R.id.nextBtn)
-    public void onNextBtnClick() {
-            if (pinLayout.getText().toString().length() >= 6) {
-                   verifyOtp(pinLayout.getText().toString());
-            } else {
-                Utils.displayToast(this, "Please enter OTP");
-            }
-        }
-
-
-    @OnClick(R.id.resendOtp)
-    public void resendOtp() {
-        if (resendOtp.isClickable()) {
-            RequestBody phonebRequestBody = RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("mobile"));
-            Utils.showProgressDialog(this);
-            RestClient.sendOtp(phonebRequestBody, new Callback<CommonResponse>() {
-                @Override
-                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
-                    Utils.dismissProgressDialog();
-                    if (response.body().getStatus().equalsIgnoreCase("1")) {
-                        Utils.displayToast(getApplicationContext(), response.body().getMessage());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<CommonResponse> call, Throwable t) {
-
-
-                    Toast.makeText(VerifyOTPActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
+//    @OnClick(R.id.crossBtn)
+//    public void onCrossBtnClick() { finish();
+//    }
+//
+//
+//    @OnClick(R.id.nextBtn)
+//    public void onNextBtnClick() {
+//            if (pinLayout.getText().toString().length() >= 6) {
+//                   verifyOtp(pinLayout.getText().toString());
+//            } else {
+//                Utils.displayToast(this, "Please enter OTP");
+//            }
+//        }
+//
+//
+//    @OnClick(R.id.resendOtp)
+//    public void resendOtp() {
+//        if (resendOtp.isClickable()) {
+//            RequestBody phonebRequestBody = RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("mobile"));
+//            Utils.showProgressDialog(this);
+//            RestClient.sendOtp(phonebRequestBody, new Callback<CommonResponse>() {
+//                @Override
+//                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+//                    Utils.dismissProgressDialog();
+//                    if (response.body().getStatus().equalsIgnoreCase("1")) {
+//                        Utils.displayToast(getApplicationContext(), response.body().getMessage());
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<CommonResponse> call, Throwable t) {
+//
+//
+//                    Toast.makeText(VerifyOTPActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//    }
+//
 
 
     private void openKeyboard() {

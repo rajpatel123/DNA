@@ -4,14 +4,18 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -32,6 +36,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.dnamedical.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedical.Models.newqbankmodule.ModulesMcq;
 import com.dnamedical.R;
@@ -384,26 +393,47 @@ public class QbankTestActivity extends AppCompatActivity {
                    // question_image.setVisibility(View.VISIBLE);
                     progressbarForImage.setVisibility(View.VISIBLE);
 
-                    Picasso.with(this).load(questionDetails.getTitleImage())
-                            .into(iv, new com.squareup.picasso.Callback() {
+                    Glide.with(this).load(questionDetails.getTitleImage())
+                            .listener(new RequestListener<Drawable>() {
                                 @Override
-                                public void onSuccess() {
-                                    if (progressbarForImage != null) {
-                                        progressbarForImage.setVisibility(View.GONE);
-                                    }
-                                }
-
-                                @Override
-                                public void onError() {
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                     if (progressbarForImage != null) {
                                         progressbarForImage.setVisibility(View.GONE);
                                     }
                                     question_image.setVisibility(View.GONE);
                                     //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
 
-
+                                    return false;
                                 }
-                            });
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    if (progressbarForImage != null) {
+                                        progressbarForImage.setVisibility(View.GONE);
+                                    }
+                                    return false;
+                                }
+                            })
+                            .into(iv);
+//                    , new com.squareup.picasso.Callback() {
+//                                @Override
+//                                public void onSuccess() {
+//                                    if (progressbarForImage != null) {
+//                                        progressbarForImage.setVisibility(View.GONE);
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onError() {
+//                                    if (progressbarForImage != null) {
+//                                        progressbarForImage.setVisibility(View.GONE);
+//                                    }
+//                                    question_image.setVisibility(View.GONE);
+//                                    //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+//
+//
+//                                }
+                       //     });
                 }
 
             }else{

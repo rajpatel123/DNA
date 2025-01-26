@@ -5,17 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dnamedical.Models.log_out.LogOutResponse;
 import com.dnamedical.Models.test.testp.Test;
 import com.dnamedical.Models.test.testp.TestDataResponse;
@@ -44,6 +35,8 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.ImageUtils;
 import com.dnamedical.utils.Utils;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -61,14 +54,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+public class MainActivity extends androidx.appcompat.app.AppCompatActivity
+        implements com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener {
     public LinearLayout tabBar;
-    public TabLayout tabLayout;
-    private Toolbar toolbar;
-    public ViewPager pager;
+    public com.google.android.material.tabs.TabLayout tabLayout;
+    private androidx.appcompat.widget.Toolbar toolbar;
+    public androidx.viewpager.widget.ViewPager pager;
     private HomeFragment dashboardHomeFragment;
     private videoFragment dashboardvideoFragment;
     private QbankFragment dashboardQbankFragment;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView testIcon;
     private ImageView imgOnlineIcon;
     private TextView onlineTitle;
-    private NavigationView navigationView;
+    private com.google.android.material.navigation.NavigationView navigationView;
     private TextView tvName, tvEmail, tvSetting;
     private CircleImageView circleImageView;
     String name, image, email;
@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity
         tabBar = findViewById(R.id.tabBar);
         tabLayout = findViewById(R.id.tabs);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        androidx.drawerlayout.widget.DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        androidx.appcompat.app.ActionBarDrawerToggle toggle = new androidx.appcompat.app.ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -221,11 +221,11 @@ public class MainActivity extends AppCompatActivity
         tvName.setText(name);
         tvEmail.setText(email);
         if (!TextUtils.isEmpty(image)) {
-            Picasso.with(this).load(image)
+            Glide.with(this).load(image)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
         } else {
-            Picasso.with(this)
+            Glide.with(this)
                     .load(R.drawable.dnalogo)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
@@ -554,12 +554,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toolbar:
-                //your code here
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId()==R.id.toolbar) {
+            //your code here
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+
         }
     }
 

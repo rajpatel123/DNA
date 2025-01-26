@@ -2,14 +2,18 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+//import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.widget.GridLayoutManager;
+//import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dnamedical.Adapters.CourseModuleListAdapter;
 import com.dnamedical.Adapters.InstitutesListAdapter;
@@ -21,8 +25,8 @@ import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 import com.google.gson.Gson;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -31,11 +35,11 @@ import retrofit2.Response;
 
 public class AllInstituteActivity extends AppCompatActivity implements InstitutesListAdapter.AllInstituteClickInterface{
 
-    @BindView(R.id.noInternet)
+//    @BindView(R.id.noInternet)
     TextView textInternet;
 
     MainActivity mainActivity;
-    @BindView(R.id.recyclerView)
+//    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private AllInstituteResponseModel catModuleResponse;
     private String catId;
@@ -54,7 +58,9 @@ public class AllInstituteActivity extends AppCompatActivity implements Institute
             getSupportActionBar().setTitle("All Institutes");
         }
 
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+        textInternet=findViewById(R.id.noInternet);
+        recyclerView=findViewById(R.id.recyclerView);
         getAllInstitutes();
 
 

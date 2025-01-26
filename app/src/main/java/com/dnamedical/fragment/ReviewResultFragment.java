@@ -3,11 +3,12 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedical.Activities.ReviewresulActivity;
 import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;
@@ -216,7 +218,7 @@ public class ReviewResultFragment extends Fragment {
 
 
             if (!TextUtils.isEmpty(question.getTitleImage())) {
-                Picasso.with(activity).load(question.getTitleImage()).into(question_image);
+                Glide.with(activity).load(question.getTitleImage()).into(question_image);
             }
             List<SliceValue> pieData = new ArrayList<>();
             pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));

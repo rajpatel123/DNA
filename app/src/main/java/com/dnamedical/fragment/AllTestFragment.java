@@ -3,18 +3,19 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import butterknife.BindView;
+
 import com.dnamedical.Activities.DNAKnowmoreActivity;
 import com.dnamedical.Activities.MainActivity;
 import com.dnamedical.Activities.ModuleTestActivity;
@@ -28,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
-    @BindView(R.id.recyclerView)
+    //@BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     List<Test> allTest;
 
@@ -47,6 +48,7 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -117,9 +119,8 @@ public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryC
                             String testQuestion, String testPaid,
                             String testStatus, String type, String startDate,
                             String endDate,
-                            String resultDate,String subjectCount) {
-
-
+                            String resultDate,String subjectCount)
+    {
             if (testPaid.equalsIgnoreCase("Yes")) {
                 Intent intent = new Intent(getActivity(), DNAKnowmoreActivity.class);
                 startActivity(intent);

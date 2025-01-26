@@ -1,8 +1,9 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Models.test.GrandTest;
 import com.dnamedical.Models.test.MiniTest;
@@ -72,25 +72,32 @@ public class MiniTestAdapter extends RecyclerView.Adapter<MiniTestAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.testTitle)
+        //@BindView(R.id.testTitle)
         TextView title;
 
-        @BindView(R.id.total_question)
+       // @BindView(R.id.total_question)
         TextView questionTotal;
 
-        @BindView(R.id.total_time)
+       // @BindView(R.id.total_time)
         TextView timeTotal;
 
 
-        @BindView(R.id.textView_Date)
+        //@BindView(R.id.textView_Date)
         TextView textDate;
-        @BindView(R.id.image_lock)
+       // @BindView(R.id.image_lock)
         ImageView imageLock;
 
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+           // ButterKnife.bind(this, view);
+            title=view.findViewById(R.id.testTitle);
+            questionTotal=view.findViewById(R.id.total_question);
+            timeTotal=view.findViewById(R.id.total_time);
+            textDate=view.findViewById(R.id.textView_Date);
+            imageLock=view.findViewById(R.id.image_lock);
+
+
         }
     }
 }

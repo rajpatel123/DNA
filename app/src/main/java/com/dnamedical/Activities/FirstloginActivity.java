@@ -6,10 +6,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -41,8 +42,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Arrays;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//
 
 import com.dnamedical.Models.FacebookLoginData;
 import com.dnamedical.Models.facebook.FacebookResponse;
@@ -62,18 +62,18 @@ import retrofit2.Response;
 public class FirstloginActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.login_button)
+    //@BindView(R.id.login_button)
     LoginButton loginButton;
 
-    @BindView(R.id.btn_email)
+   // @BindView(R.id.btn_email)
     Button btnEmail;
 
-    @BindView(R.id.FirstLoginText)
+    //@BindView(R.id.FirstLoginText)
     TextView loginText;
-    @BindView(R.id.privacy)
+    //@BindView(R.id.privacy)
     TextView privacytxt;
 
-    @BindView(R.id.terms)
+    //@BindView(R.id.terms)
     TextView termsTV;
 
     CallbackManager callbackManager;
@@ -84,10 +84,18 @@ public class FirstloginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_firstlogin);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+//        setContentView(R.layout.activity_firstlogin);
         customFacebook = findViewById(R.id.custom_login);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+        loginButton = findViewById(R.id.login_button);
+        btnEmail = findViewById(R.id.btn_email);
+        loginText = findViewById(R.id.FirstLoginText);
+        privacytxt = findViewById(R.id.privacy);
+        termsTV = findViewById(R.id.terms);
+
+
         callbackManager = CallbackManager.Factory.create();
         loginwithFb();
 

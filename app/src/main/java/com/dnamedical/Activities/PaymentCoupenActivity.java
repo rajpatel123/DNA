@@ -1,9 +1,11 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,73 +21,73 @@ import com.dnamedical.utils.DnaPrefs;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 
 public class PaymentCoupenActivity extends AppCompatActivity {
 
-    @BindView(R.id.img_cancel)
+    //@BindView(R.id.img_cancel)
     ImageView imageViewCancel;
 
-    @BindView(R.id.txt_coupon_code)
+    //@BindView(R.id.txt_coupon_code)
     TextView textViewCouponCode;
 
-    @BindView(R.id.totalDiscountOfVideos)
+   // @BindView(R.id.totalDiscountOfVideos)
     TextView totalDiscountOfVideos;
 
-    @BindView(R.id.totalAddDiscountOfVideos)
+   // @BindView(R.id.totalAddDiscountOfVideos)
     TextView totalAddDiscountOfVideos;
 
 
-    @BindView(R.id.totalPriceOfVideoTV)
+   // @BindView(R.id.totalPriceOfVideoTV)
     TextView totalPriceOfVideoTV;
 
-    @BindView(R.id.txt_test_name)
+   // @BindView(R.id.txt_test_name)
     TextView textViewTestName;
 
 
-    @BindView(R.id.finalPriceOfVideos)
+   // @BindView(R.id.finalPriceOfVideos)
     TextView finalPriceOfVideosTV;
 
 
-    @BindView(R.id.btn_proceed_pay)
+    //@BindView(R.id.btn_proceed_pay)
     Button btnProceedPay;
 
-    @BindView(R.id.subtitle)
+   // @BindView(R.id.subtitle)
     TextView txtsubTitle;
 
 
-    @BindView(R.id.total_price)
+   // @BindView(R.id.total_price)
     TextView txtTotalPrice;
 
 
-    @BindView(R.id.actual_price)
+    //@BindView(R.id.actual_price)
     TextView txtActualPrice;
 
-    @BindView(R.id.image_coupon_apply)
+   // @BindView(R.id.image_coupon_apply)
     ImageView imageViewCouponApply;
 
-    @BindView(R.id.img_coupon_cancel)
+    //@BindView(R.id.img_coupon_cancel)
     ImageView imageViewCouponCancle;
 
 
-    @BindView(R.id.card_view_apply)
+    //@BindView(R.id.card_view_apply)
     CardView cardViewApply;
 
-    @BindView(R.id.linear_coupon)
+   // @BindView(R.id.linear_coupon)
     LinearLayout linearLayoutCoupon;
 
-    @BindView(R.id.linear_coupon_add)
+   // @BindView(R.id.linear_coupon_add)
     LinearLayout linearLayoutCoupon_add;
 
 
-    @BindView(R.id.txt_apply_coupon)
+   // @BindView(R.id.txt_apply_coupon)
     TextView textViewCouponApply;
 
 
-    @BindView(R.id.discount_message)
+    //@BindView(R.id.discount_message)
     TextView textViewDiscountMessage;
     String couponCode, couponValue, subTitle, testName, totalPriceValue = "0", totalDiscountValue = "0", totalDiscountFinalValue = "0",totalAddDiscountFinalValue = "0", finalPriceValue = "0", vedioId, shippingCharge;
 
@@ -99,7 +101,27 @@ public class PaymentCoupenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_coupen);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
+        imageViewCancel=findViewById(R.id.img_cancel);
+        textViewCouponCode=findViewById(R.id.txt_coupon_code);
+        totalAddDiscountOfVideos=findViewById(R.id.totalAddDiscountOfVideos);
+        totalDiscountOfVideos=findViewById(R.id.totalDiscountOfVideos);
+        textViewTestName=findViewById(R.id.txt_test_name);
+        finalPriceOfVideosTV=findViewById(R.id.finalPriceOfVideos);
+        btnProceedPay=findViewById(R.id.btn_proceed_pay);
+        txtsubTitle=findViewById(R.id.subtitle);
+        imageViewCancel=findViewById(R.id.img_cancel);
+        txtTotalPrice=findViewById(R.id.total_price);
+        txtActualPrice=findViewById(R.id.actual_price);
+        imageViewCouponCancle=findViewById(R.id.img_coupon_cancel);
+        cardViewApply=findViewById(R.id.card_view_apply);
+        linearLayoutCoupon=findViewById(R.id.linear_coupon);
+        linearLayoutCoupon_add=findViewById(R.id.linear_coupon_add);
+        textViewCouponApply=findViewById(R.id.txt_apply_coupon);
+        textViewCouponCode=findViewById(R.id.txt_coupon_code);
+        textViewDiscountMessage=findViewById(R.id.discount_message);
+
+
 
 
         imageViewCancel.setOnClickListener(new View.OnClickListener() {

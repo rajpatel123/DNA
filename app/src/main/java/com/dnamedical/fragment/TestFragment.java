@@ -2,13 +2,13 @@ package com.dnamedical.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +24,7 @@ import com.dnamedical.interfaces.FragmentLifecycle;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 public class TestFragment extends Fragment implements FragmentLifecycle {
 
@@ -63,7 +64,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.textfragment, container, false);
-        subcategory = view.findViewById(R.id.subcategory_name);
+//        subcategory = view.findViewById(R.id.subcategory_name);
         viewPager = view.findViewById(R.id.viewPager);
         setupViewPager(viewPager);
         tabLayout = view.findViewById(R.id.tabs);
@@ -251,7 +252,7 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
 
     private void getTest() {
 
-        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String userId = DnaPrefs.getString(mainActivity.getApplicationContext(), Constants.LOGIN_ID);
 
         if (TextUtils.isEmpty(userId)) {
             return;

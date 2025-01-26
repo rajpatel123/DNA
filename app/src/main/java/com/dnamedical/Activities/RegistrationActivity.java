@@ -18,11 +18,11 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -75,6 +75,7 @@ import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,8 +84,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -136,64 +136,64 @@ public class RegistrationActivity extends AppCompatActivity implements
     private AddressResultReceiver mResultReceiver;
 
 
-    @BindView(R.id.edit_name)
+    //@BindView(R.id.edit_name)
     EditText editName;
 
-    @BindView(R.id.edit_username)
+   // @BindView(R.id.edit_username)
     EditText editUsername;
 
-    @BindView(R.id.edit_emailId)
+    //@BindView(R.id.edit_emailId)
     EditText editEmailId;
 
-    @BindView(R.id.edit_Passwword)
+   // @BindView(R.id.edit_Passwword)
     EditText editPassword;
 
-    @BindView(R.id.otherState)
+   // @BindView(R.id.otherState)
     EditText otherState;
-    @BindView(R.id.otherCollege)
+   // @BindView(R.id.otherCollege)
     EditText otherCollege;
 
-    @BindView(R.id.btn_signUp)
+   // @BindView(R.id.btn_signUp)
     Button btnSignUp;
 
-    @BindView(R.id.text_login)
+    //@BindView(R.id.text_login)
     TextView textLogin;
-    @BindView(R.id.terms)
+    //@BindView(R.id.terms)
     TextView termsTV;
-    @BindView(R.id.privacy)
+   // @BindView(R.id.privacy)
     TextView privacy;
 
-    @BindView(R.id.profileImage)
+    //@BindView(R.id.profileImage)
     CircleImageView profileImage;
 
-    @BindView(R.id.edit_phone)
+   // @BindView(R.id.edit_phone)
     EditText edit_phone;
 
-    @BindView(R.id.selectCourse)
+   // @BindView(R.id.selectCourse)
     Spinner selectCourseSP;
 
-    @BindView(R.id.ll_UG)
+    //@BindView(R.id.ll_UG)
     LinearLayout ll_UG;
 
 
-    @BindView(R.id.enterCollegeNameForUG)
+    //@BindView(R.id.enterCollegeNameForUG)
     EditText enterCollegeNameForUG;
 
-    @BindView(R.id.enterBoardName)
+    //@BindView(R.id.enterBoardName)
     EditText enterBoardName;
 
-    @BindView(R.id.selectUGYear)
+   // @BindView(R.id.selectUGYear)
     Spinner selectUGYearSP;
 
 
-    @BindView(R.id.ll_PG)
+   // @BindView(R.id.ll_PG)
     LinearLayout ll_PG;
 
 
-    @BindView(R.id.academic)
+   // @BindView(R.id.academic)
     Spinner academicSpinner;
 
-    @BindView(R.id.selectState)
+    //@BindView(R.id.selectState)
     Spinner selectState;
     String fb_id = "dummyID", edit_name, edit_username, edit_email, edit_password = "dummy";
 
@@ -221,7 +221,31 @@ public class RegistrationActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
+        editName=findViewById(R.id.edit_name);
+        editUsername=findViewById(R.id.edit_username);
+        editEmailId=findViewById(R.id.edit_emailId);
+        editPassword=findViewById(R.id.edit_Passwword);
+        otherState=findViewById(R.id.otherState);
+        otherCollege=findViewById(R.id.otherCollege);
+        btnSignUp=findViewById(R.id.btn_signUp);
+        textLogin=findViewById(R.id.text_login);
+        termsTV=findViewById(R.id.terms);
+        privacy=findViewById(R.id.privacy);
+        profileImage=findViewById(R.id.profileImage);
+        edit_phone=findViewById(R.id.edit_phone);
+        selectCourseSP=findViewById(R.id.selectCourse);
+        enterCollegeNameForUG=findViewById(R.id.enterCollegeNameForUG);
+        ll_PG=findViewById(R.id.ll_PG);
+        ll_UG=findViewById(R.id.ll_UG);
+        selectUGYearSP=findViewById(R.id.selectUGYear);
+        ll_UG=findViewById(R.id.ll_UG);
+        enterBoardName=findViewById(R.id.enterBoardName);
+        selectState=findViewById(R.id.selectState);
+        academicSpinner=findViewById(R.id.academic);
+
+
+
 
         //getCollegeList();
         initGoogleAPIClient();//Init Google API Client
@@ -676,24 +700,21 @@ public class RegistrationActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.btn_signUp:
-                initGoogleAPIClient();//Init Google API Client
-                checkPermissionsOnPhone();
-                if (TextUtils.isEmpty(mAddressOutput)) {
-                    getAddress();
+        if (view.getId()==R.id.btn_signUp) {
+            initGoogleAPIClient();//Init Google API Client
+            checkPermissionsOnPhone();
+            if (TextUtils.isEmpty(mAddressOutput)) {
+                getAddress();
 
-                } else {
-                    validation();
-                }
+            } else {
+                validation();
+            }
 
 
-                break;
-
-            case R.id.text_login:
+        } else if (view.getId()==R.id.text_login){
                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                 finish();
-                break;
+
         }
 
     }
@@ -1000,7 +1021,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
             finish();
 
         }
@@ -1221,6 +1242,7 @@ public class RegistrationActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             // Check for the integer request code originally supplied to startResolutionForResult().
             case REQUEST_CHECK_SETTINGS:

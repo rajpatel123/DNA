@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -25,10 +26,10 @@ public class PicassoImageGetter implements Html.ImageGetter {
     @Override
     public Drawable getDrawable(String source) {
         BitmapDrawablePlaceHolder drawable = new BitmapDrawablePlaceHolder();
-        Picasso.with(DNAApplication.getInstance())
-                .load(source)
-                .placeholder(R.drawable.dnalogo)
-                .into(drawable);
+//        Glide.with(DNAApplication.getInstance())
+//                .load(source)
+//                .placeholder(R.drawable.dnalogo)
+//                .into(drawable);
         return drawable;
     }
 
@@ -60,8 +61,10 @@ public class PicassoImageGetter implements Html.ImageGetter {
         }
 
         @Override
-        public void onBitmapFailed(Drawable errorDrawable) {
+        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
         }
+
 
         @Override
         public void onPrepareLoad(Drawable placeHolderDrawable) {

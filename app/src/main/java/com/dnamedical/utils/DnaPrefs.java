@@ -3,7 +3,7 @@ package com.dnamedical.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.facebook.AccessToken;
+
 
 public class DnaPrefs {
     private static final String KENT_SECURITY_PREFS = "HFCSecurity";

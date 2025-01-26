@@ -2,16 +2,13 @@ package com.dnamedical.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.text.Html;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -34,17 +31,30 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.dnamedical.Adapters.AnswerListAdapter;
 import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.test.RankResultRemarks;
 import com.dnamedical.Models.test.testp.Question;
 import com.dnamedical.Models.test.testp.QustionDetails;
 import com.dnamedical.Models.test.testresult.TestResult;
+import com.dnamedical.PicassoImageGetter;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
-import com.dnamedical.utils.PicassoImageGetter;
+//import com.dnamedical.utils.PicassoImageGetter;
 import com.dnamedical.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -545,7 +555,7 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
     private void updateQuestionsFragment(int questionIndex) {
 
 
-        PicassoImageGetter imageGetter = new PicassoImageGetter(questionTxt, this);
+        PicassoImageGetter imageGetter = new PicassoImageGetter(questionTxt);
         answerList.removeAllViews();
         Question question = questionArrayList.get(questionIndex);
 
@@ -562,26 +572,45 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
         if (!TextUtils.isEmpty(question.getTitle_image())) {
             if (Utils.isInternetConnected(TestUGV1Activity.this)) {
                 imageQuestion.setVisibility(View.VISIBLE);
-                Picasso.with(this).load(question.getTitle_image())
-                        .into(imageQuestion, new com.squareup.picasso.Callback() {
+                Glide.with(this).load(question.getTitle_image())
+                        .listener(new RequestListener<Drawable>() {
                             @Override
-                            public void onSuccess() {
-                                if (progressBar != null) {
-                                    progressBar.setVisibility(View.GONE);
-                                }
-                            }
-
-                            @Override
-                            public void onError() {
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                 if (progressBar != null) {
                                     progressBar.setVisibility(View.GONE);
                                 }
                                 imageQuestion.setVisibility(View.GONE);
-                                //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
-
-
+                                return false;
                             }
-                        });
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                return false;
+                            }
+                        })
+                        .into(imageQuestion);
+//                , new com.squareup.picasso.Callback() {
+//                            @Override
+//                            public void onSuccess() {
+//                                if (progressBar != null) {
+//                                    progressBar.setVisibility(View.GONE);
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onError() {
+//                                if (progressBar != null) {
+//                                    progressBar.setVisibility(View.GONE);
+//                                }
+//                                imageQuestion.setVisibility(View.GONE);
+//                                //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+//
+//
+//                            }
+//                        });
             }
 
         } else {
@@ -621,22 +650,35 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
 
                     if (!TextUtils.isEmpty(question.getOption_1_image())){
-                        Picasso.with(this).load(question.getOption_1_image())
-                                .into(image1, new com.squareup.picasso.Callback() {
+                        Glide.with(this).load(question.getOption_1_image())
+                                .listener(new RequestListener<Drawable>() {
                                     @Override
-                                    public void onSuccess() {
-
-                                    }
-
-                                    @Override
-                                    public void onError() {
-
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                         image1.setVisibility(View.GONE);
-                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
-
-
+                                        return false;
                                     }
-                                });
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
+                                .into(image1);
+//                        , new com.squareup.picasso.Callback() {
+//                                    @Override
+//                                    public void onSuccess() {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onError() {
+//
+//                                        image1.setVisibility(View.GONE);
+//                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+//
+//
+//                                    }
+//                                });
                     }else{
                         image1.setVisibility(View.GONE);
 
@@ -743,22 +785,35 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
 
                     if (!TextUtils.isEmpty(question.getOption_2_image())){
-                        Picasso.with(this).load(question.getOption_2_image())
-                                .into(image2, new com.squareup.picasso.Callback() {
+                        Glide.with(this).load(question.getOption_2_image())
+                                .listener(new RequestListener<Drawable>() {
                                     @Override
-                                    public void onSuccess() {
-
-                                    }
-
-                                    @Override
-                                    public void onError() {
-
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                         image2.setVisibility(View.GONE);
-                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
-
-
+                                        return false;
                                     }
-                                });
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
+                                .into(image2);
+                        //, new com.squareup.picasso.Callback() {
+//                                    @Override
+//                                    public void onSuccess() {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onError() {
+//
+//                                        image2.setVisibility(View.GONE);
+//                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+//
+//
+//                                    }
+//                                });
                     }else{
                         image2.setVisibility(View.GONE);
 
@@ -853,22 +908,35 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
                     answerList.addView(answerView2);
 
                     if (!TextUtils.isEmpty(question.getOption_3_image())){
-                        Picasso.with(this).load(question.getOption_3_image())
-                                .into(image3, new com.squareup.picasso.Callback() {
+                        Glide.with(this).load(question.getOption_3_image())
+                                .listener(new RequestListener<Drawable>() {
                                     @Override
-                                    public void onSuccess() {
-
-                                    }
-
-                                    @Override
-                                    public void onError() {
-
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                         image3.setVisibility(View.GONE);
-                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
-
-
+                                        return false;
                                     }
-                                });
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
+                                .into(image3);
+//                        , new com.squareup.picasso.Callback() {
+//                                    @Override
+//                                    public void onSuccess() {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onError() {
+//
+//                                        image3.setVisibility(View.GONE);
+//                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+//
+//
+//                                    }
+//                                });
                     }else{
                         image3.setVisibility(View.GONE);
 
@@ -969,22 +1037,35 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
 
                     if (!TextUtils.isEmpty(question.getOption_4_image())){
-                        Picasso.with(this).load(question.getOption_4_image())
-                                .into(image4, new com.squareup.picasso.Callback() {
+                        Glide.with(this).load(question.getOption_4_image())
+                                .listener(new RequestListener<Drawable>() {
                                     @Override
-                                    public void onSuccess() {
-
-                                    }
-
-                                    @Override
-                                    public void onError() {
-
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                         image4.setVisibility(View.GONE);
-                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
-
-
+                                        return false;
                                     }
-                                });
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
+                                .into(image4);
+//                        , new com.squareup.picasso.Callback() {
+//                                    @Override
+//                                    public void onSuccess() {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onError() {
+//
+//                                        image4.setVisibility(View.GONE);
+//                                        //Toast.makeText(TestUGV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
+//
+//
+//                                    }
+                   //             });
                     }else{
                         image4.setVisibility(View.GONE);
 
@@ -1098,27 +1179,28 @@ public class TestUGV1Activity extends FragmentActivity implements PopupMenu.OnMe
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.reviewTest:
-                questionpannel.setVisibility(View.GONE);
-                answerSheet.setVisibility(View.VISIBLE);
-                closeSheet.setVisibility(View.VISIBLE);
-                loadSheet();
+        if (item.getItemId()==R.id.reviewTest) {
+            questionpannel.setVisibility(View.GONE);
+            answerSheet.setVisibility(View.VISIBLE);
+            closeSheet.setVisibility(View.VISIBLE);
+            loadSheet();
 
-                return true;
-            case R.id.submitTest:
-                submitAlertDiolog("");
-                return true;
-            case R.id.closeSheet:
+            return true;
+        } else if(item.getItemId()== R.id.submitTest) {
+            submitAlertDiolog("");
+            return true;
+        }else if (item.getItemId()==R.id.closeSheet){
                 questionpannel.setVisibility(View.VISIBLE);
                 answerSheet.setVisibility(View.GONE);
                 closeSheet.setVisibility(View.GONE);
                 return true;
-            case R.id.discardTest:
+        }else if(item.getItemId()==R.id.discardTest) {
                 discardAlertDialog();
                 return true;
-            default:
+            }
+            else {
                 return false;
+
         }
     }
 

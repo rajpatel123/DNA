@@ -1,8 +1,11 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -51,20 +59,31 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
                 .load(faculty.getFImage())
                 .into(holder.facultyImage);
 */
-        Picasso.with(context)
+       Glide.with(context)
                 .load(faculty.getFImage())
                 .error(R.drawable.profile_pictures)
-                .into(holder.facultyImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        holder.imageLoader.setVisibility(View.GONE);
-                    }
+               .listener(new RequestListener<Drawable>() {
+                   @Override
+                   public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                       holder.imageLoader.setVisibility(View.GONE);
+                       return false;
+                   }
 
-                    @Override
-                    public void onError() {
-                        holder.imageLoader.setVisibility(View.GONE);
-                    }
-                });
+                   @Override
+                   public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                       holder.imageLoader.setVisibility(View.GONE);
+                       return false;
+                   }
+               })
+                .into(holder.facultyImage);
+//        @Override
+//        public void onSuccess() {
+//            holder.imageLoader.setVisibility(View.GONE);
+//        }
+//        @Override
+//        public void onError() {
+//            holder.imageLoader.setVisibility(View.GONE);
+//        }
 
     }
 

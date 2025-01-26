@@ -1,7 +1,8 @@
 package com.dnamedical.Activities;
 
+import androidx.annotation.NonNull;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.dnamedical.R;
@@ -29,7 +30,7 @@ public class ModuleQBankActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         onBackPressed();
         return super.onOptionsItemSelected(item);
 

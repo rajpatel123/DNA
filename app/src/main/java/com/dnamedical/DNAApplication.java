@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+
 import android.util.Base64;
 import android.util.Log;
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.testReviewlistnew.QuestionList;

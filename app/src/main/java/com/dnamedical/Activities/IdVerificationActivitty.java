@@ -7,8 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -38,8 +39,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -71,16 +72,16 @@ public class IdVerificationActivitty extends AppCompatActivity {
 
     private static String imageStoragePath;
 
-    @BindView(R.id.click_picture)
+    //@BindView(R.id.click_picture)
     TextView textViewClick;
 
-    @BindView(R.id.verify_id_name)
+   // @BindView(R.id.verify_id_name)
     EditText verifyIdName;
 
-    @BindView(R.id.image_picture)
+   // @BindView(R.id.image_picture)
     ImageView ShowPicture;
 
-    @BindView(R.id.verify_button)
+   // @BindView(R.id.verify_button)
     Button verifyButton;
 
     String userId;
@@ -92,6 +93,11 @@ public class IdVerificationActivitty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_id_verification_activitty);
+        textViewClick=findViewById(R.id.click_picture);
+        verifyIdName=findViewById(R.id.verify_id_name);
+        ShowPicture=findViewById(R.id.image_picture);
+        verifyButton=findViewById(R.id.verify_button);
+
 
 
         if (getSupportActionBar() != null) {
@@ -101,7 +107,7 @@ public class IdVerificationActivitty extends AppCompatActivity {
         }
 
         //code change
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
         textViewClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,6 +268,7 @@ public class IdVerificationActivitty extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // if the result is capturing Image
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Refreshing the gallery

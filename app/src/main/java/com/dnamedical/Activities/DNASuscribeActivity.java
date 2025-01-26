@@ -3,9 +3,10 @@ package com.dnamedical.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,8 +29,8 @@ import com.dnamedical.utils.Utils;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,31 +38,31 @@ import retrofit2.Response;
 public class DNASuscribeActivity extends AppCompatActivity {
 
     PlanResponse planResponse;
-    @BindView(R.id.planholderlayout)
+    //@BindView(R.id.planholderlayout)
     LinearLayout planholderlayout;
 
-    @BindView(R.id.planholderlayoutNeetUGPlans)
+    //@BindView(R.id.planholderlayoutNeetUGPlans)
     LinearLayout planholderlayoutNeetUGPlans;
 
 
-    @BindView(R.id.planholderlayoutNeetSSPlans)
+    //@BindView(R.id.planholderlayoutNeetSSPlans)
     LinearLayout planholderlayoutNeetSSPlans;
 
 
     LayoutInflater inflater;
-    @BindView(R.id.toolbar)
+   // @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.planGroup)
+    //@BindView(R.id.planGroup)
     RadioGroup planGroup;
 
 
 
-    @BindView(R.id.planGroupSS)
+    //@BindView(R.id.planGroupSS)
     RadioGroup planGroupSS;
 
 
-    @BindView(R.id.planGroupUG)
+   // @BindView(R.id.planGroupUG)
     RadioGroup planGroupUG;
 
     RadioButton radioButton;
@@ -82,7 +83,18 @@ public class DNASuscribeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnasuscribe);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+        toolbar = findViewById(R.id.toolbar);
+        planholderlayout = findViewById(R.id.planholderlayout);
+        planholderlayoutNeetUGPlans = findViewById(R.id.planholderlayoutNeetUGPlans);
+        planholderlayoutNeetSSPlans = findViewById(R.id.planholderlayoutNeetSSPlans);
+        planGroup = findViewById(R.id.planGroup);
+        planGroupSS = findViewById(R.id.planGroupSS);
+        planGroupUG = findViewById(R.id.planGroupUG);
+
+
+
+
         inflater = LayoutInflater.from(this);
 
 

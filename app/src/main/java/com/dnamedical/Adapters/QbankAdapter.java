@@ -1,15 +1,17 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import com.dnamedical.Models.newqbankmodule.Detail;
@@ -46,7 +48,7 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
         Detail detail = qbankDetailList.get(i);
         holder.textName.setText(""+detail.getSubjectName());
         holder.totalQuestion.setText(detail.getTotalCompleted()+" / "+detail.getTotalModule()+" Modules Completed");
-        Picasso.with(applicationContext).load(detail.getSubjectImage()).into(holder.imageView);
+        Glide.with(applicationContext).load(detail.getSubjectImage()).into(holder.imageView);
         //Picasso.with(applicationContext).load(detail.getCatImage()).error(R.drawable.biology).into(holder.imageView);
 
        holder.cardView.setOnClickListener(new View.OnClickListener() {

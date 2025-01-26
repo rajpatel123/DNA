@@ -2,8 +2,9 @@ package com.dnamedical.Activities;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +15,7 @@ import android.widget.RelativeLayout;
 
 
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.dnamedical.R;
 import com.dnamedical.utils.Utils;
 
@@ -24,15 +24,15 @@ import static android.view.View.GONE;
 
 public class WebViewActivity extends AppCompatActivity {
     private static final String TAG = "WebViewActivity";
-    @BindView(R.id.toolbar)
+    //@BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.progressBar)
+   // @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.dataWebView)
+   // @BindView(R.id.dataWebView)
     WebView mWebView;
-    @BindView(R.id.rlNetworkUI)
+    //@BindView(R.id.rlNetworkUI)
     RelativeLayout rlNetworkUI;
-    @BindView(R.id.rlWebView)
+   // @BindView(R.id.rlWebView)
     RelativeLayout rlWebView;
 
     String title;
@@ -41,7 +41,12 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview_layout);
-        ButterKnife.bind(this);
+       // ButterKnife.bind(this);
+        toolbar=findViewById(R.id.toolbar);
+        progressBar=findViewById(R.id.progressBar);
+        mWebView=findViewById(R.id.dataWebView);
+        rlNetworkUI=findViewById(R.id.rlNetworkUI);
+        rlWebView=findViewById(R.id.rlWebView);
         setSupportActionBar(toolbar);
 
 

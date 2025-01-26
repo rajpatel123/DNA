@@ -2,16 +2,17 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import com.dnamedical.fragment.CompleteFragment;
 import com.dnamedical.fragment.FreeFragment;
 import com.dnamedical.fragment.PausedFragment;
 import com.dnamedical.fragment.UnattemptedFragment;
+import com.google.android.material.tabs.TabLayout;
 
 public class VideoActivity extends AppCompatActivity {
 

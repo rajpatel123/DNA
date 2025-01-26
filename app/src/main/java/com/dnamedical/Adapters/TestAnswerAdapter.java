@@ -2,8 +2,8 @@ package com.dnamedical.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import com.dnamedical.Activities.ContactUsActivity;
 import com.dnamedical.Models.maincat.CategoryDetailData;
@@ -122,18 +120,22 @@ public class TestAnswerAdapter extends RecyclerView.Adapter<TestAnswerAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.linearNeet_Ss)
+        //@BindView(R.id.linearNeet_Ss)
         LinearLayout linearLayout;
 
-        @BindView(R.id.title)
+        //@BindView(R.id.title)
         TextView title;
 
-        @BindView(R.id.desc)
+       // @BindView(R.id.desc)
         TextView desc;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            //ButterKnife.bind(this, view);
+            linearLayout = view.findViewById(R.id.linearNeet_Ss);
+            title = view.findViewById(R.id.title);
+            desc = view.findViewById(R.id.desc);
+
         }
     }
 

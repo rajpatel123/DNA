@@ -1,11 +1,12 @@
 package com.dnamedical.Activities;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.android.material.tabs.TabLayout;
 
 
 import okhttp3.MediaType;

@@ -1,9 +1,7 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +9,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dnamedical.Models.getAddressDetail.Addrese;
 import com.dnamedical.R;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 
-public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.MyViewHolder> {
+public class AddressListAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<AddressListAdapter.MyViewHolder> {
 
 
     private Context applicationContext;
@@ -146,49 +148,62 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.txt_address_name)
+//        @BindView(R.id.txt_address_name)
         TextView textViewName;
 
-        @BindView(R.id.txt_address_email)
+//        @BindView(R.id.txt_address_email)
         TextView textViewEmail;
 
 
-        @BindView(R.id.txt_address_mobile)
+//        @BindView(R.id.txt_address_mobile)
         TextView textViewMobile;
 
-        @BindView(R.id.txt_address_state)
+//        @BindView(R.id.txt_address_state)
         TextView textViewState;
 
-        @BindView(R.id.txt_address_pincode)
+//        @BindView(R.id.txt_address_pincode)
         TextView textViewPincode;
 
-        @BindView(R.id.txt_address_permanent)
+//        @BindView(R.id.txt_address_permanent)
         TextView textViewPermanent;
 
-        @BindView(R.id.txt_address_shipping)
+//        @BindView(R.id.txt_address_shipping)
         TextView textViewShipping;
 
-        @BindView(R.id.txt_address_city)
+//        @BindView(R.id.txt_address_city)
         TextView textViewCity;
 
-        @BindView(R.id.proceed_pay)
+//        @BindView(R.id.proceed_pay)
         Button proceed_pay;
 
 
-        @BindView(R.id.deleteAddress)
+//        @BindView(R.id.deleteAddress)
         Button deleteAddress;
 
 
-        @BindView(R.id.edit_address)
+//        @BindView(R.id.edit_address)
         Button btnEditAddress;
 
-        @BindView(R.id.card_view_address)
+//        @BindView(R.id.card_view_address)
         CardView cardView;
 
 
         public MyViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+//            ButterKnife.bind(this, view);
+            textViewName=view.findViewById(R.id.txt_address_name);
+            textViewEmail=view.findViewById(R.id.txt_address_email);
+            textViewMobile=view.findViewById(R.id.txt_address_mobile);
+            textViewPermanent=view.findViewById(R.id.txt_address_permanent);
+            textViewPincode=view.findViewById(R.id.txt_address_pincode);
+            textViewShipping=view.findViewById(R.id.txt_address_shipping);
+            textViewCity=view.findViewById(R.id.txt_address_city);
+            textViewState=view.findViewById(R.id.txt_address_state);
+            proceed_pay=view.findViewById(R.id.proceed_pay);
+            deleteAddress=view.findViewById(R.id.deleteAddress);
+            btnEditAddress=view.findViewById(R.id.edit_address);
+            cardView=view.findViewById(R.id.card_view_address);
+
         }
     }
 

@@ -1,7 +1,7 @@
 package com.dnamedical.Activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -30,8 +30,8 @@ import com.dnamedical.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -41,13 +41,13 @@ import retrofit2.Response;
 public class EditProfileActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.update_edit_name)
+//    @BindView(R.id.update_edit_name)
     EditText editTextUpdateName;
 
-    @BindView(R.id.edit_phone)
+//    @BindView(R.id.edit_phone)
     EditText edit_phone;
 
-    @BindView(R.id.btn_update)
+//    @BindView(R.id.btn_update)
     Button btnUpdate;
 
 
@@ -72,7 +72,10 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+        editTextUpdateName = findViewById(R.id.update_edit_name);
+        edit_phone = findViewById(R.id.edit_phone);
+        btnUpdate = findViewById(R.id.btn_update);
 
         if (getSupportActionBar() != null) {
 

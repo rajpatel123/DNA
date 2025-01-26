@@ -8,8 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -18,7 +17,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dnamedical.BuildConfig;
 import com.dnamedical.Models.LoginDetailForDemo;
 import com.dnamedical.Models.LoginDetails;
@@ -36,7 +38,7 @@ import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import io.fabric.sdk.android.Fabric;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -52,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+
         setContentView(R.layout.activity_splash);
 
         printHashKey();

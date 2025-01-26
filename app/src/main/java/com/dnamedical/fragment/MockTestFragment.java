@@ -5,11 +5,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import com.dnamedical.Activities.InstituteTestActivity;
 import com.dnamedical.Activities.ModuleTestActivity;
 import com.dnamedical.Activities.TestStartActivity;
 import com.dnamedical.Adapters.TestAdapter;
-import com.dnamedical.DNAApplication;
+
 import com.dnamedical.Models.test.MiniTest;
 import com.dnamedical.Models.test.TestQuestionData;
 import com.dnamedical.Models.test.testp.Test;
@@ -62,20 +63,20 @@ public class MockTestFragment extends Fragment implements TestAdapter.OnCategory
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (Utils.isInternetConnected(getContext())) {
-            Utils.showProgressDialog(getContext());
-            testQuestionData = DNAApplication.getTestQuestionData();
-            if (testQuestionData != null) {
-
-            } else {
-                Utils.dismissProgressDialog();
-            }
-        } else {
-            Utils.dismissProgressDialog();
-            notext.setVisibility(View.VISIBLE);
-            //Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
-
-        }
+//        if (Utils.isInternetConnected(getContext())) {
+//            Utils.showProgressDialog(getContext());
+//            testQuestionData = DNAApplication.getTestQuestionData();
+//            if (testQuestionData != null) {
+//
+//            } else {
+//                Utils.dismissProgressDialog();
+//            }
+//        } else {
+//            Utils.dismissProgressDialog();
+//            notext.setVisibility(View.VISIBLE);
+//            //Toast.makeText(getContext(), "Connected Internet Connection!!!", Toast.LENGTH_SHORT).show();
+//
+//        }
 
     }
 

@@ -1,7 +1,7 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
 
         }
 
-        Picasso.with(applicationContext).load(allReult.getUrl()).error(R.drawable.profile_pictures).into(holder.userImage);
+        Glide.with(applicationContext).load(allReult.getUrl()).error(R.drawable.profile_pictures).into(holder.userImage);
     }
 
     @Override

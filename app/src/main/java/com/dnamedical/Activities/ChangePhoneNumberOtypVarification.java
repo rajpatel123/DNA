@@ -4,15 +4,16 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
+//import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.dnamedical.Models.changePhoneNumber.ChangePhoneNumberOtpResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -22,7 +23,7 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
-import butterknife.ButterKnife;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -37,7 +38,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
       @BindView(R.id.nextBtn)
       Button btnVerify;*/
     SmsReceiver smsReceiver = new SmsReceiver();
-    public PinEntryEditText printVerifyPin;
+    public EditText printVerifyPin;
     public TextView timerTV;
     public Button btnOtpVerify;
     String otpNumber;
@@ -50,7 +51,7 @@ public class ChangePhoneNumberOtypVarification extends AppCompatActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_phone_number_otyp_varification);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
         printVerifyPin = findViewById(R.id.prntEdtChangePhoneOtp);
         btnOtpVerify = findViewById(R.id.btnVerify);

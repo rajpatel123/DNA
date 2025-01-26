@@ -1,7 +1,7 @@
 package com.dnamedical.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -16,8 +16,8 @@ import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
 import com.dnamedical.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -26,10 +26,10 @@ import retrofit2.Response;
 
 public class ForgetPasswordSendEmailActiivty extends AppCompatActivity {
 
-    @BindView(R.id.edit_send_email)
+    //@BindView(R.id.edit_send_email)
     EditText editTextEmail;
 
-    @BindView(R.id.btnSendEmail)
+   // @BindView(R.id.btnSendEmail)
     Button btnsendEmail;
 
     String emailId;
@@ -38,7 +38,9 @@ public class ForgetPasswordSendEmailActiivty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password_send_email_actiivty);
-        ButterKnife.bind(this);
+        editTextEmail=findViewById(R.id.edit_send_email);
+        btnsendEmail=findViewById(R.id.btnSendEmail);
+//        ButterKnife.bind(this);
         if (getSupportActionBar() != null) {
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

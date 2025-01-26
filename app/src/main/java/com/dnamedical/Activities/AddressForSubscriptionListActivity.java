@@ -20,7 +20,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,13 +51,13 @@ import retrofit2.Response;
 public class AddressForSubscriptionListActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.recycler)
+//    @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    @BindView(R.id.noData)
+//    @BindView(R.id.noData)
     TextView textViewNoData;
 
-    @BindView(R.id.toolbar)
+//    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     String userId, amount, subscription_id, shippingCharge, totalDiscountGiven, totalADDDiscountGiven, couponValue, couponValueAdd, totalValue, plan_id, months, pack_key, order_id;
@@ -65,7 +67,10 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_list);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+        recyclerView = findViewById(R.id.recycler);
+        textViewNoData = findViewById(R.id.noData);
+        mToolbar=findViewById(R.id.toolbar);
 
 
 //        mToolbar = findViewById(R.id.toolbar);
@@ -208,6 +213,7 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
 
                                     }
                                 });
+//                                recyclerView.setAdapter(addressListAdapter);
                                 recyclerView.setAdapter(addressListAdapter);
                                 recyclerView.setVisibility(View.VISIBLE);
                                 textViewNoData.setVisibility(View.GONE);

@@ -1,7 +1,5 @@
 package com.dnamedical.Activities;
-
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,8 +22,8 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -34,34 +32,34 @@ import retrofit2.Response;
 
 public class PaymentAddressSaveActivity extends AppCompatActivity {
 
-    @BindView(R.id.edittxt_payment_name)
+    //@BindView(R.id.edittxt_payment_name)
     EditText editTextName;
 
 
-    @BindView(R.id.edittxt_payment_email)
+    //@BindView(R.id.edittxt_payment_email)
     EditText editTextEmail;
 
 
-    @BindView(R.id.edittxt_payment_city)
+    //@BindView(R.id.edittxt_payment_city)
     EditText editTextCity;
 
 
-    @BindView(R.id.edittxt_payment_address)
+    //@BindView(R.id.edittxt_payment_address)
     EditText editTextAddress;
 
-    @BindView(R.id.edittxt_payment_landmark)
+    //@BindView(R.id.edittxt_payment_landmark)
     EditText editTextAddressTwo;
-    @BindView(R.id.edittxt_payment_zipcode)
+    //@BindView(R.id.edittxt_payment_zipcode)
     EditText editTextZipcode;
 
-    @BindView(R.id.edittxt_payment_phone)
+    //@BindView(R.id.edittxt_payment_phone)
     EditText editTextPhone;
 
 
-    @BindView(R.id.spinner_payment_state)
+    //@BindView(R.id.spinner_payment_state)
     Spinner spinnerState;
 
-    @BindView(R.id.btn_save_address)
+   // @BindView(R.id.btn_save_address)
     Button btnSave;
 
     private StateListAdapter stateListAdapter;
@@ -75,7 +73,18 @@ public class PaymentAddressSaveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_gateway);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
+        editTextName=findViewById(R.id.edittxt_payment_name);
+        editTextEmail=findViewById(R.id.edittxt_payment_email);
+        editTextCity=findViewById(R.id.edittxt_payment_city);
+        editTextAddress=findViewById(R.id.edittxt_payment_address);
+        editTextZipcode=findViewById(R.id.edittxt_payment_zipcode);
+        editTextAddressTwo=findViewById(R.id.edittxt_payment_landmark);
+        editTextPhone=findViewById(R.id.edittxt_payment_phone);
+        spinnerState=findViewById(R.id.spinner_payment_state);
+        btnSave=findViewById(R.id.btn_save_address);
+
+
 
         getStateList();
 

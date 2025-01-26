@@ -1,10 +1,8 @@
 package com.dnamedical.Activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -40,7 +38,7 @@ public class RemarksActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
             finish();
 
         }

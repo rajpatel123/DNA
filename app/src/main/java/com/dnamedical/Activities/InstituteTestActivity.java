@@ -1,10 +1,12 @@
 package com.dnamedical.Activities;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+//import android.support.design.widget.TabLayout;
+//import android.support.v4.view.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+//import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -14,6 +16,7 @@ import com.dnamedical.Models.test.testp.TestDataResponse;
 import com.dnamedical.R;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;

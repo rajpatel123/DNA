@@ -4,9 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
+//import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -39,8 +40,8 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -49,23 +50,23 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.edit_email)
+   // @BindView(R.id.edit_email)
     EditText editEmail;
 
-    @BindView(R.id.edit_Passwword)
+    //@BindView(R.id.edit_Passwword)
     EditText editPassword;
 
-    @BindView(R.id.loginButton)
+    //@BindView(R.id.loginButton)
     Button btnLogin;
 
-    @BindView(R.id.login_checkbox)
+    //@BindView(R.id.login_checkbox)
     CheckBox loginCheck;
     /*
 
         @BindView(R.id.login_button)
         LoginButton loginBtn;
     */
-    @BindView(R.id.txt_forget)
+    //@BindView(R.id.txt_forget)
     TextView textViewForget;
 
 
@@ -82,7 +83,12 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         customFacebook = findViewById(R.id.custom_login);
-        ButterKnife.bind(this);
+        editPassword=findViewById(R.id.edit_Passwword);
+        btnLogin=findViewById(R.id.loginButton);
+        loginCheck=findViewById(R.id.login_checkbox);
+        textViewForget=findViewById(R.id.txt_forget);
+
+//        ButterKnife.bind(this);
         callbackManager = CallbackManager.Factory.create();
         loginwithFb();
 
@@ -361,7 +367,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
             finish();
 
         }

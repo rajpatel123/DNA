@@ -10,8 +10,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
+
 import android.util.Log;
 
 
@@ -23,7 +22,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 public class CameraUtils {
 

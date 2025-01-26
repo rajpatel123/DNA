@@ -6,11 +6,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
+
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -3,12 +3,12 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.dnamedical.Activities.BookmarkActivity;
 import com.dnamedical.Activities.ModuleQBankActivity;
 import com.dnamedical.Activities.QbankSubActivity;
@@ -47,10 +46,10 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
 
 */
 
-    @BindView(R.id.noInternet)
+   // @BindView(R.id.noInternet)
     TextView textInternet;
 
-    @BindView(R.id.recyclerView)
+    //@BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
   /*  @BindView(R.id.bookmark_cardview)
@@ -94,7 +93,10 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.qbankfragment, container, false);
-        ButterKnife.bind(this,view);
+//        ButterKnife.bind(this,view);
+        textInternet = view.findViewById(R.id.noInternet);
+        recyclerView = view.findViewById(R.id.recyclerView);
+
         getQbankData();
        /* bookmarkedCardView.setOnClickListener(new View.OnClickListener() {
             @Override

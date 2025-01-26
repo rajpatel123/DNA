@@ -4,15 +4,17 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.v4.content.ContextCompat;
+
 import android.util.AttributeSet;
 import android.widget.SeekBar;
+
+import androidx.core.content.ContextCompat;
 
 import com.dnamedical.R;
 
 import java.util.ArrayList;
 
-public class CustomSeekBar extends SeekBar {
+public class CustomSeekBar extends androidx.appcompat.widget.AppCompatSeekBar {
 
     private ArrayList<ProgressItem> mProgressItemsList;
 

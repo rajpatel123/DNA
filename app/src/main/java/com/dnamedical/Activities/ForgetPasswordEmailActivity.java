@@ -2,7 +2,7 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -19,8 +19,8 @@ import com.dnamedical.utils.Utils;
 
 import java.io.File;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -30,19 +30,19 @@ import retrofit2.Response;
 
 public class ForgetPasswordEmailActivity extends AppCompatActivity {
 
-    @BindView(R.id.edit_token)
+   // @BindView(R.id.edit_token)
     EditText editTextToken;
 
-    @BindView(R.id.edit_password)
+    //@BindView(R.id.edit_password)
     EditText editTextPassword;
 
-    @BindView(R.id.edit_confirm_password)
+    //@BindView(R.id.edit_confirm_password)
     EditText editTextConfirmPassword;
 
-    @BindView(R.id.edit_emailid)
+   // @BindView(R.id.edit_emailid)
     EditText editTextEmailId;
 
-    @BindView(R.id.btnChangePassword)
+   // @BindView(R.id.btnChangePassword)
     Button btnchangePassword;
 
     String tokens, emailId, password, confirmPassword;
@@ -52,7 +52,13 @@ public class ForgetPasswordEmailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password_email);
-        ButterKnife.bind(this);
+       // ButterKnife.bind(this);
+        editTextToken=findViewById(R.id.edit_token);
+        editTextPassword=findViewById(R.id.edit_password);
+        editTextConfirmPassword=findViewById(R.id.edit_confirm_password);
+        editTextEmailId=findViewById(R.id.edit_emailid);
+        btnchangePassword=findViewById(R.id.btnChangePassword);
+
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

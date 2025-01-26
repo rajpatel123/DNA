@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ChangePhoneNumberOtypVarification">
 
-    <android.support.v7.widget.AppCompatImageView
+    <ImageView
         android:id="@+id/crossBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,24 +124,24 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-<!--                <com.alimuzaffar.lib.pin.PinEntryEditText-->
-<!--                    android:id="@+id/prntEdtChangePhoneOtp"-->
-<!--                    android:layout_width="164dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@+id/otpTxt"-->
-<!--                    android:layout_centerHorizontal="true"-->
-<!--                    android:layout_gravity="center_horizontal"-->
-<!--                    android:layout_marginTop="50dp"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:cursorVisible="false"-->
-<!--                    android:digits="1234567890"-->
-<!--                    android:focusable="true"-->
-<!--                    android:gravity="center_horizontal"-->
-<!--                    android:imeOptions="actionDone"-->
-<!--                    android:inputType="number"-->
-<!--                    android:maxLength="5"-->
-<!--                    android:textIsSelectable="false"-->
-<!--                    android:textSize="20sp"-->
+                <EditText
+                    android:id="@+id/prntEdtChangePhoneOtp"
+                    android:layout_width="164dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/otpTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="50dp"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="false"
+                    android:digits="1234567890"
+                    android:focusable="true"
+                    android:gravity="center_horizontal"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:textIsSelectable="false"
+                    android:textSize="20sp"/>
 <!--                    app:pinAnimationType="popIn"-->
 <!--                    app:pinBackgroundIsSquare="true"-->
 <!--                    app:pinCharacterSpacing="12dp"-->

@@ -3,22 +3,18 @@ package com.dnamedical.fragment.institute;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +38,7 @@ import com.dnamedical.fragment.TestFragment;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +46,7 @@ import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class AllTestForInstituteFragment extends Fragment{
+public class AllTestForInstituteFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView subcategory;
@@ -77,7 +74,7 @@ public class AllTestForInstituteFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.textfragment, container, false);
-        subcategory = view.findViewById(R.id.subcategory_name);
+        //subcategory = view.findViewById(R.id.subcategory_name);
         viewPager = view.findViewById(R.id.viewPager);
         setupViewPager(viewPager);
         tabLayout = view.findViewById(R.id.tabs);

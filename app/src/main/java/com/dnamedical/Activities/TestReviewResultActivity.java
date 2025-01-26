@@ -3,11 +3,12 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -73,7 +74,7 @@ public class TestReviewResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qbank_result_list);
         recyclerView = findViewById(R.id.recycler);
-        imageView = findViewById(R.id.back);
+//        imageView = findViewById(R.id.back);
         applyFilters = findViewById(R.id.applyFilter);
         filterView = findViewById(R.id.filterView);
         anRadioGroup = findViewById(R.id.answersGroup);

@@ -2,7 +2,7 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import com.dnamedical.Models.registration.CommonResponse;
 import com.dnamedical.R;
 import com.dnamedical.Retrofit.RestClient;
@@ -27,20 +27,24 @@ import retrofit2.Response;
 
 public class PhoneloginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.edittext_phone)
+    //@BindView(R.id.edittext_phone)
     EditText edit_phone;
 
-    @BindView(R.id.btn_continue)
+   // @BindView(R.id.btn_continue)
     Button btnContinue;
 
-    @BindView(R.id.try_login)
+    //@BindView(R.id.try_login)
     TextView tryOtherLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phonelogin);
-        ButterKnife.bind(this);
+       // ButterKnife.bind(this);
+        edit_phone=findViewById(R.id.edittext_phone);
+        btnContinue=findViewById(R.id.btn_continue);
+        tryOtherLogin=findViewById(R.id.try_login);
+
         edit_phone.setOnClickListener(this);
         btnContinue.setOnClickListener(this);
         tryOtherLogin.setOnClickListener(this);
@@ -66,23 +70,19 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-        switch (view.getId())
-        {
-            case R.id.btn_continue:
-                if (!TextUtils.isEmpty(edit_phone.getText().toString().trim())) {
-                    sentOTP(edit_phone.getText().toString().trim());
-                } else {
+       if(view.getId()==R.id.btn_continue) {
+//        {
+//            case R.id.btn_continue:
+           if (!TextUtils.isEmpty(edit_phone.getText().toString().trim())) {
+               sentOTP(edit_phone.getText().toString().trim());
+           } else {
 
-                }
-                break;
-
-            case R.id.try_login:
+           }
+           return;
+       } else if (view.getId()==R.id.try_login){
                 startActivity(new Intent(PhoneloginActivity.this,LoginActivity.class));
                 finish();
-                break;
-
-
-        }
+       }
 
     }
 

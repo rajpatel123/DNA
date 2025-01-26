@@ -3,11 +3,12 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnamedical.Activities.VideoActivity;
-import com.dnamedical.Activities.VideoPlayerActivity;
+//import com.dnamedical.Activities.VideoPlayerActivity;
 import com.dnamedical.Adapters.VideoListFreeAdapter;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.Models.video.VideoList;
@@ -162,9 +163,9 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
 
     @Override
     public void onCateClick(Free free) {
-        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-        intent.putExtra("free",free);
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+//        intent.putExtra("free",free);
+//        startActivity(intent);
 
     }
 }

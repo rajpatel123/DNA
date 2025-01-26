@@ -1,9 +1,10 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,6 @@ import com.dnamedical.utils.Utils;
 
 import java.util.List;
 import java.util.Objects;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static android.view.View.GONE;
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
@@ -299,37 +296,49 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.testTitle)
+       // @BindView(R.id.testTitle)
         TextView title;
 
-        @BindView(R.id.total_question)
+        //@BindView(R.id.total_question)
         TextView questionTotal;
 
-        @BindView(R.id.total_time)
+        //@BindView(R.id.total_time)
         TextView timeTotal;
 
-        @BindView(R.id.testStartTime)
+        //@BindView(R.id.testStartTime)
         TextView testStartTime;
 
 
-        @BindView(R.id.testEndTime)
+        //@BindView(R.id.testEndTime)
         TextView testEndTime;
 
-        @BindView(R.id.textView_Date)
+       // @BindView(R.id.textView_Date)
         TextView textDate;
 
-        @BindView(R.id.image_lock)
+       // @BindView(R.id.image_lock)
         ImageView imageLock;
 
-        @BindView(R.id.cardView)
+       // @BindView(R.id.cardView)
         CardView cardview;
 
-        @BindView(R.id.relative_head)
+        //@BindView(R.id.relative_head)
         RelativeLayout relativeLayout;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+           // ButterKnife.bind(this, view);
+            title = view.findViewById(R.id.testTitle);
+            questionTotal = view.findViewById(R.id.total_question);
+            timeTotal = view.findViewById(R.id.total_time);
+            testStartTime = view.findViewById(R.id.testStartTime);
+            testEndTime = view.findViewById(R.id.testEndTime);
+            textDate = view.findViewById(R.id.textView_Date);
+            imageLock = view.findViewById(R.id.image_lock);
+            cardview = view.findViewById(R.id.cardView);
+            relativeLayout = view.findViewById(R.id.relative_head);
+
+
+
         }
     }
 }

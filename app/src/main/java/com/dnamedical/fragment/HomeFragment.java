@@ -3,11 +3,12 @@ package com.dnamedical.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,8 +38,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,11 +46,11 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment implements FragmentLifecycle, CourseListAdapter.OnCategoryClick {
 
 
-    @BindView(R.id.noInternet)
+    //@BindView(R.id.noInternet)
     TextView textInternet;
 
     MainActivity mainActivity;
-    @BindView(R.id.recyclerView)
+    //@BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private CategoryDetailData categoryDetailData;
 /*
@@ -80,7 +80,8 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
-        ButterKnife.bind(this, view);
+       // ButterKnife.bind(this, view);
+        textInternet=view.findViewById(R.id.noInternet);
         getCourse();
         return view;
 

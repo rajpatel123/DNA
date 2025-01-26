@@ -2,8 +2,8 @@ package com.dnamedical.Adapters;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
 import com.dnamedical.R;
@@ -23,8 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 import static android.view.View.GONE;
 
@@ -125,7 +125,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         holder.ratingandtime.setText(price.getDuration() + " min video");
         //Log.i("Thumb",  price.getUrl());
-        Picasso.with(applicationContext).load(price.getDrImg())
+        Glide.with(applicationContext).load(price.getDrImg())
                 .error(R.drawable.profile_image_know_more)
                 .into(holder.imageViewDoctor);
 
@@ -297,55 +297,71 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.row_view)
+       // @BindView(R.id.row_view)
         LinearLayout row_view;
-        @BindView(R.id.number)
+       // @BindView(R.id.number)
         TextView number;
 
-        @BindView(R.id.vid_title)
+       // @BindView(R.id.vid_title)
         TextView title;
 
 
-        @BindView(R.id.vid_doctor_name)
+       // @BindView(R.id.vid_doctor_name)
         TextView doctarName;
-        @BindView(R.id.chapter)
+       // @BindView(R.id.chapter)
         TextView chapter;
 
-        @BindView(R.id.ratingandtime)
+       // @BindView(R.id.ratingandtime)
         TextView ratingandtime;
 
-        @BindView(R.id.pdfloadImg)
+        //@BindView(R.id.pdfloadImg)
         ImageView pdfloadImg;
 
-        @BindView(R.id.image_doctor)
+       // @BindView(R.id.image_doctor)
         ImageView imageViewDoctor;
 
-        @BindView(R.id.buy_now)
+       // @BindView(R.id.buy_now)
         TextView buyNow;
 
-        @BindView(R.id.commingsoon)
+       // @BindView(R.id.commingsoon)
         TextView commingSoon;
 
-        @BindView(R.id.lock)
+        //@BindView(R.id.lock)
         ImageView lockNew;
 
 
-        @BindView(R.id.txt_actual_price)
+        //@BindView(R.id.txt_actual_price)
         TextView txtActualPrice;
 
 
-        @BindView(R.id.txt_total_price)
+       // @BindView(R.id.txt_total_price)
         TextView txtTotalPrice;
 
-        @BindView(R.id.lineView)
+       // @BindView(R.id.lineView)
         View lineView;
-        @BindView(R.id.lineViewWithMargin)
+       // @BindView(R.id.lineViewWithMargin)
         View lineViewWithMargin;
 
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            //ButterKnife.bind(this, view);
+            row_view=view.findViewById(R.id.row_view);
+            number=view.findViewById(R.id.number);
+            title=view.findViewById(R.id.vid_title);
+            doctarName=view.findViewById(R.id.vid_doctor_name);
+            chapter=view.findViewById(R.id.chapter);
+            ratingandtime=view.findViewById(R.id.ratingandtime);
+            commingSoon=view.findViewById(R.id.commingsoon);
+            pdfloadImg=view.findViewById(R.id.pdfloadImg);
+            imageViewDoctor=view.findViewById(R.id.image_doctor);
+            buyNow=view.findViewById(R.id.buy_now);
+            lockNew=view.findViewById(R.id.lock);
+            txtActualPrice=view.findViewById(R.id.txt_actual_price);
+            txtTotalPrice=view.findViewById(R.id.txt_total_price);
+            lineView=view.findViewById(R.id.lineView);
+            lineViewWithMargin=view.findViewById(R.id.lineViewWithMargin);
+
         }
     }
 

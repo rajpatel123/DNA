@@ -1,30 +1,30 @@
 package com.dnamedical.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.dnamedical.R;
 
 public class ShoppingFragment extends Fragment implements View.OnClickListener{
 
-    @BindView(R.id.mcqBooks)
+   // @BindView(R.id.mcqBooks)
     Button mcqBooks;
 
 
-    @BindView(R.id.theory_books)
+    //@BindView(R.id.theory_books)
     Button theoryBooks;
 
 
-    @BindView(R.id.f2fClasses)
+    //@BindView(R.id.f2fClasses)
     Button face2faceclasses;
 
 
@@ -35,7 +35,11 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.shopping_fragment,container,false);
 
-        ButterKnife.bind(this,view);
+        //ButterKnife.bind(this,view);
+        theoryBooks=view.findViewById(R.id.theory_books);
+        mcqBooks=view.findViewById(R.id.mcqBooks);
+        face2faceclasses=view.findViewById(R.id.f2fClasses);
+
       //  mcqBooks.setOnClickListener(this);
         theoryBooks.setOnClickListener(this);
        // face2faceclasses.setOnClickListener(this);
@@ -51,16 +55,13 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener{
 
         Fragment selectedFragment=null;
 
-        switch (view.getId())
-        {
-            case R.id.f2fClasses:
-                Toast.makeText(getContext(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
-            case R.id.theory_books:
-                selectedFragment=new TheoryFragment();
+        if (view.getId()==R.id.f2fClasses) {
+            Toast.makeText(getContext(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+        } else if (view.getId()==R.id.theory_books) {
+            selectedFragment = new TheoryFragment();
 
 
-            case R.id.mcqBooks:
+        }else if (view.getId()==R.id.mcqBooks){
                 Toast.makeText(getContext(),getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
 
         }

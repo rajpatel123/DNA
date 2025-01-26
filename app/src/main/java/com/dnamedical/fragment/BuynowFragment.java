@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.dnamedical.Activities.PaymentCoupenActivity;
 import com.dnamedical.Activities.VideoActivity;
-import com.dnamedical.Activities.VideoPlayerActivity;
+//import com.dnamedical.Activities.VideoPlayerActivity;
 import com.dnamedical.Adapters.VideoListPriceAdapter;
 import com.dnamedical.Models.paidvideo.PaidVideoResponse;
 import com.dnamedical.Models.paidvideo.Price;
@@ -106,9 +106,9 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
     @Override
     public void onCateClick(Price price) {
-        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-        intent.putExtra("price", price);
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+//        intent.putExtra("price", price);
+//        startActivity(intent);
 
     }
 
@@ -135,10 +135,10 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
 
     private void getVideos() {
 
-        if (DnaPrefs.getBoolean(getApplicationContext(), "isFacebook")) {
-            userId = String.valueOf(DnaPrefs.getInt(getApplicationContext(), "fB_ID", 0));
+        if (DnaPrefs.getBoolean(activity.getApplicationContext(), "isFacebook")) {
+            userId = String.valueOf(DnaPrefs.getInt(activity.getApplicationContext(), "fB_ID", 0));
         } else {
-            userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+            userId = DnaPrefs.getString(activity.getApplicationContext(), Constants.LOGIN_ID);
         }
 
         subcatid = activity.subCatId;

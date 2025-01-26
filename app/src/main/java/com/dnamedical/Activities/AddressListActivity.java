@@ -4,9 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+//import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.widget.LinearLayoutManager;
+//import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dnamedical.Adapters.AddressListAdapter;
 import com.dnamedical.Models.getAddressDetail.GetDataAddressResponse;
@@ -25,8 +29,8 @@ import com.dnamedical.utils.Utils;
 
 import java.io.IOException;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -37,10 +41,10 @@ import retrofit2.Response;
 public class AddressListActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.recycler)
+//    @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    @BindView(R.id.noData)
+//    @BindView(R.id.noData)
     TextView textViewNoData;
 
     String userId, amount, vedioId, shippingCharge, couponValue, couponValueAdd, totalValue, subchildcat;
@@ -50,7 +54,9 @@ public class AddressListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_list);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+        recyclerView=findViewById(R.id.recycler);
+        textViewNoData=findViewById(R.id.noData);
 
         if (getIntent().hasExtra("AMOUNT")) {
             amount = getIntent().getStringExtra("AMOUNT");

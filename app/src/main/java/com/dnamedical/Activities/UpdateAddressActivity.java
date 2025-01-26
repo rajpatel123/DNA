@@ -2,7 +2,7 @@ package com.dnamedical.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -25,9 +25,9 @@ import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
+//import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -37,25 +37,25 @@ import retrofit2.Response;
 public class UpdateAddressActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.linear_txt_payment)
+   // @BindView(R.id.linear_txt_payment)
     LinearLayout linearTxtPayment;
-    @BindView(R.id.edittxt_payment_name)
+   // @BindView(R.id.edittxt_payment_name)
     EditText edittxtPaymentName;
-    @BindView(R.id.edittxt_payment_email)
+   // @BindView(R.id.edittxt_payment_email)
     EditText edittxtPaymentEmail;
-    @BindView(R.id.edittxt_payment_phone)
+   // @BindView(R.id.edittxt_payment_phone)
     EditText edittxtPaymentPhone;
-    @BindView(R.id.edittxt_payment_address)
+   // @BindView(R.id.edittxt_payment_address)
     EditText edittxtPaymentAddress;
-    @BindView(R.id.edittxt_payment_landmark)
+   // @BindView(R.id.edittxt_payment_landmark)
     EditText edittxtPaymentLandmark;
-    @BindView(R.id.edittxt_payment_city)
+   // @BindView(R.id.edittxt_payment_city)
     EditText edittxtPaymentCity;
-    @BindView(R.id.spinner_payment_state)
+   // @BindView(R.id.spinner_payment_state)
     Spinner spinnerPaymentState;
-    @BindView(R.id.edittxt_payment_zipcode)
+   // @BindView(R.id.edittxt_payment_zipcode)
     EditText edittxtPaymentZipcode;
-    @BindView(R.id.btn_update_address)
+    //@BindView(R.id.btn_update_address)
     Button btnUpdateAddress;
 
 
@@ -69,7 +69,18 @@ public class UpdateAddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_address);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
+        linearTxtPayment=findViewById(R.id.linear_txt_payment);
+        edittxtPaymentName=findViewById(R.id.edittxt_payment_name);
+        edittxtPaymentEmail=findViewById(R.id.edittxt_payment_email);
+        spinnerPaymentState=findViewById(R.id.spinner_payment_state);
+        edittxtPaymentLandmark=findViewById(R.id.edittxt_payment_landmark);
+        edittxtPaymentZipcode=findViewById(R.id.edittxt_payment_zipcode);
+        btnUpdateAddress=findViewById(R.id.btn_update_address);
+        edittxtPaymentCity=findViewById(R.id.edittxt_payment_city);
+
+
+
 
         getStateList();
 

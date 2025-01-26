@@ -1,8 +1,8 @@
 package com.dnamedical.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedical.Models.newqbankmodule.Module;
 import com.dnamedical.R;
 import com.squareup.picasso.Picasso;
@@ -109,7 +110,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             e.printStackTrace();
         }
 
-        Picasso.with(applicationContext).load(detail.getChapterImage()).error(R.drawable.biology).into(holder.subImage);
+        Glide.with(applicationContext).load(detail.getChapterImage()).error(R.drawable.biology).into(holder.subImage);
         holder.subTitle.setText("" + detail.getModuleName());
 //        holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getTotalMcq() + " MCQ's");
