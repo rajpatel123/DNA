@@ -87,20 +87,20 @@
                 tools:visibility="visible" />
 
 
-<!--            <com.dnamedical.player.EasyExoVideoPlayer-->
-<!--                android:id="@+id/exoplayer"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:visibility="visible"-->
-<!--                app:evp_autoFullscreen="false"-->
-<!--                app:evp_autoPlay="true"-->
-<!--                app:evp_disableControls="true"-->
-<!--                app:evp_hideControlsOnPlay="true"-->
-<!--                app:evp_leftAction="none"-->
-<!--                app:evp_loop="false"-->
-<!--                app:evp_rightAction="none"-->
-<!--                tools:visibility="visible" />-->
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/exoplayer"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:evp_autoFullscreen="false"
+                app:evp_autoPlay="true"
+                app:evp_disableControls="true"
+                app:evp_hideControlsOnPlay="true"
+                app:evp_leftAction="none"
+                app:evp_loop="false"
+                app:evp_rightAction="none"
+                tools:visibility="visible" />
 
             <LinearLayout
 
@@ -159,16 +159,16 @@
             android:visibility="visible"
             tools:visibility="visible">
 
-<!--            <com.warkiz.widget.DotIndicatorSeekBar-->
-<!--                android:id="@+id/seekbarVideoo"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/dp_5"-->
-<!--                android:layout_marginEnd="@dimen/dp_5"-->
-<!--                android:background="@color/transparent"-->
-<!--                android:paddingTop="10dp"-->
-<!--                android:paddingBottom="5dp"-->
-<!--                android:visibility="gone"-->
+            <SeekBar
+                android:id="@+id/seekbarVideoo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:background="@color/transparent"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:visibility="gone"/>
 <!--                app:isb_indicator_color="@color/transparent"-->
 <!--                app:isb_indicator_text_color="@color/colorPrimary"-->
 <!--                app:isb_seek_smoothly="true"-->
@@ -178,6 +178,7 @@
 <!--                app:isb_track_background_color="@color/dark_gray"-->
 <!--                app:isb_track_progress_color="@color/white"-->
 <!--                app:isb_user_seekable="true" />-->
+
 
 
             <LinearLayout

@@ -174,5 +174,8 @@
     <string name="file_view">File View</string>
     <string name="file_download">File Download</string>
     <string name="file_request">Request Access Again</string>
+    <string name="evp_retry">Retry</string>
+    <string name="evp_submit">Submit</string>
+
 
 </resources>

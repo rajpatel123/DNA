@@ -1,7 +1,5 @@
 package com.dnamedical.player;
 
-import static com.dnamedical.utils.DnaPrefs.getString;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -14,9 +12,10 @@ import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.PlaybackParams;
 import android.net.Uri;
-import android.opengl.EGL14;
-import android.opengl.GLES20;
 import android.os.Build;
 import android.os.Handler;
 import androidx.annotation.CheckResult;
@@ -28,39 +27,18 @@ import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
-import androidx.media3.common.MediaItem;
-import androidx.media3.common.PlaybackParameters;
-import androidx.media3.common.Player;
-import androidx.media3.common.Timeline;
-import androidx.media3.common.util.UnstableApi;
-import androidx.media3.datasource.DataSource;
-import androidx.media3.datasource.DefaultDataSourceFactory;
-import androidx.media3.datasource.TransferListener;
-import androidx.media3.exoplayer.ExoPlayer;
-import androidx.media3.exoplayer.SimpleExoPlayer;
-import androidx.media3.exoplayer.source.MediaSource;
-import androidx.media3.exoplayer.source.ProgressiveMediaSource;
-import androidx.media3.exoplayer.source.TrackGroupArray;
-import androidx.media3.exoplayer.trackselection.AdaptiveTrackSelection;
-import androidx.media3.exoplayer.trackselection.DefaultTrackSelector;
-import androidx.media3.exoplayer.trackselection.TrackSelection;
-import androidx.media3.exoplayer.trackselection.TrackSelectionArray;
-import androidx.media3.exoplayer.trackselection.TrackSelector;
-import androidx.media3.exoplayer.upstream.BandwidthMeter;
-import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
-import androidx.media3.extractor.DefaultExtractorsFactory;
 
 import android.util.AttributeSet;
-import android.util.Log;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
@@ -71,37 +49,45 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-
-import com.dnamedical.utils.DnaPrefs;
-import com.google.android.exoplayer2.ExoPlaybackException;
-
 import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface;
+import static android.media.MediaPlayer.SEEK_CLOSEST;
 
 import com.dnamedical.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-@UnstableApi
-public class EasyExoVideoPlayer extends FrameLayout
-        implements IExoUserMethods,
+@RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+public class EasyVideoPlayer extends FrameLayout
+        implements IUserMethods,
         TextureView.SurfaceTextureListener,
+        MediaPlayer.OnPreparedListener,
+        MediaPlayer.OnBufferingUpdateListener,
+        MediaPlayer.OnCompletionListener,
+        MediaPlayer.OnVideoSizeChangedListener,
+        MediaPlayer.OnErrorListener,
+        MediaPlayer.OnSeekCompleteListener,
         View.OnClickListener,
         SeekBar.OnSeekBarChangeListener {
 
 
-    private final String TAG = "EasyExoVideoPlayer";
+    @IntDef({LEFT_ACTION_NONE, LEFT_ACTION_RESTART, LEFT_ACTION_RETRY})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface LeftAction {
+    }
+
+    @IntDef({RIGHT_ACTION_NONE, RIGHT_ACTION_SUBMIT, RIGHT_ACTION_CUSTOM_LABEL})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface RightAction {
+    }
 
     public static final int LEFT_ACTION_NONE = 0;
     public static final int LEFT_ACTION_RESTART = 1;
@@ -109,21 +95,44 @@ public class EasyExoVideoPlayer extends FrameLayout
     public static final int RIGHT_ACTION_NONE = 3;
     public static final int RIGHT_ACTION_SUBMIT = 4;
     public static final int RIGHT_ACTION_CUSTOM_LABEL = 5;
+    private static final int UPDATE_INTERVAL = 100;
+
+
     /**
      * TIMER VALUES
      */
-    public static final int SPEED_NORMAL = 11;
-    public static final int SPEED_FAST = 12;
-    public static final int SPEED_SUPER_FAST = 13;
-    private static final int UPDATE_INTERVAL = 1000;
-    private static final int BUFFER_UPDATE_INTERVAL = 1000;
-    private static final int DELAY_TIME = 1 * 1000;
-    private static final int DELAY_PERIOD = 1 * 1000;
+    public static final int SPEED_NORMAL =11;
+    public static final int SPEED_FAST =12;
+    public static final int SPEED_SUPER_FAST =13;
+
+    private static final int DELAY_TIME = 1 *1000;
+    private static final int DELAY_PERIOD = 1 *1000;
+
+
+    private Context mContext;
+
+    public EasyVideoPlayer(Context context) {
+        super(context);
+        init(context, null);
+    }
+
+    public EasyVideoPlayer(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, attrs);
+    }
+
+    public EasyVideoPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs);
+    }
+
     private TextureView mTextureView;
     private Surface mSurface;
+
     private View mControlsFrame;
     private View mProgressFrame;
     private View mClickFrame;
+
     private SeekBar mSeeker;
     private TextView mLabelPosition;
     private TextView mLabelDuration;
@@ -133,68 +142,19 @@ public class EasyExoVideoPlayer extends FrameLayout
     private TextView mBtnSubmit;
     private TextView mLabelCustom;
     private TextView mLabelBottom;
-    private SimpleExoPlayer mPlayer;
+
+    private MediaPlayer mPlayer;
     private boolean mSurfaceAvailable;
     private boolean mIsPrepared;
     private boolean mWasPlaying;
     private int mInitialTextureWidth;
     private int mInitialTextureHeight;
+
     private Handler mHandler;
+
     private Uri mSource;
-    private IEasyExoVideoCallback mCallback;
+    private EasyVideoCallback mCallback;
     private EasyVideoProgressCallback mProgressCallback;
-
-    // Runnable used to run code on an interval to update counters and seeker
-    private final Runnable mUpdateCounters =
-            new Runnable() {
-                @Override
-                public void run() {
-                    if (mHandler == null || !mIsPrepared || mSeeker == null || mPlayer == null)
-                        return;
-                    int pos = (int) mPlayer.getCurrentPosition();
-                    final int dur = (int) mPlayer.getDuration();
-                    if (pos > dur) pos = dur;
-                    mLabelPosition.setText(Util.getDurationString(pos, false));
-                    mLabelDuration.setText(Util.getDurationString(dur - pos, true));
-                    mSeeker.setProgress(pos);
-                    mSeeker.setMax(dur);
-
-                    if (mProgressCallback != null){
-                        mProgressCallback.onVideoProgressUpdate(pos, dur);
-                    }
-                    if (mHandler != null) {
-                        mHandler.postDelayed(this, UPDATE_INTERVAL);
-                    }
-                }
-            };
-
-
-    private final Runnable onlyBufferUpdate=new Runnable() {
-        @Override
-        public void run() {
-            if (mPlayer != null){
-                mCallback.onBuffering(getBufferedPercentage());
-            }
-            if (mHandler != null){
-                mHandler.postDelayed(this, BUFFER_UPDATE_INTERVAL);
-            }
-        }
-    };
-
-    public void attachBufferUpdate(){
-        if(mHandler!=null){
-            mHandler.post(onlyBufferUpdate);
-        }
-    }
-
-    public void detachBufferUpdate(){
-        if(mHandler!=null){
-            mHandler.removeCallbacks(onlyBufferUpdate);
-        }
-    }
-
-
-
     @LeftAction
     private int mLeftAction = LEFT_ACTION_RESTART;
     @RightAction
@@ -213,207 +173,30 @@ public class EasyExoVideoPlayer extends FrameLayout
     private int mThemeColor = 0;
     private boolean mAutoFullscreen = false;
     private boolean mLoop = false;
-    /**
-     * SEEK Logic
-     */
-    private int SPEED_MODE = SPEED_NORMAL;
-    private boolean START_AGAIN = false;
-    private boolean SPEED_SEEK = true;
-    private int MED_SPEED = 30000;
-    private int FAST_SPEED = 60000;
-    /**
-     * Timer Values for SPEED Jugaad
-     */
-    private ISeekChange seekChange;
-    private boolean firstBuffer=false;
-    /*************************** EXO PLAYER ************************************************************/
 
-    private DataSource.Factory dataSourceFactory;
-    private Player.Listener eventListner = new Player.Listener() {
-        @Override
-        public void onLoadingChanged(boolean isLoading) {
-        }
+    // Runnable used to run code on an interval to update counters and seeker
+    private final Runnable mUpdateCounters =
+            new Runnable() {
+                @Override
+                public void run() {
+                    if (mHandler == null || !mIsPrepared || mSeeker == null || mPlayer == null)
+                        return;
+                    int pos = mPlayer.getCurrentPosition();
+                    final int dur = mPlayer.getDuration();
+                    if (pos > dur) pos = dur;
+                    mLabelPosition.setText(Util.getDurationString(pos, false));
+                    mLabelDuration.setText(Util.getDurationString(dur - pos, true));
+                    mSeeker.setProgress(pos);
+                    mSeeker.setMax(dur);
 
-        @Override
-        public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
-
-            switch (playbackState) {
-
-                case Player.STATE_READY: {
-                    if (playWhenReady) {
-                        firstBuffer=true;
-                        onReady();
-                        if (!SPEED_SEEK) {
-                            onSeekComplete(mPlayer);
-                        }
-                    }else{
-                        if(!firstBuffer){
-                            firstBuffer=true;
-                            onWhenPaused();
-                        }
-                    }
+                    if (mProgressCallback != null)
+                        mProgressCallback.onVideoProgressUpdate(pos, dur);
+                    if (mHandler != null) mHandler.postDelayed(this, UPDATE_INTERVAL);
                 }
-                break;
-
-                case Player.STATE_ENDED:
-                    onCompletion();
-                    break;
-
-                case Player.STATE_BUFFERING:
-                    setControlsEnabled(true);
-                    break;
-
-
-                case Player.STATE_IDLE:
-                    break;
-            }
-        }
-
-        @Override
-        public void onRepeatModeChanged(int repeatMode) {
-
-        }
-
-        @Override
-        public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
-
-        }
-
-        public void onPlayerError(ExoPlaybackException error) {
-            if(mCallback!=null){
-                mCallback.onError(EasyExoVideoPlayer.this,error);
-            }
-
-        }
-
-        @Override
-        public void onPositionDiscontinuity(int reason) {
-        }
-
-        @Override
-        public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
-        }
-
-
-    };
-
-    private void onWhenPaused() {
-        mProgressFrame.setVisibility(View.INVISIBLE);
-        mIsPrepared = true;
-        if (mCallback != null) {
-            mCallback.onPrepared(this);
-            mCallback.onSeekChange(this, false);
-        }
-        mLabelPosition.setText(Util.getDurationString(0, false));
-        mLabelDuration.setText(Util.getDurationString(mPlayer.getDuration(), false));
-        mSeeker.setProgress((int) mPlayer.getCurrentPosition());
-        mSeeker.setMax((int) mPlayer.getDuration());
-        setControlsEnabled(true);
-
-        if (mAutoPlay) {
-            if (!mControlsDisabled && mHideControlsOnPlay){
-                hideControls();
-            }
-            if (mInitialPosition >= 0) {
-                seekTo(mInitialPosition);
-                mInitialPosition = -1;
-            }
-        } else {
-            // Hack to show first frame, is there another way?
-//            mPlayer.setPlayWhenReady(true);
-//            mPlayer.setPlayWhenReady(false);
-        }
-
-        if(mCallback!=null){
-            mCallback.onPauseWhenReady(this);
-        }
-    }
-
-    public EasyExoVideoPlayer(Context context) {
-        super(context);
-        init(context, null);
-    }
-
-    public EasyExoVideoPlayer(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
-    }
-
-    public EasyExoVideoPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    private static void LOG(String message, Object... args) {
-        try {
-            if (args != null) message = String.format(message, args);
-            Log.d("EasyVideoPlayer", message);
-        } catch (Exception ignored) {
-        }
-    }
-
-    private static void setTint(@NonNull SeekBar seekBar, @ColorInt int color) {
-        ColorStateList s1 = ColorStateList.valueOf(color);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            seekBar.setThumbTintList(s1);
-            seekBar.setProgressTintList(s1);
-            seekBar.setSecondaryProgressTintList(s1);
-        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
-            Drawable progressDrawable = DrawableCompat.wrap(seekBar.getProgressDrawable());
-            seekBar.setProgressDrawable(progressDrawable);
-            DrawableCompat.setTintList(progressDrawable, s1);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                Drawable thumbDrawable = DrawableCompat.wrap(seekBar.getThumb());
-                DrawableCompat.setTintList(thumbDrawable, s1);
-                seekBar.setThumb(thumbDrawable);
-            }
-        } else {
-            PorterDuff.Mode mode = PorterDuff.Mode.SRC_IN;
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
-                mode = PorterDuff.Mode.MULTIPLY;
-            }
-            if (seekBar.getIndeterminateDrawable() != null)
-                seekBar.getIndeterminateDrawable().setColorFilter(color, mode);
-            if (seekBar.getProgressDrawable() != null)
-                seekBar.getProgressDrawable().setColorFilter(color, mode);
-        }
-    }
-
-    public int getBufferedPercentage(){
-        if(mPlayer!=null){
-            return (int) mPlayer.getBufferedPosition();
-        }
-        return 0;
-    }
-
-    public int getBufferedPercent(){
-        if(mPlayer!=null){
-            return (int) mPlayer.getBufferedPercentage();
-        }
-        return 0;
-    }
-
-    public static String convertSecondsToHMS(long timeInMilliSeconds) {
-        if (timeInMilliSeconds > 0) {
-            long seconds = timeInMilliSeconds / 1000;
-            long minutes = seconds / 60;
-            long hours = minutes / 60;
-
-            String hms;
-            if (hours > 0) {
-                hms = String.format(Locale.getDefault(), "%02d:%02d:%02d", (hours % 24), (minutes % 60), (seconds % 60));
-            } else {
-                hms = String.format(Locale.getDefault(), "%02d:%02d", (minutes % 60), (seconds % 60));
-            }
-            return hms;
-        } else {
-            return "";
-        }
-    }
+            };
 
     private void init(Context context, AttributeSet attrs) {
+        mContext = context;
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setBackgroundColor(Color.BLACK);
 
@@ -475,10 +258,8 @@ public class EasyExoVideoPlayer extends FrameLayout
             mLoop = false;
         }
 
-        if (mRetryText == null)
-            mRetryText = context.getResources().getText(R.string.evp_retry);
-        if (mSubmitText == null)
-            mSubmitText = context.getResources().getText(R.string.evp_submit);
+        if (mRetryText == null) mRetryText = context.getResources().getText(R.string.evp_retry);
+        if (mSubmitText == null) mSubmitText = context.getResources().getText(R.string.evp_submit);
 
         if (mRestartDrawable == null)
             mRestartDrawable = AppCompatResources.getDrawable(context, R.drawable.evp_action_restart);
@@ -499,25 +280,18 @@ public class EasyExoVideoPlayer extends FrameLayout
             } else {
                 prepare();
             }
-        } else {
-            try {
-                setSourceInternal();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     @Override
-    public void setCallback(@NonNull IEasyExoVideoCallback callback) {
+    public void setCallback(@NonNull EasyVideoCallback callback) {
         mCallback = callback;
     }
 
     @Override
-    public void setProgressCallback(@NonNull IEasyExoVideoCallback callback) {
-
+    public void setProgressCallback(@NonNull EasyVideoProgressCallback callback) {
+        mProgressCallback = callback;
     }
-
 
     @Override
     public void setLeftAction(@LeftAction int action) {
@@ -646,6 +420,7 @@ public class EasyExoVideoPlayer extends FrameLayout
         setControlsEnabled(false);
         mSeeker.setProgress(0);
         mSeeker.setEnabled(false);
+        mPlayer.reset();
         if (mCallback != null) mCallback.onPreparing(this);
         try {
             setSourceInternal();
@@ -655,41 +430,42 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
     private void setSourceInternal() throws IOException {
-        if (mSource == null) {
-            return;
-        }
-
         if (mSource.getScheme() != null && (mSource.getScheme().equals("http") || mSource.getScheme().equals("https"))) {
             LOG("Loading web URI: " + mSource.toString());
+//            String tmpURL="https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv";
+            // Caching issue fixed
+            // https://stackoverflow.com/questions/33568542/mediahttpconnection-readat-3110239-32768-java-net-protocolexception-error
             Map<String, String> headers = new HashMap<>();
+            //headers.put("Content-Type", "video/mp4");
             headers.put("Accept-Ranges", "bytes");
+            //headers.put("Status", "206");
             headers.put("Cache-control", "no-cache");
-            headers.put("METHOD", "POST");
-
-            initDataSource();
-            initMp4Player(mSource);
-
+            mPlayer.setDataSource(mContext, mSource, headers);
+//            mPlayer.setDataSource(tmpURL);
         } else if (mSource.getScheme() != null
                 && (mSource.getScheme().equals("file") && mSource.getPath().contains("/android_assets/"))) {
-
+            LOG("Loading assets URI: " + mSource.toString());
             AssetFileDescriptor afd;
-            afd =getContext().getAssets()
-                    .openFd(mSource.toString().replace("file:///android_assets/", ""));
-
-
-            initDataSource();
-            initMp4Player(mSource);
-
+            afd =
+                    getContext()
+                            .getAssets()
+                            .openFd(mSource.toString().replace("file:///android_assets/", ""));
+            mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             afd.close();
         } else if (mSource.getScheme() != null && mSource.getScheme().equals("asset")) {
-//            LOG("Loading assets URI: " + mSource.toString());
-//            AssetFileDescriptor afd;
-//            afd = getContext().getAssets().openFd(mSource.toString().replace("asset://", ""));
-//            mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-//            afd.close();
+            LOG("Loading assets URI: " + mSource.toString());
+            AssetFileDescriptor afd;
+            afd = getContext().getAssets().openFd(mSource.toString().replace("asset://", ""));
+            mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
         } else {
-            initDataSource();
-            initMp4Player(mSource);
+            LOG("Loading local URI: " + mSource.toString());
+            mPlayer.setDataSource(getContext(), mSource);
+        }
+        try {
+            mPlayer.prepareAsync();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -697,6 +473,7 @@ public class EasyExoVideoPlayer extends FrameLayout
         if (!mSurfaceAvailable || mSource == null || mPlayer == null || mIsPrepared) return;
         if (mCallback != null) mCallback.onPreparing(this);
         try {
+            mPlayer.setSurface(mSurface);
             setSourceInternal();
         } catch (IOException e) {
             throwError(e);
@@ -810,98 +587,45 @@ public class EasyExoVideoPlayer extends FrameLayout
     @CheckResult
     @Override
     public boolean isPlaying() {
-        return mPlayer != null
-                && mPlayer.getPlaybackState() == Player.STATE_READY
-                && mPlayer.getPlayWhenReady();
-    }
-
-    public boolean isEnded(){
-        return mPlayer!=null
-                && mPlayer.getPlaybackState() == Player.STATE_ENDED;
+        return mPlayer != null && mPlayer.isPlaying();
     }
 
     @CheckResult
     @Override
     public int getCurrentPosition() {
         if (mPlayer == null) return -1;
-        return (int) mPlayer.getCurrentPosition();
+        return mPlayer.getCurrentPosition();
     }
 
     @CheckResult
     @Override
     public int getDuration() {
         if (mPlayer == null || !mIsPrepared) return -1;
-        return (int) mPlayer.getDuration();
-    }
-
-    public boolean isBuffering(){
-        return mPlayer!=null && mPlayer.getPlaybackState() == Player.STATE_BUFFERING;
-    }
-
-    public boolean getFirstProgress(){
-        if(mPlayer!=null && (mPlayer.isLoading()
-                || mPlayer.getPlaybackState()==Player.STATE_IDLE ||
-                (mPlayer.getPlaybackState()==Player.STATE_BUFFERING && mPlayer.getBufferedPercentage()<=0))){
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Get State For MUTE
-     *
-     * @return
-     */
-    public boolean getStateForMute(){
-        if(mPlayer!=null && (mPlayer.getPlaybackState()==Player.STATE_IDLE ||
-                (mPlayer.getPlaybackState()==Player.STATE_BUFFERING && mPlayer.getBufferedPercentage()<=0))){
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * To check if Player is AT LEAST BUFFERED or NOT
-     * @return (TRUE/FALSE)
-     */
-    public boolean isPlayerBuffered() {
-        return mPlayer != null && !(mPlayer.getPlaybackState() == Player.STATE_IDLE ||
-                (mPlayer.getPlaybackState() == Player.STATE_BUFFERING && mPlayer.getBufferedPercentage() <= 0));
-    }
-
-    public boolean getFirstFrameRendered(){
-
-        return mPlayer!=null && firstBuffer;
+        return mPlayer.getDuration();
     }
 
     @Override
     public void start() {
-        if (mPlayer == null) return;
-        mPlayer.setPlayWhenReady(true);
-        if (mCallback != null){
-            mCallback.onStarted(this);
-        }
-        if (mHandler == null){
-            mHandler = new Handler();
-        }
-        mHandler.removeCallbacks(mUpdateCounters);
+        if (mPlayer == null || !mIsPrepared) return;
+        mPlayer.start();
+        if (mCallback != null) mCallback.onStarted(this);
+        if (mHandler == null) mHandler = new Handler();
         mHandler.post(mUpdateCounters);
         mBtnPlayPause.setImageDrawable(mPauseDrawable);
-        mHandler.post(onlyBufferUpdate);
+
+        // Resume PlayBack of MEDIA PLAYER
+        resumePlayBack();
     }
 
     @Override
     public void seekTo(@IntRange(from = 0, to = Integer.MAX_VALUE) int pos) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mPlayer.seekTo(pos,SEEK_CLOSEST);
+            }else{
+                mPlayer.seekTo(pos);
+        }
+        mCallback.onSeekChange(this,true);
         if (mPlayer == null) return;
-        mPlayer.seekTo(pos);
-        mCallback.onSeekChange(this, true);
-    }
-
-    public void seekToFirstTime(@IntRange(from = 0, to = Integer.MAX_VALUE) int pos) {
-        if (mPlayer == null) return;
-        mPlayer.seekTo(pos);
     }
 
     public void setVolume(
@@ -910,30 +634,20 @@ public class EasyExoVideoPlayer extends FrameLayout
         if (mPlayer == null || !mIsPrepared)
             throw new IllegalStateException(
                     "You cannot use setVolume(float, float) until the player is prepared.");
-        mPlayer.setVolume(leftVolume);
+        mPlayer.setVolume(leftVolume, rightVolume);
     }
-
-    public void setVolume(
-            @FloatRange(from = 0f, to = 1f) float volume) {
-        if (mPlayer == null || !mIsPrepared)
-            throw new IllegalStateException(
-                    "You cannot use setVolume(float, float) until the player is prepared.");
-        mPlayer.setVolume(volume);
-    }
-
-
-
-    // Media player listeners
 
     @Override
     public void pause() {
-//        if (mPlayer == null || !isPlaying()) return;
-        if (mPlayer == null ) return;
-        mPlayer.setPlayWhenReady(false);
+        if (mPlayer == null || !isPlaying()) return;
+        mPlayer.pause();
         if (mCallback != null) mCallback.onPaused(this);
         if (mHandler == null) return;
         mHandler.removeCallbacks(mUpdateCounters);
         mBtnPlayPause.setImageDrawable(mPlayDrawable);
+
+        // Playback Speed PAUSE
+        pausePlayBack();
     }
 
     @Override
@@ -952,7 +666,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     public void reset() {
         if (mPlayer == null) return;
         mIsPrepared = false;
-        mPlayer.setPlayWhenReady(false);
+        mPlayer.reset();
         mIsPrepared = false;
     }
 
@@ -970,9 +684,10 @@ public class EasyExoVideoPlayer extends FrameLayout
 
         if (mHandler != null) {
             mHandler.removeCallbacks(mUpdateCounters);
-            mHandler.removeCallbacks(onlyBufferUpdate);
             mHandler = null;
         }
+
+        LOG("Released player and Handler");
     }
 
     @Override
@@ -980,28 +695,37 @@ public class EasyExoVideoPlayer extends FrameLayout
         this.mAutoFullscreen = autoFullscreen;
     }
 
-    // View events
-
     @Override
     public void setLoop(boolean loop) {
         mLoop = loop;
-//        if (mPlayer != null) mPlayer.setLooping(loop);
+        if (mPlayer != null) mPlayer.setLooping(loop);
     }
+
 
     @Override
     public void setPlaybackSpeed(float playbackSpeed) {
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (mPlayer != null && isPlaying()) {
-//                PlaybackParams params = mPlayer.getPlaybackParams();
-//                params.setAudioFallbackMode(PlaybackParams.AUDIO_FALLBACK_MODE_MUTE);
-//                params.setSpeed(playbackSpeed);
-//                params.setPitch(playbackSpeed);
-//
-//                mPlayer.setPlaybackParams(params);
-//            }
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (mPlayer != null && isPlaying()) {
+                PlaybackParams params=mPlayer.getPlaybackParams();
+                params.setAudioFallbackMode(PlaybackParams.AUDIO_FALLBACK_MODE_MUTE);
+                params.setSpeed(playbackSpeed);
+                params.setPitch(playbackSpeed);
+
+                mPlayer.setPlaybackParams(params);
+            }
+        }
     }
+
+    public float getPlaybackSpeed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (mPlayer != null && isPlaying()) {
+                return mPlayer.getPlaybackParams().getSpeed();
+            }
+        }
+        return 1.0F;
+    }
+
 
     // Surface listeners
     @Override
@@ -1012,7 +736,7 @@ public class EasyExoVideoPlayer extends FrameLayout
         mSurfaceAvailable = true;
         mSurface = new Surface(surfaceTexture);
         if (mIsPrepared) {
-            mPlayer.setVideoSurface(mSurface);
+            mPlayer.setSurface(mSurface);
         } else {
             try {
                 prepare();
@@ -1022,20 +746,15 @@ public class EasyExoVideoPlayer extends FrameLayout
         }
     }
 
-    public boolean hasUri(){
-        return mSource!=null || !mSource.toString().isEmpty();
-    }
-
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int width, int height) {
         LOG("Surface texture changed: %dx%d", width, height);
-        if(mPlayer!=null && mPlayer.getVideoFormat()!=null){
-            adjustAspectRatio(width, height, mPlayer.getVideoFormat().width, mPlayer.getVideoFormat().height);
-        }
+        adjustAspectRatio(width, height, mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
     }
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
+        LOG("Surface texture destroyed");
         mSurfaceAvailable = false;
         mSurface = null;
         return false;
@@ -1045,73 +764,101 @@ public class EasyExoVideoPlayer extends FrameLayout
     public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
     }
 
-//    public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
-//        LOG("Buffering: %d%%", percent);
-//        if (mCallback != null) mCallback.onBuffering((mediaPlayer.getDuration() * percent) / 100);
-//        if (mSeeker != null) {
-//            if (percent == 100) mSeeker.setSecondaryProgress(0);
-//            else mSeeker.setSecondaryProgress(mSeeker.getMax() * (percent / 100));
-//        }
-//    }
+    // Media player listeners
 
-    public void onCompletion() {
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        LOG("onPrepared()");
+        mProgressFrame.setVisibility(View.INVISIBLE);
+        mIsPrepared = true;
+        if (mCallback != null) mCallback.onPrepared(this);
+        mLabelPosition.setText(Util.getDurationString(0, false));
+        mLabelDuration.setText(Util.getDurationString(mediaPlayer.getDuration(), false));
+        mSeeker.setProgress(0);
+        mSeeker.setMax(mediaPlayer.getDuration());
+        setControlsEnabled(true);
 
+        if (mAutoPlay) {
+            if (!mControlsDisabled && mHideControlsOnPlay) hideControls();
+            start();
+            if (mInitialPosition > 0) {
+                seekTo(mInitialPosition);
+                mInitialPosition = -1;
+            }
+        } else {
+            // Hack to show first frame, is there another way?
+            mPlayer.start();
+            mPlayer.pause();
+        }
+    }
+
+    @Override
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
+        LOG("Buffering: %d%%", percent);
+        if (mCallback != null) mCallback.onBuffering((mediaPlayer.getDuration()*percent)/100);
+        if (mSeeker != null) {
+            if (percent == 100) mSeeker.setSecondaryProgress(0);
+            else mSeeker.setSecondaryProgress(mSeeker.getMax() * (percent / 100));
+        }
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        LOG("onCompletion()");
         if (mLoop) {
             mBtnPlayPause.setImageDrawable(mPlayDrawable);
             if (mHandler != null) mHandler.removeCallbacks(mUpdateCounters);
-            mSeeker.setProgress((int) mPlayer.getDuration());
+            mSeeker.setProgress(mSeeker.getMax());
             showControls();
         }
         if (mCallback != null) {
             mCallback.onCompletion(this);
-            if (mHandler != null) mHandler.removeCallbacks(mUpdateCounters);
             if (mLoop) mCallback.onStarted(this);
         }
     }
 
-//    public void onVideoSizeChanged(MediaPlayer mediaPlayer, int width, int height) {
-//        LOG("Video size changed: %dx%d", width, height);
-//        adjustAspectRatio(mInitialTextureWidth, mInitialTextureHeight, width, height);
-//    }
-//
-//    public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
-//        if (what == -38) {
-//            // Error code -38 happens on some Samsung devices
-//            // Just ignore it
-//            return false;
-//        }
-//        String errorMsg = "Preparation/playback error (" + what + "): ";
-//        switch (what) {
-//            default:
-//                errorMsg += "Unknown error";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_IO:
-//                errorMsg += "I/O error";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_MALFORMED:
-//                errorMsg += "Malformed";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-//                errorMsg += "Not valid for progressive playback";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-//                errorMsg += "Server died";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
-//                errorMsg += "Timed out";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
-//                errorMsg += "Unsupported";
-//                break;
-//        }
-//        throwError(new Exception(errorMsg));
-//        return false;
-//    }
-
-    private boolean getLoaderStatus(){
-        return mPlayer!=null && (mPlayer.getPlaybackState()==Player.STATE_READY || mPlayer.getPlaybackState()==Player.STATE_BUFFERING
-                || mPlayer.getPlaybackState()==Player.STATE_ENDED);
+    @Override
+    public void onVideoSizeChanged(MediaPlayer mediaPlayer, int width, int height) {
+        LOG("Video size changed: %dx%d", width, height);
+        adjustAspectRatio(mInitialTextureWidth, mInitialTextureHeight, width, height);
     }
+
+    @Override
+    public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
+        if (what == -38) {
+            // Error code -38 happens on some Samsung devices
+            // Just ignore it
+            return false;
+        }
+        String errorMsg = "Preparation/playback error (" + what + "): ";
+        switch (what) {
+            default:
+                errorMsg += "Unknown error";
+                break;
+            case MediaPlayer.MEDIA_ERROR_IO:
+                errorMsg += "I/O error";
+                break;
+            case MediaPlayer.MEDIA_ERROR_MALFORMED:
+                errorMsg += "Malformed";
+                break;
+            case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
+                errorMsg += "Not valid for progressive playback";
+                break;
+            case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
+                errorMsg += "Server died";
+                break;
+            case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
+                errorMsg += "Timed out";
+                break;
+            case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
+                errorMsg += "Unsupported";
+                break;
+        }
+        throwError(new Exception(errorMsg));
+        return false;
+    }
+
+    // View events
 
     @Override
     protected void onFinishInflate() {
@@ -1124,6 +871,15 @@ public class EasyExoVideoPlayer extends FrameLayout
         setKeepScreenOn(true);
 
         mHandler = new Handler();
+        mPlayer = new MediaPlayer();
+        mPlayer.setOnPreparedListener(this);
+        mPlayer.setOnBufferingUpdateListener(this);
+        mPlayer.setOnCompletionListener(this);
+        mPlayer.setOnVideoSizeChangedListener(this);
+        mPlayer.setOnErrorListener(this);
+        mPlayer.setOnSeekCompleteListener(this);
+        mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mPlayer.setLooping(mLoop);
 
         // Instantiate and add TextureView for rendering
         final LayoutParams textureLp =
@@ -1137,10 +893,6 @@ public class EasyExoVideoPlayer extends FrameLayout
         // Inflate and add progress
         mProgressFrame = li.inflate(R.layout.evp_include_progress, this, false);
         addView(mProgressFrame);
-
-        mProgressFrame.setVisibility(View.INVISIBLE);
-//        if(mProgressFrame!=null && getLoaderStatus()){
-//        }
 
         // Instantiate and add click frame (used to toggle controls)
         mClickFrame = new FrameLayout(getContext());
@@ -1160,7 +912,7 @@ public class EasyExoVideoPlayer extends FrameLayout
         controlsLp.gravity = Gravity.BOTTOM;
         addView(mControlsFrame, controlsLp);
 
-        final EasyExoVideoPlayer easyVideoPlayer = this;
+        final EasyVideoPlayer easyVideoPlayer = this;
 
         if (mControlsDisabled) {
             mClickFrame.setOnClickListener(null);
@@ -1218,7 +970,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnPlayPause) {
-            if (isPlaying()) {
+            if (mPlayer.isPlaying()) {
                 pause();
             } else {
                 if (mHideControlsOnPlay && !mControlsDisabled) hideControls();
@@ -1226,8 +978,7 @@ public class EasyExoVideoPlayer extends FrameLayout
             }
         } else if (view.getId() == R.id.btnRestart) {
             seekTo(0);
-            if (!isPlaying())
-                start();
+            if (!isPlaying()) start();
         } else if (view.getId() == R.id.btnRetry) {
             if (mCallback != null) mCallback.onRetry(this, mSource);
         } else if (view.getId() == R.id.btnSubmit) {
@@ -1243,18 +994,12 @@ public class EasyExoVideoPlayer extends FrameLayout
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         mWasPlaying = isPlaying();
-        if (mWasPlaying) {
-            mPlayer.setPlayWhenReady(false);
-        }
+        if (mWasPlaying) mPlayer.pause(); // keeps the time updater running, unlike pause()
     }
-
-    /***********************************************************************************************************************/
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        if (mWasPlaying && isPrepared()) {
-            mPlayer.setPlayWhenReady(true);
-        }
+        if (mWasPlaying && isPrepared()) mPlayer.start();
     }
 
     @Override
@@ -1277,6 +1022,16 @@ public class EasyExoVideoPlayer extends FrameLayout
         if (mHandler != null) {
             mHandler.removeCallbacks(mUpdateCounters);
             mHandler = null;
+        }
+    }
+
+    // Utilities
+
+    private static void LOG(String message, Object... args) {
+        try {
+            if (args != null) message = String.format(message, args);
+            ////Log.d("EasyVideoPlayer", message);
+        } catch (Exception ignored) {
         }
     }
 
@@ -1340,6 +1095,33 @@ public class EasyExoVideoPlayer extends FrameLayout
         else throw new RuntimeException(e);
     }
 
+    private static void setTint(@NonNull SeekBar seekBar, @ColorInt int color) {
+        ColorStateList s1 = ColorStateList.valueOf(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            seekBar.setThumbTintList(s1);
+            seekBar.setProgressTintList(s1);
+            seekBar.setSecondaryProgressTintList(s1);
+        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+            Drawable progressDrawable = DrawableCompat.wrap(seekBar.getProgressDrawable());
+            seekBar.setProgressDrawable(progressDrawable);
+            DrawableCompat.setTintList(progressDrawable, s1);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                Drawable thumbDrawable = DrawableCompat.wrap(seekBar.getThumb());
+                DrawableCompat.setTintList(thumbDrawable, s1);
+                seekBar.setThumb(thumbDrawable);
+            }
+        } else {
+            PorterDuff.Mode mode = PorterDuff.Mode.SRC_IN;
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
+                mode = PorterDuff.Mode.MULTIPLY;
+            }
+            if (seekBar.getIndeterminateDrawable() != null)
+                seekBar.getIndeterminateDrawable().setColorFilter(color, mode);
+            if (seekBar.getProgressDrawable() != null)
+                seekBar.getProgressDrawable().setColorFilter(color, mode);
+        }
+    }
+
     private Drawable tintDrawable(@NonNull Drawable d, @ColorInt int color) {
         d = DrawableCompat.wrap(d.mutate());
         DrawableCompat.setTint(d, color);
@@ -1399,212 +1181,190 @@ public class EasyExoVideoPlayer extends FrameLayout
         }
     }
 
+/***********************************************************************************************************************/
 
-    public void onSeekComplete(@NonNull SimpleExoPlayer mp) {
-        getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SPEED_SEEK = true;
-                if (mCallback != null) {
-                    if (mPlayer != null) {
-                        sendSpeed(true, (int) mPlayer.getCurrentPosition());
-                    }
-                    mCallback.onSeekChange(EasyExoVideoPlayer.this, false);
-                }
+    /**
+     *  SEEK Logic
+     */
+    private int SPEED_MODE = SPEED_NORMAL;
+    private boolean START_AGAIN = false;
+    private boolean SPEED_SEEK=true;
+    private int MED_SPEED=30000;
+    private int FAST_SPEED=60000;
+
+    public boolean setSpeed(int speed){
+            switch (speed) {
+                case 1:
+                    SPEED_MODE=SPEED_NORMAL;
+                    START_AGAIN=false;
+                    stopTimer();
+                    break;
+
+                case 2:
+                    SPEED_MODE=SPEED_FAST;
+                    START_AGAIN=true;
+                    break;
+
+                case 3:
+                    SPEED_MODE=SPEED_SUPER_FAST;
+                    START_AGAIN=true;
+                    break;
             }
-        }, 100);
+        //////Log.e("EASY PLAYER(1203)","Called "+SPEED_MODE);
+            startTimer();
+            return true;
+    }
+
+    /**
+     *  Jugaad Speed
+     * @param seekForwardTime
+     */
+    private void jugaadSpeed(int seekForwardTime){
+
+        if (isPrepared()) {
+            int currentPosition = mPlayer.getCurrentPosition();
+            if (currentPosition + seekForwardTime <= mPlayer.getDuration()) {
+                mPlayer.seekTo(currentPosition + seekForwardTime);
+                SPEED_SEEK=false;
+                //////Log.e("LESS",convertSecondsToHMS(currentPosition + seekForwardTime));
+            } else {
+                mPlayer.seekTo(mPlayer.getDuration());
+                stopTimer();
+                SPEED_SEEK=true;
+            }
+        }
+    }
+
+    public static String convertSecondsToHMS(long timeInMilliSeconds) {
+        if (timeInMilliSeconds > 0) {
+            long seconds = timeInMilliSeconds / 1000;
+            long minutes = seconds / 60;
+            long hours   = minutes / 60;
+
+            String hms;
+            if (hours > 0) {
+                hms = String.format(Locale.getDefault(), "%02d:%02d:%02d", (hours % 24), (minutes % 60), (seconds % 60));
+            } else {
+                hms = String.format(Locale.getDefault(), "%02d:%02d", (minutes % 60), (seconds % 60));
+            }
+            return hms;
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Timer Values for SPEED Jugaad
+     */
+    private Timer timer;
+    private TimerTask timerTask;
+
+    public void startTimer() {
+        if (timer == null) {
+            timer = new Timer();
+            initializeTimerTask();
+            timer.schedule(timerTask, DELAY_TIME, DELAY_PERIOD);
+        }
+    }
+
+    public void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+
+        if(timerTask!=null){
+            timerTask.cancel();
+            timerTask=null;
+        }
+    }
+
+    private void initializeTimerTask() {
+        if(timerTask==null){
+            timerTask = new TimerTask() {
+                public void run() {
+
+                    if (mPlayer != null && SPEED_SEEK) {
+                       // ////Log.e("TIMER TASK","Timer Task Called "+isSpeedSeeking());
+                        switch (SPEED_MODE) {
+                            case SPEED_NORMAL:
+                                stopTimer();
+                                SPEED_SEEK=true;
+                                sendSpeed(false,0);
+                                break;
+
+                            case SPEED_FAST:
+                                jugaadSpeed(MED_SPEED);
+//                                sendSpeed(true,30000);
+                                break;
+
+                            case SPEED_SUPER_FAST:
+                                jugaadSpeed(FAST_SPEED);
+//                                sendSpeed(true,60000);
+                                break;
+                        }
+                    }
+                }
+            };
+        }
+
     }
 
 
     /**
-     *  Reset Screen for BLACK screen
+     * Pause PlayBack
      */
-    public void resetScreen(){
-        if(mPlayer!=null){
-            clearSurface(mSurface);
-            mPlayer.clearVideoSurface(mSurface);
+    private void pausePlayBack() {
+        if (timer != null) {
+            stopTimer();
         }
     }
 
 
-
     /**
-     * Hack to clear Surface
-     *
-     * @param surface
+     * Resume PlayBack
      */
-    private void clearSurface(Surface surface) {
-        EGL10 egl = (EGL10) EGLContext.getEGL();
-        EGLDisplay display = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-        egl.eglInitialize(display, null);
-
-        int[] attribList = {
-                EGL10.EGL_RED_SIZE, 8,
-                EGL10.EGL_GREEN_SIZE, 8,
-                EGL10.EGL_BLUE_SIZE, 8,
-                EGL10.EGL_ALPHA_SIZE, 8,
-                EGL10.EGL_RENDERABLE_TYPE, EGL14.EGL_OPENGL_ES2_BIT,
-                EGL10.EGL_NONE, 0,      // placeholder for recordable [@-3]
-                EGL10.EGL_NONE
-        };
-        EGLConfig[] configs = new EGLConfig[1];
-        int[] numConfigs = new int[1];
-        egl.eglChooseConfig(display, attribList, configs, configs.length, numConfigs);
-        EGLConfig config = configs[0];
-        EGLContext context = egl.eglCreateContext(display, config, EGL10.EGL_NO_CONTEXT, new int[]{
-                EGL14.EGL_CONTEXT_CLIENT_VERSION, 2,
-                EGL10.EGL_NONE
-        });
-        EGLSurface eglSurface = egl.eglCreateWindowSurface(display, config, surface,
-                new int[]{
-                        EGL14.EGL_NONE
-                });
-
-        egl.eglMakeCurrent(display, eglSurface, eglSurface, context);
-        GLES20.glClearColor(0, 0, 0, 1);
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        egl.eglSwapBuffers(display, eglSurface);
-        egl.eglDestroySurface(display, eglSurface);
-        egl.eglMakeCurrent(display, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE,
-                EGL10.EGL_NO_CONTEXT);
-        egl.eglDestroyContext(display, context);
-        egl.eglTerminate(display);
+    private void resumePlayBack() {
+        if (START_AGAIN && !(SPEED_MODE == SPEED_NORMAL)) {
+            startTimer();
+        }
     }
 
-    public void setSeekOnSpeed(@NonNull ISeekChange _seekChange) {
+    @Override
+    public void onSeekComplete(MediaPlayer mp) {
+        getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SPEED_SEEK=true;
+                if(mCallback!=null){
+                    if(mPlayer!=null){
+                        sendSpeed(true,mPlayer.getCurrentPosition());
+                    }
+                    mCallback.onSeekChange(EasyVideoPlayer.this,false);
+                }
+            }
+        },1000);
+    }
+
+    private ISeekChange seekChange;
+
+    public void setSeekOnSpeed(@NonNull ISeekChange _seekChange){
         seekChange = _seekChange;
     }
 
-    private void sendSpeed(boolean isFast, int speed) {
-        if (seekChange != null) {
+    private void sendSpeed(boolean isFast,int speed){
+        if(seekChange!=null){
             seekChange.onSeekSpeed(isFast, speed);
         }
     }
 
-    private void initDataSource() {
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter.Builder(getContext())
-                .setInitialBitrateEstimate(1000000) // You can set an initial bitrate estimate
-                .build();
-
-        dataSourceFactory =
-                new DefaultDataSourceFactory(
-                        getContext(),
-                        androidx.media3.common.util.Util.getUserAgent(getContext(), getContext().getString(R.string.app_name)),
-                        (TransferListener) bandwidthMeter);
+    public boolean isSpeedSeeking(){
+        return SPEED_MODE==SPEED_FAST || SPEED_MODE==SPEED_SUPER_FAST;
     }
 
-    private void initMp4Player(Uri mp4URL) {
-
-        MediaItem mediaItem = new MediaItem.Builder()
-                .setUri(mp4URL)
-                .build();
-
-        // Create a DefaultDataSourceFactory
-        DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(getContext(),
-                androidx.media3.common.util.Util.getUserAgent(getContext(), getContext().getString(R.string.app_name)));
-
-        // Create a ProgressiveMediaSource
-        ProgressiveMediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(mediaItem);
-
-        // Initialize the ExoPlayer with the media source
-        initExoPlayer(mediaSource);
-    }
-
-    private void initExoPlayer(MediaSource sampleSource) {
-        if (mPlayer == null) {
-            // Create a TrackSelector for selecting tracks
-            TrackSelector trackSelector = new DefaultTrackSelector(getContext());
-
-            // 2. Create the ExoPlayer instance
-            mPlayer = (SimpleExoPlayer) new ExoPlayer.Builder(getContext())
-                    .setTrackSelector(trackSelector)
-                    .build();
-        }
-
-        // Prepare the player with the MediaSource
-        mPlayer.setMediaSource(sampleSource);
-        mPlayer.prepare();
-
-        // Set the surface for video rendering
-        mPlayer.setVideoSurface(mSurface);
-
-        // Set player to play when ready
-        mPlayer.setPlayWhenReady(true);
-
-        // Reset firstBuffer flag
-        firstBuffer = false;
-
-        // Add event listener
-        mPlayer.addListener(eventListner);
-    }
-
-    private void onReady() {
-
-        mProgressFrame.setVisibility(View.INVISIBLE);
-        mIsPrepared = true;
-        if (mCallback != null) {
-            mCallback.onPrepared(this);
-            mCallback.onSeekChange(this, false);
-        }
-        mLabelPosition.setText(Util.getDurationString(0, false));
-        mLabelDuration.setText(Util.getDurationString(mPlayer.getDuration(), false));
-        mSeeker.setProgress((int) mPlayer.getCurrentPosition());
-        mSeeker.setMax((int) mPlayer.getDuration());
-        setControlsEnabled(true);
-
-        if (mAutoPlay) {
-            if (!mControlsDisabled && mHideControlsOnPlay){
-                hideControls();
-            }
-            start();
-            if (mInitialPosition >= 0) {
-                seekTo(mInitialPosition);
-                mInitialPosition = -1;
-            }
-        } else {
-            // Hack to show first frame, is there another way?
-//            mPlayer.setPlayWhenReady(true);
-//            mPlayer.setPlayWhenReady(false);
-        }
-    }
-
-
-    @IntDef({LEFT_ACTION_NONE, LEFT_ACTION_RESTART, LEFT_ACTION_RETRY})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface LeftAction {
-    }
-
-    @IntDef({RIGHT_ACTION_NONE, RIGHT_ACTION_SUBMIT, RIGHT_ACTION_CUSTOM_LABEL})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface RightAction {
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (mCallback != null) {
-            mCallback.onTouch(true);
-        }
-        return super.onInterceptTouchEvent(ev);
-    }
-
-    /**
-     *  Updating Playback speed
-     * @param speed ** Playback speed
-     */
-    public void updateSpeed(float speed){
-        try{
-            PlaybackParameters prevParam = mPlayer.getPlaybackParameters();
-            PlaybackParameters newParam = new PlaybackParameters(speed,prevParam.pitch);
-
-            mPlayer.setPlaybackParameters(newParam);
-        }catch (Exception ex){
-        }
-    }
-
-
-    public SimpleExoPlayer getPlayer(){
-        return mPlayer;
+    public void resetSpeedPlayback(){
+        SPEED_MODE=SPEED_NORMAL;
+        stopTimer();
     }
 
 }
