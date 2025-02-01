@@ -345,6 +345,7 @@ public class SplashActivity extends AppCompatActivity {
         // Add code to print out the key hash
         try {
             PackageInfo info = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_SIGNATURES);
+
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());

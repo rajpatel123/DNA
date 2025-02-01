@@ -53,6 +53,7 @@ android {
   //  }
     buildTypes {
         debug{
+           // signingConfig signingConfigs.dna
             minifyEnabled false
             buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
         }
