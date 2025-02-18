@@ -32,7 +32,7 @@ import com.dnamedical.institute.InstituteDetails;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
-//import com.facebook.login.LoginManager;
+import com.facebook.login.LoginManager;
 
 import java.io.File;
 import java.security.MessageDigest;
@@ -268,9 +268,9 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)));
             }
 
-//            clearApplicationData();
-//            DnaPrefs.putBoolean(this, Constants.LoginCheck, false);
-//            LoginManager.getInstance().logOut();
+            clearApplicationData();
+            DnaPrefs.putBoolean(this, Constants.LoginCheck, false);
+            LoginManager.getInstance().logOut();
 
 
             dialog.dismiss();

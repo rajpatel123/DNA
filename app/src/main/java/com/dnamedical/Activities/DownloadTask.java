@@ -146,8 +146,8 @@ class DownloadTask {
                 //Get File if SD card is present
                 if (new CheckForSDCard().isSDCardPresent()) {
 
-//                    apkStorage = new File(Environment.getExternalStorageDirectory() + "/" + "CodePlayon");
-                    File apkStorage = new File(context.getExternalFilesDir(null) + "/CodePlayon");
+                    apkStorage = new File(Environment.getExternalStorageDirectory() + "/" + "CodePlayon");
+                    // apkStorage = new File(context.getExternalFilesDir(null) + "/CodePlayon");
 
                 } else
                     Toast.makeText(context, "Oops!! There is no SD Card.", Toast.LENGTH_SHORT).show();

@@ -139,7 +139,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     //implementation 'me.hiennguyen.circleseekbar:circleseekbar:1.0.1'
 //    implementation project(':easy-player')
-//    implementation 'com.facebook.android:facebook-android-sdk:18.0.1'
+    implementation 'com.facebook.android:facebook-android-sdk:18.0.1'
         implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
 

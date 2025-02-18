@@ -594,7 +594,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         pdfDwnloadOptionImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DownloadTask(VideoPlayerActivity.this, URL);
+                new DownloadTask(VideoPlayerActivity.this,URL);
             }
         });
     }
