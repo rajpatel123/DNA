@@ -1,8 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
+
 }
+def uatKeystorePropertiesFile = rootProject.file("release_signing.properties")
+def uatKeystoreProperties = new Properties()
+uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
 
 android {
     namespace "com.dnamedical"
@@ -19,7 +22,7 @@ android {
         versionCode 111
         versionName "v6.2.9"
         multiDexEnabled true
-        buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
+        buildConfigField "String", "API_SERVER_IP",  "\"http://65.2.1.107/\""
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -28,14 +31,14 @@ android {
         abortOnError false
     }
 
-//    signingConfigs {
-//        dna {
-//            keyAlias uatKeystoreProperties['KEY_ALIAS']
-//            keyPassword uatKeystoreProperties['KEY_PASSWORD']
-//            storeFile file(uatKeystoreProperties['STORE_FILE'])
-//            storePassword uatKeystoreProperties['STORE_PASSWORD']
-//        }
-//    }
+    signingConfigs {
+        dna {
+            keyAlias uatKeystoreProperties['KEY_ALIAS']
+            keyPassword uatKeystoreProperties['KEY_PASSWORD']
+            storeFile file(uatKeystoreProperties['STORE_FILE'])
+            storePassword uatKeystoreProperties['STORE_PASSWORD']
+        }
+    }
 
  //   buildTypes {
 //        release {
@@ -53,13 +56,14 @@ android {
   //  }
     buildTypes {
         debug{
-           // signingConfig signingConfigs.dna
+            signingConfig signingConfigs.dna
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
+            buildConfigField "String", "API_SERVER_IP",  "\"http://65.2.1.107/\""
         }
         release {
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
+            buildConfigField "String", "API_SERVER_IP",  "\"http://65.2.1.107/\""
+            signingConfig signingConfigs.debug
         }
 
     }
@@ -91,7 +95,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.3.1'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
 
      //Google Play Services
     implementation 'com.google.android.gms:play-services-location:21.3.0'
@@ -99,9 +103,9 @@ dependencies {
 
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:33.8.0')
-    implementation 'com.google.firebase:firebase-messaging'
-    implementation 'com.google.firebase:firebase-crashlytics'
+//    implementation platform('com.google.firebase:firebase-bom:33.9.0')
+//    implementation 'com.google.firebase:firebase-messaging'
+//    implementation 'com.google.firebase:firebase-crashlytics'
 
     // Third-party libraries
     implementation 'com.karumi:dexter:6.2.3'
@@ -135,7 +139,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     //implementation 'me.hiennguyen.circleseekbar:circleseekbar:1.0.1'
 //    implementation project(':easy-player')
-    implementation 'com.facebook.android:facebook-android-sdk:18.0.0'
+//    implementation 'com.facebook.android:facebook-android-sdk:18.0.1'
         implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
 

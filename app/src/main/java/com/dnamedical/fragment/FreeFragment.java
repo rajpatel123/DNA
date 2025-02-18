@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.dnamedical.Activities.VideoActivity;
 //import com.dnamedical.Activities.VideoPlayerActivity;
+import com.dnamedical.Activities.VideoPlayerActivity;
 import com.dnamedical.Adapters.VideoListFreeAdapter;
 import com.dnamedical.Models.video.Free;
 import com.dnamedical.Models.video.VideoList;
@@ -96,7 +97,7 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
 
             RequestBody file_type = RequestBody.create(MediaType.parse("text/plain"), "video");
             RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(activity, Constants.LOGIN_ID));
-            RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"),activity.subCatId);
+            RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(activity, Constants.SUB_CAT_ID));
 
 
             Utils.showProgressDialog(activity);
@@ -163,9 +164,9 @@ public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCat
 
     @Override
     public void onCateClick(Free free) {
-//        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-//        intent.putExtra("free",free);
-//        startActivity(intent);
+        Intent intent = new Intent(requireActivity(), VideoPlayerActivity.class);
+        intent.putExtra("free",free);
+        startActivity(intent);
 
     }
 }

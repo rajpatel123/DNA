@@ -24,7 +24,7 @@ interface IExoUserMethods {
 
     void setCallback(@NonNull IEasyExoVideoCallback callback);
 
-    void setProgressCallback(@NonNull IEasyExoVideoCallback callback);
+    void setProgressCallback(@NonNull EasyVideoProgressCallback  callback);
 
     void setLeftAction(@EasyExoVideoPlayer.LeftAction int action);
 

@@ -395,9 +395,9 @@ public class ReviewResultFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         if (Constants.ISTEST){
-            webView.loadUrl("http://13.232.100.13/review.php?id=" + qID);
+            webView.loadUrl("http://65.2.1.107/review.php?id=" + qID);
         }else{
-            webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
+            webView.loadUrl("http://65.2.1.107/reviewqbank.php?id=" + qID);
         }
 
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 //import android.support.annotation.NonNull;
 //import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     @Override
     public void onBindViewHolder(final CourseListAdapter.ViewHolder holder, final int position) {
 
-
+        Log.d("hiiiii",""+categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
         holder.title.setText("" + categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +70,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                         onUserClickCallback.onInstituteClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatName());
                         return;
                     }
+                    Log.d("harsh",categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
                     onUserClickCallback.onCateClick(categoryDetailData.getDetails().get(holder.getAdapterPosition()).getCatId());
 
 ////                        if (!(Integer.parseInt(categoryDetailData.getCourseDetails().get(holder.getAdapterPosition()).getCatId()) > 3)
@@ -208,6 +210,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
             linearLayout=view.findViewById(R.id.linearNeet_Ss);
             detailLL=view.findViewById(R.id.detailLL);
             title=view.findViewById(R.id.title);
+            desc=view.findViewById(R.id.desc);
 
 
         }

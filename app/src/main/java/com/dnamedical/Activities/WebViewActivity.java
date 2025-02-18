@@ -100,12 +100,12 @@ public class WebViewActivity extends AppCompatActivity {
         switch (title) {
             case "Terms & Conditions":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.232.100.13/termsncondition.php");
+                mWebView.loadUrl("http://65.2.1.107/termsncondition.php");
                 break;
 
             case "Privacy Policy":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.232.100.13/privacy-policy.php");
+                mWebView.loadUrl("http://65.2.1.107/privacy-policy.php");
                 break;
 
             case "Read More":
@@ -119,7 +119,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             case "FAQ":
                 progressBar.setVisibility(View.VISIBLE);
-                mWebView.loadUrl("http://13.232.100.13/dnafaq.php");
+                mWebView.loadUrl("http://65.2.1.107/dnafaq.php");
                 break;
             case "Report":
                 progressBar.setVisibility(View.VISIBLE);

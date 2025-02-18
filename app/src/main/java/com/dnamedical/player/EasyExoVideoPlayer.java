@@ -14,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.opengl.EGL14;
 import android.opengl.GLES20;
@@ -133,7 +134,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     private TextView mBtnSubmit;
     private TextView mLabelCustom;
     private TextView mLabelBottom;
-    private SimpleExoPlayer mPlayer;
+    private ExoPlayer mPlayer;
     private boolean mSurfaceAvailable;
     private boolean mIsPrepared;
     private boolean mWasPlaying;
@@ -514,7 +515,8 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
     @Override
-    public void setProgressCallback(@NonNull IEasyExoVideoCallback callback) {
+    public void setProgressCallback(@NonNull EasyVideoProgressCallback  callback) {
+        mProgressCallback = callback;
 
     }
 
@@ -1069,44 +1071,44 @@ public class EasyExoVideoPlayer extends FrameLayout
         }
     }
 
-//    public void onVideoSizeChanged(MediaPlayer mediaPlayer, int width, int height) {
-//        LOG("Video size changed: %dx%d", width, height);
-//        adjustAspectRatio(mInitialTextureWidth, mInitialTextureHeight, width, height);
-//    }
-//
-//    public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
-//        if (what == -38) {
-//            // Error code -38 happens on some Samsung devices
-//            // Just ignore it
-//            return false;
-//        }
-//        String errorMsg = "Preparation/playback error (" + what + "): ";
-//        switch (what) {
-//            default:
-//                errorMsg += "Unknown error";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_IO:
-//                errorMsg += "I/O error";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_MALFORMED:
-//                errorMsg += "Malformed";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-//                errorMsg += "Not valid for progressive playback";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-//                errorMsg += "Server died";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
-//                errorMsg += "Timed out";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
-//                errorMsg += "Unsupported";
-//                break;
-//        }
-//        throwError(new Exception(errorMsg));
-//        return false;
-//    }
+    public void onVideoSizeChanged(MediaPlayer mediaPlayer, int width, int height) {
+        LOG("Video size changed: %dx%d", width, height);
+        adjustAspectRatio(mInitialTextureWidth, mInitialTextureHeight, width, height);
+    }
+
+    public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
+        if (what == -38) {
+            // Error code -38 happens on some Samsung devices
+            // Just ignore it
+            return false;
+        }
+        String errorMsg = "Preparation/playback error (" + what + "): ";
+        switch (what) {
+            default:
+                errorMsg += "Unknown error";
+                break;
+            case MediaPlayer.MEDIA_ERROR_IO:
+                errorMsg += "I/O error";
+                break;
+            case MediaPlayer.MEDIA_ERROR_MALFORMED:
+                errorMsg += "Malformed";
+                break;
+            case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
+                errorMsg += "Not valid for progressive playback";
+                break;
+            case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
+                errorMsg += "Server died";
+                break;
+            case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
+                errorMsg += "Timed out";
+                break;
+            case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
+                errorMsg += "Unsupported";
+                break;
+        }
+        throwError(new Exception(errorMsg));
+        return false;
+    }
 
     private boolean getLoaderStatus(){
         return mPlayer!=null && (mPlayer.getPlaybackState()==Player.STATE_READY || mPlayer.getPlaybackState()==Player.STATE_BUFFERING
@@ -1400,7 +1402,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
 
-    public void onSeekComplete(@NonNull SimpleExoPlayer mp) {
+    public void onSeekComplete(@NonNull ExoPlayer mp) {
         getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -1517,7 +1519,7 @@ public class EasyExoVideoPlayer extends FrameLayout
             TrackSelector trackSelector = new DefaultTrackSelector(getContext());
 
             // 2. Create the ExoPlayer instance
-            mPlayer = (SimpleExoPlayer) new ExoPlayer.Builder(getContext())
+            mPlayer = new ExoPlayer.Builder(getContext())
                     .setTrackSelector(trackSelector)
                     .build();
         }
@@ -1603,7 +1605,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
 
-    public SimpleExoPlayer getPlayer(){
+    public ExoPlayer getPlayer(){
         return mPlayer;
     }
 

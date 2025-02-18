@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
         View view = inflater.inflate(R.layout.home_fragment, container, false);
        // ButterKnife.bind(this, view);
         textInternet=view.findViewById(R.id.noInternet);
+        recyclerView=view.findViewById(R.id.recyclerView);
         getCourse();
         return view;
 

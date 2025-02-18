@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         }
 
-        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+        if (freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://65.2.1.107/img/file/")) {
             holder.commingsoon.setVisibility(View.VISIBLE);
         }else{
             holder.commingsoon.setVisibility(GONE);
@@ -94,7 +95,8 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
         holder.row_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://13.232.100.13/img/file/")) {
+                Log.d("VideoClick", "Item Clicked: " + holder.getAdapterPosition());
+                if (onUserClickCallback != null && !freeList.get(holder.getAdapterPosition()).getUrl().equalsIgnoreCase("http://65.2.1.107/img/file/")) {
                     onUserClickCallback.onCateClick(freeList.get(holder.getAdapterPosition()));
                 }else{
                     Utils.displayToast(applicationContext, "Coming Soon");
@@ -102,6 +104,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
             }
         });
+
 
 
     }

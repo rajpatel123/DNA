@@ -64,37 +64,38 @@ class DownloadTask {
 
         @Override
         protected void onPostExecute(Void result) {
+//            Log.d("TAg","post execute run"+outputFile.toString());
             try {
                 if (outputFile != null) {
                     progressDialog.dismiss();
-                   // ContextThemeWrapper ctw = new ContextThemeWrapper(context, R.style.Theme_AppCompat_Dialog_Alert);
-//                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctw);
-//                    alertDialogBuilder.setTitle("Document  ");
-//                    alertDialogBuilder.setMessage("Document Downloaded Successfully ");
-//                    alertDialogBuilder.setCancelable(false);
-//                    alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//
-//                        }
-//                    });
+                    //ContextThemeWrapper ctw = new ContextThemeWrapper(context, R.style.Theme_AppCompat_Dialog_Alert);
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.Theme_AppCompat_Dialog_Alert);
+                    alertDialogBuilder.setTitle("Document  ");
+                    alertDialogBuilder.setMessage("Document Downloaded Successfully ");
+                    alertDialogBuilder.setCancelable(false);
+                    alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
 
-//                    alertDialogBuilder.setNegativeButton("Open report", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            File pdfFile = new File(Environment.getExternalStorageDirectory() + "/CodePlayon/" + downloadFileName);  // -> filename = maven.pdf
-//                            Uri path = Uri.fromFile(pdfFile);
-//                            Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-//                            pdfIntent.setDataAndType(path, "application/pdf");
-//                            pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            try {
-//                                context.startActivity(pdfIntent);
-//                            } catch (ActivityNotFoundException e) {
-//                                Toast.makeText(context, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-  //                  alertDialogBuilder.show();
+                        }
+                    });
+
+                    alertDialogBuilder.setNegativeButton("Open report", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            File pdfFile = new File(Environment.getExternalStorageDirectory() + "/CodePlayon/" + downloadFileName);  // -> filename = maven.pdf
+                            Uri path = Uri.fromFile(pdfFile);
+                            Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+                            pdfIntent.setDataAndType(path, "application/pdf");
+                            pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            try {
+                                context.startActivity(pdfIntent);
+                            } catch (ActivityNotFoundException e) {
+                                Toast.makeText(context, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    alertDialogBuilder.show();
 //                    Toast.makeText(context, "Document Downloaded Successfully", Toast.LENGTH_SHORT).show();
-                } else {
+                    }else {
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -127,6 +128,7 @@ class DownloadTask {
 
         @Override
         protected Void doInBackground(Void... arg0) {
+            Log.d("tanwar","do in background is running");
             try {
                 URL url = new URL(downloadUrl);//Create Download URl
                 HttpURLConnection c = (HttpURLConnection) url.openConnection();//Open Url Connection
@@ -144,7 +146,9 @@ class DownloadTask {
                 //Get File if SD card is present
                 if (new CheckForSDCard().isSDCardPresent()) {
 
-                    apkStorage = new File(Environment.getExternalStorageDirectory() + "/" + "CodePlayon");
+//                    apkStorage = new File(Environment.getExternalStorageDirectory() + "/" + "CodePlayon");
+                    File apkStorage = new File(context.getExternalFilesDir(null) + "/CodePlayon");
+
                 } else
                     Toast.makeText(context, "Oops!! There is no SD Card.", Toast.LENGTH_SHORT).show();
 

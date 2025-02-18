@@ -854,7 +854,7 @@ public class QbankTestActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         progressBar.setVisibility(View.VISIBLE);
-        webView.loadUrl("http://13.232.100.13/reviewqbank.php?id=" + qID);
+        webView.loadUrl("http://65.2.1.107/reviewqbank.php?id=" + qID);
 
 
     }

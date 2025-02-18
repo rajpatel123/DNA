@@ -32,7 +32,7 @@ import com.dnamedical.institute.InstituteDetails;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
-import com.facebook.login.LoginManager;
+//import com.facebook.login.LoginManager;
 
 import java.io.File;
 import java.security.MessageDigest;
@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
-
+        UpdateApiCall();
         printHashKey();
         // splashCall();
 
@@ -132,7 +132,7 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         } else {
-            UpdateApiCall();
+           // UpdateApiCall();
         }
 
 
@@ -219,7 +219,8 @@ public class SplashActivity extends AppCompatActivity {
                                 if (Integer.parseInt(playstoreUpdateResponse
                                         .getDetail().get(0).getAppVersion()) > BuildConfig.VERSION_CODE && playstoreUpdateResponse
                                         .getDetail().get(0).getForceUpgrade().equalsIgnoreCase("true")) {
-                                    forceToUpgradeDialog(true);
+                                    splashCall();
+                                    //forceToUpgradeDialog(true);
                                     // Toast.makeText(SplashActivity.this, "First", Toast.LENGTH_SHORT).show();
                                 } else {
                                     splashCall();

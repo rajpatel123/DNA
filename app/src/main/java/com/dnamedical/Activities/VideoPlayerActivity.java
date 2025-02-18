@@ -403,6 +403,30 @@ public class VideoPlayerActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
+        textViewEmail=findViewById(R.id.email);
+        mobile=findViewById(R.id.mobile);
+        textHeading=findViewById(R.id.heading);
+        pdfDwnloadOptionImg=findViewById(R.id.pdfDwnloadOptionImg);
+        md_parentview=findViewById(R.id.md_parentview);
+        top_view=findViewById(R.id.top_view);
+        play_btn=findViewById(R.id.play_btn);
+        exoPlayer=findViewById(R.id.exoplayer);
+        toolbar=findViewById(R.id.toolbar);
+        upper_progress=findViewById(R.id.upper_progress);
+        videoPlayerControlsPortraitMode=findViewById(R.id.videoPlayerControlsPortraitMode);
+        seekbarVideo=findViewById(R.id.seekbarVideoo);
+        llControllerWrapperFlexible=findViewById(R.id.llControllerWrapperFlexible);
+        md_play=findViewById(R.id.md_play);
+        videoDuration=findViewById(R.id.videoDuration);
+        md_replay=findViewById(R.id.md_replay);
+        txtSpeed=findViewById(R.id.txtSpeed);
+        fullMode=findViewById(R.id.full_mode);
+        textTeacher=findViewById(R.id.techer_name);
+        pdfDwnloadOptionImg=findViewById(R.id.pdfDwnloadOptionImg);
+        video_title=findViewById(R.id.video_title);
+        text=findViewById(R.id.text);
+
+
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         getWindow().addFlags(
@@ -414,7 +438,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         if (DnaPrefs.getString(getApplicationContext(), "EMAIL") != null) {
             email_id = DnaPrefs.getString(getApplicationContext(), "EMAIL");
-            textViewEmail.setText(email_id);
+            textViewEmail.setText(""+email_id);
         }
 
         userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
@@ -554,77 +578,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         setUpperSeekBar();
 
-//        exoPlayer.setProgressCallback((newPosition, duration) -> {
-//            handler.removeCallbacks(mediaProgressRunnable);
-//            handler.postDelayed(mediaProgressRunnable, MEDIA_CALLBACK_DURATION);
-//        });
-        exoPlayer.setProgressCallback(new IEasyExoVideoCallback() {
-            @Override
-            public void onStarted(EasyExoVideoPlayer player) {
-
-            }
-
-            @Override
-            public void onPaused(EasyExoVideoPlayer player) {
-
-            }
-
-            @Override
-            public void onPreparing(EasyExoVideoPlayer player) {
-
-            }
-
-            @Override
-            public void onPrepared(EasyExoVideoPlayer player) {
-
-            }
-
-            @Override
-            public void onBuffering(int percent) {
-
-            }
-
-            @Override
-            public void onTouch(@Nullable boolean touched) {
-
-            }
-
-            @Override
-            public void onError(EasyExoVideoPlayer player, Exception e) {
-
-            }
-
-            @Override
-            public void onCompletion(EasyExoVideoPlayer player) {
-
-            }
-
-            @Override
-            public void onRetry(EasyExoVideoPlayer player, Uri source) {
-
-            }
-
-            @Override
-            public void onSubmit(EasyExoVideoPlayer player, Uri source) {
-
-            }
-
-            @Override
-            public void onClickVideoFrame(EasyExoVideoPlayer player) {
-
-            }
-
-            @Override
-            public void onSeekChange(EasyExoVideoPlayer player, boolean isSeeking) {
-
-            }
-
-            @Override
-            public void onPauseWhenReady(EasyExoVideoPlayer player) {
-
-            }
+        exoPlayer.setProgressCallback((newPosition, duration) -> {
+            handler.removeCallbacks(mediaProgressRunnable);
+            handler.postDelayed(mediaProgressRunnable, MEDIA_CALLBACK_DURATION);
         });
-
 
         pdfDownload();
 
@@ -637,7 +594,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         pdfDwnloadOptionImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DownloadTask(getApplicationContext(), URL);
+                new DownloadTask(VideoPlayerActivity.this, URL);
             }
         });
     }
@@ -798,7 +755,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 //            R.id.full_mode,
 //            R.id.fast_backward,
 //            R.id.fast_forward})
-    
+
     public void onControlClick(View view) {
         if (view.getId()==R.id.full_mode) {
             handleFullMode(view);

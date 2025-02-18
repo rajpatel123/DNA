@@ -52,7 +52,7 @@ public class QbankCompletedFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        qbankSubCatAdapter = new QbankSubCatAdapter();
+        qbankSubCatAdapter = new QbankSubCatAdapter(requireContext());
         qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankCompleted);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);

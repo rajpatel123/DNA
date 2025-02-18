@@ -126,6 +126,7 @@ public class CourseModuleListAdapter extends RecyclerView.Adapter<CourseModuleLi
             detailLL = view.findViewById(R.id.detailLL);
             title = view.findViewById(R.id.title);
             desc = view.findViewById(R.id.desc);
+            insImage=view.findViewById(R.id.insImage);
         }
     }
 

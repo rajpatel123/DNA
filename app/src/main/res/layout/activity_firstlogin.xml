@@ -67,16 +67,16 @@
                     android:textSize="12sp"
                     android:textStyle="bold"/>
 
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/login_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="30dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:visibility="gone" />
+<!--                <com.facebook.login.widget.LoginButton-->
+<!--                    android:id="@+id/login_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:layout_marginTop="30dp"-->
+<!--                    android:paddingBottom="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:visibility="gone" />-->
 
 
                 <Button

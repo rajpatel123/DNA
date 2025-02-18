@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-
+            android:onClick="onControlClick"
             app:srcCompat="@drawable/back_arrow" />
 
         <ImageView
@@ -83,11 +83,12 @@
                 android:elevation="@dimen/dp_10"
                 android:layout_centerInParent="true"
                 android:visibility="visible"
+                android:onClick="onControlClick"
                 app:srcCompat="@drawable/video_player"
                 tools:visibility="visible" />
 
 
-            <com.google.android.exoplayer2.ui.PlayerView
+            <com.dnamedical.player.EasyExoVideoPlayer
                 android:id="@+id/exoplayer"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -200,6 +201,7 @@
                     android:layout_weight="1"
                     android:foreground="?attr/selectableItemBackground"
                     android:padding="4dp"
+                    android:onClick="onControlClick"
                     app:srcCompat="@drawable/ic_play" />
 
                 <TextView
@@ -219,6 +221,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:padding="4dp"
                     android:visibility="gone"
+                    android:onClick="onControlClick"
                     app:srcCompat="@drawable/ic_audio_replay_new" />
 
 
@@ -227,6 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:onClick="onControlClick"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center_horizontal">
 
@@ -252,7 +256,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10"
-
+                   android:onClick="onControlClick"
                     android:translationZ="3dp"
                     android:paddingBottom="5dp"
                     android:visibility="visible"
@@ -267,7 +271,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10"
-
+                    android:onClick="onControlClick"
                     android:translationZ="3dp"
                     android:paddingBottom="5dp"
                     android:visibility="visible"
@@ -291,6 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="onControlClick"
                     android:padding="4dp"
                     app:srcCompat="@drawable/ic_full_screen" />
             </LinearLayout>
@@ -370,14 +375,14 @@
                     android:textColor="@color/Black"
                     android:visibility="gone" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/timeslot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="50dp">
 
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
 

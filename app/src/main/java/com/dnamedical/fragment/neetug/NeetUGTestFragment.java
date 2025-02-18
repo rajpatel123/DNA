@@ -39,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 public class NeetUGTestFragment extends Fragment implements FragmentLifecycle {
 
@@ -215,7 +215,7 @@ public class NeetUGTestFragment extends Fragment implements FragmentLifecycle {
 
     private void getTest() {
 
-        String userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String userId = DnaPrefs.getString(requireActivity(), Constants.LOGIN_ID);
 
         if (TextUtils.isEmpty(userId)) {
             return;

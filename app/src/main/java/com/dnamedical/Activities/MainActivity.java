@@ -399,41 +399,41 @@ public class MainActivity extends androidx.appcompat.app.AppCompatActivity
 
     public void userlogout() {
 
-//        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//        // ...Irrelevant code for customizing the buttons and titl
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
-//        dialogBuilder.setView(dialogView);
-//
-//        final AlertDialog dialog = dialogBuilder.create();
-//        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-//        TextView text_logout = dialogView.findViewById(R.id.text_logout);
-//        btn_Cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//
-//
-//            }
-//        });
-//
-//
-//        text_logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//
-//                DnaPrefs.clear(MainActivity.this);
-//               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
-//               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//               startActivity(intent);
-//               finish();
-//
-//            }
-//        });
-//
-//
-//        dialog.show();
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and titl
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.profile_alertdialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        Button btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+        TextView text_logout = dialogView.findViewById(R.id.text_logout);
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        text_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                DnaPrefs.clear(MainActivity.this);
+               Intent intent = new Intent(MainActivity.this,FirstloginActivity.class);
+               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               startActivity(intent);
+               finish();
+
+            }
+        });
+
+
+        dialog.show();
 
         if (Utils.isInternetConnected(this)) {
             Utils.showProgressDialog(this);

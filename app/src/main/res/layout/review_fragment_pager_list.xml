@@ -346,7 +346,7 @@ android:visibility="gone"
 
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/explanationCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -407,7 +407,7 @@ android:visibility="gone"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:visibility="visible" />
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
 

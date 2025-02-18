@@ -41,7 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.dnamedical.Activities.VideoActivity.discountonfullpurchase;
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class BuynowFragment extends Fragment implements VideoListPriceAdapter.OnCategoryClick, VideoListPriceAdapter.OnBuyNowClick, VideoActivity.  DisplayDataInterface {
 

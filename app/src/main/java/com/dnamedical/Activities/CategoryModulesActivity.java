@@ -49,9 +49,11 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
         setContentView(R.layout.activity_category_modules);
         textInternet=findViewById(R.id.noInternet);
         recyclerView=findViewById(R.id.recyclerView);
+        if(getIntent().getStringExtra("catData")!=null){
+            catId = getIntent().getStringExtra("catId");
+        }
 
 
-        catId = getIntent().getStringExtra("catId");
         categoryDetailData = new Gson().fromJson(getIntent().getStringExtra("catData"), CategoryDetailData.class);
         if (getSupportActionBar() != null) {
 
@@ -164,7 +166,7 @@ public class CategoryModulesActivity extends AppCompatActivity implements Course
 
         }
 
-        DnaPrefs.putString(mainActivity, Constants.CAT_ID, catId);
+        DnaPrefs.putString(mainActivity, Constants.CAT_ID, ""+catId);
         if (intent != null) {
             startActivity(intent);
         }

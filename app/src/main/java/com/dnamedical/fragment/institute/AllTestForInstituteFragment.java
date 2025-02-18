@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class AllTestForInstituteFragment extends Fragment {
     private TabLayout tabLayout;
@@ -206,7 +206,7 @@ public class AllTestForInstituteFragment extends Fragment {
 
     private void getTest() {
 
-        String  userId = DnaPrefs.getString(getApplicationContext(), Constants.LOGIN_ID);
+        String  userId = DnaPrefs.getString(requireActivity(), Constants.LOGIN_ID);
         String  institute_id = getActivity().getIntent().getStringExtra("institute_id");
 
         if (Utils.isInternetConnected(getActivity())) {
