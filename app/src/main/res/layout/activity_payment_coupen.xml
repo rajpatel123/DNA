@@ -185,6 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/linear_one"
+                    android:visibility="visible"
                     android:layout_margin="@dimen/margin_10">
 
                     <androidx.cardview.widget.CardView
@@ -199,11 +200,20 @@
                             android:background="@drawable/payment_txt_design"
                             android:orientation="vertical">
 
-
+                            <TextView
+                                android:id="@+id/adminDiscountTXT"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/dp_10"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+                                android:text="Spacial discount of INR 500"/>
                             <LinearLayout
+                                android:id="@+id/coupanLL"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
+                                android:visibility="gone"
                                 android:padding="@dimen/margin_10">
 
 
@@ -237,7 +247,7 @@
                                         android:layout_height="wrap_content"
                                         android:maxLines="2"
                                         android:padding="2dp"
-                                        android:text="Yay! You will get $3000 OFF +$50 cashback on the transaction"
+                                        android:text=""
                                         android:textColor="@color/darkwhite"
                                         android:textSize="@dimen/margin_12" />
 
@@ -272,12 +282,79 @@
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/havePromo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/payment_txt_design"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_below="@id/linear_two"
+
+                    android:padding="@dimen/dp_10">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+
+                            android:id="@+id/coupanLl"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Have Promo code?" />
+
+                            <EditText
+                                android:id="@+id/coupanCodeEdt"
+                                android:layout_width="180dp"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:cursorVisible="true"
+                                android:hint="Enter Code"
+                                android:padding="@dimen/dp_5"
+                                android:inputType="textCapWords"
+                                android:background="@drawable/payment_txt_design"
+
+                                />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/applyNow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:text="Apply"
+                            android:textStyle="bold"
+                            android:textColor="@color/orange"
+                            android:visibility="visible"/>
+
+                        <ImageView
+                            android:id="@+id/crossBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/cross_icn"
+                            android:visibility="gone"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            />
+                    </RelativeLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linear_three"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_two"
+                    android:layout_below="@id/havePromo"
                     android:layout_margin="@dimen/margin_10">
 
                     <androidx.cardview.widget.CardView
@@ -333,32 +410,6 @@
 
                                 <TextView
                                     android:id="@+id/totalDiscountOfVideos"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/margin_2"
-                                    android:text="\u20B9 0"
-                                    android:textColor="@color/orange" />
-
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/linear_coupon_add"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/margin_10"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:padding="@dimen/margin_2"
-                                    android:text="Add. Discount:" />
-
-
-
-                                <TextView
-                                    android:id="@+id/totalAddDiscountOfVideos"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="@dimen/margin_2"

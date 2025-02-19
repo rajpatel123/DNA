@@ -124,226 +124,184 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical">
+                        android:layout_margin="@dimen/margin_10"
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:id="@+id/linear_txt_one"
-                            android:layout_width="30dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
 
-                            <ImageView
-                                android:id="@+id/imga"
+
+                            android:padding="@dimen/margin_10dp">
+
+                            <TextView
+                                android:id="@+id/A"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@drawable/tick"
-                                android:padding="5dp" />
+                                android:text="A"
+                                android:gravity="center"
+                                android:background="@drawable/circle_shape_border"
+                                android:textStyle="bold" />
 
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_one">
 
                             <TextView
                                 android:id="@+id/optionA"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@id/imga"
-                                android:text="Test"
-                                android:textSize="19sp" />
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="2"
+
+                                android:text="Tests" />
+
+                            <WebView
+                                android:id="@+id/webView1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_weight="2"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="7dp"
+                            android:padding="@dimen/margin_10dp">
+
 
                             <TextView
-                                android:id="@+id/optionAPer"
+                                android:id="@+id/B"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@+id/optionA"
+                                android:text="B"
+                                android:gravity="center"
+                                android:background="@drawable/circle_shape_border"
+                                android:textStyle="bold" />
 
-                                android:textColor="@color/black_titles"
-
-                                 />
-<!--                            android:textSize="@dimen/evp_text_size_medium"-->
-
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical">
-
-                        <LinearLayout
-                            android:id="@+id/linear_txt_two"
-                            android:layout_width="30dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp">
-
-                            <ImageView
-                                android:id="@+id/imgb"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-
-                                android:layout_marginTop="10dp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_two">
 
                             <TextView
                                 android:id="@+id/optionB"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="7dp"
 
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@id/imgb"
-                                android:text="Test"
-                                android:textSize="19sp" />
+                                android:layout_weight="2"
+                                android:text="Tests" />
+
+                            <WebView
+                                android:id="@+id/webView2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_weight="2"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="7dp"
+
+                            android:orientation="horizontal"
+
+
+                            android:padding="@dimen/margin_10dp">
 
                             <TextView
-                                android:id="@+id/optionBPer"
+                                android:id="@+id/C"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@+id/optionB"
-
-                                android:textColor="@color/black_titles"
-
-                                 />
-<!--                            android:textSize="@dimen/evp_text_size_medium"-->
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical">
-
-                        <LinearLayout
-                            android:id="@+id/linear_txt_three"
-                            android:layout_width="30dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp">
-
-                            <ImageView
-                                android:id="@+id/imgc"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/linear_txt_three">
+                                android:text="C"
+                                android:gravity="center"
+                                android:background="@drawable/circle_shape_border"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/optionC"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="7dp"
 
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@id/imgc"
-                                android:text="Test"
-                                android:textSize="19sp" />
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_weight="2"
+                                android:text="Tests" />
+
+                            <WebView
+                                android:id="@+id/webView3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_weight="2"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="7dp"
+
+
+                            android:padding="@dimen/margin_10dp">
 
                             <TextView
-                                android:id="@+id/optionCPer"
+                                android:id="@+id/D"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@+id/optionC"
+                                android:text="D"
+                                android:gravity="center"
+                                android:background="@drawable/circle_shape_border"
+                                android:textStyle="bold" />
 
-                                android:textColor="@color/black"
-
-                                 />
-<!--                            android:textSize="@dimen/evp_text_size_medium"-->
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical">
-
-                        <LinearLayout
-                            android:id="@+id/linear_txt_four"
-                            android:layout_width="30dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp">
-
-                            <ImageView
-                                android:id="@+id/imgd"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_toRightOf="@id/linear_txt_four">
 
                             <TextView
                                 android:id="@+id/optionD"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@id/imgd"
-                                android:text="Test"
-                                android:textSize="19sp" />
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="7dp"
 
-                            <TextView
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_weight="2"
+                                android:text="Tests" />
 
-                                android:id="@+id/optionDPer"
-                                android:layout_width="wrap_content"
+                            <WebView
+                                android:id="@+id/webView4"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@+id/optionD"
-                                android:textColor="@color/black_titles"
-
-                                 />
-<!--                            android:textSize="@dimen/evp_text_size_medium"-->
+                                android:layout_marginStart="@dimen/margin_10dp"
+                                android:layout_weight="2"
+                                android:visibility="gone" />
 
                         </LinearLayout>
 
 
-                    </RelativeLayout>
+                    </LinearLayout>
+
+
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -377,7 +335,7 @@
                                     android:layout_gravity="center"
                                     android:gravity="center_vertical"
                                     android:minHeight="30sp"
-                                    android:paddingLeft="15dp"
+                                    android:paddingLeft="17dp"
                                     android:text=""
                                     android:textColor="@color/black_titles"
                                     android:textSize="@dimen/text_large" />
@@ -434,11 +392,8 @@
         android:paddingBottom="@dimen/dp_2"
         android:orientation="horizontal"
         android:visibility="gone"
-        android:elevation="5dp"
-
-        >
-<!--        android:background="@color/color_text"-->
-
+        android:elevation="7dp"
+        android:background="@color/colorPrimary">
         <Button
             android:id="@+id/skipBtn"
             android:layout_width="wrap_content"
@@ -460,13 +415,11 @@
         android:gravity="center_vertical"
         android:paddingTop="@dimen/dp_5"
         android:paddingBottom="@dimen/dp_5"
-        android:elevation="5dp"
+        android:elevation="7dp"
         android:orientation="horizontal"
-
+        android:background="@color/colorPrimary"
         android:visibility="gone"
         tools:visibility="visible">
-
-<!--        android:background="@color/color_text"-->
 
         <ImageView
             android:id="@+id/bookmark"

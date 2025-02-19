@@ -1,0 +1,190 @@
+package com.dnamedeg.fragment;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.dnamedeg.Activities.VideoActivity;
+import com.dnamedeg.Activities.VideoPlayerActivity;
+import com.dnamedeg.Activities.ViewerActivity;
+import com.dnamedeg.Adapters.VideoListFreeAdapter;
+import com.dnamedeg.Models.video.Free;
+import com.dnamedeg.Models.video.VideoList;
+import com.dnamedeg.R;
+import com.dnamedeg.Retrofit.RestClient;
+import com.dnamedeg.utils.Constants;
+import com.dnamedeg.utils.DnaPrefs;
+import com.dnamedeg.utils.Utils;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class FreeFragment extends Fragment implements VideoListFreeAdapter.OnCategoryClick {
+
+
+    RecyclerView recyclerView;
+
+    int contentType;
+    TextView noVid;
+    VideoActivity activity;
+    private VideoList videoList;
+
+
+    public FreeFragment(int contentType) {
+        this.contentType = contentType;
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (VideoActivity) getActivity();
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_free, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        noVid = view.findViewById(R.id.noVid);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getVideos();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    private void getVideos() {
+        if (Utils.isInternetConnected(activity)) {
+
+
+            RequestBody file_type = RequestBody.create(MediaType.parse("text/plain"), "video");
+            RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), DnaPrefs.getString(activity, Constants.LOGIN_ID));
+            RequestBody sub_child_cat = RequestBody.create(MediaType.parse("text/plain"), activity.subCatId);
+
+
+            Utils.showProgressDialog(activity);
+            RestClient.getVideos(sub_child_cat, file_type, user_id, new Callback<VideoList>() {
+                @Override
+                public void onResponse(Call<VideoList> call, Response<VideoList> response) {
+                    if (response.code() == 200) {
+                        Utils.dismissProgressDialog();
+                        videoList = response.body();
+                        showVideos();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<VideoList> call, Throwable t) {
+                    Utils.dismissProgressDialog();
+
+                }
+            });
+        } else {
+            Utils.dismissProgressDialog();
+            recyclerView.setVisibility(View.GONE);
+            noVid.setVisibility(View.VISIBLE);
+            noVid.setText("No Internet Connections Failed!!!");
+            Toast.makeText(activity, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    public void showVideos() {
+        if (videoList != null && videoList.getFree() != null && videoList.getFree().size() > 0) {
+            Log.d("Api Response :", "Got Success from Api");
+
+
+            VideoListFreeAdapter videoListAdapter = new VideoListFreeAdapter(getActivity());
+            videoListAdapter.setData(videoList.getFree());
+            videoListAdapter.setListener(FreeFragment.this);
+            videoListAdapter.setContentType(contentType);
+            recyclerView.setAdapter(videoListAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+            noVid.setVisibility(View.GONE);
+
+            Log.d("Api Response :", "Got Success from Api");
+            // noInternet.setVisibility(View.GONE);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return true;
+                }
+
+            };
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("Api Response :", "Got Success from Api");
+            recyclerView.setVisibility(View.GONE);
+            noVid.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    @Override
+    public void onCateClick(Free free) {
+        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+        intent.putExtra("free", free);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onPdfClick(Free free) {
+        Intent intent = new Intent(getActivity(), ViewerActivity.class);
+        intent.putExtra("url", free.getPdf_url());
+        intent.putExtra("title", "Notes");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onEbookClick(Free free) {
+        Intent intent = new Intent(getActivity(), ViewerActivity.class);
+        intent.putExtra("url", free.getEbook_url());
+        intent.putExtra("title", "E-Book");
+        startActivity(intent);
+    }
+}

@@ -10,5 +10,5 @@
         android:id="@+id/qbankfg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.dnamedical.fragment.QbankFragment"/>
+        android:name="com.dnamedeg.fragment.QbankFragment"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

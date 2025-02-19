@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/margin_10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textColor="@color/black_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Feedback/Send Error"/>
+        <TextView
+            android:textSize="@dimen/ts_14"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is the issue you reporting"/>
+
+        <TextView
+            android:background="@drawable/ic_attention"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+           />
+
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:lines="6"
+            android:textSize="12sp"
+            android:padding="@dimen/dp_5"
+            android:hint="Please explain clearly the specific issue that you came across in this MCQ here."
+            android:gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            />
+        <RadioGroup
+            android:id="@+id/rdg"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <RadioButton
+                android:id="@+id/fact"
+                android:layout_marginStart="8dp"
+                android:textSize="@dimen/ts_12"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Factual Error"/>
+            <RadioButton
+            android:id="@+id/confusion"
+                android:layout_marginStart="8dp"
+                android:textSize="@dimen/ts_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question is confusing"/>
+            <RadioButton
+                android:id="@+id/explanation"
+                android:layout_marginStart="8dp"
+                android:textSize="@dimen/ts_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inappropriate Explanation"/>
+
+
+        </RadioGroup>
+
+
+
+        <Button
+            android:id="@+id/button_guess"
+            android:background="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Submit"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="40dp"/>
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/dark_gray"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Important information: Please use the Report feedback/Report error button to report a potential factual error or feedback(e.g a recent update). This is not to use for asking doubts, general queries or technical queries. such question will not get reply"
+            />
+    </LinearLayout>
+
+
+
+
+</ScrollView>

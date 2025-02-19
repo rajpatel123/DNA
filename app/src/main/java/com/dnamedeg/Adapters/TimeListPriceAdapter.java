@@ -1,0 +1,100 @@
+package com.dnamedeg.Adapters;
+
+import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.dnamedeg.Models.paidvideo.SourceTime;
+import com.dnamedeg.R;
+
+import java.util.List;
+
+
+public class TimeListPriceAdapter extends RecyclerView.Adapter<TimeListPriceAdapter.ViewHolder> {
+
+
+
+
+    private Context context;
+    private List<SourceTime> sourceTimes;
+
+
+
+    OnTimeClick onUserClickCallback;
+
+    public TimeListPriceAdapter(Context context) {
+        this.context = context;
+    }
+
+    public void setSourceTimes(List<SourceTime> sourceTimes) {
+        this.sourceTimes = sourceTimes;
+    }
+    public void setOnUserClickCallback(OnTimeClick onUserClickCallback) {
+        this.onUserClickCallback = onUserClickCallback;
+    }
+
+
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.video_time_items, viewGroup, false);
+        return new TimeListPriceAdapter.ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+
+        holder.time.setText(sourceTimes.get(holder.getAdapterPosition()).getSourceTime());
+        holder.title.setText(sourceTimes.get(holder.getAdapterPosition()).getTopicName());
+
+
+        holder.row_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onUserClickCallback != null) {
+                    onUserClickCallback.onTimeClick(sourceTimes.get(holder.getAdapterPosition()).getSourceTime());
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        if (sourceTimes != null) {
+            return sourceTimes.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+
+        //@BindView(R.id.time)
+        TextView time;
+        //@BindView(R.id.row_view)
+        LinearLayout row_view;
+        //@BindView(R.id.title)
+        TextView title;
+
+        public ViewHolder(View view) {
+            super(view);
+            time=view.findViewById(R.id.time);
+            row_view=view.findViewById(R.id.row_view);
+            title=view.findViewById(R.id.title);
+        }
+    }
+
+
+
+    public interface OnTimeClick{
+        public void  onTimeClick(String time);
+    }
+}

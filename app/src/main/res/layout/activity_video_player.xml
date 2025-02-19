@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.dnamedical.Activities.VideoPlayerActivity">
+    tools:context="com.dnamedeg.Activities.VideoPlayerActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -28,27 +28,14 @@
             app:srcCompat="@drawable/back_arrow" />
 
         <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/dnalogo"
-        android:padding="10dp"
-        android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/pdfDwnloadOptionImg"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
+            android:id="@+id/pdf_notes"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="@drawable/pdf_icon_white"
             android:padding="10dp"
             android:visibility="visible" />
 
@@ -88,7 +75,7 @@
                 tools:visibility="visible" />
 
 
-            <com.dnamedical.player.EasyExoVideoPlayer
+            <com.dnamedeg.player.EasyExoVideoPlayer
                 android:id="@+id/exoplayer"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -115,7 +102,7 @@
                 android:orientation="vertical"
                 android:paddingRight="10dp">
 
-                <com.dnamedical.views.TypeWriter
+                <com.dnamedeg.views.TypeWriter
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,7 +111,7 @@
                     android:textSize="14sp"
                     android:visibility="gone" />
 
-                <com.dnamedical.views.TypeWriter
+                <com.dnamedeg.views.TypeWriter
                     android:id="@+id/mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -363,7 +350,7 @@
                     android:layout_marginTop="8dp"
                     android:paddingLeft="15dp"
                     android:text="-NEET AIIMS prepration videos"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <TextView
 

@@ -1,33 +1,36 @@
-plugins {
-    id 'com.android.application'
-    id 'com.google.gms.google-services'
+buildscript {
 
 }
+apply plugin: 'com.android.application'
+//apply plugin: 'com.google.firebase.crashlytics'
+
+
+
+//apply plugin: 'com.google.gms.google-services'
+
+
 def uatKeystorePropertiesFile = rootProject.file("release_signing.properties")
 def uatKeystoreProperties = new Properties()
 uatKeystoreProperties.load(new FileInputStream(uatKeystorePropertiesFile))
-
 android {
-    namespace "com.dnamedical"
-    compileSdkVersion 35
-    buildFeatures {
-        buildConfig true
-    }
-
+    compileSdkVersion 33
+    buildToolsVersion "29.0.3"
+    namespace 'com.dnamedeg'
     defaultConfig {
-        applicationId "com.dnamedical"
-
+        applicationId "com.dnamedeg"
         minSdkVersion 26
-        targetSdkVersion 34
-        versionCode 111
-        versionName "v6.2.9"
+        targetSdkVersion 33
+        versionCode 180
+        versionName "v7.0.0"
         multiDexEnabled true
-        buildConfigField "String", "API_SERVER_IP",  "\"http://65.2.1.107/\""
+        ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         vectorDrawables.useSupportLibrary = true
+        // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     lintOptions {
         checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
         abortOnError false
     }
 
@@ -37,120 +40,107 @@ android {
             keyPassword uatKeystoreProperties['KEY_PASSWORD']
             storeFile file(uatKeystoreProperties['STORE_FILE'])
             storePassword uatKeystoreProperties['STORE_PASSWORD']
+            v2SigningEnabled true
         }
+
     }
-
- //   buildTypes {
-//        release {
-//            debuggable false
-//            signingConfig signingConfigs.dna
-//            minifyEnabled false
-//            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-//        debug {
-//            minifyEnabled false
-//            buildConfigField "String", "API_SERVER_IP", "\"http://13.232.100.13/\""
-//        }
-
-  //  }
     buildTypes {
-        debug{
-            signingConfig signingConfigs.dna
-            minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP",  "\"http://65.2.1.107/\""
-        }
         release {
+            debuggable false
+            def uatSigningKey = signingConfigs.dna
+            signingConfig uatSigningKey
+            multiDexEnabled true
             minifyEnabled false
-            buildConfigField "String", "API_SERVER_IP",  "\"http://65.2.1.107/\""
-            signingConfig signingConfigs.debug
+            buildConfigField "String", "API_SERVER_IP", "\"http://65.2.1.107/\""
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
+        debug {
+            minifyEnabled false
+            multiDexEnabled true
+            buildConfigField "String", "API_SERVER_IP", "\"http://65.2.1.107/\""
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-
+    repositories {
+        mavenCentral()
+        mavenCentral()
+    }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/DEPENDENCIES'
-        }
-    }
-}
 
-repositories {
-    google()
-    mavenCentral()
-    maven { url 'https://maven.fabric.io/public' }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    //implementation project(':easy-player')
-    //implementation project(':indicatorseekbar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':easy-player')
+    implementation project(':indicatorseekbar')
 
+    //    implementation project(':pinentryedittext')
 
-
-    // AndroidX libraries
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.6.0'
+    //implementation 'com.karumi:dexter:4.2.0'
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    //  implementation 'me.tankery.lib:circularSeekBar:1.1.5'
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    //implementation 'com.facebook.android:facebook-login:[4,5)'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
 
-     //Google Play Services
-    implementation 'com.google.android.gms:play-services-location:21.3.0'
-    implementation 'com.google.android.gms:play-services-auth:21.3.0'
-
-
-    // Firebase
-//    implementation platform('com.google.firebase:firebase-bom:33.9.0')
-//    implementation 'com.google.firebase:firebase-messaging'
-//    implementation 'com.google.firebase:firebase-crashlytics'
-
-    // Third-party libraries
-    implementation 'com.karumi:dexter:6.2.3'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    // Add the core Media3 ExoPlayer library
-    implementation 'androidx.media3:media3-exoplayer:1.5.1'
-
-    // Optional: Add UI components for ExoPlayer (like PlayerView)
-    implementation 'androidx.media3:media3-ui:1.5.1'
-
-    // Optional: Add other Media3 components (e.g., for DRM, Cast)
-    implementation 'androidx.media3:media3-exoplayer-dash:1.5.1' // DASH streaming
-    implementation 'androidx.media3:media3-exoplayer-hls:1.5.1'  // HLS streaming
-    implementation 'androidx.media3:media3-exoplayer-rtsp:1.5.1' // RTSP support
-    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
-    implementation 'com.github.bumptech.glide:glide:4.15.1'
-    implementation 'androidx.annotation:annotation-jvm:1.9.1'
-//    implementation 'com.github.Barsik-Hover:SeekBarCompat:1.0.0'
-//    implementation 'com.github.warkiz.widget:IndicatorSeekBar:4.0.0'
+    implementation 'com.google.firebase:firebase-firestore:17.0.2'
 
 
-    // Example: A library that might define the interface
-        implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'com.google.android.exoplayer:exoplayer:2.9.1'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    implementation 'com.google.firebase:firebase-core:17.5.0'
+    implementation 'com.google.android.gms:play-services-auth:10.0.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
 
-    implementation 'com.razorpay:checkout:1.6.41'
-    implementation 'androidx.multidex:multidex:2.0.1'
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation 'com.squareup.okhttp:okhttp:2.4.0'
+    implementation 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
-
+    implementation('com.github.bumptech.glide:glide:4.6.1') {
+        exclude group: "com.android.support"
+    }
+//    testImplementation 'junit:junit:4.12'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.razorpay:checkout:1.5.1'
     //implementation 'me.hiennguyen.circleseekbar:circleseekbar:1.0.1'
-//    implementation project(':easy-player')
-    //implementation 'com.facebook.android:facebook-android-sdk:18.0.1'
-        implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
-
-
-
-    // Testing
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    implementation project(path: ':pinentryedittext')
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation project(path: ':library')
+    implementation 'com.commit451:PhotoView:1.2.4'
+    implementation 'pub.devrel:easypermissions:2.0.1'
+}
+repositories {
+    maven { url 'https://maven.google.com' }
 }

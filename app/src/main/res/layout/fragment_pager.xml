@@ -151,7 +151,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/linear_top"
             android:layout_marginBottom="0dp" /> -->
-        <com.dnamedical.views.NonSwipeableViewPager
+        <com.dnamedeg.views.NonSwipeableViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

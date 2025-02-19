@@ -1,210 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    package="com.dnamedical">
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
-<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-feature
-        android:name="android.hardware.Camera"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
+    package="com.dnamedeg">
 
     <application
         android:name=".DNAApplication"
         android:allowBackup="true"
-        android:icon="@drawable/dnalogo"
-        android:label="DNA"
-        android:roundIcon="@drawable/dnalogo"
+        android:icon="@drawable/medef_full_logo"
+        android:label="NEET-UG"
+        android:roundIcon="@drawable/medef_full_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-
-        tools:replace="android:label">
+        tools:replace="android:appComponentFactory,android:label"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        tools:targetApi="p">
+        <activity android:name=".Activities.custommodule.CustomModuleActivity"
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait"
+            android:label="Create Custom Module"
+            android:exported="false"
+            />
+        <activity
+            android:name=".Activities.ReferalActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.ModuleQBankActivity"
+            android:exported="false"
             android:label="QBank"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.ModuleTestActivity"
+            android:exported="false"
             android:label="Test"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
-
-
-
         <activity
             android:name=".Activities.CategoryModulesActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
 
-
+        <activity
+            android:name=".Activities.VerifyNewOTPActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+                               />
+        <activity
+            android:name=".livemodule.LiveOnliveClassListActity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.AllInstituteActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
-
-
         <activity
             android:name=".Activities.ChangePhoneNumberOtypVarification"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ChanePhoneNumberActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.InstituteTestActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.RemarksActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.FacultyChatActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".livemodule.LiveVideoActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
+        <activity
             android:name=".Activities.SubscriptionPaymentActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.PlanPaymentProceesingActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.TestV1Activity"
+            android:exported="false"
             android:screenOrientation="portrait" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity android:name=".Activities.EnterMobileAndEmailActivity" />
         <activity
             android:name=".Activities.UpdateAddressActivity"
+            android:exported="false"
             android:label="Edit Address"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
-
-        <service
-            android:name=".Activities.MyService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity
             android:name=".Activities.ForgetPasswordSendEmailActiivty"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.ForgetPasswordEmailActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
+        <activity android:name=".Activities.ViewerActivity"
+            android:exported="false"/>
         <activity
             android:name=".Activities.AddressListActivity"
+            android:exported="false"
             android:label="Shipping Address"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.PaymentCoupenActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme6" />
         <activity
             android:name=".Activities.PaymentDetailActivity"
+            android:exported="false"
             android:label="Payment"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.PaymentAddressSaveActivity"
+            android:exported="false"
             android:label="Address"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.ChangePasswordActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.IdVerificationActivitty"
+            android:exported="false"
             android:label="Verification "
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.EditProfileActivity"
+            android:exported="false"
             android:label="Edit Profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
-        <activity android:name=".Activities.AboutUsActivit" />
+        <activity android:name=".Activities.AboutUsActivit"
+            android:exported="false"/>
         <activity
             android:name=".Activities.FranchiActivity"
+            android:exported="false"
             android:label="Query"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.AttemptingQuestionActivity"
+            android:exported="false"
             android:label="Query"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.TestReviewResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.FacultyChatChannelActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.QBankReviewResultActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.PromoActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme6" />
         <activity
             android:name=".Activities.QbankReviewResult"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.QbankAddFeedbackActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankResultActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankRatingActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankTestActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme6" />
         <activity
             android:name=".Activities.BookmarkActivity"
+            android:exported="false"
             android:label="MCQ Bookmarks"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme5" />
         <activity
             android:name=".Activities.QbankStartTestActivity"
+            android:exported="false"
             android:label="Amino acid:Metabolism"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.QbankSubActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
+        <!--
+  <service
+            android:name="com.dnamedeg.notification.LatestFirebaseMessagingService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        -->
         <activity
             android:name=".Activities.ReviewQuestionList"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ReviewresulActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SplashActivity"
-            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme6">
+            android:theme="@style/AppTheme6"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -212,14 +255,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <data
-                    android:host="open"
-                    android:scheme="dnaapp" />
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="open"
+                    android:scheme="dnaapp" />
             </intent-filter>
 
             <!-- Branch App Links -->
@@ -234,135 +277,218 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name="com.razorpay.RzpTokenReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="rzp.device_token.share" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.razorpay.CheckoutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@style/CheckoutTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <data
+                    android:host="rzp.io"
+                    android:scheme="io.rzp" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.FirstloginActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddressForSubscriptionListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".livemodule.LivePaymentDetailActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.LoginActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.RegistrationActivity"
+            android:exported="false"
             android:parentActivityName=".Activities.FirstloginActivity"
             android:screenOrientation="portrait" />
-<!--        <activity-->
-<!--            android:name=".Activities.TheorybookActivity"-->
-<!--            android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".livemodule.LivePaymentCoupenActivity"
+            android:exported="false"
+            android:parentActivityName=".livemodule.LiveOnliveClassListActity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".livemodule.LiveAddressListActivity"
+            android:exported="false"
+            android:parentActivityName=".livemodule.LivePaymentCoupenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.PaymentActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.PhoneloginActivity"
+            android:exported="false"
             android:parentActivityName=".Activities.FirstloginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.MainActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
         <activity
-            android:name=".Activities.VedioClassesActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activities.VerifyOTPActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Activities.PlanPaymentProceesingForSSUGActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
-
-<!--        <meta-data-->
-<!--            android:name="com.facebook.sdk.ApplicationId"-->
-<!--            android:value="2180675295533531" />-->
-
+        <!--
+<activity
+            android:name=".Activities.VedioClassesActivity"
+            android:screenOrientation="portrait" />
+        -->
         <activity
             android:name=".Activities.NeetPgActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"/>
+            android:theme="@style/AppTheme2" />
+
         <activity
-            android:name=".Activities.ShoppingActivty"
-            android:screenOrientation="portrait" />
-<!--        <activity-->
-<!--            android:name=".Activities.LiveActivity"-->
-<!--            android:screenOrientation="portrait" />-->
+            android:name=".Activities.custommodule.CustomTestStartDailyActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+
+        <activity
+            android:name=".Activities.custommodule.CustomtestV1TestV1Activity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNAFacultyActivity"
+            android:exported="false"
             android:label="Faculty"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".Activities.DNASuscribeActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.DNAKnowmoreActivity"
             android:label="Know More"
+            android:exported="false"
+            android:parentActivityName=".Activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <!--
+ <activity
+            android:name=".Activities.ShoppingActivty"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.LiveActivity"
+            android:screenOrientation="portrait" />
+        -->
+        <activity
+            android:name=".Activities.ContactUsActivity"
+            android:label="Contact Us"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".Activities.TestUGV1Activity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".Activities.DNAProfileActivity"
+            android:label="Profile"
+            android:exported="false"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name=".Activities.ContactUsActivity"
-            android:label="Contact Us"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
-
-
+            android:name=".Activities.WebViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.TestUGV1Activity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
-
-<!--        <activity android:name=".Activities.DNASettingActivity" />-->
+            android:name=".Activities.VideoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <!--
+ <activity android:name=".Activities.DNASettingActivity" />
         <activity
             android:name=".Activities.Noticeboard"
             android:label="Notice Board"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
-        <activity
-            android:name=".Activities.DNAProfileActivity"
-            android:label="Profile"
-            android:parentActivityName=".Activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
-        <activity
-            android:name=".Activities.WebViewActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.VideoActivity"
-            android:screenOrientation="portrait" />
+        -->
         <activity
             android:name=".Activities.VideoPlayerActivity"
+            android:exported="false"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.TestStartActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.TestStartDailyActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Mobilenumber"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.TestQuestionExamActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ResultActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
 
-<!--        <service android:name=".Activities.MyMessagingService"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
-<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_GPmJIkGzNlDISO" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="dfe8483de641ade0780acac1920014763432dd86" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_with_title" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <receiver android:name=".messageReceiver.SmsReceiver"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
@@ -375,27 +501,38 @@
             </intent-filter>
         </receiver>
 
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+        <service
+            android:name=".Activities.MyService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Activities.MyMessagingService"
             android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <service
             android:name=".FetchAddressIntentService"
             android:exported="false" />
-
-        <meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_GPmJIkGzNlDISO" />
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="dfe8483de641ade0780acac1920014763432dd86" />
     </application>
+
+    <uses-feature
+        android:name="android.hardware.Camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

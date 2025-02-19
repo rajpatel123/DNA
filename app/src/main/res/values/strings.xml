@@ -84,10 +84,10 @@
     <string name="invalid_too_short">Password length atleast 6 digit!!</string>
     <string name="contact_top_text">Please use any of the following modes to get in touch with us..</string>
     <string name="try_other_login">Try other login methods</string>
-    <string name="terms">Terms Conditions</string>
+    <string name="terms"><u>Terms Conditions</u></string>
     <string name="view_breakup">View Breakup</string>
 
-    <string name="privacy"> and Privacy Policy</string>
+    <string name="privacy"> and <u>Privacy Policy</u></string>
     <string name="rupay">Rs. 3,500</string>
 
     <string name="already_member">Already member? Log In</string>
@@ -110,6 +110,7 @@
     <string name="test_start">The test contains</string>
     <string name="test_start_medium">questions from Psychiatry with a duration of </string>
     <string name="alert_text1">Once You Start, the  test timer cannot be paused. Continue?</string>
+    <string name="alert_text2">Do you want to start solving custom test</string>
     <string name="discard_text1">Are you sure you want to discard the test?</string>
     <string name="submit_text1">Do you want to submit the test?</string>
     <string name="guess_heading">New Feature to help you with negative marking!</string>
@@ -118,7 +119,7 @@
     <string name="enter_otp">Enter otp</string>
     <string name="enter_otp_on_email">Enter otp sent on your phone</string>
     <string name="enter_otp_on_yor_phoneno">Enter otp sent on your phone....00:30</string>
-    <string name="resend_otp">RESEND</string>
+    <string name="resend_otp"><u>RESEND</u></string>
     <string name="resend_otp_remain">%1$d Seconds</string>
     <string name="know_more_data">Latest Online Platform For MD / MS / DNB / DM / M.Ch  Preparation With Questions Bank , Test Series , Recorded Video Lectures and Live Video Lectures</string>
     <string name="dialog_message">dhgdfg</string>
@@ -130,6 +131,7 @@
     <string name="billing_txt">Enter Billing/Shipping</string>
     <string name="billing_txt_one">Information</string>
 
+    <string name="coupen_live_txt">I Have already watched the FREE contents like Videos and other things of this App and I am fully satisfied.</string>
     <string name="coupen_txt">I Have already watched the FREE contents like Video | Test | Q-Bank | Notes and other things of this App and I am fully satisfied.</string>
     <string name="coupen_txt_one">I am agree that my purchase is final and I will not ask for refund under any circumstances.</string>
     <string name="coupen_txt_two">I have gone through FAQs, Terms &amp; Conditions of this App and will follow.</string>
@@ -170,12 +172,10 @@
     <string name="pincode">Please enter 6 digit pincode</string>
     <string name="mpincode">Please enter 6 digit medical college pincode</string>
     <string name="select_amount">Select amount to be invested per year</string>
-
+    <string name="what_s_on_your_mind">Enter your query</string>
     <string name="file_view">File View</string>
     <string name="file_download">File Download</string>
     <string name="file_request">Request Access Again</string>
-    <string name="evp_retry">Retry</string>
-    <string name="evp_submit">Submit</string>
-
+    <string name="edit"><u>EDIT</u></string>
 
 </resources>

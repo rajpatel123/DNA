@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/crossBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:text="@string/enter_otp_on_email"
         android:textStyle="normal" />
 
-    <EditText
+    <com.alimuzaffar.lib.pin.PinEntryEditText
         android:id="@+id/pin_layout"
         android:layout_width="164dp"
         android:layout_height="wrap_content"
@@ -48,16 +48,13 @@
         android:maxLength="6"
         android:textIsSelectable="false"
         android:textSize="@dimen/ts_20"
-        />
-
-<!--    app:pinAnimationType="popIn"-->
-<!--    app:pinBackgroundIsSquare="true"-->
-<!--    app:pinCharacterSpacing="12dp"-->
-
-<!--    app:pinLineStroke="2dp"-->
-<!--    app:pinLineStrokeSelected="2dp"-->
-<!--    app:pinTextBottomPadding="4dp"-->
-
+        app:pinAnimationType="popIn"
+        app:pinBackgroundIsSquare="true"
+        app:pinCharacterSpacing="12dp"
+        app:pinLineColors="@color/black_disabled"
+        app:pinLineStroke="2dp"
+        app:pinLineStrokeSelected="2dp"
+        app:pinTextBottomPadding="4dp" />
 
     <TextView
         android:id="@+id/resendOtp"
@@ -71,10 +68,8 @@
         android:visibility="gone"
         android:text="@string/resend_otp" />
 
-<!--    app:pinLineColors="@color/black_disabled"-->
 
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

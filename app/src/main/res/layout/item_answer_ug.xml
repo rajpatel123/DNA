@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,19 +20,23 @@
             android:background="@drawable/answer_selecter"
             app:cardElevation="4sp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/optiontag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    tools:visibility="visible"
-
+                    android:background="@drawable/circle_shape_border"
+                    android:layout_margin="@dimen/dp_10"
+                    android:text="(A)"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:textStyle="bold"
-                    android:text="(A)" />
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/answer"
@@ -40,20 +44,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/optiontag"
-                    android:padding="@dimen/dp_10"
-                    android:visibility="gone"
-                    android:text="fdffjd" />
+                    android:text=""
+                    android:visibility="gone" />
 
                 <WebView
                     android:id="@+id/webview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_toEndOf="@id/answer"
-                    android:visibility="visible"
-                    />
+                    android:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/image"
@@ -62,9 +63,8 @@
                     android:layout_below="@id/answer"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    />
-            </RelativeLayout>
+                    android:layout_marginBottom="20dp" />
+            </LinearLayout>
 
 
         </androidx.cardview.widget.CardView>
