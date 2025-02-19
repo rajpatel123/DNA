@@ -91,6 +91,8 @@ dependencies {
     //implementation project(':easy-player')
     //implementation project(':indicatorseekbar')
 
+
+
     // AndroidX libraries
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
@@ -137,9 +139,11 @@ dependencies {
 
     implementation 'com.razorpay:checkout:1.6.41'
     implementation 'androidx.multidex:multidex:2.0.1'
+
+
     //implementation 'me.hiennguyen.circleseekbar:circleseekbar:1.0.1'
 //    implementation project(':easy-player')
-    implementation 'com.facebook.android:facebook-android-sdk:18.0.1'
+    //implementation 'com.facebook.android:facebook-android-sdk:18.0.1'
         implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
 

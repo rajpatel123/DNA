@@ -32,7 +32,7 @@ import com.dnamedical.institute.InstituteDetails;
 import com.dnamedical.utils.Constants;
 import com.dnamedical.utils.DnaPrefs;
 import com.dnamedical.utils.Utils;
-import com.facebook.login.LoginManager;
+//import com.facebook.login.LoginManager;
 
 import java.io.File;
 import java.security.MessageDigest;
@@ -270,7 +270,7 @@ public class SplashActivity extends AppCompatActivity {
 
             clearApplicationData();
             DnaPrefs.putBoolean(this, Constants.LoginCheck, false);
-            LoginManager.getInstance().logOut();
+//            LoginManager.getInstance().logOut();
 
 
             dialog.dismiss();

@@ -1,5 +1,3 @@
-include ':app', ':indicatorseekbar', ':pinentryedittext'
+include ':app'
 
 
-//include ':libraryMobilePaymentSDK'
-include ':easy-player'
