@@ -17,10 +17,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+
 import com.dnamedeg.BuildConfig;
-import com.dnamedeg.Models.LoginDetailForDemo;
-import com.dnamedeg.Models.LoginDetails;
+
 import com.dnamedeg.Models.updateplaystore.PlaystoreUpdateResponse;
 import com.dnamedeg.R;
 import com.dnamedeg.Retrofit.RestClient;
@@ -33,7 +32,7 @@ import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import io.fabric.sdk.android.Fabric;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;

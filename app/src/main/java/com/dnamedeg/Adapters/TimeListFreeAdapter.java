@@ -14,8 +14,7 @@ import com.dnamedeg.Models.video.SourceTime;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 import com.dnamedeg.R;
 
@@ -83,16 +82,19 @@ public class TimeListFreeAdapter extends RecyclerView.Adapter<TimeListFreeAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.time)
+        //@BindView(R.id.time)
         TextView time;
-        @BindView(R.id.row_view)
+        // @BindView(R.id.row_view)
         LinearLayout row_view;
-        @BindView(R.id.title)
+        // @BindView(R.id.title)
         TextView title;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            time = view.findViewById(R.id.time);
+            row_view = view.findViewById(R.id.row_view);
+            title = view.findViewById(R.id.title);
+            //ButterKnife.bind(this, view);
         }
     }
 

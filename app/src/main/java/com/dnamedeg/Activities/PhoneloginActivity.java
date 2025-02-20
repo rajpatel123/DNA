@@ -13,8 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.dnamedeg.Models.registration.CommonResponse;
 import com.dnamedeg.R;
 import com.dnamedeg.Retrofit.RestClient;
@@ -27,20 +26,23 @@ import retrofit2.Response;
 
 public class PhoneloginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.edittext_phone)
+
     EditText edit_phone;
 
-    @BindView(R.id.btn_continue)
+
     Button btnContinue;
 
-    @BindView(R.id.try_login)
+
     TextView tryOtherLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phonelogin);
-        ButterKnife.bind(this);
+         edit_phone=findViewById(R.id.edittext_phone);
+         btnContinue=findViewById(R.id.btn_continue);
+         tryOtherLogin=findViewById(R.id.try_login);
+
         edit_phone.setOnClickListener(this);
         btnContinue.setOnClickListener(this);
         tryOtherLogin.setOnClickListener(this);
@@ -66,24 +68,19 @@ public class PhoneloginActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-        switch (view.getId())
-        {
-            case R.id.btn_continue:
-                if (!TextUtils.isEmpty(edit_phone.getText().toString().trim())) {
-                    sentOTP(edit_phone.getText().toString().trim());
-                } else {
+        if(view.getId()==R.id.btn_continue) {
+//        {
+//            case R.id.btn_continue:
+            if (!TextUtils.isEmpty(edit_phone.getText().toString().trim())) {
+                sentOTP(edit_phone.getText().toString().trim());
+            } else {
 
-                }
-                break;
-
-            case R.id.try_login:
-                startActivity(new Intent(PhoneloginActivity.this,LoginActivity.class));
-                finish();
-                break;
-
-
+            }
+            return;
+        } else if (view.getId()==R.id.try_login){
+            startActivity(new Intent(PhoneloginActivity.this,LoginActivity.class));
+            finish();
         }
-
     }
 
     private void sentOTP(String phone) {

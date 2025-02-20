@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import com.dnamedeg.Models.test.MiniTest;
 import com.dnamedeg.R;
@@ -71,25 +69,32 @@ public class MiniTestAdapter extends RecyclerView.Adapter<MiniTestAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.testTitle)
+
         TextView title;
 
-        @BindView(R.id.total_question)
+
         TextView questionTotal;
 
-        @BindView(R.id.total_time)
+
         TextView timeTotal;
 
 
-        @BindView(R.id.textView_Date)
+
         TextView textDate;
-        @BindView(R.id.image_lock)
+
         ImageView imageLock;
 
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
-        }
+            title=view.findViewById(R.id.testTitle);
+            questionTotal=view.findViewById(R.id.total_time);
+            questionTotal=view.findViewById(R.id.total_question);
+            textDate=view.findViewById(R.id.textView_Date);
+            imageLock=view.findViewById(R.id.image_lock);}
+
+
+
+
     }
 }

@@ -21,7 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
+
+import com.chaos.view.PinView;
 import com.dnamedeg.Models.franchies.FranchiesResponse;
 import com.dnamedeg.R;
 import com.dnamedeg.Retrofit.RestClient;
@@ -317,7 +318,7 @@ public class FranchiActivity extends AppCompatActivity {
         final AlertDialog dialog = dialogBuilder.create();
 
 
-        PinEntryEditText printVerifyPin = dialogView.findViewById(R.id.prntEdtChangePhoneOtp);
+        PinView printVerifyPin = dialogView.findViewById(R.id.prntEdtChangePhoneOtp);
         ImageView crossBtn = dialogView.findViewById(R.id.crossBtn);
         Button btnOtpVerify = dialogView.findViewById(R.id.btnVerify);
         TextView resendOtp = dialogView.findViewById(R.id.resend);

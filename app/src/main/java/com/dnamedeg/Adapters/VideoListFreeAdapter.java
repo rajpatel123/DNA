@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.BuildConfig;
 import com.dnamedeg.Models.video.Free;
 import com.dnamedeg.R;
@@ -23,8 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 import static android.view.View.GONE;
 
@@ -105,7 +105,7 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
 
         }
         holder.number.setText("" + (holder.getAdapterPosition() + 1));
-        Picasso.with(applicationContext)
+        Glide.with(applicationContext)
                 .load(freeList.get(holder.getAdapterPosition()).getDr_img())
                 .error(R.drawable.dnalogo)
                 .into(holder.imageDoctor);
@@ -167,40 +167,52 @@ public class VideoListFreeAdapter extends RecyclerView.Adapter<VideoListFreeAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.row_view)
+
         LinearLayout row_view;
-        @BindView(R.id.vid_title)
+
         TextView title;
 
-        @BindView(R.id.progress)
+
         SeekBar progress;
-        @BindView(R.id.pdf_notes)
+
         ImageView pdf_notes;
 
 
-        @BindView(R.id.ratingandtime)
+
         TextView ratingandtime;
-        @BindView(R.id.vid_doctor_name)
+
         TextView doctorName;
 
-        @BindView(R.id.chapter)
+
         TextView chapter;
-        @BindView(R.id.number)
+
         TextView number;
 
-        @BindView(R.id.commingsoon)
+
         TextView commingsoon;
 
-        @BindView(R.id.image_doctor)
+
         ImageView imageDoctor;
-        @BindView(R.id.lineView)
+
         View lineView;
-        @BindView(R.id.lineViewWithMargin)
+
         View lineViewWithMargin;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            row_view=view.findViewById(R.id.row_view);
+            title=view.findViewById(R.id.vid_title);
+            progress=view.findViewById(R.id.progress);
+            pdf_notes=view.findViewById(R.id.pdf_notes);
+            ratingandtime=view.findViewById(R.id.ratingandtime);
+            doctorName=view.findViewById(R.id.vid_doctor_name);
+            chapter=view.findViewById(R.id.chapter);
+            number=view.findViewById(R.id.number);
+            commingsoon=view.findViewById(R.id.commingsoon);
+            imageDoctor=view.findViewById(R.id.image_doctor);
+            lineView=view.findViewById(R.id.lineView);
+            lineViewWithMargin=view.findViewById(R.id.lineViewWithMargin);
+
         }
     }
 

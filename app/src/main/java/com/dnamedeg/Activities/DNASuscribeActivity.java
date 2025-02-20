@@ -28,8 +28,7 @@ import com.dnamedeg.utils.Utils;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,31 +36,31 @@ import retrofit2.Response;
 public class DNASuscribeActivity extends AppCompatActivity {
 
     PlanResponse planResponse;
-    @BindView(R.id.planholderlayout)
+
     LinearLayout planholderlayout;
 
-    @BindView(R.id.planholderlayoutNeetUGPlans)
+
     LinearLayout planholderlayoutNeetUGPlans;
 
 
-    @BindView(R.id.planholderlayoutNeetSSPlans)
+
     LinearLayout planholderlayoutNeetSSPlans;
 
 
     LayoutInflater inflater;
-    @BindView(R.id.toolbar)
+
     Toolbar toolbar;
 
-    @BindView(R.id.planGroup)
+
     RadioGroup planGroup;
 
 
 
-    @BindView(R.id.planGroupSS)
+
     RadioGroup planGroupSS;
 
 
-    @BindView(R.id.planGroupUG)
+
     RadioGroup planGroupUG;
 
     RadioButton radioButton;
@@ -82,8 +81,16 @@ public class DNASuscribeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnasuscribe);
-        ButterKnife.bind(this);
+
         inflater = LayoutInflater.from(this);
+        planholderlayout=findViewById(R.id.planholderlayout);
+        planholderlayoutNeetSSPlans=findViewById(R.id.planholderlayoutNeetSSPlans);
+        planholderlayoutNeetUGPlans=findViewById(R.id.planholderlayoutNeetUGPlans);
+        planGroup=findViewById(R.id.planGroup);
+        planGroupSS=findViewById(R.id.planGroupSS);
+        planGroupUG=findViewById(R.id.planGroupUG);
+        toolbar=findViewById(R.id.toolbar);
+
 
 
         setSupportActionBar(toolbar);

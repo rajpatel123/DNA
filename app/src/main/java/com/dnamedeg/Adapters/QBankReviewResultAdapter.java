@@ -10,8 +10,6 @@ import android.webkit.WebView;
 import android.widget.TextView;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.dnamedeg.Models.QbankReviewResult.QbankreviewResult;
 import com.dnamedeg.R;
 
@@ -61,21 +59,29 @@ public class QBankReviewResultAdapter extends RecyclerView.Adapter<QBankReviewRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.optionA)
+        //@BindView(R.id.optionA)
         TextView textViewFirst;
-        @BindView(R.id.optionB)
+        //@BindView(R.id.optionB)
         TextView textViewSecond;
-        @BindView(R.id.optionC)
+        //@BindView(R.id.optionC)
         TextView textViewThird;
-        @BindView(R.id.optionD)
+        // @BindView(R.id.optionD)
         TextView textViewFourth;
-        @BindView(R.id.qtext)
+        //@BindView(R.id.qtext)
         TextView question;
-        @BindView(R.id.webView)
+        // @BindView(R.id.webView)
         WebView webview;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+//            ButterKnife.bind(this, itemView);
+            textViewFirst = itemView.findViewById(R.id.optionA);
+            textViewSecond = itemView.findViewById(R.id.optionB);
+            textViewThird = itemView.findViewById(R.id.optionC);
+            textViewFourth = itemView.findViewById(R.id.optionD);
+            question = itemView.findViewById(R.id.qtext);
+            webview = itemView.findViewById(R.id.webView);
+
+
         }
     }
 }

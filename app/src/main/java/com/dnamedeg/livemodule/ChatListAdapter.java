@@ -22,8 +22,7 @@ import com.dnamedeg.utils.DnaPrefs;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
     private FacultyChatActivity applicationContext;
@@ -221,29 +220,26 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.llRight)
+
         LinearLayout llRight;
 
-        @BindView(R.id.message)
+
         TextView message;
 
-        @BindView(R.id.llLeft)
+
         LinearLayout llLeft;
 
-        @BindView(R.id.messageLeft)
+
         TextView messageLeft;
-        @BindView(R.id.tvDoctName)
+
         TextView tvDoctName;
 
-        @BindView(R.id.tvUserName)
+
         TextView tvUserName;
 
-
-
-        @BindView(R.id.ivImageLeft)
         ImageView ivImageLeft;
 
-        @BindView(R.id.ivImageRight)
+
         ImageView ivImageRight;
 
 
@@ -252,7 +248,16 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
             itemView = view;
-            ButterKnife.bind(this, view);
+            llRight=view.findViewById(R.id.llRight);
+            message=view.findViewById(R.id.message);
+            llLeft=view.findViewById(R.id.llLeft);
+            messageLeft=view.findViewById(R.id.messageLeft);
+            tvDoctName=view.findViewById(R.id.tvDoctName);
+            tvUserName=view.findViewById(R.id.tvUserName);
+            ivImageLeft=view.findViewById(R.id.ivImageLeft);
+            ivImageRight=view.findViewById(R.id.ivImageRight);
+
+
 
 
         }

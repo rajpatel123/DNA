@@ -38,8 +38,7 @@ import com.dnamedeg.utils.Utils;
 
 import java.io.File;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -70,16 +69,16 @@ public class IdVerificationActivitty extends AppCompatActivity {
 
     private static String imageStoragePath;
 
-    @BindView(R.id.click_picture)
+
     TextView textViewClick;
 
-    @BindView(R.id.verify_id_name)
+
     EditText verifyIdName;
 
-    @BindView(R.id.image_picture)
+
     ImageView ShowPicture;
 
-    @BindView(R.id.verify_button)
+
     Button verifyButton;
 
     String userId;
@@ -91,6 +90,10 @@ public class IdVerificationActivitty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_id_verification_activitty);
+        textViewClick=findViewById(R.id.click_picture);
+        verifyIdName=findViewById(R.id.verify_id_name);
+        ShowPicture=findViewById(R.id.image_picture);
+        verifyButton=findViewById(R.id.verify_button);
 
 
         if (getSupportActionBar() != null) {
@@ -100,7 +103,7 @@ public class IdVerificationActivitty extends AppCompatActivity {
         }
 
         //code change
-        ButterKnife.bind(this);
+
 
         textViewClick.setOnClickListener(new View.OnClickListener() {
             @Override

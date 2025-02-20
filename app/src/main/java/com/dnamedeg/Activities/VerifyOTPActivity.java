@@ -20,11 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.chaos.view.PinView;
 import com.dnamedeg.Models.VerifyOtpResponse;
 import com.dnamedeg.Models.registration.CommonResponse;
 import com.dnamedeg.R;
@@ -38,19 +35,15 @@ import retrofit2.Response;
 
 
 public class VerifyOTPActivity extends AppCompatActivity {
-    @BindView(R.id.crossBtn)
-    AppCompatImageView crossBtn;
 
-    @BindView(R.id.otpTxt)
-    TextView otpTxt;
-    @BindView(R.id.pin_layout)
-    PinEntryEditText pinLayout;
-    @BindView(R.id.resendOtp)
+
+
+
+    PinView pinLayout;
+
     TextView resendOtp;
-    @BindView(R.id.nextBtn)
-    AppCompatButton nextBtn;
-    @BindView(R.id.pin_content_layout)
-    RelativeLayout pinContentLayout;
+
+
 
 
     boolean isSocial;
@@ -66,9 +59,8 @@ public class VerifyOTPActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_otp);
-        ButterKnife.bind(this);
-
-
+        resendOtp=findViewById(R.id.resendOtp);
+        pinLayout=findViewById(R.id.prntEdtChangePhoneOtp);
         SpannableString spannableString = new SpannableString(resendOtp.getText().toString());
         spannableString.setSpan(new UnderlineSpan(), 0, resendOtp.getText().toString().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         resendOtp.setText(spannableString);
@@ -126,13 +118,13 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.crossBtn)
-    public void onCrossBtnClick() { finish();
+
+    public void onCrossBtnClick(View view) { finish();
     }
 
 
-    @OnClick(R.id.nextBtn)
-    public void onNextBtnClick() {
+
+    public void onNextBtnClick(View view) {
             if (pinLayout.getText().toString().length() >= 6) {
                    verifyOtp(pinLayout.getText().toString());
             } else {
@@ -141,8 +133,8 @@ public class VerifyOTPActivity extends AppCompatActivity {
         }
 
 
-    @OnClick(R.id.resendOtp)
-    public void resendOtp() {
+
+    public void resendOtp(View view) {
         if (resendOtp.isClickable()) {
             RequestBody phonebRequestBody = RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("mobile"));
             Utils.showProgressDialog(this);

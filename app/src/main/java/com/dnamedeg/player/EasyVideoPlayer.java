@@ -1,4 +1,4 @@
-package com.afollestad.easyvideoplayer;
+package com.dnamedeg.player;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -29,11 +29,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.content.res.AppCompatResources;
+
 import android.util.AttributeSet;
 
 import android.view.Gravity;
@@ -48,7 +49,6 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-
 import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -59,6 +59,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static android.media.MediaPlayer.SEEK_CLOSEST;
+
+import com.dnamedeg.R;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -200,25 +202,25 @@ public class EasyVideoPlayer extends FrameLayout
 
         if (attrs != null) {
             TypedArray a =
-                    context.getTheme().obtainStyledAttributes(attrs, R.styleable.EasyVideoPlayer, 0, 0);
+                    context.getTheme().obtainStyledAttributes(attrs, R.styleable.MyVideoPlayer, 0, 0);
             try {
-                String source = a.getString(R.styleable.EasyVideoPlayer_evp_source);
+                String source = a.getString(R.styleable.MyVideoPlayer_evp_source);
                 if (source != null && !source.trim().isEmpty()) mSource = Uri.parse(source);
 
                 //noinspection WrongConstant
-                mLeftAction = a.getInteger(R.styleable.EasyVideoPlayer_evp_leftAction, LEFT_ACTION_RESTART);
+                mLeftAction = a.getInteger(R.styleable.MyVideoPlayer_evp_leftAction, LEFT_ACTION_RESTART);
                 //noinspection WrongConstant
-                mRightAction = a.getInteger(R.styleable.EasyVideoPlayer_evp_rightAction, RIGHT_ACTION_NONE);
+                mRightAction = a.getInteger(R.styleable.MyVideoPlayer_evp_rightAction, RIGHT_ACTION_NONE);
 
-                mCustomLabelText = a.getText(R.styleable.EasyVideoPlayer_evp_customLabelText);
-                mRetryText = a.getText(R.styleable.EasyVideoPlayer_evp_retryText);
-                mSubmitText = a.getText(R.styleable.EasyVideoPlayer_evp_submitText);
-                mBottomLabelText = a.getText(R.styleable.EasyVideoPlayer_evp_bottomText);
+                mCustomLabelText = a.getText(R.styleable.MyVideoPlayer_evp_customLabelText);
+                mRetryText = a.getText(R.styleable.MyVideoPlayer_evp_retryText);
+                mSubmitText = a.getText(R.styleable.MyVideoPlayer_evp_submitText);
+                mBottomLabelText = a.getText(R.styleable.MyVideoPlayer_evp_bottomText);
 
                 int restartDrawableResId =
-                        a.getResourceId(R.styleable.EasyVideoPlayer_evp_restartDrawable, -1);
-                int playDrawableResId = a.getResourceId(R.styleable.EasyVideoPlayer_evp_playDrawable, -1);
-                int pauseDrawableResId = a.getResourceId(R.styleable.EasyVideoPlayer_evp_pauseDrawable, -1);
+                        a.getResourceId(R.styleable.MyVideoPlayer_evp_restartDrawable, -1);
+                int playDrawableResId = a.getResourceId(R.styleable.MyVideoPlayer_evp_playDrawable, -1);
+                int pauseDrawableResId = a.getResourceId(R.styleable.MyVideoPlayer_evp_pauseDrawable, -1);
 
                 if (restartDrawableResId != -1) {
                     mRestartDrawable = AppCompatResources.getDrawable(context, restartDrawableResId);
@@ -231,17 +233,17 @@ public class EasyVideoPlayer extends FrameLayout
                 }
 
                 mHideControlsOnPlay =
-                        a.getBoolean(R.styleable.EasyVideoPlayer_evp_hideControlsOnPlay, true);
-                mAutoPlay = a.getBoolean(R.styleable.EasyVideoPlayer_evp_autoPlay, false);
-                mControlsDisabled = a.getBoolean(R.styleable.EasyVideoPlayer_evp_disableControls, false);
+                        a.getBoolean(R.styleable.MyVideoPlayer_evp_hideControlsOnPlay, true);
+                mAutoPlay = a.getBoolean(R.styleable.MyVideoPlayer_evp_autoPlay, false);
+                mControlsDisabled = a.getBoolean(R.styleable.MyVideoPlayer_evp_disableControls, false);
 
                 mThemeColor =
                         a.getColor(
-                                R.styleable.EasyVideoPlayer_evp_themeColor,
-                                Util.resolveColor(context, R.attr.colorPrimary));
+                                R.styleable.MyVideoPlayer_evp_themeColor,
+                                Util.resolveColor(context, com.google.android.material.R.attr.colorPrimary));
 
-                mAutoFullscreen = a.getBoolean(R.styleable.EasyVideoPlayer_evp_autoFullscreen, false);
-                mLoop = a.getBoolean(R.styleable.EasyVideoPlayer_evp_loop, false);
+                mAutoFullscreen = a.getBoolean(R.styleable.MyVideoPlayer_evp_autoFullscreen, false);
+                mLoop = a.getBoolean(R.styleable.MyVideoPlayer_evp_loop, false);
             } finally {
                 a.recycle();
             }
@@ -251,7 +253,7 @@ public class EasyVideoPlayer extends FrameLayout
             mHideControlsOnPlay = true;
             mAutoPlay = false;
             mControlsDisabled = false;
-            mThemeColor = Util.resolveColor(context, R.attr.colorPrimary);
+            mThemeColor = Util.resolveColor(context, com.google.android.material.R.attr.colorPrimary);
             mAutoFullscreen = false;
             mLoop = false;
         }
@@ -617,13 +619,13 @@ public class EasyVideoPlayer extends FrameLayout
 
     @Override
     public void seekTo(@IntRange(from = 0, to = Integer.MAX_VALUE) int pos) {
-        if (mPlayer == null) return;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                mPlayer.seekTo(pos,SEEK_CLOSEST);
-            }else{
-                mPlayer.seekTo(pos);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mPlayer.seekTo(pos,SEEK_CLOSEST);
+        }else{
+            mPlayer.seekTo(pos);
         }
         mCallback.onSeekChange(this,true);
+        if (mPlayer == null) return;
     }
 
     public void setVolume(
@@ -880,7 +882,7 @@ public class EasyVideoPlayer extends FrameLayout
         mPlayer.setLooping(mLoop);
 
         // Instantiate and add TextureView for rendering
-        final FrameLayout.LayoutParams textureLp =
+        final LayoutParams textureLp =
                 new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mTextureView = new TextureView(getContext());
         addView(mTextureView, textureLp);
@@ -896,7 +898,7 @@ public class EasyVideoPlayer extends FrameLayout
         mClickFrame = new FrameLayout(getContext());
         //noinspection RedundantCast
         ((FrameLayout) mClickFrame)
-                .setForeground(Util.resolveDrawable(getContext(), R.attr.selectableItemBackground));
+                .setForeground(Util.resolveDrawable(getContext(), androidx.appcompat.R.attr.selectableItemBackground));
         addView(
                 mClickFrame,
                 new ViewGroup.LayoutParams(
@@ -904,8 +906,8 @@ public class EasyVideoPlayer extends FrameLayout
 
         // Inflate controls
         mControlsFrame = li.inflate(R.layout.evp_include_controls, this, false);
-        final FrameLayout.LayoutParams controlsLp =
-                new FrameLayout.LayoutParams(
+        final LayoutParams controlsLp =
+                new LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         controlsLp.gravity = Gravity.BOTTOM;
         addView(mControlsFrame, controlsLp);
@@ -1191,26 +1193,26 @@ public class EasyVideoPlayer extends FrameLayout
     private int FAST_SPEED=60000;
 
     public boolean setSpeed(int speed){
-            switch (speed) {
-                case 1:
-                    SPEED_MODE=SPEED_NORMAL;
-                    START_AGAIN=false;
-                    stopTimer();
-                    break;
+        switch (speed) {
+            case 1:
+                SPEED_MODE=SPEED_NORMAL;
+                START_AGAIN=false;
+                stopTimer();
+                break;
 
-                case 2:
-                    SPEED_MODE=SPEED_FAST;
-                    START_AGAIN=true;
-                    break;
+            case 2:
+                SPEED_MODE=SPEED_FAST;
+                START_AGAIN=true;
+                break;
 
-                case 3:
-                    SPEED_MODE=SPEED_SUPER_FAST;
-                    START_AGAIN=true;
-                    break;
-            }
+            case 3:
+                SPEED_MODE=SPEED_SUPER_FAST;
+                START_AGAIN=true;
+                break;
+        }
         //////Log.e("EASY PLAYER(1203)","Called "+SPEED_MODE);
-            startTimer();
-            return true;
+        startTimer();
+        return true;
     }
 
     /**
@@ -1283,7 +1285,7 @@ public class EasyVideoPlayer extends FrameLayout
                 public void run() {
 
                     if (mPlayer != null && SPEED_SEEK) {
-                       // ////Log.e("TIMER TASK","Timer Task Called "+isSpeedSeeking());
+                        // ////Log.e("TIMER TASK","Timer Task Called "+isSpeedSeeking());
                         switch (SPEED_MODE) {
                             case SPEED_NORMAL:
                                 stopTimer();

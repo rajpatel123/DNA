@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import com.dnamedeg.Models.newqbankmodule.Detail;
@@ -46,7 +47,7 @@ public class QbankAdapter extends RecyclerView.Adapter<QbankAdapter.ViewHolder> 
         Detail detail = qbankDetailList.get(i);
         holder.textName.setText(""+detail.getSubjectName());
         holder.totalQuestion.setText(detail.getTotalCompleted()+" / "+detail.getTotalModule()+" Modules Completed");
-        Picasso.with(applicationContext).load(detail.getSubjectImage()).into(holder.imageView);
+        Glide.with(applicationContext).load(detail.getSubjectImage()).into(holder.imageView);
         //Picasso.with(applicationContext).load(detail.getCatImage()).error(R.drawable.biology).into(holder.imageView);
 
        holder.cardView.setOnClickListener(new View.OnClickListener() {

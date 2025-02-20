@@ -25,8 +25,7 @@ import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -36,25 +35,24 @@ import retrofit2.Response;
 public class UpdateAddressActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.linear_txt_payment)
-    LinearLayout linearTxtPayment;
-    @BindView(R.id.edittxt_payment_name)
+
+
     EditText edittxtPaymentName;
-    @BindView(R.id.edittxt_payment_email)
+
     EditText edittxtPaymentEmail;
-    @BindView(R.id.edittxt_payment_phone)
+
     EditText edittxtPaymentPhone;
-    @BindView(R.id.edittxt_payment_address)
+
     EditText edittxtPaymentAddress;
-    @BindView(R.id.edittxt_payment_landmark)
+
     EditText edittxtPaymentLandmark;
-    @BindView(R.id.edittxt_payment_city)
+
     EditText edittxtPaymentCity;
-    @BindView(R.id.spinner_payment_state)
+
     Spinner spinnerPaymentState;
-    @BindView(R.id.edittxt_payment_zipcode)
+
     EditText edittxtPaymentZipcode;
-    @BindView(R.id.btn_update_address)
+
     Button btnUpdateAddress;
 
 
@@ -68,7 +66,17 @@ public class UpdateAddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_address);
-        ButterKnife.bind(this);
+        edittxtPaymentName = findViewById(R.id.edittxt_payment_name);
+        edittxtPaymentEmail = findViewById(R.id.edittxt_payment_email);
+        edittxtPaymentPhone = findViewById(R.id.edittxt_payment_phone);
+        edittxtPaymentAddress = findViewById(R.id.edittxt_payment_address);
+        edittxtPaymentLandmark = findViewById(R.id.edittxt_payment_landmark);
+        edittxtPaymentCity = findViewById(R.id.edittxt_payment_city);
+        spinnerPaymentState = findViewById(R.id.spinner_payment_state);
+        edittxtPaymentZipcode = findViewById(R.id.edittxt_payment_zipcode);
+        btnUpdateAddress = findViewById(R.id.btn_update_address);
+
+
 
         getStateList();
 

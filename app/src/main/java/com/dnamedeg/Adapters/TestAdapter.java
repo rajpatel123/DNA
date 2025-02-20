@@ -19,8 +19,6 @@ import com.dnamedeg.utils.Utils;
 import java.util.List;
 import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 
@@ -303,37 +301,43 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.testTitle)
+
         TextView title;
 
-        @BindView(R.id.total_question)
+
         TextView questionTotal;
 
-        @BindView(R.id.total_time)
+
         TextView timeTotal;
 
-        @BindView(R.id.testStartTime)
+
         TextView testStartTime;
 
 
-        @BindView(R.id.testEndTime)
         TextView testEndTime;
 
-        @BindView(R.id.textView_Date)
         TextView textDate;
 
-        @BindView(R.id.image_lock)
         ImageView imageLock;
 
-        @BindView(R.id.cardView)
+
         CardView cardview;
 
-        @BindView(R.id.relative_head)
+
         RelativeLayout relativeLayout;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            title=view.findViewById(R.id.testTitle);
+                        questionTotal=view.findViewById(R.id.total_question);
+            timeTotal=view.findViewById(R.id.total_time);
+            testStartTime=view.findViewById(R.id.testStartTime);
+            testEndTime=view.findViewById(R.id.testEndTime);
+            textDate=view.findViewById(R.id.textView_Date);
+            imageLock=view.findViewById(R.id.image_lock);
+            cardview=view.findViewById(R.id.cardView);
+            relativeLayout=view.findViewById(R.id.relative_head);
+
         }
     }
 }

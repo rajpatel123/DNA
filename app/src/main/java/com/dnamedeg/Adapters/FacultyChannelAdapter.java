@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.Activities.FacultyChatActivity;
 import com.dnamedeg.Models.get_chat_history.GetChatHistoryResp;
 import com.dnamedeg.Models.get_faculty_channel.Chat;
@@ -22,8 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAdapter.ViewHolder> {
     private Context applicationContext;
@@ -65,7 +65,7 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
         holder.tvTime1.setText("" + Utils.startTimeFormat(Long.parseLong(messageArrayList.get(holder.getAdapterPosition()).getLiveStartedTime()) * 1000));
 
 
-        Picasso.with(applicationContext).load(messageArrayList.get(position).getDoctorImage())
+        Glide.with(applicationContext).load(messageArrayList.get(position).getDoctorImage())
                 .error(R.drawable.dnalogo)
                 .into(holder.thumbnail);
 
@@ -103,35 +103,26 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.ll_right)
-        LinearLayout llRight;
 
-        @BindView(R.id.tvSubjectNa)
+
         TextView subjectName;
 
-        @BindView(R.id.tvTopic1)
         TextView tvTopic1;
 
-        @BindView(R.id.tvcategory1)
         TextView tvcategory1;
 
-        @BindView(R.id.tveducator1)
         TextView tveducator1;
 
 
-        @BindView(R.id.tvDate1)
         TextView tvDate1;
 
-        @BindView(R.id.tvTime1)
         TextView tvTime1;
 
-        @BindView(R.id.watchNow)
         TextView watchNow;
-        @BindView(R.id.tvBatchName)
+
         TextView tvBatchName;
 
 
-        @BindView(R.id.thumbnail)
         ImageView thumbnail;
 
         View itemView;
@@ -139,7 +130,18 @@ public class FacultyChannelAdapter extends RecyclerView.Adapter<FacultyChannelAd
         public ViewHolder(View view) {
             super(view);
             itemView = view;
-            ButterKnife.bind(this, view);
+            subjectName=view.findViewById(R.id.tvSubjectNa);
+            tvTopic1=view.findViewById(R.id.tvTopic1);
+            tvcategory1=view.findViewById(R.id.tvcategory1);
+            tveducator1=view.findViewById(R.id.tveducator1);
+            tvDate1=view.findViewById(R.id.tvDate1);
+            tvTime1=view.findViewById(R.id.tvTime1);
+            watchNow=view.findViewById(R.id.watchNow);
+            tvBatchName=view.findViewById(R.id.tvBatchName);
+            thumbnail=view.findViewById(R.id.thumbnail);
+
+
+
 
 
         }

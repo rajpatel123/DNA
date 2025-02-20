@@ -18,6 +18,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:contentDescription="@string/image"
+        android:onClick="onCrossBtnClick"
         app:srcCompat="@drawable/cross_icn" />
 
 
@@ -30,31 +31,27 @@
         android:text="@string/enter_otp_on_email"
         android:textStyle="normal" />
 
-    <com.alimuzaffar.lib.pin.PinEntryEditText
-        android:id="@+id/pin_layout"
-        android:layout_width="164dp"
+    <com.chaos.view.PinView
+        android:id="@+id/prntEdtChangePhoneOtp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/otpTxt"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:background="@android:color/transparent"
-        android:cursorVisible="false"
-        android:digits="1234567890"
-        android:focusable="true"
-        android:gravity="center_horizontal"
+        android:cursorVisible="true"
+        android:gravity="center"
         android:imeOptions="actionDone"
         android:inputType="number"
         android:maxLength="6"
-        android:textIsSelectable="false"
-        android:textSize="@dimen/ts_20"
-        app:pinAnimationType="popIn"
-        app:pinBackgroundIsSquare="true"
-        app:pinCharacterSpacing="12dp"
-        app:pinLineColors="@color/black_disabled"
-        app:pinLineStroke="2dp"
-        app:pinLineStrokeSelected="2dp"
-        app:pinTextBottomPadding="4dp" />
+        android:textSize="20sp"
+        app:hideLineWhenFilled="false"
+        app:itemCount="6"
+        app:itemHeight="48dp"
+        app:itemWidth="48dp"
+        app:itemSpacing="8dp"
+        app:lineColor="@color/black_disabled"
+        app:lineWidth="2dp" />
 
     <TextView
         android:id="@+id/resendOtp"
@@ -66,6 +63,7 @@
         android:textColor="@color/colorPrimary"
         android:gravity="center"
         android:visibility="gone"
+        android:onClick="resendOtp"
         android:text="@string/resend_otp" />
 
 
@@ -77,6 +75,7 @@
         android:layout_margin="20dp"
         android:foreground="?attr/selectableItemBackground"
         android:text="Verify"
+        android:onClick="onNextBtnClick"
         android:textColor="@color/white"
         app:backgroundTint="@color/colorPrimary" />
 

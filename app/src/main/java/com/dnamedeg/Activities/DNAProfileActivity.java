@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.dnamedeg.R;
@@ -21,36 +21,35 @@ import com.dnamedeg.utils.DnaPrefs;
 
 public class DNAProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.profile_image)
     CircleImageView circleImageView;
 
-    @BindView(R.id.profile_name)
+    //    @BindView(R.id.profile_name)
     TextView tvName;
 
-    @BindView(R.id.profile_email)
+    //  @BindView(R.id.profile_email)
     TextView tvEmail;
 
-    @BindView(R.id.profile_College)
+    //@BindView(R.id.profile_College)
     TextView tvCollege;
 
-    @BindView(R.id.profile_state)
+    //@BindView(R.id.profile_state)
     TextView tvState;
-    @BindView(R.id.profile_logout)
+    //  @BindView(R.id.profile_logout)
     TextView textViewProfile;
 
-    @BindView(R.id.id__verification)
+    // @BindView(R.id.id__verification)
     TextView textViewVerification;
 
-    @BindView(R.id.subscription)
+    // @BindView(R.id.subscription)
     TextView textViewSubscription;
 
-    @BindView(R.id.course_neet)
+    //@BindView(R.id.course_neet)
     TextView textViewCourseNeet;
 
-    @BindView(R.id.change_password)
+    //@BindView(R.id.change_password)
     TextView textViewChangePassword;
 
-    @BindView(R.id.change_phone)
+    //@BindView(R.id.change_phone)
     TextView textViewChangePhone;
 
     String state,college,name,image ,email;
@@ -62,13 +61,22 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnaprofile);
-        ButterKnife.bind(this);
-
+        // ButterKnife.bind(this);
+        circleImageView = findViewById(R.id.profile_image);
+        tvName = findViewById(R.id.profile_name);
+        tvEmail = findViewById(R.id.profile_email);
+        tvCollege = findViewById(R.id.profile_College);
+        tvState = findViewById(R.id.profile_state);
+        textViewProfile = findViewById(R.id.profile_logout);
+        textViewVerification = findViewById(R.id.id__verification);
+        textViewSubscription = findViewById(R.id.subscription);
+        textViewCourseNeet = findViewById(R.id.course_neet);
+        textViewChangePassword = findViewById(R.id.change_password);
+        textViewChangePhone = findViewById(R.id.change_phone);
         textViewSubscription.setOnClickListener(this);
         textViewChangePassword.setOnClickListener(this);
         textViewChangePhone.setOnClickListener(this);
         textViewVerification.setOnClickListener(this);
-
         setprofiledata();
 
     }
@@ -95,13 +103,13 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
 
         if (!TextUtils.isEmpty(image)) {
 
-            Picasso.with(this)
+            Glide.with(this)
                     .load(image)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
         } else {
 
-            Picasso.with(this)
+            Glide.with(this)
                     .load(R.drawable.dnalogo)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
@@ -120,42 +128,36 @@ public class DNAProfileActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.profile_edit:
-                Intent intent = new Intent(DNAProfileActivity.this, EditProfileActivity.class);
-                startActivity(intent);
-           return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId()==R.id.profile_edit) {
+//            case R.id.profile_edit:
+            Intent intent = new Intent(DNAProfileActivity.this, EditProfileActivity.class);
+            startActivity(intent);
+            return true;
+        }else{
+            return super.onOptionsItemSelected(item);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.change_password:
-                Toast.makeText(this, "Reset Password link sent to your email id", Toast.LENGTH_SHORT).show();
-                break;
+//        switch (v.getId()) {
+//            case R.id.change_password:
+        if (v.getId() == R.id.change_password) {
+            Toast.makeText(this, "Reset Password link sent to your email id", Toast.LENGTH_SHORT).show();
+        }else if (v.getId() == R.id.profile_logout) {
+            Intent intent = new Intent(DNAProfileActivity.this, IdVerificationActivitty.class);
+            startActivity(intent);
+            Toast.makeText(this, "Verification link sent to your email id", Toast.LENGTH_SHORT).show();
+        }else if (v.getId() == R.id.subscription) {
+            Intent intent1 = new Intent(this, DNASuscribeActivity.class);
+            startActivity(intent1);
+        } else if (v.getId() == R.id.change_phone) {
+            Intent intent2 = new Intent(this, ChanePhoneNumberActivity.class);
+            startActivity(intent2);
 
-            case R.id.id__verification:
-                Intent intent = new Intent(DNAProfileActivity.this, IdVerificationActivitty.class);
-                startActivity(intent);
-                Toast.makeText(this, "Verification link sent to your email id", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.subscription:
-                Intent intent1 = new Intent(this, DNASuscribeActivity.class);
-                startActivity(intent1);
-                break;
-
-            case R.id.change_phone:
-                Intent intent2 = new Intent(this, ChanePhoneNumberActivity.class);
-                intent2.putExtra("title", "Update Mobile Number");
-
-                startActivity(intent2);
-                break;
 
         }
+
     }
 }
 

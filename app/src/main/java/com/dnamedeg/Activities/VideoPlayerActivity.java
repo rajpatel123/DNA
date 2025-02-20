@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,16 +55,10 @@ import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.ImageUtils;
 import com.dnamedeg.utils.Utils;
 import com.dnamedeg.views.TypeWriter;
-import com.warkiz.widget.DotIndicatorSeekBar;
-import com.warkiz.widget.DotOnSeekChangeListener;
-import com.warkiz.widget.DotSeekParams;
+
 
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -72,81 +67,81 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
 public class VideoPlayerActivity extends AppCompatActivity {
 
     private static final float NORMAL_PLAYBACK_SPEED = 1.0F;
     private static final long SPLASH_TIME_OUT = 10000;
-    @BindView(R.id.rootLayout)
-    RelativeLayout rootLayout;
 
-    @BindView(R.id.toolbar)
+
+
     RelativeLayout toolbar;
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
 
     public int Seconds, Minutes, MilliSeconds;
 
-    @BindView(R.id.md_replay)
+
     ImageView md_replay;
     boolean isPlaying;
     public static final int MEDIA_CALLBACK_DURATION = 500;
 
-    @BindView(R.id.md_parentview)
+
     LinearLayout md_parentview;
 
-    @BindView(R.id.videoPlayerControlsPortraitMode)
+
     RelativeLayout videoPlayerControlsPortraitMode;
 
-    @BindView(R.id.exoplayer)
+
     EasyExoVideoPlayer exoplayer;
 
-    @BindView(R.id.pdf_notes)
+
     ImageView pdf_notes;
 
-    @BindView(R.id.top_view)
+
     RelativeLayout top_view;
-    @BindView(R.id.seekbarVideoo)
-    DotIndicatorSeekBar seekbarVideo;
-    @BindView(R.id.md_play)
+
+    SeekBar seekbarVideo;
+
     ImageView md_play;
     TextView upper_name;
-    @BindView(R.id.txtSpeed)
+
     TextView txtSpeed;
 
-    @BindView(R.id.timeslot)
+
     RecyclerView recyclerView;
 
-    @BindView(R.id.designation)
+
     TextView designation;
 
-    @BindView(R.id.video_title)
+
     TextView video_title;
-    @BindView(R.id.videoDuration)
+
     TextView videoDuration;
 
-    @BindView(R.id.text)
+
     TextView text;
-    @BindView(R.id.upper_progress)
+
     ProgressBar upper_progress;
-    @BindView(R.id.play_btn)
+
     ImageView play_btn;
     TextView tmp_selcam;
-    @BindView(R.id.full_mode)
+
     ImageView fullMode;
-    @BindView(R.id.llControllerWrapperFlexible)
+
     LinearLayout llControllerWrapperFlexible;
 
-    @BindView(R.id.heading)
+
     TextView textHeading;
 
 
-    @BindView(R.id.email)
+
     TypeWriter textViewEmail;
-    @BindView(R.id.mobile)
+
     TypeWriter mobile;
 
-    @BindView(R.id.techer_name)
+
     TextView textTeacher;
 
 
@@ -156,7 +151,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
 
-    private Unbinder unbinder;
+
     private String title;
     private Handler handler = new Handler();
     private Handler handler1 = new Handler();
@@ -182,8 +177,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 //            }else {
 //                textViewEmail.setText("");
                 //textViewEmail.setCharacterDelay(150);
-                textViewEmail.setVisibility(View.VISIBLE);
-                mobile.setVisibility(View.VISIBLE);
+                textViewEmail.setVisibility(VISIBLE);
+                mobile.setVisibility(VISIBLE);
                 if (!TextUtils.isEmpty(email_id))
                     textViewEmail.setText(email_id);
 
@@ -223,7 +218,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             if (llControllerWrapperFlexible != null) {
                 llControllerWrapperFlexible.setVisibility(GONE);
-                seekbarVideo.hideThumb(true);
+                seekbarVideo.setThumb(null);
                 seekbarVideo.setVisibility(GONE);
 
             }
@@ -237,7 +232,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void onSingle() {
         String uri = url;
         initPlayer(exoplayer, upper_exoCallback, uri);
-        upper_progress.setVisibility(View.VISIBLE);
+        upper_progress.setVisibility(VISIBLE);
         startTimer();
 
 
@@ -268,21 +263,21 @@ public class VideoPlayerActivity extends AppCompatActivity {
         public void onStarted(EasyExoVideoPlayer player) {
             showBottomController(player);
             if (llControllerWrapperFlexible != null) {
-                llControllerWrapperFlexible.setVisibility(View.VISIBLE);
-                seekbarVideo.hideThumb(true);
-                seekbarVideo.setVisibility(View.VISIBLE);
+                llControllerWrapperFlexible.setVisibility(VISIBLE);
+                seekbarVideo.setThumb(null);
+                seekbarVideo.setVisibility(VISIBLE);
             }
 
             handler.postDelayed(emailPresenter, 10 * 1000);
 
             md_replay.setVisibility(GONE);
             upper_progress.setVisibility(GONE);
-            videoPlayerControlsPortraitMode.setVisibility(View.VISIBLE);
+            videoPlayerControlsPortraitMode.setVisibility(VISIBLE);
 
             if (progressPosition > 0) {
                 exoplayer.seekTo(progressPosition);
                 progressPosition = 0;
-                upper_progress.setVisibility(View.VISIBLE);
+                upper_progress.setVisibility(VISIBLE);
 
             }
             enablePlayPause(true, true);
@@ -320,10 +315,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         @Override
         public void onTouch(@Nullable boolean touched) {
-            if (llControllerWrapperFlexible != null && llControllerWrapperFlexible.getVisibility() != View.VISIBLE && !exoplayer.isEnded()) {
-                llControllerWrapperFlexible.setVisibility(View.VISIBLE);
-                seekbarVideo.hideThumb(false);
-                seekbarVideo.setVisibility(View.VISIBLE);
+            if (llControllerWrapperFlexible != null && llControllerWrapperFlexible.getVisibility() != VISIBLE && !exoplayer.isEnded()) {
+                llControllerWrapperFlexible.setVisibility(VISIBLE);
+                seekbarVideo.setThumb(null);
+                seekbarVideo.setVisibility(VISIBLE);
                 handler1.postDelayed(playerControlRunnable, SPLASH_TIME_OUT);
 
             }
@@ -343,8 +338,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
             md_play.setImageResource(R.drawable.ic_play);
 
             play_btn.setImageResource(R.drawable.ic_audio_replay_new);
-            play_btn.setVisibility(View.VISIBLE);
-            md_replay.setVisibility(View.VISIBLE);
+            play_btn.setVisibility(VISIBLE);
+            md_replay.setVisibility(VISIBLE);
             llControllerWrapperFlexible.setVisibility(GONE);
             enablePlayPause(false, false);
             isCompleted = true;
@@ -378,7 +373,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             //String currentTime = getTimeDurationFormat(time);
             videoDuration.setText(currentTime + " / " + totalDuration);
             upper_progress.setVisibility(GONE);
-            seekbarVideo.hideThumb(false);
+//            seekbarVideo.setThumb();
 
 
             //llControllerWrapperFlexible.setVisibility(View.VISIBLE);
@@ -410,7 +405,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
     private void showBottomController(EasyExoVideoPlayer player) {
-        md_parentview.setVisibility(View.VISIBLE);
+        md_parentview.setVisibility(VISIBLE);
 
 
     }
@@ -420,9 +415,38 @@ public class VideoPlayerActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
+        toolbar=findViewById(R.id.toolbar);
+        md_parentview=findViewById(R.id.md_parentview);
+        videoPlayerControlsPortraitMode=findViewById(R.id.videoPlayerControlsPortraitMode);
+        exoplayer=findViewById(R.id.exoplayer);
+        pdf_notes=findViewById(R.id.pdf_notes);
+        top_view=findViewById(R.id.top_view);
+        seekbarVideo=findViewById(R.id.seekbarVideoo);
+        md_play=findViewById(R.id.md_play);
+
+        txtSpeed=findViewById(R.id.txtSpeed);
+        recyclerView=findViewById(R.id.timeslot);
+        designation=findViewById(R.id.designation);
+        video_title=findViewById(R.id.video_title);
+        text=findViewById(R.id.text);
+        upper_progress=findViewById(R.id.upper_progress);
+        play_btn=findViewById(R.id.play_btn);
+        fullMode=findViewById(R.id.full_mode);
+        llControllerWrapperFlexible=findViewById(R.id.llControllerWrapperFlexible);
+        textHeading=findViewById(R.id.heading);
+        textViewEmail=findViewById(R.id.email);
+        mobile=findViewById(R.id.mobile);
+        textTeacher=findViewById(R.id.techer_name);
+        videoDuration=findViewById(R.id.videoDuration);
+        md_replay=findViewById(R.id.md_replay);
 
 
-        unbinder = ButterKnife.bind(this);
+
+
+
+
+
+
 
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
@@ -504,7 +528,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                             if (exoplayer.isPlaying()) {
                                 //change code here
                                 exoplayer.seekTo(miliis);
-                                upper_progress.setVisibility(View.VISIBLE);
+                                upper_progress.setVisibility(VISIBLE);
 
 
                             } else {
@@ -515,7 +539,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 });
 
                 recyclerView.setAdapter(videoPriceAdapter);
-                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(VISIBLE);
 
                 Log.d("Api Response :", "Got Success from Api");
                 // noInternet.setVisibility(View.GONE);
@@ -582,7 +606,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                             if (exoplayer.isPlaying()) {
                                 //change code here
                                 exoplayer.seekTo(miliis);
-                                upper_progress.setVisibility(View.VISIBLE);
+                                upper_progress.setVisibility(VISIBLE);
 
                             } else {
                                 Toast.makeText(VideoPlayerActivity.this, "Please play video first", Toast.LENGTH_LONG).show();
@@ -591,7 +615,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     }
                 });
                 recyclerView.setAdapter(videoListAdapter);
-                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(VISIBLE);
 
                 Log.d("Api Response :", "Got Success from Api");
                 // noInternet.setVisibility(View.GONE);
@@ -634,10 +658,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
+
     }
 
 //    public static String convertSecondsToHMS(long timeInMilliSeconds) {
@@ -662,60 +683,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
      * Seek Handling VIEWS
      */
     private void setUpperSeekBar() {
-
-        seekbarVideo.setThumbAdjustAuto(true);
-        seekbarVideo.hideThumb(true);
-
-        seekbarVideo.setOnSeekChangeListener(new DotOnSeekChangeListener() {
-            @Override
-            public void onSeeking(DotSeekParams seekParams) {
-                seekFromUser = seekParams.fromUser;
-                seekBarProgress = seekParams.progress;
-                if (exoplayer != null &&
-                        exoplayer.isPrepared()) {
-                    //change code
-
-                    int time = DnaPrefs.getInt(getApplicationContext(), "POS", 0);
-//                    String tmp= getTimeDurationFormat(time);
-//                    int tmp = exoplayer.getCurrentPosition();
-                    int curSec = (int) TimeUnit.MILLISECONDS.toSeconds(time);
-                    //change code here
-
-                    if (curSec - timeDiff != 0) {
-                        timeDiff = curSec;
-                    }
-
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(DotIndicatorSeekBar seekBar) {
-
-                // llControllerWrapperFlexible.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onStopTrackingTouch(DotIndicatorSeekBar seekBar) {
-//                if (seekFromUser) {
-
-                if (exoplayer != null && exoplayer.isPrepared()) {
-
-                    //   llControllerWrapperFlexible.setVisibility(View.VISIBLE);
-                    exoplayer.seekTo(seekBarProgress);
-                    upper_progress.setVisibility(View.VISIBLE);
-                }
-                seekFromUser = false;
-                // }
-            }
-        });
-
-        seekbarVideo.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                seekbarVideo.hideThumb(false);
-                return false;
-            }
-        });
     }
 
 
@@ -772,46 +739,27 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
         super.onResume();
     }
-
-
-    @OnClick({R.id.exoplayer, R.id.back,
-            R.id.play_btn,
-            R.id.md_speed,
-            R.id.md_replay,
-            R.id.md_play,
-            R.id.full_mode,
-            R.id.fast_backward,
-            R.id.fast_forward})
     public void onControlClick(View view) {
-        switch (view.getId()) {
-            case R.id.full_mode:
-                handleFullMode(view);
-                break;
-            case R.id.md_speed:
+        if (view.getId()==R.id.full_mode) {
+            handleFullMode(view);
+        } else if (view.getId()==
+        R.id.md_speed){
                 onSpeedHandle();
-                break;
-            case R.id.md_replay:
+        } else if (view.getId()==R.id.md_replay){
                 onReplay();
-                break;
-            case R.id.md_play:
+        } else if (view.getId()== R.id.md_play){
                 if (exoplayer != null && exoplayer.isPrepared()) {
                     onPlayPause();
                 } else {
                     onSingle();
                 }
-                break;
-            case R.id.play_btn:
+        } else if (view.getId()==R.id.play_btn){
                 onSingle();
                 handler1.postDelayed(playerControlRunnable, SPLASH_TIME_OUT);
 
-                break;
-
-
-            case R.id.back:
+        } else if (view.getId()== R.id.back){
                 onBackClick();
-                break;
-
-            case R.id.fast_forward:
+        } else if (view.getId()== R.id.fast_forward){
                 if (exoplayer != null && exoplayer.isPlaying()) {
                     if ((exoplayer.getDuration() - exoplayer.getCurrentPosition()) > 20000) {
                         exoplayer.seekTo((exoplayer.getCurrentPosition() + 20000));
@@ -821,19 +769,20 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     }
                 }
 
-                break;
-            case R.id.fast_backward:
+        } else if (view.getId()== R.id.fast_backward){
                 if (exoplayer != null && exoplayer.isPlaying() && exoplayer.getCurrentPosition() > 20000) {
                     exoplayer.seekTo((exoplayer.getCurrentPosition() - 20000));
                     upper_progress.setVisibility(View.VISIBLE);
                     Toast.makeText(VideoPlayerActivity.this, "Backward 20 seconds", Toast.LENGTH_LONG).show();
                 }
-                break;
+
 
 
         }
 
     }
+
+
 
     private void onBackClick() {
         if (exoplayer != null) {
@@ -941,7 +890,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             ImageUtils.setTintedDrawable(this, R.drawable.ic_full_screen, fullMode, R.color.white);
             view.setTag(false);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            setAppBarLayoutVisibility(View.VISIBLE);
+            setAppBarLayoutVisibility(VISIBLE);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) md_parentview.getLayoutParams();
@@ -1063,7 +1012,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             player.resetScreen();
             player.setSource(Uri.parse(uri));
             player.setCallback(callback);
-            player.setVisibility(View.VISIBLE);
+            player.setVisibility(VISIBLE);
             player.attachBufferUpdate();
 
             player.bringToFront();
@@ -1074,7 +1023,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     private void hideOrShowFullModeIcon() {
 
-        fullMode.setVisibility(View.VISIBLE);
+        fullMode.setVisibility(VISIBLE);
     }
 
     /**

@@ -48,7 +48,7 @@ public class QbankFreeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        qbankSubCatAdapter = new QbankSubCatAdapter();
+        qbankSubCatAdapter = new QbankSubCatAdapter(requireContext());
         qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankFree);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);

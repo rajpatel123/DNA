@@ -14,8 +14,7 @@ import com.dnamedeg.R;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHolder> {
 
@@ -88,12 +87,12 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
 
 
         View view;
-        @BindView(R.id.planName)
+        // @BindView(R.id.planName)
         TextView planName;
-        @BindView(R.id.valididty)
+        // @BindView(R.id.valididty)
         TextView valididty;
 
-        @BindView(R.id.priceValue)
+        //@BindView(R.id.priceValue)
         TextView priceValue;
 
 
@@ -101,7 +100,10 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            ButterKnife.bind(this, view);
+            planName = view.findViewById(R.id.planName);
+            valididty = view.findViewById(R.id.valididty);
+            priceValue = view.findViewById(R.id.priceValue);
+            //ButterKnife.bind(this, view);
         }
     }
 

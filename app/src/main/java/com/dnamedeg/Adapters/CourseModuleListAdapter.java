@@ -13,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.Models.modulesforcat.CatModuleResponse;
 import com.dnamedeg.R;
 import com.squareup.picasso.Picasso;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 /**
  * Created by rbpatel on 9/29/2017.
@@ -48,11 +48,11 @@ public class CourseModuleListAdapter extends RecyclerView.Adapter<CourseModuleLi
 
 
                 if (!TextUtils.isEmpty(catModuleResponse.getModules().get(holder.getAdapterPosition()).getImage())) {
-                    Picasso.with(applicationContext).load(catModuleResponse.getModules().get(holder.getAdapterPosition()).getImage())
+                    Glide.with(applicationContext).load(catModuleResponse.getModules().get(holder.getAdapterPosition()).getImage())
                             .error(R.drawable.dnalogo)
                             .into(holder.insImage);
                 } else {
-                    Picasso.with(applicationContext)
+                    Glide.with(applicationContext)
                             .load(R.drawable.dnalogo)
                             .into(holder.insImage);
                 }
@@ -100,25 +100,27 @@ public class CourseModuleListAdapter extends RecyclerView.Adapter<CourseModuleLi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.linearNeet_Ss)
+
         LinearLayout linearLayout;
 
-        @BindView(R.id.detailLL)
-        LinearLayout detailLL;
 
-        @BindView(R.id.title)
         TextView title;
 
 
-        @BindView(R.id.insImage)
+
         ImageView insImage;
 
-        @BindView(R.id.desc)
+
         TextView desc;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+           linearLayout=view.findViewById(R.id.linearNeet_Ss);
+           title=view.findViewById(R.id.title);
+           insImage=view.findViewById(R.id.insImage);
+           desc=view.findViewById(R.id.desc);
+
+
         }
     }
 

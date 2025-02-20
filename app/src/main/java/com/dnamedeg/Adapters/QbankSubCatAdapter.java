@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.Models.newqbankmodule.Module;
 import com.dnamedeg.R;
 import com.squareup.picasso.Picasso;
@@ -109,7 +110,7 @@ public class QbankSubCatAdapter extends RecyclerView.Adapter<QbankSubCatAdapter.
             e.printStackTrace();
         }
 
-        Picasso.with(applicationContext).load(detail.getChapterImage()).error(R.drawable.biology).into(holder.subImage);
+        Glide.with(applicationContext).load(detail.getChapterImage()).error(R.drawable.biology).into(holder.subImage);
         holder.subTitle.setText("" + detail.getModuleName());
 //        holder.itemNumber.setText("" + (position + 1));
         holder.subTotalQuestion.setText("" + detail.getTotalMcq() + " MCQ's");

@@ -62,8 +62,14 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -73,8 +79,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -89,18 +94,15 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         LocationListener {
     GetChatHistoryResp getChatHistory;
     private String liveVideoId = "C6CjT3ndhN0";
-    @BindView(R.id.recycler_view)
+
     RecyclerView recyclerViewChat;
 
-
-
-    @BindView(R.id.btn_send)
     androidx.appcompat.widget.AppCompatImageButton btnSend;
-    @BindView(R.id.message)
+
     EditText message;
     ChatListAdapterLatest chatListAdapter;
     private ArrayList<Chat> messageArrayList = new ArrayList();
-    @BindView(R.id.btnImage)
+
     androidx.appcompat.widget.AppCompatImageView btnImage;
 
     String f_id = "";
@@ -128,7 +130,13 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_live_video);
-        ButterKnife.bind(this);
+       recyclerViewChat=findViewById(R.id.recycler_view);
+       btnSend=findViewById(R.id.btn_send);
+       message=findViewById(R.id.message);
+       btnImage=findViewById(R.id.btnImage);
+
+
+
 
 
         if (getIntent().hasExtra("chanel")){
@@ -288,30 +296,81 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
     private void initYouTubePlayerView() {
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.getPlayerUIController().showFullscreenButton(true);
-        youTubePlayerView.getPlayerUIController().enableLiveVideoUI(true);
-        youTubePlayerView.getPlayerUIController().showDuration(true);
-        youTubePlayerView.getPlayerUIController().setCustomMenuButtonClickListener(new View.OnClickListener() {
+        youTubePlayerView.getPlayerUiController().showFullscreenButton(true);
+        youTubePlayerView.getPlayerUiController().enableLiveVideoUi(true);
+        youTubePlayerView.getPlayerUiController().showDuration(true);
+        youTubePlayerView.getPlayerUiController().setMenuButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                youTubePlayerView.getPlayerUIController().showUI(true);
+                youTubePlayerView.getPlayerUiController().showUi(true);
             }
         });
-        youTubePlayerView.getPlayerUIController().showPlayPauseButton(true);
-        youTubePlayerView.getPlayerUIController().showYouTubeButton(false);
+        youTubePlayerView.getPlayerUiController().showPlayPauseButton(true);
+        youTubePlayerView.getPlayerUiController().showYouTubeButton(false);
 
 
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
+//        youTubePlayerView.initialize(youTubePlayer -> {
+//
+//            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+//                @Override
+//                public void onReady() {
+//                    youTubePlayer.loadVideo(channelKey, 0f);
+//                }
+//            });
+//        }, true);
+        youTubePlayerView.initialize(new YouTubePlayerListener() {
+            @Override
+            public void onReady(@NotNull YouTubePlayer youTubePlayer) {
 
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    youTubePlayer.loadVideo(channelKey, 0f);
-                }
-            });
-        }, true);
+            }
+
+            @Override
+            public void onStateChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlayerState playerState) {
+
+            }
+
+            @Override
+            public void onPlaybackQualityChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlaybackQuality playbackQuality) {
+
+            }
+
+            @Override
+            public void onPlaybackRateChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlaybackRate playbackRate) {
+
+            }
+
+            @Override
+            public void onError(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlayerError playerError) {
+
+            }
+
+            @Override
+            public void onCurrentSecond(@NotNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoDuration(@NotNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoLoadedFraction(@NotNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoId(@NotNull YouTubePlayer youTubePlayer, @NotNull String s) {
+
+            }
+
+            @Override
+            public void onApiChange(@NotNull YouTubePlayer youTubePlayer) {
+
+            }
+        },true);
     }
 
 
@@ -630,11 +689,12 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PICK_FROM_GALLERY:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(galleryIntent, PICK_FROM_GALLERY);
                 } else {
                     //do something like displaying a message that he didn`t allow the app to access gallery and you wont be able to let him select from gallery
@@ -956,12 +1016,32 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         try {
 
 
             if (location == null) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
             } else {

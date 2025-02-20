@@ -16,8 +16,7 @@ import com.dnamedeg.R;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 /**
  * Created by rbpatel on 9/29/2017.
@@ -106,17 +105,20 @@ public class AnswerListAdapter extends RecyclerView.Adapter<AnswerListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.cardView)
+
         CardView cardView;
-        @BindView(R.id.star)
+
         ImageView star;
-        @BindView(R.id.questionNumber)
+
         TextView questionNumber;
 
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            cardView=view.findViewById(R.id.cardView);
+            star=view.findViewById(R.id.star);
+            questionNumber=view.findViewById(R.id.questionNumber);
+
         }
     }
 

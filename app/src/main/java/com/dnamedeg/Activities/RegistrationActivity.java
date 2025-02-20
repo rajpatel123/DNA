@@ -89,12 +89,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -142,15 +137,15 @@ public class RegistrationActivity extends AppCompatActivity implements
     private AddressResultReceiver mResultReceiver;
 
 
-    @BindView(R.id.edit_name)
+
     EditText editName;
 
 
-    @BindView(R.id.edit_emailId)
+
     EditText editEmailId;
 
 
-    @BindView(R.id.submitBtn)
+
     Button submitBtn;
 
     String fb_id = "dummyID", edit_name, edit_username, edit_email, edit_password = "dummy";
@@ -179,7 +174,12 @@ public class RegistrationActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        ButterKnife.bind(this);
+
+        editEmailId=findViewById(R.id.edit_emailId);
+        submitBtn=findViewById(R.id.submitBtn);
+        editName=findViewById(R.id.edit_name);
+
+
 
         //getCollegeList();
         initGoogleAPIClient();//Init Google API Client
@@ -233,10 +233,9 @@ public class RegistrationActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.submitBtn:
+        if (view.getId()==R.id.submitBtn) {
+
                 validation();
-                break;
 
         }
 
@@ -341,7 +340,7 @@ public class RegistrationActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
             finish();
 
         }

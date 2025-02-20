@@ -2,6 +2,7 @@ package com.dnamedeg.player;
 
 import android.net.Uri;
 import androidx.annotation.Nullable;
+import androidx.media3.common.util.UnstableApi;
 
 public interface IEasyExoVideoCallback {
 

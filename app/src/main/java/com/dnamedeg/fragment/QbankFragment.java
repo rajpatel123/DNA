@@ -31,8 +31,7 @@ import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -49,16 +48,15 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
 
 */
 
-    @BindView(R.id.noInternet)
+
     TextView textInternet;
 
-    @BindView(R.id.recyclerView)
+
     RecyclerView recyclerView;
 
-    @BindView(R.id.linear1)
     LinearLayout linear1;
 
-    @BindView(R.id.customInfoTV)
+
     TextView customInfoTV;
 
     /*  @BindView(R.id.bookmark_cardview)
@@ -107,7 +105,12 @@ public class QbankFragment extends Fragment implements FragmentLifecycle {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.qbankfragment, container, false);
-        ButterKnife.bind(this, view);
+        textInternet=view.findViewById(R.id.noInternet);
+        recyclerView=view.findViewById(R.id.recyclerView);
+        linear1=view.findViewById(R.id.linear1);
+        customInfoTV=view.findViewById(R.id.customInfoTV);
+
+
         getQbankData();
         checkForCustomModule();
        /* bookmarkedCardView.setOnClickListener(new View.OnClickListener() {

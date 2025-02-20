@@ -24,17 +24,16 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FacultyChatChannelActivity extends AppCompatActivity {
 
-    @BindView(R.id.recycler_view)
+
     RecyclerView recyclerViewChat;
-    @BindView(R.id.toolbar)
+
     Toolbar toolbar;
     FacultyChannelAdapter facultyChatChannelActivity;
     private ArrayList<Chat> messageArrayList = new ArrayList();
@@ -43,7 +42,9 @@ public class FacultyChatChannelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.facultyvhatchannelactivity);
-        ButterKnife.bind(this);
+        recyclerViewChat = findViewById(R.id.recycler_view);
+        toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
 

@@ -61,7 +61,7 @@ public class QbankAllFragment extends QBankBaseFragment {
         /*String name=qbankSubActivity.qbankcat_name;
         getActivity().setTitle(name);*/
 
-        qbankSubCatAdapter = new QbankSubCatAdapter();
+        qbankSubCatAdapter = new QbankSubCatAdapter(requireContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankAll);

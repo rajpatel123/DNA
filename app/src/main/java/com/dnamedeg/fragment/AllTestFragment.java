@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import butterknife.BindView;
+
 import com.dnamedeg.Activities.DNAKnowmoreActivity;
 import com.dnamedeg.Activities.ModuleTestActivity;
 import com.dnamedeg.Activities.TestStartActivity;
@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AllTestFragment extends Fragment implements TestAdapter.OnCategoryClick {
-    @BindView(R.id.recyclerView)
+
     RecyclerView recyclerView;
     List<Test> allTest;
 

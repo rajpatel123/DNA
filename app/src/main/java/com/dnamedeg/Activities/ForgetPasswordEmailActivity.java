@@ -17,8 +17,7 @@ import com.dnamedeg.R;
 import com.dnamedeg.Retrofit.RestClient;
 import com.dnamedeg.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -27,19 +26,19 @@ import retrofit2.Response;
 
 public class ForgetPasswordEmailActivity extends AppCompatActivity {
 
-    @BindView(R.id.edit_token)
+
     EditText editTextToken;
 
-    @BindView(R.id.edit_password)
+
     EditText editTextPassword;
 
-    @BindView(R.id.edit_confirm_password)
+
     EditText editTextConfirmPassword;
 
-    @BindView(R.id.edit_emailid)
+
     EditText editTextEmailId;
 
-    @BindView(R.id.btnChangePassword)
+
     Button btnchangePassword;
 
     String tokens, emailId, password, confirmPassword;
@@ -49,7 +48,13 @@ public class ForgetPasswordEmailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password_email);
-        ButterKnife.bind(this);
+        editTextToken=findViewById(R.id.edit_token);
+        editTextPassword=findViewById(R.id.edit_password);
+        editTextConfirmPassword=findViewById(R.id.edit_confirm_password);
+        editTextEmailId=findViewById(R.id.edit_emailid);
+        btnchangePassword=findViewById(R.id.btnChangePassword);
+
+
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

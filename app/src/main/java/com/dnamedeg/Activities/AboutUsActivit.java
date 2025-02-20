@@ -7,19 +7,19 @@ import android.view.MenuItem;
 
 import com.dnamedeg.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class AboutUsActivit extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
+
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
-        ButterKnife.bind(this);
+        toolbar=findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
 

@@ -27,8 +27,7 @@ import com.dnamedeg.utils.Utils;
 
 import java.io.IOException;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -39,10 +38,9 @@ import retrofit2.Response;
 public class LiveAddressListActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.recycler)
+
     RecyclerView recyclerView;
 
-    @BindView(R.id.noData)
     TextView textViewNoData;
 
     String userId, amount,id, vedioId, shippingCharge, couponValue, couponValueAdd, totalValue, subchildcat;
@@ -52,7 +50,8 @@ public class LiveAddressListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_address_list);
-        ButterKnife.bind(this);
+        recyclerView=findViewById(R.id.recycler);
+        textViewNoData=findViewById(R.id.noData);
 
         if (getIntent().hasExtra("AMOUNT")) {
             amount = getIntent().getStringExtra("AMOUNT");

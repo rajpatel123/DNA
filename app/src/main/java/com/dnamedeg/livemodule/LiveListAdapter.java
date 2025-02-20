@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.R;
 import com.dnamedeg.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -22,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.dnamedeg.Activities.VideoActivity.discountonfullpurchase;
 
@@ -75,7 +74,7 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
 
 
 
-        Picasso.with(applicationContext).load(categoryDetailData.getChat().get(position).getDoctorImage())
+        Glide.with(applicationContext).load(categoryDetailData.getChat().get(position).getDoctorImage())
                 .error(R.drawable.dnalogo)
                 .into(holder.thumbnail);
 
@@ -171,32 +170,23 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.ll_right)
+
         LinearLayout llRight;
 
-        @BindView(R.id.tvSubjectNa)
+
         TextView subjectName;
 
-
-
-
-
-        @BindView(R.id.tveducator1)
         TextView tveducator1;
 
-
-
-
-        @BindView(R.id.tvTime1)
         TextView tvTime1;
 
-        @BindView(R.id.buy_now)
+
         Button buynow;
-        @BindView(R.id.tvBatchName)
+
         TextView tvBatchName;
 
 
-        @BindView(R.id.thumbnail)
+
         ImageView thumbnail;
 
         View itemView;
@@ -204,7 +194,14 @@ public class LiveListAdapter extends RecyclerView.Adapter<LiveListAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
             itemView = view;
-            ButterKnife.bind(this, view);
+            llRight=view.findViewById(R.id.ll_right);
+            subjectName=view.findViewById(R.id.tvSubjectNa);
+            tveducator1=view.findViewById(R.id.tveducator1);
+            tvTime1=view.findViewById(R.id.tvTime1);
+            buynow=view.findViewById(R.id.buy_now);
+            tvBatchName=view.findViewById(R.id.tvBatchName);
+            thumbnail=view.findViewById(R.id.thumbnail);
+
 
 
         }

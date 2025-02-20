@@ -1,4 +1,4 @@
-package com.afollestad.easyvideoplayer;
+package com.dnamedeg.player;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -11,6 +11,9 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+
+import com.dnamedeg.player.EasyVideoCallback;
+import com.dnamedeg.player.EasyVideoPlayer;
 
 /**
  * @author Aidan Follestad (afollestad)

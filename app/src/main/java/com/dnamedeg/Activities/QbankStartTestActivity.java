@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.Models.newqbankmodule.Module;
 import com.dnamedeg.Models.newqbankmodule.QBankResultResponse;
 import com.dnamedeg.Models.newqbankmodule.ResultData;
@@ -142,8 +143,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.start_test:
+        if (v.getId()==R.id.start_test){
                 if (module.getTotalMcq() <= module.getTotalAttemptedmcq()) {
 
                     Intent intent = new Intent(QbankStartTestActivity.this, QBankReviewResultActivity.class);
@@ -164,7 +164,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                     finish();
                 }
 
-                break;
+
         }
 
     }
@@ -189,7 +189,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
             if (module.getTotalMcq() == module.getTotalAttemptedmcq()) {
                 btnStart.setText("REVIEW");
                 testCompletedQuestion.setText("All Completed");
-                Picasso.with(this).load(R.drawable.qbank_right_answer).into(pauseImage);
+                Glide.with(this).load(R.drawable.qbank_right_answer).into(pauseImage);
                 linearLayoutStatus.setVisibility(View.VISIBLE);
                 getMCQResult();
 
@@ -200,7 +200,7 @@ public class QbankStartTestActivity extends AppCompatActivity implements View.On
                 if (module.getTotalAttemptedmcq() > 0) {
                     testTime.setText("You have paused this mudule on " + Utils.dateFormatForPlan(attemptedTime));
                     linearLayoutStatus.setVisibility(View.VISIBLE);
-                    Picasso.with(this).load(R.drawable.paused_icon).into(pauseImage);
+                    Glide.with(this).load(R.drawable.paused_icon).into(pauseImage);
                 }
             }
 

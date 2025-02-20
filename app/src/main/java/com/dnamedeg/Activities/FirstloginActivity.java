@@ -34,8 +34,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 import com.dnamedeg.R;
 import com.dnamedeg.Retrofit.RestClient;
@@ -52,18 +51,17 @@ import retrofit2.Response;
 public class FirstloginActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.login_button)
-    LoginButton loginButton;
 
-    @BindView(R.id.btn_email)
+
+
     Button btnEmail;
 
-    @BindView(R.id.FirstLoginText)
+
     TextView loginText;
-    @BindView(R.id.privacy)
+
     TextView privacytxt;
 
-    @BindView(R.id.terms)
+
     TextView termsTV;
 
     CallbackManager callbackManager;
@@ -77,7 +75,11 @@ public class FirstloginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_firstlogin);
         customFacebook = findViewById(R.id.custom_login);
-        ButterKnife.bind(this);
+        btnEmail = findViewById(R.id.btn_email);
+        loginText = findViewById(R.id.FirstLoginText);
+        privacytxt = findViewById(R.id.privacy);
+        termsTV = findViewById(R.id.terms);
+
         callbackManager = CallbackManager.Factory.create();
         loginwithFb();
 

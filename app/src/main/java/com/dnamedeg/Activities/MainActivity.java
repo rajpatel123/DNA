@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -51,9 +52,7 @@ import com.dnamedeg.popup.EmailVerifyDialog;
 import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -262,11 +261,11 @@ public class MainActivity extends AppCompatActivity
         tvEmail.setText(email);
         tvversion.setText(BuildConfig.VERSION_NAME);
         if (!TextUtils.isEmpty(image)) {
-            Picasso.with(getApplicationContext()).load(image)
+            Glide.with(getApplicationContext()).load(image)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
         } else {
-            Picasso.with(getApplicationContext())
+            Glide.with(getApplicationContext())
                     .load(R.drawable.dnalogo)
                     .error(R.drawable.dnalogo)
                     .into(circleImageView);
@@ -601,13 +600,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toolbar:
-                //your code here
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.toolbar) {
+            //your code here
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+
         }
+
     }
 
     public void getAdditionalDiscount() {

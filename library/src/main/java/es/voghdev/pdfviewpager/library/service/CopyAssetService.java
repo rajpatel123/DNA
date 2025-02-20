@@ -21,7 +21,7 @@ import android.content.Intent;
 
 import java.io.IOException;
 
-import es.voghdev.pdfviewpager.library.BuildConfig;
+
 import es.voghdev.pdfviewpager.library.util.FileUtil;
 
 public class CopyAssetService extends IntentService {

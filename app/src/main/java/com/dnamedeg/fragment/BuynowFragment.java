@@ -30,6 +30,7 @@ import com.dnamedeg.Retrofit.RestClient;
 import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
+import com.facebook.FacebookSdk;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -82,6 +83,10 @@ public class BuynowFragment extends Fragment implements VideoListPriceAdapter.On
         View view = inflater.inflate(R.layout.fragment_buynow, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         noVid = view.findViewById(R.id.noVid);
+        if (!FacebookSdk.isInitialized()) {
+            FacebookSdk.setClientToken("@string/facebook_app_id");
+            FacebookSdk.sdkInitialize(requireContext().getApplicationContext());
+        }
         getVideos();
 
         return view;

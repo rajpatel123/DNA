@@ -11,23 +11,23 @@ import android.widget.Toast;
 
 import com.dnamedeg.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class ContactUsActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    @BindView(R.id.contact_us_email)
+
     Button btnEmail;
 
-    @BindView(R.id.contact_us_call)
+
     Button btnCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
-        ButterKnife.bind(this);
+         btnEmail=findViewById(R.id.contact_us_email);
+         btnCall=findViewById(R.id.contact_us_call);
 
         btnCall.setOnClickListener(this);
         btnEmail.setOnClickListener(this);
@@ -50,26 +50,23 @@ public class ContactUsActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.contact_us_email:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"support@dnamedicalapp.com"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Any subject if you want");
-                intent.setPackage("com.google.android.gm");
-                if (intent.resolveActivity(getPackageManager()) != null)
-                    startActivity(intent);
-                else
-                    Toast.makeText(ContactUsActivity.this, "Gmail App is not installed", Toast.LENGTH_SHORT).show();
-                break;
+        if(v.getId()==R.id.contact_us_email) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("message/rfc822");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"support@dnamedicalapp.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Any subject if you want");
+            intent.setPackage("com.google.android.gm");
+            if (intent.resolveActivity(getPackageManager()) != null)
+                startActivity(intent);
+            else
+                Toast.makeText(ContactUsActivity.this, "Gmail App is not installed", Toast.LENGTH_SHORT).show();
 
-            case R.id.contact_us_call:
-                Intent intent1 = new Intent(Intent.ACTION_DIAL);
-                intent1.setData(Uri.parse("tel:8420224581"));
-                startActivity(intent1);
-                break;
-
+        } else if (v.getId()==R.id.contact_us_call) {
+            Intent intent1 = new Intent(Intent.ACTION_DIAL);
+            intent1.setData(Uri.parse("tel:9800691244"));
+            startActivity(intent1);
         }
+
     }
 }
 

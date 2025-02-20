@@ -25,8 +25,7 @@ import com.dnamedeg.utils.DnaPrefs;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 /**
  * Created by rbpatel on 9/29/2017.
@@ -201,16 +200,12 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.linearNeet_Ss)
         FrameLayout linearLayout;
 
-        @BindView(R.id.detailLL)
         RelativeLayout detailLL;
 
-        @BindView(R.id.title)
         TextView title;
 
-        @BindView(R.id.image)
         ImageView image;
 
 
@@ -218,7 +213,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            linearLayout=view.findViewById(R.id.linearNeet_Ss);
+            detailLL=view.findViewById(R.id.detailLL);
+            title=view.findViewById(R.id.title);
+            image=view.findViewById(R.id.image);
+
 
 
         }

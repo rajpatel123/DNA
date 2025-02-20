@@ -4,10 +4,13 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +35,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.dnamedeg.BuildConfig;
 import com.dnamedeg.Models.newqbankmodule.MCQQuestionList;
 import com.dnamedeg.Models.newqbankmodule.ModulesMcq;
@@ -393,28 +401,23 @@ public class QbankTestActivity extends AppCompatActivity {
 
                     answerList.addView(iv);
 
-                    Picasso.with(this).load(questionDetails.getTitleImage())
-                            .into(iv, new com.squareup.picasso.Callback() {
+                    Glide.with(this).load(questionDetails.getTitleImage())
+                            .listener(new RequestListener<Drawable>() {
                                 @Override
-                                public void onSuccess() {
-                                    if (progressbarForImage != null) {
-                                        progressbarForImage.setVisibility(View.GONE);
-                                    }
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    return false;
                                 }
 
                                 @Override
-                                public void onError() {
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                                     if (progressbarForImage != null) {
                                         progressbarForImage.setVisibility(View.GONE);
                                     }
-                                    question_image.setVisibility(View.GONE);
-                                    //Toast.makeText(TestV1Activity.this, "Unable to load image", Toast.LENGTH_LONG).show();
-
-
+                                    return false;
                                 }
-                            });
+                            })
+                            .into(iv);
                 }
-
             } else {
                 progressbarForImage.setVisibility(GONE);
             }

@@ -21,8 +21,7 @@ import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -33,76 +32,49 @@ import static android.view.View.GONE;
 
 public class PaymentCoupenActivity extends AppCompatActivity {
 
-    @BindView(R.id.img_cancel)
     ImageView imageViewCancel;
 
-
-    @BindView(R.id.crossBtn)
     ImageView crossBtn;
-    @BindView(R.id.applyNow)
+
     TextView applyNow;
 
-    @BindView(R.id.coupanCodeEdt)
     EditText coupanCodeEdt;
 
-    @BindView(R.id.txt_coupon_code)
     TextView textViewCouponCode;
 
-    @BindView(R.id.totalDiscountOfVideos)
     TextView totalDiscountOfVideos;
 
-
-    @BindView(R.id.totalPriceOfVideoTV)
     TextView totalPriceOfVideoTV;
 
-    @BindView(R.id.txt_test_name)
     TextView textViewTestName;
 
-
-    @BindView(R.id.finalPriceOfVideos)
     TextView finalPriceOfVideosTV;
 
 
-    @BindView(R.id.btn_proceed_pay)
     Button btnProceedPay;
 
-    @BindView(R.id.subtitle)
     TextView txtsubTitle;
 
-    @BindView(R.id.coupanLL)
     LinearLayout coupanLL;
 
 
-    @BindView(R.id.adminDiscountTXT)
     TextView adminDiscountTXT;
 
 
-    @BindView(R.id.total_price)
     TextView txtTotalPrice;
 
-
-    @BindView(R.id.actual_price)
     TextView txtActualPrice;
 
-    @BindView(R.id.image_coupon_apply)
     ImageView imageViewCouponApply;
 
-    @BindView(R.id.img_coupon_cancel)
     ImageView imageViewCouponCancle;
 
-
-    @BindView(R.id.card_view_apply)
     CardView cardViewApply;
 
-    @BindView(R.id.linear_coupon)
     LinearLayout linearLayoutCoupon;
 
-
-    @BindView(R.id.txt_apply_coupon)
     TextView textViewCouponApply;
 
-
-    @BindView(R.id.discount_message)
     TextView textViewDiscountMessage;
     String couponCode, couponValue, subTitle, testName, totalPriceValue = "0", totalDiscountValue = "0", totalDiscountFinalValue = "0", finalPriceValue = "0", vedioId, shippingCharge;
 
@@ -118,7 +90,30 @@ public class PaymentCoupenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_coupen);
-        ButterKnife.bind(this);
+        imageViewCancel=findViewById(R.id.img_cancel);
+        crossBtn=findViewById(R.id.crossBtn);
+        applyNow=findViewById(R.id.applyNow);
+        coupanCodeEdt=findViewById(R.id.coupanCodeEdt);
+        textViewCouponCode=findViewById(R.id.txt_coupon_code);
+        totalDiscountOfVideos=findViewById(R.id.totalDiscountOfVideos);
+        totalPriceOfVideoTV=findViewById(R.id.totalPriceOfVideoTV);
+        textViewTestName=findViewById(R.id.txt_test_name);
+        finalPriceOfVideosTV=findViewById(R.id.finalPriceOfVideos);
+        btnProceedPay=findViewById(R.id.btn_proceed_pay);
+        txtsubTitle=findViewById(R.id.subtitle);
+        coupanLL=findViewById(R.id.coupanLL);
+        adminDiscountTXT=findViewById(R.id.adminDiscountTXT);
+        txtTotalPrice=findViewById(R.id.total_price);
+        txtActualPrice=findViewById(R.id.actual_price);
+        imageViewCouponApply=findViewById(R.id.image_coupon_apply);
+        imageViewCouponCancle=findViewById(R.id.img_coupon_cancel);
+        cardViewApply=findViewById(R.id.card_view_apply);
+        linearLayoutCoupon=findViewById(R.id.linear_coupon);
+        textViewCouponApply=findViewById(R.id.txt_apply_coupon);
+        textViewDiscountMessage=findViewById(R.id.discount_message);
+
+
+
 
         updatePrice();
 

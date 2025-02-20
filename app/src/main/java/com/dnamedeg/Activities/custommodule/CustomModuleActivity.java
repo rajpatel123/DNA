@@ -121,11 +121,9 @@ public class CustomModuleActivity extends AppCompatActivity {
         difficultyRD.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                switch (id) {
-                    case R.id.allLevel:
-                        label = "all";
-                        break;
-                    default:
+                if (id==R.id.allLevel) {
+                    label = "all";
+                }else{
                         label="";
                 }
             }
@@ -135,24 +133,18 @@ public class CustomModuleActivity extends AppCompatActivity {
         qFromRD.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                switch (id) {
-                    case R.id.allQBank:
-                        type = "all";
-                        break;
-                    case R.id.bookmarked:
+                if (id== R.id.allQBank) {
+                    type = "all";
+                }else if(id== R.id.bookmarked){
                         type = "bookmark";
-                        break;
-
-                    case R.id.unattempted:
+                }else if(id==R.id.unattempted){
                         type = "unattempted";
-                        break;
-                    case R.id.attempted:
+                }else if(id==R.id.attempted){
                         type = "attempted";
-                        break;
-                    case R.id.incorrect:
+                }else if(id== R.id.incorrect){
                         type = "incorrect";
-                        break;
-                    default:
+
+                }else{
                         type="";
                 }
             }
@@ -161,18 +153,15 @@ public class CustomModuleActivity extends AppCompatActivity {
         subjectRD.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) {
-               switch (id){
-                   case R.id.allSubjectReadio:
-                       subjects="all";
+               if (id== R.id.allSubjectReadio) {
+                   subjects = "all";
 
-                       for (int i=0;i<subjectList.getDetails().size();i++){
-                           subjectList.getDetails().get(i).setSelected(true);
-                           subjectList.getDetails().get(i).setAll(true);
-                       }
+                   for (int i = 0; i < subjectList.getDetails().size(); i++) {
+                       subjectList.getDetails().get(i).setSelected(true);
+                       subjectList.getDetails().get(i).setAll(true);
+                   }
 
-                       break;
-
-                   default:
+               }else{
                        for (int i=0;i<subjectList.getDetails().size();i++){
 
                            subjectList.getDetails().get(i).setSelected(false);
@@ -190,18 +179,15 @@ public class CustomModuleActivity extends AppCompatActivity {
         tagRD.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                switch (id){
-                    case R.id.allTagReadio:
-                        tags="all";
+                if (id== R.id.allTagReadio) {
+                    tags = "all";
 
-                        for (int i=0;i<tagsList.getDetails().size();i++){
-                            tagsList.getDetails().get(i).setSelected(true);
-                            tagsList.getDetails().get(i).setAll(true);
-                        }
+                    for (int i = 0; i < tagsList.getDetails().size(); i++) {
+                        tagsList.getDetails().get(i).setSelected(true);
+                        tagsList.getDetails().get(i).setAll(true);
+                    }
 
-                        break;
-
-                    default:
+                }else{
                         for (int i=0;i<tagsList.getDetails().size();i++){
                             tagsList.getDetails().get(i).setSelected(false);
                             tagsList.getDetails().get(i).setAll(false);

@@ -88,6 +88,7 @@
                 app:evp_leftAction="none"
                 app:evp_loop="false"
                 app:evp_rightAction="none"
+                android:onClick="onControlClick"
                 tools:visibility="visible" />
 
             <LinearLayout

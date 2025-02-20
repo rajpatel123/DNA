@@ -4,8 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DNA.iml" filepath="$PROJECT_DIR$/.idea/modules/DNA.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DNA.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DNA.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/DNA.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/DNA.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/DNA.library.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/DNA.library.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/DNA.library.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/DNA.library.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/DNA.library.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/DNA.library.unitTest.iml" />
     </modules>
   </component>
 </project>

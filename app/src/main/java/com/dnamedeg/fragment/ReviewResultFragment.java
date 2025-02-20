@@ -26,6 +26,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.Activities.ReviewresulActivity;
 import com.dnamedeg.BuildConfig;
 import com.dnamedeg.Models.ReportErrorResponse;
@@ -35,17 +36,16 @@ import com.dnamedeg.Retrofit.RestClient;
 import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//import lecho.lib.hellocharts.model.PieChartData;
-//import lecho.lib.hellocharts.model.SliceValue;
-//import lecho.lib.hellocharts.view.PieChartView;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -246,7 +246,7 @@ public class ReviewResultFragment extends Fragment {
 
 
             if (!TextUtils.isEmpty(question.getTitleImage())) {
-                Picasso.with(activity).load(question.getTitleImage()).into(question_image);
+                Glide.with(activity).load(question.getTitleImage()).into(question_image);
             }
             List<SliceValue> pieData = new ArrayList<>();
             pieData.add(new SliceValue(question.getPercentage(), R.color.colorPrimary));
@@ -356,7 +356,7 @@ public class ReviewResultFragment extends Fragment {
 
             percentage.setText(question.getPercentage() + "%     of the people got this right");
 
-           Picasso.with(activity).load(R.drawable.dnalogo).into(refImage);
+           Glide.with(activity).load(R.drawable.dnalogo).into(refImage);
 //            refText.setText(question.getRefernce().getTitle());
             optionA.setTextColor(ContextCompat.getColor(activity, R.color.black));
             optionB.setTextColor(ContextCompat.getColor(activity, R.color.black));

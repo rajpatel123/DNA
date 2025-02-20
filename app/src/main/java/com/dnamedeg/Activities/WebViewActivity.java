@@ -14,8 +14,6 @@ import android.widget.RelativeLayout;
 
 
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import com.dnamedeg.BuildConfig;
 import com.dnamedeg.R;
@@ -26,15 +24,15 @@ import static android.view.View.GONE;
 
 public class WebViewActivity extends AppCompatActivity {
     private static final String TAG = "WebViewActivity";
-    @BindView(R.id.toolbar)
+
     Toolbar toolbar;
-    @BindView(R.id.progressBar)
+
     ProgressBar progressBar;
-    @BindView(R.id.dataWebView)
+
     WebView mWebView;
-    @BindView(R.id.rlNetworkUI)
+
     RelativeLayout rlNetworkUI;
-    @BindView(R.id.rlWebView)
+
     RelativeLayout rlWebView;
 
     String title;
@@ -43,7 +41,13 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview_layout);
-        ButterKnife.bind(this);
+        toolbar=findViewById(R.id.toolbar);
+        progressBar=findViewById(R.id.progressBar);
+        mWebView=findViewById(R.id.dataWebView);
+        rlNetworkUI=findViewById(R.id.rlNetworkUI);
+        rlWebView=findViewById(R.id.rlWebView);
+
+
         setSupportActionBar(toolbar);
 
 

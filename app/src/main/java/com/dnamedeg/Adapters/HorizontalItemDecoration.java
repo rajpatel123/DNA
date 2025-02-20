@@ -16,7 +16,7 @@ public class HorizontalItemDecoration extends RecyclerView.ItemDecoration {
     private final Paint paint;
 
     public HorizontalItemDecoration(Context context) {
-        indicatorWidth = context.getResources().getDimensionPixelSize(R.dimen._8dp);
+        indicatorWidth = context.getResources().getDimensionPixelSize(R.dimen.dp_8);
         paint = new Paint();
         paint.setColor(context.getResources().getColor(R.color.blue)); // Set color as per your requirement
     }

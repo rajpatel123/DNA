@@ -28,8 +28,6 @@ import com.dnamedeg.utils.Utils;
 
 import java.io.IOException;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -40,13 +38,15 @@ import retrofit2.Response;
 public class AddressForSubscriptionListActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.recycler)
+
+
+    //    @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    @BindView(R.id.noData)
+    //    @BindView(R.id.noData)
     TextView textViewNoData;
 
-    @BindView(R.id.toolbar)
+    //    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     String userId, amount, subscription_id, shippingCharge, totalDiscountGiven, totalADDDiscountGiven, couponValue, couponValueAdd, totalValue, plan_id, months, pack_key, order_id;
@@ -56,7 +56,10 @@ public class AddressForSubscriptionListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_list);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+        recyclerView = findViewById(R.id.recycler);
+        textViewNoData = findViewById(R.id.noData);
+        mToolbar=findViewById(R.id.toolbar);
 
 
 //        mToolbar = findViewById(R.id.toolbar);

@@ -105,7 +105,7 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <com.alimuzaffar.lib.pin.PinEntryEditText
+        <com.chaos.view.PinView
             android:id="@+id/pin_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,23 +116,20 @@
             android:layout_marginTop="@dimen/dp_50"
             android:layout_marginEnd="@dimen/margin_25"
             android:background="@android:color/transparent"
-            android:cursorVisible="false"
-            android:digits="1234567890"
-            android:focusable="true"
-            android:gravity="center_horizontal"
+            android:cursorVisible="true"
+            android:gravity="center"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:textColor="@color/white"
             android:maxLength="6"
-            android:textIsSelectable="false"
             android:textSize="@dimen/ts_20"
-            app:pinAnimationType="popIn"
-            app:pinBackgroundIsSquare="true"
-            app:pinCharacterSpacing="12dp"
-            app:pinLineColors="@color/black_disabled"
-            app:pinLineStroke="2dp"
-            app:pinLineStrokeSelected="2dp"
-            app:pinTextBottomPadding="4dp" />
+            app:itemCount="6"
+            app:itemHeight="48dp"
+            app:itemWidth="48dp"
+            app:itemSpacing="12dp"
+            app:lineColor="@color/black_disabled"
+            app:lineWidth="2dp"
+            app:hideLineWhenFilled="false" />
 
         <TextView
             android:id="@+id/resendOtp"
@@ -143,6 +140,7 @@
             android:layout_marginTop="@dimen/margin_25"
             android:gravity="start"
             android:text="@string/resend_otp"
+            android:onClick="resendOtp"
             android:textColor="@color/white"
             android:visibility="visible" />
 
@@ -180,6 +178,7 @@
             android:layout_marginEnd="@dimen/margin_25"
             android:background="@drawable/next_btn"
             android:text="Verify Otp"
+           android:onClick="onNextBtnClick"
             android:textColor="@color/white" />
 
 

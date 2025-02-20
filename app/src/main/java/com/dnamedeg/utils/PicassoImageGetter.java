@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.DNAApplication;
 import com.dnamedeg.R;
 import com.squareup.picasso.Picasso;
@@ -29,10 +30,10 @@ public class PicassoImageGetter implements Html.ImageGetter {
     @Override
     public Drawable getDrawable(String source) {
         BitmapDrawablePlaceHolder drawable = new BitmapDrawablePlaceHolder();
-        Picasso.with(context)
-                .load(source)
-                .placeholder(R.drawable.logo_with_title)
-                .into(drawable);
+//        Glide.with(context)
+//                .load(source)
+//                .placeholder(R.drawable.logo_with_title)
+//                .into(drawble);
         return drawable;
     }
 
@@ -64,8 +65,10 @@ public class PicassoImageGetter implements Html.ImageGetter {
         }
 
         @Override
-        public void onBitmapFailed(Drawable errorDrawable) {
+        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
         }
+
 
         @Override
         public void onPrepareLoad(Drawable placeHolderDrawable) {

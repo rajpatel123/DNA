@@ -224,9 +224,7 @@ public class ViewerActivity extends AppCompatActivity implements DownloadFile.Li
     protected void onDestroy() {
         super.onDestroy();
 
-        if (adapter != null) {
-            adapter.close();
-        }
+       
     }
 
     @Override

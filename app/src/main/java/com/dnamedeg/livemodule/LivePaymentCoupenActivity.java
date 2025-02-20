@@ -23,8 +23,6 @@ import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -35,57 +33,68 @@ import static android.view.View.GONE;
 
 public class LivePaymentCoupenActivity extends AppCompatActivity {
 
-    @BindView(R.id.img_cancel)
     ImageView imageViewCancel;
 
+    //@BindView(R.id.txt_coupon_code)
+    TextView textViewCouponCode;
 
-    @BindView(R.id.totalDiscountOfVideos)
+    // @BindView(R.id.totalDiscountOfVideos)
     TextView totalDiscountOfVideos;
 
+    // @BindView(R.id.totalAddDiscountOfVideos)
+    TextView totalAddDiscountOfVideos;
 
-    @BindView(R.id.totalPriceOfVideoTV)
+
+    // @BindView(R.id.totalPriceOfVideoTV)
     TextView totalPriceOfVideoTV;
 
-    @BindView(R.id.txt_test_name)
+    // @BindView(R.id.txt_test_name)
     TextView textViewTestName;
 
 
-    @BindView(R.id.finalPriceOfVideos)
+    // @BindView(R.id.finalPriceOfVideos)
     TextView finalPriceOfVideosTV;
 
 
-    @BindView(R.id.btn_proceed_pay)
+    //@BindView(R.id.btn_proceed_pay)
     Button btnProceedPay;
 
-    @BindView(R.id.subtitle)
+    // @BindView(R.id.subtitle)
     TextView txtsubTitle;
 
 
-    @BindView(R.id.total_price)
+    // @BindView(R.id.total_price)
     TextView txtTotalPrice;
 
 
-    @BindView(R.id.actual_price)
+    //@BindView(R.id.actual_price)
     TextView txtActualPrice;
 
+    // @BindView(R.id.image_coupon_apply)
+    ImageView imageViewCouponApply;
 
-    @BindView(R.id.crossBtn)
+    //@BindView(R.id.img_coupon_cancel)
     ImageView imageViewCouponCancle;
 
 
-    @BindView(R.id.card_view_apply)
+    //@BindView(R.id.card_view_apply)
     CardView cardViewApply;
 
-    @BindView(R.id.linear_coupon)
+    // @BindView(R.id.linear_coupon)
     LinearLayout linearLayoutCoupon;
 
+    // @BindView(R.id.linear_coupon_add)
+    LinearLayout linearLayoutCoupon_add;
 
-    @BindView(R.id.applyNow)
+
+    // @BindView(R.id.txt_apply_coupon)
     TextView textViewCouponApply;
-
-
-    @BindView(R.id.coupanCodeEdt)
     EditText coupanCodeEdt;
+
+
+
+    //@BindView(R.id.discount_message)
+    TextView textViewDiscountMessage;
     String couponCode, id, couponValue, subTitle, testName, totalPriceValue = "0", totalDiscountValue = "0", totalDiscountFinalValue = "0", totalAddDiscountFinalValue = "0", finalPriceValue = "0", vedioId, shippingCharge;
 
     PaidVideoResponse paidVideoResponse;
@@ -99,9 +108,26 @@ public class LivePaymentCoupenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_online_payment_coupen);
-        ButterKnife.bind(this);
+        setContentView(R.layout.activity_payment_coupen);
+        //ButterKnife.bind(this);
+        imageViewCancel=findViewById(R.id.img_cancel);
+        textViewCouponCode=findViewById(R.id.txt_coupon_code);
+        coupanCodeEdt=findViewById(R.id.coupanCodeEdt);
+        totalDiscountOfVideos=findViewById(R.id.totalDiscountOfVideos);
+        textViewTestName=findViewById(R.id.txt_test_name);
+        finalPriceOfVideosTV=findViewById(R.id.finalPriceOfVideos);
+        btnProceedPay=findViewById(R.id.btn_proceed_pay);
+        txtsubTitle=findViewById(R.id.subtitle);
+        imageViewCancel=findViewById(R.id.img_cancel);
+        txtTotalPrice=findViewById(R.id.total_price);
+        txtActualPrice=findViewById(R.id.actual_price);
+        imageViewCouponCancle=findViewById(R.id.img_coupon_cancel);
+        cardViewApply=findViewById(R.id.card_view_apply);
+        linearLayoutCoupon=findViewById(R.id.linear_coupon);
 
+        textViewCouponApply=findViewById(R.id.txt_apply_coupon);
+        textViewCouponCode=findViewById(R.id.txt_coupon_code);
+        textViewDiscountMessage=findViewById(R.id.discount_message);
         textViewCouponApply.setVisibility(View.VISIBLE);
         imageViewCouponCancle.setVisibility(GONE);
         imageViewCancel.setOnClickListener(new View.OnClickListener() {

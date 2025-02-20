@@ -57,8 +57,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -68,23 +67,23 @@ import retrofit2.Response;
 
 public class FacultyChatActivity extends AppCompatActivity implements UploadFileDialog.onUploadFileDialog, FullScreenImagePopup.onFullScreenImagePopup {
 
-    @BindView(R.id.recycler_view)
+
     RecyclerView recyclerViewChat;
-    @BindView(R.id.tv_title)
+
     TextView tvtitle;
     Context ctx;
-    @BindView(R.id.iv_back)
+
     ImageView ivback;
-    @BindView(R.id.toggle)
+
     Switch toggle;
 
-    @BindView(R.id.btnImage)
+
     androidx.appcompat.widget.AppCompatImageView btnImage;
 
 
-    @BindView(R.id.btn_send)
+
     androidx.appcompat.widget.AppCompatImageButton btnSend;
-    @BindView(R.id.message)
+
     EditText message;
     ChatListAdapter chatListAdapter;
     private ArrayList<Chat> messageArrayList = new ArrayList();
@@ -99,7 +98,15 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.facultychatactivity);
-        ButterKnife.bind(this);
+        recyclerViewChat = findViewById(R.id.recycler_view);
+        tvtitle = findViewById(R.id.tv_title);
+        ivback = findViewById(R.id.iv_back);
+        toggle = findViewById(R.id.toggle);
+        btnImage = findViewById(R.id.btnImage);
+        btnSend = findViewById(R.id.btn_send);
+        message = findViewById(R.id.message);
+
+
         channelID = getIntent().getStringExtra("channelID");
         DoctorName = getIntent().getStringExtra("drName");
 
@@ -640,11 +647,12 @@ public class FacultyChatActivity extends AppCompatActivity implements UploadFile
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PICK_FROM_GALLERY:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(galleryIntent, PICK_FROM_GALLERY);
                 } else {
                     //do something like displaying a message that he didn`t allow the app to access gallery and you wont be able to let him select from gallery

@@ -26,8 +26,7 @@ import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
 import com.google.gson.Gson;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -36,19 +35,19 @@ import retrofit2.Response;
 
 public class CategoryModulesActivity extends AppCompatActivity  {
 
-    @BindView(R.id.image)
+
     ImageView image;
 
-    @BindView(R.id.subjectName)
+
     TextView subjectName;
 
-    @BindView(R.id.videosRL)
+
     RelativeLayout videosRL;
 
-    @BindView(R.id.notesRl)
+
     RelativeLayout notesRl;
 
-    @BindView(R.id.eBookRl)
+
     RelativeLayout eBookRl;
 
     MainActivity mainActivity;
@@ -62,6 +61,12 @@ public class CategoryModulesActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_modules);
+        image=findViewById(R.id.image);
+        subjectName=findViewById(R.id.subjectName);
+        videosRL=findViewById(R.id.videosRL);
+        notesRl=findViewById(R.id.notesRl);
+        eBookRl=findViewById(R.id.eBookRl);
+        mainActivity=new MainActivity();
 
 
         catId = getIntent().getStringExtra("catId");
@@ -82,7 +87,7 @@ public class CategoryModulesActivity extends AppCompatActivity  {
 //            }
 //        }
 
-        ButterKnife.bind(this);
+
        // getCourse();
 
         if (getIntent().hasExtra("image")){

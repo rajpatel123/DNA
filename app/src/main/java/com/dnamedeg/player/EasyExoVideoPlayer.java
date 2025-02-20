@@ -1,5 +1,7 @@
 package com.dnamedeg.player;
 
+
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -12,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.opengl.EGL14;
 import android.opengl.GLES20;
@@ -27,11 +30,33 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.content.res.AppCompatResources;
+import androidx.media3.common.MediaItem;
+import androidx.media3.common.PlaybackParameters;
+import androidx.media3.common.Player;
+import androidx.media3.common.Timeline;
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.datasource.DataSource;
+import androidx.media3.datasource.DefaultDataSourceFactory;
+import androidx.media3.datasource.TransferListener;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.exoplayer.SimpleExoPlayer;
+import androidx.media3.exoplayer.source.MediaSource;
+import androidx.media3.exoplayer.source.ProgressiveMediaSource;
+import androidx.media3.exoplayer.source.TrackGroupArray;
+import androidx.media3.exoplayer.trackselection.AdaptiveTrackSelection;
+import androidx.media3.exoplayer.trackselection.DefaultTrackSelector;
+import androidx.media3.exoplayer.trackselection.TrackSelection;
+import androidx.media3.exoplayer.trackselection.TrackSelectionArray;
+import androidx.media3.exoplayer.trackselection.TrackSelector;
+import androidx.media3.exoplayer.upstream.BandwidthMeter;
+import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
+import androidx.media3.extractor.DefaultExtractorsFactory;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,26 +72,9 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
-import com.afollestad.easyvideoplayer.ISeekChange;
+
+
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.PlaybackParameters;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;
@@ -86,6 +94,7 @@ import com.dnamedeg.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
+
 public class EasyExoVideoPlayer extends FrameLayout
         implements IExoUserMethods,
         TextureView.SurfaceTextureListener,
@@ -125,7 +134,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     private TextView mBtnSubmit;
     private TextView mLabelCustom;
     private TextView mLabelBottom;
-    private SimpleExoPlayer mPlayer;
+    private ExoPlayer mPlayer;
     private boolean mSurfaceAvailable;
     private boolean mIsPrepared;
     private boolean mWasPlaying;
@@ -221,16 +230,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     /*************************** EXO PLAYER ************************************************************/
 
     private DataSource.Factory dataSourceFactory;
-    private Player.EventListener eventListner = new Player.EventListener() {
-
-        @Override
-        public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
-        }
-
-        @Override
-        public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-        }
-
+    private Player.Listener eventListner = new Player.Listener() {
         @Override
         public void onLoadingChanged(boolean isLoading) {
         }
@@ -281,7 +281,6 @@ public class EasyExoVideoPlayer extends FrameLayout
 
         }
 
-        @Override
         public void onPlayerError(ExoPlaybackException error) {
             if(mCallback!=null){
                 mCallback.onError(EasyExoVideoPlayer.this,error);
@@ -298,10 +297,7 @@ public class EasyExoVideoPlayer extends FrameLayout
 
         }
 
-        @Override
-        public void onSeekProcessed() {
 
-        }
     };
 
     private void onWhenPaused() {
@@ -424,25 +420,25 @@ public class EasyExoVideoPlayer extends FrameLayout
 
         if (attrs != null) {
             TypedArray a =
-                    context.getTheme().obtainStyledAttributes(attrs, com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer, 0, 0);
+                    context.getTheme().obtainStyledAttributes(attrs, R.styleable.MyVideoPlayer, 0, 0);
             try {
-                String source = a.getString(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_source);
+                String source = a.getString(R.styleable.MyVideoPlayer_evp_source);
                 if (source != null && !source.trim().isEmpty()) mSource = Uri.parse(source);
 
                 //noinspection WrongConstant
-                mLeftAction = a.getInteger(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_leftAction, LEFT_ACTION_RESTART);
+                mLeftAction = a.getInteger(R.styleable.MyVideoPlayer_evp_leftAction, LEFT_ACTION_RESTART);
                 //noinspection WrongConstant
-                mRightAction = a.getInteger(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_rightAction, RIGHT_ACTION_NONE);
+                mRightAction = a.getInteger(R.styleable.MyVideoPlayer_evp_rightAction, RIGHT_ACTION_NONE);
 
-                mCustomLabelText = a.getText(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_customLabelText);
-                mRetryText = a.getText(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_retryText);
-                mSubmitText = a.getText(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_submitText);
-                mBottomLabelText = a.getText(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_bottomText);
+                mCustomLabelText = a.getText(R.styleable.MyVideoPlayer_evp_customLabelText);
+                mRetryText = a.getText(R.styleable.MyVideoPlayer_evp_retryText);
+                mSubmitText = a.getText(R.styleable.MyVideoPlayer_evp_submitText);
+                mBottomLabelText = a.getText(R.styleable.MyVideoPlayer_evp_bottomText);
 
                 int restartDrawableResId =
-                        a.getResourceId(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_restartDrawable, -1);
-                int playDrawableResId = a.getResourceId(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_playDrawable, -1);
-                int pauseDrawableResId = a.getResourceId(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_pauseDrawable, -1);
+                        a.getResourceId(R.styleable.MyVideoPlayer_evp_restartDrawable, -1);
+                int playDrawableResId = a.getResourceId(R.styleable.MyVideoPlayer_evp_playDrawable, -1);
+                int pauseDrawableResId = a.getResourceId(R.styleable.MyVideoPlayer_evp_pauseDrawable, -1);
 
                 if (restartDrawableResId != -1) {
                     mRestartDrawable = AppCompatResources.getDrawable(context, restartDrawableResId);
@@ -455,17 +451,17 @@ public class EasyExoVideoPlayer extends FrameLayout
                 }
 
                 mHideControlsOnPlay =
-                        a.getBoolean(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_hideControlsOnPlay, true);
-                mAutoPlay = a.getBoolean(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_autoPlay, false);
-                mControlsDisabled = a.getBoolean(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_disableControls, false);
+                        a.getBoolean(R.styleable.MyVideoPlayer_evp_hideControlsOnPlay, true);
+                mAutoPlay = a.getBoolean(R.styleable.MyVideoPlayer_evp_autoPlay, false);
+                mControlsDisabled = a.getBoolean(R.styleable.MyVideoPlayer_evp_disableControls, false);
 
                 mThemeColor =
                         a.getColor(
-                                com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_themeColor,
-                                Util.resolveColor(context, com.afollestad.easyvideoplayer.R.attr.colorPrimary));
+                                R.styleable.MyVideoPlayer_evp_themeColor,
+                                Util.resolveColor(context, com.google.android.material.R.attr.colorPrimary));
 
-                mAutoFullscreen = a.getBoolean(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_autoFullscreen, false);
-                mLoop = a.getBoolean(com.afollestad.easyvideoplayer.R.styleable.EasyVideoPlayer_evp_loop, false);
+                mAutoFullscreen = a.getBoolean(R.styleable.MyVideoPlayer_evp_autoFullscreen, false);
+                mLoop = a.getBoolean(R.styleable.MyVideoPlayer_evp_loop, false);
             } finally {
                 a.recycle();
             }
@@ -475,22 +471,22 @@ public class EasyExoVideoPlayer extends FrameLayout
             mHideControlsOnPlay = true;
             mAutoPlay = false;
             mControlsDisabled = false;
-            mThemeColor = Util.resolveColor(context, com.afollestad.easyvideoplayer.R.attr.colorPrimary);
+            mThemeColor = Util.resolveColor(context, com.google.android.material.R.attr.colorPrimary);
             mAutoFullscreen = false;
             mLoop = false;
         }
 
         if (mRetryText == null)
-            mRetryText = context.getResources().getText(com.afollestad.easyvideoplayer.R.string.evp_retry);
+            mRetryText = context.getResources().getText(R.string.evp_retry);
         if (mSubmitText == null)
-            mSubmitText = context.getResources().getText(com.afollestad.easyvideoplayer.R.string.evp_submit);
+            mSubmitText = context.getResources().getText(R.string.evp_submit);
 
         if (mRestartDrawable == null)
-            mRestartDrawable = AppCompatResources.getDrawable(context, com.afollestad.easyvideoplayer.R.drawable.evp_action_restart);
+            mRestartDrawable = AppCompatResources.getDrawable(context, R.drawable.evp_action_restart);
         if (mPlayDrawable == null)
-            mPlayDrawable = AppCompatResources.getDrawable(context, com.afollestad.easyvideoplayer.R.drawable.evp_action_play);
+            mPlayDrawable = AppCompatResources.getDrawable(context, R.drawable.evp_action_play);
         if (mPauseDrawable == null)
-            mPauseDrawable = AppCompatResources.getDrawable(context, com.afollestad.easyvideoplayer.R.drawable.evp_action_pause);
+            mPauseDrawable = AppCompatResources.getDrawable(context, R.drawable.evp_action_pause);
     }
 
     @Override
@@ -519,9 +515,11 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
     @Override
-    public void setProgressCallback(@NonNull EasyVideoProgressCallback callback) {
+    public void setProgressCallback(@NonNull EasyVideoProgressCallback  callback) {
         mProgressCallback = callback;
+
     }
+
 
     @Override
     public void setLeftAction(@LeftAction int action) {
@@ -678,7 +676,7 @@ public class EasyExoVideoPlayer extends FrameLayout
 
             AssetFileDescriptor afd;
             afd =getContext().getAssets()
-                            .openFd(mSource.toString().replace("file:///android_assets/", ""));
+                    .openFd(mSource.toString().replace("file:///android_assets/", ""));
 
 
             initDataSource();
@@ -1073,44 +1071,44 @@ public class EasyExoVideoPlayer extends FrameLayout
         }
     }
 
-//    public void onVideoSizeChanged(MediaPlayer mediaPlayer, int width, int height) {
-//        LOG("Video size changed: %dx%d", width, height);
-//        adjustAspectRatio(mInitialTextureWidth, mInitialTextureHeight, width, height);
-//    }
-//
-//    public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
-//        if (what == -38) {
-//            // Error code -38 happens on some Samsung devices
-//            // Just ignore it
-//            return false;
-//        }
-//        String errorMsg = "Preparation/playback error (" + what + "): ";
-//        switch (what) {
-//            default:
-//                errorMsg += "Unknown error";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_IO:
-//                errorMsg += "I/O error";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_MALFORMED:
-//                errorMsg += "Malformed";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-//                errorMsg += "Not valid for progressive playback";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-//                errorMsg += "Server died";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
-//                errorMsg += "Timed out";
-//                break;
-//            case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
-//                errorMsg += "Unsupported";
-//                break;
-//        }
-//        throwError(new Exception(errorMsg));
-//        return false;
-//    }
+    public void onVideoSizeChanged(MediaPlayer mediaPlayer, int width, int height) {
+        LOG("Video size changed: %dx%d", width, height);
+        adjustAspectRatio(mInitialTextureWidth, mInitialTextureHeight, width, height);
+    }
+
+    public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
+        if (what == -38) {
+            // Error code -38 happens on some Samsung devices
+            // Just ignore it
+            return false;
+        }
+        String errorMsg = "Preparation/playback error (" + what + "): ";
+        switch (what) {
+            default:
+                errorMsg += "Unknown error";
+                break;
+            case MediaPlayer.MEDIA_ERROR_IO:
+                errorMsg += "I/O error";
+                break;
+            case MediaPlayer.MEDIA_ERROR_MALFORMED:
+                errorMsg += "Malformed";
+                break;
+            case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
+                errorMsg += "Not valid for progressive playback";
+                break;
+            case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
+                errorMsg += "Server died";
+                break;
+            case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
+                errorMsg += "Timed out";
+                break;
+            case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
+                errorMsg += "Unsupported";
+                break;
+        }
+        throwError(new Exception(errorMsg));
+        return false;
+    }
 
     private boolean getLoaderStatus(){
         return mPlayer!=null && (mPlayer.getPlaybackState()==Player.STATE_READY || mPlayer.getPlaybackState()==Player.STATE_BUFFERING
@@ -1139,7 +1137,7 @@ public class EasyExoVideoPlayer extends FrameLayout
         final LayoutInflater li = LayoutInflater.from(getContext());
 
         // Inflate and add progress
-        mProgressFrame = li.inflate(com.afollestad.easyvideoplayer.R.layout.evp_include_progress, this, false);
+        mProgressFrame = li.inflate(R.layout.evp_include_progress, this, false);
         addView(mProgressFrame);
 
         mProgressFrame.setVisibility(View.INVISIBLE);
@@ -1150,14 +1148,14 @@ public class EasyExoVideoPlayer extends FrameLayout
         mClickFrame = new FrameLayout(getContext());
         //noinspection RedundantCast
         ((FrameLayout) mClickFrame)
-                .setForeground(Util.resolveDrawable(getContext(), com.afollestad.easyvideoplayer.R.attr.selectableItemBackground));
+                .setForeground(Util.resolveDrawable(getContext(), androidx.appcompat.R.attr.selectableItemBackground));
         addView(
                 mClickFrame,
                 new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         // Inflate controls
-        mControlsFrame = li.inflate(com.afollestad.easyvideoplayer.R.layout.evp_include_controls, this, false);
+        mControlsFrame = li.inflate(R.layout.evp_include_controls, this, false);
         final LayoutParams controlsLp =
                 new LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -1181,35 +1179,35 @@ public class EasyExoVideoPlayer extends FrameLayout
         }
 
         // Retrieve controls
-        mSeeker = (SeekBar) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.seeker);
+        mSeeker = (SeekBar) mControlsFrame.findViewById(R.id.seeker);
         mSeeker.setOnSeekBarChangeListener(this);
 
-        mLabelPosition = (TextView) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.position);
+        mLabelPosition = (TextView) mControlsFrame.findViewById(R.id.position);
         mLabelPosition.setText(Util.getDurationString(0, false));
 
-        mLabelDuration = (TextView) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.duration);
+        mLabelDuration = (TextView) mControlsFrame.findViewById(R.id.duration);
         mLabelDuration.setText(Util.getDurationString(0, true));
 
-        mBtnRestart = (ImageButton) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.btnRestart);
+        mBtnRestart = (ImageButton) mControlsFrame.findViewById(R.id.btnRestart);
         mBtnRestart.setOnClickListener(this);
         mBtnRestart.setImageDrawable(mRestartDrawable);
 
-        mBtnRetry = (TextView) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.btnRetry);
+        mBtnRetry = (TextView) mControlsFrame.findViewById(R.id.btnRetry);
         mBtnRetry.setOnClickListener(this);
         mBtnRetry.setText(mRetryText);
 
-        mBtnPlayPause = (ImageButton) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.btnPlayPause);
+        mBtnPlayPause = (ImageButton) mControlsFrame.findViewById(R.id.btnPlayPause);
         mBtnPlayPause.setOnClickListener(this);
         mBtnPlayPause.setImageDrawable(mPlayDrawable);
 
-        mBtnSubmit = (TextView) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.btnSubmit);
+        mBtnSubmit = (TextView) mControlsFrame.findViewById(R.id.btnSubmit);
         mBtnSubmit.setOnClickListener(this);
         mBtnSubmit.setText(mSubmitText);
 
-        mLabelCustom = (TextView) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.labelCustom);
+        mLabelCustom = (TextView) mControlsFrame.findViewById(R.id.labelCustom);
         mLabelCustom.setText(mCustomLabelText);
 
-        mLabelBottom = (TextView) mControlsFrame.findViewById(com.afollestad.easyvideoplayer.R.id.labelBottom);
+        mLabelBottom = (TextView) mControlsFrame.findViewById(R.id.labelBottom);
         setBottomLabelText(mBottomLabelText);
 
         invalidateThemeColors();
@@ -1221,20 +1219,20 @@ public class EasyExoVideoPlayer extends FrameLayout
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == com.afollestad.easyvideoplayer.R.id.btnPlayPause) {
+        if (view.getId() == R.id.btnPlayPause) {
             if (isPlaying()) {
                 pause();
             } else {
                 if (mHideControlsOnPlay && !mControlsDisabled) hideControls();
                 start();
             }
-        } else if (view.getId() == com.afollestad.easyvideoplayer.R.id.btnRestart) {
+        } else if (view.getId() == R.id.btnRestart) {
             seekTo(0);
             if (!isPlaying())
                 start();
-        } else if (view.getId() == com.afollestad.easyvideoplayer.R.id.btnRetry) {
+        } else if (view.getId() == R.id.btnRetry) {
             if (mCallback != null) mCallback.onRetry(this, mSource);
-        } else if (view.getId() == com.afollestad.easyvideoplayer.R.id.btnSubmit) {
+        } else if (view.getId() == R.id.btnSubmit) {
             if (mCallback != null) mCallback.onSubmit(this, mSource);
         }
     }
@@ -1252,7 +1250,7 @@ public class EasyExoVideoPlayer extends FrameLayout
         }
     }
 
-/***********************************************************************************************************************/
+    /***********************************************************************************************************************/
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
@@ -1404,7 +1402,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
 
-    public void onSeekComplete(@NonNull SimpleExoPlayer mp) {
+    public void onSeekComplete(@NonNull ExoPlayer mp) {
         getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -1486,43 +1484,61 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
     private void initDataSource() {
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter.Builder(getContext())
+                .setInitialBitrateEstimate(1000000) // You can set an initial bitrate estimate
+                .build();
+
         dataSourceFactory =
-                new DefaultDataSourceFactory(getContext(),
-                        com.google.android.exoplayer2.util.Util.getUserAgent(getContext(),
-                                getContext().getString(R.string.app_name)),
-                        new DefaultBandwidthMeter());
+                new DefaultDataSourceFactory(
+                        getContext(),
+                        androidx.media3.common.util.Util.getUserAgent(getContext(), getContext().getString(R.string.app_name)),
+                        (TransferListener) bandwidthMeter);
     }
 
     private void initMp4Player(Uri mp4URL) {
 
-        MediaSource sampleSource =
-                new ExtractorMediaSource(mp4URL, dataSourceFactory, new DefaultExtractorsFactory(),
-                        getHandler(), new ExtractorMediaSource.EventListener() {
-                    @Override
-                    public void onLoadError(IOException error) {
-                    }
-                });
+        MediaItem mediaItem = new MediaItem.Builder()
+                .setUri(mp4URL)
+                .build();
 
-        initExoPlayer(sampleSource);
+        // Create a DefaultDataSourceFactory
+        DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(getContext(),
+                androidx.media3.common.util.Util.getUserAgent(getContext(), getContext().getString(R.string.app_name)));
+
+        // Create a ProgressiveMediaSource
+        ProgressiveMediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(mediaItem);
+
+        // Initialize the ExoPlayer with the media source
+        initExoPlayer(mediaSource);
     }
 
     private void initExoPlayer(MediaSource sampleSource) {
         if (mPlayer == null) {
-            TrackSelection.Factory videoTrackSelectionFactory =
-                    new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
-            TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
+            // Create a TrackSelector for selecting tracks
+            TrackSelector trackSelector = new DefaultTrackSelector(getContext());
 
-            // 2. Create the player
-            mPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
+            // 2. Create the ExoPlayer instance
+            mPlayer = new ExoPlayer.Builder(getContext())
+                    .setTrackSelector(trackSelector)
+                    .build();
         }
 
+        // Prepare the player with the MediaSource
+        mPlayer.setMediaSource(sampleSource);
+        mPlayer.prepare();
 
-        mPlayer.prepare(sampleSource);
+        // Set the surface for video rendering
         mPlayer.setVideoSurface(mSurface);
-        mPlayer.setPlayWhenReady(true);
-        firstBuffer=false;
-        mPlayer.addListener(eventListner);
 
+        // Set player to play when ready
+        mPlayer.setPlayWhenReady(true);
+
+        // Reset firstBuffer flag
+        firstBuffer = false;
+
+        // Add event listener
+        mPlayer.addListener(eventListner);
     }
 
     private void onReady() {
@@ -1589,7 +1605,7 @@ public class EasyExoVideoPlayer extends FrameLayout
     }
 
 
-    public SimpleExoPlayer getPlayer(){
+    public ExoPlayer getPlayer(){
         return mPlayer;
     }
 

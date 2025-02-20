@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dnamedeg.BuildConfig;
 import com.dnamedeg.Models.paidvideo.PaidVideoResponse;
 import com.dnamedeg.Models.paidvideo.Price;
@@ -27,8 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 import static android.view.View.GONE;
 
@@ -139,7 +139,7 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
         holder.ratingandtime.setText(price.getDuration() + " min video");
         //Log.i("Thumb",  price.getUrl());
-        Picasso.with(applicationContext).load(price.getDrImg())
+        Glide.with(applicationContext).load(price.getDrImg())
                 .error(R.drawable.dnalogo)
                 .into(holder.imageViewDoctor);
 
@@ -370,59 +370,81 @@ public class VideoListPriceAdapter extends RecyclerView.Adapter<VideoListPriceAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.row_view)
+
         LinearLayout row_view;
-        @BindView(R.id.number)
+
         TextView number;
 
-        @BindView(R.id.vid_title)
+
         TextView title;
 
 
-        @BindView(R.id.vid_doctor_name)
+
         TextView doctarName;
-        @BindView(R.id.chapter)
+
         TextView chapter;
 
-        @BindView(R.id.ratingandtime)
+
         TextView ratingandtime;
 
 
-        @BindView(R.id.image_doctor)
+
         ImageView imageViewDoctor;
 
-        @BindView(R.id.buy_now)
+
         TextView buyNow;
 
 
-        @BindView(R.id.line_separator)
+
         View line_separator;
 
-        @BindView(R.id.commingsoon)
+
         TextView commingSoon;
 
-        @BindView(R.id.lock)
+
         ImageView lockNew;
 
 
-        @BindView(R.id.txt_actual_price)
+
         TextView txtActualPrice;
 
-        @BindView(R.id.pdf_notes)
+
         ImageView pdf_notes;
 
 
-        @BindView(R.id.txt_total_price)
+
         TextView txtTotalPrice;
 
-        @BindView(R.id.lineView)
+
         View lineView;
-        @BindView(R.id.lineViewWithMargin)
+
         View lineViewWithMargin;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+
+            row_view=view.findViewById(R.id.row_view);
+            title=view.findViewById(R.id.vid_title);
+
+            pdf_notes=view.findViewById(R.id.pdf_notes);
+            ratingandtime=view.findViewById(R.id.ratingandtime);
+            lockNew=view.findViewById(R.id.lock);
+            txtActualPrice=view.findViewById(R.id.txt_actual_price);
+            txtTotalPrice=view.findViewById(R.id.txt_total_price);
+            doctarName=view.findViewById(R.id.vid_doctor_name);
+            chapter=view.findViewById(R.id.chapter);
+            ratingandtime=view.findViewById(R.id.ratingandtime);
+            imageViewDoctor=view.findViewById(R.id.image_doctor);
+            buyNow=view.findViewById(R.id.buy_now);
+            chapter=view.findViewById(R.id.chapter);
+            number=view.findViewById(R.id.number);
+            commingSoon=view.findViewById(R.id.commingsoon);
+            line_separator=view.findViewById(R.id.line_separator);
+
+
+            lineView=view.findViewById(R.id.lineView);
+            lineViewWithMargin=view.findViewById(R.id.lineViewWithMargin);
+
         }
     }
 

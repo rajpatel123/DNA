@@ -69,8 +69,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -88,20 +87,17 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private GoogleApiClient googleApiClient;
     final static int REQUEST_LOCATION = 199;
-    @BindView(R.id.noInternet)
+
     TextView textInternet;
     String userId;
 
     MainActivity mainActivity;
-    @BindView(R.id.subjectsLL)
+
     LinearLayout subjectsLL;
 
-    @BindView(R.id.qbankRL)
     RelativeLayout qbankRL;
-    @BindView(R.id.testRl)
     RelativeLayout testRl;
 
-    @BindView(R.id.LiveRecyclerView)
     RecyclerView liveRecyclerView;
     private CategoryDetailData categoryDetailData;
     private String catId="14";
@@ -132,7 +128,14 @@ public class HomeFragment extends Fragment implements FragmentLifecycle, CourseL
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
-        ButterKnife.bind(this, view);
+        textInternet=view.findViewById(R.id.noInternet);
+        subjectsLL=view.findViewById(R.id.subjectsLL);
+        qbankRL=view.findViewById(R.id.qbankRL);
+        testRl=view.findViewById(R.id.testRl);
+        liveRecyclerView=view.findViewById(R.id.LiveRecyclerView);
+
+
+
         if (DnaPrefs.getBoolean(getActivity(), "isFacebook")) {
             userId = String.valueOf(DnaPrefs.getInt(getActivity(), "fB_ID", 0));
         } else {

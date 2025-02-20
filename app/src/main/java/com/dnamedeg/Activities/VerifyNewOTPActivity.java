@@ -27,12 +27,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
+import com.chaos.view.PinView;
 import com.dnamedeg.Models.VerifyOtpResponse;
 import com.dnamedeg.Models.login.SendOtpResponse;
 import com.dnamedeg.Models.login.loginResponse;
@@ -55,16 +51,16 @@ import retrofit2.Response;
 
 public class VerifyNewOTPActivity extends AppCompatActivity {
 
-    @BindView(R.id.pin_layout)
-    PinEntryEditText pinLayout;
-    @BindView(R.id.resendOtp)
+
+    PinView pinLayout;
+
     TextView resendOTP;
-    @BindView(R.id.nextBtn)
+
     Button nextBtn;
-    @BindView(R.id.phone)
+
     TextView phoneTV;
 
-    @BindView(R.id.editTV)
+
     TextView editTV;
 
 
@@ -81,7 +77,13 @@ public class VerifyNewOTPActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_otp_new);
-        ButterKnife.bind(this);
+        pinLayout=findViewById(R.id.pin_layout);
+        resendOTP=findViewById(R.id.resendOtp);
+        nextBtn=findViewById(R.id.nextBtn);
+        phoneTV=findViewById(R.id.phone);
+        editTV=findViewById(R.id.editTV);
+
+
         startTimer();
 
 
@@ -102,6 +104,9 @@ public class VerifyNewOTPActivity extends AppCompatActivity {
         phone = intent.getStringExtra(Constants.USERPHNUMBER);
 
         openKeyboard();
+        pinLayout.requestFocus();
+        pinLayout.setFocusableInTouchMode(true);
+        pinLayout.setFocusable(true);
 
         pinLayout.addTextChangedListener(new TextWatcher() {
             @Override
@@ -121,6 +126,7 @@ public class VerifyNewOTPActivity extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 
@@ -183,8 +189,8 @@ public class VerifyNewOTPActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.nextBtn)
-    public void onNextBtnClick() {
+
+    public void onNextBtnClick(View view) {
         if (pinLayout.getText().toString().length() >= 6) {
             verifyOtp(pinLayout.getText().toString());
         } else {
@@ -193,8 +199,8 @@ public class VerifyNewOTPActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.resendOtp)
-    public void resendOtp() {
+
+    public void resendOtp(View view) {
         if (resendOTP.isClickable()) {
             Utils.showProgressDialog(this);
             RestClient.sendOtp(phone,"NEET-UG", new Callback<SendOtpResponse>() {

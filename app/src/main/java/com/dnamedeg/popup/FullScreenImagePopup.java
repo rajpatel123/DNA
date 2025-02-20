@@ -11,7 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dnamedeg.R;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 public class FullScreenImagePopup extends Dialog {
 

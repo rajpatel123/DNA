@@ -126,7 +126,7 @@
 
                 android:orientation="horizontal">
 
-                <com.alimuzaffar.lib.pin.PinEntryEditText
+                <com.chaos.view.PinView
                     android:id="@+id/prntEdtChangePhoneOtp"
                     android:layout_width="184dp"
                     android:layout_height="wrap_content"
@@ -135,22 +135,20 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="50dp"
                     android:background="@android:color/transparent"
-                    android:cursorVisible="false"
-                    android:digits="1234567890"
-                    android:focusable="true"
-                    android:gravity="center_horizontal"
+                    android:cursorVisible="true"
+                    android:gravity="center"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:maxLength="6"
-                    android:textIsSelectable="false"
                     android:textSize="20sp"
-                    app:pinAnimationType="popIn"
-                    app:pinBackgroundIsSquare="true"
-                    app:pinCharacterSpacing="12dp"
-                    app:pinLineColors="@color/black_disabled"
-                    app:pinLineStroke="2dp"
-                    app:pinLineStrokeSelected="2dp"
-                    app:pinTextBottomPadding="4dp" />
+                    app:itemCount="6"
+                    app:itemHeight="48dp"
+                    app:itemWidth="32dp"
+                    app:itemSpacing="12dp"
+                    app:lineColor="@color/black_disabled"
+                    app:lineWidth="2dp"
+                    app:hideLineWhenFilled="false" />
+
 
             </LinearLayout>
 

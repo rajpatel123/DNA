@@ -49,7 +49,7 @@ public class QbankPausedFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        qbankSubCatAdapter=new QbankSubCatAdapter();
+        qbankSubCatAdapter=new QbankSubCatAdapter(requireContext());
         qbankSubCatAdapter.setDetailList(qbankSubActivity.qBankPaused);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);

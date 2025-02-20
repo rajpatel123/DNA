@@ -46,7 +46,7 @@
                 android:layout_width="222dp"
 
                 android:scaleType="fitXY"
-                android:layout_height="200dp"></ImageView>
+                android:layout_height="200dp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -98,9 +98,8 @@
             <ImageView
                 android:id="@+id/ivImageLeft"
                 android:layout_width="222dp"
-
                 android:scaleType="fitXY"
-                android:layout_height="200dp"></ImageView>
+                android:layout_height="200dp"/>
 
         </LinearLayout>
 

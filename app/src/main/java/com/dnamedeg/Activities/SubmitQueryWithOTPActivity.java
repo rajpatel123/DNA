@@ -13,7 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
+
+import com.chaos.view.PinView;
 import com.dnamedeg.Models.franchies.FranchiesResponse;
 import com.dnamedeg.R;
 import com.dnamedeg.Retrofit.RestClient;
@@ -25,7 +26,7 @@ import com.dnamedeg.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -40,7 +41,7 @@ public class SubmitQueryWithOTPActivity extends AppCompatActivity implements Sms
       @BindView(R.id.nextBtn)
       Button btnVerify;*/
     SmsReceiver smsReceiver = new SmsReceiver();
-    public PinEntryEditText printVerifyPin;
+    public PinView printVerifyPin;
     public TextView timerTV;
     public Button btnOtpVerify;
     String otpNumber;
@@ -106,7 +107,7 @@ public class SubmitQueryWithOTPActivity extends AppCompatActivity implements Sms
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_phone_number_otyp_varification);
-        ButterKnife.bind(this);
+        
 
         printVerifyPin = findViewById(R.id.prntEdtChangePhoneOtp);
         btnOtpVerify = findViewById(R.id.btnVerify);

@@ -21,8 +21,7 @@ import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -33,27 +32,17 @@ import retrofit2.Response;
 public class CustomTestStartDailyActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.test_topic)
+
     TextView testTopic;
 
-
-
-
-    @BindView(R.id.start_date)
     TextView start_date;
 
-    @BindView(R.id.btn_Start)
     Button btnStart;
 
-
-    @BindView(R.id.card_view)
     CardView cardView;
 
-    @BindView(R.id.bookmark_card)
     CardView bookmark_card;
 
-
-    @BindView(R.id.totalBookmark)
     TextView totalBookmark;
 
     String duration, testName, testQuestion = "0", testPaid;
@@ -72,7 +61,13 @@ public class CustomTestStartDailyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_test_start);
-        ButterKnife.bind(this);
+       testTopic=findViewById(R.id.test_topic);
+       start_date=findViewById(R.id.start_date);
+       btnStart=findViewById(R.id.btn_Start);
+       cardView=findViewById(R.id.card_view);
+       bookmark_card=findViewById(R.id.bookmark_card);
+       totalBookmark=findViewById(R.id.totalBookmark);
+
 
 
         user_id = DnaPrefs.getString(CustomTestStartDailyActivity.this, Constants.LOGIN_ID);

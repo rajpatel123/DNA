@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.facebook.FacebookSdk;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -63,6 +65,10 @@ public class TestFragment extends Fragment implements FragmentLifecycle {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.textfragment, container, false);
+        if (!FacebookSdk.isInitialized()) {
+            FacebookSdk.setClientToken("@string/facebook_app_id");
+            FacebookSdk.sdkInitialize(requireContext().getApplicationContext());
+        }
         subcategory = view.findViewById(R.id.subcategory_name);
         viewPager = view.findViewById(R.id.viewPager);
         setupViewPager(viewPager);

@@ -17,7 +17,7 @@ import androidx.annotation.StringRes;
 /**
  * @author Aidan Follestad (afollestad)
  */
-@SuppressWarnings("unused")
+
 interface IExoUserMethods {
 
     void setSource(@NonNull Uri source);

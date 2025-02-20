@@ -1,36 +1,26 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    ext.kotlin_version = "1.5.31"
+    ext.kotlin_version = "1.9.22" // Updated Kotlin version
 
     repositories {
-        mavenCentral()
         google()
         mavenCentral()
-
+        maven { url "https://jitpack.io" } // Keep this if you use libraries from JitPack
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
-        classpath 'com.google.gms:google-services:4.3.3'
-
-        // Add the Crashlytics Gradle plugin.
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
-
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle:8.2.2' // Latest Gradle Plugin
+        classpath 'com.google.gms:google-services:4.4.2' // Google Services Plugin (Latest)
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3' // Firebase Crashlytics Plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // Kotlin Plugin
     }
 }
 
 allprojects {
     repositories {
-        maven { url "https://maven.google.com" }
-        maven { url "https://jitpack.io" }
-        mavenCentral()
         google()
-
+        mavenCentral()
+        maven { url 'https://jitpack.io' } // For libraries hosted on JitPack
     }
 }
 

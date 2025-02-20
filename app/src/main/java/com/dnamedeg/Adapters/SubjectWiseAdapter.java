@@ -12,8 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.dnamedeg.Models.test.SubjectTest;
 import com.dnamedeg.R;
 
@@ -69,25 +68,30 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.testTitle)
+        // @BindView(R.id.testTitle)
         TextView title;
 
-        @BindView(R.id.total_question)
+        //@BindView(R.id.total_question)
         TextView questionTotal;
 
-        @BindView(R.id.total_time)
+        // @BindView(R.id.total_time)
         TextView timeTotal;
 
-        @BindView(R.id.textView_Date)
+        //@BindView(R.id.textView_Date)
         TextView textDate;
 
 
-        @BindView(R.id.image_lock)
+        //@BindView(R.id.image_lock)
         ImageView imageLock;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            //ButterKnife.bind(this, view);
+            textDate = view.findViewById(R.id.textView_Date);
+            imageLock = view.findViewById(R.id.image_lock);
+            title = view.findViewById(R.id.testTitle);
+            questionTotal = view.findViewById(R.id.total_question);
+            timeTotal = view.findViewById(R.id.total_time);
         }
     }
 }

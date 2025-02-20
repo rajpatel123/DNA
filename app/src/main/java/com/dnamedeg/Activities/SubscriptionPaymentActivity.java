@@ -24,8 +24,6 @@ import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -40,23 +38,23 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     @BindView(R.id.view_breakup)
     TextView textViewbreakup;*/
 
-    @BindView(R.id.txt_name)
+
     TextView textViewName;
 
 
-    @BindView(R.id.txt_email)
+
     TextView textViewEmail;
 
-    @BindView(R.id.txt_state)
+
     TextView textViewState;
 
-    @BindView(R.id.txt_city)
+
     TextView textViewCity;
 
-    @BindView(R.id.txt_mobile)
+
     TextView textViewMobile;
 
-    @BindView(R.id.txt_pincode)
+
     TextView txtviewPincode;
 
 /*
@@ -73,34 +71,34 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
 */
 
 
-    @BindView(R.id.txt_items)
+
     TextView textViewItemRate;
 
-    @BindView(R.id.txt_shipping_charges)
+
     TextView textViewShipping;
 
 
-    @BindView(R.id.txt_before_tax)
+
     TextView textViewBeforeTax;
 
-    @BindView(R.id.txt_tax)
+
     TextView textViewTax;
 
-    @BindView(R.id.toolbar)
+
     Toolbar toolbar;
 
 
-    @BindView(R.id.txt_coupon_applied)
+
     TextView textViewCouponApplied;
 
-    @BindView(R.id.txt_coupon_applied_add)
+
     TextView textViewCouponAppliedAdd;
 
-    @BindView(R.id.txt_order_total)
+
     TextView textViewOrderTotal;
 
 
-    @BindView(R.id.btn_pay_now)
+
     Button btnPaynow;
     String name, mobile, email, address1, address2, state, city, pincode, amountAfterDiscount,
             subscription_id, plan_id, months, order_id, pack_key, shippingCharge, totalDiscountGiven, totalADDDiscountGiven, coupanValue, totalValue, subchildCat;
@@ -115,7 +113,24 @@ public class SubscriptionPaymentActivity extends AppCompatActivity implements Pa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_detail);
-        ButterKnife.bind(this);
+       textViewItemRate=findViewById(R.id.txt_items);
+       textViewShipping=findViewById(R.id.txt_shipping_charges);
+       textViewBeforeTax=findViewById(R.id.txt_before_tax);
+       textViewTax=findViewById(R.id.txt_tax);
+       textViewCouponApplied=findViewById(R.id.txt_coupon_applied);
+       textViewCouponAppliedAdd=findViewById(R.id.txt_coupon_applied_add);
+       textViewOrderTotal=findViewById(R.id.txt_order_total);
+       btnPaynow=findViewById(R.id.btn_pay_now);
+       textViewName=findViewById(R.id.txt_name);
+       textViewMobile=findViewById(R.id.txt_mobile);
+       textViewEmail=findViewById(R.id.txt_email);
+       textViewCity=findViewById(R.id.txt_city);
+       textViewState=findViewById(R.id.txt_state);
+       txtviewPincode=findViewById(R.id.txt_pincode);
+       toolbar=findViewById(R.id.toolbar);
+
+
+
 
       //  setSupportActionBar(toolbar);
         Checkout.preload(getApplicationContext());

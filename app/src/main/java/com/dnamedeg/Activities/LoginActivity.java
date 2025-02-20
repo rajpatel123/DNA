@@ -39,10 +39,7 @@ import com.facebook.login.LoginResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -51,18 +48,18 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.phoneNumber)
+
     EditText phoneNumber;
 
 
 
-    @BindView(R.id.nextBtn)
+
     Button nextBtn;
 
-    @BindView(R.id.privacy)
+
     TextView privacy;
 
-    @BindView(R.id.terms)
+
     TextView terms;
 
 
@@ -80,11 +77,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.setClientToken("@string/facebook_app_id");
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
         Utils.getDviceID(LoginActivity.this);
-        ButterKnife.bind(this);
+        phoneNumber = findViewById(R.id.phoneNumber);
+        nextBtn = findViewById(R.id.nextBtn);
+        privacy = findViewById(R.id.privacy);
+        terms = findViewById(R.id.terms);
+
 
 
 
@@ -199,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id ==android.R.id.home) {
             finish();
 
         }

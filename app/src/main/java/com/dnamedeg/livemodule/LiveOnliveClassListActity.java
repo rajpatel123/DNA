@@ -36,8 +36,6 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
@@ -46,10 +44,10 @@ import retrofit2.Response;
 
 public class LiveOnliveClassListActity extends AppCompatActivity {
 
-    @BindView(R.id.noInternet)
+
     TextView textInternet;
 
-    @BindView(R.id.recyclerView)
+
     RecyclerView recyclerView;
     private CatModuleResponse catModuleResponse;
     private CategoryDetailData categoryDetailData;
@@ -72,6 +70,8 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_modules);
+//        recyclerView=findViewById(R.id.recyclerView);
+//        textInternet=findViewById(R.id.noInternet);
 
         try {
             if (ActivityCompat.checkSelfPermission(this, mPermission[0])
@@ -108,7 +108,8 @@ public class LiveOnliveClassListActity extends AppCompatActivity {
             }
         }
 
-        ButterKnife.bind(this);
+
+
 
 
 

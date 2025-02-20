@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dnamedeg.R;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 public class EmailVerifyDialog extends Dialog {
 

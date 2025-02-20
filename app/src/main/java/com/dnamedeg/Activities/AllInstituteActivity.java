@@ -19,8 +19,7 @@ import com.dnamedeg.utils.Constants;
 import com.dnamedeg.utils.DnaPrefs;
 import com.dnamedeg.utils.Utils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -29,11 +28,11 @@ import retrofit2.Response;
 
 public class AllInstituteActivity extends AppCompatActivity implements InstitutesListAdapter.AllInstituteClickInterface{
 
-    @BindView(R.id.noInternet)
+
     TextView textInternet;
 
     MainActivity mainActivity;
-    @BindView(R.id.recyclerView)
+
     RecyclerView recyclerView;
     private AllInstituteResponseModel catModuleResponse;
     private String catId;
@@ -44,6 +43,9 @@ public class AllInstituteActivity extends AppCompatActivity implements Institute
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_institute);
+        textInternet=findViewById(R.id.noInternet);
+        recyclerView=findViewById(R.id.recyclerView);
+
 
 
         if (getSupportActionBar() != null) {
@@ -52,7 +54,7 @@ public class AllInstituteActivity extends AppCompatActivity implements Institute
             getSupportActionBar().setTitle("All Institutes");
         }
 
-        ButterKnife.bind(this);
+
         getAllInstitutes();
 
 

@@ -50,11 +50,11 @@ public class TestStartActivity extends AppCompatActivity {
     //@BindView(R.id.card_view)
     CardView cardView;
 
-   @BindView(R.id.bookmark_card)
+
     CardView bookmark_card;
 
 
-   @BindView(R.id.totalBookmark)
+
     TextView totalBookmark;
 
     String test_id, duration, testName, testQuestion = "0", testPaid;
@@ -78,6 +78,9 @@ public class TestStartActivity extends AppCompatActivity {
         start_date = findViewById(R.id.start_date);
         btnStart = findViewById(R.id.btn_Start);
         cardView = findViewById(R.id.card_view);
+        bookmark_card=findViewById(R.id.bookmark_card);
+        totalBookmark=findViewById(R.id.totalBookmark);
+
 
 
 
