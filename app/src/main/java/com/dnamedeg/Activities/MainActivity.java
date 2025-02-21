@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     private TestFragment dashboardTestFragment;
     // private OnlineFragment dashboardOnlineFragment;
     private ViewPagerAdapter adapter;
+    private TextView langTv;
     private TextView myDeviceTitle;
     private ImageView imgDeviceIcon;
     private TextView videoText;
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity
         pager = findViewById(R.id.vp_pages);
         tabBar = findViewById(R.id.tabBar);
         tabLayout = findViewById(R.id.tabs);
+        langTv=findViewById(R.id.langTv);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -160,12 +162,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        String text = "<font color=#000000>Subscribe</font> <font color=#ff3824>For 2020</font>";
+        String text = "<font color=#000000>Subscribe</font> <font color=#ff3824>For 2025</font>";
         MenuItem menuItem = navigationView.getMenu().getItem(4);
 
         menuItem.setTitle(Html.fromHtml(text));
 
-        String textFr = "<font color=#000000>Franchise Query</font> <font color=#ff3824>For 2020</font>";
+        String textFr = "<font color=#000000>Franchise Query</font> <font color=#ff3824>For 2025</font>";
         MenuItem menuItemFR = navigationView.getMenu().getItem(10);
 
         menuItemFR.setTitle(Html.fromHtml(textFr));

@@ -311,64 +311,10 @@ public class LiveVideoActivity extends AppCompatActivity implements UploadFileDi
 
         getLifecycle().addObserver(youTubePlayerView);
 
-//        youTubePlayerView.initialize(youTubePlayer -> {
-//
-//            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-//                @Override
-//                public void onReady() {
-//                    youTubePlayer.loadVideo(channelKey, 0f);
-//                }
-//            });
-//        }, true);
-        youTubePlayerView.initialize(new YouTubePlayerListener() {
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
             @Override
-            public void onReady(@NotNull YouTubePlayer youTubePlayer) {
-
-            }
-
-            @Override
-            public void onStateChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlayerState playerState) {
-
-            }
-
-            @Override
-            public void onPlaybackQualityChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlaybackQuality playbackQuality) {
-
-            }
-
-            @Override
-            public void onPlaybackRateChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlaybackRate playbackRate) {
-
-            }
-
-            @Override
-            public void onError(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlayerError playerError) {
-
-            }
-
-            @Override
-            public void onCurrentSecond(@NotNull YouTubePlayer youTubePlayer, float v) {
-
-            }
-
-            @Override
-            public void onVideoDuration(@NotNull YouTubePlayer youTubePlayer, float v) {
-
-            }
-
-            @Override
-            public void onVideoLoadedFraction(@NotNull YouTubePlayer youTubePlayer, float v) {
-
-            }
-
-            @Override
-            public void onVideoId(@NotNull YouTubePlayer youTubePlayer, @NotNull String s) {
-
-            }
-
-            @Override
-            public void onApiChange(@NotNull YouTubePlayer youTubePlayer) {
-
+            public void onReady(YouTubePlayer youTubePlayer) {
+                youTubePlayer.loadVideo(channelKey, 0f);
             }
         },true);
     }
