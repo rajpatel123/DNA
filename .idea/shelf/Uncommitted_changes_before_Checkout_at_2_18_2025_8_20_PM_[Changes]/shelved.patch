@@ -1,0 +1,15 @@
+Index: settings.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>include ':app', ':indicatorseekbar', ':pinentryedittext'\r\n\r\n\r\n//include ':libraryMobilePaymentSDK'\r\ninclude ':easy-player'\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/settings.gradle b/settings.gradle
+--- a/settings.gradle	(revision c6f6426a45af0b02aa070f46c8211e9455f1b57d)
++++ b/settings.gradle	(date 1739889846022)
+@@ -3,3 +3,4 @@
+ 
+ //include ':libraryMobilePaymentSDK'
+ include ':easy-player'
++include ':ibrary'
